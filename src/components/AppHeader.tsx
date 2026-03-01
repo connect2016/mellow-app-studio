@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Zap, MessageCircle, User, Calendar, Beer, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import logo from '@/assets/logo.png';
 
 const navItems = [
   { to: '/discover', icon: Home, label: 'Discover' },
@@ -18,8 +19,8 @@ export function AppHeader() {
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-lg">
         <div className="mx-auto flex h-14 max-w-lg items-center justify-between px-4">
-          <Link to="/discover" className="font-display text-xl font-bold tracking-tight" style={{ fontFamily: 'Space Grotesk' }}>
-            Cubbies Buddies
+          <Link to="/discover">
+            <img src={logo} alt="Cubbies Buddies" className="h-8" />
           </Link>
           <Link to="/settings" className="rounded-full p-2 hover:bg-muted transition-colors">
             <Settings className="h-5 w-5 text-muted-foreground" />

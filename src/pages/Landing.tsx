@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Zap, Beer, Users, MapPin, Shield, Heart } from 'lucide-react';
+import logo from '@/assets/logo.png';
 
 const features = [
   {
@@ -58,9 +59,7 @@ export default function Landing() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
-              ⚾ For Cubs Fans, By Cubs Fans
-            </span>
+            <img src={logo} alt="Cubbies Buddies" className="mx-auto mb-4 h-20" />
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

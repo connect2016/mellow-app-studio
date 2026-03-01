@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import logo from '@/assets/logo.png';
 
 export default function Auth() {
   return (
@@ -11,13 +12,13 @@ export default function Auth() {
         className="w-full max-w-sm"
       >
         <div className="mb-8 text-center">
+          <img src={logo} alt="Cubbies Buddies" className="mx-auto mb-4 h-16" />
           <h1
             className="mb-2 text-3xl font-bold tracking-tight"
             style={{ fontFamily: 'Space Grotesk' }}
           >
             Welcome Back
           </h1>
-          <p className="text-muted-foreground">Sign in to find your game-day crew</p>
         </div>
 
         <div className="space-y-3">

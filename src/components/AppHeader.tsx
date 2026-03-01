@@ -20,7 +20,7 @@ export function AppHeader() {
       <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-lg">
         <div className="mx-auto flex h-14 max-w-lg items-center justify-between px-4">
           <Link to="/discover">
-            <img src={logo} alt="Cubbies Buddies" className="h-8" />
+            <img src={logo} alt="Cubbies Buddies" className="h-10" />
           </Link>
           <Link to="/settings" className="rounded-full p-2 hover:bg-muted transition-colors">
             <Settings className="h-5 w-5 text-muted-foreground" />

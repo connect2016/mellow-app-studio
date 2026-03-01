@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Zap, Beer, Users, MapPin, Shield, Heart } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import wrigleyvilleBg from '@/assets/wrigleyville-bg.png';
 
 const features = [
   {
@@ -52,14 +53,17 @@ export default function Landing() {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+        <div className="absolute inset-0">
+          <img src={wrigleyvilleBg} alt="" className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
+        </div>
         <div className="relative mx-auto max-w-lg px-6 pb-20 pt-24 text-center">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <img src={logo} alt="Cubbies Buddies" className="mx-auto mb-4 h-20" />
+            <img src={logo} alt="Cubbies Buddies" className="mx-auto mb-6 h-36" />
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

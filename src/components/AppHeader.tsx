@@ -4,12 +4,12 @@ import { cn } from '@/lib/utils';
 import logo from '@/assets/logo.png';
 
 const navItems = [
-  { to: '/discover', icon: Home, label: 'Discover' },
-  { to: '/game-day', icon: Calendar, label: 'Game Day' },
-  { to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
-  { to: '/messages', icon: MessageCircle, label: 'Messages' },
-  { to: '/profile', icon: User, label: 'Profile' },
-];
+{ to: '/discover', icon: Home, label: 'Discover' },
+{ to: '/game-day', icon: Calendar, label: 'Game Day' },
+{ to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
+{ to: '/messages', icon: MessageCircle, label: 'Messages' },
+{ to: '/profile', icon: User, label: 'Profile' }];
+
 
 export function AppHeader() {
   const location = useLocation();
@@ -20,7 +20,7 @@ export function AppHeader() {
       <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-lg">
         <div className="mx-auto flex h-14 max-w-lg items-center justify-between px-4">
           <Link to="/discover">
-            <img src={logo} alt="Cubbies Buddies" className="h-10" />
+            <img alt="Cubbies Buddies" className="h-10" src="/lovable-uploads/9fe901e6-1010-492a-b951-9307db899312.png" />
           </Link>
           <Link to="/settings" className="rounded-full p-2 hover:bg-muted transition-colors">
             <Settings className="h-5 w-5 text-muted-foreground" />
@@ -40,15 +40,15 @@ export function AppHeader() {
                 className={cn(
                   'flex flex-col items-center gap-0.5 px-3 py-1.5 text-xs transition-colors rounded-lg',
                   active ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
-                )}
-              >
+                )}>
+
                 <Icon className={cn('h-5 w-5', active && 'stroke-[2.5]')} />
                 <span className="font-medium">{label}</span>
-              </Link>
-            );
+              </Link>);
+
           })}
         </div>
       </nav>
-    </>
-  );
+    </>);
+
 }

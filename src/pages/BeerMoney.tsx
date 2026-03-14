@@ -95,6 +95,44 @@ export default function BeerMoney() {
           >
             <Beer className="h-5 w-5" /> Send ${finalAmount || '—'}
           </Button>
+
+          {/* Credits / Subscription */}
+          <div className="mt-8 rounded-xl border bg-card p-5 space-y-4">
+            <h3 className="font-bold text-sm" style={{ fontFamily: 'Space Grotesk' }}>🎟️ Beer Money Credits</h3>
+            <p className="text-xs text-muted-foreground">Pre-load credits to send beers faster — no checkout each time.</p>
+            <div className="grid grid-cols-3 gap-2">
+              {[{ credits: 25, price: 25 }, { credits: 55, price: 50 }, { credits: 120, price: 100 }].map((pkg) => (
+                <button
+                  key={pkg.price}
+                  onClick={() => toast({ title: 'Coming soon!', description: 'Credit packs require Stripe integration' })}
+                  className="rounded-xl border border-border bg-card p-3 text-center hover:border-primary/40 transition-colors"
+                >
+                  <p className="text-lg font-bold text-primary">${pkg.credits}</p>
+                  <p className="text-xs text-muted-foreground">for ${pkg.price}</p>
+                </button>
+              ))}
+            </div>
+
+            <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-semibold text-sm">⭐ Cubbies+ Subscription</p>
+                  <p className="text-xs text-muted-foreground">Unlimited beers, priority matching, badge</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-bold text-primary">$9.99</p>
+                  <p className="text-xs text-muted-foreground">/month</p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                className="mt-3 w-full rounded-xl"
+                onClick={() => toast({ title: 'Coming soon!', description: 'Subscriptions require Stripe integration' })}
+              >
+                Subscribe
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Confirm modal */}

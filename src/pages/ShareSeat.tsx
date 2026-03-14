@@ -136,7 +136,7 @@ export default function ShareSeat() {
                   ? 'hsl(var(--stadium-seat-dark))'
                   : 'hsl(var(--stadium-seat-foreground))',
                 fontFamily: 'Space Grotesk',
-                // @ts-expect-error CSS custom properties
+                
                 '--tw-ring-color': 'hsl(var(--stadium-seat-foreground))',
                 '--tw-ring-offset-color': 'hsl(var(--stadium-seat))',
               } as React.CSSProperties}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { IntentChip } from '@/components/IntentChip';
 import { IntentType, WRIGLEYVILLE_BARS, PrivacyLevel } from '@/types';
 import { ChevronLeft, ChevronRight, Camera, AlertCircle } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useUpdateProfile } from '@/hooks/useProfile';
+import { useToast } from '@/hooks/use-toast';
 
 const TOTAL_STEPS = 4;
 
@@ -24,6 +27,10 @@ function validateMoment(text: string): boolean {
 
 export default function Onboarding() {
   const navigate = useNavigate();
+  const { user, loading } = useAuth();
+  const updateProfile = useUpdateProfile();
+  const { toast } = useToast();
+
   const [step, setStep] = useState(1);
   const [displayName, setDisplayName] = useState('');
   const [age, setAge] = useState('');
@@ -39,6 +46,12 @@ export default function Onboarding() {
   const [locationPrivacy, setLocationPrivacy] = useState<PrivacyLevel>('MatchesOnly');
   const [barPrivacy, setBarPrivacy] = useState<PrivacyLevel>('MatchesOnly');
 
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/auth');
+    }
+  }, [user, loading, navigate]);
+
   const toggleIntent = (i: IntentType) => {
     setIntents((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]));
   };
@@ -52,15 +65,41 @@ export default function Onboarding() {
     }
   };
 
-  const next = () => {
+  const next = async () => {
     if (step === 3 && favoriteMoment && !validateMoment(favoriteMoment)) return;
-    if (step < TOTAL_STEPS) setStep(step + 1);
-    else navigate('/discover');
+    if (step < TOTAL_STEPS) {
+      setStep(step + 1);
+    } else {
+      // Save profile to database
+      try {
+        await updateProfile.mutateAsync({
+          display_name: displayName,
+          age: age ? parseInt(age) : null,
+          pronouns: pronouns || null,
+          intent: intents,
+          favorite_player: favoritePlayer,
+          favorite_moment: favoriteMoment,
+          favorite_moment_is_valid: favoriteMoment ? validateMoment(favoriteMoment) : true,
+          wrigley_section: section || null,
+          wrigley_row: row || null,
+          wrigley_seat: seat || null,
+          wrigley_location_privacy: locationPrivacy,
+          wrigleyville_bar: bar || null,
+          bar_location_privacy: barPrivacy,
+          onboarding_completed: true,
+        });
+        navigate('/discover');
+      } catch (err) {
+        toast({ title: 'Error', description: 'Failed to save profile. Please try again.', variant: 'destructive' });
+      }
+    }
   };
 
   const back = () => {
     if (step > 1) setStep(step - 1);
   };
+
+  if (loading) return null;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -218,9 +257,13 @@ export default function Onboarding() {
       {/* Bottom */}
       <div className="border-t px-6 py-4">
         <div className="mx-auto max-w-sm">
-          <Button onClick={next} className="w-full rounded-xl py-6 text-base font-semibold" disabled={step === 3 && !!momentError}>
-            {step === TOTAL_STEPS ? "Let's Go!" : 'Continue'}
-            {step < TOTAL_STEPS && <ChevronRight className="ml-1 h-4 w-4" />}
+          <Button
+            onClick={next}
+            className="w-full rounded-xl py-6 text-base font-semibold"
+            disabled={(step === 3 && !!momentError) || updateProfile.isPending}
+          >
+            {updateProfile.isPending ? 'Saving...' : step === TOTAL_STEPS ? "Let's Go!" : 'Continue'}
+            {step < TOTAL_STEPS && !updateProfile.isPending && <ChevronRight className="ml-1 h-4 w-4" />}
           </Button>
         </div>
       </div>

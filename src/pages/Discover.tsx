@@ -1,34 +1,77 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
 import { IntentChip } from '@/components/IntentChip';
-import { MOCK_USERS, IntentType } from '@/types';
+import { IntentType } from '@/types';
 import { SlidersHorizontal, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
+import { useDiscoverProfiles } from '@/hooks/useProfile';
+import { useSendLike, usePass } from '@/hooks/useInteractions';
 
 export default function Discover() {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { user, loading } = useAuth();
+  const { data: profiles = [], isLoading } = useDiscoverProfiles();
+  const sendLike = useSendLike();
+  const pass = usePass();
+
   const [showFilters, setShowFilters] = useState(false);
   const [filterIntents, setFilterIntents] = useState<IntentType[]>([]);
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [ageRange, setAgeRange] = useState<number[]>([21, 50]);
   const [distance, setDistance] = useState<number[]>([25]);
 
+  useEffect(() => {
+    if (!loading && !user) navigate('/auth');
+  }, [user, loading, navigate]);
+
   const toggleFilterIntent = (i: IntentType) => {
     setFilterIntents((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
   };
 
-  const filtered = MOCK_USERS.filter((u) => {
-    if (filterIntents.length && !u.intent.some((i) => filterIntents.includes(i))) return false;
+  const filtered = profiles.filter((u) => {
+    const userIntents = (u.intent as string[]) ?? [];
+    if (filterIntents.length && !filterIntents.some((i) => userIntents.includes(i))) return false;
     if (filterStatus !== 'all' && u.game_status !== filterStatus) return false;
-    if (u.age < ageRange[0] || u.age > ageRange[1]) return false;
+    if (u.age && (u.age < ageRange[0] || u.age > ageRange[1])) return false;
     return true;
+  });
+
+  // Map DB profile to the shape ProfileCard expects
+  const toCardUser = (p: typeof profiles[0]) => ({
+    id: p.user_id,
+    display_name: p.display_name,
+    email: '',
+    auth_provider: '',
+    profile_photo: p.profile_photo || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
+    age: p.age ?? 0,
+    pronouns: p.pronouns ?? undefined,
+    bio: p.bio ?? '',
+    intent: (p.intent as IntentType[]) ?? [],
+    favorite_player: p.favorite_player ?? '',
+    favorite_moment: p.favorite_moment ?? '',
+    favorite_moment_is_valid: p.favorite_moment_is_valid ?? true,
+    location_city: '',
+    distance_pref_miles: p.distance_pref_miles ?? 25,
+    age_min: p.age_min ?? 21,
+    age_max: p.age_max ?? 50,
+    game_status: (p.game_status ?? 'NotSet') as any,
+    wrigley_section: p.wrigley_section ?? undefined,
+    wrigley_row: p.wrigley_row ?? undefined,
+    wrigley_seat: p.wrigley_seat ?? undefined,
+    wrigley_location_privacy: (p.wrigley_location_privacy ?? 'Hidden') as any,
+    wrigleyville_bar: p.wrigleyville_bar ?? undefined,
+    bar_location_privacy: (p.bar_location_privacy ?? 'Hidden') as any,
+    last_active: p.updated_at,
+    is_verified: p.is_verified ?? false,
+    is_banned: false,
+    blocked_users: [],
+    hidden_from_discover: false,
   });
 
   return (
@@ -36,7 +79,6 @@ export default function Discover() {
       <AppHeader />
 
       <div className="mx-auto max-w-lg px-4 pt-4">
-        {/* Filter toggle */}
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Discover</h2>
           <Button variant="ghost" size="sm" onClick={() => setShowFilters(!showFilters)} className="gap-1.5">
@@ -45,7 +87,6 @@ export default function Discover() {
           </Button>
         </div>
 
-        {/* Filters panel */}
         {showFilters && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} className="mb-4 overflow-hidden rounded-xl border bg-card p-4">
             <div className="mb-3 flex items-center justify-between">
@@ -81,8 +122,12 @@ export default function Discover() {
           </motion.div>
         )}
 
-        {/* Cards */}
-        {filtered.length === 0 ? (
+        {isLoading ? (
+          <div className="py-20 text-center">
+            <p className="text-4xl animate-pulse">⚾</p>
+            <p className="mt-2 font-semibold text-muted-foreground">Finding fans...</p>
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="py-20 text-center">
             <p className="text-4xl">⚾</p>
             <p className="mt-2 font-semibold">No fans found</p>
@@ -90,16 +135,20 @@ export default function Discover() {
           </div>
         ) : (
           <div className="space-y-4">
-            {filtered.map((user) => (
-              <ProfileCard
-                key={user.id}
-                user={user}
-                onHiFive={() => toast({ title: '🖐️ Hi-Five sent!', description: `You hi-fived ${user.display_name}` })}
-                onLike={() => toast({ title: '❤️ Liked!', description: `You liked ${user.display_name}` })}
-                onSendBeer={() => navigate(`/beer-money?to=${user.id}`)}
-                onViewProfile={() => navigate(`/profile/${user.id}`)}
-              />
-            ))}
+            {filtered.map((profile) => {
+              const cardUser = toCardUser(profile);
+              return (
+                <ProfileCard
+                  key={profile.id}
+                  user={cardUser}
+                  onHiFive={() => sendLike.mutate({ toUser: profile.user_id, isHiFive: true })}
+                  onLike={() => sendLike.mutate({ toUser: profile.user_id, isHiFive: false })}
+                  onSendBeer={() => navigate(`/beer-money?to=${profile.user_id}`)}
+                  onViewProfile={() => navigate(`/profile/${profile.user_id}`)}
+                  onPass={() => pass.mutate(profile.user_id)}
+                />
+              );
+            })}
           </div>
         )}
       </div>

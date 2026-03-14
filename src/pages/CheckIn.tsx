@@ -90,7 +90,7 @@ export default function CheckIn() {
                 <CommandList>
                   <CommandEmpty>No bar found.</CommandEmpty>
                   <CommandGroup>
-                    {WRIGLEYVILLE_BARS.map((bar) => (
+                    {WRIGLEYVILLE_LOCATIONS.map((bar) => (
                       <CommandItem
                         key={bar}
                         value={bar}

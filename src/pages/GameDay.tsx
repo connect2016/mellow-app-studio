@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
@@ -7,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { GameStatus, PrivacyLevel, WRIGLEYVILLE_BARS } from '@/types';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
+import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley Field', emoji: '🏟️' },
@@ -16,7 +19,12 @@ const statusOptions: { value: GameStatus; label: string; emoji: string }[] = [
 ];
 
 export default function GameDay() {
+  const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
+  const { data: profile } = useProfile();
+  const updateProfile = useUpdateProfile();
   const { toast } = useToast();
+
   const [status, setStatus] = useState<GameStatus>('NotSet');
   const [section, setSection] = useState('');
   const [row, setRow] = useState('');
@@ -24,8 +32,49 @@ export default function GameDay() {
   const [bar, setBar] = useState('');
   const [locationPrivacy, setLocationPrivacy] = useState<PrivacyLevel>('MatchesOnly');
 
+  useEffect(() => {
+    if (!authLoading && !user) navigate('/auth');
+  }, [user, authLoading, navigate]);
+
+  // Hydrate from profile
+  useEffect(() => {
+    if (!profile) return;
+    setStatus((profile.game_status as GameStatus) ?? 'NotSet');
+    setSection(profile.wrigley_section ?? '');
+    setRow(profile.wrigley_row ?? '');
+    setSeat(profile.wrigley_seat ?? '');
+    setBar(profile.wrigleyville_bar ?? '');
+    setLocationPrivacy((profile.wrigley_location_privacy as PrivacyLevel) ?? 'MatchesOnly');
+  }, [profile]);
+
   const save = () => {
-    toast({ title: '✅ Game-day status updated!', description: `You're ${statusOptions.find((s) => s.value === status)?.label.toLowerCase()}` });
+    const updates: Record<string, unknown> = {
+      game_status: status,
+      location_last_set_at: new Date().toISOString(),
+    };
+
+    if (status === 'AtWrigley') {
+      updates.wrigley_section = section || null;
+      updates.wrigley_row = row || null;
+      updates.wrigley_seat = seat || null;
+      updates.wrigley_location_privacy = locationPrivacy;
+    } else if (status === 'AtBar') {
+      updates.wrigleyville_bar = bar || null;
+      updates.bar_location_privacy = locationPrivacy;
+    }
+
+    if (status === 'NotSet') {
+      updates.location_last_set_at = null;
+    }
+
+    updateProfile.mutate(updates, {
+      onSuccess: () => {
+        toast({
+          title: '✅ Game-day status updated!',
+          description: `You're ${statusOptions.find((s) => s.value === status)?.label.toLowerCase()}`,
+        });
+      },
+    });
   };
 
   return (
@@ -102,8 +151,12 @@ export default function GameDay() {
           </motion.div>
         )}
 
-        <Button onClick={save} className="w-full rounded-xl py-6 text-base font-semibold">
-          Save Status
+        <Button
+          onClick={save}
+          disabled={updateProfile.isPending}
+          className="w-full rounded-xl py-6 text-base font-semibold"
+        >
+          {updateProfile.isPending ? 'Saving...' : 'Save Status'}
         </Button>
 
         <p className="mt-3 text-center text-xs text-muted-foreground">

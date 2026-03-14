@@ -68,6 +68,16 @@ export default function Discover() {
                 </button>
               ))}
             </div>
+
+            <div className="mt-3 space-y-2">
+              <Label className="text-sm">Age range: {ageRange[0]}–{ageRange[1]}</Label>
+              <Slider min={21} max={65} step={1} value={ageRange} onValueChange={setAgeRange} className="py-1" />
+            </div>
+
+            <div className="mt-3 space-y-2">
+              <Label className="text-sm">Distance: {distance[0]} mi</Label>
+              <Slider min={1} max={50} step={1} value={distance} onValueChange={setDistance} className="py-1" />
+            </div>
           </motion.div>
         )}
 

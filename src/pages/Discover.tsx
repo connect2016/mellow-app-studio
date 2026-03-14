@@ -7,6 +7,8 @@ import { IntentChip } from '@/components/IntentChip';
 import { MOCK_USERS, IntentType } from '@/types';
 import { SlidersHorizontal, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 
 export default function Discover() {
@@ -15,6 +17,8 @@ export default function Discover() {
   const [showFilters, setShowFilters] = useState(false);
   const [filterIntents, setFilterIntents] = useState<IntentType[]>([]);
   const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [ageRange, setAgeRange] = useState<number[]>([21, 50]);
+  const [distance, setDistance] = useState<number[]>([25]);
 
   const toggleFilterIntent = (i: IntentType) => {
     setFilterIntents((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
@@ -23,6 +27,7 @@ export default function Discover() {
   const filtered = MOCK_USERS.filter((u) => {
     if (filterIntents.length && !u.intent.some((i) => filterIntents.includes(i))) return false;
     if (filterStatus !== 'all' && u.game_status !== filterStatus) return false;
+    if (u.age < ageRange[0] || u.age > ageRange[1]) return false;
     return true;
   });
 

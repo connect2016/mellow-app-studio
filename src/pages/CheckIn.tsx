@@ -8,7 +8,9 @@ import { useToast } from '@/hooks/use-toast';
 import { MapPin, Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const WRIGLEYVILLE_BARS = [
+const WRIGLEYVILLE_LOCATIONS = [
+  "🏟️ Inside The Ballpark",
+  "🪑 Bleachers",
   "Murphy's Bleachers",
   "The Cubby Bear",
   "Budweiser Brickhouse Tavern",
@@ -88,7 +90,7 @@ export default function CheckIn() {
                 <CommandList>
                   <CommandEmpty>No bar found.</CommandEmpty>
                   <CommandGroup>
-                    {WRIGLEYVILLE_BARS.map((bar) => (
+                    {WRIGLEYVILLE_LOCATIONS.map((bar) => (
                       <CommandItem
                         key={bar}
                         value={bar}

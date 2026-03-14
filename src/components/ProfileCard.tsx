@@ -87,6 +87,15 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
           <span className="text-xl">🍺</span>
           Send Beer
         </button>
+        {onPass && (
+          <button
+            onClick={onPass}
+            className="flex flex-col items-center gap-0.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <span className="text-xl">👋</span>
+            Pass
+          </button>
+        )}
       </div>
     </motion.div>
   );

@@ -10,6 +10,7 @@ import Discover from "./pages/Discover";
 import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
 import GameDay from "./pages/GameDay";
+import ShareSeat from "./pages/ShareSeat";
 import HiFives from "./pages/HiFives";
 import BeerMoney from "./pages/BeerMoney";
 import Settings from "./pages/Settings";

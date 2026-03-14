@@ -63,7 +63,7 @@ export default function Landing() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <img src={logo} alt="Cubbies Buddies" className="mx-auto mb-6 h-56" />
+            <img src={logo} alt="Cubbies Buddies" className="mx-auto mb-6 w-full max-w-md" />
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

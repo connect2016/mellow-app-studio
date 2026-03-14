@@ -123,6 +123,17 @@ export default function Onboarding() {
                     <IntentChip key={i} intent={i} selected={intents.includes(i)} onClick={() => toggleIntent(i)} size="md" />
                   ))}
                 </div>
+                <button
+                  type="button"
+                  onClick={() => setIntents(['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating'])}
+                  className={`w-full rounded-xl border py-3 text-sm font-semibold transition-all ${
+                    intents.length === 4
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-border bg-card hover:border-primary/40'
+                  }`}
+                >
+                  🤝 Open to All
+                </button>
               </motion.div>
             )}
 

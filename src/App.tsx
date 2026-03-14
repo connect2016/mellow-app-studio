@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
 import GameDay from "./pages/GameDay";
 import ShareSeat from "./pages/ShareSeat";
+import CheckIn from "./pages/CheckIn";
 import HiFives from "./pages/HiFives";
 import BeerMoney from "./pages/BeerMoney";
 import Settings from "./pages/Settings";
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/messages" element={<Messages />} />
           <Route path="/game-day" element={<GameDay />} />
           <Route path="/share-seat" element={<ShareSeat />} />
+          <Route path="/check-in" element={<CheckIn />} />
           <Route path="/hi-fives" element={<HiFives />} />
           <Route path="/beer-money" element={<BeerMoney />} />
           <Route path="/settings" element={<Settings />} />

@@ -14,13 +14,251 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      conversations: {
+        Row: {
+          created_at: string
+          id: string
+          last_message_at: string | null
+          last_message_preview: string | null
+          participant_a: string
+          participant_b: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          last_message_preview?: string | null
+          participant_a: string
+          participant_b: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          last_message_preview?: string | null
+          participant_a?: string
+          participant_b?: string
+        }
+        Relationships: []
+      }
+      likes: {
+        Row: {
+          created_at: string
+          from_user: string
+          id: string
+          is_hi_five: boolean
+          message: string | null
+          to_user: string
+        }
+        Insert: {
+          created_at?: string
+          from_user: string
+          id?: string
+          is_hi_five?: boolean
+          message?: string | null
+          to_user: string
+        }
+        Update: {
+          created_at?: string
+          from_user?: string
+          id?: string
+          is_hi_five?: boolean
+          message?: string | null
+          to_user?: string
+        }
+        Relationships: []
+      }
+      matches: {
+        Row: {
+          created_at: string
+          id: string
+          status: string
+          user_a: string
+          user_b: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          status?: string
+          user_a: string
+          user_b: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          status?: string
+          user_a?: string
+          user_b?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          body: string
+          conversation_id: string
+          created_at: string
+          id: string
+          is_read: boolean | null
+          sender: string
+        }
+        Insert: {
+          body: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          sender: string
+        }
+        Update: {
+          body?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          sender?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      passes: {
+        Row: {
+          created_at: string
+          from_user: string
+          id: string
+          passed_user: string
+        }
+        Insert: {
+          created_at?: string
+          from_user: string
+          id?: string
+          passed_user: string
+        }
+        Update: {
+          created_at?: string
+          from_user?: string
+          id?: string
+          passed_user?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          age: number | null
+          age_max: number | null
+          age_min: number | null
+          bar_location_privacy: string | null
+          best_bar: string | null
+          bio: string | null
+          blocked_users: string[] | null
+          created_at: string
+          display_name: string
+          distance_pref_miles: number | null
+          favorite_moment: string | null
+          favorite_moment_is_valid: boolean | null
+          favorite_player: string | null
+          game_status: string | null
+          hidden_from_discover: boolean | null
+          id: string
+          intent: string[] | null
+          is_banned: boolean | null
+          is_verified: boolean | null
+          onboarding_completed: boolean | null
+          profile_photo: string | null
+          pronouns: string | null
+          stretch_song: string | null
+          superstition: string | null
+          updated_at: string
+          user_id: string
+          wrigley_location_privacy: string | null
+          wrigley_row: string | null
+          wrigley_seat: string | null
+          wrigley_section: string | null
+          wrigleyville_bar: string | null
+        }
+        Insert: {
+          age?: number | null
+          age_max?: number | null
+          age_min?: number | null
+          bar_location_privacy?: string | null
+          best_bar?: string | null
+          bio?: string | null
+          blocked_users?: string[] | null
+          created_at?: string
+          display_name?: string
+          distance_pref_miles?: number | null
+          favorite_moment?: string | null
+          favorite_moment_is_valid?: boolean | null
+          favorite_player?: string | null
+          game_status?: string | null
+          hidden_from_discover?: boolean | null
+          id?: string
+          intent?: string[] | null
+          is_banned?: boolean | null
+          is_verified?: boolean | null
+          onboarding_completed?: boolean | null
+          profile_photo?: string | null
+          pronouns?: string | null
+          stretch_song?: string | null
+          superstition?: string | null
+          updated_at?: string
+          user_id: string
+          wrigley_location_privacy?: string | null
+          wrigley_row?: string | null
+          wrigley_seat?: string | null
+          wrigley_section?: string | null
+          wrigleyville_bar?: string | null
+        }
+        Update: {
+          age?: number | null
+          age_max?: number | null
+          age_min?: number | null
+          bar_location_privacy?: string | null
+          best_bar?: string | null
+          bio?: string | null
+          blocked_users?: string[] | null
+          created_at?: string
+          display_name?: string
+          distance_pref_miles?: number | null
+          favorite_moment?: string | null
+          favorite_moment_is_valid?: boolean | null
+          favorite_player?: string | null
+          game_status?: string | null
+          hidden_from_discover?: boolean | null
+          id?: string
+          intent?: string[] | null
+          is_banned?: boolean | null
+          is_verified?: boolean | null
+          onboarding_completed?: boolean | null
+          profile_photo?: string | null
+          pronouns?: string | null
+          stretch_song?: string | null
+          superstition?: string | null
+          updated_at?: string
+          user_id?: string
+          wrigley_location_privacy?: string | null
+          wrigley_row?: string | null
+          wrigley_seat?: string | null
+          wrigley_section?: string | null
+          wrigleyville_bar?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_conversation_member: {
+        Args: { _conversation_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never

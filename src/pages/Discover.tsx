@@ -34,10 +34,18 @@ export default function Discover() {
     setFilterIntents((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
   };
 
+  const SIX_HOURS = 6 * 60 * 60 * 1000;
+
   const filtered = profiles.filter((u) => {
     const userIntents = (u.intent as string[]) ?? [];
     if (filterIntents.length && !filterIntents.some((i) => userIntents.includes(i))) return false;
-    if (filterStatus !== 'all' && u.game_status !== filterStatus) return false;
+
+    // Treat expired game statuses as 'NotSet'
+    const locationSetAt = (u as any).location_last_set_at;
+    const isExpired = locationSetAt && (Date.now() - new Date(locationSetAt).getTime() > SIX_HOURS);
+    const effectiveStatus = isExpired ? 'NotSet' : (u.game_status ?? 'NotSet');
+    if (filterStatus !== 'all' && effectiveStatus !== filterStatus) return false;
+
     if (u.age && (u.age < ageRange[0] || u.age > ageRange[1])) return false;
     return true;
   });

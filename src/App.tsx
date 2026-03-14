@@ -10,6 +10,7 @@ import Discover from "./pages/Discover";
 import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
 import GameDay from "./pages/GameDay";
+import ShareSeat from "./pages/ShareSeat";
 import HiFives from "./pages/HiFives";
 import BeerMoney from "./pages/BeerMoney";
 import Settings from "./pages/Settings";
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/game-day" element={<GameDay />} />
+          <Route path="/share-seat" element={<ShareSeat />} />
           <Route path="/hi-fives" element={<HiFives />} />
           <Route path="/beer-money" element={<BeerMoney />} />
           <Route path="/settings" element={<Settings />} />

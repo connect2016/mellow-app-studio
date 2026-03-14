@@ -48,6 +48,11 @@
     --success: 160 50% 45%;
     --warning: 35 80% 55%;
     --info: 220 60% 50%;
+
+    --stadium-seat: 170 30% 33%;
+    --stadium-seat-light: 170 25% 45%;
+    --stadium-seat-dark: 170 35% 22%;
+    --stadium-seat-foreground: 45 30% 92%;
   }
 
   .dark {

@@ -57,34 +57,44 @@ export default function Landing() {
           <img src={wrigleyvilleBg} alt="" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
         </div>
-        <div className="relative mx-auto max-w-lg px-6 pb-20 pt-24 text-center">
+        <div className="relative mx-auto max-w-lg px-6 pb-16 pt-10 text-center" style={{ minHeight: '100vh' }}>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="mb-6"
+            style={{ height: '40vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
-            <img src={logo} alt="Cubbies Buddies" className="mx-auto mb-6 w-full max-w-md" />
+            <img src={logo} alt="Cubbies Buddies" className="w-full max-w-lg drop-shadow-xl" />
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-4 text-5xl font-bold leading-tight tracking-tight"
+            className="mb-2 text-4xl font-bold leading-tight tracking-tight"
             style={{ fontFamily: 'Space Grotesk' }}
           >
-            Your Game-Day{' '}
+            Your Wrigleyville{' '}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Buddy System
+              Connection Hub
             </span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-8 text-lg text-muted-foreground"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mb-4 text-2xl font-semibold tracking-wide text-foreground/80"
+            style={{ fontFamily: 'Space Grotesk' }}
           >
-            Find friends, dates, and beer buddies at Wrigley Field and Wrigleyville.
-            Connect with fans who get it.
+            Sync. Meet. Celebrate.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-8 text-base text-muted-foreground"
+          >
+            Discover your Wrigleyville crew for friendships, pre and post-game meetups, or a fun sports date. Connect with fans who truly get it.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

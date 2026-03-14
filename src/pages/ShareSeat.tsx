@@ -135,10 +135,11 @@ export default function ShareSeat() {
                 color: isBleachers
                   ? 'hsl(var(--stadium-seat-dark))'
                   : 'hsl(var(--stadium-seat-foreground))',
-                ringColor: 'hsl(var(--stadium-seat-foreground))',
-                ringOffsetColor: 'hsl(var(--stadium-seat))',
                 fontFamily: 'Space Grotesk',
-              }}
+                // @ts-expect-error CSS custom properties
+                '--tw-ring-color': 'hsl(var(--stadium-seat-foreground))',
+                '--tw-ring-offset-color': 'hsl(var(--stadium-seat))',
+              } as React.CSSProperties}
             >
               <Armchair className="h-5 w-5" />
               Choose Bleachers

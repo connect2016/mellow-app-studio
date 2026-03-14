@@ -13,7 +13,7 @@ interface ProfileCardProps {
   onPass?: () => void;
 }
 
-export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile }: ProfileCardProps) {
+export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile, onPass }: ProfileCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

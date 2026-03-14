@@ -169,6 +169,7 @@ export type Database = {
           intent: string[] | null
           is_banned: boolean | null
           is_verified: boolean | null
+          location_last_set_at: string | null
           onboarding_completed: boolean | null
           profile_photo: string | null
           pronouns: string | null
@@ -202,6 +203,7 @@ export type Database = {
           intent?: string[] | null
           is_banned?: boolean | null
           is_verified?: boolean | null
+          location_last_set_at?: string | null
           onboarding_completed?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null
@@ -235,6 +237,7 @@ export type Database = {
           intent?: string[] | null
           is_banned?: boolean | null
           is_verified?: boolean | null
+          location_last_set_at?: string | null
           onboarding_completed?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null

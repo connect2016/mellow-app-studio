@@ -10,6 +10,7 @@ interface ProfileCardProps {
   onLike?: () => void;
   onSendBeer?: () => void;
   onViewProfile?: () => void;
+  onPass?: () => void;
 }
 
 export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile }: ProfileCardProps) {

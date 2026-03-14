@@ -41,7 +41,7 @@ export default function CheckIn() {
       return;
     }
     setCheckedIn(true);
-    toast({ title: '✅ You're checked in!', description: `Checked in at ${selectedBar}` });
+    toast({ title: '✅ You\'re checked in!', description: `Checked in at ${selectedBar}` });
     setTimeout(() => setCheckedIn(false), 3000);
   };
 

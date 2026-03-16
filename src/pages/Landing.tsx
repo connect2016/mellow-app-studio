@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Zap, Beer, Users, MapPin, Shield, Heart } from 'lucide-react';
+import { Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star } from 'lucide-react';
 import logo from '@/assets/logo.png';
-import wrigleyvilleBg from '@/assets/wrigleyville-bg.png';
+import wrigleyHero from '@/assets/wrigley-hero.jpg';
+import fansCheering from '@/assets/fans-cheering.jpg';
+import beerCheers from '@/assets/beer-cheers.jpg';
 
 const features = [
   {
@@ -18,7 +20,7 @@ const features = [
   },
   {
     icon: Zap,
-    title: 'Hi-Five',
+    title: 'Hi-Fives',
     description: 'Low-commitment poke. Send a Hi-Five to break the ice without the pressure.',
   },
   {
@@ -40,112 +42,247 @@ const features = [
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.08 } },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
 };
+
+const stats = [
+  { label: 'Cubs Fans', value: '1,200+' },
+  { label: 'Hi-Fives Sent', value: '8,400+' },
+  { label: 'Game-Day Meetups', value: '3,100+' },
+];
 
 export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero */}
+      {/* ── Hero ── */}
       <section className="relative overflow-hidden">
+        {/* Background image */}
         <div className="absolute inset-0">
-          <img src={wrigleyvilleBg} alt="" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
+          <img
+            src={wrigleyHero}
+            alt="Wrigley Field on game day"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--cubs-blue)/0.85)] via-[hsl(var(--cubs-blue)/0.7)] to-background" />
         </div>
-        <div className="relative mx-auto max-w-lg px-6 pb-16 pt-10 text-center" style={{ minHeight: '100vh' }}>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
-            style={{ height: '40vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          >
-            <img src={logo} alt="Cubbies Buddies" className="w-full max-w-lg drop-shadow-xl" />
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-2 text-4xl font-bold leading-tight tracking-tight"
-            style={{ fontFamily: 'Space Grotesk' }}
-          >
-            Your Wrigleyville{' '}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Connection Hub
-            </span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mb-4 text-2xl font-semibold tracking-wide text-foreground/80"
-            style={{ fontFamily: 'Space Grotesk' }}
-          >
-            Sync. Meet. Celebrate.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-8 text-base text-muted-foreground"
-          >
-            Discover your Wrigleyville crew for friendships, pre and post-game meetups, or a fun sports date. Connect with fans who truly get it.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-          >
-            <Link to="/auth">
-              <Button size="lg" className="rounded-full px-8 text-base font-semibold shadow-lg">
-                Join Cubbies Buddies
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Features */}
-      <section className="mx-auto max-w-lg px-6 pb-24">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2"
-        >
-          {features.map((f) => (
-            <motion.div
-              key={f.title}
-              variants={item}
-              className="rounded-xl border bg-card p-5 shadow-sm"
+        <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-12">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8 flex justify-center"
+          >
+            <img src={logo} alt="Cubbies Buddies" className="h-20 drop-shadow-xl sm:h-28" />
+          </motion.div>
+
+          {/* Copy */}
+          <div className="mx-auto max-w-2xl text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-primary-foreground sm:text-5xl lg:text-6xl"
+              style={{ fontFamily: 'Space Grotesk' }}
             >
-              <div className="mb-3 inline-flex rounded-lg bg-primary/10 p-2.5">
-                <f.icon className="h-5 w-5 text-primary" />
-              </div>
-              <h3 className="mb-1 font-semibold" style={{ fontFamily: 'Space Grotesk' }}>
-                {f.title}
-              </h3>
-              <p className="text-sm text-muted-foreground">{f.description}</p>
+              Find Your Crew{' '}
+              <span className="block text-[hsl(var(--cubs-red))]">at Wrigley</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-8 text-lg text-primary-foreground/80 sm:text-xl"
+            >
+              Meet Cubs fans for games, beers, and unforgettable moments.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.35 }}
+              className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
+            >
+              <Link to="/auth">
+                <Button
+                  size="lg"
+                  className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
+                >
+                  Join Cubbies Buddies
+                  <ChevronRight className="ml-1 h-4 w-4" />
+                </Button>
+              </Link>
             </motion.div>
-          ))}
-        </motion.div>
+          </div>
+
+          {/* Stats ribbon */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mx-auto mt-14 grid max-w-md grid-cols-3 gap-4 rounded-2xl border border-primary-foreground/10 bg-primary-foreground/10 px-6 py-5 backdrop-blur-md sm:max-w-lg"
+          >
+            {stats.map((s) => (
+              <div key={s.label} className="text-center">
+                <p className="text-2xl font-bold text-primary-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+                  {s.value}
+                </p>
+                <p className="text-xs text-primary-foreground/60">{s.label}</p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </section>
 
-      {/* Footer CTA */}
-      <section className="border-t bg-muted/50 py-12 text-center">
-        <p className="mb-4 text-muted-foreground">Ready to find your crew?</p>
-        <Link to="/auth">
-          <Button variant="outline" className="rounded-full px-6">
-            Get Started
-          </Button>
-        </Link>
+      {/* ── Social proof banner ── */}
+      <section className="relative -mt-1 overflow-hidden bg-primary py-4">
+        <div className="mx-auto flex max-w-4xl items-center justify-center gap-2 px-6 text-center text-sm font-medium text-primary-foreground">
+          <Star className="h-4 w-4 fill-[hsl(var(--cubs-red))] text-[hsl(var(--cubs-red))]" />
+          <span>The #1 social app for Wrigleyville fans</span>
+          <Star className="h-4 w-4 fill-[hsl(var(--cubs-red))] text-[hsl(var(--cubs-red))]" />
+        </div>
       </section>
+
+      {/* ── Fan Culture Photo Strip ── */}
+      <section className="bg-background py-16">
+        <div className="mx-auto max-w-5xl px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-10 text-center"
+          >
+            <h2
+              className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+              style={{ fontFamily: 'Space Grotesk' }}
+            >
+              More Than a Game.{' '}
+              <span className="text-secondary">It's a Community.</span>
+            </h2>
+            <p className="text-muted-foreground">
+              Pregame beers, seventh-inning sing-alongs, and friendships that last way beyond the final out.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="overflow-hidden rounded-2xl"
+            >
+              <img
+                src={fansCheering}
+                alt="Cubs fans cheering at a Wrigleyville bar"
+                className="h-64 w-full object-cover sm:h-80"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="overflow-hidden rounded-2xl"
+            >
+              <img
+                src={beerCheers}
+                alt="Friends clinking beers at the ballpark"
+                className="h-64 w-full object-cover sm:h-80"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Feature Highlights ── */}
+      <section className="bg-muted/50 py-20">
+        <div className="mx-auto max-w-5xl px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-12 text-center"
+          >
+            <h2
+              className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+              style={{ fontFamily: 'Space Grotesk' }}
+            >
+              Everything You Need on{' '}
+              <span className="text-primary">Game Day</span>
+            </h2>
+            <p className="text-muted-foreground">Six ways Cubbies Buddies makes your Wrigley experience legendary.</p>
+          </motion.div>
+
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {features.map((f) => (
+              <motion.div
+                key={f.title}
+                variants={item}
+                className="group rounded-2xl border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 transition-colors group-hover:bg-secondary/10">
+                  <f.icon className="h-6 w-6 text-primary group-hover:text-secondary" />
+                </div>
+                <h3
+                  className="mb-1 text-lg font-semibold text-card-foreground"
+                  style={{ fontFamily: 'Space Grotesk' }}
+                >
+                  {f.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{f.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Final CTA ── */}
+      <section className="relative overflow-hidden bg-primary py-20">
+        <div className="absolute inset-0 opacity-10">
+          <img src={wrigleyHero} alt="" className="h-full w-full object-cover" />
+        </div>
+        <div className="relative mx-auto max-w-lg px-6 text-center">
+          <h2
+            className="mb-3 text-3xl font-bold text-primary-foreground sm:text-4xl"
+            style={{ fontFamily: 'Space Grotesk' }}
+          >
+            Ready to find your crew?
+          </h2>
+          <p className="mb-8 text-primary-foreground/70">
+            Sign up in 30 seconds. Your next Wrigleyville friend is already here.
+          </p>
+          <Link to="/auth">
+            <Button
+              size="lg"
+              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
+            >
+              Join Cubbies Buddies
+              <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* ── Footer ── */}
+      <footer className="border-t bg-background py-8 text-center text-sm text-muted-foreground">
+        <p>© {new Date().getFullYear()} Cubbies Buddies · Made with ❤️ in Wrigleyville</p>
+      </footer>
     </div>
   );
 }

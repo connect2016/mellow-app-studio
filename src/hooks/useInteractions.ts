@@ -30,7 +30,7 @@ export function useSendLike() {
           .maybeSingle();
 
         if (match) {
-          return { ...data, isMatch: true };
+          return { ...data, isMatch: true, isMutualHiFive: false };
         }
       }
 

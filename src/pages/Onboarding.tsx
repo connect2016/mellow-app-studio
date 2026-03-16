@@ -6,14 +6,33 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { IntentChip } from '@/components/IntentChip';
 import { IntentType, WRIGLEYVILLE_BARS, PrivacyLevel } from '@/types';
-import { ChevronLeft, ChevronRight, Camera, AlertCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Camera, AlertCircle, User, Heart, Star, MapPin, Beer, Sparkles, Eye, Lock, EyeOff } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUpdateProfile } from '@/hooks/useProfile';
 import { useToast } from '@/hooks/use-toast';
 
 const TOTAL_STEPS = 4;
+
+const stepMeta = [
+  { icon: User, title: 'Your Profile', subtitle: 'Let fans know who you are', emoji: '👋' },
+  { icon: Heart, title: 'Your Intent', subtitle: 'What are you looking for?', emoji: '🎯' },
+  { icon: Star, title: 'Cubs Identity', subtitle: 'Show off your fan credentials', emoji: '⚾' },
+  { icon: MapPin, title: 'Game Day Setup', subtitle: 'Where do you watch?', emoji: '🏟️' },
+];
+
+const intentCards: { value: IntentType; label: string; emoji: string; desc: string }[] = [
+  { value: 'FriendToWatch', label: 'Friend to Watch', emoji: '⚾', desc: 'Find someone to catch the game with' },
+  { value: 'ShareABeer', label: 'Share a Beer', emoji: '🍺', desc: 'Grab a cold one with a fellow fan' },
+  { value: 'PostGameMeetup', label: 'Post-Game Meetup', emoji: '🎉', desc: 'Keep the party going after the W' },
+  { value: 'Dating', label: 'Dating', emoji: '❤️', desc: 'Find your Wrigley romance' },
+];
+
+const privacyOptions: { value: PrivacyLevel; label: string; icon: typeof Eye }[] = [
+  { value: 'Public', label: 'Everyone', icon: Eye },
+  { value: 'MatchesOnly', label: 'Matches Only', icon: Lock },
+  { value: 'Hidden', label: 'Hidden', icon: EyeOff },
+];
 
 function validateMoment(text: string): boolean {
   const lower = text.toLowerCase();
@@ -39,12 +58,16 @@ export default function Onboarding() {
   const [favoritePlayer, setFavoritePlayer] = useState('');
   const [favoriteMoment, setFavoriteMoment] = useState('');
   const [momentError, setMomentError] = useState('');
+  const [superstition, setSuperstition] = useState('');
+  const [stretchSong, setStretchSong] = useState('');
+  const [bestBar, setBestBar] = useState('');
   const [section, setSection] = useState('');
   const [row, setRow] = useState('');
   const [seat, setSeat] = useState('');
   const [bar, setBar] = useState('');
   const [locationPrivacy, setLocationPrivacy] = useState<PrivacyLevel>('MatchesOnly');
   const [barPrivacy, setBarPrivacy] = useState<PrivacyLevel>('MatchesOnly');
+  const [showCelebration, setShowCelebration] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -70,7 +93,6 @@ export default function Onboarding() {
     if (step < TOTAL_STEPS) {
       setStep(step + 1);
     } else {
-      // Save profile to database
       try {
         await updateProfile.mutateAsync({
           display_name: displayName,
@@ -80,6 +102,9 @@ export default function Onboarding() {
           favorite_player: favoritePlayer,
           favorite_moment: favoriteMoment,
           favorite_moment_is_valid: favoriteMoment ? validateMoment(favoriteMoment) : true,
+          superstition: superstition || null,
+          stretch_song: stretchSong || null,
+          best_bar: bestBar || null,
           wrigley_section: section || null,
           wrigley_row: row || null,
           wrigley_seat: seat || null,
@@ -88,7 +113,8 @@ export default function Onboarding() {
           bar_location_privacy: barPrivacy,
           onboarding_completed: true,
         });
-        navigate('/discover');
+        setShowCelebration(true);
+        setTimeout(() => navigate('/discover'), 2500);
       } catch (err) {
         toast({ title: 'Error', description: 'Failed to save profile. Please try again.', variant: 'destructive' });
       }
@@ -101,169 +127,392 @@ export default function Onboarding() {
 
   if (loading) return null;
 
+  // Celebration overlay
+  if (showCelebration) {
+    return (
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-primary">
+        <motion.div
+          initial={{ scale: 0, rotate: -20 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+          className="text-center"
+        >
+          <motion.div
+            animate={{ y: [0, -15, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+            className="text-7xl mb-6"
+          >
+            🎉
+          </motion.div>
+          <h1 className="text-3xl font-bold text-primary-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+            You're in the lineup!
+          </h1>
+          <p className="text-primary-foreground/80 text-lg">Welcome to Cubbies Buddies</p>
+        </motion.div>
+
+        {/* Confetti-like particles */}
+        {Array.from({ length: 20 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: Math.random() * 12 + 6,
+              height: Math.random() * 12 + 6,
+              backgroundColor: i % 3 === 0 ? 'hsl(var(--secondary))' : i % 3 === 1 ? 'hsl(var(--primary-foreground))' : 'hsl(var(--accent))',
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{
+              opacity: [0, 1, 0],
+              scale: [0, 1.5, 0],
+              y: [0, Math.random() * -200 - 50],
+            }}
+            transition={{
+              duration: 2,
+              delay: Math.random() * 0.8,
+              repeat: Infinity,
+              repeatDelay: Math.random() * 1,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  const currentMeta = stepMeta[step - 1];
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      {/* Progress */}
-      <div className="border-b px-6 py-4">
-        <div className="mx-auto max-w-sm">
-          <div className="mb-2 flex items-center justify-between text-sm text-muted-foreground">
-            <button onClick={back} className={step === 1 ? 'invisible' : ''}>
-              <ChevronLeft className="h-5 w-5" />
+      {/* Top bar with progress */}
+      <div className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
+        <div className="mx-auto max-w-md px-5 py-4">
+          <div className="flex items-center justify-between mb-3">
+            <button
+              onClick={back}
+              className={`flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors ${step === 1 ? 'invisible' : ''}`}
+            >
+              <ChevronLeft className="h-4 w-4" />
+              Back
             </button>
-            <span>Step {step} of {TOTAL_STEPS}</span>
-            <div className="w-5" />
+            <span className="text-xs font-medium text-muted-foreground">{step} of {TOTAL_STEPS}</span>
+            <div className="w-12" />
           </div>
-          <div className="h-1.5 rounded-full bg-muted">
-            <div
-              className="h-full rounded-full bg-primary transition-all duration-300"
-              style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
-            />
+          {/* Step indicators */}
+          <div className="flex gap-1.5">
+            {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+              <div key={i} className="flex-1 h-1.5 rounded-full overflow-hidden bg-muted">
+                <motion.div
+                  className="h-full rounded-full bg-primary"
+                  initial={false}
+                  animate={{ width: i < step ? '100%' : i === step - 1 ? '100%' : '0%' }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Steps */}
-      <div className="flex flex-1 items-start justify-center px-6 py-8">
-        <div className="w-full max-w-sm">
+      {/* Step content */}
+      <div className="flex flex-1 flex-col px-5 py-6">
+        <div className="mx-auto w-full max-w-md flex-1">
           <AnimatePresence mode="wait">
-            {step === 1 && (
-              <motion.div key="s1" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="space-y-5">
-                <h2 className="text-2xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>Let's set up your profile</h2>
-
-                <div className="flex justify-center">
-                  <button className="flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed border-primary/40 bg-muted text-muted-foreground hover:bg-primary/5 transition-colors">
-                    <Camera className="h-8 w-8" />
-                  </button>
+            <motion.div
+              key={step}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Step header */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
+                  {currentMeta.emoji}
                 </div>
-
-                <div className="space-y-2">
-                  <Label>Display Name</Label>
-                  <Input placeholder="How fans will know you" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+                <div>
+                  <h2 className="text-xl font-bold text-foreground">{currentMeta.title}</h2>
+                  <p className="text-sm text-muted-foreground">{currentMeta.subtitle}</p>
                 </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-2">
-                    <Label>Age</Label>
-                    <Input type="number" placeholder="21+" value={age} onChange={(e) => setAge(e.target.value)} />
+              </div>
+
+              {/* Step 1: Profile */}
+              {step === 1 && (
+                <div className="space-y-5">
+                  <div className="flex justify-center">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="relative flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed border-primary/40 bg-muted hover:bg-primary/5 transition-colors"
+                    >
+                      <Camera className="h-8 w-8 text-muted-foreground" />
+                      <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
+                        <span className="text-xs font-bold">+</span>
+                      </div>
+                    </motion.button>
                   </div>
+                  <p className="text-center text-xs text-muted-foreground">Tap to add your photo</p>
+
                   <div className="space-y-2">
-                    <Label>Pronouns (optional)</Label>
-                    <Input placeholder="e.g. she/her" value={pronouns} onChange={(e) => setPronouns(e.target.value)} />
+                    <Label className="font-semibold">Display Name</Label>
+                    <Input
+                      placeholder="How fans will know you"
+                      value={displayName}
+                      onChange={(e) => setDisplayName(e.target.value)}
+                      className="rounded-xl"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-2">
+                      <Label className="font-semibold">Age</Label>
+                      <Input
+                        type="number"
+                        placeholder="21+"
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
+                        className="rounded-xl"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="font-semibold">Pronouns</Label>
+                      <Input
+                        placeholder="e.g. she/her"
+                        value={pronouns}
+                        onChange={(e) => setPronouns(e.target.value)}
+                        className="rounded-xl"
+                      />
+                    </div>
                   </div>
                 </div>
-              </motion.div>
-            )}
+              )}
 
-            {step === 2 && (
-              <motion.div key="s2" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="space-y-5">
-                <h2 className="text-2xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>What are you looking for?</h2>
-                <p className="text-sm text-muted-foreground">Select all that apply</p>
-                <div className="flex flex-wrap gap-2">
-                  {(['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating'] as IntentType[]).map((i) => (
-                    <IntentChip key={i} intent={i} selected={intents.includes(i)} onClick={() => toggleIntent(i)} size="md" />
-                  ))}
+              {/* Step 2: Intent cards */}
+              {step === 2 && (
+                <div className="space-y-4">
+                  <p className="text-sm text-muted-foreground">Select all that apply</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    {intentCards.map((card) => {
+                      const isSelected = intents.includes(card.value);
+                      return (
+                        <motion.button
+                          key={card.value}
+                          whileTap={{ scale: 0.96 }}
+                          onClick={() => toggleIntent(card.value)}
+                          className={`relative flex flex-col items-center gap-2 rounded-2xl border p-5 text-center transition-all ${
+                            isSelected
+                              ? 'border-primary bg-primary/5 shadow-md shadow-primary/10'
+                              : 'border-border bg-card hover:border-primary/30 hover:shadow-sm'
+                          }`}
+                        >
+                          {isSelected && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              className="absolute top-2 right-2 h-5 w-5 rounded-full bg-primary flex items-center justify-center"
+                            >
+                              <span className="text-primary-foreground text-[10px] font-bold">✓</span>
+                            </motion.div>
+                          )}
+                          <span className="text-3xl">{card.emoji}</span>
+                          <span className="font-semibold text-sm text-foreground">{card.label}</span>
+                          <span className="text-[11px] text-muted-foreground leading-tight">{card.desc}</span>
+                        </motion.button>
+                      );
+                    })}
+                  </div>
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    type="button"
+                    onClick={() =>
+                      setIntents(
+                        intents.length === 4
+                          ? []
+                          : ['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating']
+                      )
+                    }
+                    className={`w-full rounded-2xl border py-3.5 text-sm font-semibold transition-all ${
+                      intents.length === 4
+                        ? 'border-primary bg-primary text-primary-foreground'
+                        : 'border-border bg-card text-foreground hover:border-primary/40'
+                    }`}
+                  >
+                    🤝 Open to All
+                  </motion.button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setIntents(['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating'])}
-                  className={`w-full rounded-xl border py-3 text-sm font-semibold transition-all ${
-                    intents.length === 4
-                      ? 'border-primary bg-primary text-primary-foreground'
-                      : 'border-border bg-card hover:border-primary/40'
-                  }`}
-                >
-                  🤝 Open to All
-                </button>
-              </motion.div>
-            )}
+              )}
 
-            {step === 3 && (
-              <motion.div key="s3" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="space-y-5">
-                <h2 className="text-2xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>Fan credentials</h2>
-                <div className="space-y-2">
-                  <Label>Favorite Player</Label>
-                  <Input placeholder="Current or all-time" value={favoritePlayer} onChange={(e) => setFavoritePlayer(e.target.value)} />
-                </div>
-                <div className="space-y-2">
-                  <Label>Favorite Fan Moment</Label>
-                  <Textarea
-                    placeholder="Your most memorable Cubs moment..."
-                    value={favoriteMoment}
-                    onChange={(e) => handleMomentChange(e.target.value)}
-                    className={momentError ? 'border-destructive' : ''}
-                  />
-                  {momentError && (
-                    <p className="flex items-center gap-1.5 text-sm text-destructive">
-                      <AlertCircle className="h-4 w-4" />
-                      {momentError}
+              {/* Step 3: Cubs Identity */}
+              {step === 3 && (
+                <div className="space-y-5">
+                  <div className="space-y-2">
+                    <Label className="font-semibold">Favorite Player</Label>
+                    <Input
+                      placeholder="Current or all-time hero"
+                      value={favoritePlayer}
+                      onChange={(e) => setFavoritePlayer(e.target.value)}
+                      className="rounded-xl"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="font-semibold">Favorite Cubs Moment</Label>
+                    <Textarea
+                      placeholder="Your most memorable Cubs moment..."
+                      value={favoriteMoment}
+                      onChange={(e) => handleMomentChange(e.target.value)}
+                      className={`rounded-xl min-h-[80px] ${momentError ? 'border-destructive' : ''}`}
+                    />
+                    {momentError && (
+                      <p className="flex items-center gap-1.5 text-sm text-destructive">
+                        <AlertCircle className="h-4 w-4" />
+                        {momentError}
+                      </p>
+                    )}
+                    <p className="text-[11px] text-muted-foreground italic">
+                      Pro tip: go deeper cut than the obvious choice 😉
                     </p>
-                  )}
-                </div>
-              </motion.div>
-            )}
-
-            {step === 4 && (
-              <motion.div key="s4" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} className="space-y-5">
-                <h2 className="text-2xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>Game-day setup (optional)</h2>
-                <p className="text-sm text-muted-foreground">Where do you usually sit or hang?</p>
-
-                <div className="space-y-3">
-                  <Label>Wrigley Field Seats</Label>
-                  <div className="grid grid-cols-3 gap-2">
-                    <Input placeholder="Section" value={section} onChange={(e) => setSection(e.target.value)} />
-                    <Input placeholder="Row" value={row} onChange={(e) => setRow(e.target.value)} />
-                    <Input placeholder="Seat" value={seat} onChange={(e) => setSeat(e.target.value)} />
                   </div>
-                  <div className="space-y-1">
-                    <Label className="text-xs text-muted-foreground">Seat visibility</Label>
-                    <Select value={locationPrivacy} onValueChange={(v) => setLocationPrivacy(v as PrivacyLevel)}>
-                      <SelectTrigger><SelectValue /></SelectTrigger>
+
+                  <div className="rounded-2xl border border-border bg-card p-4 space-y-4">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-semibold text-foreground">Fan Flavor</span>
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-xs text-muted-foreground">My Cubs superstition is…</Label>
+                      <Input
+                        placeholder="e.g. Same hat every game day"
+                        value={superstition}
+                        onChange={(e) => setSuperstition(e.target.value)}
+                        className="rounded-xl"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-xs text-muted-foreground">My ideal 7th-inning stretch song…</Label>
+                      <Input
+                        placeholder="e.g. Go Cubs Go (obviously)"
+                        value={stretchSong}
+                        onChange={(e) => setStretchSong(e.target.value)}
+                        className="rounded-xl"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 4: Game Day Preferences */}
+              {step === 4 && (
+                <div className="space-y-5">
+                  <p className="text-sm text-muted-foreground">All optional — fill in what you like</p>
+
+                  <div className="rounded-2xl border border-border bg-card p-4 space-y-4">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-semibold text-foreground">Your Usual Spot</span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="space-y-1">
+                        <Label className="text-[11px] text-muted-foreground">Section</Label>
+                        <Input placeholder="e.g. 228" value={section} onChange={(e) => setSection(e.target.value)} className="rounded-xl" />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-[11px] text-muted-foreground">Row</Label>
+                        <Input placeholder="e.g. 5" value={row} onChange={(e) => setRow(e.target.value)} className="rounded-xl" />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-[11px] text-muted-foreground">Seat</Label>
+                        <Input placeholder="e.g. 12" value={seat} onChange={(e) => setSeat(e.target.value)} className="rounded-xl" />
+                      </div>
+                    </div>
+                    <div>
+                      <Label className="text-xs text-muted-foreground mb-2 block">Seat visibility</Label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {privacyOptions.map((p) => {
+                          const PIcon = p.icon;
+                          return (
+                            <button
+                              key={p.value}
+                              onClick={() => setLocationPrivacy(p.value)}
+                              className={`flex items-center justify-center gap-1.5 rounded-xl border px-2 py-2.5 text-xs font-medium transition-all ${
+                                locationPrivacy === p.value
+                                  ? 'border-primary bg-primary/5 text-primary'
+                                  : 'border-border bg-background text-muted-foreground hover:border-primary/30'
+                              }`}
+                            >
+                              <PIcon className="h-3.5 w-3.5" />
+                              {p.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-border bg-card p-4 space-y-4">
+                    <div className="flex items-center gap-2">
+                      <Beer className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-semibold text-foreground">Favorite Bar</span>
+                    </div>
+                    <Select value={bestBar} onValueChange={setBestBar}>
+                      <SelectTrigger className="rounded-xl"><SelectValue placeholder="Pick your go-to bar" /></SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Public">Everyone</SelectItem>
-                        <SelectItem value="MatchesOnly">Matches Only</SelectItem>
-                        <SelectItem value="Hidden">Hidden</SelectItem>
+                        {WRIGLEYVILLE_BARS.map((b) => (
+                          <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
+                    <div>
+                      <Label className="text-xs text-muted-foreground mb-2 block">Bar visibility</Label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {privacyOptions.map((p) => {
+                          const PIcon = p.icon;
+                          return (
+                            <button
+                              key={p.value}
+                              onClick={() => setBarPrivacy(p.value)}
+                              className={`flex items-center justify-center gap-1.5 rounded-xl border px-2 py-2.5 text-xs font-medium transition-all ${
+                                barPrivacy === p.value
+                                  ? 'border-primary bg-primary/5 text-primary'
+                                  : 'border-border bg-background text-muted-foreground hover:border-primary/30'
+                              }`}
+                            >
+                              <PIcon className="h-3.5 w-3.5" />
+                              {p.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <div className="space-y-3">
-                  <Label>Favorite Wrigleyville Bar</Label>
-                  <Select value={bar} onValueChange={setBar}>
-                    <SelectTrigger><SelectValue placeholder="Select a bar" /></SelectTrigger>
-                    <SelectContent>
-                      {WRIGLEYVILLE_BARS.map((b) => (
-                        <SelectItem key={b.id} value={b.name}>{b.name}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <div className="space-y-1">
-                    <Label className="text-xs text-muted-foreground">Bar visibility</Label>
-                    <Select value={barPrivacy} onValueChange={(v) => setBarPrivacy(v as PrivacyLevel)}>
-                      <SelectTrigger><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Public">Everyone</SelectItem>
-                        <SelectItem value="MatchesOnly">Matches Only</SelectItem>
-                        <SelectItem value="Hidden">Hidden</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </motion.div>
-            )}
+              )}
+            </motion.div>
           </AnimatePresence>
         </div>
       </div>
 
-      {/* Bottom */}
-      <div className="border-t px-6 py-4">
-        <div className="mx-auto max-w-sm">
+      {/* Bottom CTA */}
+      <div className="border-t border-border bg-card/80 backdrop-blur-sm sticky bottom-0 px-5 py-4">
+        <div className="mx-auto max-w-md">
           <Button
             onClick={next}
-            className="w-full rounded-xl py-6 text-base font-semibold"
+            className="w-full rounded-2xl py-6 text-base font-semibold"
             disabled={(step === 3 && !!momentError) || updateProfile.isPending}
           >
-            {updateProfile.isPending ? 'Saving...' : step === TOTAL_STEPS ? "Let's Go!" : 'Continue'}
-            {step < TOTAL_STEPS && !updateProfile.isPending && <ChevronRight className="ml-1 h-4 w-4" />}
+            {updateProfile.isPending ? (
+              'Saving...'
+            ) : step === TOTAL_STEPS ? (
+              <>
+                <Sparkles className="mr-2 h-4 w-4" />
+                Let's Go!
+              </>
+            ) : (
+              <>
+                Continue
+                <ChevronRight className="ml-1 h-4 w-4" />
+              </>
+            )}
           </Button>
         </div>
       </div>

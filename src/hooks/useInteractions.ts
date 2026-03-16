@@ -18,7 +18,7 @@ export function useSendLike() {
         .single();
       if (error) throw error;
 
-      // Check if mutual match was created
+      // Check if mutual match was created (for likes)
       if (!isHiFive) {
         const userA = user.id < toUser ? user.id : toUser;
         const userB = user.id < toUser ? toUser : user.id;
@@ -30,16 +30,40 @@ export function useSendLike() {
           .maybeSingle();
 
         if (match) {
-          return { ...data, isMatch: true };
+          return { ...data, isMatch: true, isMutualHiFive: false };
         }
       }
-      return { ...data, isMatch: false };
+
+      // Check if mutual hi-five
+      if (isHiFive) {
+        const { data: reciprocal } = await supabase
+          .from('likes')
+          .select('id')
+          .eq('from_user', toUser)
+          .eq('to_user', user.id)
+          .eq('is_hi_five', true)
+          .maybeSingle();
+
+        if (reciprocal) {
+          return { ...data, isMatch: false, isMutualHiFive: true };
+        }
+      }
+
+      return { ...data, isMatch: false, isMutualHiFive: false };
     },
     onSuccess: (data, variables) => {
       if (data.isMatch) {
         toast({ title: '🎉 It\'s a Match!', description: 'You can now message each other!' });
+      } else if (data.isMutualHiFive) {
+        toast({
+          title: '🙌 Mutual Hi-Five!',
+          description: 'You both Hi-Fived — that\'s a vibe! Send them a message.',
+        });
       } else if (variables.isHiFive) {
-        toast({ title: '🖐️ Hi-Five sent!' });
+        toast({
+          title: '🖐️ Hi-Five sent!',
+          description: 'You just sent a Hi-Five 👋 — let\'s see if they Hi-Five back!',
+        });
       } else {
         toast({ title: '❤️ Liked!' });
       }

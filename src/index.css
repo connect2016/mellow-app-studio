@@ -21,8 +21,8 @@
     --secondary: 0 72% 51%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 20% 92%;
-    --muted-foreground: 220 10% 40%;
+    --muted: 220 18% 93%;
+    --muted-foreground: 220 10% 44%;
 
     --accent: 160 50% 45%;
     --accent-foreground: 0 0% 100%;
@@ -30,8 +30,8 @@
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
     --ring: 222 68% 28%;
 
     --cubs-red: 0 72% 51%;
@@ -59,32 +59,32 @@
   }
 
   .dark {
-    --background: 220 20% 8%;
+    --background: 222 25% 7%;
     --foreground: 40 15% 95%;
 
-    --card: 220 18% 12%;
+    --card: 222 20% 11%;
     --card-foreground: 40 15% 95%;
 
-    --popover: 220 18% 12%;
+    --popover: 222 20% 11%;
     --popover-foreground: 40 15% 95%;
 
     --primary: 220 60% 60%;
-    --primary-foreground: 220 20% 8%;
+    --primary-foreground: 222 25% 7%;
 
-    --secondary: 35 80% 55%;
-    --secondary-foreground: 220 20% 8%;
+    --secondary: 0 65% 55%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 15% 18%;
-    --muted-foreground: 220 10% 60%;
+    --muted: 222 15% 16%;
+    --muted-foreground: 220 10% 55%;
 
     --accent: 160 50% 50%;
-    --accent-foreground: 220 20% 8%;
+    --accent-foreground: 222 25% 7%;
 
     --destructive: 0 62% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
+    --border: 222 12% 18%;
+    --input: 222 12% 18%;
     --ring: 220 60% 60%;
 
     --sidebar-background: 220 20% 6%;
@@ -104,11 +104,19 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer utilities {
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Send } from 'lucide-react';
+import { Send, MessageCircle, ArrowLeft } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   useConversations,
@@ -49,38 +49,50 @@ export default function Messages() {
       <div className="flex min-h-screen flex-col bg-background pb-24">
         <AppHeader />
         <div className="mx-auto w-full max-w-lg flex-1 flex flex-col">
-          {/* Chat header */}
-          <div className="flex items-center gap-3 border-b border-border px-4 py-3">
-            <button onClick={() => setSelectedConvoId(null)} className="text-sm text-muted-foreground hover:text-foreground">←</button>
+          <div className="flex items-center gap-3 border-b border-border px-4 py-3 bg-card/50">
+            <button onClick={() => setSelectedConvoId(null)} className="p-1 rounded-lg hover:bg-muted transition-colors">
+              <ArrowLeft className="h-4 w-4 text-muted-foreground" />
+            </button>
             {otherProfile?.profile_photo && (
-              <img src={otherProfile.profile_photo} alt="" className="h-8 w-8 rounded-full object-cover" />
+              <img src={otherProfile.profile_photo} alt="" className="h-9 w-9 rounded-full object-cover ring-2 ring-border" />
             )}
-            <span className="font-semibold text-sm">{otherProfile?.display_name ?? 'Fan'}</span>
+            <span className="font-semibold text-sm text-foreground">{otherProfile?.display_name ?? 'Fan'}</span>
           </div>
 
-          {/* Messages */}
           <div className="flex-1 space-y-3 p-4 overflow-y-auto">
             {messages.length === 0 && (
-              <p className="text-center text-sm text-muted-foreground py-10">No messages yet. Say hi! 👋</p>
+              <div className="text-center py-16">
+                <p className="text-3xl mb-3">💬</p>
+                <p className="font-semibold text-foreground text-sm">No messages yet</p>
+                <p className="text-xs text-muted-foreground mt-1">Break the ice — say something fun!</p>
+              </div>
             )}
             {messages.map((msg) => {
               const isMe = msg.sender === user?.id;
               return (
-                <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[75%] rounded-2xl px-4 py-2 text-sm ${isMe ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-                    <p>{msg.body}</p>
-                    <p className={`mt-1 text-xs ${isMe ? 'opacity-70' : 'text-muted-foreground'}`}>
+                <motion.div
+                  key={msg.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm shadow-sm ${
+                    isMe
+                      ? 'bg-primary text-primary-foreground rounded-br-md'
+                      : 'bg-card border border-border text-foreground rounded-bl-md'
+                  }`}>
+                    <p className="leading-relaxed">{msg.body}</p>
+                    <p className={`mt-1 text-[10px] ${isMe ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>
                       {new Date(msg.created_at).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
-          <div className="border-t border-border px-4 py-3">
+          <div className="border-t border-border px-4 py-3 bg-card/50">
             <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="flex gap-2">
               <Input
                 placeholder="Type a message..."
@@ -88,7 +100,7 @@ export default function Messages() {
                 onChange={(e) => setNewMessage(e.target.value)}
                 className="rounded-full"
               />
-              <Button type="submit" size="icon" className="rounded-full shrink-0" disabled={!newMessage.trim()}>
+              <Button type="submit" size="icon" className="rounded-full shrink-0 h-10 w-10" disabled={!newMessage.trim()}>
                 <Send className="h-4 w-4" />
               </Button>
             </form>
@@ -102,7 +114,7 @@ export default function Messages() {
     <div className="min-h-screen bg-background pb-24">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4">
-        <h2 className="mb-4 text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Messages</h2>
+        <h2 className="mb-4 text-lg font-bold">Messages</h2>
 
         {isLoading ? (
           <div className="py-20 text-center">
@@ -110,11 +122,22 @@ export default function Messages() {
             <p className="mt-2 font-semibold text-muted-foreground">Loading conversations...</p>
           </div>
         ) : conversations.length === 0 ? (
-          <div className="py-20 text-center">
-            <p className="text-4xl">💬</p>
-            <p className="mt-2 font-semibold">No conversations yet</p>
-            <p className="text-sm text-muted-foreground">Match with someone to start chatting!</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="py-16 text-center"
+          >
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+              <MessageCircle className="h-7 w-7 text-muted-foreground" />
+            </div>
+            <p className="font-semibold text-foreground">Your conversations will show up here</p>
+            <p className="text-sm text-muted-foreground mt-1 max-w-[260px] mx-auto">
+              Match with a fellow Cubs fan to start chatting. Send a Like or Hi-Five to get started!
+            </p>
+            <Button variant="outline" className="mt-5 rounded-xl" onClick={() => navigate('/discover')}>
+              Discover Fans
+            </Button>
+          </motion.div>
         ) : (
           <div className="space-y-1">
             {conversations.map((convo) => {
@@ -125,17 +148,17 @@ export default function Messages() {
                   key={convo.id}
                   onClick={() => setSelectedConvoId(convo.id)}
                   whileTap={{ scale: 0.98 }}
-                  className="flex w-full items-center gap-3 rounded-xl p-3 text-left hover:bg-muted transition-colors"
+                  className="flex w-full items-center gap-3 rounded-2xl p-3 text-left hover:bg-muted/60 transition-colors"
                 >
                   {profile?.profile_photo ? (
-                    <img src={profile.profile_photo} alt="" className="h-12 w-12 rounded-full object-cover" />
+                    <img src={profile.profile_photo} alt="" className="h-12 w-12 rounded-full object-cover ring-2 ring-border" />
                   ) : (
-                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center text-lg">⚾</div>
+                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center text-lg font-bold text-muted-foreground">⚾</div>
                   )}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-sm">{profile?.display_name ?? 'Fan'}</span>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="font-semibold text-sm text-foreground">{profile?.display_name ?? 'Fan'}</span>
+                      <span className="text-[11px] text-muted-foreground">
                         {convo.last_message_at
                           ? new Date(convo.last_message_at).toLocaleDateString([], { month: 'short', day: 'numeric' })
                           : ''}

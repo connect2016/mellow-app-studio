@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Zap } from 'lucide-react';
 
 export default function HiFives() {
   const { toast } = useToast();
@@ -19,7 +20,6 @@ export default function HiFives() {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
-  // Fetch received hi-fives
   const { data: hiFives = [], isLoading } = useQuery({
     queryKey: ['hi-fives', user?.id],
     queryFn: async () => {
@@ -32,7 +32,6 @@ export default function HiFives() {
         .order('created_at', { ascending: false });
       if (error) throw error;
 
-      // Fetch profiles for these users
       const userIds = data.map(d => d.from_user);
       if (userIds.length === 0) return [];
 
@@ -41,7 +40,6 @@ export default function HiFives() {
         .select('user_id, display_name, profile_photo')
         .in('user_id', userIds);
 
-      // Check which ones the current user has already hi-fived back
       const { data: sentBack } = await supabase
         .from('likes')
         .select('to_user')
@@ -73,7 +71,6 @@ export default function HiFives() {
     enabled: !!user,
   });
 
-  // Send hi-five back
   const hiFiveBack = useMutation({
     mutationFn: async (toUser: string) => {
       if (!user) throw new Error('Not authenticated');
@@ -103,7 +100,7 @@ export default function HiFives() {
     <div className="min-h-screen bg-background pb-24">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4">
-        <h2 className="mb-1 text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Hi-Fives</h2>
+        <h2 className="mb-1 text-lg font-bold">Hi-Fives</h2>
         <p className="mb-6 text-sm text-muted-foreground">Fans who sent you a Hi-Five 🖐️</p>
 
         {isLoading ? (
@@ -112,11 +109,22 @@ export default function HiFives() {
             <p className="mt-2 font-semibold text-muted-foreground">Loading...</p>
           </div>
         ) : hiFives.length === 0 ? (
-          <div className="py-20 text-center">
-            <p className="text-4xl">🖐️</p>
-            <p className="mt-2 font-semibold text-foreground">No hi-fives yet</p>
-            <p className="text-sm text-muted-foreground">Keep browsing—they'll come!</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="py-16 text-center"
+          >
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+              <Zap className="h-7 w-7 text-muted-foreground" />
+            </div>
+            <p className="font-semibold text-foreground">No Hi-Fives yet</p>
+            <p className="text-sm text-muted-foreground mt-1 max-w-[260px] mx-auto">
+              Send some Hi-Fives to get the conversation started — the next pitch could change that!
+            </p>
+            <Button variant="outline" className="mt-5 rounded-xl" onClick={() => navigate('/discover')}>
+              Discover Fans
+            </Button>
+          </motion.div>
         ) : (
           <div className="space-y-2">
             {hiFives.map((hf) => (
@@ -124,21 +132,20 @@ export default function HiFives() {
                 key={hf.id}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="relative flex items-center gap-3 rounded-xl border border-border bg-card p-4 overflow-hidden"
+                className="relative flex items-center gap-3 rounded-2xl border border-border bg-card p-4 overflow-hidden shadow-sm"
               >
-                {/* Celebrate flash */}
                 <AnimatePresence>
                   {celebrateId === hf.fromUser && (
                     <motion.div
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.15 }}
+                      animate={{ opacity: 0.12 }}
                       exit={{ opacity: 0 }}
                       className="absolute inset-0 bg-primary z-0"
                     />
                   )}
                 </AnimatePresence>
 
-                <div className="relative z-10 h-12 w-12 rounded-full overflow-hidden bg-muted flex-shrink-0">
+                <div className="relative z-10 h-12 w-12 rounded-full overflow-hidden bg-muted flex-shrink-0 ring-2 ring-border">
                   {hf.photo ? (
                     <img src={hf.photo} alt={hf.displayName} className="h-full w-full object-cover" />
                   ) : (
@@ -156,7 +163,7 @@ export default function HiFives() {
                     <motion.div whileTap={{ scale: 0.9 }}>
                       <Button
                         size="sm"
-                        className="rounded-full"
+                        className="rounded-full font-semibold"
                         disabled={hiFiveBack.isPending}
                         onClick={() => hiFiveBack.mutate(hf.fromUser)}
                       >
@@ -164,7 +171,7 @@ export default function HiFives() {
                       </Button>
                     </motion.div>
                   ) : (
-                    <span className="text-xs text-muted-foreground font-medium">🙌 Mutual</span>
+                    <span className="text-xs text-primary font-semibold bg-primary/10 px-2.5 py-1 rounded-full">🙌 Mutual</span>
                   )}
                 </div>
               </motion.div>

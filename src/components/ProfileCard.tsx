@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Verified, MapPin } from 'lucide-react';
+import { Verified, MapPin, ShieldCheck, Clock } from 'lucide-react';
 import { UserProfile } from '@/types';
 import { IntentChip } from './IntentChip';
 import { StatusBadge } from './StatusBadge';
@@ -14,11 +14,26 @@ interface ProfileCardProps {
   onPass?: () => void;
 }
 
-function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } | null {
-  if (user.game_status === 'AtWrigley') return { text: '🏟️ At Wrigley right now', pulse: true };
-  if (user.game_status === 'AtBar' && user.wrigleyville_bar) return { text: `🍻 At ${user.wrigleyville_bar}`, pulse: true };
-  if (user.game_status === 'WatchingRemote') return { text: '📺 Watching now', pulse: true };
+interface PromptItem {
+  label: string;
+  value: string;
+  emoji: string;
+}
 
+function getPrompts(user: UserProfile): PromptItem[] {
+  const prompts: PromptItem[] = [];
+  if (user.superstition) prompts.push({ label: 'My Cubs superstition', value: user.superstition, emoji: '🧢' });
+  if (user.best_bar) prompts.push({ label: 'Favorite Wrigleyville bar', value: user.best_bar, emoji: '🍻' });
+  if (user.stretch_song) prompts.push({ label: '7th-inning stretch song', value: user.stretch_song, emoji: '🎵' });
+  if (user.favorite_player) prompts.push({ label: 'Favorite player ever', value: user.favorite_player, emoji: '⚾' });
+  if (user.favorite_moment) prompts.push({ label: 'Favorite Cubs moment', value: user.favorite_moment, emoji: '🎉' });
+  return prompts;
+}
+
+function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } | null {
+  if (user.game_status === 'AtWrigley') return { text: 'At Wrigley right now', pulse: true };
+  if (user.game_status === 'AtBar' && user.wrigleyville_bar) return { text: `At ${user.wrigleyville_bar}`, pulse: true };
+  if (user.game_status === 'WatchingRemote') return { text: 'Watching now', pulse: true };
   const lastActive = user.last_active ? new Date(user.last_active) : null;
   if (!lastActive) return null;
   const mins = Math.floor((Date.now() - lastActive.getTime()) / 60000);
@@ -33,6 +48,7 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
   const [hiFiveAnim, setHiFiveAnim] = useState(false);
   const [flyingEmoji, setFlyingEmoji] = useState(false);
   const activity = getActivityLabel(user);
+  const prompts = getPrompts(user).slice(0, 2);
 
   const handleHiFive = () => {
     setHiFiveAnim(true);
@@ -46,17 +62,17 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-lg"
+      className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-[0_4px_24px_-4px_hsl(var(--foreground)/0.08)]"
     >
-      {/* Flying hi-five animation */}
+      {/* Flying hi-five */}
       <AnimatePresence>
         {flyingEmoji && (
           <motion.div
-            initial={{ opacity: 1, scale: 1, y: 0, x: 0 }}
-            animate={{ opacity: 0, scale: 2.5, y: -200, x: 30 }}
+            initial={{ opacity: 1, scale: 1, y: 0 }}
+            animate={{ opacity: 0, scale: 2.5, y: -200 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="absolute bottom-16 left-1/4 z-30 text-4xl pointer-events-none"
+            className="absolute bottom-20 left-1/4 z-30 text-4xl pointer-events-none"
           >
             🖐️
           </motion.div>
@@ -65,95 +81,110 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
 
       {/* Photo */}
       <div className="relative aspect-[3/4] cursor-pointer" onClick={onViewProfile}>
-        <img
-          src={user.profile_photo}
-          alt={user.display_name}
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+        <img src={user.profile_photo} alt={user.display_name} className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-        {/* Activity indicator badge */}
+        {/* Activity badge */}
         {activity && (
           <div className="absolute top-3 left-3 z-10">
-            <div className="flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-sm px-2.5 py-1">
-              {activity.pulse && (
+            <div className="flex items-center gap-1.5 rounded-full bg-black/50 backdrop-blur-md px-2.5 py-1 border border-white/10">
+              {activity.pulse ? (
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                 </span>
+              ) : (
+                <Clock className="h-3 w-3 text-white/60" />
               )}
-              <span className="text-[11px] font-medium text-white">{activity.text}</span>
+              <span className="text-[11px] font-medium text-white/90">{activity.text}</span>
             </div>
           </div>
         )}
 
+        {/* Trust badges - top right */}
+        <div className="absolute top-3 right-3 z-10 flex gap-1.5">
+          {user.is_verified && (
+            <div className="flex items-center gap-1 rounded-full bg-primary/80 backdrop-blur-md px-2 py-0.5">
+              <ShieldCheck className="h-3 w-3 text-primary-foreground" />
+              <span className="text-[10px] font-semibold text-primary-foreground">Verified</span>
+            </div>
+          )}
+        </div>
+
         {/* Info overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mb-0.5">
             <h3 className="text-xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>
               {user.display_name}, {user.age}
             </h3>
-            {user.is_verified && <Verified className="h-5 w-5 text-primary" />}
           </div>
-          {user.pronouns && (
-            <p className="text-sm opacity-80">{user.pronouns}</p>
-          )}
-          <p className="mt-1 line-clamp-2 text-sm opacity-90">{user.bio}</p>
+          {user.pronouns && <p className="text-xs text-white/70 mb-1">{user.pronouns}</p>}
+          <p className="line-clamp-2 text-sm text-white/85 leading-relaxed">{user.bio}</p>
 
-          <div className="mt-2 flex items-center gap-2">
+          <div className="mt-2.5 flex items-center gap-2">
             <StatusBadge status={user.game_status} />
             {user.game_status === 'AtWrigley' && user.wrigley_location_privacy === 'Public' && user.wrigley_section && (
-              <span className="flex items-center gap-1 text-xs opacity-70">
+              <span className="flex items-center gap-1 text-xs text-white/60">
                 <MapPin className="h-3 w-3" /> Sec {user.wrigley_section}
               </span>
             )}
             {user.game_status === 'AtBar' && user.bar_location_privacy === 'Public' && user.wrigleyville_bar && (
-              <span className="flex items-center gap-1 text-xs opacity-70">
+              <span className="flex items-center gap-1 text-xs text-white/60">
                 <MapPin className="h-3 w-3" /> {user.wrigleyville_bar}
               </span>
             )}
           </div>
 
           <div className="mt-2 flex flex-wrap gap-1">
-            {user.intent.map((i) => (
-              <IntentChip key={i} intent={i} />
-            ))}
+            {user.intent.map((i) => <IntentChip key={i} intent={i} />)}
           </div>
         </div>
       </div>
 
+      {/* Profile prompts */}
+      {prompts.length > 0 && (
+        <div className="border-t border-border px-4 py-3 space-y-2">
+          {prompts.map((p) => (
+            <div key={p.label} className="rounded-xl bg-muted/50 px-3 py-2.5">
+              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-0.5">{p.emoji} {p.label}</p>
+              <p className="text-sm font-medium text-foreground leading-snug">{p.value}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Actions */}
-      <div className="flex items-center justify-around border-t border-border p-3">
+      <div className="flex items-center justify-around border-t border-border px-2 py-2.5">
         <motion.button
           onClick={handleHiFive}
           animate={hiFiveAnim ? { scale: [1, 1.4, 1], rotate: [0, -15, 15, 0] } : {}}
           transition={{ duration: 0.4 }}
-          className="flex flex-col items-center gap-0.5 text-xs text-muted-foreground hover:text-secondary transition-colors"
+          className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
         >
           <span className="text-xl">🖐️</span>
-          Hi-Five
+          <span className="font-medium">Hi-Five</span>
         </motion.button>
         <button
           onClick={onLike}
-          className="flex flex-col items-center gap-0.5 text-xs text-muted-foreground hover:text-destructive transition-colors"
+          className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-destructive transition-colors rounded-lg hover:bg-destructive/5"
         >
           <span className="text-xl">❤️</span>
-          Like
+          <span className="font-medium">Like</span>
         </button>
         <button
           onClick={onSendBeer}
-          className="flex flex-col items-center gap-0.5 text-xs text-muted-foreground hover:text-secondary transition-colors"
+          className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
         >
           <span className="text-xl">🍺</span>
-          Send Beer
+          <span className="font-medium">Beer</span>
         </button>
         {onPass && (
           <button
             onClick={onPass}
-            className="flex flex-col items-center gap-0.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+            className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
           >
             <span className="text-xl">👋</span>
-            Pass
+            <span className="font-medium">Pass</span>
           </button>
         )}
       </div>

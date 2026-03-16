@@ -4,12 +4,14 @@ import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
 import { IntentType } from '@/types';
-import { SlidersHorizontal } from 'lucide-react';
+import { SlidersHorizontal, Users, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDiscoverProfiles } from '@/hooks/useProfile';
 import { useSendLike, usePass } from '@/hooks/useInteractions';
 import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
+import { supabase } from '@/integrations/supabase/client';
+import { useQuery } from '@tanstack/react-query';
 
 interface FilterState {
   intents: IntentType[];
@@ -36,10 +38,31 @@ export default function Discover() {
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
+  const [matchCelebration, setMatchCelebration] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
+
+  // Live fan counters
+  const { data: liveCounts } = useQuery({
+    queryKey: ['live-fan-counts'],
+    queryFn: async () => {
+      const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
+      const { data: active } = await supabase
+        .from('profiles')
+        .select('game_status')
+        .eq('is_banned', false)
+        .eq('onboarding_completed', true)
+        .gte('location_last_set_at', sixHoursAgo);
+
+      const online = active?.length ?? 0;
+      const atWrigley = active?.filter(p => p.game_status === 'AtWrigley').length ?? 0;
+      return { online, atWrigley };
+    },
+    refetchInterval: 30000,
+    enabled: !!user,
+  });
 
   const SIX_HOURS = 6 * 60 * 60 * 1000;
 
@@ -94,15 +117,109 @@ export default function Discover() {
     hidden_from_discover: false,
   });
 
+  const handleLike = async (profile: typeof profiles[0]) => {
+    const result = await sendLike.mutateAsync({ toUser: profile.user_id, isHiFive: false });
+    if (result.isMatch) {
+      setMatchCelebration(profile.display_name);
+      setTimeout(() => setMatchCelebration(null), 3000);
+    }
+  };
+
+  const handleHiFive = async (profile: typeof profiles[0]) => {
+    const result = await sendLike.mutateAsync({ toUser: profile.user_id, isHiFive: true });
+    if (result.isMutualHiFive) {
+      setMatchCelebration(profile.display_name);
+      setTimeout(() => setMatchCelebration(null), 3000);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background pb-24">
       <AppHeader />
 
+      {/* Match celebration overlay */}
+      {matchCelebration && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-primary/90 backdrop-blur-sm"
+        >
+          <motion.div
+            initial={{ scale: 0, rotate: -10 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+            className="text-center"
+          >
+            <motion.div
+              animate={{ y: [0, -20, 0] }}
+              transition={{ repeat: Infinity, duration: 1.2 }}
+              className="text-7xl mb-4"
+            >
+              🎉
+            </motion.div>
+            <h2 className="text-3xl font-bold text-primary-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+              It's a Match!
+            </h2>
+            <p className="text-primary-foreground/80 text-lg">
+              You and {matchCelebration} are connected
+            </p>
+          </motion.div>
+          {/* Confetti particles */}
+          {Array.from({ length: 16 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: Math.random() * 10 + 6,
+                height: Math.random() * 10 + 6,
+                backgroundColor: i % 3 === 0 ? 'hsl(var(--secondary))' : i % 3 === 1 ? 'hsl(var(--primary-foreground))' : 'hsl(var(--accent))',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: [0, 1, 0],
+                scale: [0, 1.5, 0],
+                y: [0, Math.random() * -180 - 40],
+              }}
+              transition={{
+                duration: 1.8,
+                delay: Math.random() * 0.6,
+                repeat: Infinity,
+                repeatDelay: Math.random() * 0.8,
+              }}
+            />
+          ))}
+        </motion.div>
+      )}
+
       <div className="mx-auto max-w-lg px-4 pt-4">
+        {/* Header with live counters */}
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>
-            Discover
-          </h2>
+          <div>
+            <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>
+              Discover
+            </h2>
+            {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (
+              <div className="flex items-center gap-3 mt-0.5">
+                {liveCounts.online > 0 && (
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                    </span>
+                    {liveCounts.online} fans online
+                  </span>
+                )}
+                {liveCounts.atWrigley > 0 && (
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    🏟️ {liveCounts.atWrigley} at Wrigley
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
           <Button
             variant="outline"
             size="sm"
@@ -138,8 +255,8 @@ export default function Discover() {
                 <ProfileCard
                   key={profile.id}
                   user={cardUser}
-                  onHiFive={() => sendLike.mutate({ toUser: profile.user_id, isHiFive: true })}
-                  onLike={() => sendLike.mutate({ toUser: profile.user_id, isHiFive: false })}
+                  onHiFive={() => handleHiFive(profile)}
+                  onLike={() => handleLike(profile)}
                   onSendBeer={() => navigate(`/beer-money?to=${profile.user_id}`)}
                   onViewProfile={() => navigate(`/profile/${profile.user_id}`)}
                   onPass={() => pass.mutate(profile.user_id)}

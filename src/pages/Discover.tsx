@@ -3,15 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
-import { IntentChip } from '@/components/IntentChip';
 import { IntentType } from '@/types';
-import { SlidersHorizontal, X } from 'lucide-react';
+import { SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDiscoverProfiles } from '@/hooks/useProfile';
 import { useSendLike, usePass } from '@/hooks/useInteractions';
+import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
+
+interface FilterState {
+  intents: IntentType[];
+  statuses: string[];
+  distance: number;
+  ageRange: number[];
+  wrigleyOnly: boolean;
+}
+
+const DEFAULT_FILTERS: FilterState = {
+  intents: [],
+  statuses: [],
+  distance: 25,
+  ageRange: [21, 65],
+  wrigleyOnly: false,
+};
 
 export default function Discover() {
   const navigate = useNavigate();
@@ -21,36 +35,34 @@ export default function Discover() {
   const pass = usePass();
 
   const [showFilters, setShowFilters] = useState(false);
-  const [filterIntents, setFilterIntents] = useState<IntentType[]>([]);
-  const [filterStatus, setFilterStatus] = useState<string>('all');
-  const [ageRange, setAgeRange] = useState<number[]>([21, 50]);
-  const [distance, setDistance] = useState<number[]>([25]);
+  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
-  const toggleFilterIntent = (i: IntentType) => {
-    setFilterIntents((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
-  };
-
   const SIX_HOURS = 6 * 60 * 60 * 1000;
+
+  const activeFilterCount =
+    filters.intents.length +
+    filters.statuses.length +
+    (filters.distance !== 25 ? 1 : 0) +
+    (filters.ageRange[0] !== 21 || filters.ageRange[1] !== 65 ? 1 : 0);
 
   const filtered = profiles.filter((u) => {
     const userIntents = (u.intent as string[]) ?? [];
-    if (filterIntents.length && !filterIntents.some((i) => userIntents.includes(i))) return false;
+    if (filters.intents.length && !filters.intents.some((i) => userIntents.includes(i))) return false;
 
-    // Treat expired game statuses as 'NotSet'
     const locationSetAt = (u as any).location_last_set_at;
     const isExpired = locationSetAt && (Date.now() - new Date(locationSetAt).getTime() > SIX_HOURS);
     const effectiveStatus = isExpired ? 'NotSet' : (u.game_status ?? 'NotSet');
-    if (filterStatus !== 'all' && effectiveStatus !== filterStatus) return false;
 
-    if (u.age && (u.age < ageRange[0] || u.age > ageRange[1])) return false;
+    if (filters.statuses.length && !filters.statuses.includes(effectiveStatus)) return false;
+
+    if (u.age && (u.age < filters.ageRange[0] || u.age > filters.ageRange[1])) return false;
     return true;
   });
 
-  // Map DB profile to the shape ProfileCard expects
   const toCardUser = (p: typeof profiles[0]) => ({
     id: p.user_id,
     display_name: p.display_name,
@@ -88,47 +100,24 @@ export default function Discover() {
 
       <div className="mx-auto max-w-lg px-4 pt-4">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Discover</h2>
-          <Button variant="ghost" size="sm" onClick={() => setShowFilters(!showFilters)} className="gap-1.5">
+          <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>
+            Discover
+          </h2>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowFilters(true)}
+            className="relative gap-1.5 rounded-full"
+          >
             <SlidersHorizontal className="h-4 w-4" />
             Filters
+            {activeFilterCount > 0 && (
+              <span className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-secondary-foreground">
+                {activeFilterCount}
+              </span>
+            )}
           </Button>
         </div>
-
-        {showFilters && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} className="mb-4 overflow-hidden rounded-xl border bg-card p-4">
-            <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm font-semibold">Filter by intent</span>
-              <button onClick={() => setShowFilters(false)}><X className="h-4 w-4 text-muted-foreground" /></button>
-            </div>
-            <div className="mb-3 flex flex-wrap gap-2">
-              {(['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating'] as IntentType[]).map((i) => (
-                <IntentChip key={i} intent={i} selected={filterIntents.includes(i)} onClick={() => toggleFilterIntent(i)} />
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {[{ v: 'all', l: 'All' }, { v: 'AtWrigley', l: '🏟️ At Wrigley' }, { v: 'AtBar', l: '🍻 At a Bar' }, { v: 'WatchingRemote', l: '📺 Remote' }].map((s) => (
-                <button
-                  key={s.v}
-                  onClick={() => setFilterStatus(s.v)}
-                  className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${filterStatus === s.v ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card hover:border-primary/40'}`}
-                >
-                  {s.l}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-3 space-y-2">
-              <Label className="text-sm">Age range: {ageRange[0]}–{ageRange[1]}</Label>
-              <Slider min={21} max={65} step={1} value={ageRange} onValueChange={setAgeRange} className="py-1" />
-            </div>
-
-            <div className="mt-3 space-y-2">
-              <Label className="text-sm">Distance: {distance[0]} mi</Label>
-              <Slider min={1} max={50} step={1} value={distance} onValueChange={setDistance} className="py-1" />
-            </div>
-          </motion.div>
-        )}
 
         {isLoading ? (
           <div className="py-20 text-center">
@@ -160,6 +149,13 @@ export default function Discover() {
           </div>
         )}
       </div>
+
+      <DiscoverFilterDrawer
+        open={showFilters}
+        onClose={() => setShowFilters(false)}
+        filters={filters}
+        onApply={setFilters}
+      />
     </div>
   );
 }

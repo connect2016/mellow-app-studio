@@ -205,6 +205,9 @@ export default function Discover() {
       )}
 
       <div className="mx-auto max-w-lg px-4 pt-4">
+        {/* Game-Time Match Banner */}
+        <GameTimeMatchBanner />
+
         {/* Header with live counters */}
         <div className="mb-4 flex items-center justify-between">
           <div>

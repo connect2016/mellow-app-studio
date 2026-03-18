@@ -41,6 +41,87 @@ export type Database = {
         }
         Relationships: []
       }
+      game_time_matches: {
+        Row: {
+          conversation_id: string | null
+          created_at: string
+          expires_at: string
+          game_id: string
+          id: string
+          meeting_spot: string
+          status: string
+          user_a: string
+          user_b: string
+        }
+        Insert: {
+          conversation_id?: string | null
+          created_at?: string
+          expires_at?: string
+          game_id: string
+          id?: string
+          meeting_spot?: string
+          status?: string
+          user_a: string
+          user_b: string
+        }
+        Update: {
+          conversation_id?: string | null
+          created_at?: string
+          expires_at?: string
+          game_id?: string
+          id?: string
+          meeting_spot?: string
+          status?: string
+          user_a?: string
+          user_b?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "game_time_matches_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "game_time_matches_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      games: {
+        Row: {
+          created_at: string
+          game_end: string
+          game_start: string
+          id: string
+          is_home: boolean
+          opponent: string
+          venue: string
+        }
+        Insert: {
+          created_at?: string
+          game_end: string
+          game_start: string
+          id?: string
+          is_home?: boolean
+          opponent: string
+          venue?: string
+        }
+        Update: {
+          created_at?: string
+          game_end?: string
+          game_start?: string
+          id?: string
+          is_home?: boolean
+          opponent?: string
+          venue?: string
+        }
+        Relationships: []
+      }
       likes: {
         Row: {
           created_at: string
@@ -250,6 +331,30 @@ export type Database = {
           wrigley_seat?: string | null
           wrigley_section?: string | null
           wrigleyville_bar?: string | null
+        }
+        Relationships: []
+      }
+      user_locations: {
+        Row: {
+          id: string
+          latitude: number
+          longitude: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          latitude: number
+          longitude: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          latitude?: number
+          longitude?: number
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }

@@ -4,13 +4,14 @@ import { AppHeader } from '@/components/AppHeader';
 import { IntentChip } from '@/components/IntentChip';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Button } from '@/components/ui/button';
-import { Verified, MapPin, ArrowLeft, Flag, Ban, EyeOff, MessageCircle, ShieldCheck, Clock } from 'lucide-react';
+import { Verified, MapPin, ArrowLeft, Flag, Ban, EyeOff, MessageCircle, ShieldCheck, Clock, Trophy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { IntentType, GameStatus, PrivacyLevel } from '@/types';
+import { useUserPennants, BADGE_DEFINITIONS } from '@/hooks/usePennants';
 
 export default function Profile() {
   const { id } = useParams();

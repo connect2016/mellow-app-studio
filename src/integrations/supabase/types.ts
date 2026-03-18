@@ -253,6 +253,39 @@ export type Database = {
         }
         Relationships: []
       }
+      vibe_posts: {
+        Row: {
+          caption: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          location_tag: string
+          media_type: string
+          media_url: string
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          location_tag: string
+          media_type?: string
+          media_url: string
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          location_tag?: string
+          media_type?: string
+          media_url?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

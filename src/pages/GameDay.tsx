@@ -199,6 +199,16 @@ export default function GameDay() {
           <p className="text-sm text-muted-foreground">Check in and find fans around you</p>
         </div>
 
+        {/* Happening Now */}
+        <div className="mb-6">
+          <HappeningNow />
+        </div>
+
+        {/* Live Activity Feed */}
+        <div className="mb-6 rounded-2xl border border-border bg-card p-3">
+          <LiveActivityFeed maxItems={5} />
+        </div>
+
         {/* Status toggle */}
         <div className="space-y-2 mb-6">
           {statusOptions.map((opt) => {

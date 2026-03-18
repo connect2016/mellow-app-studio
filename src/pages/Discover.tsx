@@ -251,6 +251,16 @@ export default function Discover() {
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
 
+        {/* Happening Now */}
+        <div className="mb-4">
+          <HappeningNow />
+        </div>
+
+        {/* Live Activity Feed */}
+        <div className="mb-4 rounded-2xl border border-border bg-card p-3">
+          <LiveActivityFeed maxItems={4} />
+        </div>
+
         {/* Current Status Toggle */}
         <div className="mb-4">
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Your Status</p>

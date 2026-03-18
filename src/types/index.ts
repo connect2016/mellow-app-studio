@@ -1,7 +1,7 @@
 // Cubbies Buddies Data Types
 
 export type IntentType = 'FriendToWatch' | 'ShareABeer' | 'PostGameMeetup' | 'Dating';
-export type GameStatus = 'AtWrigley' | 'AtBar' | 'Tailgating' | 'WatchingRemote' | 'NotSet';
+export type GameStatus = 'AtWrigley' | 'AtBar' | 'Tailgating' | 'WatchingRemote' | 'BeerSnake' | 'NotSet';
 export type PrivacyLevel = 'Public' | 'MatchesOnly' | 'Hidden';
 export type ReportReason = 'Harassment' | 'Spam' | 'FakeProfile' | 'InappropriateContent' | 'SafetyConcern' | 'Other';
 

@@ -127,6 +127,11 @@ export default function Discover() {
     if (result.isMatch) {
       setMatchCelebration(profile.display_name);
       setTimeout(() => setMatchCelebration(null), 3000);
+
+      // Check for game-time match if there's an active game
+      if (activeGame) {
+        gameTimeMatch.mutate({ otherUserId: profile.user_id, gameId: activeGame.id });
+      }
     }
   };
 

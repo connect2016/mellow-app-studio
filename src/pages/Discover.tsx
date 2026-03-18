@@ -12,8 +12,17 @@ import { useDiscoverProfiles } from '@/hooks/useProfile';
 import { useSendLike, usePass } from '@/hooks/useInteractions';
 import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
 import { supabase } from '@/integrations/supabase/client';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
+import { useProfile } from '@/hooks/useProfile';
+import { toast } from 'sonner';
+
+const STATUS_OPTIONS = [
+  { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },
+  { value: 'AtWrigley', emoji: '⚾️', label: 'In my Seat' },
+  { value: 'Tailgating', emoji: '🌭', label: 'Tailgating' },
+  { value: 'WatchingRemote', emoji: '🏠', label: 'Watching from Home' },
+] as const;
 
 interface FilterState {
   intents: IntentType[];
@@ -35,15 +44,45 @@ export default function Discover() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
   const { data: profiles = [], isLoading } = useDiscoverProfiles();
+  const { data: myProfile } = useProfile();
   const sendLike = useSendLike();
   const pass = usePass();
   const { data: activeGame } = useActiveGame();
   const gameTimeMatch = useGameTimeMatchTrigger();
+  const queryClient = useQueryClient();
   useGeoUpdater();
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [matchCelebration, setMatchCelebration] = useState<string | null>(null);
+  const [settingStatus, setSettingStatus] = useState(false);
+
+  const currentStatus = (myProfile?.game_status as string) ?? 'NotSet';
+
+  const handleSetStatus = async (status: string) => {
+    if (!user) return;
+    setSettingStatus(true);
+    try {
+      const newStatus = currentStatus === status ? 'NotSet' : status;
+      await supabase
+        .from('profiles')
+        .update({
+          game_status: newStatus,
+          location_last_set_at: new Date().toISOString(),
+        })
+        .eq('user_id', user.id);
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      queryClient.invalidateQueries({ queryKey: ['live-fan-counts'] });
+      if (newStatus !== 'NotSet') {
+        const opt = STATUS_OPTIONS.find(s => s.value === newStatus);
+        toast(`${opt?.emoji} Status set to "${opt?.label}"`);
+      } else {
+        toast('Status cleared');
+      }
+    } finally {
+      setSettingStatus(false);
+    }
+  };
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
@@ -207,6 +246,39 @@ export default function Discover() {
       <div className="mx-auto max-w-lg px-4 pt-4">
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
+
+        {/* Current Status Toggle */}
+        <div className="mb-4">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Your Status</p>
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {STATUS_OPTIONS.map((opt) => {
+              const active = currentStatus === opt.value;
+              return (
+                <motion.button
+                  key={opt.value}
+                  whileTap={{ scale: 0.95 }}
+                  disabled={settingStatus}
+                  onClick={() => handleSetStatus(opt.value)}
+                  className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-medium transition-all ${
+                    active
+                      ? 'border-primary bg-primary text-primary-foreground shadow-[0_0_12px_hsl(var(--primary)/0.35)]'
+                      : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-primary/5'
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="status-glow"
+                      className="absolute inset-0 rounded-full ring-2 ring-primary/50"
+                      transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                    />
+                  )}
+                  <span>{opt.emoji}</span>
+                  <span>{opt.label}</span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
 
         {/* Header with live counters */}
         <div className="mb-4 flex items-center justify-between">

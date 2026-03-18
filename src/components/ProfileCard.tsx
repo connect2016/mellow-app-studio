@@ -31,9 +31,11 @@ function getPrompts(user: UserProfile): PromptItem[] {
 }
 
 function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } | null {
-  if (user.game_status === 'AtWrigley') return { text: 'At Wrigley right now', pulse: true };
+  if (user.game_status === 'AtWrigley') return { text: 'In my seat right now', pulse: true };
   if (user.game_status === 'AtBar' && user.wrigleyville_bar) return { text: `At ${user.wrigleyville_bar}`, pulse: true };
-  if (user.game_status === 'WatchingRemote') return { text: 'Watching now', pulse: true };
+  if (user.game_status === 'AtBar') return { text: 'At the bar', pulse: true };
+  if (user.game_status === 'Tailgating') return { text: 'Tailgating now 🌭', pulse: true };
+  if (user.game_status === 'WatchingRemote') return { text: 'Watching from home', pulse: true };
   const lastActive = user.last_active ? new Date(user.last_active) : null;
   if (!lastActive) return null;
   const mins = Math.floor((Date.now() - lastActive.getTime()) / 60000);
@@ -81,6 +83,15 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
 
       {/* Photo */}
       <div className="relative aspect-[3/4] cursor-pointer" onClick={onViewProfile}>
+        {/* Glowing status ring */}
+        {user.game_status && user.game_status !== 'NotSet' && (
+          <div className={`absolute inset-0 z-[1] rounded-t-2xl pointer-events-none ${
+            user.game_status === 'AtWrigley' ? 'ring-2 ring-inset ring-primary shadow-[inset_0_0_20px_hsl(var(--primary)/0.25)]'
+            : user.game_status === 'AtBar' ? 'ring-2 ring-inset ring-accent shadow-[inset_0_0_20px_hsl(var(--accent)/0.25)]'
+            : user.game_status === 'Tailgating' ? 'ring-2 ring-inset ring-secondary shadow-[inset_0_0_20px_hsl(var(--secondary)/0.25)]'
+            : 'ring-2 ring-inset ring-muted-foreground/40'
+          }`} />
+        )}
         <img src={user.profile_photo} alt={user.display_name} className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 

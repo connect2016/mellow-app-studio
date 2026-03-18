@@ -27,9 +27,10 @@ interface DiscoverFilterDrawerProps {
 const INTENTS: IntentType[] = ['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating'];
 
 const LOCATIONS = [
-  { value: 'AtWrigley', label: 'At Wrigley Now', emoji: '🏟️' },
-  { value: 'AtBar', label: 'At Wrigleyville Bar', emoji: '🍻' },
-  { value: 'WatchingRemote', label: 'Watching Remotely', emoji: '📺' },
+  { value: 'AtWrigley', label: 'In my Seat', emoji: '⚾️' },
+  { value: 'AtBar', label: 'At the Bar', emoji: '🍺' },
+  { value: 'Tailgating', label: 'Tailgating', emoji: '🌭' },
+  { value: 'WatchingRemote', label: 'Watching from Home', emoji: '🏠' },
 ];
 
 const DISTANCES = [1, 5, 10, 25];

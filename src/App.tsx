@@ -18,6 +18,7 @@ import BeerMoney from "./pages/BeerMoney";
 import Settings from "./pages/Settings";
 import Admin from "./pages/Admin";
 import VibeFeed from "./pages/VibeFeed";
+import Loyalty from "./pages/Loyalty";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

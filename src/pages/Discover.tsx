@@ -57,6 +57,7 @@ export default function Discover() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [matchCelebration, setMatchCelebration] = useState<string | null>(null);
   const [settingStatus, setSettingStatus] = useState(false);
+  const [uploadingSnake, setUploadingSnake] = useState(false);
 
   const currentStatus = (myProfile?.game_status as string) ?? 'NotSet';
 

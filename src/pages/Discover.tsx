@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
+import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';
 import { SlidersHorizontal, Users, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,7 @@ import { useSendLike, usePass } from '@/hooks/useInteractions';
 import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
+import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
 
 interface FilterState {
   intents: IntentType[];

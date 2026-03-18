@@ -17,6 +17,7 @@ import HiFives from "./pages/HiFives";
 import BeerMoney from "./pages/BeerMoney";
 import Settings from "./pages/Settings";
 import Admin from "./pages/Admin";
+import VibeFeed from "./pages/VibeFeed";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/beer-money" element={<BeerMoney />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/vibe" element={<VibeFeed />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

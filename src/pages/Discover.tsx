@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
+import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';
 import { SlidersHorizontal, Users, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,7 @@ import { useSendLike, usePass } from '@/hooks/useInteractions';
 import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
+import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
 
 interface FilterState {
   intents: IntentType[];
@@ -35,6 +37,9 @@ export default function Discover() {
   const { data: profiles = [], isLoading } = useDiscoverProfiles();
   const sendLike = useSendLike();
   const pass = usePass();
+  const { data: activeGame } = useActiveGame();
+  const gameTimeMatch = useGameTimeMatchTrigger();
+  useGeoUpdater();
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
@@ -122,6 +127,11 @@ export default function Discover() {
     if (result.isMatch) {
       setMatchCelebration(profile.display_name);
       setTimeout(() => setMatchCelebration(null), 3000);
+
+      // Check for game-time match if there's an active game
+      if (activeGame) {
+        gameTimeMatch.mutate({ otherUserId: profile.user_id, gameId: activeGame.id });
+      }
     }
   };
 
@@ -195,6 +205,9 @@ export default function Discover() {
       )}
 
       <div className="mx-auto max-w-lg px-4 pt-4">
+        {/* Game-Time Match Banner */}
+        <GameTimeMatchBanner />
+
         {/* Header with live counters */}
         <div className="mb-4 flex items-center justify-between">
           <div>

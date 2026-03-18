@@ -1,7 +1,7 @@
 // Cubbies Buddies Data Types
 
 export type IntentType = 'FriendToWatch' | 'ShareABeer' | 'PostGameMeetup' | 'Dating';
-export type GameStatus = 'AtWrigley' | 'AtBar' | 'Tailgating' | 'WatchingRemote' | 'NotSet';
+export type GameStatus = 'AtWrigley' | 'AtBar' | 'Tailgating' | 'WatchingRemote' | 'BeerSnake' | 'NotSet';
 export type PrivacyLevel = 'Public' | 'MatchesOnly' | 'Hidden';
 export type ReportReason = 'Harassment' | 'Spam' | 'FakeProfile' | 'InappropriateContent' | 'SafetyConcern' | 'Other';
 
@@ -23,6 +23,7 @@ export const GAME_STATUS_LABELS: Record<GameStatus, string> = {
   AtWrigley: 'In my Seat',
   AtBar: 'At the Bar',
   Tailgating: 'Tailgating',
+  BeerSnake: 'Beer Snake',
   WatchingRemote: 'Watching from Home',
   NotSet: 'Not Set',
 };
@@ -31,6 +32,7 @@ export const GAME_STATUS_EMOJI: Record<GameStatus, string> = {
   AtWrigley: '⚾️',
   AtBar: '🍺',
   Tailgating: '🌭',
+  BeerSnake: '🐍',
   WatchingRemote: '🏠',
   NotSet: '',
 };

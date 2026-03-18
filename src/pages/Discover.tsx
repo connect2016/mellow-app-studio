@@ -5,7 +5,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';
-import { SlidersHorizontal, Users, Zap } from 'lucide-react';
+import { SlidersHorizontal, Users, Zap, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDiscoverProfiles } from '@/hooks/useProfile';
@@ -21,6 +21,7 @@ const STATUS_OPTIONS = [
   { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },
   { value: 'AtWrigley', emoji: '⚾️', label: 'In my Seat' },
   { value: 'Tailgating', emoji: '🌭', label: 'Tailgating' },
+  { value: 'BeerSnake', emoji: '🐍', label: 'Beer Snake' },
   { value: 'WatchingRemote', emoji: '🏠', label: 'Watching from Home' },
 ] as const;
 
@@ -56,6 +57,7 @@ export default function Discover() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [matchCelebration, setMatchCelebration] = useState<string | null>(null);
   const [settingStatus, setSettingStatus] = useState(false);
+  const [uploadingSnake, setUploadingSnake] = useState(false);
 
   const currentStatus = (myProfile?.game_status as string) ?? 'NotSet';
 
@@ -280,7 +282,64 @@ export default function Discover() {
           </div>
         </div>
 
-        {/* Header with live counters */}
+        {/* Beer Snake photo upload */}
+        {currentStatus === 'BeerSnake' && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mb-4"
+          >
+            <label
+              className={`flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-green-500/40 bg-green-500/5 px-4 py-3 text-sm font-semibold cursor-pointer transition-colors hover:bg-green-500/10 ${uploadingSnake ? 'opacity-50 pointer-events-none' : ''}`}
+            >
+              <Camera className="h-5 w-5 text-green-600" />
+              <span className="text-green-700 dark:text-green-400">
+                {uploadingSnake ? 'Uploading...' : '📸 Share your Beer Snake pic!'}
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                capture="environment"
+                className="hidden"
+                disabled={uploadingSnake}
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file || !user) return;
+                  setUploadingSnake(true);
+                  try {
+                    const ext = file.name.split('.').pop();
+                    const path = `${user.id}/beer-snake-${Date.now()}.${ext}`;
+                    const { error: uploadErr } = await supabase.storage
+                      .from('vibe-media')
+                      .upload(path, file, { upsert: true });
+                    if (uploadErr) throw uploadErr;
+
+                    const { data: urlData } = supabase.storage
+                      .from('vibe-media')
+                      .getPublicUrl(path);
+
+                    await supabase.from('vibe_posts').insert({
+                      user_id: user.id,
+                      media_url: urlData.publicUrl,
+                      media_type: 'image',
+                      location_tag: 'Bleachers – Beer Snake 🐍',
+                      caption: '🐍 Beer snake sighting in the bleachers!',
+                    });
+
+                    toast.success('🐍 Beer snake photo shared to the Vibe Feed!');
+                    queryClient.invalidateQueries({ queryKey: ['vibe-posts'] });
+                  } catch (err: any) {
+                    toast.error(err.message || 'Upload failed');
+                  } finally {
+                    setUploadingSnake(false);
+                    e.target.value = '';
+                  }
+                }}
+              />
+            </label>
+          </motion.div>
+        )}
         <div className="mb-4 flex items-center justify-between">
           <div>
             <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>

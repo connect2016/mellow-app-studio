@@ -15,6 +15,8 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
         'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold',
         status === 'AtWrigley' && 'bg-accent/15 text-accent',
         status === 'AtBar' && 'bg-secondary/15 text-secondary',
+        status === 'Tailgating' && 'bg-secondary/15 text-secondary',
+        status === 'BeerSnake' && 'bg-green-500/15 text-green-600',
         status === 'WatchingRemote' && 'bg-primary/15 text-primary',
         className
       )}

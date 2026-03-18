@@ -30,6 +30,7 @@ const LOCATIONS = [
   { value: 'AtWrigley', label: 'In my Seat', emoji: '⚾️' },
   { value: 'AtBar', label: 'At the Bar', emoji: '🍺' },
   { value: 'Tailgating', label: 'Tailgating', emoji: '🌭' },
+  { value: 'BeerSnake', label: 'Beer Snake', emoji: '🐍' },
   { value: 'WatchingRemote', label: 'Watching from Home', emoji: '🏠' },
 ];
 

@@ -5,7 +5,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';
-import { SlidersHorizontal, Users, Zap } from 'lucide-react';
+import { SlidersHorizontal, Users, Zap, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDiscoverProfiles } from '@/hooks/useProfile';

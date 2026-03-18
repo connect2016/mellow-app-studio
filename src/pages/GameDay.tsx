@@ -14,6 +14,7 @@ import { useQuery } from '@tanstack/react-query';
 import { MapPin, Users, Radio, Eye, EyeOff, Lock, Zap } from 'lucide-react';
 import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
+import { GameDayMap } from '@/components/GameDayMap';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },

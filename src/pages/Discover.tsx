@@ -12,8 +12,17 @@ import { useDiscoverProfiles } from '@/hooks/useProfile';
 import { useSendLike, usePass } from '@/hooks/useInteractions';
 import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
 import { supabase } from '@/integrations/supabase/client';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
+import { useProfile } from '@/hooks/useProfile';
+import { toast } from 'sonner';
+
+const STATUS_OPTIONS = [
+  { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },
+  { value: 'AtWrigley', emoji: '⚾️', label: 'In my Seat' },
+  { value: 'Tailgating', emoji: '🌭', label: 'Tailgating' },
+  { value: 'WatchingRemote', emoji: '🏠', label: 'Watching from Home' },
+] as const;
 
 interface FilterState {
   intents: IntentType[];

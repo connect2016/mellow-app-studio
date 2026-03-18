@@ -12,6 +12,8 @@ import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { MapPin, Users, Radio, Eye, EyeOff, Lock, Zap } from 'lucide-react';
+import { HappeningNow } from '@/components/HappeningNow';
+import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },
@@ -195,6 +197,16 @@ export default function GameDay() {
             <h2 className="text-xl font-bold">Game Day Hub</h2>
           </div>
           <p className="text-sm text-muted-foreground">Check in and find fans around you</p>
+        </div>
+
+        {/* Happening Now */}
+        <div className="mb-6">
+          <HappeningNow />
+        </div>
+
+        {/* Live Activity Feed */}
+        <div className="mb-6 rounded-2xl border border-border bg-card p-3">
+          <LiveActivityFeed maxItems={5} />
         </div>
 
         {/* Status toggle */}

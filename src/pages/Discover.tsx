@@ -11,6 +11,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useDiscoverProfiles } from '@/hooks/useProfile';
 import { useSendLike, usePass } from '@/hooks/useInteractions';
 import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
+import { HappeningNow } from '@/components/HappeningNow';
+import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
@@ -248,6 +250,16 @@ export default function Discover() {
       <div className="mx-auto max-w-lg px-4 pt-4">
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
+
+        {/* Happening Now */}
+        <div className="mb-4">
+          <HappeningNow />
+        </div>
+
+        {/* Live Activity Feed */}
+        <div className="mb-4 rounded-2xl border border-border bg-card p-3">
+          <LiveActivityFeed maxItems={4} />
+        </div>
 
         {/* Current Status Toggle */}
         <div className="mb-4">

@@ -90,6 +90,7 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
             user.game_status === 'AtWrigley' ? 'ring-2 ring-inset ring-primary shadow-[inset_0_0_20px_hsl(var(--primary)/0.25)]'
             : user.game_status === 'AtBar' ? 'ring-2 ring-inset ring-accent shadow-[inset_0_0_20px_hsl(var(--accent)/0.25)]'
             : user.game_status === 'Tailgating' ? 'ring-2 ring-inset ring-secondary shadow-[inset_0_0_20px_hsl(var(--secondary)/0.25)]'
+            : user.game_status === 'BeerSnake' ? 'ring-2 ring-inset ring-[hsl(120,60%,40%)] shadow-[inset_0_0_20px_hsl(120,60%,40%,0.25)]'
             : 'ring-2 ring-inset ring-muted-foreground/40'
           }`} />
         )}

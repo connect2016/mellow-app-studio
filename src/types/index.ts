@@ -32,6 +32,7 @@ export const GAME_STATUS_EMOJI: Record<GameStatus, string> = {
   AtWrigley: '⚾️',
   AtBar: '🍺',
   Tailgating: '🌭',
+  BeerSnake: '🐍',
   WatchingRemote: '🏠',
   NotSet: '',
 };

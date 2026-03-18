@@ -21,6 +21,7 @@ const STATUS_OPTIONS = [
   { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },
   { value: 'AtWrigley', emoji: '⚾️', label: 'In my Seat' },
   { value: 'Tailgating', emoji: '🌭', label: 'Tailgating' },
+  { value: 'BeerSnake', emoji: '🐍', label: 'Beer Snake' },
   { value: 'WatchingRemote', emoji: '🏠', label: 'Watching from Home' },
 ] as const;
 

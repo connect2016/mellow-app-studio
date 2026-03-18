@@ -37,6 +37,9 @@ export default function Discover() {
   const { data: profiles = [], isLoading } = useDiscoverProfiles();
   const sendLike = useSendLike();
   const pass = usePass();
+  const { data: activeGame } = useActiveGame();
+  const gameTimeMatch = useGameTimeMatchTrigger();
+  useGeoUpdater();
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);

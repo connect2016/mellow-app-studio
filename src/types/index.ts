@@ -23,6 +23,7 @@ export const GAME_STATUS_LABELS: Record<GameStatus, string> = {
   AtWrigley: 'In my Seat',
   AtBar: 'At the Bar',
   Tailgating: 'Tailgating',
+  BeerSnake: 'Beer Snake',
   WatchingRemote: 'Watching from Home',
   NotSet: 'Not Set',
 };

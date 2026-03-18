@@ -44,15 +44,45 @@ export default function Discover() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
   const { data: profiles = [], isLoading } = useDiscoverProfiles();
+  const { data: myProfile } = useProfile();
   const sendLike = useSendLike();
   const pass = usePass();
   const { data: activeGame } = useActiveGame();
   const gameTimeMatch = useGameTimeMatchTrigger();
+  const queryClient = useQueryClient();
   useGeoUpdater();
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [matchCelebration, setMatchCelebration] = useState<string | null>(null);
+  const [settingStatus, setSettingStatus] = useState(false);
+
+  const currentStatus = (myProfile?.game_status as string) ?? 'NotSet';
+
+  const handleSetStatus = async (status: string) => {
+    if (!user) return;
+    setSettingStatus(true);
+    try {
+      const newStatus = currentStatus === status ? 'NotSet' : status;
+      await supabase
+        .from('profiles')
+        .update({
+          game_status: newStatus,
+          location_last_set_at: new Date().toISOString(),
+        })
+        .eq('user_id', user.id);
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      queryClient.invalidateQueries({ queryKey: ['live-fan-counts'] });
+      if (newStatus !== 'NotSet') {
+        const opt = STATUS_OPTIONS.find(s => s.value === newStatus);
+        toast(`${opt?.emoji} Status set to "${opt?.label}"`);
+      } else {
+        toast('Status cleared');
+      }
+    } finally {
+      setSettingStatus(false);
+    }
+  };
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');

@@ -41,6 +41,220 @@ export type Database = {
         }
         Relationships: []
       }
+      crew_event_options: {
+        Row: {
+          created_at: string
+          date_time: string | null
+          event_id: string
+          id: string
+          label: string
+          location: string | null
+        }
+        Insert: {
+          created_at?: string
+          date_time?: string | null
+          event_id: string
+          id?: string
+          label: string
+          location?: string | null
+        }
+        Update: {
+          created_at?: string
+          date_time?: string | null
+          event_id?: string
+          id?: string
+          label?: string
+          location?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crew_event_options_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "crew_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crew_event_votes: {
+        Row: {
+          created_at: string
+          id: string
+          option_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          option_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          option_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crew_event_votes_option_id_fkey"
+            columns: ["option_id"]
+            isOneToOne: false
+            referencedRelation: "crew_event_options"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crew_events: {
+        Row: {
+          created_at: string
+          creator_id: string
+          crew_id: string
+          description: string | null
+          finalized_option_id: string | null
+          id: string
+          status: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          crew_id: string
+          description?: string | null
+          finalized_option_id?: string | null
+          id?: string
+          status?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          crew_id?: string
+          description?: string | null
+          finalized_option_id?: string | null
+          id?: string
+          status?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crew_events_crew_id_fkey"
+            columns: ["crew_id"]
+            isOneToOne: false
+            referencedRelation: "crews"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crew_members: {
+        Row: {
+          crew_id: string
+          id: string
+          joined_at: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          crew_id: string
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          crew_id?: string
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crew_members_crew_id_fkey"
+            columns: ["crew_id"]
+            isOneToOne: false
+            referencedRelation: "crews"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crew_messages: {
+        Row: {
+          body: string
+          created_at: string
+          crew_id: string
+          id: string
+          is_pinned: boolean
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          crew_id: string
+          id?: string
+          is_pinned?: boolean
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          crew_id?: string
+          id?: string
+          is_pinned?: boolean
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crew_messages_crew_id_fkey"
+            columns: ["crew_id"]
+            isOneToOne: false
+            referencedRelation: "crews"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crews: {
+        Row: {
+          badge_color: string
+          badge_emoji: string
+          created_at: string
+          creator_id: string
+          description: string | null
+          id: string
+          invite_code: string | null
+          is_public: boolean
+          max_members: number
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          badge_color?: string
+          badge_emoji?: string
+          created_at?: string
+          creator_id: string
+          description?: string | null
+          id?: string
+          invite_code?: string | null
+          is_public?: boolean
+          max_members?: number
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          badge_color?: string
+          badge_emoji?: string
+          created_at?: string
+          creator_id?: string
+          description?: string | null
+          id?: string
+          invite_code?: string | null
+          is_public?: boolean
+          max_members?: number
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       game_time_matches: {
         Row: {
           conversation_id: string | null
@@ -431,6 +645,10 @@ export type Database = {
     Functions: {
       is_conversation_member: {
         Args: { _conversation_id: string; _user_id: string }
+        Returns: boolean
+      }
+      is_crew_member: {
+        Args: { _crew_id: string; _user_id: string }
         Returns: boolean
       }
     }

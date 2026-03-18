@@ -44,6 +44,7 @@ const App = () => (
             <Route path="/beer-money" element={<BeerMoney />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/vibe" element={<VibeFeed />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

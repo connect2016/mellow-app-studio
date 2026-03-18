@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const navItems = [
   { to: '/discover', icon: Compass, label: 'Discover' },
+  { to: '/vibe', icon: Radio, label: 'Vibe' },
   { to: '/game-day', icon: CalendarDays, label: 'Game Day' },
   { to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
   { to: '/messages', icon: MessageCircle, label: 'Messages' },

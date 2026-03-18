@@ -14,6 +14,7 @@ import { useQuery } from '@tanstack/react-query';
 import { MapPin, Users, Radio, Eye, EyeOff, Lock, Zap } from 'lucide-react';
 import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
+import { GameDayMap } from '@/components/GameDayMap';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },
@@ -371,6 +372,11 @@ export default function GameDay() {
           {updateProfile.isPending ? 'Saving...' : status === 'NotSet' ? 'Clear Status' : '⚡ Check In Now'}
         </Button>
         <p className="mt-2 text-center text-xs text-muted-foreground">Auto-expires after 6 hours</p>
+
+        {/* Live Interactive Map */}
+        <div className="mt-8">
+          <GameDayMap />
+        </div>
 
         {/* Fans Near You */}
         {status !== 'NotSet' && nearbyFans && nearbyFans.length > 0 && (

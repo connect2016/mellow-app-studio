@@ -11,6 +11,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useDiscoverProfiles } from '@/hooks/useProfile';
 import { useSendLike, usePass } from '@/hooks/useInteractions';
 import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
+import { HappeningNow } from '@/components/HappeningNow';
+import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';

@@ -31,9 +31,11 @@ function getPrompts(user: UserProfile): PromptItem[] {
 }
 
 function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } | null {
-  if (user.game_status === 'AtWrigley') return { text: 'At Wrigley right now', pulse: true };
+  if (user.game_status === 'AtWrigley') return { text: 'In my seat right now', pulse: true };
   if (user.game_status === 'AtBar' && user.wrigleyville_bar) return { text: `At ${user.wrigleyville_bar}`, pulse: true };
-  if (user.game_status === 'WatchingRemote') return { text: 'Watching now', pulse: true };
+  if (user.game_status === 'AtBar') return { text: 'At the bar', pulse: true };
+  if (user.game_status === 'Tailgating') return { text: 'Tailgating now 🌭', pulse: true };
+  if (user.game_status === 'WatchingRemote') return { text: 'Watching from home', pulse: true };
   const lastActive = user.last_active ? new Date(user.last_active) : null;
   if (!lastActive) return null;
   const mins = Math.floor((Date.now() - lastActive.getTime()) / 60000);

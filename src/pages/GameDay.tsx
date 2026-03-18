@@ -373,6 +373,11 @@ export default function GameDay() {
         </Button>
         <p className="mt-2 text-center text-xs text-muted-foreground">Auto-expires after 6 hours</p>
 
+        {/* Live Interactive Map */}
+        <div className="mt-8">
+          <GameDayMap />
+        </div>
+
         {/* Fans Near You */}
         {status !== 'NotSet' && nearbyFans && nearbyFans.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-8">

@@ -21,6 +21,8 @@ export default function Profile() {
   const { data: myProfile } = useProfile();
   const queryClient = useQueryClient();
   const isOwnProfile = !id || id === user?.id;
+  const profileUserId = isOwnProfile ? user?.id : id;
+  const { data: earnedPennants = [] } = useUserPennants(profileUserId);
 
   // Fetch other user's profile from DB
   const { data: otherProfile, isLoading } = useQuery({

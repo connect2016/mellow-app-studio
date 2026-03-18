@@ -46,6 +46,7 @@ const App = () => (
             <Route path="/settings" element={<Settings />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/vibe" element={<VibeFeed />} />
+            <Route path="/loyalty" element={<Loyalty />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

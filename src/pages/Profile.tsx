@@ -4,13 +4,14 @@ import { AppHeader } from '@/components/AppHeader';
 import { IntentChip } from '@/components/IntentChip';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Button } from '@/components/ui/button';
-import { Verified, MapPin, ArrowLeft, Flag, Ban, EyeOff, MessageCircle, ShieldCheck, Clock } from 'lucide-react';
+import { Verified, MapPin, ArrowLeft, Flag, Ban, EyeOff, MessageCircle, ShieldCheck, Clock, Trophy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { IntentType, GameStatus, PrivacyLevel } from '@/types';
+import { useUserPennants, BADGE_DEFINITIONS } from '@/hooks/usePennants';
 
 export default function Profile() {
   const { id } = useParams();
@@ -20,6 +21,8 @@ export default function Profile() {
   const { data: myProfile } = useProfile();
   const queryClient = useQueryClient();
   const isOwnProfile = !id || id === user?.id;
+  const profileUserId = isOwnProfile ? user?.id : id;
+  const { data: earnedPennants = [] } = useUserPennants(profileUserId);
 
   // Fetch other user's profile from DB
   const { data: otherProfile, isLoading } = useQuery({
@@ -181,6 +184,42 @@ export default function Profile() {
                   <p className="text-sm font-medium text-foreground">{p.value}</p>
                 </motion.div>
               ))}
+            </div>
+          )}
+
+          {/* Earned Pennants */}
+          {earnedPennants.length > 0 && (
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                  <Trophy className="h-3.5 w-3.5" /> Pennants
+                </h3>
+                {isOwnProfile && (
+                  <button
+                    onClick={() => navigate('/loyalty')}
+                    className="text-xs text-accent font-medium hover:underline"
+                  >
+                    View All
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {earnedPennants.map(p => {
+                  const def = BADGE_DEFINITIONS.find(b => b.key === p.badge_key);
+                  if (!def) return null;
+                  return (
+                    <motion.div
+                      key={p.id}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="flex items-center gap-1.5 rounded-full bg-accent/10 border border-accent/20 px-3 py-1.5"
+                    >
+                      <span className="text-sm">{def.emoji}</span>
+                      <span className="text-xs font-semibold text-foreground">{def.name}</span>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
           )}
 

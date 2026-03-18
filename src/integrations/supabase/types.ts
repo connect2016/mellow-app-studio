@@ -358,6 +358,39 @@ export type Database = {
         }
         Relationships: []
       }
+      user_pennants: {
+        Row: {
+          badge_key: string
+          created_at: string
+          current_count: number
+          id: string
+          target_count: number
+          unlocked: boolean
+          unlocked_at: string | null
+          user_id: string
+        }
+        Insert: {
+          badge_key: string
+          created_at?: string
+          current_count?: number
+          id?: string
+          target_count: number
+          unlocked?: boolean
+          unlocked_at?: string | null
+          user_id: string
+        }
+        Update: {
+          badge_key?: string
+          created_at?: string
+          current_count?: number
+          id?: string
+          target_count?: number
+          unlocked?: boolean
+          unlocked_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       vibe_posts: {
         Row: {
           caption: string | null

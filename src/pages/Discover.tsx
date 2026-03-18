@@ -247,6 +247,39 @@ export default function Discover() {
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
 
+        {/* Current Status Toggle */}
+        <div className="mb-4">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Your Status</p>
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {STATUS_OPTIONS.map((opt) => {
+              const active = currentStatus === opt.value;
+              return (
+                <motion.button
+                  key={opt.value}
+                  whileTap={{ scale: 0.95 }}
+                  disabled={settingStatus}
+                  onClick={() => handleSetStatus(opt.value)}
+                  className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-medium transition-all ${
+                    active
+                      ? 'border-primary bg-primary text-primary-foreground shadow-[0_0_12px_hsl(var(--primary)/0.35)]'
+                      : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-primary/5'
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="status-glow"
+                      className="absolute inset-0 rounded-full ring-2 ring-primary/50"
+                      transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                    />
+                  )}
+                  <span>{opt.emoji}</span>
+                  <span>{opt.label}</span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Header with live counters */}
         <div className="mb-4 flex items-center justify-between">
           <div>

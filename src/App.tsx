@@ -59,6 +59,8 @@ const App = () => (
             <Route path="/missions" element={<Missions />} />
             <Route path="/memories" element={<Memories />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/score" element={<ScoreLobby />} />
+            <Route path="/score/:id" element={<ScoreGame />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

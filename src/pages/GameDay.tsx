@@ -18,6 +18,7 @@ import { GameDayMap } from '@/components/GameDayMap';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { PostGameExperience } from '@/components/PostGameExperience';
+import { LiveScoringBanner } from '@/components/scoring/LiveScoringBanner';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },
@@ -226,6 +227,11 @@ export default function GameDay() {
         {/* AI Meetup Suggestions */}
         <div className="mb-6">
           <SmartMeetupSuggestions />
+        </div>
+
+        {/* Live Scoring */}
+        <div className="mb-6">
+          <LiveScoringBanner />
         </div>
 
         {/* Status toggle */}

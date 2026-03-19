@@ -726,6 +726,217 @@ export type Database = {
         }
         Relationships: []
       }
+      scoring_entries: {
+        Row: {
+          confirmed_by: string[]
+          created_at: string
+          errors: number
+          half: string
+          hits: number
+          id: string
+          inning: number
+          runs: number
+          session_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          confirmed_by?: string[]
+          created_at?: string
+          errors?: number
+          half?: string
+          hits?: number
+          id?: string
+          inning: number
+          runs?: number
+          session_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          confirmed_by?: string[]
+          created_at?: string
+          errors?: number
+          half?: string
+          hits?: number
+          id?: string
+          inning?: number
+          runs?: number
+          session_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scoring_entries_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "scoring_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scoring_reactions: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          session_id: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          session_id: string
+          type?: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          session_id?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scoring_reactions_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "scoring_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scoring_session_members: {
+        Row: {
+          id: string
+          joined_at: string
+          location_label: string | null
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          joined_at?: string
+          location_label?: string | null
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          location_label?: string | null
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scoring_session_members_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "scoring_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scoring_sessions: {
+        Row: {
+          away_team: string
+          created_at: string
+          creator_id: string
+          game_id: string | null
+          home_team: string
+          id: string
+          invite_code: string | null
+          is_public: boolean
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          away_team?: string
+          created_at?: string
+          creator_id: string
+          game_id?: string | null
+          home_team?: string
+          id?: string
+          invite_code?: string | null
+          is_public?: boolean
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          away_team?: string
+          created_at?: string
+          creator_id?: string
+          game_id?: string | null
+          home_team?: string
+          id?: string
+          invite_code?: string | null
+          is_public?: boolean
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scoring_sessions_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scoring_timeline: {
+        Row: {
+          confirmed_count: number
+          created_at: string
+          description: string
+          half: string
+          id: string
+          inning: number
+          play_type: string
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          confirmed_count?: number
+          created_at?: string
+          description: string
+          half?: string
+          id?: string
+          inning: number
+          play_type: string
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          confirmed_count?: number
+          created_at?: string
+          description?: string
+          half?: string
+          id?: string
+          inning?: number
+          play_type?: string
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scoring_timeline_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "scoring_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_locations: {
         Row: {
           id: string

@@ -52,6 +52,7 @@ const App = () => (
             <Route path="/loyalty" element={<Loyalty />} />
             <Route path="/crews" element={<Crews />} />
             <Route path="/crews/:id" element={<CrewDetail />} />
+            <Route path="/missions" element={<Missions />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

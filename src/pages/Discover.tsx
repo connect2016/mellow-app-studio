@@ -262,6 +262,11 @@ export default function Discover() {
           <SocialProofBanner />
         </div>
 
+        {/* Post-Game Experience */}
+        <div className="mb-4">
+          <PostGameExperience />
+        </div>
+
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
 

@@ -199,6 +199,12 @@ export default function GameDay() {
         <div className="mb-4">
           <SocialProofBanner />
         </div>
+
+        {/* Post-Game Experience */}
+        <div className="mb-6">
+          <PostGameExperience />
+        </div>
+
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
             <Zap className="h-5 w-5 text-primary" />

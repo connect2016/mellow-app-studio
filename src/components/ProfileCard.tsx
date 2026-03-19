@@ -60,7 +60,7 @@ function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } |
   return null;
 }
 
-export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile, onPass }: ProfileCardProps) {
+export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile, onPass, matchReasons, matchScore }: ProfileCardProps) {
   const [hiFiveAnim, setHiFiveAnim] = useState(false);
   const [flyingEmoji, setFlyingEmoji] = useState(false);
   const [showIcebreakers, setShowIcebreakers] = useState(false);

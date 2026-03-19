@@ -56,6 +56,7 @@ export function useSendLike() {
     onSuccess: (data, variables) => {
       if (data.isMatch) {
         toast({ title: '🎉 It\'s a Match!', description: 'You can now message each other!' });
+        tracker.trackMatch();
       } else if (data.isMutualHiFive) {
         toast({
           title: '🙌 Mutual Hi-Five!',
@@ -66,6 +67,7 @@ export function useSendLike() {
           title: '🖐️ Hi-Five sent!',
           description: 'You just sent a Hi-Five 👋 — let\'s see if they Hi-Five back!',
         });
+        tracker.trackHiFive();
       } else {
         toast({ title: '❤️ Liked!' });
       }

@@ -19,6 +19,8 @@ import Settings from "./pages/Settings";
 import Admin from "./pages/Admin";
 import VibeFeed from "./pages/VibeFeed";
 import Loyalty from "./pages/Loyalty";
+import Crews from "./pages/Crews";
+import CrewDetail from "./pages/CrewDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +49,8 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/vibe" element={<VibeFeed />} />
             <Route path="/loyalty" element={<Loyalty />} />
+            <Route path="/crews" element={<Crews />} />
+            <Route path="/crews/:id" element={<CrewDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

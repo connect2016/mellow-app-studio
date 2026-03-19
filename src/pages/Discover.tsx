@@ -19,6 +19,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
 import { useProfile } from '@/hooks/useProfile';
 import { toast } from 'sonner';
+import { useMissionTracker } from '@/hooks/useMissionTracker';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },
@@ -55,6 +56,7 @@ export default function Discover() {
   const gameTimeMatch = useGameTimeMatchTrigger();
   const queryClient = useQueryClient();
   useGeoUpdater();
+  const tracker = useMissionTracker();
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
@@ -81,6 +83,10 @@ export default function Discover() {
       if (newStatus !== 'NotSet') {
         const opt = STATUS_OPTIONS.find(s => s.value === newStatus);
         toast(`${opt?.emoji} Status set to "${opt?.label}"`);
+        // Track missions
+        if (newStatus === 'AtWrigley') { tracker.trackCheckInWrigley(); tracker.trackAttendGame(); }
+        if (newStatus === 'AtBar') tracker.trackCheckInBar();
+        if (newStatus === 'BeerSnake') tracker.trackBeerSnake();
       } else {
         toast('Status cleared');
       }
@@ -251,6 +257,21 @@ export default function Discover() {
       <div className="mx-auto max-w-lg px-4 pt-4">
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
+
+        {/* Missions Banner */}
+        <motion.button
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          onClick={() => navigate('/missions')}
+          className="w-full mb-4 flex items-center gap-3 rounded-2xl border border-secondary/20 bg-secondary/5 p-3 text-left transition-all hover:bg-secondary/10"
+        >
+          <span className="text-2xl">🎯</span>
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-foreground">Game Day Missions</p>
+            <p className="text-[11px] text-muted-foreground">Complete challenges, earn points & badges</p>
+          </div>
+          <span className="text-xs font-semibold text-secondary">View →</span>
+        </motion.button>
 
         {/* Happening Now */}
         <div className="mb-4">

@@ -2,11 +2,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { useMissionTracker } from '@/hooks/useMissionTracker';
 
 export function useSendLike() {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const tracker = useMissionTracker();
 
   return useMutation({
     mutationFn: async ({ toUser, isHiFive }: { toUser: string; isHiFive: boolean }) => {
@@ -54,6 +56,7 @@ export function useSendLike() {
     onSuccess: (data, variables) => {
       if (data.isMatch) {
         toast({ title: '🎉 It\'s a Match!', description: 'You can now message each other!' });
+        tracker.trackMatch();
       } else if (data.isMutualHiFive) {
         toast({
           title: '🙌 Mutual Hi-Five!',
@@ -64,6 +67,7 @@ export function useSendLike() {
           title: '🖐️ Hi-Five sent!',
           description: 'You just sent a Hi-Five 👋 — let\'s see if they Hi-Five back!',
         });
+        tracker.trackHiFive();
       } else {
         toast({ title: '❤️ Liked!' });
       }

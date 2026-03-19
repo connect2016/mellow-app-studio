@@ -422,6 +422,104 @@ export type Database = {
           },
         ]
       }
+      mission_progress: {
+        Row: {
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          current_count: number
+          id: string
+          mission_id: string
+          reset_date: string | null
+          reward_claimed: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          current_count?: number
+          id?: string
+          mission_id: string
+          reset_date?: string | null
+          reward_claimed?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          current_count?: number
+          id?: string
+          mission_id?: string
+          reset_date?: string | null
+          reward_claimed?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mission_progress_mission_id_fkey"
+            columns: ["mission_id"]
+            isOneToOne: false
+            referencedRelation: "missions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      missions: {
+        Row: {
+          badge_key: string | null
+          category: string
+          created_at: string
+          description: string
+          emoji: string
+          id: string
+          is_active: boolean
+          is_daily: boolean
+          key: string
+          perk_description: string | null
+          points: number
+          sort_order: number
+          target_count: number
+          title: string
+        }
+        Insert: {
+          badge_key?: string | null
+          category?: string
+          created_at?: string
+          description?: string
+          emoji?: string
+          id?: string
+          is_active?: boolean
+          is_daily?: boolean
+          key: string
+          perk_description?: string | null
+          points?: number
+          sort_order?: number
+          target_count?: number
+          title: string
+        }
+        Update: {
+          badge_key?: string | null
+          category?: string
+          created_at?: string
+          description?: string
+          emoji?: string
+          id?: string
+          is_active?: boolean
+          is_daily?: boolean
+          key?: string
+          perk_description?: string | null
+          points?: number
+          sort_order?: number
+          target_count?: number
+          title?: string
+        }
+        Relationships: []
+      }
       passes: {
         Row: {
           created_at: string
@@ -601,6 +699,33 @@ export type Database = {
           target_count?: number
           unlocked?: boolean
           unlocked_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_points: {
+        Row: {
+          created_at: string
+          id: string
+          points: number
+          source: string
+          source_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          points?: number
+          source: string
+          source_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          points?: number
+          source?: string
+          source_id?: string | null
           user_id?: string
         }
         Relationships: []

@@ -211,6 +211,11 @@ export default function GameDay() {
           <LiveActivityFeed maxItems={5} />
         </div>
 
+        {/* AI Meetup Suggestions */}
+        <div className="mb-6">
+          <SmartMeetupSuggestions />
+        </div>
+
         {/* Status toggle */}
         <div className="space-y-2 mb-6">
           {statusOptions.map((opt) => {

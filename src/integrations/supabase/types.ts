@@ -561,6 +561,45 @@ export type Database = {
         }
         Relationships: []
       }
+      notifications: {
+        Row: {
+          action_url: string | null
+          body: string
+          created_at: string
+          emoji: string
+          id: string
+          is_read: boolean
+          metadata: Json | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          action_url?: string | null
+          body: string
+          created_at?: string
+          emoji?: string
+          id?: string
+          is_read?: boolean
+          metadata?: Json | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          action_url?: string | null
+          body?: string
+          created_at?: string
+          emoji?: string
+          id?: string
+          is_read?: boolean
+          metadata?: Json | null
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       passes: {
         Row: {
           created_at: string

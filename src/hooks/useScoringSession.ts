@@ -255,6 +255,7 @@ export function useScoringSession(sessionId: string | undefined) {
     joinSession, addEntry, confirmEntry, addTimelineEvent, sendReaction,
     makePrediction, resolvePrediction,
   };
+}
 
 export function useScoringSessions() {
   const { user } = useAuth();

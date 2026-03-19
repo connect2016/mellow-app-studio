@@ -12,6 +12,8 @@ interface ProfileCardProps {
   onSendBeer?: () => void;
   onViewProfile?: () => void;
   onPass?: () => void;
+  matchReasons?: string[];
+  matchScore?: number;
 }
 
 interface PromptItem {

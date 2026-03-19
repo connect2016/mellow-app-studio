@@ -24,6 +24,8 @@ import CrewDetail from "./pages/CrewDetail";
 import Missions from "./pages/Missions";
 import Memories from "./pages/Memories";
 import Notifications from "./pages/Notifications";
+import ScoreLobby from "./pages/ScoreLobby";
+import ScoreGame from "./pages/ScoreGame";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

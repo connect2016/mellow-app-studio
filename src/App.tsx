@@ -22,6 +22,7 @@ import Loyalty from "./pages/Loyalty";
 import Crews from "./pages/Crews";
 import CrewDetail from "./pages/CrewDetail";
 import Missions from "./pages/Missions";
+import Memories from "./pages/Memories";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => (
             <Route path="/crews" element={<Crews />} />
             <Route path="/crews/:id" element={<CrewDetail />} />
             <Route path="/missions" element={<Missions />} />
+            <Route path="/memories" element={<Memories />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

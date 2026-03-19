@@ -255,6 +255,47 @@ export type Database = {
         }
         Relationships: []
       }
+      game_memories: {
+        Row: {
+          caption: string | null
+          created_at: string
+          game_id: string | null
+          id: string
+          location_tag: string
+          media_url: string
+          tagged_users: string[]
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          game_id?: string | null
+          id?: string
+          location_tag?: string
+          media_url: string
+          tagged_users?: string[]
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          game_id?: string | null
+          id?: string
+          location_tag?: string
+          media_url?: string
+          tagged_users?: string[]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "game_memories_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       game_time_matches: {
         Row: {
           conversation_id: string | null

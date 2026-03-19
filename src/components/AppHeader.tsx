@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Compass, Zap, MessageCircle, User, CalendarDays, Settings, Radio, Users } from 'lucide-react';
+import { Compass, Zap, MessageCircle, User, CalendarDays, Settings, Radio, Users, Camera } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -9,9 +9,9 @@ const navItems = [
   { to: '/discover', icon: Compass, label: 'Discover' },
   { to: '/vibe', icon: Radio, label: 'Vibe' },
   { to: '/crews', icon: Users, label: 'Crews' },
-  { to: '/game-day', icon: CalendarDays, label: 'Game Day' },
+  { to: '/memories', icon: Camera, label: 'Memories' },
   { to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
-  { to: '/messages', icon: MessageCircle, label: 'Messages' },
+  { to: '/messages', icon: MessageCircle, label: 'Chat' },
   { to: '/profile', icon: User, label: 'Profile' },
 ];
 

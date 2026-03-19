@@ -1,1 +1,4 @@
 project_id = "saqtmgjbuwimvxtrauvb"
+
+[functions.meetup-suggestions]
+verify_jwt = false

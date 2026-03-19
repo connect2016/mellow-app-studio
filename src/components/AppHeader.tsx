@@ -68,6 +68,7 @@ function useNotificationCounts() {
 export function AppHeader() {
   const location = useLocation();
   const { data: badges } = useNotificationCounts();
+  const unreadNotifs = useUnreadCount();
 
   const getBadge = (path: string): number => {
     if (!badges) return 0;
@@ -91,9 +92,19 @@ export function AppHeader() {
               Cubbies Buddies
             </span>
           </Link>
-          <Link to="/settings" className="rounded-full p-2 hover:bg-muted transition-colors">
-            <Settings className="h-5 w-5 text-muted-foreground" />
-          </Link>
+          <div className="flex items-center gap-1">
+            <Link to="/notifications" className="relative rounded-full p-2 hover:bg-muted transition-colors">
+              <Bell className="h-5 w-5 text-muted-foreground" />
+              {unreadNotifs > 0 && (
+                <span className="absolute top-1 right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-secondary px-1 text-[9px] font-bold text-secondary-foreground">
+                  {unreadNotifs > 99 ? '99+' : unreadNotifs}
+                </span>
+              )}
+            </Link>
+            <Link to="/settings" className="rounded-full p-2 hover:bg-muted transition-colors">
+              <Settings className="h-5 w-5 text-muted-foreground" />
+            </Link>
+          </div>
         </div>
       </header>
 

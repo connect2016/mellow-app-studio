@@ -56,6 +56,7 @@ const App = () => (
             <Route path="/crews/:id" element={<CrewDetail />} />
             <Route path="/missions" element={<Missions />} />
             <Route path="/memories" element={<Memories />} />
+            <Route path="/notifications" element={<Notifications />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

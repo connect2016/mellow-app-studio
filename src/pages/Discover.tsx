@@ -19,6 +19,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
 import { useProfile } from '@/hooks/useProfile';
 import { toast } from 'sonner';
+import { useMissionTracker } from '@/hooks/useMissionTracker';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },

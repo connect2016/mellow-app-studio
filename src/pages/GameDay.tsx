@@ -16,6 +16,7 @@ import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { GameDayMap } from '@/components/GameDayMap';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
+import { SocialProofBanner } from '@/components/SocialProofBanner';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },

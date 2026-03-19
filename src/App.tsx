@@ -22,6 +22,7 @@ import Loyalty from "./pages/Loyalty";
 import Crews from "./pages/Crews";
 import CrewDetail from "./pages/CrewDetail";
 import Missions from "./pages/Missions";
+import Memories from "./pages/Memories";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

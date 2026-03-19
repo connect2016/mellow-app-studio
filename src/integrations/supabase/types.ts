@@ -726,6 +726,45 @@ export type Database = {
         }
         Relationships: []
       }
+      scorer_stats: {
+        Row: {
+          best_streak: number
+          correct_predictions: number
+          games_scored: number
+          id: string
+          prediction_points: number
+          streak: number
+          total_confirmations: number
+          total_predictions: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          best_streak?: number
+          correct_predictions?: number
+          games_scored?: number
+          id?: string
+          prediction_points?: number
+          streak?: number
+          total_confirmations?: number
+          total_predictions?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          best_streak?: number
+          correct_predictions?: number
+          games_scored?: number
+          id?: string
+          prediction_points?: number
+          streak?: number
+          total_confirmations?: number
+          total_predictions?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       scoring_entries: {
         Row: {
           confirmed_by: string[]
@@ -769,6 +808,53 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "scoring_entries_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "scoring_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scoring_predictions: {
+        Row: {
+          created_at: string
+          half: string
+          id: string
+          inning: number
+          is_correct: boolean | null
+          points_awarded: number
+          predicted_play: string
+          resolved_at: string | null
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          half?: string
+          id?: string
+          inning: number
+          is_correct?: boolean | null
+          points_awarded?: number
+          predicted_play: string
+          resolved_at?: string | null
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          half?: string
+          id?: string
+          inning?: number
+          is_correct?: boolean | null
+          points_awarded?: number
+          predicted_play?: string
+          resolved_at?: string | null
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scoring_predictions_session_id_fkey"
             columns: ["session_id"]
             isOneToOne: false
             referencedRelation: "scoring_sessions"

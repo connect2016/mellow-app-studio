@@ -7,12 +7,14 @@ import { SessionChat } from '@/components/scoring/SessionChat';
 import { GameTimeline } from '@/components/scoring/GameTimeline';
 import { AddPlayModal } from '@/components/scoring/AddPlayModal';
 import { SessionMembers } from '@/components/scoring/SessionMembers';
+import { PredictionPanel } from '@/components/scoring/PredictionPanel';
+import { ScorerLeaderboard } from '@/components/scoring/ScorerLeaderboard';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useScoringSession } from '@/hooks/useScoringSession';
 import { useProfile } from '@/hooks/useProfile';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, Share2, Clock, Copy } from 'lucide-react';
+import { Plus, Share2, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function ScoreGame() {
@@ -25,8 +27,9 @@ export default function ScoreGame() {
   const [currentInning, setCurrentInning] = useState(1);
 
   const {
-    session, members, entries, timeline, reactions,
+    session, members, entries, timeline, reactions, predictions,
     joinSession, addEntry, confirmEntry, addTimelineEvent, sendReaction,
+    makePrediction, resolvePrediction,
   } = useScoringSession(id);
 
   useEffect(() => {
@@ -163,11 +166,13 @@ export default function ScoreGame() {
           <Plus className="h-4 w-4 mr-2" /> Add Key Play
         </Button>
 
-        {/* Tabs: Chat / Timeline / Members */}
+        {/* Tabs: Chat / Predictions / Timeline / Leaderboard / Members */}
         <Tabs defaultValue="chat" className="w-full">
-          <TabsList className="w-full rounded-xl bg-muted/50">
+          <TabsList className="w-full rounded-xl bg-muted/50 h-auto flex-wrap">
             <TabsTrigger value="chat" className="flex-1 rounded-lg text-xs">💬 Chat</TabsTrigger>
+            <TabsTrigger value="predict" className="flex-1 rounded-lg text-xs">⚡ Predict</TabsTrigger>
             <TabsTrigger value="timeline" className="flex-1 rounded-lg text-xs">⚾ Timeline</TabsTrigger>
+            <TabsTrigger value="leaderboard" className="flex-1 rounded-lg text-xs">🏆 Ranks</TabsTrigger>
             <TabsTrigger value="members" className="flex-1 rounded-lg text-xs">👥 Fans</TabsTrigger>
           </TabsList>
           <TabsContent value="chat" className="mt-3">
@@ -178,8 +183,21 @@ export default function ScoreGame() {
               onSend={(r) => sendReaction.mutate(r)}
             />
           </TabsContent>
+          <TabsContent value="predict" className="mt-3">
+            <PredictionPanel
+              predictions={predictions.data ?? []}
+              profiles={memberProfiles}
+              userId={user?.id}
+              currentInning={currentInning}
+              onPredict={(p) => makePrediction.mutate(p)}
+              onResolve={(id, isCorrect) => resolvePrediction.mutate({ predictionId: id, isCorrect })}
+            />
+          </TabsContent>
           <TabsContent value="timeline" className="mt-3">
             <GameTimeline events={timeline.data ?? []} />
+          </TabsContent>
+          <TabsContent value="leaderboard" className="mt-3">
+            <ScorerLeaderboard />
           </TabsContent>
           <TabsContent value="members" className="mt-3">
             <SessionMembers members={members.data ?? []} />

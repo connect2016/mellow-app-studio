@@ -255,7 +255,13 @@ export function useScoringSession(sessionId: string | undefined) {
     joinSession, addEntry, confirmEntry, addTimelineEvent, sendReaction,
     makePrediction, resolvePrediction,
   };
-}
+
+export function useScoringSessions() {
+  const { user } = useAuth();
+
+  const liveSessions = useQuery({
+    queryKey: ['scoring-sessions-live'],
+    queryFn: async () => {
       const { data } = await supabase
         .from('scoring_sessions')
         .select('*, scoring_session_members(count)')
@@ -280,7 +286,6 @@ export function useScoringSession(sessionId: string | undefined) {
         is_public: params.is_public ?? true,
       }).select().single();
       if (error) throw error;
-      // Auto-join as creator
       await supabase.from('scoring_session_members').insert({
         session_id: data.id,
         user_id: user.id,

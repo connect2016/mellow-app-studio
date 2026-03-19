@@ -7,7 +7,16 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Zap } from 'lucide-react';
+import { Zap, MessageCircle, ChevronDown } from 'lucide-react';
+
+const QUICK_REPLIES = [
+  { emoji: '🏟️', text: 'My first game was unforgettable!' },
+  { emoji: '⚾', text: 'Let\'s grab a beer before the game!' },
+  { emoji: '🎉', text: 'Nothing beats Wrigley on game day!' },
+  { emoji: '🍺', text: 'Sluggers or Murphy\'s? 😄' },
+  { emoji: '🐻', text: 'Go Cubs Go! 🎵' },
+  { emoji: '🙌', text: 'Let\'s meet up!' },
+];
 
 export default function HiFives() {
   const { toast } = useToast();
@@ -15,6 +24,7 @@ export default function HiFives() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [celebrateId, setCelebrateId] = useState<string | null>(null);
+  const [replyingTo, setReplyingTo] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
@@ -37,7 +47,7 @@ export default function HiFives() {
 
       const { data: profiles } = await supabase
         .from('profiles')
-        .select('user_id, display_name, profile_photo')
+        .select('user_id, display_name, profile_photo, favorite_player, game_status, wrigleyville_bar')
         .in('user_id', userIds);
 
       const { data: sentBack } = await supabase
@@ -65,6 +75,10 @@ export default function HiFives() {
           photo: profile?.profile_photo ?? '',
           time: timeLabel,
           responded: sentBackSet.has(hf.from_user),
+          icebreaker: hf.message as string | null,
+          favoritePlayer: profile?.favorite_player ?? null,
+          gameStatus: profile?.game_status ?? null,
+          bar: profile?.wrigleyville_bar ?? null,
         };
       });
     },
@@ -72,16 +86,17 @@ export default function HiFives() {
   });
 
   const hiFiveBack = useMutation({
-    mutationFn: async (toUser: string) => {
+    mutationFn: async ({ toUser, message }: { toUser: string; message?: string }) => {
       if (!user) throw new Error('Not authenticated');
       const { error } = await supabase
         .from('likes')
-        .insert({ from_user: user.id, to_user: toUser, is_hi_five: true });
+        .insert({ from_user: user.id, to_user: toUser, is_hi_five: true, message: message || null });
       if (error) throw error;
     },
-    onSuccess: (_, toUser) => {
+    onSuccess: (_, { toUser }) => {
       const fan = hiFives.find(h => h.fromUser === toUser);
       setCelebrateId(toUser);
+      setReplyingTo(null);
       setTimeout(() => setCelebrateId(null), 1500);
       toast({
         title: '🙌 Mutual Hi-Five!',
@@ -100,8 +115,8 @@ export default function HiFives() {
     <div className="min-h-screen bg-background pb-24">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4">
-        <h2 className="mb-1 text-lg font-bold">Hi-Fives</h2>
-        <p className="mb-6 text-sm text-muted-foreground">Fans who sent you a Hi-Five 🖐️</p>
+        <h2 className="mb-1 text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Hi-Fives</h2>
+        <p className="mb-6 text-sm text-muted-foreground">Fans who sent you a Hi-Five 🖐️ — tap to reply!</p>
 
         {isLoading ? (
           <div className="py-20 text-center">
@@ -126,56 +141,125 @@ export default function HiFives() {
             </Button>
           </motion.div>
         ) : (
-          <div className="space-y-2">
-            {hiFives.map((hf) => (
-              <motion.div
-                key={hf.id}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="relative flex items-center gap-3 rounded-2xl border border-border bg-card p-4 overflow-hidden shadow-sm"
-              >
-                <AnimatePresence>
-                  {celebrateId === hf.fromUser && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.12 }}
-                      exit={{ opacity: 0 }}
-                      className="absolute inset-0 bg-primary z-0"
-                    />
-                  )}
-                </AnimatePresence>
+          <div className="space-y-3">
+            {hiFives.map((hf) => {
+              const isReplying = replyingTo === hf.fromUser;
+              return (
+                <motion.div
+                  key={hf.id}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="relative rounded-2xl border border-border bg-card overflow-hidden shadow-sm"
+                >
+                  <AnimatePresence>
+                    {celebrateId === hf.fromUser && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.12 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 bg-primary z-0"
+                      />
+                    )}
+                  </AnimatePresence>
 
-                <div className="relative z-10 h-12 w-12 rounded-full overflow-hidden bg-muted flex-shrink-0 ring-2 ring-border">
-                  {hf.photo ? (
-                    <img src={hf.photo} alt={hf.displayName} className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="h-full w-full flex items-center justify-center text-lg font-bold text-muted-foreground">
-                      {hf.displayName.charAt(0)}
+                  {/* Main row */}
+                  <div className="relative z-10 flex items-center gap-3 p-4">
+                    <button
+                      onClick={() => navigate(`/profile/${hf.fromUser}`)}
+                      className="h-12 w-12 rounded-full overflow-hidden bg-muted flex-shrink-0 ring-2 ring-border hover:ring-primary/40 transition-all"
+                    >
+                      {hf.photo ? (
+                        <img src={hf.photo} alt={hf.displayName} className="h-full w-full object-cover" />
+                      ) : (
+                        <div className="h-full w-full flex items-center justify-center text-lg font-bold text-muted-foreground">
+                          {hf.displayName.charAt(0)}
+                        </div>
+                      )}
+                    </button>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm text-foreground">{hf.displayName}</p>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <span>{hf.time}</span>
+                        {hf.gameStatus && hf.gameStatus !== 'NotSet' && (
+                          <span className="flex items-center gap-0.5">
+                            {hf.gameStatus === 'AtWrigley' && '🏟️'}
+                            {hf.gameStatus === 'AtBar' && `🍺 ${hf.bar ?? ''}`}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      {hf.responded ? (
+                        <span className="text-xs text-primary font-semibold bg-primary/10 px-2.5 py-1 rounded-full">🙌 Mutual</span>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant={isReplying ? 'outline' : 'default'}
+                          className="rounded-full font-semibold gap-1"
+                          onClick={() => setReplyingTo(isReplying ? null : hf.fromUser)}
+                        >
+                          🖐️ Reply
+                          <ChevronDown className={`h-3 w-3 transition-transform ${isReplying ? 'rotate-180' : ''}`} />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Icebreaker message they sent */}
+                  {hf.icebreaker && (
+                    <div className="px-4 pb-2 relative z-10">
+                      <div className="rounded-xl bg-primary/5 border border-primary/10 px-3 py-2">
+                        <p className="text-[10px] font-semibold text-primary/70 uppercase tracking-wider mb-0.5 flex items-center gap-1">
+                          <MessageCircle className="h-3 w-3" /> Their icebreaker
+                        </p>
+                        <p className="text-sm text-foreground font-medium">"{hf.icebreaker}"</p>
+                      </div>
                     </div>
                   )}
-                </div>
-                <div className="flex-1 min-w-0 relative z-10">
-                  <p className="font-semibold text-sm text-foreground">{hf.displayName}</p>
-                  <p className="text-xs text-muted-foreground">{hf.time}</p>
-                </div>
-                <div className="relative z-10">
-                  {!hf.responded ? (
-                    <motion.div whileTap={{ scale: 0.9 }}>
-                      <Button
-                        size="sm"
-                        className="rounded-full font-semibold"
-                        disabled={hiFiveBack.isPending}
-                        onClick={() => hiFiveBack.mutate(hf.fromUser)}
+
+                  {/* Quick reply options */}
+                  <AnimatePresence>
+                    {isReplying && !hf.responded && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="overflow-hidden"
                       >
-                        🖐️ Hi-Five Back
-                      </Button>
-                    </motion.div>
-                  ) : (
-                    <span className="text-xs text-primary font-semibold bg-primary/10 px-2.5 py-1 rounded-full">🙌 Mutual</span>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                        <div className="px-4 pb-4 pt-1 space-y-1.5 relative z-10">
+                          <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-1">
+                            ⚡ One-tap reply
+                          </p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {QUICK_REPLIES.map((qr, i) => (
+                              <motion.button
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: i * 0.04 }}
+                                onClick={() => hiFiveBack.mutate({ toUser: hf.fromUser, message: qr.text })}
+                                disabled={hiFiveBack.isPending}
+                                className="flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 active:scale-95 transition-all"
+                              >
+                                <span>{qr.emoji}</span>
+                                <span>{qr.text}</span>
+                              </motion.button>
+                            ))}
+                          </div>
+                          <button
+                            onClick={() => hiFiveBack.mutate({ toUser: hf.fromUser })}
+                            disabled={hiFiveBack.isPending}
+                            className="text-xs font-medium text-muted-foreground py-1.5 hover:text-foreground transition-colors"
+                          >
+                            Just Hi-Five back 🖐️
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
         )}
       </div>

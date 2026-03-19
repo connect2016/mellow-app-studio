@@ -83,6 +83,10 @@ export default function Discover() {
       if (newStatus !== 'NotSet') {
         const opt = STATUS_OPTIONS.find(s => s.value === newStatus);
         toast(`${opt?.emoji} Status set to "${opt?.label}"`);
+        // Track missions
+        if (newStatus === 'AtWrigley') { tracker.trackCheckInWrigley(); tracker.trackAttendGame(); }
+        if (newStatus === 'AtBar') tracker.trackCheckInBar();
+        if (newStatus === 'BeerSnake') tracker.trackBeerSnake();
       } else {
         toast('Status cleared');
       }

@@ -186,8 +186,8 @@ export default function Discover() {
     }
   };
 
-  const handleHiFive = async (profile: typeof profiles[0]) => {
-    const result = await sendLike.mutateAsync({ toUser: profile.user_id, isHiFive: true });
+  const handleHiFive = async (profile: typeof profiles[0], message?: string) => {
+    const result = await sendLike.mutateAsync({ toUser: profile.user_id, isHiFive: true, message });
     if (result.isMutualHiFive) {
       setMatchCelebration(profile.display_name);
       setTimeout(() => setMatchCelebration(null), 3000);

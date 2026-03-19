@@ -15,6 +15,7 @@ import { MapPin, Users, Radio, Eye, EyeOff, Lock, Zap } from 'lucide-react';
 import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { GameDayMap } from '@/components/GameDayMap';
+import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },
@@ -208,6 +209,11 @@ export default function GameDay() {
         {/* Live Activity Feed */}
         <div className="mb-6 rounded-2xl border border-border bg-card p-3">
           <LiveActivityFeed maxItems={5} />
+        </div>
+
+        {/* AI Meetup Suggestions */}
+        <div className="mb-6">
+          <SmartMeetupSuggestions />
         </div>
 
         {/* Status toggle */}

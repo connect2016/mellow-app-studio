@@ -13,6 +13,7 @@ import { useSendLike, usePass } from '@/hooks/useInteractions';
 import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
 import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
+import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
@@ -259,6 +260,11 @@ export default function Discover() {
         {/* Live Activity Feed */}
         <div className="mb-4 rounded-2xl border border-border bg-card p-3">
           <LiveActivityFeed maxItems={4} />
+        </div>
+
+        {/* AI Meetup Suggestions */}
+        <div className="mb-4">
+          <SmartMeetupSuggestions />
         </div>
 
         {/* Current Status Toggle */}

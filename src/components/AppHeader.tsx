@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Compass, Zap, MessageCircle, User, CalendarDays, Settings, Radio, Users } from 'lucide-react';
+import { Compass, Zap, MessageCircle, User, CalendarDays, Settings, Radio, Users, Camera } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';

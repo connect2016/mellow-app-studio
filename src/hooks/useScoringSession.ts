@@ -81,6 +81,19 @@ export function useScoringSession(sessionId: string | undefined) {
     enabled: !!sessionId,
   });
 
+  const predictions = useQuery({
+    queryKey: ['scoring-predictions', sessionId],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('scoring_predictions')
+        .select('*')
+        .eq('session_id', sessionId!)
+        .order('created_at', { ascending: true });
+      return data ?? [];
+    },
+    enabled: !!sessionId,
+  });
+
   // Realtime subscriptions
   useEffect(() => {
     if (!sessionId) return;
@@ -90,6 +103,7 @@ export function useScoringSession(sessionId: string | undefined) {
       .on('postgres_changes', { event: '*', schema: 'public', table: 'scoring_reactions', filter: `session_id=eq.${sessionId}` }, () => qc.invalidateQueries({ queryKey: ['scoring-reactions', sessionId] }))
       .on('postgres_changes', { event: '*', schema: 'public', table: 'scoring_timeline', filter: `session_id=eq.${sessionId}` }, () => qc.invalidateQueries({ queryKey: ['scoring-timeline', sessionId] }))
       .on('postgres_changes', { event: '*', schema: 'public', table: 'scoring_session_members', filter: `session_id=eq.${sessionId}` }, () => qc.invalidateQueries({ queryKey: ['scoring-members', sessionId] }))
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'scoring_predictions', filter: `session_id=eq.${sessionId}` }, () => qc.invalidateQueries({ queryKey: ['scoring-predictions', sessionId] }))
       .subscribe();
     return () => { supabase.removeChannel(channel); };
   }, [sessionId, qc]);

@@ -8,6 +8,7 @@ export function useSendLike() {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const tracker = useMissionTracker();
 
   return useMutation({
     mutationFn: async ({ toUser, isHiFive }: { toUser: string; isHiFive: boolean }) => {

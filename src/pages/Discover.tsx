@@ -262,6 +262,11 @@ export default function Discover() {
           <LiveActivityFeed maxItems={4} />
         </div>
 
+        {/* AI Meetup Suggestions */}
+        <div className="mb-4">
+          <SmartMeetupSuggestions />
+        </div>
+
         {/* Current Status Toggle */}
         <div className="mb-4">
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Your Status</p>

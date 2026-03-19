@@ -190,6 +190,37 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
         </div>
       </div>
 
+      {/* Why you match */}
+      {matchReasons && matchReasons.length > 0 && (
+        <div className="border-t border-border px-4 py-3">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Why you match</span>
+            {matchScore != null && matchScore > 0 && (
+              <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                matchScore >= 60 ? 'bg-primary/15 text-primary' :
+                matchScore >= 35 ? 'bg-accent/15 text-accent' :
+                'bg-muted text-muted-foreground'
+              }`}>
+                {matchScore}% match
+              </span>
+            )}
+          </div>
+          <div className="space-y-1">
+            {matchReasons.map((reason, i) => (
+              <motion.p
+                key={i}
+                initial={{ opacity: 0, x: -6 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.08 }}
+                className="text-sm text-foreground/80 leading-snug"
+              >
+                {reason}
+              </motion.p>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Profile prompts */}
       {prompts.length > 0 && (
         <div className="border-t border-border px-4 py-3 space-y-2">

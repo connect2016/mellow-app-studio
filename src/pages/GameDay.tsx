@@ -229,6 +229,11 @@ export default function GameDay() {
           <SmartMeetupSuggestions />
         </div>
 
+        {/* Live Scoring */}
+        <div className="mb-6">
+          <LiveScoringBanner />
+        </div>
+
         {/* Status toggle */}
         <div className="space-y-2 mb-6">
           {statusOptions.map((opt) => {

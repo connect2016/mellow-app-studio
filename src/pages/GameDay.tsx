@@ -194,6 +194,10 @@ export default function GameDay() {
       </div>
 
       <div className="mx-auto max-w-lg px-4 pt-6">
+        {/* Social Proof */}
+        <div className="mb-4">
+          <SocialProofBanner />
+        </div>
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
             <Zap className="h-5 w-5 text-primary" />

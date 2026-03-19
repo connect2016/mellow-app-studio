@@ -256,6 +256,11 @@ export default function Discover() {
       )}
 
       <div className="mx-auto max-w-lg px-4 pt-4">
+        {/* Social Proof */}
+        <div className="mb-4">
+          <SocialProofBanner />
+        </div>
+
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
 

@@ -60,6 +60,7 @@ export default function Discover() {
   const queryClient = useQueryClient();
   useGeoUpdater();
   const tracker = useMissionTracker();
+  const compatMap = useCompatibility(profiles);
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);

@@ -258,6 +258,21 @@ export default function Discover() {
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
 
+        {/* Missions Banner */}
+        <motion.button
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          onClick={() => navigate('/missions')}
+          className="w-full mb-4 flex items-center gap-3 rounded-2xl border border-secondary/20 bg-secondary/5 p-3 text-left transition-all hover:bg-secondary/10"
+        >
+          <span className="text-2xl">🎯</span>
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-foreground">Game Day Missions</p>
+            <p className="text-[11px] text-muted-foreground">Complete challenges, earn points & badges</p>
+          </div>
+          <span className="text-xs font-semibold text-secondary">View →</span>
+        </motion.button>
+
         {/* Happening Now */}
         <div className="mb-4">
           <HappeningNow />

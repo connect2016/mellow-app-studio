@@ -56,6 +56,7 @@ export default function Discover() {
   const gameTimeMatch = useGameTimeMatchTrigger();
   const queryClient = useQueryClient();
   useGeoUpdater();
+  const tracker = useMissionTracker();
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);

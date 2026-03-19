@@ -27,8 +27,9 @@ export default function ScoreGame() {
   const [currentInning, setCurrentInning] = useState(1);
 
   const {
-    session, members, entries, timeline, reactions,
+    session, members, entries, timeline, reactions, predictions,
     joinSession, addEntry, confirmEntry, addTimelineEvent, sendReaction,
+    makePrediction, resolvePrediction,
   } = useScoringSession(id);
 
   useEffect(() => {

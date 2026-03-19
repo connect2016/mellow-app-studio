@@ -444,7 +444,7 @@ export default function Discover() {
                 <ProfileCard
                   key={profile.id}
                   user={cardUser}
-                  onHiFive={() => handleHiFive(profile)}
+                  onHiFive={(msg) => handleHiFive(profile, msg)}
                   onLike={() => handleLike(profile)}
                   onSendBeer={() => navigate(`/beer-money?to=${profile.user_id}`)}
                   onViewProfile={() => navigate(`/profile/${profile.user_id}`)}

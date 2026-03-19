@@ -7,12 +7,14 @@ import { SessionChat } from '@/components/scoring/SessionChat';
 import { GameTimeline } from '@/components/scoring/GameTimeline';
 import { AddPlayModal } from '@/components/scoring/AddPlayModal';
 import { SessionMembers } from '@/components/scoring/SessionMembers';
+import { PredictionPanel } from '@/components/scoring/PredictionPanel';
+import { ScorerLeaderboard } from '@/components/scoring/ScorerLeaderboard';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useScoringSession } from '@/hooks/useScoringSession';
 import { useProfile } from '@/hooks/useProfile';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, Share2, Clock, Copy } from 'lucide-react';
+import { Plus, Share2, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function ScoreGame() {

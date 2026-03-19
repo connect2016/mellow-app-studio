@@ -16,6 +16,7 @@ import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { GameDayMap } from '@/components/GameDayMap';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
+import { SocialProofBanner } from '@/components/SocialProofBanner';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },
@@ -193,6 +194,10 @@ export default function GameDay() {
       </div>
 
       <div className="mx-auto max-w-lg px-4 pt-6">
+        {/* Social Proof */}
+        <div className="mb-4">
+          <SocialProofBanner />
+        </div>
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
             <Zap className="h-5 w-5 text-primary" />

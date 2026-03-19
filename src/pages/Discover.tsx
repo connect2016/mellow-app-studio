@@ -14,6 +14,7 @@ import { DiscoverFilterDrawer } from '@/components/DiscoverFilterDrawer';
 import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
+import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
@@ -255,6 +256,11 @@ export default function Discover() {
       )}
 
       <div className="mx-auto max-w-lg px-4 pt-4">
+        {/* Social Proof */}
+        <div className="mb-4">
+          <SocialProofBanner />
+        </div>
+
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
 

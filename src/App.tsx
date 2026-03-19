@@ -49,6 +49,8 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/vibe" element={<VibeFeed />} />
             <Route path="/loyalty" element={<Loyalty />} />
+            <Route path="/crews" element={<Crews />} />
+            <Route path="/crews/:id" element={<CrewDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

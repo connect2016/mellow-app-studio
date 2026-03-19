@@ -2,3 +2,6 @@ project_id = "saqtmgjbuwimvxtrauvb"
 
 [functions.meetup-suggestions]
 verify_jwt = false
+
+[functions.post-game]
+verify_jwt = false

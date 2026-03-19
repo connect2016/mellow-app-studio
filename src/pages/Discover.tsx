@@ -20,6 +20,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
 import { useProfile } from '@/hooks/useProfile';
+import { useCompatibility } from '@/hooks/useCompatibility';
 import { toast } from 'sonner';
 import { useMissionTracker } from '@/hooks/useMissionTracker';
 
@@ -59,6 +60,7 @@ export default function Discover() {
   const queryClient = useQueryClient();
   useGeoUpdater();
   const tracker = useMissionTracker();
+  const compatMap = useCompatibility(profiles);
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
@@ -444,12 +446,21 @@ export default function Discover() {
           </div>
         ) : (
           <div className="space-y-4">
-            {filtered.map((profile) => {
+            {[...filtered]
+              .sort((a, b) => {
+                const scoreA = compatMap.get(a.user_id)?.score ?? 0;
+                const scoreB = compatMap.get(b.user_id)?.score ?? 0;
+                return scoreB - scoreA;
+              })
+              .map((profile) => {
               const cardUser = toCardUser(profile);
+              const compat = compatMap.get(profile.user_id);
               return (
                 <ProfileCard
                   key={profile.id}
                   user={cardUser}
+                  matchReasons={compat?.topReasons}
+                  matchScore={compat?.score}
                   onHiFive={(msg) => handleHiFive(profile, msg)}
                   onLike={() => handleLike(profile)}
                   onSendBeer={() => navigate(`/beer-money?to=${profile.user_id}`)}

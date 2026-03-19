@@ -179,18 +179,83 @@ export function useScoringSession(sessionId: string | undefined) {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['scoring-reactions', sessionId] }),
   });
 
+  const PREDICTION_POINTS: Record<string, number> = {
+    hr: 25, strikeout: 10, double_play: 20, hit: 8, walk: 5, flyout: 5, groundout: 5, steal: 15,
+  };
+
+  const makePrediction = useMutation({
+    mutationFn: async (prediction: { inning: number; half: string; predicted_play: string }) => {
+      if (!user || !sessionId) throw new Error('Not authenticated');
+      const { error } = await supabase.from('scoring_predictions').insert({
+        session_id: sessionId,
+        user_id: user.id,
+        ...prediction,
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['scoring-predictions', sessionId] }),
+  });
+
+  const resolvePrediction = useMutation({
+    mutationFn: async ({ predictionId, isCorrect }: { predictionId: string; isCorrect: boolean }) => {
+      if (!user) throw new Error('Not authenticated');
+      // Get prediction to calculate points
+      const { data: pred } = await supabase.from('scoring_predictions').select('*').eq('id', predictionId).single();
+      if (!pred) throw new Error('Prediction not found');
+
+      const points = isCorrect ? (PREDICTION_POINTS[pred.predicted_play] ?? 5) : 0;
+      await supabase.from('scoring_predictions').update({
+        is_correct: isCorrect,
+        resolved_at: new Date().toISOString(),
+        points_awarded: points,
+      }).eq('id', predictionId);
+
+      // Update scorer stats
+      if (isCorrect && points > 0) {
+        // Award points to the predictor
+        await supabase.from('user_points').insert({
+          user_id: pred.user_id,
+          points,
+          source: 'prediction',
+          source_id: predictionId,
+        });
+      }
+
+      // Upsert scorer stats
+      const { data: existingStats } = await supabase.from('scorer_stats').select('*').eq('user_id', pred.user_id).single();
+      if (existingStats) {
+        const newStreak = isCorrect ? existingStats.streak + 1 : 0;
+        await supabase.from('scorer_stats').update({
+          total_predictions: existingStats.total_predictions + 1,
+          correct_predictions: existingStats.correct_predictions + (isCorrect ? 1 : 0),
+          prediction_points: existingStats.prediction_points + points,
+          streak: newStreak,
+          best_streak: Math.max(existingStats.best_streak, newStreak),
+          updated_at: new Date().toISOString(),
+        }).eq('user_id', pred.user_id);
+      } else {
+        await supabase.from('scorer_stats').insert({
+          user_id: pred.user_id,
+          total_predictions: 1,
+          correct_predictions: isCorrect ? 1 : 0,
+          prediction_points: points,
+          streak: isCorrect ? 1 : 0,
+          best_streak: isCorrect ? 1 : 0,
+        });
+      }
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['scoring-predictions', sessionId] });
+      qc.invalidateQueries({ queryKey: ['scorer-leaderboard'] });
+    },
+  });
+
   return {
-    session, members, entries, timeline, reactions,
+    session, members, entries, timeline, reactions, predictions,
     joinSession, addEntry, confirmEntry, addTimelineEvent, sendReaction,
+    makePrediction, resolvePrediction,
   };
 }
-
-export function useScoringSessions() {
-  const { user } = useAuth();
-
-  const liveSessions = useQuery({
-    queryKey: ['scoring-sessions-live'],
-    queryFn: async () => {
       const { data } = await supabase
         .from('scoring_sessions')
         .select('*, scoring_session_members(count)')

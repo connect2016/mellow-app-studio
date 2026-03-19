@@ -11,11 +11,11 @@ export function useSendLike() {
   const tracker = useMissionTracker();
 
   return useMutation({
-    mutationFn: async ({ toUser, isHiFive }: { toUser: string; isHiFive: boolean }) => {
+    mutationFn: async ({ toUser, isHiFive, message }: { toUser: string; isHiFive: boolean; message?: string }) => {
       if (!user) throw new Error('Not authenticated');
       const { data, error } = await supabase
         .from('likes')
-        .insert({ from_user: user.id, to_user: toUser, is_hi_five: isHiFive })
+        .insert({ from_user: user.id, to_user: toUser, is_hi_five: isHiFive, message: message || null })
         .select()
         .single();
       if (error) throw error;

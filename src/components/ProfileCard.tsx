@@ -7,7 +7,7 @@ import { StatusBadge } from './StatusBadge';
 
 interface ProfileCardProps {
   user: UserProfile;
-  onHiFive?: () => void;
+  onHiFive?: (message?: string) => void;
   onLike?: () => void;
   onSendBeer?: () => void;
   onViewProfile?: () => void;
@@ -19,6 +19,17 @@ interface PromptItem {
   value: string;
   emoji: string;
 }
+
+const ICEBREAKERS = [
+  { emoji: '🏟️', text: 'First Cubs game?' },
+  { emoji: '🎉', text: 'Best Wrigley memory?' },
+  { emoji: '⚾', text: 'Who\'s your all-time favorite Cub?' },
+  { emoji: '🍺', text: 'What\'s your go-to Wrigleyville bar?' },
+  { emoji: '🐻', text: 'Were you there for the 2016 World Series?' },
+  { emoji: '🎵', text: 'What\'s your 7th-inning stretch song?' },
+  { emoji: '🌭', text: 'Hot dog or Chicago dog at Wrigley?' },
+  { emoji: '🧢', text: 'What\'s your Cubs superstition?' },
+];
 
 function getPrompts(user: UserProfile): PromptItem[] {
   const prompts: PromptItem[] = [];
@@ -50,15 +61,38 @@ function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } |
 export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile, onPass }: ProfileCardProps) {
   const [hiFiveAnim, setHiFiveAnim] = useState(false);
   const [flyingEmoji, setFlyingEmoji] = useState(false);
+  const [showIcebreakers, setShowIcebreakers] = useState(false);
   const activity = getActivityLabel(user);
   const prompts = getPrompts(user).slice(0, 2);
 
+  // Pick 4 random icebreakers, personalized if possible
+  const personalizedIcebreakers = (() => {
+    const picks = [...ICEBREAKERS];
+    // Add contextual ones based on user profile
+    if (user.game_status === 'AtWrigley') {
+      picks.unshift({ emoji: '📍', text: `How's the view from Section ${user.wrigley_section || 'yours'}?` });
+    }
+    if (user.game_status === 'AtBar' && user.wrigleyville_bar) {
+      picks.unshift({ emoji: '🍻', text: `How's ${user.wrigleyville_bar} right now?` });
+    }
+    if (user.favorite_player) {
+      picks.unshift({ emoji: '⭐', text: `${user.favorite_player} fan too? What's your best memory of them?` });
+    }
+    // Return first 4 unique
+    return picks.slice(0, 4);
+  })();
+
   const handleHiFive = () => {
+    setShowIcebreakers(true);
+  };
+
+  const sendHiFiveWithMessage = (message?: string) => {
+    setShowIcebreakers(false);
     setHiFiveAnim(true);
     setFlyingEmoji(true);
     setTimeout(() => setHiFiveAnim(false), 500);
     setTimeout(() => setFlyingEmoji(false), 1000);
-    onHiFive?.();
+    onHiFive?.(message);
   };
 
   return (
@@ -165,6 +199,53 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
           ))}
         </div>
       )}
+
+      {/* Icebreaker picker */}
+      <AnimatePresence>
+        {showIcebreakers && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-t border-border"
+          >
+            <div className="px-4 py-3 bg-primary/[0.03]">
+              <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-2">
+                🖐️ Send a Hi-Five with an icebreaker
+              </p>
+              <div className="space-y-1.5">
+                {personalizedIcebreakers.map((ib, i) => (
+                  <motion.button
+                    key={i}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    onClick={() => sendHiFiveWithMessage(ib.text)}
+                    className="w-full flex items-center gap-2.5 rounded-xl border border-border bg-card px-3 py-2.5 text-left transition-all hover:border-primary/40 hover:bg-primary/5 active:scale-[0.98]"
+                  >
+                    <span className="text-base shrink-0">{ib.emoji}</span>
+                    <span className="text-sm font-medium text-foreground">{ib.text}</span>
+                  </motion.button>
+                ))}
+              </div>
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={() => sendHiFiveWithMessage()}
+                  className="flex-1 text-center text-xs font-medium text-muted-foreground py-2 rounded-lg hover:bg-muted transition-colors"
+                >
+                  Just Hi-Five 🖐️
+                </button>
+                <button
+                  onClick={() => setShowIcebreakers(false)}
+                  className="text-xs font-medium text-muted-foreground py-2 px-3 rounded-lg hover:bg-muted transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Actions */}
       <div className="flex items-center justify-around border-t border-border px-2 py-2.5">

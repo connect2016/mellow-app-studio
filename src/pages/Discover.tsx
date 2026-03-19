@@ -186,8 +186,8 @@ export default function Discover() {
     }
   };
 
-  const handleHiFive = async (profile: typeof profiles[0]) => {
-    const result = await sendLike.mutateAsync({ toUser: profile.user_id, isHiFive: true });
+  const handleHiFive = async (profile: typeof profiles[0], message?: string) => {
+    const result = await sendLike.mutateAsync({ toUser: profile.user_id, isHiFive: true, message });
     if (result.isMutualHiFive) {
       setMatchCelebration(profile.display_name);
       setTimeout(() => setMatchCelebration(null), 3000);
@@ -444,7 +444,7 @@ export default function Discover() {
                 <ProfileCard
                   key={profile.id}
                   user={cardUser}
-                  onHiFive={() => handleHiFive(profile)}
+                  onHiFive={(msg) => handleHiFive(profile, msg)}
                   onLike={() => handleLike(profile)}
                   onSendBeer={() => navigate(`/beer-money?to=${profile.user_id}`)}
                   onViewProfile={() => navigate(`/profile/${profile.user_id}`)}

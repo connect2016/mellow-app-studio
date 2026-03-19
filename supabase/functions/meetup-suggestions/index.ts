@@ -30,7 +30,7 @@ serve(async (req) => {
     // Get current user from JWT
     const anonClient = createClient(
       SUPABASE_URL,
-      Deno.env.get("SUPABASE_PUBLISHABLE_KEY")!
+      Deno.env.get("SUPABASE_ANON_KEY")!
     );
     const token = authHeader?.replace("Bearer ", "");
     const {

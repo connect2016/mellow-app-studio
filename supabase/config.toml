@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.post-game]
 verify_jwt = false
+
+[functions.smart-notifications]
+verify_jwt = false

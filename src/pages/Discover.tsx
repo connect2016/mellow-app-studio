@@ -20,6 +20,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
 import { useProfile } from '@/hooks/useProfile';
+import { useCompatibility } from '@/hooks/useCompatibility';
 import { toast } from 'sonner';
 import { useMissionTracker } from '@/hooks/useMissionTracker';
 

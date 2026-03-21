@@ -79,7 +79,7 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
             className="mb-8 flex justify-center">
             
-            <img alt="Cubbies Buddies" className="w-full max-w-md drop-shadow-xl sm:max-w-lg" style={{ mixBlendMode: 'multiply' }} src={logoTransparent} />
+            <img alt="Cubbies Buddies" className="w-full max-w-md drop-shadow-xl sm:max-w-lg" src={logoTransparent} />
           </motion.div>
 
           {/* Copy */}

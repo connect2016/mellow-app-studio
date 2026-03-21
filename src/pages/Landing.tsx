@@ -8,53 +8,53 @@ import fansCheering from '@/assets/fans-cheering.jpg';
 import beerCheers from '@/assets/beer-cheers.jpg';
 
 const features = [
-  {
-    icon: Users,
-    title: 'Find Your Crew',
-    description: 'Match with fans who share your vibe—friends, beer buddies, or something more.',
-  },
-  {
-    icon: MapPin,
-    title: 'Game-Day Mode',
-    description: "Share your spot at Wrigley or your favorite Wrigleyville bar. Connect in real-time.",
-  },
-  {
-    icon: Zap,
-    title: 'Hi-Fives',
-    description: 'Low-commitment poke. Send a Hi-Five to break the ice without the pressure.',
-  },
-  {
-    icon: Beer,
-    title: 'Send Beer Money',
-    description: "Buy someone a round. Send a few bucks with a note—it's the ultimate icebreaker.",
-  },
-  {
-    icon: Heart,
-    title: 'Real Connections',
-    description: 'Choose your intent: watch a game, grab a beer, post-game hangs, or dating.',
-  },
-  {
-    icon: Shield,
-    title: 'Safe & Private',
-    description: 'Control who sees your location. Block, report, and stay comfortable.',
-  },
-];
+{
+  icon: Users,
+  title: 'Find Your Crew',
+  description: 'Match with fans who share your vibe—friends, beer buddies, or something more.'
+},
+{
+  icon: MapPin,
+  title: 'Game-Day Mode',
+  description: "Share your spot at Wrigley or your favorite Wrigleyville bar. Connect in real-time."
+},
+{
+  icon: Zap,
+  title: 'Hi-Fives',
+  description: 'Low-commitment poke. Send a Hi-Five to break the ice without the pressure.'
+},
+{
+  icon: Beer,
+  title: 'Send Beer Money',
+  description: "Buy someone a round. Send a few bucks with a note—it's the ultimate icebreaker."
+},
+{
+  icon: Heart,
+  title: 'Real Connections',
+  description: 'Choose your intent: watch a game, grab a beer, post-game hangs, or dating.'
+},
+{
+  icon: Shield,
+  title: 'Safe & Private',
+  description: 'Control who sees your location. Block, report, and stay comfortable.'
+}];
+
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.08 } }
 };
 
 const item = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' as const } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' as const } }
 };
 
 const stats = [
-  { label: 'Cubs Fans', value: '1,200+' },
-  { label: 'Hi-Fives Sent', value: '8,400+' },
-  { label: 'Game-Day Meetups', value: '3,100+' },
-];
+{ label: 'Cubs Fans', value: '1,200+' },
+{ label: 'Hi-Fives Sent', value: '8,400+' },
+{ label: 'Game-Day Meetups', value: '3,100+' }];
+
 
 export default function Landing() {
   return (
@@ -66,8 +66,8 @@ export default function Landing() {
           <img
             src={wrigleyHero}
             alt="Wrigley Field on game day"
-            className="h-full w-full object-cover"
-          />
+            className="h-full w-full object-cover" />
+          
           <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--cubs-blue)/0.85)] via-[hsl(var(--cubs-blue)/0.7)] to-background" />
         </div>
 
@@ -77,9 +77,9 @@ export default function Landing() {
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 flex justify-center"
-          >
-            <img src={logo} alt="Cubbies Buddies" className="h-20 drop-shadow-xl sm:h-28" />
+            className="mb-8 flex justify-center">
+            
+            <img alt="Cubbies Buddies" className="h-20 drop-shadow-xl sm:h-28" src="/lovable-uploads/20d7c1a3-ad14-4a7a-aefd-5c91e8039451.png" />
           </motion.div>
 
           {/* Copy */}
@@ -89,8 +89,8 @@ export default function Landing() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-primary-foreground sm:text-5xl lg:text-6xl"
-              style={{ fontFamily: 'Space Grotesk' }}
-            >
+              style={{ fontFamily: 'Space Grotesk' }}>
+              
               Find Your Crew{' '}
               <span className="block text-[hsl(var(--cubs-red))]">at Wrigley</span>
             </motion.h1>
@@ -99,8 +99,8 @@ export default function Landing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-8 text-lg text-primary-foreground/80 sm:text-xl"
-            >
+              className="mb-8 text-lg text-primary-foreground/80 sm:text-xl">
+              
               Meet Cubs fans for games, beers, and unforgettable moments.
             </motion.p>
 
@@ -108,13 +108,13 @@ export default function Landing() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.35 }}
-              className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
-            >
+              className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              
               <Link to="/auth">
                 <Button
                   size="lg"
-                  className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
-                >
+                  className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90">
+                  
                   Join Cubbies Buddies
                   <ChevronRight className="ml-1 h-4 w-4" />
                 </Button>
@@ -127,16 +127,16 @@ export default function Landing() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="mx-auto mt-14 grid max-w-md grid-cols-3 gap-4 rounded-2xl border border-primary-foreground/10 bg-primary-foreground/10 px-6 py-5 backdrop-blur-md sm:max-w-lg"
-          >
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
+            className="mx-auto mt-14 grid max-w-md grid-cols-3 gap-4 rounded-2xl border border-primary-foreground/10 bg-primary-foreground/10 px-6 py-5 backdrop-blur-md sm:max-w-lg">
+            
+            {stats.map((s) =>
+            <div key={s.label} className="text-center">
                 <p className="text-2xl font-bold text-primary-foreground" style={{ fontFamily: 'Space Grotesk' }}>
                   {s.value}
                 </p>
                 <p className="text-xs text-primary-foreground/60">{s.label}</p>
               </div>
-            ))}
+            )}
           </motion.div>
         </div>
       </section>
@@ -158,12 +158,12 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-10 text-center"
-          >
+            className="mb-10 text-center">
+            
             <h2
               className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-              style={{ fontFamily: 'Space Grotesk' }}
-            >
+              style={{ fontFamily: 'Space Grotesk' }}>
+              
               More Than a Game.{' '}
               <span className="text-secondary">It's a Community.</span>
             </h2>
@@ -178,26 +178,26 @@ export default function Landing() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="overflow-hidden rounded-2xl"
-            >
+              className="overflow-hidden rounded-2xl">
+              
               <img
                 src={fansCheering}
                 alt="Cubs fans cheering at a Wrigleyville bar"
-                className="h-64 w-full object-cover sm:h-80"
-              />
+                className="h-64 w-full object-cover sm:h-80" />
+              
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="overflow-hidden rounded-2xl"
-            >
+              className="overflow-hidden rounded-2xl">
+              
               <img
                 src={beerCheers}
                 alt="Friends clinking beers at the ballpark"
-                className="h-64 w-full object-cover sm:h-80"
-              />
+                className="h-64 w-full object-cover sm:h-80" />
+              
             </motion.div>
           </div>
         </div>
@@ -211,12 +211,12 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-12 text-center"
-          >
+            className="mb-12 text-center">
+            
             <h2
               className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-              style={{ fontFamily: 'Space Grotesk' }}
-            >
+              style={{ fontFamily: 'Space Grotesk' }}>
+              
               Everything You Need on{' '}
               <span className="text-primary">Game Day</span>
             </h2>
@@ -228,26 +228,26 @@ export default function Landing() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {features.map((f) => (
-              <motion.div
-                key={f.title}
-                variants={item}
-                className="group rounded-2xl border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
-              >
+            className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            
+            {features.map((f) =>
+            <motion.div
+              key={f.title}
+              variants={item}
+              className="group rounded-2xl border bg-card p-6 shadow-sm transition-shadow hover:shadow-md">
+              
                 <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 transition-colors group-hover:bg-secondary/10">
                   <f.icon className="h-6 w-6 text-primary group-hover:text-secondary" />
                 </div>
                 <h3
-                  className="mb-1 text-lg font-semibold text-card-foreground"
-                  style={{ fontFamily: 'Space Grotesk' }}
-                >
+                className="mb-1 text-lg font-semibold text-card-foreground"
+                style={{ fontFamily: 'Space Grotesk' }}>
+                
                   {f.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{f.description}</p>
               </motion.div>
-            ))}
+            )}
           </motion.div>
         </div>
       </section>
@@ -260,8 +260,8 @@ export default function Landing() {
         <div className="relative mx-auto max-w-lg px-6 text-center">
           <h2
             className="mb-3 text-3xl font-bold text-primary-foreground sm:text-4xl"
-            style={{ fontFamily: 'Space Grotesk' }}
-          >
+            style={{ fontFamily: 'Space Grotesk' }}>
+            
             Ready to find your crew?
           </h2>
           <p className="mb-8 text-primary-foreground/70">
@@ -270,8 +270,8 @@ export default function Landing() {
           <Link to="/auth">
             <Button
               size="lg"
-              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
-            >
+              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90">
+              
               Join Cubbies Buddies
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
@@ -283,6 +283,6 @@ export default function Landing() {
       <footer className="border-t bg-background py-8 text-center text-sm text-muted-foreground">
         <p>© {new Date().getFullYear()} Cubbies Buddies · Made with ❤️ in Wrigleyville</p>
       </footer>
-    </div>
-  );
+    </div>);
+
 }

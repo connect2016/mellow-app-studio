@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star } from 'lucide-react';
-import logo from '@/assets/logo.png';
+import logoTransparent from '@/assets/logo-transparent.png';
 import wrigleyHero from '@/assets/wrigley-hero.jpg';
 import fansCheering from '@/assets/fans-cheering.jpg';
 import beerCheers from '@/assets/beer-cheers.jpg';
@@ -79,7 +79,7 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
             className="mb-8 flex justify-center">
             
-            <img alt="Cubbies Buddies" className="h-20 drop-shadow-xl sm:h-28" src="/lovable-uploads/20d7c1a3-ad14-4a7a-aefd-5c91e8039451.png" />
+            <img alt="Cubbies Buddies" className="w-full max-w-md drop-shadow-xl sm:max-w-lg" src={logoTransparent} />
           </motion.div>
 
           {/* Copy */}

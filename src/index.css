@@ -19,13 +19,13 @@
 
 @layer base {
   :root {
-    --background: 100 3% 87%;
+    --background: 0 0% 91%;
     --foreground: 222 80% 15%;
 
-    --card: 100 3% 85%;
+    --card: 0 0% 89%;
     --card-foreground: 222 80% 15%;
 
-    --popover: 100 3% 85%;
+    --popover: 0 0% 89%;
     --popover-foreground: 222 80% 15%;
 
     --primary: 222 82% 29%;
@@ -34,7 +34,7 @@
     --secondary: 1 60% 50%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 100 2% 80%;
+    --muted: 0 0% 84%;
     --muted-foreground: 222 20% 40%;
 
     --accent: 160 50% 45%;
@@ -43,8 +43,8 @@
     --destructive: 1 60% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 100 2% 78%;
-    --input: 100 2% 78%;
+    --border: 0 0% 82%;
+    --input: 0 0% 82%;
     --ring: 222 82% 29%;
 
     --cubs-red: 1 60% 50%;
@@ -70,7 +70,7 @@
     --stadium-seat-dark: 170 35% 22%;
     --stadium-seat-foreground: 45 30% 92%;
 
-    --ticket-cream: 100 3% 85%;
+    --ticket-cream: 0 0% 89%;
   }
 
   .dark {

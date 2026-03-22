@@ -95,6 +95,8 @@ export default function Landing() {
                 WebkitTextStroke: '4px white',
                 paintOrder: 'stroke fill',
                 filter: 'drop-shadow(2px 2px 0px black) drop-shadow(-2px -2px 0px black) drop-shadow(2px -2px 0px black) drop-shadow(-2px 2px 0px black)',
+                letterSpacing: '0.05em',
+                lineHeight: 1.4,
               }}>
               Your Wrigleyville Connection Hub
             </motion.h1>

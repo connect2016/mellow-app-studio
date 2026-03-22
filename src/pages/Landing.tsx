@@ -88,20 +88,37 @@ export default function Landing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-primary-foreground sm:text-5xl lg:text-6xl"
-              style={{ fontFamily: 'Space Grotesk' }}>
-              
-              Find Your Crew{' '}
-              <span className="block text-[hsl(var(--cubs-red))]">at Wrigley</span>
+              className="mb-2 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+              style={{
+                fontFamily: 'Montserrat, sans-serif',
+                color: 'hsl(var(--cubs-red))',
+                WebkitTextStroke: '1.5px white',
+                paintOrder: 'stroke fill',
+              }}>
+              Your Wrigleyville Connection Hub
             </motion.h1>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.18 }}
+              className="mb-4 text-2xl font-bold tracking-wide sm:text-3xl lg:text-4xl"
+              style={{
+                fontFamily: 'Montserrat, sans-serif',
+                color: 'hsl(var(--cubs-blue))',
+                WebkitTextStroke: '1px white',
+                paintOrder: 'stroke fill',
+              }}>
+              Sync. Meet. Celebrate.
+            </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-8 text-lg text-primary-foreground/80 sm:text-xl">
-              
-              Meet Cubs fans for games, beers, and unforgettable moments.
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="mb-8 text-base text-primary-foreground/90 sm:text-lg"
+              style={{ fontFamily: 'Montserrat, sans-serif' }}>
+              Discover your Wrigleyville crew for friendships, pre and post-game meetups, or a fun sports date. Connect with fans who truly get it.
             </motion.p>
 
             <motion.div

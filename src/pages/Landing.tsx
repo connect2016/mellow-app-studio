@@ -88,13 +88,15 @@ export default function Landing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-2 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+              className="mb-6 text-4xl font-extrabold sm:text-5xl lg:text-6xl"
               style={{
                 fontFamily: 'Montserrat, sans-serif',
                 color: 'hsl(var(--cubs-red))',
                 WebkitTextStroke: '4px white',
                 paintOrder: 'stroke fill',
                 filter: 'drop-shadow(2px 2px 0px black) drop-shadow(-2px -2px 0px black) drop-shadow(2px -2px 0px black) drop-shadow(-2px 2px 0px black)',
+                letterSpacing: '0.05em',
+                lineHeight: 1.4,
               }}>
               Your Wrigleyville Connection Hub
             </motion.h1>
@@ -110,6 +112,8 @@ export default function Landing() {
                 WebkitTextStroke: '4px white',
                 paintOrder: 'stroke fill',
                 filter: 'drop-shadow(2px 2px 0px black) drop-shadow(-2px -2px 0px black) drop-shadow(2px -2px 0px black) drop-shadow(-2px 2px 0px black)',
+                letterSpacing: '0.06em',
+                lineHeight: 1.4,
               }}>
               Sync. Meet. Celebrate.
             </motion.h2>

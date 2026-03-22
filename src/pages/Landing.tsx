@@ -108,8 +108,8 @@ export default function Landing() {
               className="mb-4 text-2xl font-bold tracking-wide sm:text-3xl lg:text-4xl"
               style={{
                 fontFamily: 'Montserrat, sans-serif',
-                color: 'hsl(var(--cubs-blue))',
-                WebkitTextStroke: '4px white',
+                color: 'white',
+                WebkitTextStroke: '4px hsl(var(--cubs-blue))',
                 paintOrder: 'stroke fill',
                 filter: 'drop-shadow(1px 1px 0px rgba(0,0,0,0.7)) drop-shadow(-1px -1px 0px rgba(0,0,0,0.7))',
                 letterSpacing: '0.06em',

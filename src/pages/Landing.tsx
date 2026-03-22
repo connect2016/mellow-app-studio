@@ -107,8 +107,9 @@ export default function Landing() {
               style={{
                 fontFamily: 'Montserrat, sans-serif',
                 color: 'hsl(var(--cubs-blue))',
-                WebkitTextStroke: '1px white',
+                WebkitTextStroke: '3px white',
                 paintOrder: 'stroke fill',
+                textShadow: '0 0 6px rgba(255,255,255,0.8), 2px 2px 0 white, -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white',
               }}>
               Sync. Meet. Celebrate.
             </motion.h2>

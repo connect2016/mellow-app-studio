@@ -69,6 +69,27 @@ export default function Onboarding() {
   const [locationPrivacy, setLocationPrivacy] = useState<PrivacyLevel>('MatchesOnly');
   const [barPrivacy, setBarPrivacy] = useState<PrivacyLevel>('MatchesOnly');
   const [showCelebration, setShowCelebration] = useState(false);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { uploadPhoto, uploading: photoUploading } = usePhotoUpload();
+
+  const handlePhotoSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: 'File too large', description: 'Please choose a photo under 5MB.', variant: 'destructive' });
+      return;
+    }
+    // Show preview immediately
+    setPhotoPreview(URL.createObjectURL(file));
+    try {
+      await uploadPhoto(file);
+      toast({ title: '📸 Photo uploaded!' });
+    } catch {
+      toast({ title: 'Upload failed', description: 'Please try again.', variant: 'destructive' });
+      setPhotoPreview(null);
+    }
+  };
 
   useEffect(() => {
     if (!loading && !user) {

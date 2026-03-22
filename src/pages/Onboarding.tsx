@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import wrigleySeatsImg from '@/assets/wrigley-seats.jpg';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';

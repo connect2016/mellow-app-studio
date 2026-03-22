@@ -262,18 +262,38 @@ export default function Onboarding() {
               {step === 1 && (
                 <div className="space-y-5">
                   <div className="flex justify-center">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      className="hidden"
+                      onChange={handlePhotoSelect}
+                    />
                     <motion.button
+                      type="button"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="relative flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed border-primary/40 bg-muted hover:bg-primary/5 transition-colors"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="relative flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed border-primary/40 bg-muted hover:bg-primary/5 transition-colors overflow-hidden"
+                      disabled={photoUploading}
                     >
-                      <Camera className="h-8 w-8 text-muted-foreground" />
+                      {photoPreview ? (
+                        <img src={photoPreview} alt="Preview" className="h-full w-full object-cover" />
+                      ) : (
+                        <Camera className="h-8 w-8 text-muted-foreground" />
+                      )}
                       <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-                        <span className="text-xs font-bold">+</span>
+                        {photoUploading ? (
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        ) : (
+                          <span className="text-xs font-bold">+</span>
+                        )}
                       </div>
                     </motion.button>
                   </div>
-                  <p className="text-center text-xs text-muted-foreground">Tap to add your photo</p>
+                  <p className="text-center text-xs text-muted-foreground">
+                    {photoUploading ? 'Uploading…' : 'Tap to add your photo'}
+                  </p>
 
                   <div className="space-y-2">
                     <Label className="font-semibold">Display Name</Label>

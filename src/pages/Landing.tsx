@@ -94,7 +94,7 @@ export default function Landing() {
                 color: 'hsl(var(--cubs-red))',
                 WebkitTextStroke: '4px white',
                 paintOrder: 'stroke fill',
-                filter: 'drop-shadow(2px 2px 0px black) drop-shadow(-2px -2px 0px black) drop-shadow(2px -2px 0px black) drop-shadow(-2px 2px 0px black)',
+                filter: 'drop-shadow(1px 1px 0px rgba(0,0,0,0.7)) drop-shadow(-1px -1px 0px rgba(0,0,0,0.7))',
                 letterSpacing: '0.05em',
                 lineHeight: 1.4,
               }}>
@@ -111,7 +111,7 @@ export default function Landing() {
                 color: 'hsl(var(--cubs-blue))',
                 WebkitTextStroke: '4px white',
                 paintOrder: 'stroke fill',
-                filter: 'drop-shadow(2px 2px 0px black) drop-shadow(-2px -2px 0px black) drop-shadow(2px -2px 0px black) drop-shadow(-2px 2px 0px black)',
+                filter: 'drop-shadow(1px 1px 0px rgba(0,0,0,0.7)) drop-shadow(-1px -1px 0px rgba(0,0,0,0.7))',
                 letterSpacing: '0.06em',
                 lineHeight: 1.4,
               }}>

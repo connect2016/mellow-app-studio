@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import wrigleySeatsImg from '@/assets/wrigley-seats.jpg';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -205,7 +206,15 @@ export default function Onboarding() {
   const currentMeta = stepMeta[step - 1];
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div
+      className="flex min-h-screen flex-col bg-background relative"
+      style={step === 4 ? {
+        backgroundImage: `url(${wrigleySeatsImg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      } : undefined}
+    >
+      {step === 4 && <div className="absolute inset-0 bg-background/85 backdrop-blur-sm" />}
       {/* Top bar with progress */}
       <div className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="mx-auto max-w-md px-5 py-4">
@@ -237,7 +246,7 @@ export default function Onboarding() {
       </div>
 
       {/* Step content */}
-      <div className="flex flex-1 flex-col px-5 py-6">
+      <div className="flex flex-1 flex-col px-5 py-6 relative z-[1]">
         <div className="mx-auto w-full max-w-md flex-1">
           <AnimatePresence mode="wait">
             <motion.div

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -7,9 +7,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { IntentType, WRIGLEYVILLE_BARS, PrivacyLevel } from '@/types';
-import { ChevronLeft, ChevronRight, Camera, AlertCircle, User, Heart, Star, MapPin, Beer, Sparkles, Eye, Lock, EyeOff } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Camera, AlertCircle, User, Heart, Star, MapPin, Beer, Sparkles, Eye, Lock, EyeOff, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUpdateProfile } from '@/hooks/useProfile';
+import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { useToast } from '@/hooks/use-toast';
 
 const TOTAL_STEPS = 4;
@@ -68,6 +69,27 @@ export default function Onboarding() {
   const [locationPrivacy, setLocationPrivacy] = useState<PrivacyLevel>('MatchesOnly');
   const [barPrivacy, setBarPrivacy] = useState<PrivacyLevel>('MatchesOnly');
   const [showCelebration, setShowCelebration] = useState(false);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { uploadPhoto, uploading: photoUploading } = usePhotoUpload();
+
+  const handlePhotoSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: 'File too large', description: 'Please choose a photo under 5MB.', variant: 'destructive' });
+      return;
+    }
+    // Show preview immediately
+    setPhotoPreview(URL.createObjectURL(file));
+    try {
+      await uploadPhoto(file);
+      toast({ title: '📸 Photo uploaded!' });
+    } catch {
+      toast({ title: 'Upload failed', description: 'Please try again.', variant: 'destructive' });
+      setPhotoPreview(null);
+    }
+  };
 
   useEffect(() => {
     if (!loading && !user) {
@@ -240,18 +262,38 @@ export default function Onboarding() {
               {step === 1 && (
                 <div className="space-y-5">
                   <div className="flex justify-center">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      className="hidden"
+                      onChange={handlePhotoSelect}
+                    />
                     <motion.button
+                      type="button"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="relative flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed border-primary/40 bg-muted hover:bg-primary/5 transition-colors"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="relative flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed border-primary/40 bg-muted hover:bg-primary/5 transition-colors overflow-hidden"
+                      disabled={photoUploading}
                     >
-                      <Camera className="h-8 w-8 text-muted-foreground" />
+                      {photoPreview ? (
+                        <img src={photoPreview} alt="Preview" className="h-full w-full object-cover" />
+                      ) : (
+                        <Camera className="h-8 w-8 text-muted-foreground" />
+                      )}
                       <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-                        <span className="text-xs font-bold">+</span>
+                        {photoUploading ? (
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        ) : (
+                          <span className="text-xs font-bold">+</span>
+                        )}
                       </div>
                     </motion.button>
                   </div>
-                  <p className="text-center text-xs text-muted-foreground">Tap to add your photo</p>
+                  <p className="text-center text-xs text-muted-foreground">
+                    {photoUploading ? 'Uploading…' : 'Tap to add your photo'}
+                  </p>
 
                   <div className="space-y-2">
                     <Label className="font-semibold">Display Name</Label>

@@ -109,7 +109,7 @@ export default function Landing() {
                 color: 'hsl(var(--cubs-blue))',
                 WebkitTextStroke: '3px white',
                 paintOrder: 'stroke fill',
-                textShadow: '0 0 6px rgba(255,255,255,0.8), 2px 2px 0 white, -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white',
+                textShadow: '3px 3px 0 black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 0 3px 0 black, 0 -3px 0 black, 3px 0 0 black, -3px 0 0 black, 2px 2px 0 white, -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 0 2px 0 white, 0 -2px 0 white, 2px 0 0 white, -2px 0 0 white',
               }}>
               Sync. Meet. Celebrate.
             </motion.h2>

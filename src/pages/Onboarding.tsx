@@ -246,7 +246,7 @@ export default function Onboarding() {
       </div>
 
       {/* Step content */}
-      <div className="flex flex-1 flex-col px-5 py-6">
+      <div className="flex flex-1 flex-col px-5 py-6 relative z-[1]">
         <div className="mx-auto w-full max-w-md flex-1">
           <AnimatePresence mode="wait">
             <motion.div

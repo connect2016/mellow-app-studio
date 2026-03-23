@@ -55,6 +55,7 @@ const DEFAULT_FILTERS: FilterState = {
 export default function Discover() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
+  const { gamedayMode, toggleGamedayMode } = useGamedayMode();
   const { data: profiles = [], isLoading } = useDiscoverProfiles();
   const { data: myProfile } = useProfile();
   const sendLike = useSendLike();

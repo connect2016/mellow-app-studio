@@ -66,6 +66,7 @@ const App = () => (
             <Route path="/score/:id" element={<ScoreGame />} />
             <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />
+            <Route path="/bar-map" element={<BarMap />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

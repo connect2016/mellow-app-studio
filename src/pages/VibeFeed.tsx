@@ -407,15 +407,3 @@ export default function VibeFeed() {
       </main>
     </div>
   );
-}
-          <TabsContent value="memories">
-            <MemoriesContent />
-          </TabsContent>
-        </Tabs>
-      </main>
-    </div>
-  );
-}
-    </div>
-  );
-}

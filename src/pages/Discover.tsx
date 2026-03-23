@@ -280,6 +280,24 @@ export default function Discover() {
       )}
 
       <div className="mx-auto max-w-lg px-4 pt-4">
+        {/* Gameday Mode Toggle */}
+        <div className="flex items-center justify-between rounded-xl border border-border bg-card/80 backdrop-blur-sm px-4 py-2.5 mb-4">
+          <div className="flex items-center gap-2">
+            <span className="text-base">🏟️</span>
+            <span className="text-sm font-semibold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+              Gameday Mode
+            </span>
+          </div>
+          <Switch checked={gamedayMode} onCheckedChange={toggleGamedayMode} />
+        </div>
+
+        {/* Cubs Scoreboard (only in Gameday Mode) */}
+        {gamedayMode && (
+          <div className="mb-4">
+            <CubsScoreboard />
+          </div>
+        )}
+
         {/* Social Proof */}
         <div className="mb-4">
           <SocialProofBanner />

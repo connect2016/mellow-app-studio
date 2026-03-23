@@ -31,9 +31,9 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
   {
     key: 'wrigley_legend',
     name: 'Wrigley Legend',
-    description: 'Meet 3 different Buddies in one season',
+    description: 'Check in at 5 Wrigley Passport locations',
     emoji: '🏆',
-    target: 3,
+    target: 5,
     color: 'accent',
   },
   {

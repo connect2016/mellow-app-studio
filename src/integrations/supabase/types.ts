@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      ballpark_buddy_searches: {
+        Row: {
+          created_at: string
+          game_date: string
+          id: string
+          intent: string
+          section: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          game_date: string
+          id?: string
+          intent?: string
+          section: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          game_date?: string
+          id?: string
+          intent?: string
+          section?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       bar_votes: {
         Row: {
           bar_name: string

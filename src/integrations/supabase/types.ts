@@ -681,6 +681,27 @@ export type Database = {
         }
         Relationships: []
       }
+      passport_checkins: {
+        Row: {
+          id: string
+          location_key: string
+          user_id: string
+          verified_at: string
+        }
+        Insert: {
+          id?: string
+          location_key: string
+          user_id: string
+          verified_at?: string
+        }
+        Update: {
+          id?: string
+          location_key?: string
+          user_id?: string
+          verified_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age: number | null

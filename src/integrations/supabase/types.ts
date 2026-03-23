@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      bar_votes: {
+        Row: {
+          bar_name: string
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+          vibe: string
+          wait_time: string
+        }
+        Insert: {
+          bar_name: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+          vibe?: string
+          wait_time?: string
+        }
+        Update: {
+          bar_name?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+          vibe?: string
+          wait_time?: string
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string

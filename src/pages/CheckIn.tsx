@@ -5,8 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useToast } from '@/hooks/use-toast';
-import { MapPin, Check, ChevronsUpDown } from 'lucide-react';
+import { MapPin, Check, ChevronsUpDown, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useBarVotes } from '@/hooks/useBarVotes';
+import { BarVibeBadge } from '@/components/BarVibeBadge';
+import { BarVotePanel } from '@/components/BarVotePanel';
 
 const WRIGLEYVILLE_LOCATIONS = [
   "🏟️ Inside The Ballpark",
@@ -40,11 +43,18 @@ const WRIGLEYVILLE_LOCATIONS = [
   "Yak-Zie's Bar & Grill",
 ];
 
+// Bars only (exclude ballpark entries)
+const BAR_LOCATIONS = WRIGLEYVILLE_LOCATIONS.filter(
+  (b) => !b.startsWith('🏟️') && !b.startsWith('🪑')
+);
+
 export default function CheckIn() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [selectedBar, setSelectedBar] = useState('');
   const [checkedIn, setCheckedIn] = useState(false);
+  const [votingBar, setVotingBar] = useState<string | null>(null);
+  const { getSummary } = useBarVotes();
 
   const handleCheckIn = () => {
     if (!selectedBar) {
@@ -75,10 +85,7 @@ export default function CheckIn() {
 
         {/* Dropdown */}
         <div className="mb-6">
-          <label
-            className="mb-2 block text-sm font-semibold"
-            style={{ fontFamily: 'Space Grotesk' }}
-          >
+          <label className="mb-2 block text-sm font-semibold" style={{ fontFamily: 'Space Grotesk' }}>
             Where are you currently at?
           </label>
           <Popover open={open} onOpenChange={setOpen}>
@@ -109,10 +116,7 @@ export default function CheckIn() {
                         }}
                       >
                         <Check
-                          className={cn(
-                            'mr-2 h-4 w-4',
-                            selectedBar === bar ? 'opacity-100' : 'opacity-0'
-                          )}
+                          className={cn('mr-2 h-4 w-4', selectedBar === bar ? 'opacity-100' : 'opacity-0')}
                         />
                         {bar}
                       </CommandItem>
@@ -155,6 +159,52 @@ export default function CheckIn() {
         <p className="mt-6 text-center text-xs text-muted-foreground">
           Your location is only shared with your buddies to help you sync up for the game.
         </p>
+
+        {/* Live Vibe Section */}
+        <div className="mt-10">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+            </span>
+            <h2 className="text-lg font-bold tracking-tight" style={{ fontFamily: 'Space Grotesk' }}>
+              Live Vibe
+            </h2>
+            <span className="text-xs text-muted-foreground ml-auto">Tap to vote</span>
+          </div>
+
+          <div className="space-y-2">
+            {BAR_LOCATIONS.map((bar) => {
+              const summary = getSummary(bar);
+              const isVoting = votingBar === bar;
+
+              return (
+                <div key={bar}>
+                  <button
+                    onClick={() => setVotingBar(isVoting ? null : bar)}
+                    className={cn(
+                      'w-full flex items-start gap-3 rounded-xl border px-3 py-3 text-left transition-colors',
+                      isVoting
+                        ? 'border-primary/40 bg-primary/[0.03]'
+                        : 'border-border bg-card hover:border-primary/20'
+                    )}
+                  >
+                    <Zap className="h-4 w-4 mt-0.5 text-primary/60 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-foreground truncate">{bar}</p>
+                      <BarVibeBadge summary={summary} />
+                    </div>
+                  </button>
+                  <AnimatePresence>
+                    {isVoting && (
+                      <BarVotePanel barName={bar} onClose={() => setVotingBar(null)} />
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';
 import { SlidersHorizontal, Users, Zap, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/contexts/AuthContext';
 import { useDiscoverProfiles } from '@/hooks/useProfile';
 import { useSendLike, usePass } from '@/hooks/useInteractions';
@@ -16,6 +17,9 @@ import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { PostGameExperience } from '@/components/PostGameExperience';
+import { CubsScoreboard } from '@/components/CubsScoreboard';
+import { useGamedayMode } from '@/contexts/GamedayModeContext';
+import wrigleyBg from '@/assets/wrigley-gameday-bg.jpg';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
@@ -51,6 +55,7 @@ const DEFAULT_FILTERS: FilterState = {
 export default function Discover() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
+  const { gamedayMode, toggleGamedayMode } = useGamedayMode();
   const { data: profiles = [], isLoading } = useDiscoverProfiles();
   const { data: myProfile } = useProfile();
   const sendLike = useSendLike();
@@ -198,7 +203,23 @@ export default function Discover() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen pb-24 relative">
+      {/* Gameday Mode background */}
+      {gamedayMode && (
+        <div className="fixed inset-0 z-0">
+          <img
+            src={wrigleyBg}
+            alt=""
+            className="h-full w-full object-cover"
+            width={1920}
+            height={1080}
+          />
+          <div className="absolute inset-0 bg-background/75 backdrop-blur-[2px]" />
+        </div>
+      )}
+      {!gamedayMode && <div className="fixed inset-0 z-0 bg-background" />}
+
+      <div className="relative z-10">
       <AppHeader />
 
       {/* Match celebration overlay */}
@@ -259,6 +280,24 @@ export default function Discover() {
       )}
 
       <div className="mx-auto max-w-lg px-4 pt-4">
+        {/* Gameday Mode Toggle */}
+        <div className="flex items-center justify-between rounded-xl border border-border bg-card/80 backdrop-blur-sm px-4 py-2.5 mb-4">
+          <div className="flex items-center gap-2">
+            <span className="text-base">🏟️</span>
+            <span className="text-sm font-semibold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+              Gameday Mode
+            </span>
+          </div>
+          <Switch checked={gamedayMode} onCheckedChange={toggleGamedayMode} />
+        </div>
+
+        {/* Cubs Scoreboard (only in Gameday Mode) */}
+        {gamedayMode && (
+          <div className="mb-4">
+            <CubsScoreboard />
+          </div>
+        )}
+
         {/* Social Proof */}
         <div className="mb-4">
           <SocialProofBanner />
@@ -479,6 +518,7 @@ export default function Discover() {
         filters={filters}
         onApply={setFilters}
       />
+      </div>
     </div>
   );
 }

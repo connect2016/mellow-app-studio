@@ -9,10 +9,7 @@ import { useUnreadCount } from '@/hooks/useNotifications';
 const navItems = [
   { to: '/discover', icon: Compass, label: 'Discover' },
   { to: '/vibe', icon: Radio, label: 'Vibe' },
-  { to: '/crews', icon: Users, label: 'Crews' },
-  { to: '/memories', icon: Camera, label: 'Memories' },
   { to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
-  { to: '/messages', icon: MessageCircle, label: 'Chat' },
   { to: '/profile', icon: User, label: 'Profile' },
 ];
 

@@ -396,8 +396,18 @@ export default function VibeFeed() {
                 </motion.div>
               );
             })}
+          </div>
+        )}
           </TabsContent>
 
+          <TabsContent value="memories">
+            <MemoriesContent />
+          </TabsContent>
+        </Tabs>
+      </main>
+    </div>
+  );
+}
           <TabsContent value="memories">
             <MemoriesContent />
           </TabsContent>

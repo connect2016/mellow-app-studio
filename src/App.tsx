@@ -26,6 +26,7 @@ import Memories from "./pages/Memories";
 import Notifications from "./pages/Notifications";
 import ScoreLobby from "./pages/ScoreLobby";
 import ScoreGame from "./pages/ScoreGame";
+import BallparkBuddy from "./pages/BallparkBuddy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

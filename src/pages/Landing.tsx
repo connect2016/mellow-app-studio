@@ -1,3 +1,4 @@
+// @ts-ignore
 import '@fontsource/norwester';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';

@@ -203,7 +203,23 @@ export default function Discover() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen pb-24 relative">
+      {/* Gameday Mode background */}
+      {gamedayMode && (
+        <div className="fixed inset-0 z-0">
+          <img
+            src={wrigleyBg}
+            alt=""
+            className="h-full w-full object-cover"
+            width={1920}
+            height={1080}
+          />
+          <div className="absolute inset-0 bg-background/75 backdrop-blur-[2px]" />
+        </div>
+      )}
+      {!gamedayMode && <div className="fixed inset-0 z-0 bg-background" />}
+
+      <div className="relative z-10">
       <AppHeader />
 
       {/* Match celebration overlay */}

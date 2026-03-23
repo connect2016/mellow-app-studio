@@ -26,6 +26,7 @@ import Memories from "./pages/Memories";
 import Notifications from "./pages/Notifications";
 import ScoreLobby from "./pages/ScoreLobby";
 import ScoreGame from "./pages/ScoreGame";
+import BallparkBuddy from "./pages/BallparkBuddy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -61,6 +62,7 @@ const App = () => (
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/score" element={<ScoreLobby />} />
             <Route path="/score/:id" element={<ScoreGame />} />
+            <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

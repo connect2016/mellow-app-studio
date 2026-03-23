@@ -64,6 +64,7 @@ const App = () => (
             <Route path="/score" element={<ScoreLobby />} />
             <Route path="/score/:id" element={<ScoreGame />} />
             <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
+            <Route path="/wrigley-passport" element={<WrigleyPassport />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

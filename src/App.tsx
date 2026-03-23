@@ -43,6 +43,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <GamedayModeProvider>
+            <MessageToastListener />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />

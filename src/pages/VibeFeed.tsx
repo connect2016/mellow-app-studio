@@ -182,6 +182,17 @@ export default function VibeFeed() {
     <div className="min-h-screen bg-background">
       <AppHeader />
       <main className="mx-auto max-w-lg px-4 pt-4 pb-24">
+        <Tabs defaultValue="vibes" className="mb-4">
+          <TabsList className="w-full grid grid-cols-2 mb-4">
+            <TabsTrigger value="vibes" className="gap-1.5">
+              <Camera className="h-3.5 w-3.5" /> Live Vibes
+            </TabsTrigger>
+            <TabsTrigger value="memories" className="gap-1.5">
+              <ImageIcon className="h-3.5 w-3.5" /> Memories
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="vibes">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>

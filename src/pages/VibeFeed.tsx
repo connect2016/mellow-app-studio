@@ -407,3 +407,4 @@ export default function VibeFeed() {
       </main>
     </div>
   );
+}

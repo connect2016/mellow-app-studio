@@ -9,11 +9,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Camera, Video, MapPin, Clock, MessageCircle, X, Trash2, Plus } from 'lucide-react';
+import { Camera, Video, MapPin, Clock, MessageCircle, X, Trash2, Plus, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatDistanceToNow } from 'date-fns';
 import { WRIGLEYVILLE_BARS } from '@/types';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import MemoriesContent from '@/components/MemoriesContent';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),

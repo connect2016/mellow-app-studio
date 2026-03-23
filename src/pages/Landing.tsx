@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star } from 'lucide-react';
-import logoTransparent from '@/assets/logo-transparent.png';
 import wrigleyHero from '@/assets/wrigley-hero.jpg';
+import HeroVideo from '@/components/landing/HeroVideo';
 import fansCheering from '@/assets/fans-cheering.jpg';
 import beerCheers from '@/assets/beer-cheers.jpg';
 

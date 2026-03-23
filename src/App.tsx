@@ -71,6 +71,7 @@ const App = () => (
             <Route path="/bar-map" element={<BarMap />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </GamedayModeProvider>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

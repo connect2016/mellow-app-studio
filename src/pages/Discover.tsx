@@ -500,6 +500,7 @@ export default function Discover() {
         filters={filters}
         onApply={setFilters}
       />
+      </div>
     </div>
   );
 }

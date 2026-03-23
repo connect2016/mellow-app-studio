@@ -6,6 +6,8 @@ import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';
 import { SlidersHorizontal, Users, Zap, Camera } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import CrewsContent from '@/components/CrewsContent';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/contexts/AuthContext';
@@ -432,84 +434,102 @@ export default function Discover() {
             </label>
           </motion.div>
         )}
-        <div className="mb-4 flex items-center justify-between">
-          <div>
-            <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>
-              Discover
-            </h2>
-            {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (
-              <div className="flex items-center gap-3 mt-0.5">
-                {liveCounts.online > 0 && (
-                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
-                    </span>
-                    {liveCounts.online} fans online
-                  </span>
-                )}
-                {liveCounts.atWrigley > 0 && (
-                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                    🏟️ {liveCounts.atWrigley} at Wrigley
-                  </span>
+        {/* Tabbed Discover: Buddies vs Crews */}
+        <Tabs defaultValue="buddies" className="mb-4">
+          <TabsList className="w-full grid grid-cols-2 mb-4">
+            <TabsTrigger value="buddies" className="gap-1.5">
+              <Zap className="h-3.5 w-3.5" /> Discover Buddies
+            </TabsTrigger>
+            <TabsTrigger value="crews" className="gap-1.5">
+              <Users className="h-3.5 w-3.5" /> Discover Crews
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="buddies">
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>
+                  Discover
+                </h2>
+                {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (
+                  <div className="flex items-center gap-3 mt-0.5">
+                    {liveCounts.online > 0 && (
+                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                        </span>
+                        {liveCounts.online} fans online
+                      </span>
+                    )}
+                    {liveCounts.atWrigley > 0 && (
+                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                        🏟️ {liveCounts.atWrigley} at Wrigley
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
-            )}
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowFilters(true)}
-            className="relative gap-1.5 rounded-full"
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            Filters
-            {activeFilterCount > 0 && (
-              <span className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-secondary-foreground">
-                {activeFilterCount}
-              </span>
-            )}
-          </Button>
-        </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowFilters(true)}
+                className="relative gap-1.5 rounded-full"
+              >
+                <SlidersHorizontal className="h-4 w-4" />
+                Filters
+                {activeFilterCount > 0 && (
+                  <span className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-secondary-foreground">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </Button>
+            </div>
 
-        {isLoading ? (
-          <div className="py-20 text-center">
-            <p className="text-4xl animate-pulse">⚾</p>
-            <p className="mt-2 font-semibold text-muted-foreground">Finding fans...</p>
-          </div>
-        ) : filtered.length === 0 ? (
-          <div className="py-20 text-center">
-            <p className="text-4xl">⚾</p>
-            <p className="mt-2 font-semibold">No fans found</p>
-            <p className="text-sm text-muted-foreground">Try adjusting your filters</p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {[...filtered]
-              .sort((a, b) => {
-                const scoreA = compatMap.get(a.user_id)?.score ?? 0;
-                const scoreB = compatMap.get(b.user_id)?.score ?? 0;
-                return scoreB - scoreA;
-              })
-              .map((profile) => {
-              const cardUser = toCardUser(profile);
-              const compat = compatMap.get(profile.user_id);
-              return (
-                <ProfileCard
-                  key={profile.id}
-                  user={cardUser}
-                  matchReasons={compat?.topReasons}
-                  matchScore={compat?.score}
-                  onHiFive={(msg) => handleHiFive(profile, msg)}
-                  onLike={() => handleLike(profile)}
-                  onSendBeer={() => navigate(`/beer-money?to=${profile.user_id}`)}
-                  onViewProfile={() => navigate(`/profile/${profile.user_id}`)}
-                  onPass={() => pass.mutate(profile.user_id)}
-                />
-              );
-            })}
-          </div>
-        )}
+            {isLoading ? (
+              <div className="py-20 text-center">
+                <p className="text-4xl animate-pulse">⚾</p>
+                <p className="mt-2 font-semibold text-muted-foreground">Finding fans...</p>
+              </div>
+            ) : filtered.length === 0 ? (
+              <div className="py-20 text-center">
+                <p className="text-4xl">⚾</p>
+                <p className="mt-2 font-semibold">No fans found</p>
+                <p className="text-sm text-muted-foreground">Try adjusting your filters</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {[...filtered]
+                  .sort((a, b) => {
+                    const scoreA = compatMap.get(a.user_id)?.score ?? 0;
+                    const scoreB = compatMap.get(b.user_id)?.score ?? 0;
+                    return scoreB - scoreA;
+                  })
+                  .map((profile) => {
+                  const cardUser = toCardUser(profile);
+                  const compat = compatMap.get(profile.user_id);
+                  return (
+                    <ProfileCard
+                      key={profile.id}
+                      user={cardUser}
+                      matchReasons={compat?.topReasons}
+                      matchScore={compat?.score}
+                      onHiFive={(msg) => handleHiFive(profile, msg)}
+                      onLike={() => handleLike(profile)}
+                      onSendBeer={() => navigate(`/beer-money?to=${profile.user_id}`)}
+                      onViewProfile={() => navigate(`/profile/${profile.user_id}`)}
+                      onPass={() => pass.mutate(profile.user_id)}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="crews">
+            <CrewsContent />
+          </TabsContent>
+        </Tabs>
       </div>
 
       <DiscoverFilterDrawer

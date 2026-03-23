@@ -9,11 +9,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Camera, Video, MapPin, Clock, MessageCircle, X, Trash2, Plus } from 'lucide-react';
+import { Camera, Video, MapPin, Clock, MessageCircle, X, Trash2, Plus, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatDistanceToNow } from 'date-fns';
 import { WRIGLEYVILLE_BARS } from '@/types';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import MemoriesContent from '@/components/MemoriesContent';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),
@@ -180,6 +182,17 @@ export default function VibeFeed() {
     <div className="min-h-screen bg-background">
       <AppHeader />
       <main className="mx-auto max-w-lg px-4 pt-4 pb-24">
+        <Tabs defaultValue="vibes" className="mb-4">
+          <TabsList className="w-full grid grid-cols-2 mb-4">
+            <TabsTrigger value="vibes" className="gap-1.5">
+              <Camera className="h-3.5 w-3.5" /> Live Vibes
+            </TabsTrigger>
+            <TabsTrigger value="memories" className="gap-1.5">
+              <ImageIcon className="h-3.5 w-3.5" /> Memories
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="vibes">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -385,6 +398,12 @@ export default function VibeFeed() {
             })}
           </div>
         )}
+          </TabsContent>
+
+          <TabsContent value="memories">
+            <MemoriesContent />
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );

@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { GamedayModeProvider } from "@/contexts/GamedayModeContext";
+import { MessageToastListener } from "@/components/MessageToastListener";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
@@ -42,6 +43,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <GamedayModeProvider>
+            <MessageToastListener />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />

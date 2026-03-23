@@ -214,7 +214,7 @@ export default function Onboarding() {
         backgroundPosition: 'center',
       } : undefined}
     >
-      {step === 4 && <div className="absolute inset-0 bg-background/85 backdrop-blur-sm" />}
+      {step === 4 && <div className="absolute inset-0 bg-background/50 backdrop-blur-[2px]" />}
       {/* Top bar with progress */}
       <div className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="mx-auto max-w-md px-5 py-4">

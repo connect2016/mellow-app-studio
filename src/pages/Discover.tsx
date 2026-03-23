@@ -6,6 +6,8 @@ import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';
 import { SlidersHorizontal, Users, Zap, Camera } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import CrewsContent from '@/components/CrewsContent';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/contexts/AuthContext';

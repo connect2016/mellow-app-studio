@@ -105,15 +105,16 @@ export default function Landing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.18 }}
-              className="mb-4 text-2xl font-bold tracking-wide sm:text-3xl lg:text-4xl"
+              className="mb-4 text-3xl sm:text-4xl lg:text-5xl"
               style={{
-                fontFamily: 'Montserrat, sans-serif',
+                fontFamily: "'Playball', cursive",
                 color: 'white',
-                WebkitTextStroke: '4px hsl(var(--cubs-blue))',
+                WebkitTextStroke: '2px hsl(var(--cubs-blue))',
                 paintOrder: 'stroke fill',
                 filter: 'drop-shadow(1px 1px 0px rgba(0,0,0,0.7)) drop-shadow(-1px -1px 0px rgba(0,0,0,0.7))',
-                letterSpacing: '0.06em',
+                letterSpacing: '0.04em',
                 lineHeight: 1.4,
+                textTransform: 'none',
               }}>
               Sync. Meet. Celebrate.
             </motion.h2>

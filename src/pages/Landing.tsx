@@ -108,7 +108,7 @@ export default function Landing() {
               transition={{ duration: 0.6, delay: 0.18 }}
               className="mb-4 text-3xl sm:text-4xl lg:text-5xl"
               style={{
-                fontFamily: "'Playball', cursive",
+                fontFamily: "'Norwester', sans-serif",
                 color: 'white',
                 WebkitTextStroke: '2px hsl(var(--cubs-blue))',
                 paintOrder: 'stroke fill',

@@ -55,8 +55,8 @@ export default function Notifications() {
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>
-              Notifications
+            <h1 className="text-xl font-bold">
+              The Bullpen
             </h1>
             {unreadCount > 0 && (
               <p className="text-xs text-muted-foreground">{unreadCount} unread</p>

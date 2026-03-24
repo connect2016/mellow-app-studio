@@ -109,8 +109,8 @@ export function LiveChatFeed({ reactions, profiles, userId, onSend }: LiveChatFe
         {reactions.length === 0 && (
           <div className="flex items-center justify-center h-full">
             <p className="text-xs text-muted-foreground text-center py-8">
-              Be the first to react! ⚾<br />
-              <span className="text-[10px]">Tap a reaction or type below</span>
+              The press box is quiet! ⚾<br />
+              <span className="text-[10px]">Start the rally — tap a reaction or type below</span>
             </p>
           </div>
         )}

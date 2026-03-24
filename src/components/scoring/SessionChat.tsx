@@ -103,9 +103,9 @@ export function SessionChat({ reactions, profiles, userId, onSend }: SessionChat
           })}
         </AnimatePresence>
         {reactions.length === 0 && (
-          <div className="text-center text-xs text-muted-foreground py-8">
-            No messages yet — be the first to react! ⚾
-          </div>
+           <div className="text-center text-xs text-muted-foreground py-8">
+             The press box is quiet — be the first to call the play! ⚾
+           </div>
         )}
       </div>
 

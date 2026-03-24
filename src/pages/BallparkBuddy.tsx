@@ -272,10 +272,10 @@ export default function BallparkBuddy() {
               {matches.length === 0 && !matchesLoading && (
                 <div className="rounded-xl border border-border bg-card p-6 text-center">
                   <Users className="h-10 w-10 mx-auto mb-2 text-muted-foreground/40" />
-                  <p className="text-sm font-semibold text-foreground">No buddies yet</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Be the first! Share this with your crew so they sign up too.
-                  </p>
+                   <p className="text-sm font-semibold text-foreground">The section's empty</p>
+                   <p className="text-xs text-muted-foreground mt-1">
+                     Rally the troops! Share this with your crew so they get in the game too.
+                   </p>
                 </div>
               )}
 

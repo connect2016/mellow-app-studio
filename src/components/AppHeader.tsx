@@ -7,10 +7,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
-  { to: '/discover', icon: Compass, label: 'Discover' },
+  { to: '/discover', icon: Compass, label: 'The Concourse' },
   { to: '/vibe', icon: Radio, label: 'Vibe' },
   { to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
-  { to: '/profile', icon: User, label: 'Profile' },
+  { to: '/profile', icon: User, label: 'Your Stats' },
 ];
 
 function useNotificationCounts() {
@@ -85,7 +85,7 @@ export function AppHeader() {
               className="h-12 w-auto"
               src="/lovable-uploads/0f9703ae-330e-481b-b9d8-1f6cc6a16e18.png"
             />
-            <span className="text-xl font-bold text-foreground leading-tight" style={{ fontFamily: 'Space Grotesk' }}>
+            <span className="text-xl font-bold text-foreground leading-tight">
               Cubbies Buddies
             </span>
           </Link>

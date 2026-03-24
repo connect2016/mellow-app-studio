@@ -63,8 +63,8 @@ export default function Messages() {
             {messages.length === 0 && (
               <div className="text-center py-16">
                 <p className="text-3xl mb-3">💬</p>
-                <p className="font-semibold text-foreground text-sm">No messages yet</p>
-                <p className="text-xs text-muted-foreground mt-1">Break the ice — say something fun!</p>
+                <p className="font-semibold text-foreground text-sm">The dugout's quiet</p>
+                <p className="text-xs text-muted-foreground mt-1">Break the ice — say something worth a rally cap!</p>
               </div>
             )}
             {messages.map((msg) => {
@@ -130,9 +130,9 @@ export default function Messages() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
               <MessageCircle className="h-7 w-7 text-muted-foreground" />
             </div>
-            <p className="font-semibold text-foreground">Your conversations will show up here</p>
+            <p className="font-semibold text-foreground">The bleachers are empty</p>
             <p className="text-sm text-muted-foreground mt-1 max-w-[260px] mx-auto">
-              Match with a fellow Cubs fan to start chatting. Send a Like or Hi-Five to get started!
+              Find a fellow fan and start a rally. Toss a Hi-Five to break the ice!
             </p>
             <Button variant="outline" className="mt-5 rounded-xl" onClick={() => navigate('/discover')}>
               Discover Fans

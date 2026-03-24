@@ -42,9 +42,8 @@ export default function Auth() {
           <img src={logo} alt="Cubbies Buddies" className="mx-auto mb-4 h-28" />
           <h1
             className="mb-2 text-3xl font-bold tracking-tight"
-            style={{ fontFamily: 'Space Grotesk' }}
           >
-            Welcome Back
+            Get in the Game
           </h1>
         </div>
 

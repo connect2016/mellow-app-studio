@@ -66,18 +66,18 @@ export default function HeroVideo() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}
           className="mb-4 text-4xl font-extrabold sm:text-5xl lg:text-6xl"
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            color: 'hsl(var(--cubs-red))',
-            WebkitTextStroke: '4px white',
-            paintOrder: 'stroke fill',
-            filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
-            letterSpacing: '0.05em',
-            lineHeight: 1.4,
-          }}
-        >
-          Your Wrigleyville Connection Hub
-        </motion.h1>
+           style={{
+             fontFamily: 'Montserrat, sans-serif',
+             color: 'hsl(var(--brick-red))',
+             WebkitTextStroke: '4px white',
+             paintOrder: 'stroke fill',
+             filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
+             letterSpacing: '0.05em',
+             lineHeight: 1.4,
+           }}
+         >
+           Because 'Wait 'Til Next Year' Is Better With Friends.
+         </motion.h1>
 
         {/* Subheadline */}
         <motion.h2
@@ -85,18 +85,18 @@ export default function HeroVideo() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.8 }}
           className="mb-8 text-3xl sm:text-4xl lg:text-5xl"
-          style={{
-            fontFamily: "'Norwester', sans-serif",
-            color: 'white',
-            WebkitTextStroke: '2px hsl(var(--cubs-blue))',
-            paintOrder: 'stroke fill',
-            filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
-            letterSpacing: '0.04em',
-            lineHeight: 1.4,
-            textTransform: 'none',
-          }}
+           style={{
+             fontFamily: "'Norwester', sans-serif",
+             color: 'white',
+             WebkitTextStroke: '2px hsl(var(--day-blue))',
+             paintOrder: 'stroke fill',
+             filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
+             letterSpacing: '0.04em',
+             lineHeight: 1.4,
+             textTransform: 'none',
+           }}
         >
-          Sync. Meet. Celebrate.
+          Stop Watching From the Sidelines.
         </motion.h2>
 
         {/* CTA */}
@@ -108,11 +108,11 @@ export default function HeroVideo() {
           <Link to="/auth">
             <Button
               size="lg"
-              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
-              aria-label="Get in the Game — sign up for Cubbies Buddies"
-            >
-              Get in the Game
-              <ChevronRight className="ml-1 h-4 w-4" />
+               className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
+               aria-label="Join the Bleachers — sign up for Cubbies Buddies"
+             >
+               Join the Bleachers
+               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </Link>
         </motion.div>

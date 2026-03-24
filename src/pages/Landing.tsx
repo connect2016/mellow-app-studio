@@ -83,16 +83,15 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
             className="mb-10 text-center">
             
-            <h2
-              className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-              style={{ fontFamily: 'Space Grotesk' }}>
-              
-              More Than a Game.{' '}
-              <span className="text-secondary">It's a Community.</span>
-            </h2>
-            <p className="text-muted-foreground">
-              Pregame beers, seventh-inning sing-alongs, and friendships that last way beyond the final out.
-            </p>
+             <h2
+               className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+               
+               More Than a Game.{' '}
+               <span className="text-secondary">It's a Community.</span>
+             </h2>
+             <p className="text-muted-foreground">
+               Pregame beers, seventh-inning sing-alongs, and friendships that last way beyond the final out.
+             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

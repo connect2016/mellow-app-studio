@@ -307,9 +307,9 @@ export default function VibeFeed() {
         {posts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="text-5xl mb-4">📸</div>
-            <h3 className="text-lg font-semibold text-foreground mb-1">No vibes yet</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-1">The bleachers are empty</h3>
             <p className="text-sm text-muted-foreground max-w-[240px]">
-              Be the first to share what's happening at Wrigley today!
+              Be the first to start a rally. Drop a vibe and get this section going!
             </p>
           </div>
         ) : (

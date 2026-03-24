@@ -23,7 +23,7 @@ export function GameTimeline({ events }: GameTimelineProps) {
   if (events.length === 0) {
     return (
       <div className="rounded-2xl border border-border bg-card p-6 text-center">
-        <p className="text-sm text-muted-foreground">No key plays yet — add moments as they happen!</p>
+        <p className="text-sm text-muted-foreground">The scorebook's clean — add moments as they happen!</p>
       </div>
     );
   }

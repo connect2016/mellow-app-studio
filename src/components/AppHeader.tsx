@@ -85,7 +85,7 @@ export function AppHeader() {
               className="h-12 w-auto"
               src="/lovable-uploads/0f9703ae-330e-481b-b9d8-1f6cc6a16e18.png"
             />
-            <span className="text-xl font-bold text-foreground leading-tight" style={{ fontFamily: 'Space Grotesk' }}>
+            <span className="text-xl font-bold text-foreground leading-tight">
               Cubbies Buddies
             </span>
           </Link>

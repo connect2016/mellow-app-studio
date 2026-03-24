@@ -130,9 +130,9 @@ export default function Messages() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
               <MessageCircle className="h-7 w-7 text-muted-foreground" />
             </div>
-            <p className="font-semibold text-foreground">Your conversations will show up here</p>
+            <p className="font-semibold text-foreground">The bleachers are empty</p>
             <p className="text-sm text-muted-foreground mt-1 max-w-[260px] mx-auto">
-              Match with a fellow Cubs fan to start chatting. Send a Like or Hi-Five to get started!
+              Find a fellow fan and start a rally. Toss a Hi-Five to break the ice!
             </p>
             <Button variant="outline" className="mt-5 rounded-xl" onClick={() => navigate('/discover')}>
               Discover Fans

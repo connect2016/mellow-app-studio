@@ -316,7 +316,7 @@ export default function CrewDetail() {
                 {events.length === 0 && !showNewEvent && (
                   <div className="py-12 text-center">
                     <p className="text-2xl">📅</p>
-                    <p className="mt-2 text-sm text-muted-foreground">No meetups planned yet</p>
+                    <p className="mt-2 text-sm text-muted-foreground">No rallies planned yet — get one going!</p>
                   </div>
                 )}
 

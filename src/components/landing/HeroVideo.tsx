@@ -109,9 +109,9 @@ export default function HeroVideo() {
             <Button
               size="lg"
               className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
-              aria-label="Join the Crew — sign up for Cubbies Buddies"
+              aria-label="Get in the Game — sign up for Cubbies Buddies"
             >
-              Join the Crew
+              Get in the Game
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </Link>

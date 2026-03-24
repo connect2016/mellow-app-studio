@@ -273,8 +273,8 @@ export default function MemoriesContent() {
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
             <ImageIcon className="h-8 w-8 text-muted-foreground" />
           </div>
-          <p className="font-semibold text-foreground">No memories yet</p>
-          <p className="text-sm text-muted-foreground mt-1">Capture your first game day moment!</p>
+          <p className="font-semibold text-foreground">The scrapbook's empty</p>
+          <p className="text-sm text-muted-foreground mt-1">Snap your first game day moment and get it on the board!</p>
         </div>
       ) : (
         <div className="space-y-4">

@@ -182,20 +182,19 @@ export default function Landing() {
         </div>
         <div className="relative mx-auto max-w-lg px-6 text-center">
           <h2
-            className="mb-3 text-3xl font-bold text-primary-foreground sm:text-4xl"
-            style={{ fontFamily: 'Space Grotesk' }}>
+            className="mb-3 text-3xl font-bold text-primary-foreground sm:text-4xl">
             
             Ready to find your crew?
           </h2>
           <p className="mb-8 text-primary-foreground/70">
-            Sign up in 30 seconds. Your next Wrigleyville friend is already here.
+            Get in the game. Your next Wrigleyville friend is already here.
           </p>
           <Link to="/auth">
             <Button
               size="lg"
               className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90">
               
-              Join Cubbies Buddies
+              Get in the Game
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </Link>

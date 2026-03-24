@@ -50,8 +50,8 @@ export function ScorerLeaderboard() {
     return (
       <div className="rounded-2xl border border-border bg-card p-6 text-center">
         <Trophy className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-        <p className="text-sm font-medium text-foreground">No scores yet</p>
-        <p className="text-xs text-muted-foreground mt-1">Start scoring games to climb the leaderboard!</p>
+        <p className="text-sm font-medium text-foreground">The standings are blank</p>
+        <p className="text-xs text-muted-foreground mt-1">Score a game and put your name on the board!</p>
       </div>
     );
   }

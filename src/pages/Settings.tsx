@@ -18,7 +18,7 @@ export default function Settings() {
     <div className="min-h-screen bg-background pb-24">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4 space-y-6">
-        <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Settings & Safety</h2>
+        <h2 className="text-lg font-bold">Front Office</h2>
 
         {/* Privacy */}
         <div className="rounded-xl border bg-card p-4 space-y-4">

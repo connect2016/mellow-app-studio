@@ -132,9 +132,9 @@ export default function HiFives() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
               <Zap className="h-7 w-7 text-muted-foreground" />
             </div>
-            <p className="font-semibold text-foreground">No Hi-Fives yet</p>
+            <p className="font-semibold text-foreground">The bleachers are empty</p>
             <p className="text-sm text-muted-foreground mt-1 max-w-[260px] mx-auto">
-              Send some Hi-Fives to get the conversation started — the next pitch could change that!
+              Be the first to start a rally — toss a Hi-Five and see who's ready to play!
             </p>
             <Button variant="outline" className="mt-5 rounded-xl" onClick={() => navigate('/discover')}>
               Discover Fans

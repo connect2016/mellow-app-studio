@@ -185,7 +185,7 @@ export default function CrewDetail() {
                   {messages.length === 0 && (
                     <div className="py-12 text-center">
                       <p className="text-2xl">💬</p>
-                      <p className="mt-2 text-sm text-muted-foreground">No messages yet — say hey!</p>
+                      <p className="mt-2 text-sm text-muted-foreground">The dugout's quiet — say hey!</p>
                     </div>
                   )}
                   {messages.map((msg) => {

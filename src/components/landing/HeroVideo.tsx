@@ -66,18 +66,18 @@ export default function HeroVideo() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}
           className="mb-4 text-4xl font-extrabold sm:text-5xl lg:text-6xl"
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            color: 'hsl(var(--cubs-red))',
-            WebkitTextStroke: '4px white',
-            paintOrder: 'stroke fill',
-            filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
-            letterSpacing: '0.05em',
-            lineHeight: 1.4,
-          }}
-        >
-          Your Wrigleyville Connection Hub
-        </motion.h1>
+           style={{
+             fontFamily: 'Montserrat, sans-serif',
+             color: 'hsl(var(--brick-red))',
+             WebkitTextStroke: '4px white',
+             paintOrder: 'stroke fill',
+             filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
+             letterSpacing: '0.05em',
+             lineHeight: 1.4,
+           }}
+         >
+           Because 'Wait 'Til Next Year' Is Better With Friends.
+         </motion.h1>
 
         {/* Subheadline */}
         <motion.h2

@@ -7,10 +7,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
-  { to: '/discover', icon: Compass, label: 'Discover' },
+  { to: '/discover', icon: Compass, label: 'The Concourse' },
   { to: '/vibe', icon: Radio, label: 'Vibe' },
   { to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
-  { to: '/profile', icon: User, label: 'Profile' },
+  { to: '/profile', icon: User, label: 'Your Stats' },
 ];
 
 function useNotificationCounts() {

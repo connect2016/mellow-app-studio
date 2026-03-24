@@ -246,8 +246,8 @@ export default function Discover() {
             >
               🎉
             </motion.div>
-            <h2 className="text-3xl font-bold text-primary-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
-              It's a Match!
+             <h2 className="text-3xl font-bold text-primary-foreground mb-2">
+               It's a Match!
             </h2>
             <p className="text-primary-foreground/80 text-lg">
               You and {matchCelebration} are connected

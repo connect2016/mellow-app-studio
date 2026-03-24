@@ -96,7 +96,7 @@ export default function HeroVideo() {
              textTransform: 'none',
            }}
         >
-          Sync. Meet. Celebrate.
+          Stop Watching From the Sidelines.
         </motion.h2>
 
         {/* CTA */}

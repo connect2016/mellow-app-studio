@@ -108,11 +108,11 @@ export default function HeroVideo() {
           <Link to="/auth">
             <Button
               size="lg"
-              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
-              aria-label="Get in the Game — sign up for Cubbies Buddies"
-            >
-              Get in the Game
-              <ChevronRight className="ml-1 h-4 w-4" />
+               className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
+               aria-label="Join the Bleachers — sign up for Cubbies Buddies"
+             >
+               Join the Bleachers
+               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </Link>
         </motion.div>

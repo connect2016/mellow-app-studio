@@ -178,22 +178,20 @@ export default function Landing() {
           <img src={wrigleyHero} alt="" className="h-full w-full object-cover" />
         </div>
         <div className="relative mx-auto max-w-lg px-6 text-center">
-          <h2
-            className="mb-3 text-3xl font-bold text-primary-foreground sm:text-4xl">
-            
-            Ready to find your crew?
-          </h2>
-          <p className="mb-8 text-primary-foreground/70">
-            Get in the game. Your next Wrigleyville friend is already here.
-          </p>
-          <Link to="/auth">
-            <Button
-              size="lg"
-              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90">
-              
-              Get in the Game
-              <ChevronRight className="ml-1 h-4 w-4" />
-            </Button>
+           <h2
+             className="mb-3 text-3xl font-bold text-primary-foreground sm:text-4xl">
+             Because 'Wait 'Til Next Year' Is Better With Friends.
+           </h2>
+           <p className="mb-8 text-primary-foreground/70">
+             Stop watching history from the sidelines. Join the movement built for the North Side faithful.
+           </p>
+           <Link to="/auth">
+             <Button
+               size="lg"
+               className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90">
+               Join the Bleachers
+               <ChevronRight className="ml-1 h-4 w-4" />
+             </Button>
           </Link>
         </div>
       </section>

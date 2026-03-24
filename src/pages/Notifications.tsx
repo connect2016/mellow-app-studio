@@ -89,18 +89,18 @@ export default function Notifications() {
         </div>
 
         {isLoading ? (
-          <div className="py-16 text-center">
-            <p className="text-4xl animate-pulse">🔔</p>
-            <p className="mt-2 text-sm font-medium text-muted-foreground">Loading notifications...</p>
-          </div>
-        ) : notifications.length === 0 ? (
-          <div className="py-16 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
-              <Bell className="h-8 w-8 text-muted-foreground" />
-            </div>
-            <p className="font-semibold text-foreground">All caught up!</p>
-            <p className="text-sm text-muted-foreground mt-1">We'll notify you when something happens</p>
-          </div>
+           <div className="py-16 text-center">
+             <p className="text-4xl animate-pulse">🔔</p>
+             <p className="mt-2 text-sm font-medium text-muted-foreground">Warming up the bullpen...</p>
+           </div>
+         ) : notifications.length === 0 ? (
+           <div className="py-16 text-center">
+             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+               <Bell className="h-8 w-8 text-muted-foreground" />
+             </div>
+             <p className="font-semibold text-foreground">The bullpen's quiet</p>
+             <p className="text-sm text-muted-foreground mt-1">No warm-ups yet — we'll holler when something's cooking.</p>
+           </div>
         ) : (
           <div className="space-y-5">
             {groups.map(group => (

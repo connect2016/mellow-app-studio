@@ -129,9 +129,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Barlow Condensed', 'Space Grotesk', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+    font-family: 'Rye', 'Barlow Condensed', serif;
+    letter-spacing: 0.02em;
   }
 }
 

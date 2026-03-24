@@ -135,14 +135,13 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
             className="mb-12 text-center">
             
-            <h2
-              className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-              style={{ fontFamily: 'Space Grotesk' }}>
-              
-              Everything You Need on{' '}
-              <span className="text-primary">Game Day</span>
-            </h2>
-            <p className="text-muted-foreground">Six ways Cubbies Buddies makes your Wrigley experience legendary.</p>
+             <h2
+               className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+               
+               Everything You Need on{' '}
+               <span className="text-primary">Game Day</span>
+             </h2>
+             <p className="text-muted-foreground">Six ways Cubbies Buddies makes your Wrigley experience legendary.</p>
           </motion.div>
 
           <motion.div

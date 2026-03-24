@@ -66,10 +66,10 @@ export default function Landing() {
 
       {/* ── Social proof banner ── */}
       <section className="relative -mt-1 overflow-hidden bg-primary py-4">
-        <div className="mx-auto flex max-w-4xl items-center justify-center gap-2 px-6 text-center text-sm font-medium text-primary-foreground">
-          <Star className="h-4 w-4 fill-[hsl(var(--cubs-red))] text-[hsl(var(--cubs-red))]" />
-          <span>The #1 social app for Wrigleyville fans</span>
-          <Star className="h-4 w-4 fill-[hsl(var(--cubs-red))] text-[hsl(var(--cubs-red))]" />
+         <div className="mx-auto flex max-w-4xl items-center justify-center gap-2 px-6 text-center text-sm font-medium text-primary-foreground">
+           <Star className="h-4 w-4 fill-secondary text-secondary" />
+           <span>The #1 social app for Wrigleyville fans</span>
+           <Star className="h-4 w-4 fill-secondary text-secondary" />
         </div>
       </section>
 

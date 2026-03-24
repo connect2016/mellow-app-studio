@@ -60,6 +60,15 @@ export default {
         ticket: {
           cream: "hsl(var(--ticket-cream))",
         },
+        ivy: {
+          DEFAULT: "hsl(var(--ivy-green))",
+        },
+        brick: {
+          DEFAULT: "hsl(var(--brick-red))",
+        },
+        "day-blue": {
+          DEFAULT: "hsl(var(--day-blue))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -15,103 +15,104 @@
   box-shadow: none !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800&family=Playball&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rye&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800&family=Playball&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 91%;
-    --foreground: 222 80% 15%;
+    --background: 40 12% 90%;
+    --foreground: 160 52% 15%;
 
-    --card: 0 0% 89%;
-    --card-foreground: 222 80% 15%;
+    --card: 40 15% 88%;
+    --card-foreground: 160 52% 15%;
 
-    --popover: 0 0% 89%;
-    --popover-foreground: 222 80% 15%;
+    --popover: 40 15% 88%;
+    --popover-foreground: 160 52% 15%;
 
-    --primary: 222 82% 29%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 160 52% 15%;
+    --primary-foreground: 40 20% 95%;
 
-    --secondary: 1 60% 50%;
+    --secondary: 350 83% 41%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 84%;
-    --muted-foreground: 222 20% 40%;
+    --muted: 40 10% 82%;
+    --muted-foreground: 160 20% 35%;
 
-    --accent: 160 50% 45%;
+    --accent: 222 82% 29%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 1 60% 50%;
+    --destructive: 350 83% 41%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 82%;
-    --input: 0 0% 82%;
-    --ring: 222 82% 29%;
+    --border: 40 8% 78%;
+    --input: 40 8% 78%;
+    --ring: 160 52% 15%;
 
-    --cubs-red: 1 60% 50%;
-    --cubs-blue: 222 82% 29%;
+    --ivy-green: 160 52% 15%;
+    --brick-red: 350 83% 41%;
+    --day-blue: 222 82% 29%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 222 80% 12%;
-    --sidebar-foreground: 100 3% 92%;
-    --sidebar-primary: 222 70% 50%;
+    --sidebar-background: 160 50% 8%;
+    --sidebar-foreground: 40 20% 92%;
+    --sidebar-primary: 160 45% 30%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 60% 18%;
-    --sidebar-accent-foreground: 100 3% 92%;
-    --sidebar-border: 222 50% 20%;
-    --sidebar-ring: 222 70% 50%;
+    --sidebar-accent: 160 40% 14%;
+    --sidebar-accent-foreground: 40 20% 92%;
+    --sidebar-border: 160 35% 18%;
+    --sidebar-ring: 160 45% 30%;
 
     --success: 160 50% 45%;
     --warning: 35 80% 55%;
     --info: 222 70% 50%;
 
-    --stadium-seat: 170 30% 33%;
-    --stadium-seat-light: 170 25% 45%;
-    --stadium-seat-dark: 170 35% 22%;
-    --stadium-seat-foreground: 45 30% 92%;
+    --stadium-seat: 160 52% 15%;
+    --stadium-seat-light: 160 40% 25%;
+    --stadium-seat-dark: 160 55% 10%;
+    --stadium-seat-foreground: 40 20% 95%;
 
-    --ticket-cream: 0 0% 89%;
+    --ticket-cream: 40 15% 88%;
   }
 
   .dark {
-    --background: 222 80% 6%;
-    --foreground: 39 50% 92%;
+    --background: 160 40% 5%;
+    --foreground: 40 20% 90%;
 
-    --card: 222 60% 11%;
-    --card-foreground: 39 50% 92%;
+    --card: 160 35% 9%;
+    --card-foreground: 40 20% 90%;
 
-    --popover: 222 60% 11%;
-    --popover-foreground: 39 50% 92%;
+    --popover: 160 35% 9%;
+    --popover-foreground: 40 20% 90%;
 
-    --primary: 222 70% 55%;
-    --primary-foreground: 222 80% 6%;
+    --primary: 160 45% 35%;
+    --primary-foreground: 160 40% 5%;
 
-    --secondary: 1 55% 52%;
+    --secondary: 350 70% 50%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 222 40% 14%;
-    --muted-foreground: 39 15% 55%;
+    --muted: 160 25% 13%;
+    --muted-foreground: 40 12% 50%;
 
-    --accent: 160 50% 50%;
-    --accent-foreground: 222 80% 6%;
+    --accent: 222 65% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 1 50% 42%;
+    --destructive: 350 65% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 222 30% 18%;
-    --input: 222 30% 18%;
-    --ring: 222 70% 55%;
+    --border: 160 20% 16%;
+    --input: 160 20% 16%;
+    --ring: 160 45% 35%;
 
-    --sidebar-background: 222 80% 5%;
-    --sidebar-foreground: 39 30% 90%;
-    --sidebar-primary: 222 70% 55%;
-    --sidebar-primary-foreground: 222 80% 6%;
-    --sidebar-accent: 222 50% 12%;
-    --sidebar-accent-foreground: 39 30% 90%;
-    --sidebar-border: 222 40% 14%;
-    --sidebar-ring: 222 70% 55%;
+    --sidebar-background: 160 40% 4%;
+    --sidebar-foreground: 40 15% 88%;
+    --sidebar-primary: 160 45% 35%;
+    --sidebar-primary-foreground: 160 40% 5%;
+    --sidebar-accent: 160 30% 10%;
+    --sidebar-accent-foreground: 40 15% 88%;
+    --sidebar-border: 160 25% 13%;
+    --sidebar-ring: 160 45% 35%;
 
-    --ticket-cream: 222 60% 11%;
+    --ticket-cream: 160 35% 9%;
   }
 }
 
@@ -128,9 +129,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Barlow Condensed', 'Space Grotesk', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+    font-family: 'Rye', 'Barlow Condensed', serif;
+    letter-spacing: 0.02em;
   }
 }
 
@@ -143,4 +143,31 @@
 /* Vintage Ticket Stub card style */
 .ticket-stub {
   border-left: 3px dashed hsl(var(--primary) / 0.3);
+}
+
+/* Grain / noise texture overlay for cards */
+.grain-texture {
+  position: relative;
+}
+.grain-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+/* Vintage baseball card image frame */
+.baseball-card-frame {
+  border: 3px solid hsl(var(--primary) / 0.25);
+  border-radius: 0.625rem;
+  box-shadow:
+    inset 0 0 0 1px hsl(var(--primary) / 0.1),
+    0 2px 8px hsl(var(--primary) / 0.1);
+  overflow: hidden;
 }

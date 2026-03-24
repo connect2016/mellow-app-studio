@@ -160,11 +160,10 @@ export default function Landing() {
                 <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 transition-colors group-hover:bg-secondary/10">
                   <f.icon className="h-6 w-6 text-primary group-hover:text-secondary" />
                 </div>
-                <h3
-                className="mb-1 text-lg font-semibold text-card-foreground"
-                style={{ fontFamily: 'Space Grotesk' }}>
-                
-                  {f.title}
+                 <h3
+                 className="mb-1 text-lg font-semibold text-card-foreground">
+                 
+                   {f.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{f.description}</p>
               </motion.div>

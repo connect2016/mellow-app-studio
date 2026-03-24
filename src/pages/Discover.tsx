@@ -339,10 +339,15 @@ export default function Discover() {
           <LiveActivityFeed maxItems={4} />
         </div>
 
-        {/* AI Meetup Suggestions */}
-        <div className="mb-4">
-          <SmartMeetupSuggestions />
-        </div>
+         {/* AI Meetup Suggestions */}
+         <div className="mb-4">
+           <SmartMeetupSuggestions />
+         </div>
+
+         {/* Venting Room */}
+         <div className="mb-4">
+           <VentingRoom />
+         </div>
 
         {/* Current Status Toggle */}
         <div className="mb-4">

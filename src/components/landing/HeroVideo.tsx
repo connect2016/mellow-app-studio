@@ -85,16 +85,16 @@ export default function HeroVideo() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.8 }}
           className="mb-8 text-3xl sm:text-4xl lg:text-5xl"
-          style={{
-            fontFamily: "'Norwester', sans-serif",
-            color: 'white',
-            WebkitTextStroke: '2px hsl(var(--cubs-blue))',
-            paintOrder: 'stroke fill',
-            filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
-            letterSpacing: '0.04em',
-            lineHeight: 1.4,
-            textTransform: 'none',
-          }}
+           style={{
+             fontFamily: "'Norwester', sans-serif",
+             color: 'white',
+             WebkitTextStroke: '2px hsl(var(--day-blue))',
+             paintOrder: 'stroke fill',
+             filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
+             letterSpacing: '0.04em',
+             lineHeight: 1.4,
+             textTransform: 'none',
+           }}
         >
           Sync. Meet. Celebrate.
         </motion.h2>

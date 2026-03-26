@@ -161,18 +161,12 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
         </div>
 
         {/* Info overlay */}
-         <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-           <div className="flex items-center gap-2 mb-0.5">
-             <h3 className="text-xl font-bold">
-               {user.display_name}, {user.age}
-             </h3>
-             {user.wrigley_section && user.wrigley_location_privacy !== 'Hidden' && (
-               <span className="inline-flex items-center gap-0.5 rounded-md bg-primary/80 backdrop-blur-sm px-1.5 py-0.5 text-[10px] font-bold text-primary-foreground border border-primary-foreground/20">
-                 <MapPin className="h-2.5 w-2.5" />
-                 SEC {user.wrigley_section}
-               </span>
-             )}
-           </div>
+        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+          <div className="flex items-center gap-2 mb-0.5">
+            <h3 className="text-xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>
+              {user.display_name}, {user.age}
+            </h3>
+          </div>
           {user.pronouns && <p className="text-xs text-white/70 mb-1">{user.pronouns}</p>}
           <p className="line-clamp-2 text-sm text-white/85 leading-relaxed">{user.bio}</p>
 

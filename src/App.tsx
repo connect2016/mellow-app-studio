@@ -31,9 +31,6 @@ import ScoreGame from "./pages/ScoreGame";
 import BallparkBuddy from "./pages/BallparkBuddy";
 import WrigleyPassport from "./pages/WrigleyPassport";
 import BarMap from "./pages/BarMap";
-import Pregame from "./pages/Pregame";
-import InTheConfines from "./pages/InTheConfines";
-import PostGamePage from "./pages/PostGame";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -74,9 +71,6 @@ const App = () => (
             <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />
             <Route path="/bar-map" element={<BarMap />} />
-            <Route path="/pregame" element={<Pregame />} />
-            <Route path="/in-the-confines" element={<InTheConfines />} />
-            <Route path="/post-game" element={<PostGamePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>

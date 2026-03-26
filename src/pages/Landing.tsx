@@ -66,10 +66,10 @@ export default function Landing() {
 
       {/* ── Social proof banner ── */}
       <section className="relative -mt-1 overflow-hidden bg-primary py-4">
-         <div className="mx-auto flex max-w-4xl items-center justify-center gap-2 px-6 text-center text-sm font-medium text-primary-foreground">
-           <Star className="h-4 w-4 fill-secondary text-secondary" />
-           <span>The #1 social app for Wrigleyville fans</span>
-           <Star className="h-4 w-4 fill-secondary text-secondary" />
+        <div className="mx-auto flex max-w-4xl items-center justify-center gap-2 px-6 text-center text-sm font-medium text-primary-foreground">
+          <Star className="h-4 w-4 fill-[hsl(var(--cubs-red))] text-[hsl(var(--cubs-red))]" />
+          <span>The #1 social app for Wrigleyville fans</span>
+          <Star className="h-4 w-4 fill-[hsl(var(--cubs-red))] text-[hsl(var(--cubs-red))]" />
         </div>
       </section>
 
@@ -83,15 +83,16 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
             className="mb-10 text-center">
             
-             <h2
-               className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-               
-               More Than a Game.{' '}
-               <span className="text-secondary">It's a Community.</span>
-             </h2>
-             <p className="text-muted-foreground">
-               Pregame beers, seventh-inning sing-alongs, and friendships that last way beyond the final out.
-             </p>
+            <h2
+              className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+              style={{ fontFamily: 'Space Grotesk' }}>
+              
+              More Than a Game.{' '}
+              <span className="text-secondary">It's a Community.</span>
+            </h2>
+            <p className="text-muted-foreground">
+              Pregame beers, seventh-inning sing-alongs, and friendships that last way beyond the final out.
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -135,13 +136,14 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
             className="mb-12 text-center">
             
-             <h2
-               className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-               
-               Everything You Need on{' '}
-               <span className="text-primary">Game Day</span>
-             </h2>
-             <p className="text-muted-foreground">Six ways Cubbies Buddies makes your Wrigley experience legendary.</p>
+            <h2
+              className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+              style={{ fontFamily: 'Space Grotesk' }}>
+              
+              Everything You Need on{' '}
+              <span className="text-primary">Game Day</span>
+            </h2>
+            <p className="text-muted-foreground">Six ways Cubbies Buddies makes your Wrigley experience legendary.</p>
           </motion.div>
 
           <motion.div
@@ -160,10 +162,11 @@ export default function Landing() {
                 <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 transition-colors group-hover:bg-secondary/10">
                   <f.icon className="h-6 w-6 text-primary group-hover:text-secondary" />
                 </div>
-                 <h3
-                 className="mb-1 text-lg font-semibold text-card-foreground">
-                 
-                   {f.title}
+                <h3
+                className="mb-1 text-lg font-semibold text-card-foreground"
+                style={{ fontFamily: 'Space Grotesk' }}>
+                
+                  {f.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{f.description}</p>
               </motion.div>
@@ -178,20 +181,22 @@ export default function Landing() {
           <img src={wrigleyHero} alt="" className="h-full w-full object-cover" />
         </div>
         <div className="relative mx-auto max-w-lg px-6 text-center">
-           <h2
-             className="mb-3 text-3xl font-bold text-primary-foreground sm:text-4xl">
-             Because 'Wait 'Til Next Year' Is Better With Friends.
-           </h2>
-           <p className="mb-8 text-primary-foreground/70">
-             Stop watching history from the sidelines. Join the movement built for the North Side faithful.
-           </p>
-           <Link to="/auth">
-             <Button
-               size="lg"
-               className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90">
-               Join the Bleachers
-               <ChevronRight className="ml-1 h-4 w-4" />
-             </Button>
+          <h2
+            className="mb-3 text-3xl font-bold text-primary-foreground sm:text-4xl">
+            
+            Ready to find your crew?
+          </h2>
+          <p className="mb-8 text-primary-foreground/70">
+            Get in the game. Your next Wrigleyville friend is already here.
+          </p>
+          <Link to="/auth">
+            <Button
+              size="lg"
+              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90">
+              
+              Get in the Game
+              <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
           </Link>
         </div>
       </section>

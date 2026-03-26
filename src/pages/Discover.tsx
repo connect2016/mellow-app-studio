@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { GameClockHeader } from '@/components/GameClockHeader';
-import { MainNavBar } from '@/components/MainNavBar';
-import { GoingTodayFAB } from '@/components/GoingTodayFAB';
+import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';
 import { SlidersHorizontal, Users, Zap, Camera } from 'lucide-react';
-import { VentingRoom } from '@/components/VentingRoom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import CrewsContent from '@/components/CrewsContent';
 import { Button } from '@/components/ui/button';
@@ -225,7 +222,7 @@ export default function Discover() {
       {!gamedayMode && <div className="fixed inset-0 z-0 bg-background" />}
 
       <div className="relative z-10">
-      <GameClockHeader />
+      <AppHeader />
 
       {/* Match celebration overlay */}
       {matchCelebration && (
@@ -248,8 +245,8 @@ export default function Discover() {
             >
               🎉
             </motion.div>
-             <h2 className="text-3xl font-bold text-primary-foreground mb-2">
-               It's a Match!
+            <h2 className="text-3xl font-bold text-primary-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+              It's a Match!
             </h2>
             <p className="text-primary-foreground/80 text-lg">
               You and {matchCelebration} are connected
@@ -289,9 +286,9 @@ export default function Discover() {
         <div className="flex items-center justify-between rounded-xl border border-border bg-card/80 backdrop-blur-sm px-4 py-2.5 mb-4">
           <div className="flex items-center gap-2">
             <span className="text-base">🏟️</span>
-             <span className="text-sm font-semibold text-foreground">
-               Gameday Mode
-             </span>
+            <span className="text-sm font-semibold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+              Gameday Mode
+            </span>
           </div>
           <Switch checked={gamedayMode} onCheckedChange={toggleGamedayMode} />
         </div>
@@ -341,15 +338,10 @@ export default function Discover() {
           <LiveActivityFeed maxItems={4} />
         </div>
 
-         {/* AI Meetup Suggestions */}
-         <div className="mb-4">
-           <SmartMeetupSuggestions />
-         </div>
-
-         {/* Venting Room */}
-         <div className="mb-4">
-           <VentingRoom />
-         </div>
+        {/* AI Meetup Suggestions */}
+        <div className="mb-4">
+          <SmartMeetupSuggestions />
+        </div>
 
         {/* Current Status Toggle */}
         <div className="mb-4">
@@ -546,8 +538,6 @@ export default function Discover() {
         filters={filters}
         onApply={setFilters}
       />
-      <GoingTodayFAB />
-      <MainNavBar />
       </div>
     </div>
   );

@@ -1,18 +1,40 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import logoTransparent from '@/assets/logo-transparent.png';
 
-export default function HeroVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoLoaded, setVideoLoaded] = useState(false);
+const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3.mp4'];
 
+export default function HeroVideo() {
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [ready, setReady] = useState(false);
+
+  const setRef = useCallback(
+    (idx: number) => (el: HTMLVideoElement | null) => {
+      videoRefs.current[idx] = el;
+    },
+    [],
+  );
+
+  // Start first video once it can play
   useEffect(() => {
-    const v = videoRef.current;
-    if (v) {
-      v.play().catch(() => {});
+    const first = videoRefs.current[0];
+    if (first) {
+      first.play().catch(() => {});
+      setReady(true);
+    }
+  }, []);
+
+  const handleEnded = useCallback((endedIndex: number) => {
+    const nextIndex = (endedIndex + 1) % VIDEO_SOURCES.length;
+    setActiveIndex(nextIndex);
+    const nextVideo = videoRefs.current[nextIndex];
+    if (nextVideo) {
+      nextVideo.currentTime = 0;
+      nextVideo.play().catch(() => {});
     }
   }, []);
 
@@ -22,25 +44,27 @@ export default function HeroVideo() {
       <img
         src="/hero-fallback.jpg"
         alt=""
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${ready ? 'opacity-0' : 'opacity-100'}`}
         aria-hidden="true"
       />
 
-      {/* Video */}
-      <video
-        ref={videoRef}
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
-        src="/hero-video.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        onCanPlayThrough={() => setVideoLoaded(true)}
-        aria-hidden="true"
-      />
+      {/* Stacked videos */}
+      {VIDEO_SOURCES.map((src, idx) => (
+        <video
+          key={src}
+          ref={setRef(idx)}
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+          style={{ opacity: activeIndex === idx && ready ? 1 : 0 }}
+          src={src}
+          muted
+          playsInline
+          preload={idx === 0 ? 'auto' : 'metadata'}
+          onEnded={() => handleEnded(idx)}
+          aria-hidden="true"
+        />
+      ))}
 
-      {/* Dark overlay ~25% */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-foreground/25" />
 
       {/* Content overlay */}
@@ -50,7 +74,6 @@ export default function HeroVideo() {
         transition={{ duration: 0.8 }}
         className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
       >
-        {/* Pennant logo animation */}
         <motion.img
           src={logoTransparent}
           alt="Cubbies Buddies"
@@ -60,7 +83,6 @@ export default function HeroVideo() {
           className="mb-6 w-full max-w-sm drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-md lg:max-w-lg"
         />
 
-        {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,7 +101,6 @@ export default function HeroVideo() {
           Your Wrigleyville Connection Hub
         </motion.h1>
 
-        {/* Subheadline */}
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,7 +120,6 @@ export default function HeroVideo() {
           Sync. Meet. Celebrate.
         </motion.h2>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

@@ -31,6 +31,9 @@ import ScoreGame from "./pages/ScoreGame";
 import BallparkBuddy from "./pages/BallparkBuddy";
 import WrigleyPassport from "./pages/WrigleyPassport";
 import BarMap from "./pages/BarMap";
+import Pregame from "./pages/Pregame";
+import InTheConfines from "./pages/InTheConfines";
+import PostGamePage from "./pages/PostGame";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

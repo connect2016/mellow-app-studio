@@ -63,7 +63,7 @@ export default function HeroVideo() {
           src={src}
           muted
           playsInline
-          preload={idx === 0 ? 'auto' : 'metadata'}
+          preload="auto"
           onEnded={() => handleEnded(idx)}
           aria-hidden="true"
         />

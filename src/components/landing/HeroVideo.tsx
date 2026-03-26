@@ -19,13 +19,18 @@ export default function HeroVideo() {
     [],
   );
 
-  // Start first video once it can play
+  // Start first video and pre-buffer all others
   useEffect(() => {
-    const first = videoRefs.current[0];
-    if (first) {
-      first.play().catch(() => {});
-      setReady(true);
-    }
+    videoRefs.current.forEach((v, idx) => {
+      if (!v) return;
+      if (idx === 0) {
+        v.play().catch(() => {});
+        setReady(true);
+      } else {
+        // Pre-buffer by loading and immediately pausing
+        v.load();
+      }
+    });
   }, []);
 
   const handleEnded = useCallback((endedIndex: number) => {
@@ -58,7 +63,7 @@ export default function HeroVideo() {
           src={src}
           muted
           playsInline
-          preload={idx === 0 ? 'auto' : 'metadata'}
+          preload="auto"
           onEnded={() => handleEnded(idx)}
           aria-hidden="true"
         />

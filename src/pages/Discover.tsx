@@ -225,7 +225,7 @@ export default function Discover() {
       {!gamedayMode && <div className="fixed inset-0 z-0 bg-background" />}
 
       <div className="relative z-10">
-      <AppHeader />
+      <GameClockHeader />
 
       {/* Match celebration overlay */}
       {matchCelebration && (

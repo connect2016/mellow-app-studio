@@ -72,23 +72,22 @@ export default function HeroVideo() {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-foreground/25" />
 
-      {/* Logo pinned to top center */}
-      <motion.img
-        src={logoTransparent}
-        alt="Cubbies Buddies"
-        initial={{ opacity: 0, scale: 0.55, y: -40 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="absolute left-1/2 top-4 z-20 w-48 -translate-x-1/2 drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:top-6 sm:w-56 lg:w-64"
-      />
-
       {/* Content overlay */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center"
+        className="relative z-10 flex h-full flex-col items-center justify-center px-6 pt-4 text-center"
       >
+        <motion.img
+          src={logoTransparent}
+          alt="Cubbies Buddies"
+          initial={{ opacity: 0, scale: 0.55, y: -40 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="mb-6 w-full max-w-sm drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-md lg:max-w-lg"
+        />
+
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

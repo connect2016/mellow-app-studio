@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { AppHeader } from '@/components/AppHeader';
+import { GameClockHeader } from '@/components/GameClockHeader';
+import { MainNavBar } from '@/components/MainNavBar';
+import { GoingTodayFAB } from '@/components/GoingTodayFAB';
 import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';
@@ -223,7 +225,7 @@ export default function Discover() {
       {!gamedayMode && <div className="fixed inset-0 z-0 bg-background" />}
 
       <div className="relative z-10">
-      <AppHeader />
+      <GameClockHeader />
 
       {/* Match celebration overlay */}
       {matchCelebration && (
@@ -544,6 +546,8 @@ export default function Discover() {
         filters={filters}
         onApply={setFilters}
       />
+      <GoingTodayFAB />
+      <MainNavBar />
       </div>
     </div>
   );

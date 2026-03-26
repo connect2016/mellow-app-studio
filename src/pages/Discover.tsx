@@ -550,4 +550,5 @@ export default function Discover() {
       <MainNavBar />
       </div>
     </div>
+  );
 }

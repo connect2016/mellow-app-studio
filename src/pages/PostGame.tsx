@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { GameClockHeader } from '@/components/GameClockHeader';
 import { MainNavBar } from '@/components/MainNavBar';
 import { PostGameExperience } from '@/components/PostGameExperience';
-import { MemoriesContent } from '@/components/MemoriesContent';
+import MemoriesContent from '@/components/MemoriesContent';
 import { Button } from '@/components/ui/button';
 import { Camera, Trophy } from 'lucide-react';
 

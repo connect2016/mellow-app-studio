@@ -546,7 +546,8 @@ export default function Discover() {
         filters={filters}
         onApply={setFilters}
       />
+      <GoingTodayFAB />
+      <MainNavBar />
       </div>
     </div>
-  );
 }

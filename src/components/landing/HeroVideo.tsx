@@ -68,7 +68,7 @@ export default function HeroVideo() {
           className="mb-4 text-4xl font-extrabold sm:text-5xl lg:text-6xl"
           style={{
             fontFamily: 'Montserrat, sans-serif',
-            color: 'hsl(var(--cubs-red))',
+            color: 'hsl(var(--secondary))',
             WebkitTextStroke: '4px white',
             paintOrder: 'stroke fill',
             filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',

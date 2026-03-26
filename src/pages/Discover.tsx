@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { AppHeader } from '@/components/AppHeader';
+import { GameClockHeader } from '@/components/GameClockHeader';
+import { MainNavBar } from '@/components/MainNavBar';
+import { GoingTodayFAB } from '@/components/GoingTodayFAB';
 import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType } from '@/types';

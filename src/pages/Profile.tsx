@@ -102,6 +102,7 @@ export default function Profile() {
     superstition: (profile as any).superstition,
     stretch_song: (profile as any).stretch_song,
     best_bar: (profile as any).best_bar,
+    gameday_intents: ((profile as any).gameday_intents as GamedayIntentType[]) ?? [],
   };
 
   const prompts = [

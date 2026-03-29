@@ -811,6 +811,7 @@ export type Database = {
           created_at: string
           display_name: string
           distance_pref_miles: number | null
+          fan_style: string[] | null
           favorite_moment: string | null
           favorite_moment_is_valid: boolean | null
           favorite_player: string | null
@@ -846,6 +847,7 @@ export type Database = {
           created_at?: string
           display_name?: string
           distance_pref_miles?: number | null
+          fan_style?: string[] | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
@@ -881,6 +883,7 @@ export type Database = {
           created_at?: string
           display_name?: string
           distance_pref_miles?: number | null
+          fan_style?: string[] | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null

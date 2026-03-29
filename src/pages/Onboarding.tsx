@@ -409,6 +409,46 @@ export default function Onboarding() {
                   >
                     🤝 Open to All
                   </motion.button>
+
+                  {/* Gameday Intent Badges */}
+                  <div className="pt-4 border-t border-border">
+                    <h3 className="text-sm font-bold text-foreground mb-1">🏟️ Gameday Intent</h3>
+                    <p className="text-xs text-muted-foreground mb-3">Pick 2–3 badges that show up on your card</p>
+                    <div className="grid grid-cols-2 gap-3">
+                      {gamedayIntentCards.map((card) => {
+                        const isSelected = gamedayIntents.includes(card.value);
+                        const atMax = gamedayIntents.length >= 3 && !isSelected;
+                        return (
+                          <motion.button
+                            key={card.value}
+                            whileTap={{ scale: 0.96 }}
+                            onClick={() => toggleGamedayIntent(card.value)}
+                            disabled={atMax}
+                            className={`relative flex flex-col items-center gap-2 rounded-2xl border p-4 text-center transition-all ${
+                              isSelected
+                                ? 'border-secondary bg-secondary/5 shadow-md shadow-secondary/10'
+                                : atMax
+                                ? 'border-border bg-card opacity-40 cursor-not-allowed'
+                                : 'border-border bg-card hover:border-secondary/30 hover:shadow-sm'
+                            }`}
+                          >
+                            {isSelected && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="absolute top-2 right-2 h-5 w-5 rounded-full bg-secondary flex items-center justify-center"
+                              >
+                                <span className="text-secondary-foreground text-[10px] font-bold">✓</span>
+                              </motion.div>
+                            )}
+                            <span className="text-2xl">{card.emoji}</span>
+                            <span className="font-semibold text-xs text-foreground">{card.label}</span>
+                            <span className="text-[10px] text-muted-foreground leading-tight">{card.desc}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               )}
 

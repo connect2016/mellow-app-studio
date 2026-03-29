@@ -151,8 +151,16 @@ export default function VibeFeed() {
     },
   });
 
+  const triggerGuestGate = (action: string) => {
+    setGuestGateAction(action);
+    setGuestGateOpen(true);
+  };
+
   const joinTheVibe = async (creatorId: string) => {
-    if (!user) return;
+    if (!user) {
+      triggerGuestGate('join the vibe and chat with fans');
+      return;
+    }
     if (creatorId === user.id) {
       toast.info("That's your own post!");
       return;

@@ -29,6 +29,7 @@ import { VibeStatePanel } from '@/components/VibeStatePanel';
 import { FlashMeetupsPanel } from '@/components/FlashMeetupsPanel';
 import { FanIdentityPanel } from '@/components/FanIdentityPanel';
 import { LiveMomentsPanel } from '@/components/LiveMomentsPanel';
+import { ReconnectionsPanel } from '@/components/ReconnectionsPanel';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },
@@ -280,6 +281,11 @@ export default function GameDay() {
         {/* AI Meetup Suggestions */}
         <div className="mb-6">
           <SmartMeetupSuggestions />
+        </div>
+
+        {/* Reconnections */}
+        <div className="mb-6">
+          <ReconnectionsPanel />
         </div>
 
         {/* Live Scoring */}

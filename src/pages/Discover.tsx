@@ -136,6 +136,7 @@ export default function Discover() {
 
   const activeFilterCount =
     filters.intents.length +
+    filters.gamedayIntents.length +
     filters.statuses.length +
     (filters.distance !== 25 ? 1 : 0) +
     (filters.ageRange[0] !== 21 || filters.ageRange[1] !== 65 ? 1 : 0);
@@ -143,6 +144,10 @@ export default function Discover() {
   const filtered = profiles.filter((u) => {
     const userIntents = (u.intent as string[]) ?? [];
     if (filters.intents.length && !filters.intents.some((i) => userIntents.includes(i))) return false;
+
+    // Gameday intent filter
+    const userGamedayIntents = ((u as any).gameday_intents as string[]) ?? [];
+    if (filters.gamedayIntents.length && !filters.gamedayIntents.some((gi) => userGamedayIntents.includes(gi))) return false;
 
     const locationSetAt = (u as any).location_last_set_at;
     const isExpired = locationSetAt && (Date.now() - new Date(locationSetAt).getTime() > SIX_HOURS);

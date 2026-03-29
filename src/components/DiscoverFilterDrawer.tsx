@@ -51,6 +51,13 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
     }));
   };
 
+  const toggleGamedayIntent = (gi: GamedayIntentType) => {
+    setLocal((prev) => ({
+      ...prev,
+      gamedayIntents: prev.gamedayIntents.includes(gi) ? prev.gamedayIntents.filter((x) => x !== gi) : [...prev.gamedayIntents, gi],
+    }));
+  };
+
   const toggleStatus = (s: string) => {
     setLocal((prev) => ({
       ...prev,

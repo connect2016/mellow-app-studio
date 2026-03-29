@@ -5,6 +5,7 @@ import { UserProfile, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, GamedayIntent
 import { IntentChip } from './IntentChip';
 import { StatusBadge } from './StatusBadge';
 import { VibeStateBadge } from './VibeStatePanel';
+import { FanTierBadge } from './FanIdentityPanel';
 
 interface ProfileCardProps {
   user: UserProfile;
@@ -193,6 +194,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
           <div className="mt-2.5 flex items-center gap-2 flex-wrap">
             <StatusBadge status={user.game_status} />
             <VibeStateBadge vibeState={(user as any).vibe_state} vibeEmoji={(user as any).vibe_emoji} />
+            <FanTierBadge tier={(user as any).fan_tier} title={(user as any).fan_title} emoji={(user as any).fan_tier_emoji} />
             {user.game_status === 'AtWrigley' && user.wrigley_location_privacy === 'Public' && user.wrigley_section && (
               <span className="flex items-center gap-1 text-xs text-white/60">
                 <MapPin className="h-3 w-3" /> Sec {user.wrigley_section}

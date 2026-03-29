@@ -5,6 +5,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, Send, Users, MessageCircle, Loader2 } from 'lucide-react';
+import { QuickBlockButton } from '@/components/QuickBlockButton';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { useActiveGameForChat, useSectionMessages, useSendSectionMessage, useSectionMembers } from '@/hooks/useSectionChat';

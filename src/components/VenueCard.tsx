@@ -1,8 +1,12 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Users, Clock, Zap, MapPin, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { VenueData } from '@/hooks/useVenueActivity';
+import { useBarVotes } from '@/hooks/useBarVotes';
+import { BarVibeBadge } from '@/components/BarVibeBadge';
+import { BarVotePanel } from '@/components/BarVotePanel';
 import { format } from 'date-fns';
 
 const crowdConfig: Record<VenueData['crowdLevel'], { label: string; color: string; emoji: string; bars: number }> = {

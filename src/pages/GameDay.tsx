@@ -26,6 +26,7 @@ import { PostGameExperience } from '@/components/PostGameExperience';
 import { LiveScoringBanner } from '@/components/scoring/LiveScoringBanner';
 import { SafetyTimerBanner } from '@/components/SafetyTimerBanner';
 import { VibeStatePanel } from '@/components/VibeStatePanel';
+import { FlashMeetupsPanel } from '@/components/FlashMeetupsPanel';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },
@@ -247,6 +248,11 @@ export default function GameDay() {
         {/* Happening Now */}
         <div className="mb-6">
           <HappeningNow />
+        </div>
+
+        {/* Flash Meetups */}
+        <div className="mb-6">
+          <FlashMeetupsPanel />
         </div>
 
         {/* AI Squad Matcher */}

@@ -190,6 +190,12 @@ export function LineupFeed() {
         open={!!chatMeetup}
         onClose={() => setChatMeetup(null)}
       />
+      <SafetyTimerModal
+        open={!!safetyMeetup}
+        onClose={() => setSafetyMeetup(null)}
+        meetupId={safetyMeetup?.id}
+        locationName={safetyMeetup?.location_name ?? 'a meetup'}
+      />
     </div>
   );
 }

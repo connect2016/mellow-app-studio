@@ -1,9 +1,10 @@
 // @ts-ignore
 import '@fontsource/norwester';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star } from 'lucide-react';
+import { Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye } from 'lucide-react';
+import { useGuestMode } from '@/contexts/GuestModeContext';
 import wrigleyHero from '@/assets/wrigley-hero.jpg';
 import HeroVideo from '@/components/landing/HeroVideo';
 import fansCheering from '@/assets/fans-cheering.jpg';
@@ -59,6 +60,14 @@ const stats = [
 
 
 export default function Landing() {
+  const navigate = useNavigate();
+  const { enterGuestMode } = useGuestMode();
+
+  const handleBrowseAsGuest = () => {
+    enterGuestMode();
+    navigate('/vibe');
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* ── Video Hero ── */}
@@ -189,15 +198,25 @@ export default function Landing() {
           <p className="mb-8 text-primary-foreground/70">
             Get in the game. Your next Wrigleyville friend is already here.
           </p>
-          <Link to="/auth">
+          <div className="flex flex-col items-center gap-3">
+            <Link to="/auth">
+              <Button
+                size="lg"
+                className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90">
+                Get in the Game
+                <ChevronRight className="ml-1 h-4 w-4" />
+              </Button>
+            </Link>
             <Button
+              variant="ghost"
               size="lg"
-              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90">
-              
-              Get in the Game
-              <ChevronRight className="ml-1 h-4 w-4" />
+              onClick={handleBrowseAsGuest}
+              className="rounded-full px-8 text-base font-medium text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 gap-2"
+            >
+              <Eye className="h-4 w-4" />
+              Browse as Guest
             </Button>
-          </Link>
+          </div>
         </div>
       </section>
 

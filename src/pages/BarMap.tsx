@@ -6,6 +6,8 @@ import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { MapPin, Navigation } from 'lucide-react';
 import { WRIGLEYVILLE_BARS } from '@/types';
+import { useGuestMode } from '@/contexts/GuestModeContext';
+import { GuestBanner } from '@/components/GuestBanner';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 
@@ -64,6 +66,8 @@ function getDirectionsUrl(lat: number, lng: number, name: string) {
 }
 
 export default function BarMap() {
+  const { isGuest } = useGuestMode();
+
   const bars = useMemo(() => {
     return WRIGLEYVILLE_BARS.map((bar) => {
       const coords = BAR_LOCATIONS[bar.name];
@@ -73,7 +77,7 @@ export default function BarMap() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className={`min-h-screen bg-background ${isGuest ? 'pb-20' : 'pb-24'}`}>
       <AppHeader />
       <div className="mx-auto max-w-3xl px-4 pt-6">
         <div className="mb-4 text-center">
@@ -151,6 +155,7 @@ export default function BarMap() {
           </MapContainer>
         </div>
       </div>
+      {isGuest && <GuestBanner />}
     </div>
   );
 }

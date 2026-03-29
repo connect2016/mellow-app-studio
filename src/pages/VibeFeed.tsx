@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useGuestMode } from '@/contexts/GuestModeContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AppHeader } from '@/components/AppHeader';
@@ -18,6 +19,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import MemoriesContent from '@/components/MemoriesContent';
 import { useVerifiedFan } from '@/hooks/useVerifiedFan';
 import { VerifiedGate } from '@/components/VerifiedGate';
+import { GuestGateModal } from '@/components/GuestGateModal';
+import { GuestBanner } from '@/components/GuestBanner';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),
@@ -62,6 +65,7 @@ function useVibeProfiles(userIds: string[]) {
 
 export default function VibeFeed() {
   const { user } = useAuth();
+  const { isGuest } = useGuestMode();
   const queryClient = useQueryClient();
   const fileRef = useRef<HTMLInputElement>(null);
   const [showCompose, setShowCompose] = useState(false);
@@ -70,6 +74,8 @@ export default function VibeFeed() {
   const [locationTag, setLocationTag] = useState('');
   const [caption, setCaption] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [guestGateOpen, setGuestGateOpen] = useState(false);
+  const [guestGateAction, setGuestGateAction] = useState('');
   const { isVerified } = useVerifiedFan();
 
   const { data: posts = [] } = useVibePosts();
@@ -145,8 +151,16 @@ export default function VibeFeed() {
     },
   });
 
+  const triggerGuestGate = (action: string) => {
+    setGuestGateAction(action);
+    setGuestGateOpen(true);
+  };
+
   const joinTheVibe = async (creatorId: string) => {
-    if (!user) return;
+    if (!user) {
+      triggerGuestGate('join the vibe and chat with fans');
+      return;
+    }
     if (creatorId === user.id) {
       toast.info("That's your own post!");
       return;
@@ -188,7 +202,8 @@ export default function VibeFeed() {
   return (
     <div className="min-h-screen bg-background">
       <AppHeader />
-      <main className="mx-auto max-w-lg px-4 pt-4 pb-24">
+      <GuestGateModal open={guestGateOpen} onClose={() => setGuestGateOpen(false)} action={guestGateAction} />
+      <main className={`mx-auto max-w-lg px-4 pt-4 ${isGuest ? 'pb-32' : 'pb-24'}`}>
         <Tabs defaultValue="vibes" className="mb-4">
           <TabsList className="w-full grid grid-cols-2 mb-4">
             <TabsTrigger value="vibes" className="gap-1.5">
@@ -206,7 +221,7 @@ export default function VibeFeed() {
             <h1 className="text-2xl font-bold font-heading text-foreground">Live Vibe Feed</h1>
             <p className="text-sm text-muted-foreground mt-0.5">What's happening at Wrigley right now</p>
           </div>
-          {isVerified ? (
+          {!isGuest && isVerified ? (
             <Button
               onClick={() => setShowCompose(true)}
               className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full"
@@ -214,7 +229,7 @@ export default function VibeFeed() {
             >
               <Plus className="h-4 w-4 mr-1" /> Post
             </Button>
-          ) : (
+          ) : !isGuest ? (
             <Button
               onClick={() => window.location.href = '/verify'}
               variant="outline"
@@ -222,6 +237,15 @@ export default function VibeFeed() {
               className="rounded-full gap-1.5 text-xs"
             >
               ✅ Get Verified to Post
+            </Button>
+          ) : (
+            <Button
+              onClick={() => triggerGuestGate('post photos and videos')}
+              variant="outline"
+              size="sm"
+              className="rounded-full gap-1.5 text-xs"
+            >
+              <Plus className="h-4 w-4 mr-1" /> Post
             </Button>
           )}
         </div>
@@ -423,6 +447,7 @@ export default function VibeFeed() {
           </TabsContent>
         </Tabs>
       </main>
+      {isGuest && <GuestBanner />}
     </div>
   );
 }

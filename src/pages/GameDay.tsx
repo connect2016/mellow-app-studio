@@ -250,6 +250,11 @@ export default function GameDay() {
           <HappeningNow />
         </div>
 
+        {/* Flash Meetups */}
+        <div className="mb-6">
+          <FlashMeetupsPanel />
+        </div>
+
         {/* AI Squad Matcher */}
         <div className="mb-6">
           <SquadMatcherPanel />

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send } from 'lucide-react';
+import { QuickBlockButton } from '@/components/QuickBlockButton';
 import { useLineupMessages, useSendLineupMessage, LineupMeetup } from '@/hooks/useLineup';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';

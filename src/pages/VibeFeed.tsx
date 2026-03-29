@@ -93,6 +93,10 @@ export default function VibeFeed() {
   };
 
   const handlePost = async () => {
+    if (!isVerified) {
+      toast.error('Only Verified Fans can post. Get verified first!');
+      return;
+    }
     if (!user || !file || !locationTag) {
       toast.error('Please select a file and location');
       return;

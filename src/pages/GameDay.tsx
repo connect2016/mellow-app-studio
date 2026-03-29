@@ -14,6 +14,7 @@ import { useQuery } from '@tanstack/react-query';
 import { MapPin, Users, Radio, Eye, EyeOff, Lock, Zap } from 'lucide-react';
 import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
+import { GamePhaseTimeline } from '@/components/GamePhaseTimeline';
 import { GameDayMap } from '@/components/GameDayMap';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { SquadMatcherPanel } from '@/components/SquadMatcherPanel';
@@ -219,14 +220,14 @@ export default function GameDay() {
           <p className="text-sm text-muted-foreground">Check in and find fans around you</p>
         </div>
 
+        {/* Game Phase Timeline */}
+        <div className="mb-6">
+          <GamePhaseTimeline />
+        </div>
+
         {/* Happening Now */}
         <div className="mb-6">
           <HappeningNow />
-        </div>
-
-        {/* Live Activity Feed */}
-        <div className="mb-6 rounded-2xl border border-border bg-card p-3">
-          <LiveActivityFeed maxItems={5} />
         </div>
 
         {/* AI Squad Matcher */}

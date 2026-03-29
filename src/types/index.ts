@@ -90,6 +90,7 @@ export interface UserProfile {
   superstition?: string;
   stretch_song?: string;
   best_bar?: string;
+  gameday_intents?: GamedayIntentType[];
 }
 
 export interface Match {

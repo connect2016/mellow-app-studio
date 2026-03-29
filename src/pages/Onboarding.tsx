@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { IntentType, WRIGLEYVILLE_BARS, PrivacyLevel } from '@/types';
+import { IntentType, WRIGLEYVILLE_BARS, PrivacyLevel, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
 import { ChevronLeft, ChevronRight, Camera, AlertCircle, User, Heart, Star, MapPin, Beer, Sparkles, Eye, Lock, EyeOff, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUpdateProfile } from '@/hooks/useProfile';

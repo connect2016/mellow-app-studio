@@ -97,8 +97,7 @@ export default function Venues() {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="px-4 py-4 space-y-3 pb-24">
+      <div className={`px-4 py-4 space-y-3 ${isGuest ? 'pb-32' : 'pb-24'}`}>
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
@@ -118,12 +117,21 @@ export default function Venues() {
                 key={venue.name}
                 venue={venue}
                 index={i}
-                onJoinMeetup={(id) => toast.success('Joining meetup! 🎉')}
+                onJoinMeetup={(id) => {
+                  if (isGuest) {
+                    setGuestGateOpen(true);
+                  } else {
+                    toast.success('Joining meetup! 🎉');
+                  }
+                }}
               />
             ))}
           </AnimatePresence>
         )}
       </div>
+
+      <GuestGateModal open={guestGateOpen} onClose={() => setGuestGateOpen(false)} action="join meetups and connect with fans" />
+      {isGuest && <GuestBanner />}
     </div>
   );
 }

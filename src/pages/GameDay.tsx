@@ -227,6 +227,16 @@ export default function GameDay() {
           <GamePhaseTimeline />
         </div>
 
+        {/* Crowd Energy Map */}
+        <div className="mb-6">
+          <CrowdEnergyMap />
+        </div>
+
+        {/* Instant Match */}
+        <div className="mb-6">
+          <InstantMatchPanel />
+        </div>
+
         {/* Happening Now */}
         <div className="mb-6">
           <HappeningNow />

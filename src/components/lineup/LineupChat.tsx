@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send } from 'lucide-react';
+import { QuickBlockButton } from '@/components/QuickBlockButton';
 import { useLineupMessages, useSendLineupMessage, LineupMeetup } from '@/hooks/useLineup';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -90,9 +91,17 @@ export function LineupChat({ meetup, open, onClose }: LineupChatProps) {
                         className="h-7 w-7 rounded-full object-cover shrink-0 mt-0.5"
                       />
                       <div className={`max-w-[75%] ${isMe ? 'text-right' : ''}`}>
-                        <p className="text-[10px] font-semibold text-muted-foreground mb-0.5">
-                          {isMe ? 'You' : msg.sender_name}
-                        </p>
+                        <div className="flex items-center gap-1 mb-0.5">
+                          <p className="text-[10px] font-semibold text-muted-foreground">
+                            {isMe ? 'You' : msg.sender_name}
+                          </p>
+                          {!isMe && (
+                            <QuickBlockButton
+                              targetUserId={msg.sender_id}
+                              targetName={msg.sender_name}
+                            />
+                          )}
+                        </div>
                         <div
                           className={`rounded-2xl px-3 py-2 text-sm ${
                             isMe

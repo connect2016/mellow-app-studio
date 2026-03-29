@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send } from 'lucide-react';
+import { QuickBlockButton } from '@/components/QuickBlockButton';
 
 interface Reaction {
   id: string;
@@ -79,9 +80,17 @@ export function LiveChatFeed({ reactions, profiles, userId, onSend }: LiveChatFe
                 </div>
 
                 <div className={`max-w-[75%] ${isMe ? 'text-right' : ''}`}>
-                  <p className="text-[9px] text-muted-foreground mb-0.5 font-medium">
-                    {profile?.display_name ?? 'Fan'}
-                  </p>
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <p className="text-[9px] text-muted-foreground font-medium">
+                      {profile?.display_name ?? 'Fan'}
+                    </p>
+                    {!isMe && (
+                      <QuickBlockButton
+                        targetUserId={r.user_id}
+                        targetName={profile?.display_name}
+                      />
+                    )}
+                  </div>
                   {isReaction ? (
                     <motion.div
                       initial={{ scale: 0.8 }}

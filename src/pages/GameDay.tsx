@@ -233,6 +233,11 @@ export default function GameDay() {
           <CrowdEnergyMap />
         </div>
 
+        {/* Your Vibe State */}
+        <div className="mb-6">
+          <VibeStatePanel />
+        </div>
+
         {/* Instant Match */}
         <div className="mb-6">
           <InstantMatchPanel />

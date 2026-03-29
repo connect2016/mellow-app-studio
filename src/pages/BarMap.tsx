@@ -6,6 +6,8 @@ import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { MapPin, Navigation } from 'lucide-react';
 import { WRIGLEYVILLE_BARS } from '@/types';
+import { useGuestMode } from '@/contexts/GuestModeContext';
+import { GuestBanner } from '@/components/GuestBanner';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 

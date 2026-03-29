@@ -146,6 +146,7 @@ export default function Onboarding() {
           pronouns: pronouns || null,
           intent: intents,
           gameday_intents: gamedayIntents,
+          fan_style: fanStyles,
           favorite_player: favoritePlayer,
           favorite_moment: favoriteMoment,
           favorite_moment_is_valid: favoriteMoment ? validateMoment(favoriteMoment) : true,

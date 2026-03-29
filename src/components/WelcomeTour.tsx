@@ -39,6 +39,18 @@ const TOUR_STEPS: TourStep[] = [
     text: "Your Gameday Inner Circle. View your mutual fan connections, see who is attending today's game, and coordinate meetups.",
     position: 'top',
   },
+  {
+    targetSelector: '[data-tour="messages"]',
+    title: 'Break the Ice',
+    text: 'Message fans in your section or at your bar to coordinate the next round.',
+    position: 'bottom',
+  },
+  {
+    targetSelector: '[data-tour="beer-money"]',
+    title: 'Be a Legend',
+    text: 'Send a digital beer voucher to a fellow fan and make a new buddy instantly.',
+    position: 'bottom',
+  },
 ];
 
 const STORAGE_KEY = 'tour_completed';

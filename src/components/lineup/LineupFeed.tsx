@@ -44,6 +44,8 @@ export function LineupFeed() {
       await joinMeetup.mutateAsync(meetup.id);
       toast.success("⚾ You're in! Check the group chat.");
       setChatMeetup({ ...meetup, is_member: true, member_count: (meetup.member_count ?? 1) + 1 });
+      // Prompt safety timer after successful join
+      setSafetyMeetup(meetup);
     } catch {
       toast.error('Could not join meetup');
     }

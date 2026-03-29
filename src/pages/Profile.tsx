@@ -166,6 +166,21 @@ export default function Profile() {
             {displayUser.intent.map((i) => <IntentChip key={i} intent={i} />)}
           </div>
 
+          {/* Gameday Intent Badges */}
+          {displayUser.gameday_intents.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {displayUser.gameday_intents.map((gi) => (
+                <span
+                  key={gi}
+                  className="inline-flex items-center gap-1 rounded-full bg-secondary/10 border border-secondary/20 px-2.5 py-0.5 text-xs font-semibold text-foreground"
+                >
+                  <span>{GAMEDAY_INTENT_EMOJI[gi]}</span>
+                  <span>{GAMEDAY_INTENT_LABELS[gi]}</span>
+                </span>
+              ))}
+            </div>
+          )}
+
           {/* Bio */}
           {displayUser.bio && (
             <p className="text-sm leading-relaxed text-foreground">{displayUser.bio}</p>

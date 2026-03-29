@@ -74,6 +74,7 @@ const App = () => (
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />
             <Route path="/bar-map" element={<BarMap />} />
             <Route path="/buddy-heatmap" element={<BuddyHeatmap />} />
+            <Route path="/section-chat" element={<SectionChat />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>

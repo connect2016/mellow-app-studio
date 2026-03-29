@@ -555,6 +555,19 @@ export default function Discover() {
         filters={filters}
         onApply={setFilters}
       />
+
+      {/* Floating "+" button for Lineup */}
+      <motion.button
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setShowLineupCreate(true)}
+        className="fixed bottom-28 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-lineup text-lineup-foreground shadow-lg shadow-lineup/30"
+      >
+        <Plus className="h-7 w-7" />
+      </motion.button>
+      <CreateMeetupModal open={showLineupCreate} onClose={() => setShowLineupCreate(false)} />
       </div>
     </div>
   );

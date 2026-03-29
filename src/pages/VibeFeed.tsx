@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useGuestMode } from '@/contexts/GuestModeContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AppHeader } from '@/components/AppHeader';
@@ -18,6 +19,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import MemoriesContent from '@/components/MemoriesContent';
 import { useVerifiedFan } from '@/hooks/useVerifiedFan';
 import { VerifiedGate } from '@/components/VerifiedGate';
+import { GuestGateModal } from '@/components/GuestGateModal';
+import { GuestBanner } from '@/components/GuestBanner';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),

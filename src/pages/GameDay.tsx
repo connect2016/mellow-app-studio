@@ -20,6 +20,7 @@ import { CrowdEnergyMap } from '@/components/CrowdEnergyMap';
 import { InstantMatchPanel } from '@/components/InstantMatchPanel';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { SquadMatcherPanel } from '@/components/SquadMatcherPanel';
+import { NextMovePanel } from '@/components/NextMovePanel';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { PostGameExperience } from '@/components/PostGameExperience';
 import { LiveScoringBanner } from '@/components/scoring/LiveScoringBanner';

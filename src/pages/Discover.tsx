@@ -40,6 +40,7 @@ const STATUS_OPTIONS = [
 
 interface FilterState {
   intents: IntentType[];
+  gamedayIntents: GamedayIntentType[];
   statuses: string[];
   distance: number;
   ageRange: number[];

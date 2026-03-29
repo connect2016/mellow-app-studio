@@ -112,6 +112,14 @@ export default function Onboarding() {
     setIntents((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]));
   };
 
+  const toggleGamedayIntent = (i: GamedayIntentType) => {
+    setGamedayIntents((prev) => {
+      if (prev.includes(i)) return prev.filter((x) => x !== i);
+      if (prev.length >= 3) return prev; // max 3
+      return [...prev, i];
+    });
+  };
+
   const handleMomentChange = (val: string) => {
     setFavoriteMoment(val);
     if (val && !validateMoment(val)) {

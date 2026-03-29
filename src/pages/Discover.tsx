@@ -29,6 +29,9 @@ import { useProfile } from '@/hooks/useProfile';
 import { useCompatibility } from '@/hooks/useCompatibility';
 import { toast } from 'sonner';
 import { useMissionTracker } from '@/hooks/useMissionTracker';
+import { LineupFeed } from '@/components/lineup/LineupFeed';
+import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
+import { Plus } from 'lucide-react';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },

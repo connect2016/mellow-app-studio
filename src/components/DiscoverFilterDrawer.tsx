@@ -6,7 +6,7 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { IntentChip } from '@/components/IntentChip';
-import { IntentType } from '@/types';
+import { IntentType, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
 import { cn } from '@/lib/utils';
 
 interface FilterState {

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Circle as GCircle } from '@react-google-maps/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
@@ -8,10 +8,10 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
+import { snapToPrivacyGrid, isNearHomeOrWork } from '@/lib/location-privacy';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyC3rzW-wAq6Pl2NU_AePqX5VO15Ar9Wx1E';
 
-// Wrigleyville bounding box for geofencing
 const WRIGLEYVILLE_BOUNDS = {
   north: 41.9530,
   south: 41.9420,
@@ -20,15 +20,6 @@ const WRIGLEYVILLE_BOUNDS = {
 };
 
 const WRIGLEY_CENTER = { lat: 41.9484, lng: -87.6553 };
-
-// Snap to grid for privacy (~100m cells)
-function snapToGrid(lat: number, lng: number): { lat: number; lng: number } {
-  const gridSize = 0.001; // ~111m lat, ~85m lng at this latitude
-  return {
-    lat: Math.round(lat / gridSize) * gridSize,
-    lng: Math.round(lng / gridSize) * gridSize,
-  };
-}
 
 function isInWrigleyville(lat: number, lng: number): boolean {
   return (
@@ -68,20 +59,47 @@ function useBuddyClusters() {
   return useQuery({
     queryKey: ['buddy-heatmap-clusters'],
     queryFn: async () => {
-      // Fetch all recent check-ins (last 6 hours)
       const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
-      const { data, error } = await supabase
+
+      // Fetch locations joined with profile home/work for geofence hiding
+      const { data: locations } = await supabase
         .from('user_locations')
-        .select('latitude, longitude')
+        .select('user_id, latitude, longitude')
         .gte('updated_at', sixHoursAgo);
 
-      if (error) throw error;
-      if (!data || data.length === 0) return [];
+      if (!locations || locations.length === 0) return [];
 
-      // Snap to grid and aggregate
+      // Fetch home/work addresses for geofence hiding
+      const userIds = locations.map((l) => l.user_id);
+      const { data: profiles } = await supabase
+        .from('profiles')
+        .select('user_id, home_lat, home_lng, work_lat, work_lng')
+        .in('user_id', userIds);
+
+      const profileMap = new Map(
+        profiles?.map((p) => [p.user_id, p]) ?? []
+      );
+
+      // Snap to privacy grid and aggregate — skip users near home/work
       const grid = new Map<string, { lat: number; lng: number; count: number }>();
-      for (const loc of data) {
-        const snapped = snapToGrid(loc.latitude, loc.longitude);
+      for (const loc of locations) {
+        const prof = profileMap.get(loc.user_id);
+        // Geofence hiding: suppress if within 100m of home or work
+        if (
+          prof &&
+          isNearHomeOrWork(
+            loc.latitude,
+            loc.longitude,
+            prof.home_lat as number | null,
+            prof.home_lng as number | null,
+            prof.work_lat as number | null,
+            prof.work_lng as number | null
+          )
+        ) {
+          continue; // hide this user
+        }
+
+        const snapped = snapToPrivacyGrid(loc.latitude, loc.longitude);
         const key = `${snapped.lat},${snapped.lng}`;
         const existing = grid.get(key);
         if (existing) {
@@ -94,7 +112,7 @@ function useBuddyClusters() {
       // Only return clusters of 3+
       return Array.from(grid.values()).filter((c) => c.count >= 3);
     },
-    refetchInterval: 30000, // refresh every 30s
+    refetchInterval: 30000,
   });
 }
 
@@ -105,7 +123,6 @@ function useCheckinMutation() {
   return useMutation({
     mutationFn: async (coords: { lat: number; lng: number }) => {
       if (!user) throw new Error('Not authenticated');
-      // Upsert location
       const { error } = await supabase
         .from('user_locations')
         .upsert(
@@ -120,24 +137,22 @@ function useCheckinMutation() {
   });
 }
 
-// Pulse overlay component rendered on the map
+// Pulse overlay using OverlayView
 function PulseOverlay({ map, clusters }: { map: google.maps.Map | null; clusters: ClusterPoint[] }) {
   useEffect(() => {
     if (!map || clusters.length === 0) return;
 
-    const overlays: google.maps.marker.AdvancedMarkerElement[] = [];
+    const overlays: google.maps.OverlayView[] = [];
 
-    // Use regular markers with custom HTML for the pulse effect
     clusters.forEach((cluster) => {
       const size = Math.min(24 + cluster.count * 6, 60);
       const opacity = Math.min(0.4 + cluster.count * 0.08, 0.9);
 
       const div = document.createElement('div');
-      div.style.position = 'relative';
+      div.style.position = 'absolute';
       div.style.width = `${size}px`;
       div.style.height = `${size}px`;
 
-      // Pulse ring
       const pulse = document.createElement('div');
       pulse.style.cssText = `
         position: absolute; inset: 0; border-radius: 50%;
@@ -146,7 +161,6 @@ function PulseOverlay({ map, clusters }: { map: google.maps.Map | null; clusters
       `;
       div.appendChild(pulse);
 
-      // Center dot
       const dot = document.createElement('div');
       dot.style.cssText = `
         position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -156,7 +170,6 @@ function PulseOverlay({ map, clusters }: { map: google.maps.Map | null; clusters
       `;
       div.appendChild(dot);
 
-      // Count label
       const label = document.createElement('div');
       label.style.cssText = `
         position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -165,18 +178,6 @@ function PulseOverlay({ map, clusters }: { map: google.maps.Map | null; clusters
       label.textContent = `${cluster.count}`;
       div.appendChild(label);
 
-      const marker = new google.maps.Marker({
-        position: { lat: cluster.lat, lng: cluster.lng },
-        map,
-        icon: {
-          url: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"></svg>'),
-          scaledSize: new google.maps.Size(1, 1),
-        },
-        label: '',
-        clickable: false,
-      });
-
-      // Use OverlayView for proper HTML rendering
       class PulseOverlayView extends google.maps.OverlayView {
         private div: HTMLDivElement;
         private position: google.maps.LatLng;
@@ -213,17 +214,11 @@ function PulseOverlay({ map, clusters }: { map: google.maps.Map | null; clusters
         div
       );
       overlay.setMap(map);
-
-      // Store for cleanup
-      (marker as any)._overlay = overlay;
-      overlays.push(marker as any);
+      overlays.push(overlay);
     });
 
     return () => {
-      overlays.forEach((m: any) => {
-        if (m._overlay) m._overlay.setMap(null);
-        m.setMap(null);
-      });
+      overlays.forEach((o) => o.setMap(null));
     };
   }, [map, clusters]);
 
@@ -278,7 +273,7 @@ export default function BuddyHeatmap() {
         try {
           await checkin.mutateAsync({ lat: latitude, lng: longitude });
           setCheckedIn(true);
-          toast({ title: '📍 You\'re on the map!', description: 'Your check-in is live. Exact location is hidden for privacy.' });
+          toast({ title: "📍 You're on the map!", description: 'Your presence is shown as a 200m radius — exact location is hidden.' });
           setTimeout(() => setCheckedIn(false), 5000);
         } catch {
           toast({ title: 'Check-in failed', description: 'Please try again.', variant: 'destructive' });
@@ -321,7 +316,7 @@ export default function BuddyHeatmap() {
         </div>
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Users className="h-3.5 w-3.5" />
-          <span>{totalBuddies} {totalBuddies === 1 ? 'buddy' : 'buddies'} checked in</span>
+          <span>{totalBuddies} {totalBuddies === 1 ? 'buddy' : 'buddies'} nearby</span>
         </div>
       </div>
 
@@ -335,6 +330,23 @@ export default function BuddyHeatmap() {
           onLoad={onMapLoad}
         >
           <PulseOverlay map={map} clusters={clusters} />
+
+          {/* 200m presence radius circles for each cluster */}
+          {clusters.map((c, i) => (
+            <GCircle
+              key={`radius-${i}`}
+              center={{ lat: c.lat, lng: c.lng }}
+              radius={200}
+              options={{
+                fillColor: 'hsl(222, 82%, 55%)',
+                fillOpacity: 0.08,
+                strokeColor: 'hsl(222, 82%, 55%)',
+                strokeWeight: 1,
+                strokeOpacity: 0.25,
+                clickable: false,
+              }}
+            />
+          ))}
         </GoogleMap>
 
         {/* Empty state overlay */}
@@ -351,12 +363,12 @@ export default function BuddyHeatmap() {
         {/* Privacy badge */}
         <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-card/90 backdrop-blur-md border border-border px-2.5 py-1">
           <ShieldCheck className="h-3 w-3 text-accent" />
-          <span className="text-[10px] font-semibold text-foreground">Privacy Mode</span>
+          <span className="text-[10px] font-semibold text-foreground">Fuzzy Location · 200m Radius</span>
         </div>
 
         {/* Legend */}
         <div className="absolute top-3 right-3 bg-card/90 backdrop-blur-md border border-border rounded-xl px-3 py-2">
-          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5">Clusters</p>
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5">Presence Zones</p>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1">
               <div className="h-2.5 w-2.5 rounded-full bg-accent/60" />
@@ -425,14 +437,13 @@ export default function BuddyHeatmap() {
               </Button>
               <p className="text-center text-[10px] text-muted-foreground mt-2 flex items-center justify-center gap-1">
                 <ShieldCheck className="h-3 w-3" />
-                Your exact location is never shown — only aggregated zones
+                200m fuzzy radius — exact location never shared · Auto-hidden near Home/Work
               </p>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Pulse animation keyframes */}
       <style>{`
         @keyframes heatPulse {
           0%, 100% { transform: scale(1); opacity: 1; }

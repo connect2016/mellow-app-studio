@@ -818,6 +818,8 @@ export type Database = {
           game_status: string | null
           gameday_intents: string[] | null
           hidden_from_discover: boolean | null
+          home_lat: number | null
+          home_lng: number | null
           id: string
           intent: string[] | null
           is_banned: boolean | null
@@ -830,6 +832,8 @@ export type Database = {
           superstition: string | null
           updated_at: string
           user_id: string
+          work_lat: number | null
+          work_lng: number | null
           wrigley_location_privacy: string | null
           wrigley_row: string | null
           wrigley_seat: string | null
@@ -854,6 +858,8 @@ export type Database = {
           game_status?: string | null
           gameday_intents?: string[] | null
           hidden_from_discover?: boolean | null
+          home_lat?: number | null
+          home_lng?: number | null
           id?: string
           intent?: string[] | null
           is_banned?: boolean | null
@@ -866,6 +872,8 @@ export type Database = {
           superstition?: string | null
           updated_at?: string
           user_id: string
+          work_lat?: number | null
+          work_lng?: number | null
           wrigley_location_privacy?: string | null
           wrigley_row?: string | null
           wrigley_seat?: string | null
@@ -890,6 +898,8 @@ export type Database = {
           game_status?: string | null
           gameday_intents?: string[] | null
           hidden_from_discover?: boolean | null
+          home_lat?: number | null
+          home_lng?: number | null
           id?: string
           intent?: string[] | null
           is_banned?: boolean | null
@@ -902,6 +912,8 @@ export type Database = {
           superstition?: string | null
           updated_at?: string
           user_id?: string
+          work_lat?: number | null
+          work_lng?: number | null
           wrigley_location_privacy?: string | null
           wrigley_row?: string | null
           wrigley_seat?: string | null

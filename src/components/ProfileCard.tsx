@@ -359,6 +359,21 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
           <span className="text-xl">🖐️</span>
           <span className="font-medium">Hi-Five</span>
         </motion.button>
+        <motion.button
+          onClick={() => {
+            setDogAnim(true);
+            setFlyingDog(true);
+            setTimeout(() => setDogAnim(false), 500);
+            setTimeout(() => setFlyingDog(false), 1000);
+            onSendDog?.();
+          }}
+          animate={dogAnim ? { scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] } : {}}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+        >
+          <span className="text-xl">🌭</span>
+          <span className="font-medium">Send Dog</span>
+        </motion.button>
         <button
           onClick={onLike}
           className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-destructive transition-colors rounded-lg hover:bg-destructive/5"

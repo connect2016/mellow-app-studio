@@ -62,6 +62,12 @@ export function useSendLike() {
           title: '🙌 Mutual Hi-Five!',
           description: 'You both Hi-Fived — that\'s a vibe! Send them a message.',
         });
+      } else if (variables.isHiFive && variables.message?.includes('🌭')) {
+        toast({
+          title: '🌭 Hot Dog sent!',
+          description: 'You tossed them a dog — classic Wrigley icebreaker!',
+        });
+        tracker.trackHiFive();
       } else if (variables.isHiFive) {
         toast({
           title: '🖐️ Hi-Five sent!',

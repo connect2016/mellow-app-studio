@@ -534,6 +534,9 @@ export default function Discover() {
                       matchReasons={compat?.topReasons}
                       matchScore={compat?.score}
                       onHiFive={(msg) => handleHiFive(profile, msg)}
+                      onSendDog={() => {
+                        sendLike.mutate({ toUser: profile.user_id, isHiFive: true, message: '🌭 Sent you a Hot Dog!' });
+                      }}
                       onLike={() => handleLike(profile)}
                       onSendBeer={() => navigate(`/beer-money?to=${profile.user_id}`)}
                       onViewProfile={() => navigate(`/profile/${profile.user_id}`)}

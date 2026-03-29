@@ -9,6 +9,7 @@ interface ProfileCardProps {
   user: UserProfile;
   currentUserFanStyles?: FanStyleType[];
   onHiFive?: (message?: string) => void;
+  onSendDog?: () => void;
   onLike?: () => void;
   onSendBeer?: () => void;
   onViewProfile?: () => void;
@@ -61,9 +62,11 @@ function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } |
   return null;
 }
 
-export function ProfileCard({ user, currentUserFanStyles, onHiFive, onLike, onSendBeer, onViewProfile, onPass, matchReasons, matchScore }: ProfileCardProps) {
+export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, onLike, onSendBeer, onViewProfile, onPass, matchReasons, matchScore }: ProfileCardProps) {
   const [hiFiveAnim, setHiFiveAnim] = useState(false);
+  const [dogAnim, setDogAnim] = useState(false);
   const [flyingEmoji, setFlyingEmoji] = useState(false);
+  const [flyingDog, setFlyingDog] = useState(false);
   const [showIcebreakers, setShowIcebreakers] = useState(false);
   const activity = getActivityLabel(user);
   const prompts = getPrompts(user).slice(0, 2);
@@ -115,6 +118,21 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onLike, onSe
             className="absolute bottom-20 left-1/4 z-30 text-4xl pointer-events-none"
           >
             🖐️
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Flying hot dog */}
+      <AnimatePresence>
+        {flyingDog && (
+          <motion.div
+            initial={{ opacity: 1, scale: 1, y: 0 }}
+            animate={{ opacity: 0, scale: 2.5, y: -200 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="absolute bottom-20 right-1/4 z-30 text-4xl pointer-events-none"
+          >
+            🌭
           </motion.div>
         )}
       </AnimatePresence>
@@ -340,6 +358,21 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onLike, onSe
         >
           <span className="text-xl">🖐️</span>
           <span className="font-medium">Hi-Five</span>
+        </motion.button>
+        <motion.button
+          onClick={() => {
+            setDogAnim(true);
+            setFlyingDog(true);
+            setTimeout(() => setDogAnim(false), 500);
+            setTimeout(() => setFlyingDog(false), 1000);
+            onSendDog?.();
+          }}
+          animate={dogAnim ? { scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] } : {}}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+        >
+          <span className="text-xl">🌭</span>
+          <span className="font-medium">Send Dog</span>
         </motion.button>
         <button
           onClick={onLike}

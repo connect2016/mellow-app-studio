@@ -32,6 +32,7 @@ import BallparkBuddy from "./pages/BallparkBuddy";
 import WrigleyPassport from "./pages/WrigleyPassport";
 import BarMap from "./pages/BarMap";
 import BuddyHeatmap from "./pages/BuddyHeatmap";
+import SectionChat from "./pages/SectionChat";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -73,6 +74,7 @@ const App = () => (
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />
             <Route path="/bar-map" element={<BarMap />} />
             <Route path="/buddy-heatmap" element={<BuddyHeatmap />} />
+            <Route path="/section-chat" element={<SectionChat />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>

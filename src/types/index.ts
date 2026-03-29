@@ -21,6 +21,16 @@ export const GAMEDAY_INTENT_EMOJI: Record<GamedayIntentType, string> = {
   PostGameCelebration: '🎉',
   WrigleyvilleLocal: '🏘️',
 };
+export type FanStyleType = 'OldStyleDrinker' | 'MustardHotdog' | 'StayUntil9th' | 'EarlyBPArrival' | 'ScorecardKeeper';
+
+export const FAN_STYLE_OPTIONS: { value: FanStyleType; label: string; emoji: string }[] = [
+  { value: 'OldStyleDrinker', label: 'Old Style Drinker', emoji: '🍺' },
+  { value: 'MustardHotdog', label: 'Mustard on my Hotdog', emoji: '🌭' },
+  { value: 'StayUntil9th', label: 'Stay until the 9th', emoji: '⏰' },
+  { value: 'EarlyBPArrival', label: 'Early BP Arrival', emoji: '🏟️' },
+  { value: 'ScorecardKeeper', label: 'Scorecard Keeper', emoji: '📝' },
+];
+
 export type PrivacyLevel = 'Public' | 'MatchesOnly' | 'Hidden';
 export type ReportReason = 'Harassment' | 'Spam' | 'FakeProfile' | 'InappropriateContent' | 'SafetyConcern' | 'Other';
 

@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 
 interface FilterState {
   intents: IntentType[];
+  gamedayIntents: GamedayIntentType[];
   statuses: string[];
   distance: number;
   ageRange: number[];

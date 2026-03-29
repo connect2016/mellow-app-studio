@@ -51,6 +51,12 @@ const TOUR_STEPS: TourStep[] = [
     text: 'Send a digital beer voucher to a fellow fan and make a new buddy instantly.',
     position: 'bottom',
   },
+  {
+    targetSelector: '[data-tour="live-vibe-checkin"]',
+    title: 'Live Vibe',
+    text: 'Know before you go. See real-time crowd levels and vibes at every Wrigleyville bar, powered by your fellow Buddies.',
+    position: 'bottom',
+  },
 ];
 
 const STORAGE_KEY = 'tour_completed';

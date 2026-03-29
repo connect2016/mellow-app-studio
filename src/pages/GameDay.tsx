@@ -254,6 +254,11 @@ export default function GameDay() {
           <SquadMatcherPanel />
         </div>
 
+        {/* Next Move Recommendations */}
+        <div className="mb-6">
+          <NextMovePanel />
+        </div>
+
         {/* AI Meetup Suggestions */}
         <div className="mb-6">
           <SmartMeetupSuggestions />

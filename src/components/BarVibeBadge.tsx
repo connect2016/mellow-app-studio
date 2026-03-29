@@ -1,7 +1,8 @@
 import { WAIT_LABELS, VIBE_LABELS, type BarVoteSummary } from '@/hooks/useBarVotes';
 
 export function BarVibeBadge({ summary }: { summary: BarVoteSummary }) {
-  if (summary.totalVotes === 0) return null;
+  if (summary.totalVotes === 0 && !summary.isDefault) return null;
+  if (!summary.topWait && !summary.topVibe) return null;
 
   return (
     <div className="flex items-center gap-1.5 flex-wrap">
@@ -15,7 +16,11 @@ export function BarVibeBadge({ summary }: { summary: BarVoteSummary }) {
           {VIBE_LABELS[summary.topVibe]}
         </span>
       )}
-      <span className="text-[9px] text-muted-foreground">{summary.totalVotes} vote{summary.totalVotes !== 1 ? 's' : ''}</span>
+      {summary.isDefault ? (
+        <span className="text-[9px] text-muted-foreground italic">Expected Game Day Vibe</span>
+      ) : (
+        <span className="text-[9px] text-muted-foreground">{summary.totalVotes} vote{summary.totalVotes !== 1 ? 's' : ''}</span>
+      )}
     </div>
   );
 }

@@ -315,6 +315,80 @@ export type Database = {
         }
         Relationships: []
       }
+      flash_meetup_members: {
+        Row: {
+          id: string
+          joined_at: string
+          meetup_id: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          joined_at?: string
+          meetup_id: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          meetup_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "flash_meetup_members_meetup_id_fkey"
+            columns: ["meetup_id"]
+            isOneToOne: false
+            referencedRelation: "flash_meetups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      flash_meetups: {
+        Row: {
+          created_at: string
+          creator_id: string
+          description: string | null
+          emoji: string
+          expires_at: string
+          id: string
+          is_system_generated: boolean
+          location_name: string
+          max_members: number
+          status: string
+          title: string
+          vibe: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          description?: string | null
+          emoji?: string
+          expires_at?: string
+          id?: string
+          is_system_generated?: boolean
+          location_name: string
+          max_members?: number
+          status?: string
+          title: string
+          vibe?: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          description?: string | null
+          emoji?: string
+          expires_at?: string
+          id?: string
+          is_system_generated?: boolean
+          location_name?: string
+          max_members?: number
+          status?: string
+          title?: string
+          vibe?: string
+        }
+        Relationships: []
+      }
       game_memories: {
         Row: {
           caption: string | null

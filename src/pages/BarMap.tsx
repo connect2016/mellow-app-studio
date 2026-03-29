@@ -155,6 +155,7 @@ export default function BarMap() {
           </MapContainer>
         </div>
       </div>
+      {isGuest && <GuestBanner />}
     </div>
   );
 }

@@ -72,6 +72,7 @@ const App = () => (
             <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />
             <Route path="/bar-map" element={<BarMap />} />
+            <Route path="/buddy-heatmap" element={<BuddyHeatmap />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>

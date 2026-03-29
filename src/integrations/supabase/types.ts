@@ -635,6 +635,83 @@ export type Database = {
           },
         ]
       }
+      live_moment_participants: {
+        Row: {
+          id: string
+          joined_at: string
+          moment_id: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          joined_at?: string
+          moment_id: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          moment_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "live_moment_participants_moment_id_fkey"
+            columns: ["moment_id"]
+            isOneToOne: false
+            referencedRelation: "live_moments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      live_moments: {
+        Row: {
+          created_at: string
+          creator_id: string
+          duration_seconds: number
+          emoji: string
+          expires_at: string
+          id: string
+          location_context: string
+          metadata: Json | null
+          moment_type: string
+          participant_count: number
+          peak_participants: number
+          status: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          duration_seconds?: number
+          emoji?: string
+          expires_at?: string
+          id?: string
+          location_context?: string
+          metadata?: Json | null
+          moment_type?: string
+          participant_count?: number
+          peak_participants?: number
+          status?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          duration_seconds?: number
+          emoji?: string
+          expires_at?: string
+          id?: string
+          location_context?: string
+          metadata?: Json | null
+          moment_type?: string
+          participant_count?: number
+          peak_participants?: number
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
       matches: {
         Row: {
           created_at: string

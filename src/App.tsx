@@ -34,6 +34,7 @@ import BarMap from "./pages/BarMap";
 import BuddyHeatmap from "./pages/BuddyHeatmap";
 import SectionChat from "./pages/SectionChat";
 import VerifyFan from "./pages/VerifyFan";
+import Venues from "./pages/Venues";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

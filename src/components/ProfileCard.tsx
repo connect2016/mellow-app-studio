@@ -190,8 +190,9 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
           {user.pronouns && <p className="text-xs text-white/70 mb-1">{user.pronouns}</p>}
           <p className="line-clamp-2 text-sm text-white/85 leading-relaxed">{user.bio}</p>
 
-          <div className="mt-2.5 flex items-center gap-2">
+          <div className="mt-2.5 flex items-center gap-2 flex-wrap">
             <StatusBadge status={user.game_status} />
+            <VibeStateBadge vibeState={(user as any).vibe_state} vibeEmoji={(user as any).vibe_emoji} />
             {user.game_status === 'AtWrigley' && user.wrigley_location_privacy === 'Public' && user.wrigley_section && (
               <span className="flex items-center gap-1 text-xs text-white/60">
                 <MapPin className="h-3 w-3" /> Sec {user.wrigley_section}

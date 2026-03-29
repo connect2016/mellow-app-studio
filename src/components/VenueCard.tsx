@@ -56,15 +56,11 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
             <h3 className="text-sm font-bold text-foreground truncate" style={{ fontFamily: 'Space Grotesk' }}>
               {venue.name}
             </h3>
-            <div className="flex items-center gap-2 mt-0.5">
+            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
               <Badge variant="outline" className={`text-[10px] px-1.5 py-0 h-4 border-0 ${crowd.color}`}>
                 {crowd.label}
               </Badge>
-              {venue.voteCount > 0 && (
-                <span className="text-[10px] text-muted-foreground">
-                  {vibeEmoji[venue.dominantVibe] || '😎'} {venue.dominantVibe}
-                </span>
-              )}
+              <BarVibeBadge summary={summary} />
             </div>
           </div>
         </div>

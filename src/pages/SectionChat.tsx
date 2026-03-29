@@ -17,6 +17,7 @@ export default function SectionChat() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { data: profile } = useProfile();
+  const { isVerified, isLoading: verifyLoading } = useVerifiedFan();
   const { data: activeGame, isLoading: gameLoading } = useActiveGameForChat();
   const section = profile?.wrigley_section;
   const { data: messages = [], isLoading: msgsLoading } = useSectionMessages(activeGame?.id, section ?? undefined);

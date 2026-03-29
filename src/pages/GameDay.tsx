@@ -16,6 +16,7 @@ import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { GameDayMap } from '@/components/GameDayMap';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
+import { SquadMatcherPanel } from '@/components/SquadMatcherPanel';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { PostGameExperience } from '@/components/PostGameExperience';
 import { LiveScoringBanner } from '@/components/scoring/LiveScoringBanner';

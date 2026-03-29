@@ -1207,6 +1207,41 @@ export type Database = {
           },
         ]
       }
+      section_chat_messages: {
+        Row: {
+          body: string
+          created_at: string
+          game_id: string
+          id: string
+          section: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          game_id: string
+          id?: string
+          section: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          game_id?: string
+          id?: string
+          section?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "section_chat_messages_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_locations: {
         Row: {
           id: string

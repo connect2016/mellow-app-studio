@@ -16,6 +16,7 @@ import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { GameDayMap } from '@/components/GameDayMap';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
+import { SquadMatcherPanel } from '@/components/SquadMatcherPanel';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { PostGameExperience } from '@/components/PostGameExperience';
 import { LiveScoringBanner } from '@/components/scoring/LiveScoringBanner';
@@ -226,6 +227,11 @@ export default function GameDay() {
         {/* Live Activity Feed */}
         <div className="mb-6 rounded-2xl border border-border bg-card p-3">
           <LiveActivityFeed maxItems={5} />
+        </div>
+
+        {/* AI Squad Matcher */}
+        <div className="mb-6">
+          <SquadMatcherPanel />
         </div>
 
         {/* AI Meetup Suggestions */}

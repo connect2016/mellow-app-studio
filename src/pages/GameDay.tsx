@@ -28,6 +28,7 @@ import { SafetyTimerBanner } from '@/components/SafetyTimerBanner';
 import { VibeStatePanel } from '@/components/VibeStatePanel';
 import { FlashMeetupsPanel } from '@/components/FlashMeetupsPanel';
 import { FanIdentityPanel } from '@/components/FanIdentityPanel';
+import { LiveMomentsPanel } from '@/components/LiveMomentsPanel';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },

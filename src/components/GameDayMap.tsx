@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Users, Zap, Beer, Eye } from 'lucide-react';
+import { fuzzyLocation, isNearHomeOrWork } from '@/lib/location-privacy';
 
 // Wrigley Field center
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];

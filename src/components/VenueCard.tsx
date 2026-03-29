@@ -1,8 +1,12 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Users, Clock, Zap, MapPin, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { VenueData } from '@/hooks/useVenueActivity';
+import { useBarVotes } from '@/hooks/useBarVotes';
+import { BarVibeBadge } from '@/components/BarVibeBadge';
+import { BarVotePanel } from '@/components/BarVotePanel';
 import { format } from 'date-fns';
 
 const crowdConfig: Record<VenueData['crowdLevel'], { label: string; color: string; emoji: string; bars: number }> = {
@@ -34,7 +38,9 @@ interface VenueCardProps {
 
 export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
   const crowd = crowdConfig[venue.crowdLevel];
-
+  const { getSummary } = useBarVotes();
+  const summary = getSummary(venue.name);
+  const [showVote, setShowVote] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -50,15 +56,11 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
             <h3 className="text-sm font-bold text-foreground truncate" style={{ fontFamily: 'Space Grotesk' }}>
               {venue.name}
             </h3>
-            <div className="flex items-center gap-2 mt-0.5">
+            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
               <Badge variant="outline" className={`text-[10px] px-1.5 py-0 h-4 border-0 ${crowd.color}`}>
                 {crowd.label}
               </Badge>
-              {venue.voteCount > 0 && (
-                <span className="text-[10px] text-muted-foreground">
-                  {vibeEmoji[venue.dominantVibe] || '😎'} {venue.dominantVibe}
-                </span>
-              )}
+              <BarVibeBadge summary={summary} />
             </div>
           </div>
         </div>
@@ -144,6 +146,19 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
           ))}
         </div>
       )}
+
+      {/* Vote button + panel */}
+      <div className="border-t border-border px-4 py-2">
+        <button
+          onClick={() => setShowVote((v) => !v)}
+          className="text-[10px] font-semibold text-primary hover:underline"
+        >
+          {showVote ? 'Cancel' : '📊 Rate Wait & Vibe'}
+        </button>
+        <AnimatePresence>
+          {showVote && <BarVotePanel barName={venue.name} onClose={() => setShowVote(false)} />}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 }

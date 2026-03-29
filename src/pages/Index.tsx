@@ -1,12 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useAuth } from '@/contexts/AuthContext';
+import { AppHeader } from '@/components/AppHeader';
+import { TrendingNow } from '@/components/TrendingNow';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Index = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) navigate('/landing');
+  }, [user, navigate]);
+
+  if (!user) return null;
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <AppHeader />
+      <main className="mx-auto max-w-lg px-4 pt-4 pb-24 space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+            Welcome back 👋
+          </h1>
+          <p className="text-sm text-muted-foreground mt-1">Here's what's happening in Wrigleyville</p>
+        </div>
+
+        <TrendingNow />
+      </main>
     </div>
   );
 };

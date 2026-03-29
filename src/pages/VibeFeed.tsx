@@ -22,6 +22,7 @@ import { VerifiedGate } from '@/components/VerifiedGate';
 import { GuestGateModal } from '@/components/GuestGateModal';
 import { GuestBanner } from '@/components/GuestBanner';
 import { WelcomeTour } from '@/components/WelcomeTour';
+import { LiveVibeCheckIn } from '@/components/LiveVibeCheckIn';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),
@@ -218,7 +219,7 @@ export default function VibeFeed() {
 
           <TabsContent value="vibes">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-2xl font-bold font-heading text-foreground">Live Vibe Feed</h1>
             <p className="text-sm text-muted-foreground mt-0.5">What's happening at Wrigley right now</p>
@@ -251,6 +252,13 @@ export default function VibeFeed() {
             </Button>
           )}
         </div>
+
+        {/* Live Vibe Check-In */}
+        {!isGuest && user && (
+          <div className="mb-4">
+            <LiveVibeCheckIn />
+          </div>
+        )}
 
         {/* Compose Modal */}
         <AnimatePresence>

@@ -47,6 +47,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
+          <GuestModeProvider>
           <GamedayModeProvider>
             <MessageToastListener />
           <Routes>

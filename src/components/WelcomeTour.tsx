@@ -39,6 +39,18 @@ const TOUR_STEPS: TourStep[] = [
     text: "Your Gameday Inner Circle. View your mutual fan connections, see who is attending today's game, and coordinate meetups.",
     position: 'top',
   },
+  {
+    targetSelector: '[data-tour="messages"]',
+    title: 'Break the Ice',
+    text: 'Message fans in your section or at your bar to coordinate the next round.',
+    position: 'bottom',
+  },
+  {
+    targetSelector: '[data-tour="beer-money"]',
+    title: 'Be a Legend',
+    text: 'Send a digital beer voucher to a fellow fan and make a new buddy instantly.',
+    position: 'bottom',
+  },
 ];
 
 const STORAGE_KEY = 'tour_completed';
@@ -239,7 +251,7 @@ export function WelcomeTour() {
                   className="text-xs font-bold uppercase tracking-wider text-secondary mb-1"
                   style={{ fontFamily: 'Space Grotesk' }}
                 >
-                  Step {step + 1} of 5
+                  Step {step + 1} of 8
                 </p>
                 <h3
                   className="text-lg font-bold text-foreground mb-2"
@@ -254,7 +266,7 @@ export function WelcomeTour() {
                 {/* Progress dots */}
                 <div className="flex items-center justify-between">
                   <div className="flex gap-1.5">
-                    {Array.from({ length: 5 }).map((_, i) => (
+                    {Array.from({ length: 8 }).map((_, i) => (
                       <div
                         key={i}
                         className={`h-1.5 rounded-full transition-all ${
@@ -327,11 +339,11 @@ export function WelcomeTour() {
 
               {/* Progress dots */}
               <div className="flex justify-center gap-1.5 mb-5">
-                {Array.from({ length: 5 }).map((_, i) => (
+                {Array.from({ length: 8 }).map((_, i) => (
                   <div
                     key={i}
                     className={`h-1.5 rounded-full transition-all ${
-                      i === 4 ? 'w-5 bg-primary' : 'w-1.5 bg-primary/50'
+                      i === 7 ? 'w-5 bg-primary' : 'w-1.5 bg-primary/50'
                     }`}
                   />
                 ))}
@@ -341,7 +353,7 @@ export function WelcomeTour() {
                 className="text-xs font-bold uppercase tracking-wider text-secondary mb-2"
                 style={{ fontFamily: 'Space Grotesk' }}
               >
-                Step 5 of 5
+                Step 8 of 8
               </p>
 
               <h2

@@ -355,6 +355,11 @@ export default function Discover() {
           <SmartMeetupSuggestions />
         </div>
 
+        {/* The Lineup - Public Meetups */}
+        <div className="mb-4">
+          <LineupFeed />
+        </div>
+
         {/* Current Status Toggle */}
         <div className="mb-4">
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Your Status</p>

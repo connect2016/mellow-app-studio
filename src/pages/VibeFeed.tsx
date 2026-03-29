@@ -65,6 +65,7 @@ function useVibeProfiles(userIds: string[]) {
 
 export default function VibeFeed() {
   const { user } = useAuth();
+  const { isGuest } = useGuestMode();
   const queryClient = useQueryClient();
   const fileRef = useRef<HTMLInputElement>(null);
   const [showCompose, setShowCompose] = useState(false);
@@ -73,6 +74,8 @@ export default function VibeFeed() {
   const [locationTag, setLocationTag] = useState('');
   const [caption, setCaption] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [guestGateOpen, setGuestGateOpen] = useState(false);
+  const [guestGateAction, setGuestGateAction] = useState('');
   const { isVerified } = useVerifiedFan();
 
   const { data: posts = [] } = useVibePosts();

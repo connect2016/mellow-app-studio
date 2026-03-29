@@ -60,6 +60,14 @@ const stats = [
 
 
 export default function Landing() {
+  const navigate = useNavigate();
+  const { enterGuestMode } = useGuestMode();
+
+  const handleBrowseAsGuest = () => {
+    enterGuestMode();
+    navigate('/vibe');
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* ── Video Hero ── */}

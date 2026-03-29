@@ -257,6 +257,11 @@ export default function GameDay() {
           <HappeningNow />
         </div>
 
+        {/* Live Moments */}
+        <div className="mb-6">
+          <LiveMomentsPanel />
+        </div>
+
         {/* Flash Meetups */}
         <div className="mb-6">
           <FlashMeetupsPanel />

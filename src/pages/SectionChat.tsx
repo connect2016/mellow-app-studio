@@ -10,6 +10,8 @@ import { useProfile } from '@/hooks/useProfile';
 import { useActiveGameForChat, useSectionMessages, useSendSectionMessage, useSectionMembers } from '@/hooks/useSectionChat';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { format } from 'date-fns';
+import { useVerifiedFan } from '@/hooks/useVerifiedFan';
+import { VerifiedGate } from '@/components/VerifiedGate';
 
 export default function SectionChat() {
   const navigate = useNavigate();

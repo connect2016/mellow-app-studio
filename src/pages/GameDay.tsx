@@ -14,6 +14,7 @@ import { useQuery } from '@tanstack/react-query';
 import { MapPin, Users, Radio, Eye, EyeOff, Lock, Zap } from 'lucide-react';
 import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
+import { GamePhaseTimeline } from '@/components/GamePhaseTimeline';
 import { GameDayMap } from '@/components/GameDayMap';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { SquadMatcherPanel } from '@/components/SquadMatcherPanel';

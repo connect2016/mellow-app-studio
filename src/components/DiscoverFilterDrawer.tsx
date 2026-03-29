@@ -26,6 +26,7 @@ interface DiscoverFilterDrawerProps {
 }
 
 const INTENTS: IntentType[] = ['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating'];
+const GAMEDAY_INTENTS: GamedayIntentType[] = ['BleacherRegular', 'FamilyFriendly', 'PreGameDrinks', 'ScoringTheGame', 'PostGameCelebration', 'WrigleyvilleLocal'];
 
 const LOCATIONS = [
   { value: 'AtWrigley', label: 'In my Seat', emoji: '⚾️' },

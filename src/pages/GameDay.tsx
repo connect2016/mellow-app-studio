@@ -283,6 +283,11 @@ export default function GameDay() {
           <SmartMeetupSuggestions />
         </div>
 
+        {/* Reconnections */}
+        <div className="mb-6">
+          <ReconnectionsPanel />
+        </div>
+
         {/* Live Scoring */}
         <div className="mb-6">
           <LiveScoringBanner />

@@ -220,14 +220,14 @@ export default function GameDay() {
           <p className="text-sm text-muted-foreground">Check in and find fans around you</p>
         </div>
 
+        {/* Game Phase Timeline */}
+        <div className="mb-6">
+          <GamePhaseTimeline />
+        </div>
+
         {/* Happening Now */}
         <div className="mb-6">
           <HappeningNow />
-        </div>
-
-        {/* Live Activity Feed */}
-        <div className="mb-6 rounded-2xl border border-border bg-card p-3">
-          <LiveActivityFeed maxItems={5} />
         </div>
 
         {/* AI Squad Matcher */}

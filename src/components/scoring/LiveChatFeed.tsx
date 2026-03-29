@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send } from 'lucide-react';
+import { QuickBlockButton } from '@/components/QuickBlockButton';
 
 interface Reaction {
   id: string;

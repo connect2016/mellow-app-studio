@@ -9,6 +9,7 @@ interface ProfileCardProps {
   user: UserProfile;
   currentUserFanStyles?: FanStyleType[];
   onHiFive?: (message?: string) => void;
+  onSendDog?: () => void;
   onLike?: () => void;
   onSendBeer?: () => void;
   onViewProfile?: () => void;

@@ -345,11 +345,11 @@ export function WelcomeTour() {
 
               {/* Progress dots */}
               <div className="flex justify-center gap-1.5 mb-5">
-                {Array.from({ length: 8 }).map((_, i) => (
+                {Array.from({ length: TOUR_STEPS.length + 1 }).map((_, i) => (
                   <div
                     key={i}
                     className={`h-1.5 rounded-full transition-all ${
-                      i === 7 ? 'w-5 bg-primary' : 'w-1.5 bg-primary/50'
+                      i === TOUR_STEPS.length ? 'w-5 bg-primary' : 'w-1.5 bg-primary/50'
                     }`}
                   />
                 ))}

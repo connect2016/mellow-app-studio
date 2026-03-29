@@ -20,6 +20,7 @@ import { CrowdEnergyMap } from '@/components/CrowdEnergyMap';
 import { InstantMatchPanel } from '@/components/InstantMatchPanel';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { SquadMatcherPanel } from '@/components/SquadMatcherPanel';
+import { NextMovePanel } from '@/components/NextMovePanel';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { PostGameExperience } from '@/components/PostGameExperience';
 import { LiveScoringBanner } from '@/components/scoring/LiveScoringBanner';
@@ -251,6 +252,11 @@ export default function GameDay() {
         {/* AI Squad Matcher */}
         <div className="mb-6">
           <SquadMatcherPanel />
+        </div>
+
+        {/* Next Move Recommendations */}
+        <div className="mb-6">
+          <NextMovePanel />
         </div>
 
         {/* AI Meetup Suggestions */}

@@ -922,6 +922,53 @@ export type Database = {
         }
         Relationships: []
       }
+      safety_timers: {
+        Row: {
+          created_at: string
+          emergency_contact_name: string
+          emergency_contact_phone: string
+          expires_at: string
+          id: string
+          location_description: string
+          meetup_id: string | null
+          resolved_at: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          emergency_contact_name?: string
+          emergency_contact_phone: string
+          expires_at: string
+          id?: string
+          location_description?: string
+          meetup_id?: string | null
+          resolved_at?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          emergency_contact_name?: string
+          emergency_contact_phone?: string
+          expires_at?: string
+          id?: string
+          location_description?: string
+          meetup_id?: string | null
+          resolved_at?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "safety_timers_meetup_id_fkey"
+            columns: ["meetup_id"]
+            isOneToOne: false
+            referencedRelation: "lineup_meetups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       scorer_stats: {
         Row: {
           best_streak: number

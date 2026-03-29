@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { CreateMeetupModal } from './CreateMeetupModal';
 import { LineupChat } from './LineupChat';
+import { SafetyTimerModal } from '@/components/SafetyTimerModal';
 import { toast } from 'sonner';
 
 function formatMeetupTime(iso: string) {
@@ -32,6 +33,7 @@ export function LineupFeed() {
   const leaveMeetup = useLeaveMeetup();
   const [showCreate, setShowCreate] = useState(false);
   const [chatMeetup, setChatMeetup] = useState<LineupMeetup | null>(null);
+  const [safetyMeetup, setSafetyMeetup] = useState<LineupMeetup | null>(null);
 
   const handleJoin = async (meetup: LineupMeetup) => {
     if (meetup.member_count && meetup.member_count >= meetup.max_members) {
@@ -42,6 +44,8 @@ export function LineupFeed() {
       await joinMeetup.mutateAsync(meetup.id);
       toast.success("⚾ You're in! Check the group chat.");
       setChatMeetup({ ...meetup, is_member: true, member_count: (meetup.member_count ?? 1) + 1 });
+      // Prompt safety timer after successful join
+      setSafetyMeetup(meetup);
     } catch {
       toast.error('Could not join meetup');
     }
@@ -185,6 +189,12 @@ export function LineupFeed() {
         meetup={chatMeetup!}
         open={!!chatMeetup}
         onClose={() => setChatMeetup(null)}
+      />
+      <SafetyTimerModal
+        open={!!safetyMeetup}
+        onClose={() => setSafetyMeetup(null)}
+        meetupId={safetyMeetup?.id}
+        locationName={safetyMeetup?.location_name ?? 'a meetup'}
       />
     </div>
   );

@@ -19,6 +19,7 @@ import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { PostGameExperience } from '@/components/PostGameExperience';
 import { LiveScoringBanner } from '@/components/scoring/LiveScoringBanner';
+import { SafetyTimerBanner } from '@/components/SafetyTimerBanner';
 
 const statusOptions: { value: GameStatus; label: string; emoji: string; icon: typeof MapPin; desc: string }[] = [
   { value: 'AtWrigley', label: 'At Wrigley', emoji: '🏟️', icon: MapPin, desc: 'I\'m at the ballpark' },
@@ -196,6 +197,9 @@ export default function GameDay() {
       </div>
 
       <div className="mx-auto max-w-lg px-4 pt-6">
+        {/* Safety Timer Banner */}
+        <SafetyTimerBanner />
+
         {/* Social Proof */}
         <div className="mb-4">
           <SocialProofBanner />

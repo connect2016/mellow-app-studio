@@ -514,6 +514,35 @@ export default function Onboarding() {
                       />
                     </div>
                   </div>
+
+                  {/* Fan Style */}
+                  <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">🎨</span>
+                      <span className="text-sm font-semibold text-foreground">Fan Style</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Select all that apply</p>
+                    <div className="flex flex-wrap gap-2">
+                      {FAN_STYLE_OPTIONS.map((opt) => {
+                        const isSelected = fanStyles.includes(opt.value);
+                        return (
+                          <motion.button
+                            key={opt.value}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => toggleFanStyle(opt.value)}
+                            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all ${
+                              isSelected
+                                ? 'border-accent bg-accent text-accent-foreground shadow-sm'
+                                : 'border-border bg-background text-foreground hover:border-accent/40'
+                            }`}
+                          >
+                            <span>{opt.emoji}</span>
+                            <span>{opt.label}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               )}
 

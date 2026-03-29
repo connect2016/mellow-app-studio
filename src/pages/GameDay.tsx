@@ -241,6 +241,11 @@ export default function GameDay() {
           <VibeStatePanel />
         </div>
 
+        {/* Fan Identity */}
+        <div className="mb-6">
+          <FanIdentityPanel />
+        </div>
+
         {/* Instant Match */}
         <div className="mb-6">
           <InstantMatchPanel />

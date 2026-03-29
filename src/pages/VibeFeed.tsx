@@ -21,6 +21,7 @@ import { useVerifiedFan } from '@/hooks/useVerifiedFan';
 import { VerifiedGate } from '@/components/VerifiedGate';
 import { GuestGateModal } from '@/components/GuestGateModal';
 import { GuestBanner } from '@/components/GuestBanner';
+import { WelcomeTour } from '@/components/WelcomeTour';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),

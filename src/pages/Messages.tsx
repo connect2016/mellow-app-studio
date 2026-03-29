@@ -5,6 +5,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Send, MessageCircle, ArrowLeft } from 'lucide-react';
+import { QuickBlockButton } from '@/components/QuickBlockButton';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   useConversations,

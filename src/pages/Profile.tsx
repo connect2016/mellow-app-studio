@@ -10,7 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { IntentType, GameStatus, PrivacyLevel, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
+import { IntentType, GameStatus, PrivacyLevel, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, FanStyleType, FAN_STYLE_OPTIONS } from '@/types';
 import { useUserPennants, BADGE_DEFINITIONS } from '@/hooks/usePennants';
 
 export default function Profile() {
@@ -103,7 +103,10 @@ export default function Profile() {
     stretch_song: (profile as any).stretch_song,
     best_bar: (profile as any).best_bar,
     gameday_intents: ((profile as any).gameday_intents as GamedayIntentType[]) ?? [],
+    fan_style: ((profile as any).fan_style as FanStyleType[]) ?? [],
   };
+
+  const myFanStyles = isOwnProfile ? displayUser.fan_style : ((myProfile?.fan_style as FanStyleType[]) ?? []);
 
   const prompts = [
     displayUser.superstition && { label: 'My Cubs superstition is…', value: displayUser.superstition, emoji: '🧢' },
@@ -180,6 +183,42 @@ export default function Profile() {
               ))}
             </div>
           )}
+
+          {/* Fan Style */}
+          {displayUser.fan_style.length > 0 && (() => {
+            const commonStyles = isOwnProfile ? [] : displayUser.fan_style.filter((s) => myFanStyles.includes(s));
+            const hasCommon = commonStyles.length > 0;
+            return (
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">🎨 Fan Style</h3>
+                  {hasCommon && (
+                    <span className="text-[10px] font-bold text-accent">⚡ Common Ground!</span>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {displayUser.fan_style.map((s) => {
+                    const opt = FAN_STYLE_OPTIONS.find((o) => o.value === s);
+                    if (!opt) return null;
+                    const isCommon = !isOwnProfile && myFanStyles.includes(s);
+                    return (
+                      <span
+                        key={s}
+                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold border ${
+                          isCommon
+                            ? 'bg-accent text-accent-foreground border-accent shadow-sm'
+                            : 'bg-secondary/10 border-secondary/20 text-foreground'
+                        }`}
+                      >
+                        <span>{opt.emoji}</span>
+                        <span>{opt.label}</span>
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Bio */}
           {displayUser.bio && (

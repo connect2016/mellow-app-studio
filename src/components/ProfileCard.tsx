@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Verified, MapPin, ShieldCheck, Clock } from 'lucide-react';
-import { UserProfile, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, GamedayIntentType } from '@/types';
+import { UserProfile, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, GamedayIntentType, FanStyleType, FAN_STYLE_OPTIONS } from '@/types';
 import { IntentChip } from './IntentChip';
 import { StatusBadge } from './StatusBadge';
 
 interface ProfileCardProps {
   user: UserProfile;
+  currentUserFanStyles?: FanStyleType[];
   onHiFive?: (message?: string) => void;
   onLike?: () => void;
   onSendBeer?: () => void;
@@ -60,7 +61,7 @@ function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } |
   return null;
 }
 
-export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile, onPass, matchReasons, matchScore }: ProfileCardProps) {
+export function ProfileCard({ user, currentUserFanStyles, onHiFive, onLike, onSendBeer, onViewProfile, onPass, matchReasons, matchScore }: ProfileCardProps) {
   const [hiFiveAnim, setHiFiveAnim] = useState(false);
   const [flyingEmoji, setFlyingEmoji] = useState(false);
   const [showIcebreakers, setShowIcebreakers] = useState(false);
@@ -202,6 +203,40 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
               ))}
             </div>
           )}
+
+          {/* Fan Style chips with Common Ground */}
+          {user.fan_style && user.fan_style.length > 0 && (() => {
+            const myStyles = currentUserFanStyles ?? [];
+            const commonStyles = user.fan_style!.filter((s) => myStyles.includes(s as FanStyleType));
+            const hasCommon = commonStyles.length > 0;
+            return (
+              <div className="mt-2">
+                {hasCommon && (
+                  <p className="text-[10px] font-bold text-accent mb-1">⚡ Common Ground!</p>
+                )}
+                <div className="flex flex-wrap gap-1">
+                  {user.fan_style!.map((s) => {
+                    const opt = FAN_STYLE_OPTIONS.find((o) => o.value === s);
+                    if (!opt) return null;
+                    const isCommon = myStyles.includes(s as FanStyleType);
+                    return (
+                      <span
+                        key={s}
+                        className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold border ${
+                          isCommon
+                            ? 'bg-accent text-accent-foreground border-accent shadow-sm'
+                            : 'bg-white/10 text-white/80 border-white/20'
+                        }`}
+                      >
+                        <span>{opt.emoji}</span>
+                        <span>{opt.label}</span>
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
 

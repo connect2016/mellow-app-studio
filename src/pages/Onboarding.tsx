@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { IntentType, WRIGLEYVILLE_BARS, PrivacyLevel, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
+import { IntentType, WRIGLEYVILLE_BARS, PrivacyLevel, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, FanStyleType, FAN_STYLE_OPTIONS } from '@/types';
 import { ChevronLeft, ChevronRight, Camera, AlertCircle, User, Heart, Star, MapPin, Beer, Sparkles, Eye, Lock, EyeOff, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUpdateProfile } from '@/hooks/useProfile';
@@ -67,6 +67,7 @@ export default function Onboarding() {
   const [pronouns, setPronouns] = useState('');
   const [intents, setIntents] = useState<IntentType[]>([]);
   const [gamedayIntents, setGamedayIntents] = useState<GamedayIntentType[]>([]);
+  const [fanStyles, setFanStyles] = useState<FanStyleType[]>([]);
   const [favoritePlayer, setFavoritePlayer] = useState('');
   const [favoriteMoment, setFavoriteMoment] = useState('');
   const [momentError, setMomentError] = useState('');
@@ -120,6 +121,10 @@ export default function Onboarding() {
     });
   };
 
+  const toggleFanStyle = (s: FanStyleType) => {
+    setFanStyles((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
+  };
+
   const handleMomentChange = (val: string) => {
     setFavoriteMoment(val);
     if (val && !validateMoment(val)) {
@@ -141,6 +146,7 @@ export default function Onboarding() {
           pronouns: pronouns || null,
           intent: intents,
           gameday_intents: gamedayIntents,
+          fan_style: fanStyles,
           favorite_player: favoritePlayer,
           favorite_moment: favoriteMoment,
           favorite_moment_is_valid: favoriteMoment ? validateMoment(favoriteMoment) : true,
@@ -506,6 +512,35 @@ export default function Onboarding() {
                         onChange={(e) => setStretchSong(e.target.value)}
                         className="rounded-xl"
                       />
+                    </div>
+                  </div>
+
+                  {/* Fan Style */}
+                  <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">🎨</span>
+                      <span className="text-sm font-semibold text-foreground">Fan Style</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Select all that apply</p>
+                    <div className="flex flex-wrap gap-2">
+                      {FAN_STYLE_OPTIONS.map((opt) => {
+                        const isSelected = fanStyles.includes(opt.value);
+                        return (
+                          <motion.button
+                            key={opt.value}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => toggleFanStyle(opt.value)}
+                            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all ${
+                              isSelected
+                                ? 'border-accent bg-accent text-accent-foreground shadow-sm'
+                                : 'border-border bg-background text-foreground hover:border-accent/40'
+                            }`}
+                          >
+                            <span>{opt.emoji}</span>
+                            <span>{opt.label}</span>
+                          </motion.button>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

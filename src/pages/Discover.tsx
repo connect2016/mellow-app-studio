@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
-import { IntentType, GamedayIntentType } from '@/types';
+import { IntentType, GamedayIntentType, FanStyleType } from '@/types';
 import { SlidersHorizontal, Users, Zap, Camera } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import CrewsContent from '@/components/CrewsContent';
@@ -193,6 +193,7 @@ export default function Discover() {
     blocked_users: [],
     hidden_from_discover: false,
     gameday_intents: ((p as any).gameday_intents as GamedayIntentType[]) ?? [],
+    fan_style: ((p as any).fan_style as FanStyleType[]) ?? [],
   });
 
   const handleLike = async (profile: typeof profiles[0]) => {
@@ -529,6 +530,7 @@ export default function Discover() {
                     <ProfileCard
                       key={profile.id}
                       user={cardUser}
+                      currentUserFanStyles={(myProfile?.fan_style as FanStyleType[]) ?? []}
                       matchReasons={compat?.topReasons}
                       matchScore={compat?.score}
                       onHiFive={(msg) => handleHiFive(profile, msg)}

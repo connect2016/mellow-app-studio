@@ -22,6 +22,7 @@ import { VerifiedGate } from '@/components/VerifiedGate';
 import { GuestGateModal } from '@/components/GuestGateModal';
 import { GuestBanner } from '@/components/GuestBanner';
 import { WelcomeTour } from '@/components/WelcomeTour';
+import { LiveVibeCheckIn } from '@/components/LiveVibeCheckIn';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),

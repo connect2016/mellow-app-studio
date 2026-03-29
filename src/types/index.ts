@@ -1,7 +1,26 @@
 // Cubbies Buddies Data Types
 
 export type IntentType = 'FriendToWatch' | 'ShareABeer' | 'PostGameMeetup' | 'Dating';
+export type GamedayIntentType = 'BleacherRegular' | 'FamilyFriendly' | 'PreGameDrinks' | 'ScoringTheGame' | 'PostGameCelebration' | 'WrigleyvilleLocal';
 export type GameStatus = 'AtWrigley' | 'AtBar' | 'Tailgating' | 'WatchingRemote' | 'BeerSnake' | 'NotSet';
+
+export const GAMEDAY_INTENT_LABELS: Record<GamedayIntentType, string> = {
+  BleacherRegular: 'Bleacher Regular',
+  FamilyFriendly: 'Family Friendly',
+  PreGameDrinks: 'Pre-game Drinks',
+  ScoringTheGame: 'Scoring the Game',
+  PostGameCelebration: 'Post-game Celebration',
+  WrigleyvilleLocal: 'Wrigleyville Local',
+};
+
+export const GAMEDAY_INTENT_EMOJI: Record<GamedayIntentType, string> = {
+  BleacherRegular: '🎫',
+  FamilyFriendly: '👨‍👩‍👧‍👦',
+  PreGameDrinks: '🍻',
+  ScoringTheGame: '📊',
+  PostGameCelebration: '🎉',
+  WrigleyvilleLocal: '🏘️',
+};
 export type PrivacyLevel = 'Public' | 'MatchesOnly' | 'Hidden';
 export type ReportReason = 'Harassment' | 'Spam' | 'FakeProfile' | 'InappropriateContent' | 'SafetyConcern' | 'Other';
 
@@ -71,6 +90,7 @@ export interface UserProfile {
   superstition?: string;
   stretch_song?: string;
   best_bar?: string;
+  gameday_intents?: GamedayIntentType[];
 }
 
 export interface Match {

@@ -6,11 +6,12 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { IntentChip } from '@/components/IntentChip';
-import { IntentType } from '@/types';
+import { IntentType, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
 import { cn } from '@/lib/utils';
 
 interface FilterState {
   intents: IntentType[];
+  gamedayIntents: GamedayIntentType[];
   statuses: string[];
   distance: number;
   ageRange: number[];
@@ -25,6 +26,7 @@ interface DiscoverFilterDrawerProps {
 }
 
 const INTENTS: IntentType[] = ['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating'];
+const GAMEDAY_INTENTS: GamedayIntentType[] = ['BleacherRegular', 'FamilyFriendly', 'PreGameDrinks', 'ScoringTheGame', 'PostGameCelebration', 'WrigleyvilleLocal'];
 
 const LOCATIONS = [
   { value: 'AtWrigley', label: 'In my Seat', emoji: '⚾️' },
@@ -46,6 +48,13 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
     setLocal((prev) => ({
       ...prev,
       intents: prev.intents.includes(i) ? prev.intents.filter((x) => x !== i) : [...prev.intents, i],
+    }));
+  };
+
+  const toggleGamedayIntent = (gi: GamedayIntentType) => {
+    setLocal((prev) => ({
+      ...prev,
+      gamedayIntents: prev.gamedayIntents.includes(gi) ? prev.gamedayIntents.filter((x) => x !== gi) : [...prev.gamedayIntents, gi],
     }));
   };
 
@@ -72,13 +81,13 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
   };
 
   const handleReset = () => {
-    const reset: FilterState = { intents: [], statuses: [], distance: 25, ageRange: [21, 65], wrigleyOnly: false };
+    const reset: FilterState = { intents: [], gamedayIntents: [], statuses: [], distance: 25, ageRange: [21, 65], wrigleyOnly: false };
     setLocal(reset);
     onApply(reset);
     onClose();
   };
 
-  const activeCount = local.intents.length + local.statuses.length + (local.distance !== 25 ? 1 : 0) + (local.ageRange[0] !== 21 || local.ageRange[1] !== 65 ? 1 : 0);
+  const activeCount = local.intents.length + local.gamedayIntents.length + local.statuses.length + (local.distance !== 25 ? 1 : 0) + (local.ageRange[0] !== 21 || local.ageRange[1] !== 65 ? 1 : 0);
 
   return (
     <AnimatePresence onExitComplete={() => {}}>
@@ -149,6 +158,28 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
                       onClick={() => toggleIntent(i)}
                       size="md"
                     />
+                  ))}
+                </div>
+              </div>
+
+              {/* Gameday Intent */}
+              <div>
+                <Label className="mb-2.5 block text-sm font-semibold text-foreground">Gameday Intent</Label>
+                <div className="flex flex-wrap gap-2">
+                  {GAMEDAY_INTENTS.map((gi) => (
+                    <button
+                      key={gi}
+                      onClick={() => toggleGamedayIntent(gi)}
+                      className={cn(
+                        'inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all',
+                        local.gamedayIntents.includes(gi)
+                          ? 'border-secondary bg-secondary text-secondary-foreground shadow-sm'
+                          : 'border-border bg-card text-foreground hover:border-secondary/40 hover:bg-secondary/5'
+                      )}
+                    >
+                      <span>{GAMEDAY_INTENT_EMOJI[gi]}</span>
+                      <span>{GAMEDAY_INTENT_LABELS[gi]}</span>
+                    </button>
                   ))}
                 </div>
               </div>

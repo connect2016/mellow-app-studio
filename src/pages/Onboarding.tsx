@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { IntentType, WRIGLEYVILLE_BARS, PrivacyLevel } from '@/types';
+import { IntentType, WRIGLEYVILLE_BARS, PrivacyLevel, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
 import { ChevronLeft, ChevronRight, Camera, AlertCircle, User, Heart, Star, MapPin, Beer, Sparkles, Eye, Lock, EyeOff, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUpdateProfile } from '@/hooks/useProfile';
@@ -28,6 +28,15 @@ const intentCards: { value: IntentType; label: string; emoji: string; desc: stri
   { value: 'ShareABeer', label: 'Share a Beer', emoji: '🍺', desc: 'Grab a cold one with a fellow fan' },
   { value: 'PostGameMeetup', label: 'Post-Game Meetup', emoji: '🎉', desc: 'Keep the party going after the W' },
   { value: 'Dating', label: 'Dating', emoji: '❤️', desc: 'Find your Wrigley romance' },
+];
+
+const gamedayIntentCards: { value: GamedayIntentType; label: string; emoji: string; desc: string }[] = [
+  { value: 'BleacherRegular', label: 'Bleacher Regular', emoji: '🎫', desc: 'The bleachers are your second home' },
+  { value: 'FamilyFriendly', label: 'Family Friendly', emoji: '👨‍👩‍👧‍👦', desc: 'Bringing the kids to the ballpark' },
+  { value: 'PreGameDrinks', label: 'Pre-game Drinks', emoji: '🍻', desc: 'The party starts before first pitch' },
+  { value: 'ScoringTheGame', label: 'Scoring the Game', emoji: '📊', desc: 'Keeping the book like a true fan' },
+  { value: 'PostGameCelebration', label: 'Post-game Celebration', emoji: '🎉', desc: 'Wrigleyville after the final out' },
+  { value: 'WrigleyvilleLocal', label: 'Wrigleyville Local', emoji: '🏘️', desc: 'You live in the neighborhood' },
 ];
 
 const privacyOptions: { value: PrivacyLevel; label: string; icon: typeof Eye }[] = [
@@ -57,6 +66,7 @@ export default function Onboarding() {
   const [age, setAge] = useState('');
   const [pronouns, setPronouns] = useState('');
   const [intents, setIntents] = useState<IntentType[]>([]);
+  const [gamedayIntents, setGamedayIntents] = useState<GamedayIntentType[]>([]);
   const [favoritePlayer, setFavoritePlayer] = useState('');
   const [favoriteMoment, setFavoriteMoment] = useState('');
   const [momentError, setMomentError] = useState('');
@@ -102,6 +112,14 @@ export default function Onboarding() {
     setIntents((prev) => (prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]));
   };
 
+  const toggleGamedayIntent = (i: GamedayIntentType) => {
+    setGamedayIntents((prev) => {
+      if (prev.includes(i)) return prev.filter((x) => x !== i);
+      if (prev.length >= 3) return prev; // max 3
+      return [...prev, i];
+    });
+  };
+
   const handleMomentChange = (val: string) => {
     setFavoriteMoment(val);
     if (val && !validateMoment(val)) {
@@ -122,6 +140,7 @@ export default function Onboarding() {
           age: age ? parseInt(age) : null,
           pronouns: pronouns || null,
           intent: intents,
+          gameday_intents: gamedayIntents,
           favorite_player: favoritePlayer,
           favorite_moment: favoriteMoment,
           favorite_moment_is_valid: favoriteMoment ? validateMoment(favoriteMoment) : true,
@@ -390,6 +409,46 @@ export default function Onboarding() {
                   >
                     🤝 Open to All
                   </motion.button>
+
+                  {/* Gameday Intent Badges */}
+                  <div className="pt-4 border-t border-border">
+                    <h3 className="text-sm font-bold text-foreground mb-1">🏟️ Gameday Intent</h3>
+                    <p className="text-xs text-muted-foreground mb-3">Pick 2–3 badges that show up on your card</p>
+                    <div className="grid grid-cols-2 gap-3">
+                      {gamedayIntentCards.map((card) => {
+                        const isSelected = gamedayIntents.includes(card.value);
+                        const atMax = gamedayIntents.length >= 3 && !isSelected;
+                        return (
+                          <motion.button
+                            key={card.value}
+                            whileTap={{ scale: 0.96 }}
+                            onClick={() => toggleGamedayIntent(card.value)}
+                            disabled={atMax}
+                            className={`relative flex flex-col items-center gap-2 rounded-2xl border p-4 text-center transition-all ${
+                              isSelected
+                                ? 'border-secondary bg-secondary/5 shadow-md shadow-secondary/10'
+                                : atMax
+                                ? 'border-border bg-card opacity-40 cursor-not-allowed'
+                                : 'border-border bg-card hover:border-secondary/30 hover:shadow-sm'
+                            }`}
+                          >
+                            {isSelected && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="absolute top-2 right-2 h-5 w-5 rounded-full bg-secondary flex items-center justify-center"
+                              >
+                                <span className="text-secondary-foreground text-[10px] font-bold">✓</span>
+                              </motion.div>
+                            )}
+                            <span className="text-2xl">{card.emoji}</span>
+                            <span className="font-semibold text-xs text-foreground">{card.label}</span>
+                            <span className="text-[10px] text-muted-foreground leading-tight">{card.desc}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               )}
 

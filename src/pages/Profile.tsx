@@ -10,7 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { IntentType, GameStatus, PrivacyLevel } from '@/types';
+import { IntentType, GameStatus, PrivacyLevel, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
 import { useUserPennants, BADGE_DEFINITIONS } from '@/hooks/usePennants';
 
 export default function Profile() {
@@ -102,6 +102,7 @@ export default function Profile() {
     superstition: (profile as any).superstition,
     stretch_song: (profile as any).stretch_song,
     best_bar: (profile as any).best_bar,
+    gameday_intents: ((profile as any).gameday_intents as GamedayIntentType[]) ?? [],
   };
 
   const prompts = [
@@ -164,6 +165,21 @@ export default function Profile() {
           <div className="flex flex-wrap gap-1.5">
             {displayUser.intent.map((i) => <IntentChip key={i} intent={i} />)}
           </div>
+
+          {/* Gameday Intent Badges */}
+          {displayUser.gameday_intents.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {displayUser.gameday_intents.map((gi) => (
+                <span
+                  key={gi}
+                  className="inline-flex items-center gap-1 rounded-full bg-secondary/10 border border-secondary/20 px-2.5 py-0.5 text-xs font-semibold text-foreground"
+                >
+                  <span>{GAMEDAY_INTENT_EMOJI[gi]}</span>
+                  <span>{GAMEDAY_INTENT_LABELS[gi]}</span>
+                </span>
+              ))}
+            </div>
+          )}
 
           {/* Bio */}
           {displayUser.bio && (

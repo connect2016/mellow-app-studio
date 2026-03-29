@@ -718,6 +718,7 @@ export type Database = {
           favorite_moment_is_valid: boolean | null
           favorite_player: string | null
           game_status: string | null
+          gameday_intents: string[] | null
           hidden_from_discover: boolean | null
           id: string
           intent: string[] | null
@@ -752,6 +753,7 @@ export type Database = {
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
           game_status?: string | null
+          gameday_intents?: string[] | null
           hidden_from_discover?: boolean | null
           id?: string
           intent?: string[] | null
@@ -786,6 +788,7 @@ export type Database = {
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
           game_status?: string | null
+          gameday_intents?: string[] | null
           hidden_from_discover?: boolean | null
           id?: string
           intent?: string[] | null

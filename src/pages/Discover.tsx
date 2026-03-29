@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
-import { IntentType } from '@/types';
+import { IntentType, GamedayIntentType } from '@/types';
 import { SlidersHorizontal, Users, Zap, Camera } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import CrewsContent from '@/components/CrewsContent';
@@ -40,6 +40,7 @@ const STATUS_OPTIONS = [
 
 interface FilterState {
   intents: IntentType[];
+  gamedayIntents: GamedayIntentType[];
   statuses: string[];
   distance: number;
   ageRange: number[];
@@ -48,6 +49,7 @@ interface FilterState {
 
 const DEFAULT_FILTERS: FilterState = {
   intents: [],
+  gamedayIntents: [],
   statuses: [],
   distance: 25,
   ageRange: [21, 65],
@@ -134,6 +136,7 @@ export default function Discover() {
 
   const activeFilterCount =
     filters.intents.length +
+    filters.gamedayIntents.length +
     filters.statuses.length +
     (filters.distance !== 25 ? 1 : 0) +
     (filters.ageRange[0] !== 21 || filters.ageRange[1] !== 65 ? 1 : 0);
@@ -141,6 +144,10 @@ export default function Discover() {
   const filtered = profiles.filter((u) => {
     const userIntents = (u.intent as string[]) ?? [];
     if (filters.intents.length && !filters.intents.some((i) => userIntents.includes(i))) return false;
+
+    // Gameday intent filter
+    const userGamedayIntents = ((u as any).gameday_intents as string[]) ?? [];
+    if (filters.gamedayIntents.length && !filters.gamedayIntents.some((gi) => userGamedayIntents.includes(gi))) return false;
 
     const locationSetAt = (u as any).location_last_set_at;
     const isExpired = locationSetAt && (Date.now() - new Date(locationSetAt).getTime() > SIX_HOURS);
@@ -181,6 +188,7 @@ export default function Discover() {
     is_banned: false,
     blocked_users: [],
     hidden_from_discover: false,
+    gameday_intents: ((p as any).gameday_intents as GamedayIntentType[]) ?? [],
   });
 
   const handleLike = async (profile: typeof profiles[0]) => {

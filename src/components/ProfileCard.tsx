@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Verified, MapPin, ShieldCheck, Clock } from 'lucide-react';
-import { UserProfile } from '@/types';
+import { UserProfile, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, GamedayIntentType } from '@/types';
 import { IntentChip } from './IntentChip';
 import { StatusBadge } from './StatusBadge';
 
@@ -187,6 +187,21 @@ export function ProfileCard({ user, onHiFive, onLike, onSendBeer, onViewProfile,
           <div className="mt-2 flex flex-wrap gap-1">
             {user.intent.map((i) => <IntentChip key={i} intent={i} />)}
           </div>
+
+          {/* Gameday Intent Badges */}
+          {user.gameday_intents && user.gameday_intents.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {user.gameday_intents.map((gi) => (
+                <span
+                  key={gi}
+                  className="inline-flex items-center gap-1 rounded-full bg-secondary/20 border border-secondary/30 px-2 py-0.5 text-[10px] font-semibold text-white/90"
+                >
+                  <span>{GAMEDAY_INTENT_EMOJI[gi]}</span>
+                  <span>{GAMEDAY_INTENT_LABELS[gi]}</span>
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

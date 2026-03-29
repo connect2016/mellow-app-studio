@@ -42,7 +42,11 @@ export function useBarVotes() {
   const { data: allVotes = [] } = useQuery({
     queryKey: ['bar-votes'],
     queryFn: async () => {
-      const { data } = await supabase.from('bar_votes').select('*');
+      const sixtyMinAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+      const { data } = await supabase
+        .from('bar_votes')
+        .select('*')
+        .gte('updated_at', sixtyMinAgo);
       return data ?? [];
     },
     enabled: !!user,

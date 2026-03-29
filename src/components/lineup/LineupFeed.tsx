@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { CreateMeetupModal } from './CreateMeetupModal';
 import { LineupChat } from './LineupChat';
+import { SafetyTimerModal } from '@/components/SafetyTimerModal';
 import { toast } from 'sonner';
 
 function formatMeetupTime(iso: string) {

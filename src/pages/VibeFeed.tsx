@@ -16,6 +16,8 @@ import { formatDistanceToNow } from 'date-fns';
 import { WRIGLEYVILLE_BARS } from '@/types';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import MemoriesContent from '@/components/MemoriesContent';
+import { useVerifiedFan } from '@/hooks/useVerifiedFan';
+import { VerifiedGate } from '@/components/VerifiedGate';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),

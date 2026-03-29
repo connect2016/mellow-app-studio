@@ -64,7 +64,9 @@ function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } |
 
 export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, onLike, onSendBeer, onViewProfile, onPass, matchReasons, matchScore }: ProfileCardProps) {
   const [hiFiveAnim, setHiFiveAnim] = useState(false);
+  const [dogAnim, setDogAnim] = useState(false);
   const [flyingEmoji, setFlyingEmoji] = useState(false);
+  const [flyingDog, setFlyingDog] = useState(false);
   const [showIcebreakers, setShowIcebreakers] = useState(false);
   const activity = getActivityLabel(user);
   const prompts = getPrompts(user).slice(0, 2);

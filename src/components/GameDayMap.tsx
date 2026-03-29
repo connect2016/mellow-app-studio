@@ -90,7 +90,7 @@ export function GameDayMap() {
       const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
       const { data: fans } = await supabase
         .from('profiles')
-        .select('user_id, display_name, profile_photo, game_status, wrigley_section, wrigleyville_bar, wrigley_location_privacy, bar_location_privacy')
+        .select('user_id, display_name, profile_photo, game_status, wrigley_section, wrigleyville_bar, wrigley_location_privacy, bar_location_privacy, home_lat, home_lng, work_lat, work_lng')
         .eq('is_banned', false)
         .eq('onboarding_completed', true)
         .neq('game_status', 'NotSet')
@@ -110,13 +110,11 @@ export function GameDayMap() {
 
       return fans.map((f) => {
         const loc = locMap.get(f.user_id);
-        // Use real location if available, otherwise approximate from bar/wrigley
         let lat = loc?.latitude;
         let lng = loc?.longitude;
 
         if (!lat || !lng) {
           if (f.game_status === 'AtWrigley') {
-            // Scatter around Wrigley
             lat = WRIGLEY_CENTER[0] + (Math.random() - 0.5) * 0.002;
             lng = WRIGLEY_CENTER[1] + (Math.random() - 0.5) * 0.002;
           } else if (f.game_status === 'AtBar' && f.wrigleyville_bar) {
@@ -130,13 +128,29 @@ export function GameDayMap() {
 
         if (!lat || !lng) return null;
 
+        // Geofence hiding: suppress if within 100m of Home or Work
+        if (
+          isNearHomeOrWork(
+            lat, lng,
+            f.home_lat as number | null,
+            f.home_lng as number | null,
+            f.work_lat as number | null,
+            f.work_lng as number | null
+          )
+        ) {
+          return null;
+        }
+
+        // Fuzzy geolocation: offset by random 200m radius
+        const fuzzy = fuzzyLocation(lat, lng, 200);
+
         return {
           id: f.user_id,
           name: f.display_name,
           photo: f.profile_photo,
           status: f.game_status as string,
-          lat,
-          lng,
+          lat: fuzzy.lat,
+          lng: fuzzy.lng,
         };
       }).filter(Boolean) as Array<{
         id: string; name: string; photo: string | null; status: string; lat: number; lng: number;

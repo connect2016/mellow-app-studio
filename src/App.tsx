@@ -84,6 +84,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>
+          </GuestModeProvider>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

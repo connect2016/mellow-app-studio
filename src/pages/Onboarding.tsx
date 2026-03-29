@@ -140,6 +140,7 @@ export default function Onboarding() {
           age: age ? parseInt(age) : null,
           pronouns: pronouns || null,
           intent: intents,
+          gameday_intents: gamedayIntents,
           favorite_player: favoritePlayer,
           favorite_moment: favoriteMoment,
           favorite_moment_is_valid: favoriteMoment ? validateMoment(favoriteMoment) : true,

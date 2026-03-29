@@ -146,6 +146,19 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
           ))}
         </div>
       )}
+
+      {/* Vote button + panel */}
+      <div className="border-t border-border px-4 py-2">
+        <button
+          onClick={() => setShowVote((v) => !v)}
+          className="text-[10px] font-semibold text-primary hover:underline"
+        >
+          {showVote ? 'Cancel' : '📊 Rate Wait & Vibe'}
+        </button>
+        <AnimatePresence>
+          {showVote && <BarVotePanel barName={venue.name} onClose={() => setShowVote(false)} />}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 }

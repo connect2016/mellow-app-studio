@@ -30,6 +30,15 @@ const intentCards: { value: IntentType; label: string; emoji: string; desc: stri
   { value: 'Dating', label: 'Dating', emoji: '❤️', desc: 'Find your Wrigley romance' },
 ];
 
+const gamedayIntentCards: { value: GamedayIntentType; label: string; emoji: string; desc: string }[] = [
+  { value: 'BleacherRegular', label: 'Bleacher Regular', emoji: '🎫', desc: 'The bleachers are your second home' },
+  { value: 'FamilyFriendly', label: 'Family Friendly', emoji: '👨‍👩‍👧‍👦', desc: 'Bringing the kids to the ballpark' },
+  { value: 'PreGameDrinks', label: 'Pre-game Drinks', emoji: '🍻', desc: 'The party starts before first pitch' },
+  { value: 'ScoringTheGame', label: 'Scoring the Game', emoji: '📊', desc: 'Keeping the book like a true fan' },
+  { value: 'PostGameCelebration', label: 'Post-game Celebration', emoji: '🎉', desc: 'Wrigleyville after the final out' },
+  { value: 'WrigleyvilleLocal', label: 'Wrigleyville Local', emoji: '🏘️', desc: 'You live in the neighborhood' },
+];
+
 const privacyOptions: { value: PrivacyLevel; label: string; icon: typeof Eye }[] = [
   { value: 'Public', label: 'Everyone', icon: Eye },
   { value: 'MatchesOnly', label: 'Matches Only', icon: Lock },

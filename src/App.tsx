@@ -32,6 +32,7 @@ import BallparkBuddy from "./pages/BallparkBuddy";
 import WrigleyPassport from "./pages/WrigleyPassport";
 import BarMap from "./pages/BarMap";
 import BuddyHeatmap from "./pages/BuddyHeatmap";
+import SectionChat from "./pages/SectionChat";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

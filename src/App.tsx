@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { GamedayModeProvider } from "@/contexts/GamedayModeContext";
+import { GuestModeProvider } from "@/contexts/GuestModeContext";
 import { MessageToastListener } from "@/components/MessageToastListener";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";

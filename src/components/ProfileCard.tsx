@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Verified, MapPin, ShieldCheck, Clock } from 'lucide-react';
-import { UserProfile, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, GamedayIntentType } from '@/types';
+import { UserProfile, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, GamedayIntentType, FanStyleType, FAN_STYLE_OPTIONS } from '@/types';
 import { IntentChip } from './IntentChip';
 import { StatusBadge } from './StatusBadge';
 

@@ -5,6 +5,7 @@ import { UserProfile, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, GamedayIntent
 import { IntentChip } from './IntentChip';
 import { StatusBadge } from './StatusBadge';
 import { VibeStateBadge } from './VibeStatePanel';
+import { FanTierBadge } from './FanIdentityPanel';
 
 interface ProfileCardProps {
   user: UserProfile;

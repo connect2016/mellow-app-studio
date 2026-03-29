@@ -111,10 +111,12 @@ export function AppHeader() {
           {navItems.map(({ to, icon: Icon, label }) => {
             const active = location.pathname === to || (to === '/profile' && location.pathname.startsWith('/profile'));
             const badge = getBadge(to);
+            const tourAttr = to === '/hi-fives' ? 'friends-tab' : to === '/discover' ? 'buddy-map' : undefined;
             return (
               <Link
                 key={to}
                 to={to}
+                data-tour={tourAttr}
                 className={cn(
                   'relative flex flex-col items-center gap-0.5 px-3 py-1.5 text-[11px] transition-colors rounded-xl min-w-[56px]',
                   active ? 'text-primary' : 'text-muted-foreground hover:text-foreground'

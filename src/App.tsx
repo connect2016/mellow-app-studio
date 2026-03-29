@@ -76,6 +76,7 @@ const App = () => (
             <Route path="/bar-map" element={<BarMap />} />
             <Route path="/buddy-heatmap" element={<BuddyHeatmap />} />
             <Route path="/section-chat" element={<SectionChat />} />
+            <Route path="/verify" element={<VerifyFan />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>

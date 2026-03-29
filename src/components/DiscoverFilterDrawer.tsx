@@ -162,6 +162,28 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
                 </div>
               </div>
 
+              {/* Gameday Intent */}
+              <div>
+                <Label className="mb-2.5 block text-sm font-semibold text-foreground">Gameday Intent</Label>
+                <div className="flex flex-wrap gap-2">
+                  {GAMEDAY_INTENTS.map((gi) => (
+                    <button
+                      key={gi}
+                      onClick={() => toggleGamedayIntent(gi)}
+                      className={cn(
+                        'inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all',
+                        local.gamedayIntents.includes(gi)
+                          ? 'border-secondary bg-secondary text-secondary-foreground shadow-sm'
+                          : 'border-border bg-card text-foreground hover:border-secondary/40 hover:bg-secondary/5'
+                      )}
+                    >
+                      <span>{GAMEDAY_INTENT_EMOJI[gi]}</span>
+                      <span>{GAMEDAY_INTENT_LABELS[gi]}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Location */}
               <div>
                 <Label className="mb-2.5 block text-sm font-semibold text-foreground">Location</Label>

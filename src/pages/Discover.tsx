@@ -49,6 +49,7 @@ interface FilterState {
 
 const DEFAULT_FILTERS: FilterState = {
   intents: [],
+  gamedayIntents: [],
   statuses: [],
   distance: 25,
   ageRange: [21, 65],

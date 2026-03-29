@@ -81,7 +81,7 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
   };
 
   const handleReset = () => {
-    const reset: FilterState = { intents: [], statuses: [], distance: 25, ageRange: [21, 65], wrigleyOnly: false };
+    const reset: FilterState = { intents: [], gamedayIntents: [], statuses: [], distance: 25, ageRange: [21, 65], wrigleyOnly: false };
     setLocal(reset);
     onApply(reset);
     onClose();

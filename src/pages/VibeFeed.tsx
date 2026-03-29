@@ -202,7 +202,8 @@ export default function VibeFeed() {
   return (
     <div className="min-h-screen bg-background">
       <AppHeader />
-      <main className="mx-auto max-w-lg px-4 pt-4 pb-24">
+      <GuestGateModal open={guestGateOpen} onClose={() => setGuestGateOpen(false)} action={guestGateAction} />
+      <main className={`mx-auto max-w-lg px-4 pt-4 ${isGuest ? 'pb-32' : 'pb-24'}`}>
         <Tabs defaultValue="vibes" className="mb-4">
           <TabsList className="w-full grid grid-cols-2 mb-4">
             <TabsTrigger value="vibes" className="gap-1.5">

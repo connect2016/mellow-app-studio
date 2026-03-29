@@ -173,9 +173,15 @@ export default function SectionChat() {
                   )}
                   <div className={`max-w-[75%] ${isMe ? 'items-end' : 'items-start'}`}>
                     {!isMe && (
-                      <p className="text-[10px] font-semibold text-muted-foreground mb-0.5 px-1">
-                        {member?.display_name || 'Fan'}
-                      </p>
+                      <div className="flex items-center gap-1 mb-0.5 px-1">
+                        <p className="text-[10px] font-semibold text-muted-foreground">
+                          {member?.display_name || 'Fan'}
+                        </p>
+                        <QuickBlockButton
+                          targetUserId={msg.sender_id}
+                          targetName={member?.display_name}
+                        />
+                      </div>
                     )}
                     <div
                       className={`rounded-2xl px-3 py-2 text-sm ${

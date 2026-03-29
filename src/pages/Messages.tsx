@@ -57,7 +57,14 @@ export default function Messages() {
             {otherProfile?.profile_photo && (
               <img src={otherProfile.profile_photo} alt="" className="h-9 w-9 rounded-full object-cover ring-2 ring-border" />
             )}
-            <span className="font-semibold text-sm text-foreground">{otherProfile?.display_name ?? 'Fan'}</span>
+            <span className="font-semibold text-sm text-foreground flex-1">{otherProfile?.display_name ?? 'Fan'}</span>
+            {otherUserId && (
+              <QuickBlockButton
+                targetUserId={otherUserId}
+                targetName={otherProfile?.display_name}
+                onBlocked={() => setSelectedConvoId(null)}
+              />
+            )}
           </div>
 
           <div className="flex-1 space-y-3 p-4 overflow-y-auto">

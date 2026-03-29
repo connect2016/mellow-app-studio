@@ -38,7 +38,9 @@ interface VenueCardProps {
 
 export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
   const crowd = crowdConfig[venue.crowdLevel];
-
+  const { getSummary } = useBarVotes();
+  const summary = getSummary(venue.name);
+  const [showVote, setShowVote] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}

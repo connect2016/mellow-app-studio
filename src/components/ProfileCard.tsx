@@ -7,6 +7,7 @@ import { StatusBadge } from './StatusBadge';
 
 interface ProfileCardProps {
   user: UserProfile;
+  currentUserFanStyles?: FanStyleType[];
   onHiFive?: (message?: string) => void;
   onLike?: () => void;
   onSendBeer?: () => void;

@@ -101,6 +101,7 @@ export interface UserProfile {
   stretch_song?: string;
   best_bar?: string;
   gameday_intents?: GamedayIntentType[];
+  fan_style?: FanStyleType[];
 }
 
 export interface Match {

@@ -266,7 +266,7 @@ export function WelcomeTour() {
                 {/* Progress dots */}
                 <div className="flex items-center justify-between">
                   <div className="flex gap-1.5">
-                    {Array.from({ length: 5 }).map((_, i) => (
+                    {Array.from({ length: 8 }).map((_, i) => (
                       <div
                         key={i}
                         className={`h-1.5 rounded-full transition-all ${

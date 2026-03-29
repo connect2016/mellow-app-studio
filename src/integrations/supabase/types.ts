@@ -464,6 +464,103 @@ export type Database = {
         }
         Relationships: []
       }
+      lineup_meetups: {
+        Row: {
+          created_at: string
+          creator_id: string
+          description: string | null
+          expires_at: string
+          id: string
+          location_name: string
+          max_members: number
+          meeting_time: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          description?: string | null
+          expires_at?: string
+          id?: string
+          location_name: string
+          max_members?: number
+          meeting_time: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          description?: string | null
+          expires_at?: string
+          id?: string
+          location_name?: string
+          max_members?: number
+          meeting_time?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      lineup_members: {
+        Row: {
+          id: string
+          joined_at: string
+          meetup_id: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          joined_at?: string
+          meetup_id: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          meetup_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lineup_members_meetup_id_fkey"
+            columns: ["meetup_id"]
+            isOneToOne: false
+            referencedRelation: "lineup_meetups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lineup_messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          meetup_id: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          meetup_id: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          meetup_id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lineup_messages_meetup_id_fkey"
+            columns: ["meetup_id"]
+            isOneToOne: false
+            referencedRelation: "lineup_meetups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       matches: {
         Row: {
           created_at: string

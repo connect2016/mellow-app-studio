@@ -229,6 +229,11 @@ export default function GameDay() {
           <LiveActivityFeed maxItems={5} />
         </div>
 
+        {/* AI Squad Matcher */}
+        <div className="mb-6">
+          <SquadMatcherPanel />
+        </div>
+
         {/* AI Meetup Suggestions */}
         <div className="mb-6">
           <SmartMeetupSuggestions />

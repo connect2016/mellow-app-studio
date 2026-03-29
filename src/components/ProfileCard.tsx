@@ -122,6 +122,21 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
         )}
       </AnimatePresence>
 
+      {/* Flying hot dog */}
+      <AnimatePresence>
+        {flyingDog && (
+          <motion.div
+            initial={{ opacity: 1, scale: 1, y: 0 }}
+            animate={{ opacity: 0, scale: 2.5, y: -200 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="absolute bottom-20 right-1/4 z-30 text-4xl pointer-events-none"
+          >
+            🌭
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Photo */}
       <div className="relative aspect-[3/4] cursor-pointer" onClick={onViewProfile}>
         {/* Glowing status ring */}

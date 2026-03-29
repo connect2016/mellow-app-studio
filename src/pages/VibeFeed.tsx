@@ -16,6 +16,8 @@ import { formatDistanceToNow } from 'date-fns';
 import { WRIGLEYVILLE_BARS } from '@/types';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import MemoriesContent from '@/components/MemoriesContent';
+import { useVerifiedFan } from '@/hooks/useVerifiedFan';
+import { VerifiedGate } from '@/components/VerifiedGate';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),
@@ -68,6 +70,7 @@ export default function VibeFeed() {
   const [locationTag, setLocationTag] = useState('');
   const [caption, setCaption] = useState('');
   const [uploading, setUploading] = useState(false);
+  const { isVerified } = useVerifiedFan();
 
   const { data: posts = [] } = useVibePosts();
   const userIds = [...new Set(posts.map(p => p.user_id))];
@@ -90,6 +93,10 @@ export default function VibeFeed() {
   };
 
   const handlePost = async () => {
+    if (!isVerified) {
+      toast.error('Only Verified Fans can post. Get verified first!');
+      return;
+    }
     if (!user || !file || !locationTag) {
       toast.error('Please select a file and location');
       return;
@@ -199,13 +206,24 @@ export default function VibeFeed() {
             <h1 className="text-2xl font-bold font-heading text-foreground">Live Vibe Feed</h1>
             <p className="text-sm text-muted-foreground mt-0.5">What's happening at Wrigley right now</p>
           </div>
-          <Button
-            onClick={() => setShowCompose(true)}
-            className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full"
-            size="sm"
-          >
-            <Plus className="h-4 w-4 mr-1" /> Post
-          </Button>
+          {isVerified ? (
+            <Button
+              onClick={() => setShowCompose(true)}
+              className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full"
+              size="sm"
+            >
+              <Plus className="h-4 w-4 mr-1" /> Post
+            </Button>
+          ) : (
+            <Button
+              onClick={() => window.location.href = '/verify'}
+              variant="outline"
+              size="sm"
+              className="rounded-full gap-1.5 text-xs"
+            >
+              ✅ Get Verified to Post
+            </Button>
+          )}
         </div>
 
         {/* Compose Modal */}

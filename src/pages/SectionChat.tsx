@@ -10,11 +10,14 @@ import { useProfile } from '@/hooks/useProfile';
 import { useActiveGameForChat, useSectionMessages, useSendSectionMessage, useSectionMembers } from '@/hooks/useSectionChat';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { format } from 'date-fns';
+import { useVerifiedFan } from '@/hooks/useVerifiedFan';
+import { VerifiedGate } from '@/components/VerifiedGate';
 
 export default function SectionChat() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { data: profile } = useProfile();
+  const { isVerified, isLoading: verifyLoading } = useVerifiedFan();
   const { data: activeGame, isLoading: gameLoading } = useActiveGameForChat();
   const section = profile?.wrigley_section;
   const { data: messages = [], isLoading: msgsLoading } = useSectionMessages(activeGame?.id, section ?? undefined);
@@ -34,6 +37,16 @@ export default function SectionChat() {
     sendMessage.mutate({ gameId: activeGame.id, section, body: draft });
     setDraft('');
   };
+
+  // Verified gate
+  if (!verifyLoading && !isVerified) {
+    return (
+      <div className="min-h-screen bg-background pb-24">
+        <AppHeader />
+        <VerifiedGate featureName="Section Chat" />
+      </div>
+    );
+  }
 
   // No section set
   if (!section) {

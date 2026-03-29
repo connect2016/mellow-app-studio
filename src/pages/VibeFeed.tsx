@@ -221,7 +221,7 @@ export default function VibeFeed() {
             <h1 className="text-2xl font-bold font-heading text-foreground">Live Vibe Feed</h1>
             <p className="text-sm text-muted-foreground mt-0.5">What's happening at Wrigley right now</p>
           </div>
-          {isVerified ? (
+          {!isGuest && isVerified ? (
             <Button
               onClick={() => setShowCompose(true)}
               className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full"
@@ -229,7 +229,7 @@ export default function VibeFeed() {
             >
               <Plus className="h-4 w-4 mr-1" /> Post
             </Button>
-          ) : (
+          ) : !isGuest ? (
             <Button
               onClick={() => window.location.href = '/verify'}
               variant="outline"
@@ -237,6 +237,15 @@ export default function VibeFeed() {
               className="rounded-full gap-1.5 text-xs"
             >
               ✅ Get Verified to Post
+            </Button>
+          ) : (
+            <Button
+              onClick={() => triggerGuestGate('post photos and videos')}
+              variant="outline"
+              size="sm"
+              className="rounded-full gap-1.5 text-xs"
+            >
+              <Plus className="h-4 w-4 mr-1" /> Post
             </Button>
           )}
         </div>

@@ -206,13 +206,24 @@ export default function VibeFeed() {
             <h1 className="text-2xl font-bold font-heading text-foreground">Live Vibe Feed</h1>
             <p className="text-sm text-muted-foreground mt-0.5">What's happening at Wrigley right now</p>
           </div>
-          <Button
-            onClick={() => setShowCompose(true)}
-            className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full"
-            size="sm"
-          >
-            <Plus className="h-4 w-4 mr-1" /> Post
-          </Button>
+          {isVerified ? (
+            <Button
+              onClick={() => setShowCompose(true)}
+              className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full"
+              size="sm"
+            >
+              <Plus className="h-4 w-4 mr-1" /> Post
+            </Button>
+          ) : (
+            <Button
+              onClick={() => window.location.href = '/verify'}
+              variant="outline"
+              size="sm"
+              className="rounded-full gap-1.5 text-xs"
+            >
+              ✅ Get Verified to Post
+            </Button>
+          )}
         </div>
 
         {/* Compose Modal */}

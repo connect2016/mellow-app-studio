@@ -69,6 +69,10 @@ export default {
         "day-blue": {
           DEFAULT: "hsl(var(--day-blue))",
         },
+        lineup: {
+          DEFAULT: "hsl(var(--lineup-teal))",
+          foreground: "hsl(var(--lineup-teal-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

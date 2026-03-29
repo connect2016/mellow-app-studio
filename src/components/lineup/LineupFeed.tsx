@@ -33,6 +33,7 @@ export function LineupFeed() {
   const leaveMeetup = useLeaveMeetup();
   const [showCreate, setShowCreate] = useState(false);
   const [chatMeetup, setChatMeetup] = useState<LineupMeetup | null>(null);
+  const [safetyMeetup, setSafetyMeetup] = useState<LineupMeetup | null>(null);
 
   const handleJoin = async (meetup: LineupMeetup) => {
     if (meetup.member_count && meetup.member_count >= meetup.max_members) {

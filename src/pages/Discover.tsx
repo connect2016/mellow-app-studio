@@ -188,6 +188,7 @@ export default function Discover() {
     is_banned: false,
     blocked_users: [],
     hidden_from_discover: false,
+    gameday_intents: ((p as any).gameday_intents as GamedayIntentType[]) ?? [],
   });
 
   const handleLike = async (profile: typeof profiles[0]) => {

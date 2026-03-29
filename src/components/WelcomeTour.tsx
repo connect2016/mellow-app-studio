@@ -353,7 +353,7 @@ export function WelcomeTour() {
                 className="text-xs font-bold uppercase tracking-wider text-secondary mb-2"
                 style={{ fontFamily: 'Space Grotesk' }}
               >
-                Step 5 of 5
+                Step 8 of 8
               </p>
 
               <h2

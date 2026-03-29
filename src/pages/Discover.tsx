@@ -529,6 +529,7 @@ export default function Discover() {
                     <ProfileCard
                       key={profile.id}
                       user={cardUser}
+                      currentUserFanStyles={(myProfile?.fan_style as FanStyleType[]) ?? []}
                       matchReasons={compat?.topReasons}
                       matchScore={compat?.score}
                       onHiFive={(msg) => handleHiFive(profile, msg)}

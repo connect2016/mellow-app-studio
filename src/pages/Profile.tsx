@@ -184,6 +184,42 @@ export default function Profile() {
             </div>
           )}
 
+          {/* Fan Style */}
+          {displayUser.fan_style.length > 0 && (() => {
+            const commonStyles = isOwnProfile ? [] : displayUser.fan_style.filter((s) => myFanStyles.includes(s));
+            const hasCommon = commonStyles.length > 0;
+            return (
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">🎨 Fan Style</h3>
+                  {hasCommon && (
+                    <span className="text-[10px] font-bold text-accent">⚡ Common Ground!</span>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {displayUser.fan_style.map((s) => {
+                    const opt = FAN_STYLE_OPTIONS.find((o) => o.value === s);
+                    if (!opt) return null;
+                    const isCommon = !isOwnProfile && myFanStyles.includes(s);
+                    return (
+                      <span
+                        key={s}
+                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold border ${
+                          isCommon
+                            ? 'bg-accent text-accent-foreground border-accent shadow-sm'
+                            : 'bg-secondary/10 border-secondary/20 text-foreground'
+                        }`}
+                      >
+                        <span>{opt.emoji}</span>
+                        <span>{opt.label}</span>
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+
           {/* Bio */}
           {displayUser.bio && (
             <p className="text-sm leading-relaxed text-foreground">{displayUser.bio}</p>

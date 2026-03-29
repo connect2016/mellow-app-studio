@@ -103,7 +103,10 @@ export default function Profile() {
     stretch_song: (profile as any).stretch_song,
     best_bar: (profile as any).best_bar,
     gameday_intents: ((profile as any).gameday_intents as GamedayIntentType[]) ?? [],
+    fan_style: ((profile as any).fan_style as FanStyleType[]) ?? [],
   };
+
+  const myFanStyles = isOwnProfile ? displayUser.fan_style : ((myProfile?.fan_style as FanStyleType[]) ?? []);
 
   const prompts = [
     displayUser.superstition && { label: 'My Cubs superstition is…', value: displayUser.superstition, emoji: '🧢' },

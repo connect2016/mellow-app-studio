@@ -832,6 +832,9 @@ export type Database = {
           superstition: string | null
           updated_at: string
           user_id: string
+          vibe_emoji: string | null
+          vibe_state: string | null
+          vibe_state_updated_at: string | null
           work_lat: number | null
           work_lng: number | null
           wrigley_location_privacy: string | null
@@ -872,6 +875,9 @@ export type Database = {
           superstition?: string | null
           updated_at?: string
           user_id: string
+          vibe_emoji?: string | null
+          vibe_state?: string | null
+          vibe_state_updated_at?: string | null
           work_lat?: number | null
           work_lng?: number | null
           wrigley_location_privacy?: string | null
@@ -912,6 +918,9 @@ export type Database = {
           superstition?: string | null
           updated_at?: string
           user_id?: string
+          vibe_emoji?: string | null
+          vibe_state?: string | null
+          vibe_state_updated_at?: string | null
           work_lat?: number | null
           work_lng?: number | null
           wrigley_location_privacy?: string | null

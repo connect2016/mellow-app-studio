@@ -50,6 +50,8 @@
     --ivy-green: 160 52% 15%;
     --brick-red: 350 83% 41%;
     --day-blue: 222 82% 29%;
+    --lineup-teal: 168 55% 38%;
+    --lineup-teal-foreground: 0 0% 100%;
 
     --radius: 0.5rem;
 
@@ -113,6 +115,9 @@
     --sidebar-ring: 160 45% 35%;
 
     --ticket-cream: 160 35% 9%;
+
+    --lineup-teal: 168 50% 42%;
+    --lineup-teal-foreground: 0 0% 100%;
   }
 }
 

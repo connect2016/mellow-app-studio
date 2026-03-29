@@ -29,6 +29,9 @@ import { useProfile } from '@/hooks/useProfile';
 import { useCompatibility } from '@/hooks/useCompatibility';
 import { toast } from 'sonner';
 import { useMissionTracker } from '@/hooks/useMissionTracker';
+import { LineupFeed } from '@/components/lineup/LineupFeed';
+import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
+import { Plus } from 'lucide-react';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },
@@ -75,6 +78,7 @@ export default function Discover() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [matchCelebration, setMatchCelebration] = useState<string | null>(null);
   const [settingStatus, setSettingStatus] = useState(false);
+  const [showLineupCreate, setShowLineupCreate] = useState(false);
   const [uploadingSnake, setUploadingSnake] = useState(false);
 
   const currentStatus = (myProfile?.game_status as string) ?? 'NotSet';
@@ -351,6 +355,11 @@ export default function Discover() {
           <SmartMeetupSuggestions />
         </div>
 
+        {/* The Lineup - Public Meetups */}
+        <div className="mb-4">
+          <LineupFeed />
+        </div>
+
         {/* Current Status Toggle */}
         <div className="mb-4">
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Your Status</p>
@@ -546,6 +555,19 @@ export default function Discover() {
         filters={filters}
         onApply={setFilters}
       />
+
+      {/* Floating "+" button for Lineup */}
+      <motion.button
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setShowLineupCreate(true)}
+        className="fixed bottom-28 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-lineup text-lineup-foreground shadow-lg shadow-lineup/30"
+      >
+        <Plus className="h-7 w-7" />
+      </motion.button>
+      <CreateMeetupModal open={showLineupCreate} onClose={() => setShowLineupCreate(false)} />
       </div>
     </div>
   );

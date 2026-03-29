@@ -66,6 +66,7 @@ export default function Onboarding() {
   const [age, setAge] = useState('');
   const [pronouns, setPronouns] = useState('');
   const [intents, setIntents] = useState<IntentType[]>([]);
+  const [gamedayIntents, setGamedayIntents] = useState<GamedayIntentType[]>([]);
   const [favoritePlayer, setFavoritePlayer] = useState('');
   const [favoriteMoment, setFavoriteMoment] = useState('');
   const [momentError, setMomentError] = useState('');

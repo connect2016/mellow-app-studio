@@ -38,6 +38,16 @@ export default function SectionChat() {
     setDraft('');
   };
 
+  // Verified gate
+  if (!verifyLoading && !isVerified) {
+    return (
+      <div className="min-h-screen bg-background pb-24">
+        <AppHeader />
+        <VerifiedGate featureName="Section Chat" />
+      </div>
+    );
+  }
+
   // No section set
   if (!section) {
     return (

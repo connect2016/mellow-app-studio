@@ -447,6 +447,7 @@ export default function VibeFeed() {
           </TabsContent>
         </Tabs>
       </main>
+      {isGuest && <GuestBanner />}
     </div>
   );
 }

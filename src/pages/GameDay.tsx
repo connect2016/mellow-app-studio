@@ -197,6 +197,9 @@ export default function GameDay() {
       </div>
 
       <div className="mx-auto max-w-lg px-4 pt-6">
+        {/* Safety Timer Banner */}
+        <SafetyTimerBanner />
+
         {/* Social Proof */}
         <div className="mb-4">
           <SocialProofBanner />

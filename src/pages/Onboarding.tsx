@@ -121,6 +121,10 @@ export default function Onboarding() {
     });
   };
 
+  const toggleFanStyle = (s: FanStyleType) => {
+    setFanStyles((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
+  };
+
   const handleMomentChange = (val: string) => {
     setFavoriteMoment(val);
     if (val && !validateMoment(val)) {

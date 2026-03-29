@@ -16,6 +16,8 @@ import { HappeningNow } from '@/components/HappeningNow';
 import { LiveActivityFeed } from '@/components/LiveActivityFeed';
 import { GamePhaseTimeline } from '@/components/GamePhaseTimeline';
 import { GameDayMap } from '@/components/GameDayMap';
+import { CrowdEnergyMap } from '@/components/CrowdEnergyMap';
+import { InstantMatchPanel } from '@/components/InstantMatchPanel';
 import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { SquadMatcherPanel } from '@/components/SquadMatcherPanel';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
@@ -223,6 +225,16 @@ export default function GameDay() {
         {/* Game Phase Timeline */}
         <div className="mb-6">
           <GamePhaseTimeline />
+        </div>
+
+        {/* Crowd Energy Map */}
+        <div className="mb-6">
+          <CrowdEnergyMap />
+        </div>
+
+        {/* Instant Match */}
+        <div className="mb-6">
+          <InstantMatchPanel />
         </div>
 
         {/* Happening Now */}

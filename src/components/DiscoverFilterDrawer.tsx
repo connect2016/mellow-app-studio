@@ -87,7 +87,7 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
     onClose();
   };
 
-  const activeCount = local.intents.length + local.statuses.length + (local.distance !== 25 ? 1 : 0) + (local.ageRange[0] !== 21 || local.ageRange[1] !== 65 ? 1 : 0);
+  const activeCount = local.intents.length + local.gamedayIntents.length + local.statuses.length + (local.distance !== 25 ? 1 : 0) + (local.ageRange[0] !== 21 || local.ageRange[1] !== 65 ? 1 : 0);
 
   return (
     <AnimatePresence onExitComplete={() => {}}>

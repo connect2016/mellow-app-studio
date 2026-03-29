@@ -70,6 +70,7 @@ export default function VibeFeed() {
   const [locationTag, setLocationTag] = useState('');
   const [caption, setCaption] = useState('');
   const [uploading, setUploading] = useState(false);
+  const { isVerified } = useVerifiedFan();
 
   const { data: posts = [] } = useVibePosts();
   const userIds = [...new Set(posts.map(p => p.user_id))];

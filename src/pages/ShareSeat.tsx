@@ -52,7 +52,7 @@ export default function ShareSeat() {
           </div>
           <h1
             className="text-2xl font-bold tracking-tight"
-            style={{ fontFamily: 'Space Grotesk', color: 'hsl(var(--stadium-seat-foreground))' }}
+            style={{ color: 'hsl(var(--stadium-seat-foreground))' }}
           >
             Share Your Seat
           </h1>
@@ -135,7 +135,7 @@ export default function ShareSeat() {
                 color: isBleachers
                   ? 'hsl(var(--stadium-seat-dark))'
                   : 'hsl(var(--stadium-seat-foreground))',
-                fontFamily: 'Space Grotesk',
+                
                 
                 '--tw-ring-color': 'hsl(var(--stadium-seat-foreground))',
                 '--tw-ring-offset-color': 'hsl(var(--stadium-seat))',
@@ -197,7 +197,7 @@ export default function ShareSeat() {
             style={{
               backgroundColor: 'hsl(var(--stadium-seat-foreground))',
               color: 'hsl(var(--stadium-seat-dark))',
-              fontFamily: 'Space Grotesk',
+              
             }}
           >
             Share My Seat

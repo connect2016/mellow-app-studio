@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Compass, Zap, MessageCircle, User, Settings, Radio, Users, Camera, Bell, Beer } from 'lucide-react';
+import { Compass, Zap, MessageCircle, User, Settings, Radio, Users, Camera, Bell, Beer, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
-  { to: '/discover', icon: Compass, label: 'The Concourse' },
+  { to: '/discover', icon: Home, label: 'Home' },
   { to: '/vibe', icon: Radio, label: 'Vibe' },
   { to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
   { to: '/profile', icon: User, label: 'Your Stats' },
@@ -79,7 +79,7 @@ export function AppHeader() {
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-lg">
         <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-4">
-          <Link to="/discover" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <img
               alt="Cubbies Buddies"
               className="h-12 w-auto"

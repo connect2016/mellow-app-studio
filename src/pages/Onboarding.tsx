@@ -311,9 +311,9 @@ export default function Onboarding() {
                     className="text-base sm:text-lg font-semibold"
                     style={{
                       color: 'white',
-                      WebkitTextStroke: '0.5px hsl(222, 82%, 29%)',
+                      WebkitTextStroke: '0.5px black',
                       paintOrder: 'stroke fill',
-                      filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))',
+                      filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))',
                     }}
                   >
                     {currentMeta.subtitle}

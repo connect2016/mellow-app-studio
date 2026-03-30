@@ -15,7 +15,7 @@ const Index = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-background">
+    <DynamicBackground>
       <AppHeader />
       <main className="mx-auto max-w-lg px-4 pt-4 pb-24 space-y-6">
         <div>

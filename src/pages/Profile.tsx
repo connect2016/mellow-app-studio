@@ -117,7 +117,7 @@ export default function Profile() {
   ].filter(Boolean) as { label: string; value: string; emoji: string }[];
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <DynamicBackground className="pb-24">
       <AppHeader />
 
       <div className="mx-auto max-w-lg">

@@ -202,7 +202,7 @@ export default function VibeFeed() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <DynamicBackground>
       <AppHeader />
       <GuestGateModal open={guestGateOpen} onClose={() => setGuestGateOpen(false)} action={guestGateAction} />
       {isGuest && <WelcomeTour />}

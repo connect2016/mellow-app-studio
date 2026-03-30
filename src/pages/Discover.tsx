@@ -219,20 +219,18 @@ export default function Discover() {
 
   return (
     <div className="min-h-screen pb-24 relative">
-      {/* Gameday Mode background */}
-      {gamedayMode && (
-        <div className="fixed inset-0 z-0">
-          <img
-            src={wrigleyBg}
-            alt=""
-            className="h-full w-full object-cover"
-            width={1920}
-            height={1080}
-          />
-          <div className="absolute inset-0 bg-background/75 backdrop-blur-[2px]" />
-        </div>
-      )}
-      {!gamedayMode && <div className="fixed inset-0 z-0 bg-background" />}
+      {/* Dynamic background image */}
+      <div className="fixed inset-0 z-0">
+        <img
+          src={bgWrigleyville}
+          alt=""
+          className="h-full w-full object-cover"
+          width={1920}
+          height={1080}
+        />
+        <div className="absolute inset-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.45)' }} />
+        {gamedayMode && <div className="absolute inset-0 bg-background/30 backdrop-blur-[2px]" />}
+      </div>
 
       <div className="relative z-10">
       <AppHeader />

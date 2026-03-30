@@ -333,10 +333,10 @@ export default function Discover() {
         >
           <span className="text-2xl">🎯</span>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-foreground">Game Day Missions</p>
-            <p className="text-[11px] text-muted-foreground">Complete challenges, earn points & badges</p>
+            <p className="text-sm font-semibold text-secondary-foreground">Game Day Missions</p>
+            <p className="text-[11px] text-secondary-foreground">Complete challenges, earn points & badges</p>
           </div>
-          <span className="text-xs font-semibold text-secondary">View →</span>
+          <span className="text-xs font-semibold text-yellow-300">View →</span>
         </motion.button>
 
         {/* Happening Now */}
@@ -361,7 +361,7 @@ export default function Discover() {
 
         {/* Current Status Toggle */}
         <div className="mb-4">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Your Status</p>
+          <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-secondary-foreground">Your Status</p>
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
             {STATUS_OPTIONS.map((opt) => {
               const active = currentStatus === opt.value;

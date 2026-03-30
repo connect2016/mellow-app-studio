@@ -66,10 +66,10 @@ export function LineupFeed() {
       {/* Section header */}
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="text-base font-bold text-foreground" style={{ fontFamily: 'Rye, serif' }}>
+          <h3 className="text-base font-bold text-secondary-foreground" style={{ fontFamily: 'Rye, serif' }}>
             📋 The Lineup
           </h3>
-          <p className="text-[11px] text-muted-foreground">Public meetups happening now</p>
+          <p className="text-[11px] text-secondary-foreground">Public meetups happening now</p>
         </div>
         <Button
           size="sm"
@@ -93,8 +93,8 @@ export function LineupFeed() {
           className="rounded-2xl border border-dashed border-lineup/30 bg-lineup/5 p-6 text-center"
         >
           <p className="text-3xl mb-2">📋</p>
-          <p className="text-sm font-semibold text-foreground">The bleachers are empty.</p>
-          <p className="text-xs text-muted-foreground mt-1">Be the first to start a rally.</p>
+          <p className="text-sm font-semibold text-secondary-foreground">The bleachers are empty.</p>
+          <p className="text-xs mt-1 text-yellow-300">Be the first to start a rally.</p>
           <Button
             size="sm"
             onClick={() => setShowCreate(true)}

@@ -2,67 +2,54 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useToast } from '@/hooks/use-toast';
-import { MapPin, Check, ChevronsUpDown, Zap } from 'lucide-react';
+import { MapPin, Check, ChevronsUpDown, Zap, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useBarVotes } from '@/hooks/useBarVotes';
 import { BarVibeBadge } from '@/components/BarVibeBadge';
 import { BarVotePanel } from '@/components/BarVotePanel';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { WRIGLEYVILLE_BARS } from '@/types';
 
 const WRIGLEYVILLE_LOCATIONS = [
   "🏟️ Inside The Ballpark",
   "🪑 Bleachers",
-  "Almost Home Tavern & Grill",
-  "Begyle Brewing Company",
-  "Bernie's",
-  "Cork Lounge",
-  "Demo Brewing Company",
-  "Dovetail Brewery",
-  "F. O'Mahony's",
-  "Farm Bar Ravenswood",
-  "GMAN Tavern",
-  "Kit Kat Lounge & Supper Club",
-  "Lucky Dorr",
-  "Martyrs'",
-  "Metro Chicago",
-  "Moe's Cantina",
-  "Mordecai",
-  "Murphy's Bleachers",
-  "Smartbar",
-  "The Cubby Bear Lounge Chicago",
-  "The Dugout Sports Bar and Grill",
-  "The Long Room",
-  "The North End",
-  "The Ravenswood Tavern",
-  "The Sports Corner Bar and Grill",
-  "Toons Bar & Grill",
-  "Trace",
-  "Wolcott Tap",
-  "Yak-Zie's Bar & Grill",
+  ...WRIGLEYVILLE_BARS.map(b => b.name),
 ];
 
-// Bars only (exclude ballpark entries)
-const BAR_LOCATIONS = WRIGLEYVILLE_LOCATIONS.filter(
-  (b) => !b.startsWith('🏟️') && !b.startsWith('🪑')
-);
+const BAR_LOCATIONS = WRIGLEYVILLE_BARS.map(b => b.name);
 
 export default function CheckIn() {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [selectedBar, setSelectedBar] = useState('');
   const [checkedIn, setCheckedIn] = useState(false);
+  const [openToBuddies, setOpenToBuddies] = useState(false);
   const [votingBar, setVotingBar] = useState<string | null>(null);
   const { getSummary } = useBarVotes();
 
-  const handleCheckIn = () => {
+  const handleCheckIn = async () => {
     if (!selectedBar) {
       toast({ title: 'Please select a location first', variant: 'destructive' });
       return;
     }
+
+    // Update profile with current bar and game status
+    if (user) {
+      await supabase.from('profiles').update({
+        wrigleyville_bar: selectedBar,
+        game_status: 'AtBar',
+        bar_location_privacy: openToBuddies ? 'Everyone' : 'MatchesOnly',
+      }).eq('user_id', user.id);
+    }
+
     setCheckedIn(true);
-    toast({ title: '✅ You\'re checked in!', description: `Checked in at ${selectedBar}` });
+    toast({ title: '✅ You\'re checked in!', description: `Checked in at ${selectedBar}${openToBuddies ? ' • Open to new Buddies!' : ''}` });
     setTimeout(() => setCheckedIn(false), 3000);
   };
 
@@ -76,15 +63,15 @@ export default function CheckIn() {
             <MapPin className="h-7 w-7 text-primary-foreground" />
           </div>
           <h1 className="text-2xl font-bold tracking-tight" style={{ fontFamily: 'Space Grotesk' }}>
-            Current Location
+            Solo Check-In
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Let your buddies know where you are
+            No crew needed — let Buddies know where you are
           </p>
         </div>
 
         {/* Dropdown */}
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="mb-2 block text-sm font-semibold" style={{ fontFamily: 'Space Grotesk' }}>
             Where are you currently at?
           </label>
@@ -115,9 +102,7 @@ export default function CheckIn() {
                           setOpen(false);
                         }}
                       >
-                        <Check
-                          className={cn('mr-2 h-4 w-4', selectedBar === bar ? 'opacity-100' : 'opacity-0')}
-                        />
+                        <Check className={cn('mr-2 h-4 w-4', selectedBar === bar ? 'opacity-100' : 'opacity-0')} />
                         {bar}
                       </CommandItem>
                     ))}
@@ -126,6 +111,20 @@ export default function CheckIn() {
               </Command>
             </PopoverContent>
           </Popover>
+        </div>
+
+        {/* Open to Meeting New Buddies toggle */}
+        <div className="mb-6 flex items-center justify-between rounded-xl border border-border bg-card p-4">
+          <div className="flex items-center gap-3">
+            <Users className="h-5 w-5 text-primary" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">Open to Meeting New Buddies</p>
+              <p className="text-xs text-muted-foreground">
+                {openToBuddies ? 'Your avatar shows an "Available" badge' : 'Toggle on to let solo fans find you'}
+              </p>
+            </div>
+          </div>
+          <Switch checked={openToBuddies} onCheckedChange={setOpenToBuddies} />
         </div>
 
         {/* Check In button */}
@@ -155,9 +154,8 @@ export default function CheckIn() {
           )}
         </AnimatePresence>
 
-        {/* Privacy note */}
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          Your location is only shared with your buddies to help you sync up for the game.
+          Your status updates to "At the Bar" and contributes to Live Vibe instantly.
         </p>
 
         {/* Live Vibe Section */}

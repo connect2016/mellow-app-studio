@@ -133,7 +133,7 @@ export default function HiFives() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
               <Zap className="h-7 w-7 text-muted-foreground" />
             </div>
-            <p className="font-semibold text-foreground">The bleachers are empty</p>
+            <p className="font-semibold text-yellow-300">The bleachers are empty</p>
             <p className="text-sm text-muted-foreground mt-1 max-w-[260px] mx-auto">
               Be the first to start a rally — toss a Hi-Five and see who's ready to play!
             </p>

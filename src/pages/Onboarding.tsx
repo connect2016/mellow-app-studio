@@ -359,7 +359,7 @@ export default function Onboarding() {
                   </p>
 
                   <div className="space-y-2">
-                    <Label className="font-semibold">Display Name</Label>
+                    <Label className="text-base font-bold" style={{ color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))' }}>Display Name</Label>
                     <Input
                       placeholder="How fans will know you"
                       value={displayName}

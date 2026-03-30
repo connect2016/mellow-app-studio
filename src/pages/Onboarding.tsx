@@ -354,7 +354,7 @@ export default function Onboarding() {
                       </div>
                     </motion.button>
                   </div>
-                  <p className="text-center text-xs text-muted-foreground">
+                  <p className="text-center text-secondary-foreground bg-destructive-foreground text-sm shadow-sm">
                     {photoUploading ? 'Uploading…' : 'Tap to add your photo'}
                   </p>
 

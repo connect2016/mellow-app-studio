@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import { DynamicBackground } from '@/components/DynamicBackground';
 import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { IntentChip } from '@/components/IntentChip';

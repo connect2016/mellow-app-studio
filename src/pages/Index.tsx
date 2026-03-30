@@ -1,4 +1,5 @@
 import { useAuth } from '@/contexts/AuthContext';
+import { DynamicBackground } from '@/components/DynamicBackground';
 import { AppHeader } from '@/components/AppHeader';
 import { TrendingNow } from '@/components/TrendingNow';
 import { useNavigate } from 'react-router-dom';

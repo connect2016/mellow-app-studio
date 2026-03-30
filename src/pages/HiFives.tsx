@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { DynamicBackground } from '@/components/DynamicBackground';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';

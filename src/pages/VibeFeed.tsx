@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { DynamicBackground } from '@/components/DynamicBackground';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { supabase } from '@/integrations/supabase/client';

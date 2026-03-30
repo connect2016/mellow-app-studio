@@ -4,15 +4,21 @@ import bgWrigleyville from '@/assets/bg-wrigleyville.jpg';
 import bgPinball from '@/assets/bg-pinball.jpg';
 import bgOldstyle from '@/assets/bg-oldstyle.jpg';
 import bgConcourse from '@/assets/bg-concourse.jpg';
+import bgRizzo from '@/assets/bg-rizzo.jpg';
+import bgField from '@/assets/bg-field.jpg';
+import bgSeats from '@/assets/bg-seats.webp';
 
-const ALL_IMAGES = [bgWrigleyville, bgPinball, bgOldstyle, bgConcourse];
+const ALL_IMAGES = [bgWrigleyville, bgPinball, bgOldstyle, bgConcourse, bgRizzo, bgField, bgSeats];
 
 // Deterministic mapping for main tabs so consecutive tabs never share an image
 const ROUTE_IMAGE_MAP: Record<string, string> = {
   '/discover': bgWrigleyville,
-  '/vibe': bgPinball,
-  '/hi-fives': bgOldstyle,
-  '/profile': bgConcourse,
+  '/vibe': bgField,
+  '/hi-fives': bgRizzo,
+  '/profile': bgSeats,
+  '/messages': bgPinball,
+  '/settings': bgOldstyle,
+  '/': bgConcourse,
 };
 
 function getImageForRoute(pathname: string): string {

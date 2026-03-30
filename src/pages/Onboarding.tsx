@@ -176,6 +176,9 @@ export default function Onboarding() {
     if (step > 1) setStep(step - 1);
   };
 
+  const STEP_BACKGROUNDS = useMemo(() => [bgConcourse, bgField, bgRizzo, wrigleySeatsImg], []);
+  const stepBg = STEP_BACKGROUNDS[step - 1];
+
   if (loading) return null;
 
   // Celebration overlay

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { DynamicBackground } from '@/components/DynamicBackground';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
@@ -112,7 +113,7 @@ export default function HiFives() {
   });
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <DynamicBackground className="pb-24">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4">
         <h2 className="mb-1 text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Hi-Fives</h2>
@@ -263,6 +264,6 @@ export default function HiFives() {
           </div>
         )}
       </div>
-    </div>
+    </DynamicBackground>
   );
 }

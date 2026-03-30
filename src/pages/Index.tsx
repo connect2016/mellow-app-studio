@@ -1,4 +1,5 @@
 import { useAuth } from '@/contexts/AuthContext';
+import { DynamicBackground } from '@/components/DynamicBackground';
 import { AppHeader } from '@/components/AppHeader';
 import { TrendingNow } from '@/components/TrendingNow';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +16,7 @@ const Index = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-background">
+    <DynamicBackground>
       <AppHeader />
       <main className="mx-auto max-w-lg px-4 pt-4 pb-24 space-y-6">
         <div>
@@ -27,7 +28,7 @@ const Index = () => {
 
         <TrendingNow />
       </main>
-    </div>
+    </DynamicBackground>
   );
 };
 

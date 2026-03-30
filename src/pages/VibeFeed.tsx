@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { DynamicBackground } from '@/components/DynamicBackground';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -202,7 +203,7 @@ export default function VibeFeed() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <DynamicBackground>
       <AppHeader />
       <GuestGateModal open={guestGateOpen} onClose={() => setGuestGateOpen(false)} action={guestGateAction} />
       {isGuest && <WelcomeTour />}
@@ -458,6 +459,6 @@ export default function VibeFeed() {
         </Tabs>
       </main>
       {isGuest && <GuestBanner />}
-    </div>
+    </DynamicBackground>
   );
 }

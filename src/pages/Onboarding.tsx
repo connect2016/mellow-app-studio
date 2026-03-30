@@ -578,7 +578,7 @@ export default function Onboarding() {
               {/* Step 4: Game Day Preferences */}
               {step === 4 && (
                 <div className="space-y-5">
-                  <p className="text-sm text-muted-foreground">All optional — fill in what you like</p>
+                  <p className="text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px hsl(222, 82%, 29%)', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.5))' }}>All optional — fill in what you like</p>
 
                   <div className="rounded-2xl border border-border bg-card p-4 space-y-4">
                     <div className="flex items-center gap-2">

@@ -7,8 +7,11 @@ import bgConcourse from '@/assets/bg-concourse.jpg';
 import bgRizzo from '@/assets/bg-rizzo.jpg';
 import bgField from '@/assets/bg-field.jpg';
 import bgSeats from '@/assets/bg-seats.webp';
+import bgBar from '@/assets/bg-bar.jpg';
+import bgPatio from '@/assets/bg-patio.jpg';
+import bgBleachers from '@/assets/bg-bleachers.jpg';
 
-const ALL_IMAGES = [bgWrigleyville, bgPinball, bgOldstyle, bgConcourse, bgRizzo, bgField, bgSeats];
+const ALL_IMAGES = [bgWrigleyville, bgPinball, bgOldstyle, bgConcourse, bgRizzo, bgField, bgSeats, bgBar, bgPatio, bgBleachers];
 
 // Deterministic mapping for main tabs so consecutive tabs never share an image
 const ROUTE_IMAGE_MAP: Record<string, string> = {
@@ -18,6 +21,9 @@ const ROUTE_IMAGE_MAP: Record<string, string> = {
   '/profile': bgSeats,
   '/messages': bgPinball,
   '/settings': bgOldstyle,
+  '/crews': bgBar,
+  '/gameday': bgPatio,
+  '/missions': bgBleachers,
   '/': bgConcourse,
 };
 

@@ -263,6 +263,6 @@ export default function HiFives() {
           </div>
         )}
       </div>
-    </div>
+    </DynamicBackground>
   );
 }

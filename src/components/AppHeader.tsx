@@ -79,7 +79,7 @@ export function AppHeader() {
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-lg">
         <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-4">
-          <Link to="/discover" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <img
               alt="Cubbies Buddies"
               className="h-12 w-auto"

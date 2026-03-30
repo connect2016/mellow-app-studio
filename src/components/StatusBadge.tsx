@@ -17,7 +17,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
         status === 'AtBar' && 'bg-secondary/15 text-secondary',
         status === 'Tailgating' && 'bg-secondary/15 text-secondary',
         status === 'BeerSnake' && 'bg-green-500/15 text-green-600',
-        status === 'WatchingRemote' && 'bg-primary/15 text-primary',
+        status === 'WatchingRemote' && 'bg-primary/15 text-yellow-300',
         className
       )}
     >

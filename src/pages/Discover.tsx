@@ -333,10 +333,10 @@ export default function Discover() {
         >
           <span className="text-2xl">🎯</span>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-foreground">Game Day Missions</p>
-            <p className="text-[11px] text-muted-foreground">Complete challenges, earn points & badges</p>
+            <p className="text-sm font-semibold text-secondary-foreground">Game Day Missions</p>
+            <p className="text-[11px] text-secondary-foreground">Complete challenges, earn points & badges</p>
           </div>
-          <span className="text-xs font-semibold text-secondary">View →</span>
+          <span className="text-xs font-semibold text-yellow-300">View →</span>
         </motion.button>
 
         {/* Happening Now */}

@@ -66,10 +66,10 @@ export function LineupFeed() {
       {/* Section header */}
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="text-base font-bold text-foreground" style={{ fontFamily: 'Rye, serif' }}>
+          <h3 className="text-base font-bold text-secondary-foreground" style={{ fontFamily: 'Rye, serif' }}>
             📋 The Lineup
           </h3>
-          <p className="text-[11px] text-muted-foreground">Public meetups happening now</p>
+          <p className="text-[11px] text-secondary-foreground">Public meetups happening now</p>
         </div>
         <Button
           size="sm"

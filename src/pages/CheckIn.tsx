@@ -3,10 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useToast } from '@/hooks/use-toast';
-import { MapPin, Check, ChevronsUpDown, Zap, Users } from 'lucide-react';
+import { MapPin, Check, Zap, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useBarVotes } from '@/hooks/useBarVotes';
 import { BarVibeBadge } from '@/components/BarVibeBadge';
@@ -70,47 +68,28 @@ export default function CheckIn() {
           </p>
         </div>
 
-        {/* Dropdown */}
+        {/* Location Grid */}
         <div className="mb-4">
           <label className="mb-2 block text-sm font-semibold">
             Where are you currently at?
           </label>
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                className="w-full justify-between rounded-xl py-6 text-base"
+          <div className="grid grid-cols-2 gap-2">
+            {WRIGLEYVILLE_LOCATIONS.map((bar) => (
+              <button
+                key={bar}
+                onClick={() => setSelectedBar(bar)}
+                className={cn(
+                  'flex items-center gap-2 rounded-xl border px-3 py-3 text-left text-sm font-medium transition-all',
+                  selectedBar === bar
+                    ? 'border-primary bg-primary/10 text-primary shadow-sm'
+                    : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-primary/5'
+                )}
               >
-                {selectedBar || 'Select a bar...'}
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
-              <Command>
-                <CommandInput placeholder="Search bars..." />
-                <CommandList>
-                  <CommandEmpty>No bar found.</CommandEmpty>
-                  <CommandGroup>
-                    {WRIGLEYVILLE_LOCATIONS.map((bar) => (
-                      <CommandItem
-                        key={bar}
-                        value={bar}
-                        onSelect={() => {
-                          setSelectedBar(bar);
-                          setOpen(false);
-                        }}
-                      >
-                        <Check className={cn('mr-2 h-4 w-4', selectedBar === bar ? 'opacity-100' : 'opacity-0')} />
-                        {bar}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+                {selectedBar === bar && <Check className="h-4 w-4 shrink-0 text-primary" />}
+                <span className="truncate">{bar}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Open to Meeting New Buddies toggle */}

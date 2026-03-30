@@ -133,7 +133,7 @@ export function InstantMatchPanel() {
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
         <div className="flex items-center gap-2">
           <Zap className="h-4 w-4 text-primary" />
-          <h3 className="text-sm font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+          <h3 className="text-sm font-bold text-foreground">
             Instant Match
           </h3>
           <Badge variant="outline" className="text-[9px] h-4 px-1.5 border-primary/20 text-primary">

@@ -98,7 +98,7 @@ export function ClusterMarkerComponent({ cluster }: { cluster: MapCluster }) {
     >
       <Popup closeButton={false}>
         <div className="min-w-[160px] p-1">
-          <p className="text-sm font-bold" style={{ fontFamily: 'Barlow Condensed' }}>
+          <p className="text-sm font-bold">
             {cluster.label}
           </p>
           <div className="flex items-center gap-2 mt-1 text-[10px] text-muted-foreground">

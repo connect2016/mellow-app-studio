@@ -202,7 +202,7 @@ export default function Memories() {
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>
+            <h1 className="text-xl font-bold">
               Game Memories
             </h1>
             <p className="text-xs text-muted-foreground">Capture & share your game day moments</p>
@@ -230,7 +230,7 @@ export default function Memories() {
               <div className="flex items-center justify-center h-7 w-7 rounded-full bg-accent/20">
                 <Sparkles className="h-4 w-4 text-accent" />
               </div>
-              <span className="text-sm font-bold text-accent" style={{ fontFamily: 'Space Grotesk' }}>
+              <span className="text-sm font-bold text-accent">
                 Your Game Day Story
               </span>
             </div>

@@ -47,7 +47,7 @@ export default function Venues() {
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div className="flex-1">
-            <h1 className="text-base font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+            <h1 className="text-base font-bold text-foreground">
               Wrigleyville Venues
             </h1>
             <p className="text-[10px] text-muted-foreground">

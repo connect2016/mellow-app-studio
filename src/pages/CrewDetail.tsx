@@ -132,7 +132,7 @@ export default function CrewDetail() {
               {crew.badge_emoji}
             </div>
             <div className="flex-1 min-w-0">
-              <h1 className="text-lg font-bold text-foreground truncate" style={{ fontFamily: 'Space Grotesk' }}>
+              <h1 className="text-lg font-bold text-foreground truncate">
                 {crew.name}
               </h1>
               {crew.description && (

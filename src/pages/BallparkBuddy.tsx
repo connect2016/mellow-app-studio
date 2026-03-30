@@ -155,7 +155,7 @@ export default function BallparkBuddy() {
           <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary">
             <Users className="h-7 w-7 text-primary-foreground" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight" style={{ fontFamily: 'Space Grotesk' }}>
+          <h1 className="text-2xl font-bold tracking-tight">
             Ballpark Buddy
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -167,7 +167,7 @@ export default function BallparkBuddy() {
         <div className="space-y-4 mb-6">
           {/* Game Date */}
           <div>
-            <label className="mb-1.5 block text-sm font-semibold" style={{ fontFamily: 'Space Grotesk' }}>
+            <label className="mb-1.5 block text-sm font-semibold">
               Game Date
             </label>
             <Popover>
@@ -198,7 +198,7 @@ export default function BallparkBuddy() {
 
           {/* Section */}
           <div>
-            <label className="mb-1.5 block text-sm font-semibold" style={{ fontFamily: 'Space Grotesk' }}>
+            <label className="mb-1.5 block text-sm font-semibold">
               Section Number
             </label>
             <div className="relative">
@@ -215,7 +215,7 @@ export default function BallparkBuddy() {
 
           {/* Intent */}
           <div>
-            <label className="mb-1.5 block text-sm font-semibold" style={{ fontFamily: 'Space Grotesk' }}>
+            <label className="mb-1.5 block text-sm font-semibold">
               What are you looking for?
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -241,7 +241,7 @@ export default function BallparkBuddy() {
             onClick={handleSubmit}
             disabled={submitMutation.isPending}
             className="w-full rounded-xl py-6 text-base font-bold"
-            style={{ fontFamily: 'Space Grotesk' }}
+           
           >
             <Search className="mr-2 h-5 w-5" />
             Find Buddies
@@ -261,7 +261,7 @@ export default function BallparkBuddy() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                 </span>
-                <h2 className="text-base font-bold" style={{ fontFamily: 'Space Grotesk' }}>
+                <h2 className="text-base font-bold">
                   {matchesLoading ? 'Searching...' : `${matches.length} Buddies Found`}
                 </h2>
                 <span className="text-xs text-muted-foreground ml-auto">

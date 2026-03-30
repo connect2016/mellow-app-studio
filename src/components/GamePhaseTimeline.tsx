@@ -328,7 +328,7 @@ export function GamePhaseTimeline() {
         <div className="flex items-center gap-2">
           <span className="text-lg">{config.emoji}</span>
           <div>
-            <h3 className="text-sm font-bold text-foreground" style={{ fontFamily: 'Barlow Condensed' }}>
+            <h3 className="text-sm font-bold text-foreground">
               {config.label}
               {phaseData?.game && (
                 <span className="font-normal text-muted-foreground ml-1.5">

@@ -198,7 +198,7 @@ export default function Onboarding() {
           >
             🎉
           </motion.div>
-          <h1 className="text-3xl font-bold text-primary-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+          <h1 className="text-3xl font-bold text-primary-foreground mb-2">
             You're in the lineup!
           </h1>
           <p className="text-primary-foreground/80 text-lg">Welcome to Cubbies Buddies</p>

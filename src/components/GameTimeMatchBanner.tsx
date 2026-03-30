@@ -79,7 +79,7 @@ export function GameTimeMatchBanner() {
               <div className="flex items-center justify-center h-7 w-7 rounded-full bg-accent/20">
                 <Zap className="h-4 w-4 text-accent" />
               </div>
-              <span className="text-sm font-bold text-accent" style={{ fontFamily: 'Space Grotesk' }}>
+              <span className="text-sm font-bold text-accent">
                 Game-Time Match!
               </span>
             </div>

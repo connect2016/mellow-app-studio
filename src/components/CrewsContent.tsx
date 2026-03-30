@@ -76,7 +76,7 @@ export default function CrewsContent() {
             className="overflow-hidden mb-6"
           >
             <div className="rounded-2xl border border-primary/20 bg-card p-5 space-y-4 shadow-sm">
-              <h3 className="font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>Create a Crew</h3>
+              <h3 className="font-bold text-foreground">Create a Crew</h3>
               <div>
                 <Label className="text-xs text-muted-foreground mb-1 block">Crew Badge</Label>
                 <div className="flex flex-wrap gap-2">

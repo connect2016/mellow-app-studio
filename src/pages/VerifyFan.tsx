@@ -42,7 +42,7 @@ export default function VerifyFan() {
               <ShieldCheck className="h-10 w-10 text-primary" />
             </div>
           </motion.div>
-          <h2 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+          <h2 className="text-xl font-bold text-foreground mb-2">
             You're a Verified Fan!
           </h2>
           <p className="text-sm text-muted-foreground max-w-xs mb-6">
@@ -148,7 +148,7 @@ export default function VerifyFan() {
                 <ShieldCheck className="h-12 w-12 text-primary" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+                <h1 className="text-2xl font-bold text-foreground mb-2">
                   Get Verified
                 </h1>
                 <p className="text-sm text-muted-foreground max-w-xs mx-auto">
@@ -189,7 +189,7 @@ export default function VerifyFan() {
                 <p className="text-xs text-destructive bg-destructive/10 rounded-xl px-3 py-2">{cameraError}</p>
               )}
 
-              <Button onClick={startCamera} className="w-full rounded-2xl py-6 text-base font-bold gap-2" style={{ fontFamily: 'Space Grotesk' }}>
+              <Button onClick={startCamera} className="w-full rounded-2xl py-6 text-base font-bold gap-2">
                 <Camera className="h-5 w-5" />
                 Open Camera
               </Button>
@@ -226,7 +226,7 @@ export default function VerifyFan() {
                 </div>
               </div>
 
-              <Button onClick={capturePhoto} className="w-full rounded-2xl py-6 text-base font-bold gap-2" style={{ fontFamily: 'Space Grotesk' }}>
+              <Button onClick={capturePhoto} className="w-full rounded-2xl py-6 text-base font-bold gap-2">
                 <Camera className="h-5 w-5" />
                 Capture Selfie
               </Button>
@@ -294,7 +294,7 @@ export default function VerifyFan() {
                 </div>
               </motion.div>
               <div>
-                <h2 className="text-2xl font-bold text-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+                <h2 className="text-2xl font-bold text-foreground mb-2">
                   You're Verified! ✅
                 </h2>
                 <p className="text-sm text-muted-foreground max-w-xs mx-auto">

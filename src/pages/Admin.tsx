@@ -38,7 +38,7 @@ export default function Admin() {
       <div className="mx-auto max-w-lg px-4 pt-4">
         <div className="mb-6 flex items-center gap-2">
           <Shield className="h-5 w-5 text-primary" />
-          <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Admin Panel</h2>
+          <h2 className="text-lg font-bold">Admin Panel</h2>
         </div>
 
         {/* Stats */}

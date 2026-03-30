@@ -207,7 +207,7 @@ export default function Loyalty() {
               >
                 {celebration.emoji}
               </motion.div>
-              <h2 className="text-2xl font-bold text-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+              <h2 className="text-2xl font-bold text-foreground mb-2">
                 Pennant Unlocked! 🎉
               </h2>
               <p className="text-lg font-semibold text-accent mb-1">{celebration.name}</p>
@@ -253,7 +253,7 @@ export default function Loyalty() {
       <main className="mx-auto max-w-lg px-4 pt-4">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+          <h1 className="text-2xl font-bold text-foreground">
             Fan Loyalty
           </h1>
           <p className="text-sm text-muted-foreground mt-0.5">

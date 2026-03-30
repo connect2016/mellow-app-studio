@@ -184,7 +184,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
         {/* Info overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
           <div className="flex items-center gap-2 mb-0.5">
-            <h3 className="text-xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>
+            <h3 className="text-xl font-bold">
               {user.display_name}, {user.age}
             </h3>
           </div>

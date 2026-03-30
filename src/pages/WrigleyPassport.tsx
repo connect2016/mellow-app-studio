@@ -144,7 +144,7 @@ export default function WrigleyPassport() {
           <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary">
             <Navigation className="h-7 w-7 text-primary-foreground" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight" style={{ fontFamily: 'Space Grotesk' }}>
+          <h1 className="text-2xl font-bold tracking-tight">
             Wrigley Passport
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -155,7 +155,7 @@ export default function WrigleyPassport() {
         {/* Progress */}
         <div className="rounded-2xl border border-border bg-card p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-semibold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+            <span className="text-sm font-semibold text-foreground">
               {checkedCount} / {PASSPORT_LOCATIONS.length} Stamped
             </span>
             {legendUnlocked ? (
@@ -239,7 +239,7 @@ export default function WrigleyPassport() {
           {legendUnlocked ? (
             <div>
               <span className="text-3xl">🏆</span>
-              <p className="text-sm font-bold text-foreground mt-2" style={{ fontFamily: 'Space Grotesk' }}>
+              <p className="text-sm font-bold text-foreground mt-2">
                 You're a Wrigley Legend!
               </p>
               <p className="text-xs text-muted-foreground mt-1">
@@ -249,7 +249,7 @@ export default function WrigleyPassport() {
           ) : (
             <div>
               <Lock className="h-8 w-8 mx-auto text-muted-foreground/40 mb-2" />
-              <p className="text-sm font-semibold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+              <p className="text-sm font-semibold text-foreground">
                 Wrigley Legend Badge
               </p>
               <p className="text-xs text-muted-foreground mt-1">

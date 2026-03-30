@@ -222,8 +222,8 @@ export default function VibeFeed() {
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-2xl font-bold font-heading text-foreground">Live Vibe Feed</h1>
-            <p className="text-sm text-muted-foreground mt-0.5">What's happening at Wrigley right now</p>
+            <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>Live Vibe Feed</h1>
+            <p className="text-base font-semibold mt-0.5" style={{ color: 'white', WebkitTextStroke: '0.5px hsl(222, 82%, 29%)', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))' }}>What's happening at Wrigley right now</p>
           </div>
           {!isGuest && isVerified ? (
             <Button

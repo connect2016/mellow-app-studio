@@ -290,12 +290,34 @@ export default function Onboarding() {
             >
               {/* Step header */}
               <div className="flex items-center gap-3 mb-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-3xl">
                   {currentMeta.emoji}
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-foreground">{currentMeta.title}</h2>
-                  <p className="text-sm text-muted-foreground">{currentMeta.subtitle}</p>
+                  <h2
+                    className="text-2xl sm:text-3xl font-extrabold"
+                    style={{
+                      fontFamily: 'Montserrat, sans-serif',
+                      color: 'hsl(222, 82%, 29%)',
+                      WebkitTextStroke: '2px white',
+                      paintOrder: 'stroke fill',
+                      filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))',
+                      letterSpacing: '0.03em',
+                    }}
+                  >
+                    {currentMeta.title}
+                  </h2>
+                  <p
+                    className="text-base sm:text-lg font-semibold"
+                    style={{
+                      color: 'white',
+                      WebkitTextStroke: '0.5px hsl(222, 82%, 29%)',
+                      paintOrder: 'stroke fill',
+                      filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))',
+                    }}
+                  >
+                    {currentMeta.subtitle}
+                  </p>
                 </div>
               </div>
 

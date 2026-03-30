@@ -33,7 +33,7 @@ export function MomentCard({ playType, description, inning, half, calledIt }: Mo
         <div className="flex-1 min-w-0">
           <p
             className="text-xs font-black text-primary tracking-wide"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+           
           >
             {play.label}
           </p>

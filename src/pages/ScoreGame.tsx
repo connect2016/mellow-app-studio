@@ -157,7 +157,7 @@ export default function ScoreGame() {
                   key={awayRuns}
                   initial={{ scale: 1.3 }}
                   animate={{ scale: 1 }}
-                  className="text-2xl font-black" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  className="text-2xl font-black"
                 >
                   {awayRuns}
                 </motion.p>
@@ -177,7 +177,7 @@ export default function ScoreGame() {
                   key={homeRuns}
                   initial={{ scale: 1.3 }}
                   animate={{ scale: 1 }}
-                  className="text-2xl font-black" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  className="text-2xl font-black"
                 >
                   {homeRuns}
                 </motion.p>

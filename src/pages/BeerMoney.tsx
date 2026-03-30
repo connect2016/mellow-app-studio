@@ -113,7 +113,7 @@ export default function BeerMoney() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="text-2xl font-bold text-primary-foreground mb-2"
-                style={{ fontFamily: 'Space Grotesk' }}
+               
               >
                 Cheers! 🎉
               </motion.h2>
@@ -158,7 +158,7 @@ export default function BeerMoney() {
       <div className="mx-auto max-w-lg px-4 pt-4">
         <div className="flex items-center gap-2 mb-1">
           <Beer className="h-5 w-5 text-primary" />
-          <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Send Beer Money</h2>
+          <h2 className="text-lg font-bold">Send Beer Money</h2>
         </div>
         <p className="mb-6 text-sm text-muted-foreground">Buy a fellow fan a round 🍺</p>
 
@@ -238,7 +238,7 @@ export default function BeerMoney() {
 
           {/* Credits / Subscription */}
           <div className="mt-8 rounded-2xl border border-border bg-card p-5 space-y-4">
-            <h3 className="font-bold text-sm" style={{ fontFamily: 'Space Grotesk' }}>🎟️ Beer Money Credits</h3>
+            <h3 className="font-bold text-sm">🎟️ Beer Money Credits</h3>
             <p className="text-xs text-muted-foreground">Pre-load credits to send beers faster — no checkout each time.</p>
             <div className="grid grid-cols-3 gap-2">
               {[{ credits: 25, price: 25 }, { credits: 55, price: 50 }, { credits: 120, price: 100 }].map((pkg) => (
@@ -294,7 +294,7 @@ export default function BeerMoney() {
                 className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-xl"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Confirm</h3>
+                  <h3 className="text-lg font-bold">Confirm</h3>
                   <button onClick={() => setShowConfirm(false)} className="p-1 rounded-full hover:bg-muted transition-colors">
                     <X className="h-4 w-4 text-muted-foreground" />
                   </button>

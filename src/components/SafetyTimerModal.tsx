@@ -83,7 +83,7 @@ export function SafetyTimerModal({ open, onClose, meetupId, locationName }: Safe
                   <Shield className="h-8 w-8 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+                  <h3 className="text-lg font-bold text-foreground">
                     Set a Safety Timer?
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1.5 max-w-xs mx-auto">
@@ -116,7 +116,7 @@ export function SafetyTimerModal({ open, onClose, meetupId, locationName }: Safe
                 className="space-y-4"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+                  <h3 className="text-lg font-bold text-foreground">
                     🛡️ Safety Timer
                   </h3>
                   <button onClick={handleSkip} className="p-1.5 rounded-full hover:bg-muted">

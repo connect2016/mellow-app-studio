@@ -256,7 +256,7 @@ export default function Discover() {
             >
               🎉
             </motion.div>
-            <h2 className="text-3xl font-bold text-primary-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+            <h2 className="text-3xl font-bold text-primary-foreground mb-2">
               It's a Match!
             </h2>
             <p className="text-primary-foreground/80 text-lg">
@@ -297,7 +297,7 @@ export default function Discover() {
         <div className="flex items-center justify-between rounded-xl border border-border bg-card/80 backdrop-blur-sm px-4 py-2.5 mb-4">
           <div className="flex items-center gap-2">
             <span className="text-base">🏟️</span>
-            <span className="text-sm font-semibold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+            <span className="text-sm font-semibold text-foreground">
               Gameday Mode
             </span>
           </div>
@@ -464,7 +464,7 @@ export default function Discover() {
           <TabsContent value="buddies">
             <div className="mb-4 flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>
+                <h2 className="text-lg font-bold">
                   Discover
                 </h2>
                 {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (

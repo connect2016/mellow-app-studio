@@ -71,7 +71,7 @@ export default function Crews() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl font-bold" style={{ fontFamily: 'Space Grotesk' }}>Crews</h1>
+            <h1 className="text-xl font-bold">Crews</h1>
             <p className="text-sm text-muted-foreground">Your game-day squads</p>
           </div>
           <Button onClick={() => setShowCreate(true)} size="sm" className="rounded-full gap-1.5">
@@ -90,7 +90,7 @@ export default function Crews() {
               className="overflow-hidden mb-6"
             >
               <div className="rounded-2xl border border-primary/20 bg-card p-5 space-y-4 shadow-sm">
-                <h3 className="font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>Create a Crew</h3>
+                <h3 className="font-bold text-foreground">Create a Crew</h3>
 
                 <div>
                   <Label className="text-xs text-muted-foreground mb-1 block">Crew Badge</Label>

@@ -63,7 +63,7 @@ export function LiveVibeCheckIn({ preselectedBar }: { preselectedBar?: string })
             >
               <div className="text-center">
                 <span className="text-3xl">📊</span>
-                <h2 className="text-lg font-bold text-foreground mt-2" style={{ fontFamily: 'Space Grotesk' }}>
+                <h2 className="text-lg font-bold text-foreground mt-2">
                   Live Vibe Check-In
                 </h2>
                 <p className="text-xs text-muted-foreground mt-1">

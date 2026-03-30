@@ -138,7 +138,7 @@ export function SmartMeetupSuggestions() {
       <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-gradient-to-r from-primary/5 to-secondary/5">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-primary" />
-          <h3 className="text-sm font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+          <h3 className="text-sm font-bold text-foreground">
             Smart Meetups
           </h3>
           {fanCount > 0 && (

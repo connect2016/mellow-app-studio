@@ -53,7 +53,7 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
         <div className="flex items-center gap-2.5 min-w-0">
           <span className="text-xl">{crowd.emoji}</span>
           <div className="min-w-0">
-            <h3 className="text-sm font-bold text-foreground truncate" style={{ fontFamily: 'Space Grotesk' }}>
+            <h3 className="text-sm font-bold text-foreground truncate">
               {venue.name}
             </h3>
             <div className="flex items-center gap-2 mt-0.5 flex-wrap">

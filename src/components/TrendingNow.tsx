@@ -25,7 +25,7 @@ export function TrendingNow() {
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <TrendingUp className="h-4 w-4 text-primary" />
-        <h2 className="text-sm font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+        <h2 className="text-sm font-bold text-foreground">
           Trending Now
         </h2>
         <span className="relative flex h-2 w-2 ml-1">
@@ -47,7 +47,7 @@ export function TrendingNow() {
               {i + 1}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-foreground truncate" style={{ fontFamily: 'Space Grotesk' }}>
+              <p className="text-sm font-semibold text-foreground truncate">
                 {bar.name}
               </p>
               <div className="flex items-center gap-2 mt-0.5">

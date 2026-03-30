@@ -21,7 +21,7 @@ export function QuickActionBar({ selectedCluster, onNavigate, onChat, onJoin }: 
     >
       <div className="flex items-center justify-between mb-2">
         <div>
-          <p className="text-sm font-bold text-foreground" style={{ fontFamily: 'Barlow Condensed' }}>
+          <p className="text-sm font-bold text-foreground">
             {selectedCluster.label}
           </p>
           <p className="text-[10px] text-muted-foreground">

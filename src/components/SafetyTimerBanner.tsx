@@ -70,7 +70,7 @@ export function SafetyTimerBanner() {
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-sm font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+              <p className="text-sm font-bold text-foreground">
                 🛡️ Safety Timer Active
               </p>
               <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${

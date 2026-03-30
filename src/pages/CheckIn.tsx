@@ -62,7 +62,7 @@ export default function CheckIn() {
           <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary">
             <MapPin className="h-7 w-7 text-primary-foreground" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight" style={{ fontFamily: 'Space Grotesk' }}>
+          <h1 className="text-2xl font-bold tracking-tight">
             Solo Check-In
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -72,7 +72,7 @@ export default function CheckIn() {
 
         {/* Dropdown */}
         <div className="mb-4">
-          <label className="mb-2 block text-sm font-semibold" style={{ fontFamily: 'Space Grotesk' }}>
+          <label className="mb-2 block text-sm font-semibold">
             Where are you currently at?
           </label>
           <Popover open={open} onOpenChange={setOpen}>
@@ -136,7 +136,7 @@ export default function CheckIn() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               className="flex items-center justify-center gap-2 rounded-xl bg-accent py-6 text-base font-bold text-accent-foreground"
-              style={{ fontFamily: 'Space Grotesk' }}
+             
             >
               <Check className="h-5 w-5" />
               Checked In!
@@ -146,7 +146,7 @@ export default function CheckIn() {
               <Button
                 onClick={handleCheckIn}
                 className="w-full rounded-xl py-6 text-base font-bold"
-                style={{ fontFamily: 'Space Grotesk' }}
+               
               >
                 Check In Here
               </Button>
@@ -165,7 +165,7 @@ export default function CheckIn() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
             </span>
-            <h2 className="text-lg font-bold tracking-tight" style={{ fontFamily: 'Space Grotesk' }}>
+            <h2 className="text-lg font-bold tracking-tight">
               Live Vibe
             </h2>
             <span className="text-xs text-muted-foreground ml-auto">Tap to vote</span>

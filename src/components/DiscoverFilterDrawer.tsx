@@ -119,7 +119,7 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
 
             {/* Header */}
             <div className="flex items-center justify-between px-6 pb-3">
-              <h3 className="text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>
+              <h3 className="text-lg font-bold">
                 Filters
               </h3>
               <button

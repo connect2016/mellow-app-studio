@@ -410,7 +410,7 @@ export default function BuddyHeatmap() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               className="flex items-center justify-center gap-2 rounded-2xl bg-accent py-4 text-base font-bold text-accent-foreground"
-              style={{ fontFamily: 'Space Grotesk' }}
+             
             >
               <MapPin className="h-5 w-5" />
               You're on the map!
@@ -421,7 +421,7 @@ export default function BuddyHeatmap() {
                 onClick={handleCheckIn}
                 disabled={checkingIn}
                 className="w-full rounded-2xl py-6 text-base font-bold gap-2"
-                style={{ fontFamily: 'Space Grotesk' }}
+               
               >
                 {checkingIn ? (
                   <>

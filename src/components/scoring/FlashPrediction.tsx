@@ -66,7 +66,7 @@ export function FlashPrediction({
           <div className="flex items-center justify-between px-4 py-2 bg-secondary/10">
             <div className="flex items-center gap-2">
               <Zap className="h-4 w-4 text-secondary" />
-              <span className="text-xs font-bold text-foreground" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
+              <span className="text-xs font-bold text-foreground">
                 PREDICT NEXT AT-BAT
               </span>
             </div>

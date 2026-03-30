@@ -242,7 +242,7 @@ export function FlashMeetupsPanel() {
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
         <div className="flex items-center gap-2">
           <Zap className="h-4 w-4 text-amber-500" />
-          <h3 className="text-sm font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+          <h3 className="text-sm font-bold text-foreground">
             Flash Meetups
           </h3>
           {liveMeetups.length > 0 && (

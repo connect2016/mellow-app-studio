@@ -83,7 +83,7 @@ export default function Missions() {
               >
                 🎖️
               </motion.div>
-              <h2 className="text-3xl font-bold text-primary-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+              <h2 className="text-3xl font-bold text-primary-foreground mb-2">
                 Mission Complete!
               </h2>
               <p className="text-primary-foreground/80 text-lg">Reward claimed</p>
@@ -103,7 +103,7 @@ export default function Missions() {
             <div>
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Your Points</p>
               <div className="flex items-baseline gap-2 mt-1">
-                <span className="text-3xl font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+                <span className="text-3xl font-bold text-foreground">
                   {totalPoints}
                 </span>
                 <span className={`text-sm font-semibold ${tier.color}`}>

@@ -44,7 +44,7 @@ export function GuestGateModal({ open, onClose, action = 'do that' }: GuestGateM
 
               <h2
                 className="text-xl font-bold text-foreground mb-1"
-                style={{ fontFamily: 'Space Grotesk' }}
+               
               >
                 Sign Up to Join the Fun
               </h2>

@@ -28,7 +28,7 @@ function SquadCard({ squad, onActivate, isActivating }: { squad: Squad; onActiva
           <span className="text-xl mt-0.5 shrink-0">{squad.vibe_emoji}</span>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5">
-              <p className="text-sm font-bold text-foreground leading-snug" style={{ fontFamily: 'Barlow Condensed' }}>
+              <p className="text-sm font-bold text-foreground leading-snug">
                 {squad.squad_name}
               </p>
               <span
@@ -177,7 +177,7 @@ export function SquadMatcherPanel() {
               <Sparkles className="h-4 w-4 text-primary" />
             </motion.div>
           </div>
-          <h3 className="text-sm font-bold text-foreground" style={{ fontFamily: 'Barlow Condensed' }}>
+          <h3 className="text-sm font-bold text-foreground">
             AI Squad Matcher
           </h3>
           {totalFans > 0 && (

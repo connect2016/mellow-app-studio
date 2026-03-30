@@ -255,13 +255,13 @@ export function WelcomeTour() {
 
                 <p
                   className="text-xs font-bold uppercase tracking-wider text-secondary mb-1"
-                  style={{ fontFamily: 'Space Grotesk' }}
+                 
                 >
                   Step {step + 1} of {TOUR_STEPS.length + 1}
                 </p>
                 <h3
                   className="text-lg font-bold text-foreground mb-2"
-                  style={{ fontFamily: 'Space Grotesk' }}
+                 
                 >
                   {currentStep.title}
                 </h3>
@@ -357,14 +357,14 @@ export function WelcomeTour() {
 
               <p
                 className="text-xs font-bold uppercase tracking-wider text-secondary mb-2"
-                style={{ fontFamily: 'Space Grotesk' }}
+               
               >
                 Step {TOUR_STEPS.length + 1} of {TOUR_STEPS.length + 1}
               </p>
 
               <h2
                 className="text-2xl font-bold text-foreground mb-2"
-                style={{ fontFamily: 'Space Grotesk' }}
+               
               >
                 Wrigleyville is Better Together
               </h2>

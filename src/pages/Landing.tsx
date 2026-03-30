@@ -94,7 +94,7 @@ export default function Landing() {
             
             <h2
               className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-              style={{ fontFamily: 'Space Grotesk' }}>
+             >
               
               More Than a Game.{' '}
               <span className="text-secondary">It's a Community.</span>
@@ -147,7 +147,7 @@ export default function Landing() {
             
             <h2
               className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-              style={{ fontFamily: 'Space Grotesk' }}>
+             >
               
               Everything You Need on{' '}
               <span className="text-primary">Game Day</span>
@@ -173,7 +173,7 @@ export default function Landing() {
                 </div>
                 <h3
                 className="mb-1 text-lg font-semibold text-card-foreground"
-                style={{ fontFamily: 'Space Grotesk' }}>
+               >
                 
                   {f.title}
                 </h3>

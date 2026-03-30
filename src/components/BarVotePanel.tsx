@@ -30,7 +30,7 @@ export function BarVotePanel({ barName, onClose }: { barName: string; onClose: (
     >
       <div className="rounded-xl border border-border bg-card p-3 mt-2 space-y-3">
         <div>
-          <p className="text-xs font-semibold text-muted-foreground mb-1.5" style={{ fontFamily: 'Space Grotesk' }}>
+          <p className="text-xs font-semibold text-muted-foreground mb-1.5">
             ⏱ Wait Time
           </p>
           <div className="flex gap-1.5">
@@ -51,7 +51,7 @@ export function BarVotePanel({ barName, onClose }: { barName: string; onClose: (
         </div>
 
         <div>
-          <p className="text-xs font-semibold text-muted-foreground mb-1.5" style={{ fontFamily: 'Space Grotesk' }}>
+          <p className="text-xs font-semibold text-muted-foreground mb-1.5">
             🎶 Vibe
           </p>
           <div className="flex gap-1.5">

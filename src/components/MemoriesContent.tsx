@@ -158,7 +158,7 @@ export default function MemoriesContent() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-lg font-bold text-yellow-300" style={{ fontFamily: 'Space Grotesk' }}>Game Memories</h2>
+          <h2 className="text-lg font-bold text-yellow-300">Game Memories</h2>
           <p className="text-xs text-destructive-foreground">Capture & share your game day moments</p>
         </div>
         <label className="cursor-pointer">
@@ -180,7 +180,7 @@ export default function MemoriesContent() {
             <div className="flex items-center justify-center h-7 w-7 rounded-full bg-accent/20">
               <Sparkles className="h-4 w-4 text-accent" />
             </div>
-            <span className="text-sm font-bold text-accent" style={{ fontFamily: 'Space Grotesk' }}>Your Game Day Story</span>
+            <span className="text-sm font-bold text-accent">Your Game Day Story</span>
           </div>
           <div className="grid grid-cols-3 gap-3">
             {dayStats.newFans > 0 && (

@@ -220,7 +220,7 @@ export function PostGameExperience() {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="text-xl">{headerEmoji}</span>
-              <h3 className="text-base font-bold text-foreground" style={{ fontFamily: 'Space Grotesk' }}>
+              <h3 className="text-base font-bold text-foreground">
                 {headerTitle}
               </h3>
             </div>

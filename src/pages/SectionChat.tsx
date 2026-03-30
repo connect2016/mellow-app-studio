@@ -56,7 +56,7 @@ export default function SectionChat() {
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
           <p className="text-5xl mb-4">🏟️</p>
-          <h2 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+          <h2 className="text-xl font-bold text-foreground mb-2">
             Set Your Section First
           </h2>
           <p className="text-sm text-muted-foreground mb-6 max-w-xs">
@@ -77,7 +77,7 @@ export default function SectionChat() {
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
           <p className="text-5xl mb-4">📅</p>
-          <h2 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: 'Space Grotesk' }}>
+          <h2 className="text-xl font-bold text-foreground mb-2">
             No Game Today
           </h2>
           <p className="text-sm text-muted-foreground max-w-xs">
@@ -109,7 +109,7 @@ export default function SectionChat() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-lg">🏟️</span>
-              <h2 className="text-base font-bold text-foreground truncate" style={{ fontFamily: 'Space Grotesk' }}>
+              <h2 className="text-base font-bold text-foreground truncate">
                 Section {section} Chat
               </h2>
             </div>

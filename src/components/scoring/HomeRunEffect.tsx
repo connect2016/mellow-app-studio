@@ -144,7 +144,7 @@ export function HomeRunEffect({ trigger, playType }: HomeRunEffectProps) {
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ repeat: 3, duration: 0.3 }}
                 className="text-2xl font-black tracking-tight text-center whitespace-nowrap"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+               
               >
                 {label}
               </motion.p>

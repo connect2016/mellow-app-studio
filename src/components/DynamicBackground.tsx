@@ -24,6 +24,8 @@ const ROUTE_IMAGE_MAP: Record<string, string> = {
   '/crews': bgBar,
   '/gameday': bgPatio,
   '/missions': bgBleachers,
+  '/onboarding': bgConcourse,
+  '/check-in': bgBar,
   '/': bgConcourse,
 };
 

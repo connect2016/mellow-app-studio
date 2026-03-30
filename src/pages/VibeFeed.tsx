@@ -458,6 +458,6 @@ export default function VibeFeed() {
         </Tabs>
       </main>
       {isGuest && <GuestBanner />}
-    </div>
+    </DynamicBackground>
   );
 }

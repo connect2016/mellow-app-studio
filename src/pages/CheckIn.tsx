@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useToast } from '@/hooks/use-toast';
 import { MapPin, Check, ChevronsUpDown, Zap, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';

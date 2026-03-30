@@ -395,7 +395,7 @@ export default function Onboarding() {
               {/* Step 2: Intent cards */}
               {step === 2 && (
                 <div className="space-y-4">
-                  <p className="text-sm text-muted-foreground">Select all that apply</p>
+                  <p className="text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px hsl(222, 82%, 29%)', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.5))' }}>Select all that apply</p>
                   <div className="grid grid-cols-2 gap-3">
                     {intentCards.map((card) => {
                       const isSelected = intents.includes(card.value);

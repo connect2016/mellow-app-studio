@@ -1,5 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import wrigleySeatsImg from '@/assets/wrigley-seats.jpg';
+import bgConcourse from '@/assets/bg-concourse.jpg';
+import bgField from '@/assets/bg-field.jpg';
+import bgRizzo from '@/assets/bg-rizzo.jpg';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -173,6 +176,9 @@ export default function Onboarding() {
     if (step > 1) setStep(step - 1);
   };
 
+  const STEP_BACKGROUNDS = useMemo(() => [bgConcourse, bgField, bgRizzo, wrigleySeatsImg], []);
+  const stepBg = STEP_BACKGROUNDS[step - 1];
+
   if (loading) return null;
 
   // Celebration overlay
@@ -230,16 +236,17 @@ export default function Onboarding() {
 
   const currentMeta = stepMeta[step - 1];
 
+
   return (
     <div
       className="flex min-h-screen flex-col bg-background relative"
-      style={step === 4 ? {
-        backgroundImage: `url(${wrigleySeatsImg})`,
+      style={{
+        backgroundImage: `url(${stepBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-      } : undefined}
+      }}
     >
-      {step === 4 && <div className="absolute inset-0 bg-background/50 backdrop-blur-[2px]" />}
+      <div className="absolute inset-0 bg-background/50 backdrop-blur-[2px]" />
       {/* Top bar with progress */}
       <div className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="mx-auto max-w-md px-5 py-4">

@@ -448,7 +448,7 @@ export default function Onboarding() {
                   {/* Gameday Intent Badges */}
                   <div className="pt-4 border-t border-border">
                      <h3 className="text-base font-bold" style={{ color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))' }}>🏟️ Gameday Intent</h3>
-                     <p className="text-sm font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px hsl(222, 82%, 29%)', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.5))' }}>Pick 2–3 badges that show up on your card</p>
+                     <p className="text-sm font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Pick 2–3 badges that show up on your card</p>
                     <div className="grid grid-cols-2 gap-3">
                       {gamedayIntentCards.map((card) => {
                         const isSelected = gamedayIntents.includes(card.value);

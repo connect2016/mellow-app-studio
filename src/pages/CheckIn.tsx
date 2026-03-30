@@ -4,7 +4,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-import { MapPin, Check, ChevronsUpDown, Zap, Users } from 'lucide-react';
+import { MapPin, Check, Zap, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useBarVotes } from '@/hooks/useBarVotes';
 import { BarVibeBadge } from '@/components/BarVibeBadge';

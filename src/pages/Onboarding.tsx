@@ -380,7 +380,7 @@ export default function Onboarding() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-base font-bold" style={{ color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))' }}>Pronouns</Label>
+                      <Label className="text-base font-bold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Pronouns</Label>
                       <Input
                         placeholder="e.g. she/her"
                         value={pronouns}

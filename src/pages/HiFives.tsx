@@ -116,8 +116,8 @@ export default function HiFives() {
     <DynamicBackground className="pb-24">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4">
-        <h2 className="mb-1 text-lg font-bold" style={{ fontFamily: 'Space Grotesk' }}>Hi-Fives</h2>
-        <p className="mb-6 text-sm text-muted-foreground">Fans who sent you a Hi-Five 🖐️ — tap to reply!</p>
+        <h2 className="mb-1 text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>Hi-Fives</h2>
+        <p className="mb-6 text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px hsl(222, 82%, 29%)', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))' }}>Fans who sent you a Hi-Five 🖐️ — tap to reply!</p>
 
         {isLoading ? (
           <div className="py-20 text-center">

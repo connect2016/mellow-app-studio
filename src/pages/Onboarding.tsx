@@ -290,12 +290,34 @@ export default function Onboarding() {
             >
               {/* Step header */}
               <div className="flex items-center gap-3 mb-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-3xl">
                   {currentMeta.emoji}
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-foreground">{currentMeta.title}</h2>
-                  <p className="text-sm text-muted-foreground">{currentMeta.subtitle}</p>
+                  <h2
+                    className="text-2xl sm:text-3xl font-extrabold"
+                    style={{
+                      fontFamily: 'Montserrat, sans-serif',
+                      color: 'hsl(222, 82%, 29%)',
+                      WebkitTextStroke: '2px white',
+                      paintOrder: 'stroke fill',
+                      filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))',
+                      letterSpacing: '0.03em',
+                    }}
+                  >
+                    {currentMeta.title}
+                  </h2>
+                  <p
+                    className="text-base sm:text-lg font-semibold"
+                    style={{
+                      color: 'white',
+                      WebkitTextStroke: '0.5px hsl(222, 82%, 29%)',
+                      paintOrder: 'stroke fill',
+                      filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))',
+                    }}
+                  >
+                    {currentMeta.subtitle}
+                  </p>
                 </div>
               </div>
 
@@ -337,7 +359,7 @@ export default function Onboarding() {
                   </p>
 
                   <div className="space-y-2">
-                    <Label className="font-semibold">Display Name</Label>
+                    <Label className="text-base font-bold" style={{ color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))' }}>Display Name</Label>
                     <Input
                       placeholder="How fans will know you"
                       value={displayName}
@@ -348,7 +370,7 @@ export default function Onboarding() {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-2">
-                      <Label className="font-semibold">Age</Label>
+                     <Label className="text-base font-bold" style={{ color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))' }}>Age</Label>
                       <Input
                         type="number"
                         placeholder="21+"
@@ -358,7 +380,7 @@ export default function Onboarding() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label className="font-semibold">Pronouns</Label>
+                      <Label className="text-base font-bold" style={{ color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))' }}>Pronouns</Label>
                       <Input
                         placeholder="e.g. she/her"
                         value={pronouns}
@@ -373,7 +395,7 @@ export default function Onboarding() {
               {/* Step 2: Intent cards */}
               {step === 2 && (
                 <div className="space-y-4">
-                  <p className="text-sm text-muted-foreground">Select all that apply</p>
+                  <p className="text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px hsl(222, 82%, 29%)', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.5))' }}>Select all that apply</p>
                   <div className="grid grid-cols-2 gap-3">
                     {intentCards.map((card) => {
                       const isSelected = intents.includes(card.value);
@@ -425,8 +447,8 @@ export default function Onboarding() {
 
                   {/* Gameday Intent Badges */}
                   <div className="pt-4 border-t border-border">
-                    <h3 className="text-sm font-bold text-foreground mb-1">🏟️ Gameday Intent</h3>
-                    <p className="text-xs text-muted-foreground mb-3">Pick 2–3 badges that show up on your card</p>
+                     <h3 className="text-base font-bold" style={{ color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))' }}>🏟️ Gameday Intent</h3>
+                     <p className="text-sm font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px hsl(222, 82%, 29%)', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.5))' }}>Pick 2–3 badges that show up on your card</p>
                     <div className="grid grid-cols-2 gap-3">
                       {gamedayIntentCards.map((card) => {
                         const isSelected = gamedayIntents.includes(card.value);
@@ -469,7 +491,7 @@ export default function Onboarding() {
               {step === 3 && (
                 <div className="space-y-5">
                   <div className="space-y-2">
-                    <Label className="font-semibold">Favorite Player</Label>
+                    <Label className="text-base font-bold" style={{ color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))' }}>Favorite Player</Label>
                     <Input
                       placeholder="Current or all-time hero"
                       value={favoritePlayer}
@@ -479,7 +501,7 @@ export default function Onboarding() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="font-semibold">Favorite Cubs Moment</Label>
+                    <Label className="text-base font-bold" style={{ color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))' }}>Favorite Cubs Moment</Label>
                     <Textarea
                       placeholder="Your most memorable Cubs moment..."
                       value={favoriteMoment}
@@ -556,7 +578,7 @@ export default function Onboarding() {
               {/* Step 4: Game Day Preferences */}
               {step === 4 && (
                 <div className="space-y-5">
-                  <p className="text-sm text-muted-foreground">All optional — fill in what you like</p>
+                  <p className="text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px hsl(222, 82%, 29%)', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.5))' }}>All optional — fill in what you like</p>
 
                   <div className="rounded-2xl border border-border bg-card p-4 space-y-4">
                     <div className="flex items-center gap-2">

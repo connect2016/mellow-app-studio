@@ -27,7 +27,7 @@ const Index = () => {
 
         <TrendingNow />
       </main>
-    </div>
+    </DynamicBackground>
   );
 };
 

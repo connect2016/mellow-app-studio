@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Compass, Zap, MessageCircle, User, Settings, Radio, Users, Camera, Bell, Beer } from 'lucide-react';
+import { Compass, Zap, MessageCircle, User, Settings, Radio, Users, Camera, Bell, Beer, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
-  { to: '/discover', icon: Compass, label: 'The Concourse' },
+  { to: '/discover', icon: Home, label: 'Home' },
   { to: '/vibe', icon: Radio, label: 'Vibe' },
   { to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
   { to: '/profile', icon: User, label: 'Your Stats' },

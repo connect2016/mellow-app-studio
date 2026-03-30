@@ -23,7 +23,7 @@ const Index = () => {
           <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>
             Welcome back 👋
           </h1>
-          <p className="text-base font-semibold mt-1" style={{ color: 'white', WebkitTextStroke: '0.5px hsl(222, 82%, 29%)', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))' }}>Here's what's happening in Wrigleyville</p>
+          <p className="text-base font-semibold mt-1" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Here's what's happening in Wrigleyville</p>
         </div>
 
         <TrendingNow />

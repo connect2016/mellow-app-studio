@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DynamicBackground } from '@/components/DynamicBackground';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -62,7 +63,7 @@ export default function BeerMoney() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <DynamicBackground>
       <AppHeader />
 
       {/* Beer celebration overlay */}
@@ -326,6 +327,6 @@ export default function BeerMoney() {
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </DynamicBackground>
   );
 }

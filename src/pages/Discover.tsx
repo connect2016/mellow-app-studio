@@ -21,7 +21,7 @@ import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { PostGameExperience } from '@/components/PostGameExperience';
 import { CubsScoreboard } from '@/components/CubsScoreboard';
 import { useGamedayMode } from '@/contexts/GamedayModeContext';
-import bgWrigleyville from '@/assets/bg-wrigleyville.jpg';
+import bgWrigleyville from '@/assets/bg-wrigleyville-lofts.jpg';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';

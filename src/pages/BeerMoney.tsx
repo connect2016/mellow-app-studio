@@ -327,6 +327,6 @@ export default function BeerMoney() {
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </DynamicBackground>
   );
 }

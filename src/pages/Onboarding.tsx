@@ -164,6 +164,7 @@ export default function Onboarding() {
           wrigley_location_privacy: locationPrivacy,
           wrigleyville_bar: bar || null,
           bar_location_privacy: barPrivacy,
+          gameday_persona: gamedayPersona,
           onboarding_completed: true,
         });
         setShowCelebration(true);

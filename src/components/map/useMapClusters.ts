@@ -166,6 +166,7 @@ export function useMapClusters(
           movement,
           locationLabel,
           gameStatus: f.game_status ?? 'NotSet',
+          persona: (f as any).gameday_persona ?? null,
         };
       }).filter(Boolean) as MapFan[];
     },

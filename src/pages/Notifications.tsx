@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications, useMarkRead, useMarkAllRead, useClearNotifications } from '@/hooks/useNotifications';
 import { Button } from '@/components/ui/button';
 import { Bell, Check, CheckCheck, Trash2 } from 'lucide-react';
+import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
 
 export default function Notifications() {
   const navigate = useNavigate();
@@ -48,7 +49,10 @@ export default function Notifications() {
   ].filter(g => g.items.length > 0);
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="relative min-h-screen pb-24">
+      <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgFansBleachers})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.55)' }} />
+      <div className="relative z-10">
       <AppHeader />
 
       <div className="mx-auto max-w-lg px-4 pt-4">
@@ -166,6 +170,7 @@ export default function Notifications() {
             ))}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

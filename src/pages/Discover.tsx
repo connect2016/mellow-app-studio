@@ -305,6 +305,11 @@ export default function Discover() {
           <Switch checked={gamedayMode} onCheckedChange={toggleGamedayMode} />
         </div>
 
+        {/* Dynamic Gameday State Hero */}
+        <div className="mb-4">
+          <GamedayStateHero />
+        </div>
+
         {/* Cubs Scoreboard (only in Gameday Mode) */}
         {gamedayMode && (
           <div className="mb-4">

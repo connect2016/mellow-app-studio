@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications, useMarkRead, useMarkAllRead, useClearNotifications } from '@/hooks/useNotifications';
 import { Button } from '@/components/ui/button';
 import { Bell, Check, CheckCheck, Trash2 } from 'lucide-react';
+import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
 
 export default function Notifications() {
   const navigate = useNavigate();

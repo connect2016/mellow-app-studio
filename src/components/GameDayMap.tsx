@@ -118,7 +118,10 @@ export function GameDayMap() {
         </div>
       </div>
 
-      {/* Filters */}
+      {/* Quick Filter Bar */}
+      <QuickFilterBar active={quickFilter} onChange={setQuickFilter} />
+
+      {/* Advanced Filters */}
       <MapFilters
         vibes={vibeFilters}
         sizes={sizeFilters}

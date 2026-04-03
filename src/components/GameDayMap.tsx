@@ -8,7 +8,10 @@ import { toast } from 'sonner';
 import { MapFilters, type VibeFilter, type SizeFilter, type MovementFilter } from './map/MapFilters';
 import { ClusterMarkerComponent, type MapCluster } from './map/ClusterMarker';
 import { QuickActionBar } from './map/QuickActionBar';
-import { useMapClusters } from './map/useMapClusters';
+import { useMapClusters, type MapFan } from './map/useMapClusters';
+import { StatusBubbleMarker } from './map/StatusBubbleMarker';
+import { MiniProfileSheet } from './map/MiniProfileSheet';
+import { useSendLike } from '@/hooks/useInteractions';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 

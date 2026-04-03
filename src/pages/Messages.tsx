@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Send, MessageCircle, ArrowLeft } from 'lucide-react';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
+import bgWrigleyPlayball from '@/assets/bg-wrigley-playball.png';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   useConversations,
@@ -47,7 +48,10 @@ export default function Messages() {
 
   if (selectedConvoId && selectedConvo) {
     return (
-      <div className="flex min-h-screen flex-col bg-background pb-24">
+      <div className="relative flex min-h-screen flex-col pb-24">
+        <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgWrigleyPlayball})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.55)' }} />
+        <div className="relative z-10 flex flex-1 flex-col">
         <AppHeader />
         <div className="mx-auto w-full max-w-lg flex-1 flex flex-col">
           <div className="flex items-center gap-3 border-b border-border px-4 py-3 bg-card/50">
@@ -115,11 +119,15 @@ export default function Messages() {
           </div>
         </div>
       </div>
+      </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="relative min-h-screen pb-24">
+      <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgWrigleyPlayball})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.55)' }} />
+      <div className="relative z-10">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4">
         <h2 className="mb-4 text-lg font-bold">Messages</h2>
@@ -179,6 +187,7 @@ export default function Messages() {
             })}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

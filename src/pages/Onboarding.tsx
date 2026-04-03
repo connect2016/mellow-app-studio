@@ -84,6 +84,7 @@ export default function Onboarding() {
   const [bar, setBar] = useState('');
   const [locationPrivacy, setLocationPrivacy] = useState<PrivacyLevel>('MatchesOnly');
   const [barPrivacy, setBarPrivacy] = useState<PrivacyLevel>('MatchesOnly');
+  const [gamedayPersona, setGamedayPersona] = useState<string | null>(null);
   const [showCelebration, setShowCelebration] = useState(false);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);

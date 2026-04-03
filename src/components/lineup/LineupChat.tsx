@@ -72,8 +72,8 @@ export function LineupChat({ meetup, open, onClose }: LineupChatProps) {
               {messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
                   <p className="text-3xl mb-2">⚾</p>
-                  <p className="text-sm font-semibold text-foreground">The dugout's empty</p>
-                  <p className="text-xs text-muted-foreground">Be the first to say something!</p>
+                   <p className="text-sm font-semibold text-foreground">The bases are empty!</p>
+                   <p className="text-xs text-muted-foreground">Be the first to start a conversation.</p>
                 </div>
               ) : (
                 messages.map((msg) => {

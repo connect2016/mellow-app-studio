@@ -354,8 +354,8 @@ export default function BuddyHeatmap() {
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="bg-card/90 backdrop-blur-md rounded-2xl border border-border px-6 py-5 text-center max-w-[280px] pointer-events-auto">
               <p className="text-3xl mb-2">📍</p>
-              <p className="text-sm font-semibold text-foreground mb-1">The bleachers are empty.</p>
-              <p className="text-xs text-muted-foreground">Be the first to check in and start a rally!</p>
+               <p className="text-sm font-semibold text-foreground mb-1">The bases are empty!</p>
+               <p className="text-xs text-muted-foreground">Be the first to start a conversation — check in and scout the area!</p>
             </div>
           </div>
         )}

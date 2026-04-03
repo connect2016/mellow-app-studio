@@ -35,6 +35,7 @@ export function GameDayMap() {
   const [movementFilters, setMovementFilters] = useState<MovementFilter[]>([]);
   const [selectedCluster, setSelectedCluster] = useState<MapCluster | null>(null);
   const [selectedFan, setSelectedFan] = useState<MapFan | null>(null);
+  const [quickFilter, setQuickFilter] = useState<QuickMapFilter>('all');
 
   const toggleArray = <T,>(arr: T[], item: T): T[] =>
     arr.includes(item) ? arr.filter((x) => x !== item) : [...arr, item];

@@ -182,6 +182,13 @@ export function GameDayMap() {
             onJoin={() => toast.success("You're heading over! 🎉")}
           />
         </AnimatePresence>
+
+        {/* Mini-profile sheet */}
+        <MiniProfileSheet
+          fan={selectedFan}
+          onClose={() => setSelectedFan(null)}
+          onHiFive={handleHiFive}
+        />
       </div>
     </motion.div>
   );

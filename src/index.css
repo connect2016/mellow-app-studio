@@ -233,3 +233,27 @@ body::before {
     0 2px 8px hsl(var(--primary) / 0.1);
   overflow: hidden;
 }
+
+/* Ticket-stub notched button shape */
+.ticket-btn {
+  position: relative;
+}
+.ticket-btn::before,
+.ticket-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--background));
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+.ticket-btn::before {
+  left: -4px;
+}
+.ticket-btn::after {
+  right: -4px;
+}

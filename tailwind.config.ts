@@ -103,6 +103,7 @@ export default {
       },
       fontFamily: {
         scoreboard: ["'Share Tech Mono'", "'Courier New'", "monospace"],
+        heading: ["'Graduate'", "'Rye'", "'Barlow Condensed'", "serif"],
       },
     },
   },

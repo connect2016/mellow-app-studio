@@ -244,7 +244,7 @@ export default function BallparkBuddy() {
            
           >
             <Search className="mr-2 h-5 w-5" />
-            Find Buddies
+            Scout the Area
           </Button>
         </div>
 

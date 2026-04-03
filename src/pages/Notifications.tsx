@@ -171,6 +171,7 @@ export default function Notifications() {
           </div>
         )}
       </div>
+      </div>
     </div>
   );
 }

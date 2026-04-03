@@ -50,6 +50,7 @@ export interface MapFan {
   movement: MovementFilter;
   locationLabel: string;
   gameStatus: string;
+  persona: string | null;
 }
 
 function clusterFans(

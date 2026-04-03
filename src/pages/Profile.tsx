@@ -151,6 +151,7 @@ export default function Profile() {
                 </span>
               )}
               <IvyLeafBadge userId={profileUserId} />
+              <PersonaBadge persona={(profile as any)?.gameday_persona} />
             </div>
             {displayUser.pronouns && <p className="text-sm text-muted-foreground mt-0.5">{displayUser.pronouns}</p>}
           </div>

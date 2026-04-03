@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 import { Shield, Eye, Ban, Flag, LogOut, Trash2 } from 'lucide-react';
+import bgCubsFansCelebrating from '@/assets/bg-cubs-fans-celebrating.png';
 
 export default function Settings() {
   const { toast } = useToast();
@@ -15,7 +16,9 @@ export default function Settings() {
   const [barPrivacy, setBarPrivacy] = useState('MatchesOnly');
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen bg-background pb-24 relative">
+      <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgCubsFansCelebrating})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.50)' }} />
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4 space-y-6">
         <h2 className="text-lg font-bold">Front Office</h2>

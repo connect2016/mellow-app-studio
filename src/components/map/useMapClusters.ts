@@ -51,6 +51,8 @@ export interface MapFan {
   locationLabel: string;
   gameStatus: string;
   persona: string | null;
+  isRecentlyActive: boolean;
+  intent: string[];
 }
 
 function clusterFans(
@@ -110,7 +112,7 @@ export function useMapClusters(
       const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
       const { data: fans } = await supabase
         .from('profiles')
-        .select('user_id, display_name, profile_photo, game_status, wrigley_section, wrigleyville_bar, gameday_intents, fan_style, location_last_set_at, home_lat, home_lng, work_lat, work_lng, gameday_persona')
+        .select('user_id, display_name, profile_photo, game_status, wrigley_section, wrigleyville_bar, gameday_intents, fan_style, location_last_set_at, home_lat, home_lng, work_lat, work_lng, gameday_persona, intent')
         .eq('is_banned', false)
         .eq('onboarding_completed', true)
         .neq('game_status', 'NotSet')
@@ -155,6 +157,9 @@ export function useMapClusters(
         const fuzzy = fuzzyLocation(lat, lng, 200);
         const vibe = inferVibe(f.gameday_intents, f.fan_style);
         const movement = inferMovement(f.location_last_set_at);
+        const isRecentlyActive = f.location_last_set_at
+          ? (Date.now() - new Date(f.location_last_set_at).getTime()) < 30 * 60 * 1000
+          : false;
 
         return {
           id: f.user_id,
@@ -167,6 +172,8 @@ export function useMapClusters(
           locationLabel,
           gameStatus: f.game_status ?? 'NotSet',
           persona: (f as any).gameday_persona ?? null,
+          isRecentlyActive,
+          intent: (f.intent as string[]) ?? [],
         };
       }).filter(Boolean) as MapFan[];
     },

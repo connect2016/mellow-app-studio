@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { MapFilters, type VibeFilter, type SizeFilter, type MovementFilter } from './map/MapFilters';
+import { QuickFilterBar, type QuickMapFilter } from './map/QuickFilterBar';
 import { ClusterMarkerComponent, type MapCluster } from './map/ClusterMarker';
 import { QuickActionBar } from './map/QuickActionBar';
 import { useMapClusters, type MapFan } from './map/useMapClusters';
@@ -34,21 +35,35 @@ export function GameDayMap() {
   const [movementFilters, setMovementFilters] = useState<MovementFilter[]>([]);
   const [selectedCluster, setSelectedCluster] = useState<MapCluster | null>(null);
   const [selectedFan, setSelectedFan] = useState<MapFan | null>(null);
+  const [quickFilter, setQuickFilter] = useState<QuickMapFilter>('all');
 
   const toggleArray = <T,>(arr: T[], item: T): T[] =>
     arr.includes(item) ? arr.filter((x) => x !== item) : [...arr, item];
 
   const { clusters, totalFans, fans } = useMapClusters(vibeFilters, sizeFilters, movementFilters);
 
-  // Show individual markers for solo/small clusters, clusters for larger groups
+  // Apply quick filter on top of clustered fans
   const soloFans = useMemo(() => {
-    // Fans in clusters of 1-2 get individual markers
     const clusteredIds = new Set<string>();
     clusters.filter(c => c.count >= 3).forEach(c => {
-      c.members.forEach(m => clusteredIds.add(m.name)); // name-based rough match
+      c.members.forEach(m => clusteredIds.add(m.name));
     });
-    return fans.filter(f => !clusteredIds.has(f.name));
-  }, [fans, clusters]);
+    let filtered = fans.filter(f => !clusteredIds.has(f.name));
+
+    // Quick filter logic
+    if (quickFilter === 'in-stadium') {
+      filtered = filtered.filter(f => f.gameStatus === 'AtWrigley');
+    } else if (quickFilter === 'bars') {
+      filtered = filtered.filter(f => f.gameStatus === 'AtBar');
+    } else if (quickFilter === 'looking-for-buddy') {
+      filtered = filtered.filter(f =>
+        f.intent.some(i => ['FriendToWatch', 'ShareABeer', 'PostGameMeetup'].includes(i))
+      );
+    }
+
+    return filtered;
+  }, [fans, clusters, quickFilter]);
+  
 
   const handleHiFive = (fan: MapFan) => {
     sendLike.mutate(
@@ -103,7 +118,10 @@ export function GameDayMap() {
         </div>
       </div>
 
-      {/* Filters */}
+      {/* Quick Filter Bar */}
+      <QuickFilterBar active={quickFilter} onChange={setQuickFilter} />
+
+      {/* Advanced Filters */}
       <MapFilters
         vibes={vibeFilters}
         sizes={sizeFilters}

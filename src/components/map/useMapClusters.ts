@@ -200,5 +200,5 @@ export function useMapClusters(
     return allClusters;
   }, [rawFans, vibeFilters, sizeFilters, movementFilters]);
 
-  return { clusters, totalFans: rawFans.length };
+  return { clusters, totalFans: rawFans.length, fans: rawFans };
 }

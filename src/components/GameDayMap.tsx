@@ -38,7 +38,24 @@ export function GameDayMap() {
   const toggleArray = <T,>(arr: T[], item: T): T[] =>
     arr.includes(item) ? arr.filter((x) => x !== item) : [...arr, item];
 
-  const { clusters, totalFans } = useMapClusters(vibeFilters, sizeFilters, movementFilters);
+  const { clusters, totalFans, fans } = useMapClusters(vibeFilters, sizeFilters, movementFilters);
+
+  // Show individual markers for solo/small clusters, clusters for larger groups
+  const soloFans = useMemo(() => {
+    // Fans in clusters of 1-2 get individual markers
+    const clusteredIds = new Set<string>();
+    clusters.filter(c => c.count >= 3).forEach(c => {
+      c.members.forEach(m => clusteredIds.add(m.name)); // name-based rough match
+    });
+    return fans.filter(f => !clusteredIds.has(f.name));
+  }, [fans, clusters]);
+
+  const handleHiFive = (fan: MapFan) => {
+    sendLike.mutate(
+      { toUser: fan.id, isHiFive: true, message: '🖐️ High-Five from the map!' },
+      { onSuccess: () => setSelectedFan(null) }
+    );
+  };
 
   const allPositions = useMemo(() => {
     const pts: [number, number][] = [WRIGLEY_CENTER];

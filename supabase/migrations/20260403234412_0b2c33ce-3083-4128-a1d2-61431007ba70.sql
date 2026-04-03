@@ -1,0 +1,1 @@
+ALTER TABLE public.profiles ADD COLUMN gameday_persona text DEFAULT NULL;

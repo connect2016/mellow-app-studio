@@ -63,7 +63,7 @@ export function GameDayMap() {
 
     return filtered;
   }, [fans, clusters, quickFilter]);
-  }, [fans, clusters]);
+  
 
   const handleHiFive = (fan: MapFan) => {
     sendLike.mutate(

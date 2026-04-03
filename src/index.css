@@ -3,9 +3,19 @@
 @tailwind utilities;
 
 /* Leaflet marker fixes */
-.emoji-marker, .count-marker, .cluster-marker {
+.emoji-marker, .count-marker, .cluster-marker, .photo-marker {
   background: transparent !important;
   border: none !important;
+}
+
+@keyframes map-pulse-ring {
+  0% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+  70% { transform: translateX(-50%) scale(1.35); opacity: 0; }
+  100% { transform: translateX(-50%) scale(1.35); opacity: 0; }
+}
+
+.map-active-pulse {
+  animation: map-pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes cluster-pulse {

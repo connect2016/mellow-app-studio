@@ -73,7 +73,7 @@ export function GameTriggerAnimation({ trigger, onComplete }: GameTriggerAnimati
           {trigger.type === 'flag' && (
             <motion.div
               initial={{ scale: 0, rotate: -30 }}
-              animate={{ scale: [0, 1.3, 1], rotate: [−30, 10, 0] }}
+              animate={{ scale: [0, 1.3, 1], rotate: [-30, 10, 0] }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
               className="text-8xl"
             >

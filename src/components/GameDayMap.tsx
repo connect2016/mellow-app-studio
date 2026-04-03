@@ -42,14 +42,27 @@ export function GameDayMap() {
 
   const { clusters, totalFans, fans } = useMapClusters(vibeFilters, sizeFilters, movementFilters);
 
-  // Show individual markers for solo/small clusters, clusters for larger groups
+  // Apply quick filter on top of clustered fans
   const soloFans = useMemo(() => {
-    // Fans in clusters of 1-2 get individual markers
     const clusteredIds = new Set<string>();
     clusters.filter(c => c.count >= 3).forEach(c => {
-      c.members.forEach(m => clusteredIds.add(m.name)); // name-based rough match
+      c.members.forEach(m => clusteredIds.add(m.name));
     });
-    return fans.filter(f => !clusteredIds.has(f.name));
+    let filtered = fans.filter(f => !clusteredIds.has(f.name));
+
+    // Quick filter logic
+    if (quickFilter === 'in-stadium') {
+      filtered = filtered.filter(f => f.gameStatus === 'AtWrigley');
+    } else if (quickFilter === 'bars') {
+      filtered = filtered.filter(f => f.gameStatus === 'AtBar');
+    } else if (quickFilter === 'looking-for-buddy') {
+      filtered = filtered.filter(f =>
+        f.intent.some(i => ['FriendToWatch', 'ShareABeer', 'PostGameMeetup'].includes(i))
+      );
+    }
+
+    return filtered;
+  }, [fans, clusters, quickFilter]);
   }, [fans, clusters]);
 
   const handleHiFive = (fan: MapFan) => {

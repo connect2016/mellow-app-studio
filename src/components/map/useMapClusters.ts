@@ -40,12 +40,20 @@ function inferMovement(locationSetAt: string | null): MovementFilter {
 }
 
 // Grid-based clustering: snap to ~150m cells
+export interface MapFan {
+  id: string;
+  name: string;
+  photo: string | null;
+  lat: number;
+  lng: number;
+  vibe: VibeFilter;
+  movement: MovementFilter;
+  locationLabel: string;
+  gameStatus: string;
+}
+
 function clusterFans(
-  fans: Array<{
-    id: string; name: string; photo: string | null;
-    lat: number; lng: number; vibe: VibeFilter; movement: MovementFilter;
-    locationLabel: string;
-  }>
+  fans: MapFan[]
 ): MapCluster[] {
   const gridSize = 0.0015; // ~165m
   const cells = new Map<string, typeof fans>();
@@ -156,12 +164,9 @@ export function useMapClusters(
           vibe,
           movement,
           locationLabel,
+          gameStatus: f.game_status ?? 'NotSet',
         };
-      }).filter(Boolean) as Array<{
-        id: string; name: string; photo: string | null;
-        lat: number; lng: number; vibe: VibeFilter; movement: MovementFilter;
-        locationLabel: string;
-      }>;
+      }).filter(Boolean) as MapFan[];
     },
     refetchInterval: 15000,
     enabled: !!user,
@@ -195,5 +200,5 @@ export function useMapClusters(
     return allClusters;
   }, [rawFans, vibeFilters, sizeFilters, movementFilters]);
 
-  return { clusters, totalFans: rawFans.length };
+  return { clusters, totalFans: rawFans.length, fans: rawFans };
 }

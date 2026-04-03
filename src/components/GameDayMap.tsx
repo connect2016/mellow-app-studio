@@ -8,7 +8,10 @@ import { toast } from 'sonner';
 import { MapFilters, type VibeFilter, type SizeFilter, type MovementFilter } from './map/MapFilters';
 import { ClusterMarkerComponent, type MapCluster } from './map/ClusterMarker';
 import { QuickActionBar } from './map/QuickActionBar';
-import { useMapClusters } from './map/useMapClusters';
+import { useMapClusters, type MapFan } from './map/useMapClusters';
+import { StatusBubbleMarker } from './map/StatusBubbleMarker';
+import { MiniProfileSheet } from './map/MiniProfileSheet';
+import { useSendLike } from '@/hooks/useInteractions';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 
@@ -25,15 +28,34 @@ function FitBounds({ positions }: { positions: [number, number][] }) {
 
 export function GameDayMap() {
   const { user } = useAuth();
+  const sendLike = useSendLike();
   const [vibeFilters, setVibeFilters] = useState<VibeFilter[]>([]);
   const [sizeFilters, setSizeFilters] = useState<SizeFilter[]>([]);
   const [movementFilters, setMovementFilters] = useState<MovementFilter[]>([]);
   const [selectedCluster, setSelectedCluster] = useState<MapCluster | null>(null);
+  const [selectedFan, setSelectedFan] = useState<MapFan | null>(null);
 
   const toggleArray = <T,>(arr: T[], item: T): T[] =>
     arr.includes(item) ? arr.filter((x) => x !== item) : [...arr, item];
 
-  const { clusters, totalFans } = useMapClusters(vibeFilters, sizeFilters, movementFilters);
+  const { clusters, totalFans, fans } = useMapClusters(vibeFilters, sizeFilters, movementFilters);
+
+  // Show individual markers for solo/small clusters, clusters for larger groups
+  const soloFans = useMemo(() => {
+    // Fans in clusters of 1-2 get individual markers
+    const clusteredIds = new Set<string>();
+    clusters.filter(c => c.count >= 3).forEach(c => {
+      c.members.forEach(m => clusteredIds.add(m.name)); // name-based rough match
+    });
+    return fans.filter(f => !clusteredIds.has(f.name));
+  }, [fans, clusters]);
+
+  const handleHiFive = (fan: MapFan) => {
+    sendLike.mutate(
+      { toUser: fan.id, isHiFive: true, message: '🖐️ High-Five from the map!' },
+      { onSuccess: () => setSelectedFan(null) }
+    );
+  };
 
   const allPositions = useMemo(() => {
     const pts: [number, number][] = [WRIGLEY_CENTER];
@@ -126,6 +148,11 @@ export function GameDayMap() {
           {clusters.map((cluster) => (
             <ClusterMarkerComponent key={cluster.id} cluster={cluster} />
           ))}
+
+          {/* Individual fan markers with status bubbles */}
+          {soloFans.map((fan) => (
+            <StatusBubbleMarker key={fan.id} fan={fan} onTap={setSelectedFan} />
+          ))}
         </MapContainer>
 
         {/* Legend overlay */}
@@ -155,6 +182,13 @@ export function GameDayMap() {
             onJoin={() => toast.success("You're heading over! 🎉")}
           />
         </AnimatePresence>
+
+        {/* Mini-profile sheet */}
+        <MiniProfileSheet
+          fan={selectedFan}
+          onClose={() => setSelectedFan(null)}
+          onHiFive={handleHiFive}
+        />
       </div>
     </motion.div>
   );

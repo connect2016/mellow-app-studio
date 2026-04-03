@@ -108,7 +108,7 @@ export function CubsScoreboard() {
           {/* Inning */}
           <div className="text-center px-4">
             <div className="rounded-lg bg-primary/10 border border-primary/20 px-3 py-1.5">
-              <p className="text-xs font-bold text-primary">
+              <p className="text-xs font-bold text-primary font-scoreboard">
                 {inningLabel}
               </p>
             </div>

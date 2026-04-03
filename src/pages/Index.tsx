@@ -28,6 +28,7 @@ const Index = () => {
         </div>
 
         <TrendingNow />
+        <HallOfFameLeaderboard />
       </main>
     </DynamicBackground>
   );

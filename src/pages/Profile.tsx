@@ -144,11 +144,12 @@ export default function Profile() {
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>{displayUser.display_name}{displayUser.age ? `, ${displayUser.age}` : ''}</h1>
-              {displayUser.is_verified && (
+               {displayUser.is_verified && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
                   <ShieldCheck className="h-3 w-3" /> Verified Fan
                 </span>
               )}
+              <IvyLeafBadge userId={profileUserId} />
             </div>
             {displayUser.pronouns && <p className="text-sm text-muted-foreground mt-0.5">{displayUser.pronouns}</p>}
           </div>

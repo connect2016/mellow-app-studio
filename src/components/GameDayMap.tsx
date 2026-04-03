@@ -28,10 +28,12 @@ function FitBounds({ positions }: { positions: [number, number][] }) {
 
 export function GameDayMap() {
   const { user } = useAuth();
+  const sendLike = useSendLike();
   const [vibeFilters, setVibeFilters] = useState<VibeFilter[]>([]);
   const [sizeFilters, setSizeFilters] = useState<SizeFilter[]>([]);
   const [movementFilters, setMovementFilters] = useState<MovementFilter[]>([]);
   const [selectedCluster, setSelectedCluster] = useState<MapCluster | null>(null);
+  const [selectedFan, setSelectedFan] = useState<MapFan | null>(null);
 
   const toggleArray = <T,>(arr: T[], item: T): T[] =>
     arr.includes(item) ? arr.filter((x) => x !== item) : [...arr, item];

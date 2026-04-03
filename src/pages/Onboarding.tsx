@@ -17,13 +17,14 @@ import { useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { useToast } from '@/hooks/use-toast';
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 const stepMeta = [
   { icon: User, title: 'Your Profile', subtitle: 'Let fans know who you are', emoji: '👋' },
   { icon: Heart, title: 'Your Intent', subtitle: 'What are you looking for?', emoji: '🎯' },
   { icon: Star, title: 'Cubs Identity', subtitle: 'Show off your fan credentials', emoji: '⚾' },
   { icon: MapPin, title: 'Game Day Setup', subtitle: 'Where do you watch?', emoji: '🏟️' },
+  { icon: Star, title: 'Scouting Report', subtitle: 'What kind of fan are you?', emoji: '🔎' },
 ];
 
 const intentCards: { value: IntentType; label: string; emoji: string; desc: string }[] = [

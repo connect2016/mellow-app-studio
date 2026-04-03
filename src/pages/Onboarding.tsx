@@ -664,6 +664,50 @@ export default function Onboarding() {
                   </div>
                 </div>
               )}
+              {/* Step 5: Scouting Report / Persona */}
+              {step === 5 && (
+                <div className="space-y-5">
+                  <p className="text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
+                    Pick the persona that fits you best
+                  </p>
+                  <div className="space-y-3">
+                    {([
+                      { value: 'die_hard', emoji: '🔥', label: 'The Die-Hard', desc: 'You live and breathe the score. Every pitch matters.', gradient: 'from-red-600 to-red-800', border: 'border-red-500' },
+                      { value: 'social_butterfly', emoji: '🦋', label: 'The Social Butterfly', desc: "You're here for the vibes, the beers, and the new friends.", gradient: 'from-amber-500 to-orange-600', border: 'border-amber-400' },
+                      { value: 'tourist', emoji: '📸', label: 'The Tourist', desc: "First time at Wrigley? We'll make it unforgettable.", gradient: 'from-sky-500 to-blue-600', border: 'border-sky-400' },
+                    ] as const).map((p) => {
+                      const isSelected = gamedayPersona === p.value;
+                      return (
+                        <motion.button
+                          key={p.value}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={() => setGamedayPersona(p.value)}
+                          className={`relative w-full flex items-center gap-4 rounded-2xl border-2 p-5 text-left transition-all ${
+                            isSelected
+                              ? `${p.border} bg-gradient-to-r ${p.gradient} shadow-lg shadow-black/20`
+                              : 'border-border bg-card hover:border-primary/30 hover:shadow-sm'
+                          }`}
+                        >
+                          {isSelected && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              className="absolute top-3 right-3 h-6 w-6 rounded-full bg-white/20 flex items-center justify-center"
+                            >
+                              <span className="text-white text-xs font-bold">✓</span>
+                            </motion.div>
+                          )}
+                          <span className="text-4xl">{p.emoji}</span>
+                          <div>
+                            <span className={`block text-lg font-bold ${isSelected ? 'text-white' : 'text-foreground'}`}>{p.label}</span>
+                            <span className={`block text-sm leading-snug ${isSelected ? 'text-white/80' : 'text-muted-foreground'}`}>{p.desc}</span>
+                          </div>
+                        </motion.button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

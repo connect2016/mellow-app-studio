@@ -164,12 +164,9 @@ export function useMapClusters(
           vibe,
           movement,
           locationLabel,
+          gameStatus: f.game_status ?? 'NotSet',
         };
-      }).filter(Boolean) as Array<{
-        id: string; name: string; photo: string | null;
-        lat: number; lng: number; vibe: VibeFilter; movement: MovementFilter;
-        locationLabel: string;
-      }>;
+      }).filter(Boolean) as MapFan[];
     },
     refetchInterval: 15000,
     enabled: !!user,

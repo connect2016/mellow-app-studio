@@ -13,6 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { IntentType, GameStatus, PrivacyLevel, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, FanStyleType, FAN_STYLE_OPTIONS } from '@/types';
 import { useUserPennants, BADGE_DEFINITIONS } from '@/hooks/usePennants';
+import { IvyLeafBadge } from '@/components/IvyLeafBadge';
 
 export default function Profile() {
   const { id } = useParams();

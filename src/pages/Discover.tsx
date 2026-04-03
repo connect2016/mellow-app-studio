@@ -20,6 +20,7 @@ import { SmartMeetupSuggestions } from '@/components/SmartMeetupSuggestions';
 import { SocialProofBanner } from '@/components/SocialProofBanner';
 import { PostGameExperience } from '@/components/PostGameExperience';
 import { CubsScoreboard } from '@/components/CubsScoreboard';
+import { GamedayStateHero } from '@/components/GamedayStateHero';
 import { useGamedayMode } from '@/contexts/GamedayModeContext';
 import bgWrigleyville from '@/assets/bg-wrigleyville-lofts.jpg';
 import { supabase } from '@/integrations/supabase/client';
@@ -302,6 +303,11 @@ export default function Discover() {
             </span>
           </div>
           <Switch checked={gamedayMode} onCheckedChange={toggleGamedayMode} />
+        </div>
+
+        {/* Dynamic Gameday State Hero */}
+        <div className="mb-4">
+          <GamedayStateHero />
         </div>
 
         {/* Cubs Scoreboard (only in Gameday Mode) */}

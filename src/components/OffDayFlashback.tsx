@@ -3,25 +3,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Calendar, ChevronRight } from 'lucide-react';
-import vintage1 from '@/assets/vintage-cubs-1.jpg';
-import vintage2 from '@/assets/vintage-cubs-2.jpg';
-import vintage3 from '@/assets/vintage-cubs-3.jpg';
+import bgBleachers from '@/assets/bg-bleachers.jpg';
+import bgField from '@/assets/bg-field.jpg';
+import bgRizzo from '@/assets/bg-rizzo.jpg';
 
 const FLASHBACKS = [
   {
-    image: vintage1,
-    caption: 'Wrigley Field — Packed house under the clouds',
-    era: 'Classic Era',
+    image: bgBleachers,
+    caption: 'The Bleachers — Where legends are made',
+    era: 'Wrigley Field',
   },
   {
-    image: vintage2,
-    caption: 'Cubs players take the field in pinstripes',
-    era: '1940s Golden Age',
+    image: bgField,
+    caption: 'Under the lights at the Friendly Confines',
+    era: 'Game Day',
   },
   {
-    image: vintage3,
-    caption: 'The iconic Wrigley Field marquee on Clark Street',
-    era: '1960s Nostalgia',
+    image: bgRizzo,
+    caption: 'Cubs pride runs deep in Wrigleyville',
+    era: 'Fan Favorites',
   },
 ];
 

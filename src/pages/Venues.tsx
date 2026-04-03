@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, MapPin, Filter, Users, Zap } from 'lucide-react';
+import { ArrowLeft, Filter, Users, Zap, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { useVenueActivity } from '@/hooks/useVenueActivity';
-import { VenueCard } from '@/components/VenueCard';
+import { LineupVenueCard } from '@/components/LineupVenueCard';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { GuestGateModal } from '@/components/GuestGateModal';
@@ -32,7 +32,7 @@ export default function Venues() {
     .sort((a, b) => {
       if (filter === 'meetups') return b.meetups.length - a.meetups.length;
       if (filter === 'vibe') return b.voteCount - a.voteCount;
-      return 0; // default sort from hook is crowd
+      return 0;
     });
 
   const totalActive = venues?.reduce((s, v) => s + v.totalUsers, 0) || 0;
@@ -40,26 +40,29 @@ export default function Venues() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border">
+      {/* Lineup Card Header */}
+      <div className="sticky top-0 z-30 bg-card/95 backdrop-blur-sm border-b-2 border-primary/30">
         <div className="flex items-center gap-3 px-4 py-3">
           <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => navigate(-1)}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div className="flex-1">
-            <h1 className="text-base font-bold text-foreground">
-              Wrigleyville Venues
+            <h1
+              className="text-lg font-bold text-foreground tracking-tight"
+              style={{ fontFamily: "'Rye', cursive" }}
+            >
+              Tonight's Lineup
             </h1>
-            <p className="text-[10px] text-muted-foreground">
-              {totalActive} fans active · {totalMeetups} meetups
+            <p className="text-[10px] text-muted-foreground font-scoreboard tracking-wider uppercase">
+              {totalActive} fans checked in · {totalMeetups} meetups live
             </p>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5 bg-primary/10 rounded-full px-2.5 py-1">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
             </span>
-            <span className="text-[10px] text-muted-foreground">Live</span>
+            <span className="text-[10px] font-scoreboard font-bold text-primary uppercase">Live</span>
           </div>
         </div>
 
@@ -97,11 +100,20 @@ export default function Venues() {
         </div>
       </div>
 
-      <div className={`px-4 py-4 space-y-3 ${isGuest ? 'pb-32' : 'pb-24'}`}>
+      {/* Lineup-style header row */}
+      <div className="px-4 pt-3 pb-1">
+        <div className="flex items-center gap-2 text-[9px] font-scoreboard text-muted-foreground uppercase tracking-widest border-b border-dashed border-border pb-1.5">
+          <span className="w-10 text-center">#</span>
+          <span className="flex-1">Venue</span>
+          <span className="w-16 text-center">Vibe</span>
+        </div>
+      </div>
+
+      <div className={`px-4 py-2 space-y-2 ${isGuest ? 'pb-32' : 'pb-24'}`}>
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-24 rounded-2xl bg-muted animate-pulse" />
+              <div key={i} className="h-24 rounded-lg bg-muted animate-pulse" />
             ))}
           </div>
         ) : filtered.length === 0 ? (
@@ -113,7 +125,7 @@ export default function Venues() {
         ) : (
           <AnimatePresence mode="popLayout">
             {filtered.map((venue, i) => (
-              <VenueCard
+              <LineupVenueCard
                 key={venue.name}
                 venue={venue}
                 index={i}

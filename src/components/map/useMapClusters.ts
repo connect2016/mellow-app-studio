@@ -51,6 +51,8 @@ export interface MapFan {
   locationLabel: string;
   gameStatus: string;
   persona: string | null;
+  isRecentlyActive: boolean;
+  intent: string[];
 }
 
 function clusterFans(

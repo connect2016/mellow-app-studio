@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Zap, MessageCircle, ChevronDown } from 'lucide-react';
+import bgWrigleyvilleStreet from '@/assets/bg-wrigleyville-street.png';
 
 const QUICK_REPLIES = [
   { emoji: '🏟️', text: 'My first game was unforgettable!' },

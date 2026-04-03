@@ -148,6 +148,11 @@ export function GameDayMap() {
           {clusters.map((cluster) => (
             <ClusterMarkerComponent key={cluster.id} cluster={cluster} />
           ))}
+
+          {/* Individual fan markers with status bubbles */}
+          {soloFans.map((fan) => (
+            <StatusBubbleMarker key={fan.id} fan={fan} onTap={setSelectedFan} />
+          ))}
         </MapContainer>
 
         {/* Legend overlay */}

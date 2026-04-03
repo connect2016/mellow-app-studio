@@ -157,6 +157,9 @@ export function useMapClusters(
         const fuzzy = fuzzyLocation(lat, lng, 200);
         const vibe = inferVibe(f.gameday_intents, f.fan_style);
         const movement = inferMovement(f.location_last_set_at);
+        const isRecentlyActive = f.location_last_set_at
+          ? (Date.now() - new Date(f.location_last_set_at).getTime()) < 30 * 60 * 1000
+          : false;
 
         return {
           id: f.user_id,
@@ -169,6 +172,8 @@ export function useMapClusters(
           locationLabel,
           gameStatus: f.game_status ?? 'NotSet',
           persona: (f as any).gameday_persona ?? null,
+          isRecentlyActive,
+          intent: (f.intent as string[]) ?? [],
         };
       }).filter(Boolean) as MapFan[];
     },

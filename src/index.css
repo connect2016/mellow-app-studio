@@ -163,6 +163,31 @@
   border-left: 3px dashed hsl(var(--primary) / 0.3);
 }
 
+/* Perforated edge along the bottom of ticket-stub cards */
+.ticket-stub::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 8px;
+  right: 8px;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 4px,
+    hsl(var(--border)) 4px,
+    hsl(var(--border)) 5px,
+    transparent 5px,
+    transparent 10px
+  );
+  mask-image: radial-gradient(circle 3px at 5px 0, transparent 2.5px, black 3px);
+  -webkit-mask-image: radial-gradient(circle 3px at 5px 0, transparent 2.5px, black 3px);
+  mask-size: 10px 6px;
+  -webkit-mask-size: 10px 6px;
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* Grain / noise texture overlay for cards */
 .grain-texture {
   position: relative;
@@ -178,6 +203,25 @@
   background-size: 128px 128px;
   mix-blend-mode: multiply;
   z-index: 1;
+}
+
+/* Global paper-grain texture on app background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pg)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  mix-blend-mode: multiply;
+}
+
+/* Scoreboard mono font utility */
+.font-scoreboard {
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  letter-spacing: 0.05em;
 }
 
 /* Vintage baseball card image frame */

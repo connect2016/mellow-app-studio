@@ -93,8 +93,8 @@ export function LineupFeed() {
           className="rounded-2xl border border-dashed border-lineup/30 bg-lineup/5 p-6 text-center"
         >
           <p className="text-3xl mb-2">📋</p>
-          <p className="text-sm font-semibold text-secondary-foreground">The bleachers are empty.</p>
-          <p className="text-xs mt-1 text-yellow-300">Be the first to start a rally.</p>
+           <p className="text-sm font-semibold text-secondary-foreground">The bases are empty!</p>
+           <p className="text-xs mt-1 text-yellow-300">Be the first to start a conversation.</p>
           <Button
             size="sm"
             onClick={() => setShowCreate(true)}

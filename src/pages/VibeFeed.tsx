@@ -425,7 +425,7 @@ export default function VibeFeed() {
                               className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full text-xs font-semibold gap-1.5"
                             >
                               <MessageCircle className="h-3.5 w-3.5" />
-                              Join the Vibe
+                              Enter the Bleachers
                             </Button>
                           )}
                           {isOwn && (

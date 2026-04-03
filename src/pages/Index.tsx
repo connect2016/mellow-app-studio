@@ -2,6 +2,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { DynamicBackground } from '@/components/DynamicBackground';
 import { AppHeader } from '@/components/AppHeader';
 import { TrendingNow } from '@/components/TrendingNow';
+import { HallOfFameLeaderboard } from '@/components/HallOfFameLeaderboard';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -27,6 +28,7 @@ const Index = () => {
         </div>
 
         <TrendingNow />
+        <HallOfFameLeaderboard />
       </main>
     </DynamicBackground>
   );

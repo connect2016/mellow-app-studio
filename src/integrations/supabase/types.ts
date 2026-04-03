@@ -511,6 +511,68 @@ export type Database = {
         }
         Relationships: []
       }
+      homestands: {
+        Row: {
+          created_at: string
+          end_date: string
+          id: string
+          name: string
+          start_date: string
+        }
+        Insert: {
+          created_at?: string
+          end_date: string
+          id?: string
+          name: string
+          start_date: string
+        }
+        Update: {
+          created_at?: string
+          end_date?: string
+          id?: string
+          name?: string
+          start_date?: string
+        }
+        Relationships: []
+      }
+      ivy_leaves: {
+        Row: {
+          amount: number
+          created_at: string
+          homestand_id: string | null
+          id: string
+          source: string
+          source_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          homestand_id?: string | null
+          id?: string
+          source: string
+          source_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          homestand_id?: string | null
+          id?: string
+          source?: string
+          source_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ivy_leaves_homestand_id_fkey"
+            columns: ["homestand_id"]
+            isOneToOne: false
+            referencedRelation: "homestands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       likes: {
         Row: {
           created_at: string

@@ -100,7 +100,7 @@ export function CubsScoreboard() {
             <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
               {scoreData.awayTeam}
             </p>
-            <p className="text-2xl font-black text-foreground">
+            <p className="text-2xl font-black text-foreground font-scoreboard">
               {scoreData.awayRuns}
             </p>
           </div>

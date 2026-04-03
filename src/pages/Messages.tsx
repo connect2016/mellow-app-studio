@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Send, MessageCircle, ArrowLeft } from 'lucide-react';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
+import bgWrigleyPlayball from '@/assets/bg-wrigley-playball.png';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   useConversations,

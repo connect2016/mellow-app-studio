@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { MapFilters, type VibeFilter, type SizeFilter, type MovementFilter } from './map/MapFilters';
+import { QuickFilterBar, type QuickMapFilter } from './map/QuickFilterBar';
 import { ClusterMarkerComponent, type MapCluster } from './map/ClusterMarker';
 import { QuickActionBar } from './map/QuickActionBar';
 import { useMapClusters, type MapFan } from './map/useMapClusters';

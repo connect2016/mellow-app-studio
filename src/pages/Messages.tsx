@@ -75,8 +75,8 @@ export default function Messages() {
             {messages.length === 0 && (
               <div className="text-center py-16">
                 <p className="text-3xl mb-3">💬</p>
-                <p className="font-semibold text-foreground text-sm">The dugout's quiet</p>
-                <p className="text-xs text-muted-foreground mt-1">Break the ice — say something worth a rally cap!</p>
+                <p className="font-semibold text-foreground text-sm">The bases are empty!</p>
+                <p className="text-xs text-muted-foreground mt-1">Be the first to start a conversation.</p>
               </div>
             )}
             {messages.map((msg) => {

@@ -17,13 +17,14 @@ import { useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { useToast } from '@/hooks/use-toast';
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 const stepMeta = [
   { icon: User, title: 'Your Profile', subtitle: 'Let fans know who you are', emoji: '👋' },
   { icon: Heart, title: 'Your Intent', subtitle: 'What are you looking for?', emoji: '🎯' },
   { icon: Star, title: 'Cubs Identity', subtitle: 'Show off your fan credentials', emoji: '⚾' },
   { icon: MapPin, title: 'Game Day Setup', subtitle: 'Where do you watch?', emoji: '🏟️' },
+  { icon: Star, title: 'Scouting Report', subtitle: 'What kind of fan are you?', emoji: '🔎' },
 ];
 
 const intentCards: { value: IntentType; label: string; emoji: string; desc: string }[] = [
@@ -83,6 +84,7 @@ export default function Onboarding() {
   const [bar, setBar] = useState('');
   const [locationPrivacy, setLocationPrivacy] = useState<PrivacyLevel>('MatchesOnly');
   const [barPrivacy, setBarPrivacy] = useState<PrivacyLevel>('MatchesOnly');
+  const [gamedayPersona, setGamedayPersona] = useState<string | null>(null);
   const [showCelebration, setShowCelebration] = useState(false);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -162,6 +164,7 @@ export default function Onboarding() {
           wrigley_location_privacy: locationPrivacy,
           wrigleyville_bar: bar || null,
           bar_location_privacy: barPrivacy,
+          gameday_persona: gamedayPersona,
           onboarding_completed: true,
         });
         setShowCelebration(true);
@@ -176,7 +179,7 @@ export default function Onboarding() {
     if (step > 1) setStep(step - 1);
   };
 
-  const STEP_BACKGROUNDS = useMemo(() => [bgConcourse, bgField, bgRizzo, wrigleySeatsImg], []);
+  const STEP_BACKGROUNDS = useMemo(() => [bgConcourse, bgField, bgRizzo, wrigleySeatsImg, bgField], []);
   const stepBg = STEP_BACKGROUNDS[step - 1];
 
   if (loading) return null;
@@ -658,6 +661,50 @@ export default function Onboarding() {
                         })}
                       </div>
                     </div>
+                  </div>
+                </div>
+              )}
+              {/* Step 5: Scouting Report / Persona */}
+              {step === 5 && (
+                <div className="space-y-5">
+                  <p className="text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
+                    Pick the persona that fits you best
+                  </p>
+                  <div className="space-y-3">
+                    {([
+                      { value: 'die_hard', emoji: '🔥', label: 'The Die-Hard', desc: 'You live and breathe the score. Every pitch matters.', gradient: 'from-red-600 to-red-800', border: 'border-red-500' },
+                      { value: 'social_butterfly', emoji: '🦋', label: 'The Social Butterfly', desc: "You're here for the vibes, the beers, and the new friends.", gradient: 'from-amber-500 to-orange-600', border: 'border-amber-400' },
+                      { value: 'tourist', emoji: '📸', label: 'The Tourist', desc: "First time at Wrigley? We'll make it unforgettable.", gradient: 'from-sky-500 to-blue-600', border: 'border-sky-400' },
+                    ] as const).map((p) => {
+                      const isSelected = gamedayPersona === p.value;
+                      return (
+                        <motion.button
+                          key={p.value}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={() => setGamedayPersona(p.value)}
+                          className={`relative w-full flex items-center gap-4 rounded-2xl border-2 p-5 text-left transition-all ${
+                            isSelected
+                              ? `${p.border} bg-gradient-to-r ${p.gradient} shadow-lg shadow-black/20`
+                              : 'border-border bg-card hover:border-primary/30 hover:shadow-sm'
+                          }`}
+                        >
+                          {isSelected && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              className="absolute top-3 right-3 h-6 w-6 rounded-full bg-white/20 flex items-center justify-center"
+                            >
+                              <span className="text-white text-xs font-bold">✓</span>
+                            </motion.div>
+                          )}
+                          <span className="text-4xl">{p.emoji}</span>
+                          <div>
+                            <span className={`block text-lg font-bold ${isSelected ? 'text-white' : 'text-foreground'}`}>{p.label}</span>
+                            <span className={`block text-sm leading-snug ${isSelected ? 'text-white/80' : 'text-muted-foreground'}`}>{p.desc}</span>
+                          </div>
+                        </motion.button>
+                      );
+                    })}
                   </div>
                 </div>
               )}

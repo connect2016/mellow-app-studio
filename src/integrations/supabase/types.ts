@@ -1035,6 +1035,7 @@ export type Database = {
           favorite_player: string | null
           game_status: string | null
           gameday_intents: string[] | null
+          gameday_persona: string | null
           hidden_from_discover: boolean | null
           home_lat: number | null
           home_lng: number | null
@@ -1083,6 +1084,7 @@ export type Database = {
           favorite_player?: string | null
           game_status?: string | null
           gameday_intents?: string[] | null
+          gameday_persona?: string | null
           hidden_from_discover?: boolean | null
           home_lat?: number | null
           home_lng?: number | null
@@ -1131,6 +1133,7 @@ export type Database = {
           favorite_player?: string | null
           game_status?: string | null
           gameday_intents?: string[] | null
+          gameday_persona?: string | null
           hidden_from_discover?: boolean | null
           home_lat?: number | null
           home_lng?: number | null

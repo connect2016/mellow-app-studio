@@ -50,6 +50,7 @@ export interface MapFan {
   movement: MovementFilter;
   locationLabel: string;
   gameStatus: string;
+  persona: string | null;
 }
 
 function clusterFans(
@@ -109,7 +110,7 @@ export function useMapClusters(
       const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
       const { data: fans } = await supabase
         .from('profiles')
-        .select('user_id, display_name, profile_photo, game_status, wrigley_section, wrigleyville_bar, gameday_intents, fan_style, location_last_set_at, home_lat, home_lng, work_lat, work_lng')
+        .select('user_id, display_name, profile_photo, game_status, wrigley_section, wrigleyville_bar, gameday_intents, fan_style, location_last_set_at, home_lat, home_lng, work_lat, work_lng, gameday_persona')
         .eq('is_banned', false)
         .eq('onboarding_completed', true)
         .neq('game_status', 'NotSet')
@@ -165,6 +166,7 @@ export function useMapClusters(
           movement,
           locationLabel,
           gameStatus: f.game_status ?? 'NotSet',
+          persona: (f as any).gameday_persona ?? null,
         };
       }).filter(Boolean) as MapFan[];
     },

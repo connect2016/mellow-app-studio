@@ -28,7 +28,7 @@
   box-shadow: none !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Rye&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800&family=Playball&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Graduate&family=Rye&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800&family=Playball&family=Share+Tech+Mono&display=swap');
 
 @layer base {
   :root {
@@ -147,7 +147,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Rye', 'Barlow Condensed', serif;
+    font-family: 'Graduate', 'Rye', 'Barlow Condensed', serif;
     letter-spacing: 0.02em;
   }
 }
@@ -232,4 +232,28 @@ body::before {
     inset 0 0 0 1px hsl(var(--primary) / 0.1),
     0 2px 8px hsl(var(--primary) / 0.1);
   overflow: hidden;
+}
+
+/* Ticket-stub notched button shape */
+.ticket-btn {
+  position: relative;
+}
+.ticket-btn::before,
+.ticket-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--background));
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+.ticket-btn::before {
+  left: -4px;
+}
+.ticket-btn::after {
+  right: -4px;
 }

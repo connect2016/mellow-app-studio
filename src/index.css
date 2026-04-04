@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global minimum touch target for mobile */
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  a,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
 /* Leaflet marker fixes */
 .emoji-marker, .count-marker, .cluster-marker, .photo-marker {
   background: transparent !important;

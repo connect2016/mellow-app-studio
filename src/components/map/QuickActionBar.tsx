@@ -39,23 +39,23 @@ export function QuickActionBar({ selectedCluster, onNavigate, onChat, onJoin }: 
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={onNavigate}
-          className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-muted py-2.5 text-xs font-semibold text-foreground"
+          className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-muted min-h-[44px] text-xs font-semibold text-foreground"
         >
-          <Navigation className="h-3.5 w-3.5" />
+          <Navigation className="h-4 w-4" />
           Navigate
         </motion.button>
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={onChat}
-          className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-muted py-2.5 text-xs font-semibold text-foreground"
+          className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-muted min-h-[44px] text-xs font-semibold text-foreground"
         >
-          <MessageCircle className="h-3.5 w-3.5" />
+          <MessageCircle className="h-4 w-4" />
           Chat
         </motion.button>
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={onJoin}
-          className="flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold text-primary-foreground"
+          className="flex-1 flex items-center justify-center gap-1.5 rounded-xl min-h-[44px] text-xs font-bold text-primary-foreground"
           style={{ background: 'hsl(var(--lineup-teal))' }}
         >
           <Zap className="h-3.5 w-3.5" />

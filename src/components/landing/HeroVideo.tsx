@@ -1,9 +1,10 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, ChevronDown } from 'lucide-react';
+import { ChevronRight, ChevronDown, Eye } from 'lucide-react';
 import logoTransparent from '@/assets/logo-transparent.png';
+import { useGuestMode } from '@/contexts/GuestModeContext';
 
 const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
 
@@ -11,6 +12,8 @@ export default function HeroVideo() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [ready, setReady] = useState(false);
+  const navigate = useNavigate();
+  const { enterGuestMode } = useGuestMode();
 
   const setRef = useCallback(
     (idx: number) => (el: HTMLVideoElement | null) => {
@@ -19,7 +22,6 @@ export default function HeroVideo() {
     [],
   );
 
-  // Start first video and pre-buffer all others
   useEffect(() => {
     videoRefs.current.forEach((v, idx) => {
       if (!v) return;
@@ -27,7 +29,6 @@ export default function HeroVideo() {
         v.play().catch(() => {});
         setReady(true);
       } else {
-        // Pre-buffer by loading and immediately pausing
         v.load();
       }
     });
@@ -42,6 +43,11 @@ export default function HeroVideo() {
       nextVideo.play().catch(() => {});
     }
   }, []);
+
+  const handleBrowseAsGuest = () => {
+    enterGuestMode();
+    navigate('/vibe');
+  };
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -70,7 +76,7 @@ export default function HeroVideo() {
       ))}
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-foreground/25" />
+      <div className="absolute inset-0 bg-foreground/35" />
 
       {/* Content overlay */}
       <motion.div
@@ -85,61 +91,66 @@ export default function HeroVideo() {
           initial={{ opacity: 0, scale: 0.55, y: -40 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-6 w-full max-w-sm drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-md lg:max-w-lg"
+          className="mb-4 w-full max-w-[280px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-sm"
         />
 
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}
-          className="mb-4 text-4xl font-extrabold sm:text-5xl lg:text-6xl"
+          className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl"
           style={{
             fontFamily: 'Montserrat, sans-serif',
-            color: 'hsl(var(--secondary))',
-            WebkitTextStroke: '4px white',
-            paintOrder: 'stroke fill',
-            filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
-            letterSpacing: '0.05em',
-            lineHeight: 1.4,
+            color: 'white',
+            textShadow: '0 2px 20px rgba(0,0,0,0.6)',
+            letterSpacing: '0.02em',
+            lineHeight: 1.2,
           }}
         >
-          Your Wrigleyville Connection Hub
+          Meet fans. Grab beers.
+          <br />
+          <span style={{ color: 'hsl(var(--secondary))' }}>Own game day.</span>
         </motion.h1>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.8 }}
-          className="mb-8 text-3xl sm:text-4xl lg:text-5xl"
+          transition={{ duration: 0.6, delay: 0.85 }}
+          className="mb-8 max-w-sm text-base font-medium sm:text-lg"
           style={{
-            fontFamily: "'Norwester', sans-serif",
-            color: 'white',
-            WebkitTextStroke: '2px hsl(var(--cubs-blue))',
-            paintOrder: 'stroke fill',
-            filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))',
-            letterSpacing: '0.04em',
-            lineHeight: 1.4,
-            textTransform: 'none',
+            color: 'rgba(255,255,255,0.9)',
+            textShadow: '0 1px 8px rgba(0,0,0,0.5)',
           }}
         >
-          Sync. Meet. Celebrate.
-        </motion.h2>
+          The social app for Cubs fans at Wrigley Field
+          and across Wrigleyville.
+        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 1.0 }}
+          className="flex flex-col items-center gap-3"
         >
           <Link to="/auth">
             <Button
               size="lg"
-              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90"
+              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90 min-h-[48px]"
               aria-label="Get in the Game — sign up for Cubbies Buddies"
             >
-              Get in the Game
+              Join Free — It Takes 30 Seconds
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </Link>
+          <Button
+            variant="ghost"
+            size="lg"
+            onClick={handleBrowseAsGuest}
+            className="rounded-full px-8 text-base font-medium text-white/80 hover:text-white hover:bg-white/10 gap-2 min-h-[48px]"
+          >
+            <Eye className="h-4 w-4" />
+            Browse as Guest
+          </Button>
         </motion.div>
       </motion.div>
 
@@ -154,7 +165,7 @@ export default function HeroVideo() {
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
         >
-          <ChevronDown className="h-8 w-8 text-primary-foreground/70 drop-shadow-lg" />
+          <ChevronDown className="h-8 w-8 text-white/70 drop-shadow-lg" />
         </motion.div>
       </motion.div>
     </section>

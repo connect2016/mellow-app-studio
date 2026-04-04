@@ -66,9 +66,9 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-1.5 rounded-full hover:bg-muted transition-colors"
+                  className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full hover:bg-muted transition-colors"
                 >
-                  <X className="h-4 w-4 text-muted-foreground" />
+                  <X className="h-5 w-5 text-muted-foreground" />
                 </button>
               </div>
 

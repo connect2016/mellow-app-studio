@@ -40,14 +40,15 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
             style={{ height: '60%' }}
           >
             {/* Handle */}
-            <div className="flex justify-center pt-2 pb-1">
-              <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+            {/* Drag handle */}
+            <div className="flex justify-center pt-3 pb-2">
+              <div className="w-12 h-1.5 rounded-full bg-muted-foreground/30" />
             </div>
 
-            <div className="px-4 pb-5 pt-1">
+            <div className="px-5 pb-6 pt-1 overflow-y-auto" style={{ height: 'calc(60% - 56px)' }}>
               {/* Profile row */}
-              <div className="flex items-center gap-3 mb-3">
-                <div className="h-14 w-14 rounded-full border-2 border-primary/20 overflow-hidden bg-muted shrink-0">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-16 w-16 rounded-full border-2 border-primary/20 overflow-hidden bg-muted shrink-0">
                   {fan.photo ? (
                     <img src={fan.photo} alt="" className="h-full w-full object-cover" />
                   ) : (

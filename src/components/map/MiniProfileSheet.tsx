@@ -35,8 +35,9 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="absolute bottom-0 left-0 right-0 z-[1002] bg-card border-t border-border rounded-t-2xl shadow-2xl"
+            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+            className="absolute bottom-0 left-0 right-0 z-[1002] bg-card border-t border-border rounded-t-3xl shadow-2xl"
+            style={{ height: '60%' }}
           >
             {/* Handle */}
             <div className="flex justify-center pt-2 pb-1">

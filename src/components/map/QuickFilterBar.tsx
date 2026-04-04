@@ -24,7 +24,7 @@ export function QuickFilterBar({ active, onChange }: Props) {
             key={f.value}
             whileTap={{ scale: 0.95 }}
             onClick={() => onChange(f.value)}
-            className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition-all ${
+            className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 min-h-[44px] text-xs font-semibold transition-all ${
               isActive
                 ? 'bg-primary text-primary-foreground shadow-sm'
                 : 'bg-muted text-muted-foreground hover:bg-muted/80'

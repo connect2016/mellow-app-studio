@@ -22,7 +22,7 @@ function fanIcon(fan: MapFan) {
   const borderColor = personaColor || '#3b82f6';
   const showPulse = fan.isRecentlyActive;
 
-  const size = 42;
+  const size = 44;
   const totalH = personaEmoji ? size + 18 : size;
 
   return L.divIcon({

@@ -75,7 +75,7 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
               {/* Action */}
               <Button
                 onClick={() => onHiFive(fan)}
-                className="w-full gap-2 rounded-xl py-5 text-sm font-bold"
+                className="w-full gap-2 rounded-xl min-h-[48px] text-sm font-bold"
               >
                 <Hand className="h-5 w-5" />
                 Send a High-Five 🖐️

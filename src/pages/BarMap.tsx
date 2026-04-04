@@ -1,17 +1,15 @@
-import { useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { useMemo, useState } from 'react';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { AppHeader } from '@/components/AppHeader';
-import { Button } from '@/components/ui/button';
-import { MapPin, Navigation } from 'lucide-react';
 import { WRIGLEYVILLE_BARS } from '@/types';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
+import { BarDetailSheet } from '@/components/map/BarDetailSheet';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 
-// Coordinates for every bar in the list
 const BAR_LOCATIONS: Record<string, { lat: number; lng: number; type: 'bar' | 'landmark' }> = {
   "Almost Home Tavern & Grill": { lat: 41.9493, lng: -87.6578, type: 'bar' },
   "Begyle Brewing Company": { lat: 41.9585, lng: -87.6810, type: 'bar' },
@@ -46,34 +44,34 @@ function createPinIcon(color: 'blue' | 'red') {
   const fill = color === 'blue' ? '#1e40af' : '#dc2626';
   const stroke = color === 'blue' ? '#3b82f6' : '#f87171';
   return L.divIcon({
-    html: `<svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg">
-      <path d="M14 0C6.268 0 0 6.268 0 14c0 10.5 14 26 14 26s14-15.5 14-26C28 6.268 21.732 0 14 0z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-      <circle cx="14" cy="14" r="6" fill="white" opacity="0.9"/>
-    </svg>`,
+    html: `<div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+      <svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 0C6.268 0 0 6.268 0 14c0 10.5 14 26 14 26s14-15.5 14-26C28 6.268 21.732 0 14 0z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+        <circle cx="14" cy="14" r="6" fill="white" opacity="0.9"/>
+      </svg>
+    </div>`,
     className: 'custom-pin-marker',
-    iconSize: [28, 40],
-    iconAnchor: [14, 40],
-    popupAnchor: [0, -40],
+    iconSize: [44, 44],
+    iconAnchor: [22, 44],
+    popupAnchor: [0, -44],
   });
 }
 
 const bluePin = createPinIcon('blue');
 const redPin = createPinIcon('red');
 
-function getDirectionsUrl(lat: number, lng: number, name: string) {
-  // Works on both iOS (Apple Maps) and Android (Google Maps)
-  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=&travelmode=walking`;
-}
+type BarWithCoords = (typeof WRIGLEYVILLE_BARS)[0] & { lat: number; lng: number; type: string };
 
 export default function BarMap() {
   const { isGuest } = useGuestMode();
+  const [selectedBar, setSelectedBar] = useState<BarWithCoords | null>(null);
 
   const bars = useMemo(() => {
     return WRIGLEYVILLE_BARS.map((bar) => {
       const coords = BAR_LOCATIONS[bar.name];
       if (!coords) return null;
       return { ...bar, ...coords };
-    }).filter(Boolean) as Array<typeof WRIGLEYVILLE_BARS[0] & { lat: number; lng: number; type: string }>;
+    }).filter(Boolean) as BarWithCoords[];
   }, []);
 
   return (
@@ -110,51 +108,42 @@ export default function BarMap() {
             />
 
             {/* Wrigley Field marker */}
-            <Marker position={WRIGLEY_CENTER} icon={redPin}>
-              <Popup>
-                <div className="text-center min-w-[180px]">
-                  <p className="font-bold text-sm">🏟️ Wrigley Field</p>
-                  <p className="text-xs text-gray-500 mt-0.5">1060 W Addison St</p>
-                  <a
-                    href={getDirectionsUrl(WRIGLEY_CENTER[0], WRIGLEY_CENTER[1], 'Wrigley Field')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
-                    Get Directions
-                  </a>
-                </div>
-              </Popup>
-            </Marker>
+            <Marker
+              position={WRIGLEY_CENTER}
+              icon={redPin}
+              eventHandlers={{
+                click: () => setSelectedBar({
+                  id: 'wrigley-field',
+                  name: '🏟️ Wrigley Field',
+                  address: '1060 W Addison St',
+                  lat: WRIGLEY_CENTER[0],
+                  lng: WRIGLEY_CENTER[1],
+                  type: 'landmark',
+                } as any),
+              }}
+            />
 
-            {/* Bar markers */}
+            {/* Bar markers — click opens bottom sheet */}
             {bars.map((bar) => (
               <Marker
                 key={bar.id}
                 position={[bar.lat, bar.lng]}
                 icon={bar.type === 'landmark' ? redPin : bluePin}
-              >
-                <Popup>
-                  <div className="text-center min-w-[180px]">
-                    <p className="font-bold text-sm">{bar.name}</p>
-                    <p className="text-xs text-gray-500 mt-0.5">{bar.address}</p>
-                    <a
-                      href={getDirectionsUrl(bar.lat, bar.lng, bar.name)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-                    >
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
-                      Get Directions
-                    </a>
-                  </div>
-                </Popup>
-              </Marker>
+                eventHandlers={{
+                  click: () => setSelectedBar(bar),
+                }}
+              />
             ))}
           </MapContainer>
         </div>
       </div>
+
+      {/* Bottom Sheet for bar details */}
+      <BarDetailSheet
+        bar={selectedBar}
+        onClose={() => setSelectedBar(null)}
+      />
+
       {isGuest && <GuestBanner />}
     </div>
   );

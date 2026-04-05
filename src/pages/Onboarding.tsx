@@ -249,7 +249,7 @@ export default function Onboarding() {
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute inset-0 bg-background/50 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-background/25" />
       {/* Top bar with progress */}
       <div className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="mx-auto max-w-md px-5 py-4">

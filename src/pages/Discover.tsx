@@ -229,7 +229,7 @@ export default function Discover() {
           width={1920}
           height={1080}
         />
-        <div className="absolute inset-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.45)' }} />
+        <div className="absolute inset-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
         {gamedayMode && <div className="absolute inset-0 bg-background/30 backdrop-blur-[2px]" />}
       </div>
 

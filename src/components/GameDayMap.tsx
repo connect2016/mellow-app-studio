@@ -27,6 +27,46 @@ function FitBounds({ positions }: { positions: [number, number][] }) {
   return null;
 }
 
+interface MapContentProps {
+  allPositions: [number, number][];
+  heatZones: { center: [number, number]; radius: number; color: string }[];
+  clusters: MapCluster[];
+  soloFans: MapFan[];
+  onTapFan: (fan: MapFan) => void;
+}
+
+function MapContent({ allPositions, heatZones, clusters, soloFans, onTapFan }: MapContentProps) {
+  return (
+    <>
+      <TileLayer
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+      />
+      <FitBounds positions={allPositions} />
+      {heatZones.map((zone, i) => (
+        <Circle
+          key={`heat-${i}`}
+          center={zone.center}
+          radius={zone.radius}
+          pathOptions={{
+            fillColor: zone.color,
+            fillOpacity: 0.15,
+            color: zone.color,
+            weight: 1.5,
+            opacity: 0.35,
+          }}
+        />
+      ))}
+      {clusters.map((cluster) => (
+        <ClusterMarkerComponent key={cluster.id} cluster={cluster} />
+      ))}
+      {soloFans.map((fan) => (
+        <StatusBubbleMarker key={fan.id} fan={fan} onTap={onTapFan} />
+      ))}
+    </>
+  );
+}
+
 export function GameDayMap() {
   const { user } = useAuth();
   const sendLike = useSendLike();
@@ -140,37 +180,13 @@ export function GameDayMap() {
           zoomControl={false}
           attributionControl={false}
         >
-          <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+          <MapContent
+            allPositions={allPositions}
+            heatZones={heatZones}
+            clusters={clusters}
+            soloFans={soloFans}
+            onTapFan={setSelectedFan}
           />
-          <FitBounds positions={allPositions} />
-
-          {/* Heat zones */}
-          {heatZones.map((zone, i) => (
-            <Circle
-              key={`heat-${i}`}
-              center={zone.center}
-              radius={zone.radius}
-              pathOptions={{
-                fillColor: zone.color,
-                fillOpacity: 0.15,
-                color: zone.color,
-                weight: 1.5,
-                opacity: 0.35,
-              }}
-            />
-          ))}
-
-          {/* Cluster markers */}
-          {clusters.map((cluster) => (
-            <ClusterMarkerComponent key={cluster.id} cluster={cluster} />
-          ))}
-
-          {/* Individual fan markers with status bubbles */}
-          {soloFans.map((fan) => (
-            <StatusBubbleMarker key={fan.id} fan={fan} onTap={setSelectedFan} />
-          ))}
         </MapContainer>
 
         {/* Legend overlay */}

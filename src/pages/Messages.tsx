@@ -126,7 +126,7 @@ export default function Messages() {
   return (
     <div className="relative min-h-screen pb-24">
       <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgWrigleyPlayball})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.55)' }} />
+      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
       <div className="relative z-10">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4">

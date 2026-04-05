@@ -107,9 +107,9 @@ export default function HeroVideo() {
             lineHeight: 1.2,
           }}
         >
-          Meet fans. Grab beers.
+          Your Wrigleyville
           <br />
-          <span style={{ color: 'hsl(var(--secondary))' }}>Own game day.</span>
+          <span style={{ color: 'hsl(var(--secondary))' }}>Connection Hub</span>
         </motion.h1>
 
         <motion.p
@@ -122,8 +122,8 @@ export default function HeroVideo() {
             textShadow: '0 1px 8px rgba(0,0,0,0.5)',
           }}
         >
-          The social app for Cubs fans at Wrigley Field
-          and across Wrigleyville.
+          Find your crew, grab a beer, and make game day unforgettable —
+          at Wrigley Field and across Wrigleyville.
         </motion.p>
 
         <motion.div

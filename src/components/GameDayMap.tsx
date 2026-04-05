@@ -1,7 +1,7 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapContainer, TileLayer, Circle, useMap, Marker } from 'react-leaflet';
-import type { Map as LeafletMap } from 'leaflet';
+import { MapContainer, TileLayer, Circle, useMap } from 'react-leaflet';
+import L from 'leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useAuth } from '@/contexts/AuthContext';

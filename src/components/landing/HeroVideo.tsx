@@ -102,6 +102,8 @@ export default function HeroVideo() {
           style={{
             fontFamily: 'Montserrat, sans-serif',
             color: 'white',
+            WebkitTextStroke: '1.5px black',
+            paintOrder: 'stroke fill',
             textShadow: '0 2px 20px rgba(0,0,0,0.6)',
             letterSpacing: '0.02em',
             lineHeight: 1.2,

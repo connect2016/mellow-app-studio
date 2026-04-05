@@ -51,7 +51,7 @@ export default function Notifications() {
   return (
     <div className="relative min-h-screen pb-24">
       <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgFansBleachers})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.55)' }} />
+      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
       <div className="relative z-10">
       <AppHeader />
 

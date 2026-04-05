@@ -69,7 +69,7 @@ export function DynamicBackground({ children, className = '' }: Props) {
       {/* Dark blue overlay for readability */}
       <div
         className="fixed inset-0 z-0"
-        style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.45)' }}
+        style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }}
       />
       {/* Content */}
       <div className="relative z-10">{children}</div>

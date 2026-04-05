@@ -18,7 +18,7 @@ export default function Settings() {
   return (
     <div className="min-h-screen bg-background pb-24 relative">
       <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgCubsFansCelebrating})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.50)' }} />
+      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
       <div className="relative z-10">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4 space-y-6">

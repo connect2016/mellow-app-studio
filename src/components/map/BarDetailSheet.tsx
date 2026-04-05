@@ -39,7 +39,7 @@ export function BarDetailSheet({ bar, onClose }: Props) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[2000] bg-black/30"
+            className="fixed inset-0 z-[2000] bg-black/20"
             onClick={onClose}
           />
           {/* Bottom Sheet — 60% height */}

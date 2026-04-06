@@ -86,7 +86,7 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl"
+          className="mb-2 text-3xl font-extrabold sm:text-4xl lg:text-5xl"
           style={{
             fontFamily: 'Montserrat, sans-serif',
             color: 'white',
@@ -97,20 +97,30 @@ export default function HeroVideo() {
             lineHeight: 1.2,
           }}
         >
-          Your Wrigleyville
+          Find your crew at Wrigley
           <br />
-          <span style={{ color: 'hsl(var(--secondary))' }}>Connection Hub</span>
+          <span style={{ color: 'hsl(var(--secondary))' }}>— instantly.</span>
         </h1>
 
         <p
-          className="mb-8 max-w-sm text-base font-medium sm:text-lg"
+          className="mb-2 max-w-md text-base font-medium sm:text-lg"
           style={{
             color: 'rgba(255,255,255,0.9)',
             textShadow: '0 1px 8px rgba(0,0,0,0.5)',
           }}
         >
-          Find your crew, grab a beer, and make game day unforgettable —
-          at Wrigley Field and across Wrigleyville.
+          Meet fans, join game‑day missions, and make every Cubs game unforgettable.
+        </p>
+
+        <p
+          className="mb-8 text-sm font-semibold tracking-wide uppercase"
+          style={{
+            color: 'rgba(255,255,255,0.65)',
+            textShadow: '0 1px 4px rgba(0,0,0,0.4)',
+            letterSpacing: '0.12em',
+          }}
+        >
+          Safe · Simple · Built for real fans
         </p>
 
         <div className="flex flex-col items-center gap-3">
@@ -118,9 +128,9 @@ export default function HeroVideo() {
             <Button
               size="lg"
               className="rounded-full bg-secondary px-10 font-bold shadow-lg hover:bg-secondary/90"
-              aria-label="Get in the Game — sign up for Cubbies Buddies"
+              aria-label="Get Started — sign up for Cubbies Buddies"
             >
-              Join Free — It Takes 30 Seconds
+              Get Started — 30 Seconds
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </Link>

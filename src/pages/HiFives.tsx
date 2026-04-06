@@ -33,7 +33,7 @@ export default function HiFives() {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
-  const { data: hiFives = [], isLoading } = useQuery({
+  const { data: hiFives = [], isLoading, isError, refetch } = useQuery({
     queryKey: ['hi-fives', user?.id],
     queryFn: async () => {
       if (!user) return [];

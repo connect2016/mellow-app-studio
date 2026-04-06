@@ -19,7 +19,7 @@ import {
 export default function Messages() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
-  const { data: conversations = [], isLoading } = useConversations();
+  const { data: conversations = [], isLoading, isError, refetch } = useConversations();
   const { data: profileMap = {} } = useConversationProfiles(conversations);
   const [selectedConvoId, setSelectedConvoId] = useState<string | null>(null);
   const { data: messages = [] } = useConversationMessages(selectedConvoId);

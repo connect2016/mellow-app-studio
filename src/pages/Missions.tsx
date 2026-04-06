@@ -18,7 +18,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; emoji: string }> = {
 export default function Missions() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
-  const { data: missions = [], isLoading } = useMissions();
+  const { data: missions = [], isLoading, isError, refetch } = useMissions();
   const { data: totalPoints = 0 } = useTotalPoints();
   const claimReward = useClaimReward();
   const [celebrating, setCelebrating] = useState<string | null>(null);

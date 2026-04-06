@@ -133,7 +133,9 @@ export default function Messages() {
       <div className="mx-auto max-w-lg px-4 pt-4">
         <h2 className="mb-4 text-lg font-bold">Messages</h2>
 
-        {isLoading ? (
+        {isError ? (
+          <ErrorState onRetry={() => refetch()} />
+        ) : isLoading ? (
           <div className="space-y-2">
             {[1, 2, 3].map(i => (
               <div key={i} className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3">

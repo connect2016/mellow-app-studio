@@ -103,7 +103,7 @@ body, p, span, li, td, th, label, input, textarea, select, button {
 @layer base {
   :root {
     --background: 40 12% 90%;
-    --foreground: 160 52% 15%;
+    --foreground: 160 52% 12%;
 
     --card: 40 15% 88%;
     --card-foreground: 160 52% 15%;

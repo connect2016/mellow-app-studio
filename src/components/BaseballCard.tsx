@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { IntentType, INTENT_LABELS, INTENT_EMOJI, GameStatus, GAME_STATUS_LABELS, GAME_STATUS_EMOJI } from '@/types';
 import { ShieldCheck, MapPin } from 'lucide-react';
 import { GamedayPersona, PERSONA_CONFIG } from '@/components/PersonaBadge';
+import logoTransparent from '@/assets/logo-transparent.png';
 
 // "Position" labels based on fan style / persona
 const POSITION_LABELS: Record<string, string> = {

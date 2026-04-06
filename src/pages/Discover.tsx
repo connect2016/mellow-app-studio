@@ -33,6 +33,9 @@ import { useMissionTracker } from '@/hooks/useMissionTracker';
 import { LineupFeed } from '@/components/lineup/LineupFeed';
 import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
 import { Plus } from 'lucide-react';
+import { NearbyFansOnline } from '@/components/NearbyFansOnline';
+import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
+import { GameDayCountdown } from '@/components/GameDayCountdown';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },

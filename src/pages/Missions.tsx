@@ -95,6 +95,11 @@ export default function Missions() {
       </AnimatePresence>
 
       <div className="mx-auto max-w-lg px-4 pt-4">
+        {/* Mission Streak */}
+        <div className="mb-4">
+          <MissionStreak />
+        </div>
+
         {/* Points header */}
         <motion.div
           initial={{ opacity: 0, y: -8 }}

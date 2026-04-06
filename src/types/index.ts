@@ -24,11 +24,11 @@ export const GAMEDAY_INTENT_EMOJI: Record<GamedayIntentType, string> = {
 export type FanStyleType = 'OldStyleDrinker' | 'MustardHotdog' | 'StayUntil9th' | 'EarlyBPArrival' | 'ScorecardKeeper';
 
 export const FAN_STYLE_OPTIONS: { value: FanStyleType; label: string; emoji: string }[] = [
-  { value: 'OldStyleDrinker', label: 'Old Style Drinker', emoji: '🍺' },
-  { value: 'MustardHotdog', label: 'Mustard on my Hotdog', emoji: '🌭' },
-  { value: 'StayUntil9th', label: 'Stay until the 9th', emoji: '⏰' },
-  { value: 'EarlyBPArrival', label: 'Early BP Arrival', emoji: '🏟️' },
-  { value: 'ScorecardKeeper', label: 'Scorecard Keeper', emoji: '📝' },
+  { value: 'OldStyleDrinker', label: 'Old Style Only', emoji: '🍺' },
+  { value: 'MustardHotdog', label: 'Mustard Gang', emoji: '🌭' },
+  { value: 'StayUntil9th', label: 'Til the Last Out', emoji: '⏰' },
+  { value: 'EarlyBPArrival', label: 'Gates-Open Guy', emoji: '🏟️' },
+  { value: 'ScorecardKeeper', label: 'Keeps Score', emoji: '📝' },
 ];
 
 export type PrivacyLevel = 'Public' | 'MatchesOnly' | 'Hidden';

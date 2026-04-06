@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMissions, useTotalPoints, useClaimReward, type MissionWithProgress } from '@/hooks/useMissions';
 import { Trophy, Star, Zap, Gift, CheckCircle2, Lock, Flame } from 'lucide-react';
+import { ErrorState } from '@/components/ErrorState';
 import { toast } from 'sonner';
 
 const CATEGORY_CONFIG: Record<string, { label: string; emoji: string }> = {

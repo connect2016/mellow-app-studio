@@ -9,6 +9,7 @@ import { GuestModeProvider } from "@/contexts/GuestModeContext";
 import { MessageToastListener } from "@/components/MessageToastListener";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
+import Welcome from "./pages/Welcome";
 import Onboarding from "./pages/Onboarding";
 import Discover from "./pages/Discover";
 import Profile from "./pages/Profile";
@@ -53,6 +54,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/welcome" element={<Welcome />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/discover" element={<Discover />} />
             <Route path="/profile" element={<Profile />} />

@@ -115,6 +115,16 @@ export default function HeroVideo() {
           <span style={{ color: 'hsl(var(--secondary))' }}>Clubhouse</span>
         </h1>
 
+        <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+          </span>
+          <span className="text-sm font-medium text-white/90" style={{ fontFamily: 'Inter, sans-serif' }}>
+            {liveCount} Buddies active near the Friendly Confines
+          </span>
+        </div>
+
         <p
           className="mt-3 max-w-md text-base font-medium sm:text-lg"
           style={{

@@ -34,6 +34,16 @@ export default function HeroVideo() {
     });
   }, []);
 
+  // Simulate a live count that feels organic
+  useEffect(() => {
+    const base = 38 + Math.floor(Math.random() * 20);
+    setLiveCount(base);
+    const interval = setInterval(() => {
+      setLiveCount((prev) => prev + (Math.random() > 0.5 ? 1 : -1));
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleEnded = useCallback((endedIndex: number) => {
     const nextIndex = (endedIndex + 1) % VIDEO_SOURCES.length;
     setActiveIndex(nextIndex);

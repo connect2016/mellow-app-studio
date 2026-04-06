@@ -339,6 +339,21 @@ export default function Discover() {
           </div>
         )}
 
+        {/* Game Day Countdown */}
+        <div className="mb-4">
+          <GameDayCountdown />
+        </div>
+
+        {/* Crew at Bar Notification */}
+        <div className="mb-4">
+          <CrewAtBarNotification />
+        </div>
+
+        {/* Nearby Fans Online */}
+        <div className="mb-4">
+          <NearbyFansOnline />
+        </div>
+
         {/* Social Proof */}
         <div className="mb-4">
           <SocialProofBanner />

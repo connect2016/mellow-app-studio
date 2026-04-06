@@ -492,85 +492,90 @@ export default function Onboarding() {
 
               {/* Step 3: Cubs Identity */}
               {step === 3 && (
-                <div className="space-y-5">
-                  <div className="space-y-2">
-                    <Label className="text-base font-bold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Favorite Player</Label>
-                    <Input
-                      placeholder="Current or all-time hero"
-                      value={favoritePlayer}
-                      onChange={(e) => setFavoritePlayer(e.target.value)}
-                      className="rounded-xl"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label className="text-base font-bold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Favorite Cubs Moment</Label>
-                    <Textarea
-                      placeholder="Your most memorable Cubs moment..."
-                      value={favoriteMoment}
-                      onChange={(e) => handleMomentChange(e.target.value)}
-                      className={`rounded-xl min-h-[80px] ${momentError ? 'border-destructive' : ''}`}
-                    />
-                    {momentError && (
-                      <p className="flex items-center gap-1.5 text-sm text-destructive">
-                        <AlertCircle className="h-4 w-4" />
-                        {momentError}
+                <div className="space-y-6">
+                  {/* ── Section: Your Player ── */}
+                  <div className="space-y-4">
+                    <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
+                      <Star className="h-4 w-4" /> Your Player
+                    </h3>
+                    <div className="space-y-2">
+                      <Label className="text-sm font-bold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Favorite Cub</Label>
+                      <Input
+                        placeholder="Current or all-time hero"
+                        value={favoritePlayer}
+                        onChange={(e) => setFavoritePlayer(e.target.value)}
+                        className="rounded-xl"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-sm font-bold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Best Cubs Memory</Label>
+                      <Textarea
+                        placeholder="That one moment you'll never forget…"
+                        value={favoriteMoment}
+                        onChange={(e) => handleMomentChange(e.target.value)}
+                        className={`rounded-xl min-h-[72px] ${momentError ? 'border-destructive' : ''}`}
+                      />
+                      {momentError && (
+                        <p className="flex items-center gap-1.5 text-sm text-destructive">
+                          <AlertCircle className="h-4 w-4" />
+                          {momentError}
+                        </p>
+                      )}
+                      <p className="text-[11px] text-muted-foreground italic">
+                        Go deeper cut than the obvious one 😉
                       </p>
-                    )}
-                    <p className="text-[11px] text-muted-foreground italic">
-                      Pro tip: go deeper cut than the obvious choice 😉
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-border bg-card p-4 space-y-4">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-semibold text-foreground">Fan Flavor</span>
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-xs text-muted-foreground">My Cubs superstition is…</Label>
-                      <Input
-                        placeholder="e.g. Same hat every game day"
-                        value={superstition}
-                        onChange={(e) => setSuperstition(e.target.value)}
-                        className="rounded-xl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-xs text-muted-foreground">My ideal 7th-inning stretch song…</Label>
-                      <Input
-                        placeholder="e.g. Go Cubs Go (obviously)"
-                        value={stretchSong}
-                        onChange={(e) => setStretchSong(e.target.value)}
-                        className="rounded-xl"
-                      />
                     </div>
                   </div>
 
-                  {/* Fan Style */}
-                  <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg">🎨</span>
-                      <span className="text-sm font-semibold text-foreground">Fan Style</span>
+                  {/* ── Section: Fan Flavor ── */}
+                  <div className="space-y-4">
+                    <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
+                      <Sparkles className="h-4 w-4" /> Fan Flavor
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="space-y-2">
+                        <Label className="text-xs font-semibold text-muted-foreground">My superstition</Label>
+                        <Input
+                          placeholder="e.g. Same hat every game"
+                          value={superstition}
+                          onChange={(e) => setSuperstition(e.target.value)}
+                          className="rounded-xl"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-xs font-semibold text-muted-foreground">7th-inning stretch song</Label>
+                        <Input
+                          placeholder="e.g. Go Cubs Go (obviously)"
+                          value={stretchSong}
+                          onChange={(e) => setStretchSong(e.target.value)}
+                          className="rounded-xl"
+                        />
+                      </div>
                     </div>
-                    <p className="text-xs text-muted-foreground">Select all that apply</p>
-                    <div className="flex flex-wrap gap-2">
+                  </div>
+
+                  {/* ── Section: Fan Style ── */}
+                  <div className="space-y-3">
+                    <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
+                      🎨 Your Style
+                    </h3>
+                    <p className="text-xs font-medium text-muted-foreground">Tap all that fit</p>
+                    <div className="grid grid-cols-2 gap-2.5">
                       {FAN_STYLE_OPTIONS.map((opt) => {
                         const isSelected = fanStyles.includes(opt.value);
                         return (
-                          <motion.button
+                          <button
                             key={opt.value}
-                            whileTap={{ scale: 0.95 }}
                             onClick={() => toggleFanStyle(opt.value)}
-                            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all ${
+                            className={`flex items-center gap-3 rounded-xl border px-4 py-3.5 text-left transition-all ${
                               isSelected
                                 ? 'border-accent bg-accent text-accent-foreground shadow-sm'
-                                : 'border-border bg-background text-foreground hover:border-accent/40'
+                                : 'border-border bg-card text-foreground hover:border-accent/40'
                             }`}
                           >
-                            <span>{opt.emoji}</span>
-                            <span>{opt.label}</span>
-                          </motion.button>
+                            <span className="text-xl">{opt.emoji}</span>
+                            <span className="text-sm font-semibold">{opt.label}</span>
+                          </button>
                         );
                       })}
                     </div>

@@ -86,38 +86,42 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="mb-2 text-3xl font-extrabold sm:text-4xl lg:text-5xl"
+          className="text-[1.6rem] font-extrabold sm:text-4xl lg:text-5xl"
           style={{
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'Graduate, serif',
             color: 'white',
             WebkitTextStroke: '1.5px black',
             paintOrder: 'stroke fill',
             textShadow: '0 2px 20px rgba(0,0,0,0.6)',
             letterSpacing: '0.02em',
             lineHeight: 1.2,
+            textWrap: 'balance',
           }}
         >
-          Find your crew at Wrigley
+          The Wrigleyville
           <br />
-          <span style={{ color: 'hsl(var(--secondary))' }}>— instantly.</span>
+          Connection{' '}
+          <span style={{ color: 'hsl(var(--secondary))' }}>Clubhouse</span>
         </h1>
 
         <p
-          className="mb-2 max-w-md text-base font-medium sm:text-lg"
+          className="mt-3 max-w-md text-base font-medium sm:text-lg"
           style={{
+            fontFamily: 'Inter, sans-serif',
             color: 'rgba(255,255,255,0.9)',
             textShadow: '0 1px 8px rgba(0,0,0,0.5)',
           }}
         >
-          Meet fans, join game‑day missions, and make every Cubs game unforgettable.
+          Where solo fans become gameday friends.
         </p>
 
         <p
-          className="mb-8 text-sm font-semibold tracking-wide uppercase"
+          className="mt-2 mb-0 text-sm font-semibold tracking-wide uppercase"
           style={{
             color: 'rgba(255,255,255,0.65)',
             textShadow: '0 1px 4px rgba(0,0,0,0.4)',
             letterSpacing: '0.12em',
+            paddingBottom: '2rem',
           }}
         >
           Safe · Simple · Built for real fans

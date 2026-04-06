@@ -92,6 +92,21 @@ export default function Settings() {
           </Button>
         </div>
 
+        {/* Accessibility */}
+        <div className="rounded-xl border bg-card p-4 space-y-4">
+          <div className="flex items-center gap-2 text-sm font-semibold">
+            <Accessibility className="h-4 w-4 text-primary" /> Accessibility
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium">Reduce Motion</p>
+              <p className="text-xs text-muted-foreground">Disable animations and transitions</p>
+            </div>
+            <Switch checked={reducedMotion} onCheckedChange={setReducedMotion} />
+          </div>
+        </div>
+
         {/* Account */}
         <div className="rounded-xl border bg-card p-4 space-y-3">
           <div className="text-sm font-semibold">Account</div>

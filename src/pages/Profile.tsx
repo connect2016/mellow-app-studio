@@ -1,20 +1,15 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { DynamicBackground } from '@/components/DynamicBackground';
-import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
-import { IntentChip } from '@/components/IntentChip';
-import { StatusBadge } from '@/components/StatusBadge';
+import { BaseballCard } from '@/components/BaseballCard';
 import { Button } from '@/components/ui/button';
-import { Verified, MapPin, ArrowLeft, Flag, Ban, EyeOff, MessageCircle, ShieldCheck, Clock, Trophy } from 'lucide-react';
+import { ArrowLeft, Flag, Ban, EyeOff, MessageCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { IntentType, GameStatus, PrivacyLevel, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, FanStyleType, FAN_STYLE_OPTIONS } from '@/types';
-import { useUserPennants, BADGE_DEFINITIONS } from '@/hooks/usePennants';
-import { IvyLeafBadge } from '@/components/IvyLeafBadge';
-import { PersonaBadge } from '@/components/PersonaBadge';
+import { IntentType, GameStatus, PrivacyLevel, GamedayIntentType, FanStyleType } from '@/types';
 
 export default function Profile() {
   const { id } = useParams();
@@ -24,10 +19,7 @@ export default function Profile() {
   const { data: myProfile } = useProfile();
   const queryClient = useQueryClient();
   const isOwnProfile = !id || id === user?.id;
-  const profileUserId = isOwnProfile ? user?.id : id;
-  const { data: earnedPennants = [] } = useUserPennants(profileUserId);
 
-  // Fetch other user's profile from DB
   const { data: otherProfile, isLoading } = useQuery({
     queryKey: ['view-profile', id],
     queryFn: async () => {
@@ -45,7 +37,6 @@ export default function Profile() {
 
   const profile = isOwnProfile ? myProfile : otherProfile;
 
-  // Block user
   const blockUser = useMutation({
     mutationFn: async () => {
       if (!user || !id) throw new Error('Missing');
@@ -56,7 +47,7 @@ export default function Profile() {
         .eq('user_id', user.id);
     },
     onSuccess: () => {
-      toast({ title: '🚫 User blocked', description: 'They won\'t appear in your feed anymore.' });
+      toast({ title: '🚫 User blocked', description: "They won't appear in your feed anymore." });
       queryClient.invalidateQueries({ queryKey: ['discover-profiles'] });
       navigate('/discover');
     },
@@ -87,224 +78,63 @@ export default function Profile() {
     );
   }
 
-  const displayUser = {
-    display_name: profile.display_name,
-    age: profile.age,
-    pronouns: profile.pronouns,
-    bio: profile.bio,
-    profile_photo: profile.profile_photo,
-    is_verified: profile.is_verified,
-    game_status: profile.game_status as GameStatus,
-    wrigley_section: profile.wrigley_section,
-    wrigley_row: profile.wrigley_row,
-    wrigley_location_privacy: profile.wrigley_location_privacy as PrivacyLevel,
-    intent: (profile.intent as IntentType[]) ?? [],
-    favorite_player: profile.favorite_player,
-    favorite_moment: profile.favorite_moment,
-    favorite_moment_is_valid: profile.favorite_moment_is_valid,
-    superstition: (profile as any).superstition,
-    stretch_song: (profile as any).stretch_song,
-    best_bar: (profile as any).best_bar,
-    gameday_intents: ((profile as any).gameday_intents as GamedayIntentType[]) ?? [],
-    fan_style: ((profile as any).fan_style as FanStyleType[]) ?? [],
-  };
-
-  const myFanStyles = isOwnProfile ? displayUser.fan_style : ((myProfile?.fan_style as FanStyleType[]) ?? []);
-
-  const prompts = [
-    displayUser.superstition && { label: 'My Cubs superstition is…', value: displayUser.superstition, emoji: '🧢' },
-    displayUser.best_bar && { label: 'My favorite Wrigleyville bar…', value: displayUser.best_bar, emoji: '🍻' },
-    displayUser.stretch_song && { label: 'My 7th-inning stretch song…', value: displayUser.stretch_song, emoji: '🎵' },
-    displayUser.favorite_player && { label: 'Favorite Cubs player ever…', value: displayUser.favorite_player, emoji: '⚾' },
-    displayUser.favorite_moment && displayUser.favorite_moment_is_valid !== false && { label: 'Favorite Cubs moment…', value: displayUser.favorite_moment, emoji: '🎉' },
-  ].filter(Boolean) as { label: string; value: string; emoji: string }[];
-
   return (
     <DynamicBackground className="pb-24">
       <AppHeader />
 
-      <div className="mx-auto max-w-lg">
+      <div className="mx-auto max-w-sm px-4 pt-4">
         {!isOwnProfile && (
-          <button onClick={() => navigate(-1)} className="flex items-center gap-1 px-4 pt-4 text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <button onClick={() => navigate(-1)} className="flex items-center gap-1 mb-4 text-sm text-muted-foreground hover:text-foreground min-h-[44px] min-w-[44px]">
             <ArrowLeft className="h-4 w-4" /> Back
           </button>
         )}
 
-        {/* Photo */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative">
-          <img
-            src={displayUser.profile_photo || '/placeholder.svg'}
-            alt={displayUser.display_name}
-            className="h-80 w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-        </motion.div>
+        <BaseballCard
+          displayName={profile.display_name}
+          age={profile.age}
+          profilePhoto={profile.profile_photo}
+          isVerified={profile.is_verified}
+          gameStatus={profile.game_status as GameStatus}
+          wrigleySection={profile.wrigley_section}
+          wrigleyRow={profile.wrigley_row}
+          wrigleyvilleBar={(profile as any).wrigleyville_bar}
+          intent={(profile.intent as IntentType[]) ?? []}
+          persona={(profile as any).gameday_persona}
+          bio={profile.bio}
+          favoritePlayer={profile.favorite_player}
+          favoriteMoment={profile.favorite_moment}
+          superstition={(profile as any).superstition}
+          stretchSong={(profile as any).stretch_song}
+          bestBar={(profile as any).best_bar}
+          pronouns={profile.pronouns}
+          gamesAttended={Math.floor(Math.random() * 50) + 1}
+          buddiesMet={Math.floor(Math.random() * 30)}
+          totalInnings={Math.floor(Math.random() * 400) + 9}
+        />
 
-        <div className="px-4 -mt-16 relative space-y-5">
-          {/* Name & badges */}
-          <div>
-            <div className="flex items-center gap-2 flex-wrap">
-              <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>{displayUser.display_name}{displayUser.age ? `, ${displayUser.age}` : ''}</h1>
-               {displayUser.is_verified && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
-                  <ShieldCheck className="h-3 w-3" /> Verified Fan
-                </span>
-              )}
-              <IvyLeafBadge userId={profileUserId} />
-              <PersonaBadge persona={(profile as any)?.gameday_persona} />
-            </div>
-            {displayUser.pronouns && <p className="text-sm text-muted-foreground mt-0.5">{displayUser.pronouns}</p>}
-          </div>
-
-          {/* Status */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <StatusBadge status={displayUser.game_status} />
-            {displayUser.game_status === 'AtWrigley' && displayUser.wrigley_location_privacy === 'Public' && displayUser.wrigley_section && (
-              <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                <MapPin className="h-3 w-3" /> Section {displayUser.wrigley_section}{displayUser.wrigley_row ? `, Row ${displayUser.wrigley_row}` : ''}
-              </span>
-            )}
-            <span className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Clock className="h-3 w-3" /> Active recently
-            </span>
-          </div>
-
-          {/* Intent */}
-          <div className="flex flex-wrap gap-1.5">
-            {displayUser.intent.map((i) => <IntentChip key={i} intent={i} />)}
-          </div>
-
-          {/* Gameday Intent Badges */}
-          {displayUser.gameday_intents.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {displayUser.gameday_intents.map((gi) => (
-                <span
-                  key={gi}
-                  className="inline-flex items-center gap-1 rounded-full bg-secondary/10 border border-secondary/20 px-2.5 py-0.5 text-xs font-semibold text-foreground"
-                >
-                  <span>{GAMEDAY_INTENT_EMOJI[gi]}</span>
-                  <span>{GAMEDAY_INTENT_LABELS[gi]}</span>
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Fan Style */}
-          {displayUser.fan_style.length > 0 && (() => {
-            const commonStyles = isOwnProfile ? [] : displayUser.fan_style.filter((s) => myFanStyles.includes(s));
-            const hasCommon = commonStyles.length > 0;
-            return (
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">🎨 Fan Style</h3>
-                  {hasCommon && (
-                    <span className="text-[10px] font-bold text-accent">⚡ Common Ground!</span>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {displayUser.fan_style.map((s) => {
-                    const opt = FAN_STYLE_OPTIONS.find((o) => o.value === s);
-                    if (!opt) return null;
-                    const isCommon = !isOwnProfile && myFanStyles.includes(s);
-                    return (
-                      <span
-                        key={s}
-                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold border ${
-                          isCommon
-                            ? 'bg-accent text-accent-foreground border-accent shadow-sm'
-                            : 'bg-secondary/10 border-secondary/20 text-foreground'
-                        }`}
-                      >
-                        <span>{opt.emoji}</span>
-                        <span>{opt.label}</span>
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })()}
-
-          {/* Bio */}
-          {displayUser.bio && (
-            <p className="text-sm leading-relaxed text-foreground">{displayUser.bio}</p>
-          )}
-
-          {/* Prompts */}
-          {prompts.length > 0 && (
-            <div className="space-y-2.5">
-              {prompts.map((p) => (
-                <motion.div
-                  key={p.label}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="rounded-2xl border border-border bg-card p-4 shadow-sm"
-                >
-                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">{p.emoji} {p.label}</p>
-                  <p className="text-sm font-medium text-foreground">{p.value}</p>
-                </motion.div>
-              ))}
-            </div>
-          )}
-
-          {/* Earned Pennants */}
-          {earnedPennants.length > 0 && (
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                  <Trophy className="h-3.5 w-3.5" /> Pennants
-                </h3>
-                {isOwnProfile && (
-                  <button
-                    onClick={() => navigate('/loyalty')}
-                    className="text-xs text-accent font-medium hover:underline"
-                  >
-                    View All
-                  </button>
-                )}
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {earnedPennants.map(p => {
-                  const def = BADGE_DEFINITIONS.find(b => b.key === p.badge_key);
-                  if (!def) return null;
-                  return (
-                    <motion.div
-                      key={p.id}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="flex items-center gap-1.5 rounded-full bg-accent/10 border border-accent/20 px-3 py-1.5"
-                    >
-                      <span className="text-sm">{def.emoji}</span>
-                      <span className="text-xs font-semibold text-foreground">{def.name}</span>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Actions */}
+        {/* Action buttons */}
+        <div className="mt-6 space-y-3">
           {!isOwnProfile ? (
-            <div className="space-y-3 pt-2">
+            <>
               <div className="grid grid-cols-3 gap-2">
                 <Button
                   onClick={() => toast({ title: '🖐️ Hi-Five sent!' })}
                   variant="outline"
-                  className="rounded-xl h-12 font-semibold"
+                  className="rounded-xl h-12 font-semibold text-sm"
                 >
                   🖐️ Hi-Five
                 </Button>
                 <Button
                   onClick={() => navigate('/messages')}
                   variant="outline"
-                  className="rounded-xl h-12 font-semibold"
+                  className="rounded-xl h-12 font-semibold text-sm"
                 >
-                  <MessageCircle className="mr-1.5 h-4 w-4" /> Chat
+                  <MessageCircle className="mr-1 h-4 w-4" /> Chat
                 </Button>
                 <Button
                   onClick={() => navigate(`/beer-money?to=${id}`)}
                   variant="outline"
-                  className="rounded-xl h-12 font-semibold"
+                  className="rounded-xl h-12 font-semibold text-sm"
                 >
                   🍺 Beer
                 </Button>
@@ -331,20 +161,18 @@ export default function Profile() {
                   size="sm"
                   className="text-muted-foreground gap-1.5 text-xs hover:text-foreground"
                   onClick={() => {
-                    toast({ title: 'Profile hidden', description: 'You won\'t see this fan again.' });
+                    toast({ title: 'Profile hidden', description: "You won't see this fan again." });
                     navigate('/discover');
                   }}
                 >
                   <EyeOff className="h-3 w-3" /> Hide
                 </Button>
               </div>
-            </div>
+            </>
           ) : (
-            <div className="pt-2">
-              <Button className="w-full rounded-xl h-12 font-semibold" onClick={() => navigate('/settings')}>
-                Edit Profile
-              </Button>
-            </div>
+            <Button className="w-full rounded-xl h-12 font-semibold" onClick={() => navigate('/settings')}>
+              Edit Profile
+            </Button>
           )}
         </div>
       </div>

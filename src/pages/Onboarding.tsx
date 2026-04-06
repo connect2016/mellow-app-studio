@@ -395,94 +395,91 @@ export default function Onboarding() {
                 </div>
               )}
 
-              {/* Step 2: Intent cards */}
+              {/* Step 2: Intent Selection */}
               {step === 2 && (
-                <div className="space-y-4">
-                  <p className="text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Select all that apply</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    {intentCards.map((card) => {
-                      const isSelected = intents.includes(card.value);
-                      return (
-                        <motion.button
-                          key={card.value}
-                          whileTap={{ scale: 0.96 }}
-                          onClick={() => toggleIntent(card.value)}
-                          className={`relative flex flex-col items-center gap-2 rounded-2xl border p-5 text-center transition-all ${
-                            isSelected
-                              ? 'border-primary bg-primary/5 shadow-md shadow-primary/10'
-                              : 'border-border bg-card hover:border-primary/30 hover:shadow-sm'
-                          }`}
-                        >
-                          {isSelected && (
-                            <motion.div
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              className="absolute top-2 right-2 h-5 w-5 rounded-full bg-primary flex items-center justify-center"
-                            >
-                              <span className="text-primary-foreground text-[10px] font-bold">✓</span>
-                            </motion.div>
-                          )}
-                          <span className="text-3xl">{card.emoji}</span>
-                          <span className="font-semibold text-sm text-foreground">{card.label}</span>
-                          <span className="text-[11px] text-muted-foreground leading-tight">{card.desc}</span>
-                        </motion.button>
-                      );
-                    })}
-                  </div>
-                  <motion.button
-                    whileTap={{ scale: 0.98 }}
-                    type="button"
-                    onClick={() =>
-                      setIntents(
+                <div className="space-y-6">
+                  {/* ── Primary Intent ── */}
+                  <div className="space-y-3">
+                    <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
+                      <Heart className="h-4 w-4" /> Primary Intent
+                    </h3>
+                    <p className="text-xs font-medium text-muted-foreground">What brings you here?</p>
+                    <div className="grid grid-cols-2 gap-3">
+                      {intentCards.map((card) => {
+                        const isSelected = intents.includes(card.value);
+                        return (
+                          <button
+                            key={card.value}
+                            onClick={() => toggleIntent(card.value)}
+                            className={`relative flex items-center gap-3 rounded-xl border px-4 py-3.5 text-left transition-all ${
+                              isSelected
+                                ? 'border-primary bg-primary/5 shadow-sm'
+                                : 'border-border bg-card hover:border-primary/30'
+                            }`}
+                          >
+                            {isSelected && (
+                              <div className="absolute top-2 right-2 h-4 w-4 rounded-full bg-primary flex items-center justify-center">
+                                <span className="text-primary-foreground text-[9px] font-bold">✓</span>
+                              </div>
+                            )}
+                            <span className="text-2xl">{card.emoji}</span>
+                            <div>
+                              <span className="block text-sm font-semibold text-foreground">{card.label}</span>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setIntents(
+                          intents.length === 4
+                            ? []
+                            : ['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating']
+                        )
+                      }
+                      className={`w-full rounded-xl border py-3 text-sm font-semibold transition-all ${
                         intents.length === 4
-                          ? []
-                          : ['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 'Dating']
-                      )
-                    }
-                    className={`w-full rounded-2xl border py-3.5 text-sm font-semibold transition-all ${
-                      intents.length === 4
-                        ? 'border-primary bg-primary text-primary-foreground'
-                        : 'border-border bg-card text-foreground hover:border-primary/40'
-                    }`}
-                  >
-                    🤝 Open to All
-                  </motion.button>
+                          ? 'border-primary bg-primary text-primary-foreground'
+                          : 'border-border bg-card text-foreground hover:border-primary/40'
+                      }`}
+                    >
+                      🤝 Open to All
+                    </button>
+                  </div>
 
-                  {/* Gameday Intent Badges */}
-                  <div className="pt-4 border-t border-border">
-                     <h3 className="text-base font-bold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>🏟️ Gameday Intent</h3>
-                     <p className="text-sm font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Pick 2–3 badges that show up on your card</p>
+                  {/* ── Gameday Badges ── */}
+                  <div className="space-y-3">
+                    <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
+                      🏟️ Gameday Badges
+                    </h3>
+                    <p className="text-xs font-medium text-muted-foreground">Pick up to 3 — shown on your card</p>
                     <div className="grid grid-cols-2 gap-3">
                       {gamedayIntentCards.map((card) => {
                         const isSelected = gamedayIntents.includes(card.value);
                         const atMax = gamedayIntents.length >= 3 && !isSelected;
                         return (
-                          <motion.button
+                          <button
                             key={card.value}
-                            whileTap={{ scale: 0.96 }}
                             onClick={() => toggleGamedayIntent(card.value)}
                             disabled={atMax}
-                            className={`relative flex flex-col items-center gap-2 rounded-2xl border p-4 text-center transition-all ${
+                            className={`relative flex items-center gap-3 rounded-xl border px-4 py-3.5 text-left transition-all ${
                               isSelected
-                                ? 'border-secondary bg-secondary/5 shadow-md shadow-secondary/10'
+                                ? 'border-secondary bg-secondary/5 shadow-sm'
                                 : atMax
                                 ? 'border-border bg-card opacity-40 cursor-not-allowed'
-                                : 'border-border bg-card hover:border-secondary/30 hover:shadow-sm'
+                                : 'border-border bg-card hover:border-secondary/30'
                             }`}
                           >
                             {isSelected && (
-                              <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="absolute top-2 right-2 h-5 w-5 rounded-full bg-secondary flex items-center justify-center"
-                              >
-                                <span className="text-secondary-foreground text-[10px] font-bold">✓</span>
-                              </motion.div>
+                              <div className="absolute top-2 right-2 h-4 w-4 rounded-full bg-secondary flex items-center justify-center">
+                                <span className="text-secondary-foreground text-[9px] font-bold">✓</span>
+                              </div>
                             )}
                             <span className="text-2xl">{card.emoji}</span>
-                            <span className="font-semibold text-xs text-foreground">{card.label}</span>
-                            <span className="text-[10px] text-muted-foreground leading-tight">{card.desc}</span>
-                          </motion.button>
+                            <span className="text-sm font-semibold text-foreground">{card.label}</span>
+                          </button>
                         );
                       })}
                     </div>

@@ -193,40 +193,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
-      <section className="relative overflow-hidden bg-primary py-20">
-        <div className="absolute inset-0 opacity-10">
-          <img src={wrigleyHero} alt="" className="h-full w-full object-cover" loading="lazy" />
-        </div>
-        <div className="relative mx-auto max-w-lg px-6 text-center">
-          <h2 className="mb-3 text-3xl font-bold text-primary-foreground sm:text-4xl">
-            Your crew is already here.
-          </h2>
-          <p className="mb-8 text-primary-foreground/70">
-            Join 1,200+ fans connecting at Wrigley Field and across Wrigleyville. It takes 30 seconds.
-          </p>
-          <div className="flex flex-col items-center gap-3">
-            <Link to="/auth">
-              <Button
-                size="lg"
-                className="rounded-full bg-secondary px-10 font-bold shadow-lg hover:bg-secondary/90"
-              >
-                Get in the Game
-                <ChevronRight className="ml-1 h-4 w-4" />
-              </Button>
-            </Link>
-            <Button
-              variant="ghost"
-              size="lg"
-              onClick={handleBrowseAsGuest}
-              className="rounded-full px-8 font-medium text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 gap-2"
-            >
-              <Eye className="h-4 w-4" />
-              Browse as Guest
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* ── Footer ── */}
       <footer className="border-t bg-background py-8 text-center text-sm text-muted-foreground">

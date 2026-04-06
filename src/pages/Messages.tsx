@@ -5,6 +5,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Send, MessageCircle, ArrowLeft } from 'lucide-react';
+import { ErrorState } from '@/components/ErrorState';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
 import bgWrigleyPlayball from '@/assets/bg-wrigley-playball.png';
 import { useAuth } from '@/contexts/AuthContext';

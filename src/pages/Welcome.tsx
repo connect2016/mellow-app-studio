@@ -10,7 +10,7 @@ const steps = [
     emoji: '👋',
     title: 'Welcome to Cubbies Buddies',
     subtitle: 'Your Wrigleyville connection hub.',
-    body: 'The only app built by Cubs fans, for Cubs fans. Whether you're a bleacher regular or visiting for the first time — this is your crew.',
+    body: "The only app built by Cubs fans, for Cubs fans. Whether you're a bleacher regular or visiting for the first time -- this is your crew.",
     items: null,
   },
   {

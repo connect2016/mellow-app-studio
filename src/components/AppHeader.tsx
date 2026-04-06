@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Compass, Zap, MessageCircle, User, Settings, Radio, Users, Camera, Bell, Beer, Home } from 'lucide-react';
+import { Home, Target, Users, MessageCircle, User, Settings, Bell, Beer } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -8,9 +8,10 @@ import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
   { to: '/discover', icon: Home, label: 'Home' },
-  { to: '/vibe', icon: Radio, label: 'Vibe' },
-  { to: '/hi-fives', icon: Zap, label: 'Hi-Fives' },
-  { to: '/profile', icon: User, label: 'Your Stats' },
+  { to: '/missions', icon: Target, label: 'Missions' },
+  { to: '/hi-fives', icon: Users, label: 'Fans' },
+  { to: '/messages', icon: MessageCircle, label: 'Messages' },
+  { to: '/profile', icon: User, label: 'Profile' },
 ];
 
 function useNotificationCounts() {
@@ -90,9 +91,6 @@ export function AppHeader() {
             </span>
           </Link>
           <div className="flex items-center gap-1">
-            <Link to="/messages" data-tour="messages" className="relative rounded-full p-2 hover:bg-muted transition-colors">
-              <MessageCircle className="h-5 w-5 text-muted-foreground" />
-            </Link>
             <Link to="/beer-money" data-tour="beer-money" className="relative rounded-full p-2 hover:bg-muted transition-colors">
               <Beer className="h-5 w-5 text-muted-foreground" />
             </Link>

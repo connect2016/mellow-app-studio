@@ -279,3 +279,13 @@ body::before {
 .ticket-btn::after {
   right: -4px;
 }
+
+/* Baseball Card 3D Flip */
+.baseball-card-inner {
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.baseball-card-face {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}

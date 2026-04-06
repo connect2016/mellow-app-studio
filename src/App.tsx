@@ -9,6 +9,7 @@ import { GuestModeProvider } from "@/contexts/GuestModeContext";
 import { MessageToastListener } from "@/components/MessageToastListener";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
+import Welcome from "./pages/Welcome";
 import Onboarding from "./pages/Onboarding";
 import Discover from "./pages/Discover";
 import Profile from "./pages/Profile";

@@ -172,9 +172,34 @@ export default function Missions() {
 
         {/* Missions list */}
         {isLoading ? (
+          <div className="space-y-3">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="rounded-2xl border border-border bg-card p-4 space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-muted animate-pulse" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 w-32 bg-muted rounded animate-pulse" />
+                    <div className="h-3 w-48 bg-muted rounded animate-pulse" />
+                  </div>
+                </div>
+                <div className="h-2 rounded-full bg-muted animate-pulse" />
+              </div>
+            ))}
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-3xl animate-pulse">🎯</p>
-            <p className="mt-2 text-sm text-muted-foreground">Loading missions...</p>
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+              <Trophy className="h-7 w-7 text-muted-foreground" />
+            </div>
+            <p className="font-semibold text-foreground">No missions here — yet!</p>
+            <p className="text-sm text-muted-foreground mt-1 max-w-[260px] mx-auto">
+              {filter !== 'all' ? 'Try a different category or check back on game day.' : 'Missions unlock as you explore. Start by discovering fans!'}
+            </p>
+            {filter !== 'all' && (
+              <Button variant="outline" className="mt-4 rounded-xl min-h-[44px]" onClick={() => setFilter('all')}>
+                Show All Missions
+              </Button>
+            )}
           </div>
         ) : (
           <div className="space-y-2.5">

@@ -340,24 +340,41 @@ export function FlashMeetupsPanel() {
 
         {/* Meetup list */}
         {isLoading ? (
-          <div className="space-y-2 py-2">
+          <div className="space-y-3 py-2">
             {[1, 2].map(i => (
-              <div key={i} className="rounded-xl border border-border p-3">
-                <div className="flex gap-2.5">
+              <div key={i} className="rounded-2xl border border-border p-4 space-y-3">
+                <div className="flex items-center gap-3">
                   <div className="h-8 w-8 rounded-lg bg-muted animate-pulse" />
-                  <div className="flex-1">
-                    <div className="h-3 w-24 bg-muted rounded animate-pulse mb-1.5" />
-                    <div className="h-2.5 w-36 bg-muted rounded animate-pulse" />
-                  </div>
+                  <div className="h-4 w-36 bg-muted rounded animate-pulse" />
+                </div>
+                <div className="flex gap-2">
+                  <div className="h-7 w-24 rounded-full bg-muted animate-pulse" />
+                  <div className="h-7 w-28 rounded-full bg-muted animate-pulse" />
+                  <div className="h-7 w-16 rounded-full bg-muted animate-pulse" />
+                </div>
+                <div className="flex justify-end">
+                  <div className="h-11 w-24 rounded-full bg-muted animate-pulse" />
                 </div>
               </div>
             ))}
           </div>
         ) : liveMeetups.length === 0 ? (
-          <div className="text-center py-5">
-            <span className="text-3xl">⚡</span>
-            <p className="text-sm text-muted-foreground mt-2">No flash meetups right now</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Be the first — create one above!</p>
+          <div className="text-center py-8">
+            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
+              <Zap className="h-6 w-6 text-muted-foreground" />
+            </div>
+            <p className="font-semibold text-foreground text-sm">No meetups yet</p>
+            <p className="text-xs text-muted-foreground mt-1 max-w-[220px] mx-auto">
+              Be the first to start one — rally the fans!
+            </p>
+            <Button
+              variant="outline"
+              className="mt-4 rounded-full min-h-[44px] px-6 font-semibold gap-1.5"
+              onClick={() => setShowCreate(true)}
+            >
+              <Plus className="h-4 w-4" />
+              Create Meetup
+            </Button>
           </div>
         ) : (
           <div className="space-y-2">

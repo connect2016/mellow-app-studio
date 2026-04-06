@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Zap, MessageCircle, ChevronDown } from 'lucide-react';
+import { ErrorState } from '@/components/ErrorState';
 import bgWrigleyvilleStreet from '@/assets/bg-wrigleyville-street.png';
 
 const QUICK_REPLIES = [
@@ -32,7 +33,7 @@ export default function HiFives() {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
-  const { data: hiFives = [], isLoading } = useQuery({
+  const { data: hiFives = [], isLoading, isError, refetch } = useQuery({
     queryKey: ['hi-fives', user?.id],
     queryFn: async () => {
       if (!user) return [];
@@ -122,7 +123,9 @@ export default function HiFives() {
         <h2 className="mb-1 text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>Hi-Fives</h2>
         <p className="mb-6 text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Fans who sent you a Hi-Five 🖐️ — tap to reply!</p>
 
-        {isLoading ? (
+        {isError ? (
+          <ErrorState onRetry={() => refetch()} />
+        ) : isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
               <div key={i} className="rounded-2xl border border-border bg-card p-4">

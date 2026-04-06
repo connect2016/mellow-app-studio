@@ -385,7 +385,7 @@ export function FlashMeetupsPanel() {
                   meetup={meetup}
                   onJoin={() => {
                     joinMeetup.mutate(meetup.id, {
-                      onSuccess: () => toast.success(`⚡ Joined "${meetup.title}"!`),
+                      onSuccess: () => toast.success("You're in! We'll notify you when others join. ⚡"),
                       onError: (err: any) => toast.error(err.message || 'Failed to join'),
                     });
                   }}

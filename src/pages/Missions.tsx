@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMissions, useTotalPoints, useClaimReward, type MissionWithProgress } from '@/hooks/useMissions';
 import { Trophy, Star, Zap, Gift, CheckCircle2, Lock, Flame } from 'lucide-react';
+import { ErrorState } from '@/components/ErrorState';
 import { toast } from 'sonner';
 
 const CATEGORY_CONFIG: Record<string, { label: string; emoji: string }> = {
@@ -17,7 +18,7 @@ const CATEGORY_CONFIG: Record<string, { label: string; emoji: string }> = {
 export default function Missions() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
-  const { data: missions = [], isLoading } = useMissions();
+  const { data: missions = [], isLoading, isError, refetch } = useMissions();
   const { data: totalPoints = 0 } = useTotalPoints();
   const claimReward = useClaimReward();
   const [celebrating, setCelebrating] = useState<string | null>(null);
@@ -171,7 +172,9 @@ export default function Missions() {
         </div>
 
         {/* Missions list */}
-        {isLoading ? (
+        {isError ? (
+          <ErrorState onRetry={() => refetch()} />
+        ) : isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3, 4].map(i => (
               <div key={i} className="rounded-2xl border border-border bg-card p-4 space-y-3">

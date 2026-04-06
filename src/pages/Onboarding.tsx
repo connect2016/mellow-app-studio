@@ -202,9 +202,10 @@ export default function Onboarding() {
             🎉
           </motion.div>
           <h1 className="text-3xl font-bold text-primary-foreground mb-2">
-            You're in the lineup!
+            Welcome to the crew!
           </h1>
-          <p className="text-primary-foreground/80 text-lg">Welcome to Cubbies Buddies</p>
+          <p className="text-primary-foreground/80 text-lg mb-1">You're in the lineup.</p>
+          <p className="text-primary-foreground/60 text-sm">Your first mission unlocks on game day.</p>
         </motion.div>
 
         {/* Confetti-like particles */}

@@ -5,6 +5,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Send, MessageCircle, ArrowLeft } from 'lucide-react';
+import { ErrorState } from '@/components/ErrorState';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
 import bgWrigleyPlayball from '@/assets/bg-wrigley-playball.png';
 import { useAuth } from '@/contexts/AuthContext';
@@ -18,7 +19,7 @@ import {
 export default function Messages() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
-  const { data: conversations = [], isLoading } = useConversations();
+  const { data: conversations = [], isLoading, isError, refetch } = useConversations();
   const { data: profileMap = {} } = useConversationProfiles(conversations);
   const [selectedConvoId, setSelectedConvoId] = useState<string | null>(null);
   const { data: messages = [] } = useConversationMessages(selectedConvoId);
@@ -132,7 +133,9 @@ export default function Messages() {
       <div className="mx-auto max-w-lg px-4 pt-4">
         <h2 className="mb-4 text-lg font-bold">Messages</h2>
 
-        {isLoading ? (
+        {isError ? (
+          <ErrorState onRetry={() => refetch()} />
+        ) : isLoading ? (
           <div className="space-y-2">
             {[1, 2, 3].map(i => (
               <div key={i} className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3">

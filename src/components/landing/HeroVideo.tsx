@@ -11,6 +11,7 @@ export default function HeroVideo() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [ready, setReady] = useState(false);
+  const [liveCount, setLiveCount] = useState(0);
   const navigate = useNavigate();
   const { enterGuestMode } = useGuestMode();
 
@@ -31,6 +32,16 @@ export default function HeroVideo() {
         v.load();
       }
     });
+  }, []);
+
+  // Simulate a live count that feels organic
+  useEffect(() => {
+    const base = 38 + Math.floor(Math.random() * 20);
+    setLiveCount(base);
+    const interval = setInterval(() => {
+      setLiveCount((prev) => prev + (Math.random() > 0.5 ? 1 : -1));
+    }, 8000);
+    return () => clearInterval(interval);
   }, []);
 
   const handleEnded = useCallback((endedIndex: number) => {
@@ -103,6 +114,16 @@ export default function HeroVideo() {
           Connection{' '}
           <span style={{ color: 'hsl(var(--secondary))' }}>Clubhouse</span>
         </h1>
+
+        <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+          </span>
+          <span className="text-sm font-medium text-white/90" style={{ fontFamily: 'Inter, sans-serif' }}>
+            {liveCount} Buddies active near the Friendly Confines
+          </span>
+        </div>
 
         <p
           className="mt-3 max-w-md text-base font-medium sm:text-lg"

@@ -3,6 +3,10 @@ import { DynamicBackground } from '@/components/DynamicBackground';
 import { AppHeader } from '@/components/AppHeader';
 import { TrendingNow } from '@/components/TrendingNow';
 import { HallOfFameLeaderboard } from '@/components/HallOfFameLeaderboard';
+import { GameDayCountdown } from '@/components/GameDayCountdown';
+import { NearbyFansOnline } from '@/components/NearbyFansOnline';
+import { MissionStreak } from '@/components/MissionStreak';
+import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -19,13 +23,19 @@ const Index = () => {
   return (
     <DynamicBackground>
       <AppHeader />
-      <main className="mx-auto max-w-lg px-4 pt-4 pb-24 space-y-6">
+      <main className="mx-auto max-w-lg px-4 pt-4 pb-24 space-y-4">
         <div>
           <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>
             Welcome back 👋
           </h1>
           <p className="text-base font-semibold mt-1" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Here's what's happening in Wrigleyville</p>
         </div>
+
+        {/* Retention Hooks */}
+        <GameDayCountdown />
+        <CrewAtBarNotification />
+        <NearbyFansOnline />
+        <MissionStreak />
 
         <TrendingNow />
         <HallOfFameLeaderboard />

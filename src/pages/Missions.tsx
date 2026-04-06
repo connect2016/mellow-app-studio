@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useMissions, useTotalPoints, useClaimReward, type MissionWithProgress } from '@/hooks/useMissions';
 import { Trophy, Star, Zap, Gift, CheckCircle2, Lock, Flame } from 'lucide-react';
 import { ErrorState } from '@/components/ErrorState';
+import { MissionStreak } from '@/components/MissionStreak';
 import { toast } from 'sonner';
 
 const CATEGORY_CONFIG: Record<string, { label: string; emoji: string }> = {
@@ -94,6 +95,11 @@ export default function Missions() {
       </AnimatePresence>
 
       <div className="mx-auto max-w-lg px-4 pt-4">
+        {/* Mission Streak */}
+        <div className="mb-4">
+          <MissionStreak />
+        </div>
+
         {/* Points header */}
         <motion.div
           initial={{ opacity: 0, y: -8 }}

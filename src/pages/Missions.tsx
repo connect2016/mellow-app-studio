@@ -172,7 +172,9 @@ export default function Missions() {
         </div>
 
         {/* Missions list */}
-        {isLoading ? (
+        {isError ? (
+          <ErrorState onRetry={() => refetch()} />
+        ) : isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3, 4].map(i => (
               <div key={i} className="rounded-2xl border border-border bg-card p-4 space-y-3">

@@ -85,112 +85,86 @@ function FlashMeetupCard({ meetup, onJoin, onLeave, isPending }: {
   const vibeConf = VIBE_OPTIONS.find(v => v.value === meetup.vibe) ?? VIBE_OPTIONS[0];
   const spotsLeft = meetup.max_members - (meetup.member_count ?? 0);
   const isFull = spotsLeft <= 0;
-  const isAlmostFull = spotsLeft <= 2 && !isFull;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      layout
-      className={`rounded-xl border p-3 transition-all ${vibeConf.bg}`}
-    >
-      <div className="flex items-start gap-2.5">
-        <motion.span
-          className="text-2xl shrink-0"
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          {meetup.emoji}
-        </motion.span>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <p className="text-sm font-bold text-foreground">{meetup.title}</p>
-            {meetup.is_system_generated && (
-              <Badge variant="outline" className="text-[8px] h-3.5 px-1 border-primary/20 text-primary">
-                AI
-              </Badge>
-            )}
-          </div>
-          <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-            <span className="flex items-center gap-0.5 text-[11px] text-muted-foreground">
-              <MapPin className="h-3 w-3" /> {meetup.location_name}
-            </span>
-            <CountdownTimer expiresAt={meetup.expires_at} />
-          </div>
-          {meetup.description && (
-            <p className="text-[11px] text-muted-foreground mt-1">{meetup.description}</p>
-          )}
+    <div className={`rounded-2xl border p-4 transition-all ${vibeConf.bg}`}>
+      {/* Title row */}
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <span className="text-2xl shrink-0">{meetup.emoji}</span>
+          <h4 className="text-base font-bold text-foreground truncate">{meetup.title}</h4>
         </div>
+        {meetup.is_system_generated && (
+          <Badge variant="outline" className="text-[9px] h-4 px-1.5 border-primary/20 text-primary shrink-0">
+            AI
+          </Badge>
+        )}
       </div>
 
-      {/* Members row */}
-      <div className="flex items-center justify-between mt-2.5">
-        <div className="flex items-center gap-1.5">
-          <div className="flex -space-x-1.5">
-            {(meetup.members ?? []).slice(0, 5).map(m => (
-              <div
-                key={m.user_id}
-                className="h-6 w-6 rounded-full border-2 border-card bg-muted overflow-hidden"
-                title={m.display_name}
-              >
-                {m.profile_photo ? (
-                  <img src={m.profile_photo} alt="" className="h-full w-full object-cover" />
-                ) : (
-                  <div className="h-full w-full flex items-center justify-center text-[9px] font-bold text-muted-foreground">
-                    {m.display_name?.charAt(0)}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-          <span className="text-[10px] text-muted-foreground">
-            {meetup.member_count}/{meetup.max_members}
-            {isAlmostFull && <span className="text-amber-500 ml-0.5">· Almost full!</span>}
-            {isFull && <span className="text-red-500 ml-0.5">· Full</span>}
-          </span>
-        </div>
+      {/* Pills row */}
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-card/80 border border-border px-3 py-1.5 text-xs font-medium text-foreground">
+          <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+          <CountdownTimer expiresAt={meetup.expires_at} />
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-card/80 border border-border px-3 py-1.5 text-xs font-medium text-foreground">
+          <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
+          {meetup.location_name}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-card/80 border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground">
+          <Users className="h-3.5 w-3.5" />
+          {meetup.member_count}/{meetup.max_members}
+        </span>
+      </div>
 
-        {/* Spots progress bar */}
-        <div className="flex gap-0.5">
-          {Array.from({ length: meetup.max_members }).map((_, i) => (
+      {/* Description */}
+      {meetup.description && (
+        <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{meetup.description}</p>
+      )}
+
+      {/* Members + Action */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex -space-x-2">
+          {(meetup.members ?? []).slice(0, 5).map(m => (
             <div
-              key={i}
-              className={`h-1.5 w-3 rounded-full transition-colors ${
-                i < (meetup.member_count ?? 0)
-                  ? 'bg-primary'
-                  : 'bg-muted'
-              }`}
-            />
+              key={m.user_id}
+              className="h-7 w-7 rounded-full border-2 border-card bg-muted overflow-hidden"
+              title={m.display_name}
+            >
+              {m.profile_photo ? (
+                <img src={m.profile_photo} alt="" className="h-full w-full object-cover" />
+              ) : (
+                <div className="h-full w-full flex items-center justify-center text-[10px] font-bold text-muted-foreground">
+                  {m.display_name?.charAt(0)}
+                </div>
+              )}
+            </div>
           ))}
         </div>
-      </div>
 
-      {/* Action */}
-      <div className="mt-2.5">
         {meetup.is_joined ? (
           <Button
             variant="outline"
             size="sm"
-            className="w-full rounded-lg h-8 text-xs"
+            className="rounded-full min-h-[44px] px-5 text-sm font-semibold"
             onClick={onLeave}
             disabled={isPending}
           >
-            Leave Flash Meetup
+            Leave
           </Button>
         ) : (
           <Button
             size="sm"
-            className="w-full rounded-lg h-8 text-xs font-semibold gap-1"
+            className="rounded-full min-h-[44px] px-6 text-sm font-bold gap-1.5"
             disabled={isFull || isPending}
             onClick={onJoin}
           >
-            <Zap className="h-3 w-3" />
-            {isFull ? 'Full' : isPending ? 'Joining...' : 'Jump In'}
+            <Zap className="h-4 w-4" />
+            {isFull ? 'Full' : isPending ? 'Joining...' : 'Join'}
           </Button>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
 

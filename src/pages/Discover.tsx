@@ -295,14 +295,33 @@ export default function Discover() {
 
       <div className="mx-auto max-w-lg px-4 pt-4">
         {/* Gameday Mode Toggle */}
-        <div className="flex items-center justify-between rounded-xl border border-border bg-card/80 backdrop-blur-sm px-4 py-2.5 mb-4">
-          <div className="flex items-center gap-2">
-            <span className="text-base">🏟️</span>
-            <span className="text-sm font-semibold text-foreground">
-              Gameday Mode
-            </span>
+        <div className={`rounded-xl border px-4 py-3 mb-4 transition-all duration-300 ${
+          gamedayMode 
+            ? 'border-secondary bg-secondary/10 shadow-md shadow-secondary/10' 
+            : 'border-border bg-card/80 backdrop-blur-sm'
+        }`}>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className={`text-base transition-transform duration-300 ${gamedayMode ? 'scale-110' : ''}`}>
+                {gamedayMode ? '⚾' : '🏟️'}
+              </span>
+              <span className={`text-sm font-semibold transition-colors duration-300 ${
+                gamedayMode ? 'text-secondary' : 'text-foreground'
+              }`}>
+                {gamedayMode ? 'Game Day is ON' : 'Gameday Mode'}
+              </span>
+              {gamedayMode && (
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75 animate-ping" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+                </span>
+              )}
+            </div>
+            <Switch checked={gamedayMode} onCheckedChange={toggleGamedayMode} />
           </div>
-          <Switch checked={gamedayMode} onCheckedChange={toggleGamedayMode} />
+          <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+            Game Day Mode updates your meetups, missions, and fan badges live as the game unfolds.
+          </p>
         </div>
 
         {/* Dynamic Gameday State Hero */}

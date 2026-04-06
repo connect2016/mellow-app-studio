@@ -31,7 +31,7 @@ const steps = [
     emoji: '🔒',
     title: 'Your Privacy Comes First',
     subtitle: 'Your info is private. You choose what others can see.',
-    body: 'Location sharing, profile visibility, and who can message you — it's all in your control. Always.',
+    body: "Location sharing, profile visibility, and who can message you -- it's all in your control. Always.",
     items: null,
   },
 ];

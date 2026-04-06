@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -6,7 +6,7 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
-import { Shield, Eye, Ban, Flag, LogOut, Trash2 } from 'lucide-react';
+import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility } from 'lucide-react';
 import bgCubsFansCelebrating from '@/assets/bg-cubs-fans-celebrating.png';
 
 export default function Settings() {
@@ -14,6 +14,19 @@ export default function Settings() {
   const [hideFromDiscover, setHideFromDiscover] = useState(false);
   const [seatPrivacy, setSeatPrivacy] = useState('MatchesOnly');
   const [barPrivacy, setBarPrivacy] = useState('MatchesOnly');
+  const [reducedMotion, setReducedMotion] = useState(() => {
+    return localStorage.getItem('reduce-motion') === 'true';
+  });
+
+  useEffect(() => {
+    if (reducedMotion) {
+      document.documentElement.classList.add('reduce-motion');
+      localStorage.setItem('reduce-motion', 'true');
+    } else {
+      document.documentElement.classList.remove('reduce-motion');
+      localStorage.setItem('reduce-motion', 'false');
+    }
+  }, [reducedMotion]);
 
   return (
     <div className="min-h-screen bg-background pb-24 relative">

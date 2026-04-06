@@ -11,6 +11,7 @@ export default function HeroVideo() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [ready, setReady] = useState(false);
+  const [liveCount, setLiveCount] = useState(0);
   const navigate = useNavigate();
   const { enterGuestMode } = useGuestMode();
 

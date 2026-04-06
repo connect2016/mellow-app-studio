@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { IntentType, INTENT_LABELS, INTENT_EMOJI, GameStatus, GAME_STATUS_LABELS, GAME_STATUS_EMOJI } from '@/types';
 import { ShieldCheck, MapPin } from 'lucide-react';
 import { GamedayPersona, PERSONA_CONFIG } from '@/components/PersonaBadge';
+import logoTransparent from '@/assets/logo-transparent.png';
 
 // "Position" labels based on fan style / persona
 const POSITION_LABELS: Record<string, string> = {
@@ -88,41 +89,32 @@ export function BaseballCard({
         style={{
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          aspectRatio: '2.5 / 3.5',
         }}
       >
         {/* ===== FRONT ===== */}
         <div
-          className="baseball-card-face w-full"
+          className="baseball-card-face absolute inset-0"
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <div className="relative rounded-lg overflow-hidden border-[6px] border-[#C4A661] shadow-xl"
+          <div className="relative h-full rounded-lg overflow-hidden border-[6px] border-[#C4A661] shadow-xl flex flex-col"
             style={{
               background: 'linear-gradient(135deg, #1E3A5F 0%, #14284B 100%)',
               boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
             }}
           >
-            {/* Pennant overlay */}
+            {/* Logo overlay */}
             <div className="absolute top-2 left-2 z-20">
-              <div
-                className="relative px-3 py-1"
-                style={{
-                  background: 'linear-gradient(135deg, #CC3433 0%, #A02020 100%)',
-                  clipPath: 'polygon(0 0, 100% 0, 90% 100%, 0 100%)',
-                  boxShadow: '2px 2px 6px rgba(0,0,0,0.3)',
-                }}
-              >
-                <span
-                  className="text-[9px] font-bold tracking-wider uppercase"
-                  style={{ color: '#FFF8DC', fontFamily: "'Playball', cursive", fontSize: '11px', letterSpacing: '0.05em' }}
-                >
-                  Cubbies Buddies
-                </span>
-              </div>
+              <img
+                src={logoTransparent}
+                alt="Cubbies Buddies"
+                className="h-8 w-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
+              />
             </div>
 
             {/* Photo area */}
-            <div className="relative pt-10 px-4 pb-3">
-              <div className="relative mx-auto w-48 h-48 rounded-full overflow-hidden border-4 border-[#C4A661] shadow-lg"
+            <div className="flex-1 flex items-center justify-center px-4 pt-12 pb-2">
+              <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-[#C4A661] shadow-lg"
                 style={{
                   boxShadow: '0 4px 20px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.1)',
                 }}
@@ -133,7 +125,6 @@ export function BaseballCard({
                   className="w-full h-full object-cover"
                   style={{ filter: 'sepia(15%) contrast(1.05) saturate(0.9)' }}
                 />
-                {/* Vintage vignette */}
                 <div className="absolute inset-0 rounded-full"
                   style={{
                     background: 'radial-gradient(circle, transparent 60%, rgba(0,0,0,0.3) 100%)',
@@ -143,9 +134,9 @@ export function BaseballCard({
             </div>
 
             {/* Name plate */}
-            <div className="px-4 pb-2 text-center">
+            <div className="px-3 pb-1.5 text-center">
               <div
-                className="mx-auto rounded-md py-2 px-4"
+                className="mx-auto rounded-md py-1.5 px-3"
                 style={{
                   background: 'linear-gradient(180deg, #F5E6C8 0%, #E8D5A8 100%)',
                   border: '2px solid #C4A661',
@@ -153,7 +144,7 @@ export function BaseballCard({
                 }}
               >
                 <h2
-                  className="text-xl font-black uppercase tracking-wide"
+                  className="text-base font-black uppercase tracking-wide"
                   style={{
                     fontFamily: "'Graduate', 'Barlow Condensed', serif",
                     color: '#1E3A5F',
@@ -164,7 +155,7 @@ export function BaseballCard({
                 </h2>
                 <div className="flex items-center justify-center gap-2 mt-0.5">
                   <span
-                    className="text-[10px] font-bold uppercase tracking-widest"
+                    className="text-[9px] font-bold uppercase tracking-widest"
                     style={{ color: '#CC3433', fontFamily: "'Barlow Condensed', sans-serif" }}
                   >
                     {position}
@@ -181,7 +172,7 @@ export function BaseballCard({
 
             {/* Location bar */}
             <div
-              className="mx-4 mb-2 rounded-md px-3 py-1.5 flex items-center justify-center gap-1.5"
+              className="mx-3 mb-1.5 rounded-md px-2 py-1 flex items-center justify-center gap-1.5"
               style={{
                 background: 'rgba(255,255,255,0.08)',
                 border: '1px solid rgba(196,166,97,0.3)',
@@ -189,7 +180,7 @@ export function BaseballCard({
             >
               <MapPin className="h-3 w-3" style={{ color: '#C4A661' }} />
               <span
-                className="text-[10px] font-bold uppercase tracking-wider"
+                className="text-[9px] font-bold uppercase tracking-wider"
                 style={{ color: '#F5E6C8' }}
               >
                 {location}
@@ -197,20 +188,19 @@ export function BaseballCard({
             </div>
 
             {/* Status + Intent row */}
-            <div className="px-4 pb-3 flex items-center justify-between">
+            <div className="px-3 pb-2 flex items-center justify-between">
               {gameStatus && gameStatus !== 'NotSet' && (
                 <span
-                  className="text-[10px] font-semibold uppercase tracking-wide"
+                  className="text-[9px] font-semibold uppercase tracking-wide"
                   style={{ color: '#8CC63F' }}
                 >
                   {GAME_STATUS_EMOJI[gameStatus]} {GAME_STATUS_LABELS[gameStatus]}
                 </span>
               )}
               <div className="flex-1" />
-              {/* Intent sticker */}
               {primaryIntent && (
                 <div
-                  className="w-11 h-11 rounded-full flex items-center justify-center border-2"
+                  className="w-9 h-9 rounded-full flex items-center justify-center border-2"
                   style={{
                     background: 'linear-gradient(135deg, #CC3433, #A02020)',
                     borderColor: '#C4A661',
@@ -218,23 +208,22 @@ export function BaseballCard({
                   }}
                   title={INTENT_LABELS[primaryIntent]}
                 >
-                  <span className="text-lg">{INTENT_EMOJI[primaryIntent]}</span>
+                  <span className="text-sm">{INTENT_EMOJI[primaryIntent]}</span>
                 </div>
               )}
             </div>
 
-            {/* Footer decorative stripe */}
+            {/* Footer stripe */}
             <div
-              className="h-2"
+              className="h-1.5"
               style={{
                 background: 'linear-gradient(90deg, #CC3433 0%, #1E3A5F 33%, #2D7D46 66%, #C4A661 100%)',
               }}
             />
           </div>
 
-          {/* Tap hint */}
           {interactive && (
-            <p className="text-center text-[10px] text-muted-foreground mt-2 font-scoreboard uppercase tracking-widest">
+            <p className="text-center text-[9px] text-muted-foreground mt-1.5 font-scoreboard uppercase tracking-widest">
               Tap to flip card
             </p>
           )}
@@ -242,56 +231,49 @@ export function BaseballCard({
 
         {/* ===== BACK ===== */}
         <div
-          className="baseball-card-face absolute top-0 left-0 w-full"
+          className="baseball-card-face absolute inset-0"
           style={{
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
           }}
         >
           <div
-            className="relative rounded-lg overflow-hidden border-[6px] border-[#C4A661] shadow-xl"
+            className="relative h-full rounded-lg overflow-hidden border-[6px] border-[#C4A661] shadow-xl flex flex-col"
             style={{
               background: 'linear-gradient(180deg, #F5E6C8 0%, #EAD8A0 50%, #DCC886 100%)',
               boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
             }}
           >
-            {/* Pennant on back too */}
+            {/* Logo on back */}
             <div className="absolute top-2 right-2 z-20">
-              <div
-                className="relative px-2.5 py-0.5"
-                style={{
-                  background: 'linear-gradient(135deg, #1E3A5F 0%, #14284B 100%)',
-                  clipPath: 'polygon(10% 0, 100% 0, 100% 100%, 0 100%)',
-                  boxShadow: '2px 2px 6px rgba(0,0,0,0.2)',
-                }}
-              >
-                <span className="text-[8px] font-bold tracking-wider uppercase" style={{ color: '#F5E6C8' }}>
-                  ⚾ CUBBIES BUDDIES
-                </span>
-              </div>
+              <img
+                src={logoTransparent}
+                alt="Cubbies Buddies"
+                className="h-6 w-auto opacity-70"
+              />
             </div>
 
             {/* Header */}
-            <div className="px-4 pt-4 pb-2">
+            <div className="px-3 pt-3 pb-1.5">
               <h3
-                className="text-lg font-black uppercase tracking-wide"
+                className="text-sm font-black uppercase tracking-wide"
                 style={{
                   fontFamily: "'Graduate', serif",
                   color: '#1E3A5F',
                   borderBottom: '2px solid #C4A661',
-                  paddingBottom: '6px',
+                  paddingBottom: '4px',
                 }}
               >
                 {displayName}
               </h3>
               {pronouns && (
-                <span className="text-[10px] font-scoreboard" style={{ color: '#6B5B3E' }}>{pronouns}</span>
+                <span className="text-[9px] font-scoreboard" style={{ color: '#6B5B3E' }}>{pronouns}</span>
               )}
             </div>
 
             {/* Stats box */}
-            <div className="mx-4 mb-3 rounded-md p-3" style={{ background: 'rgba(30,58,95,0.06)', border: '1px solid #C4A661' }}>
-              <div className="grid grid-cols-3 gap-2 text-center">
+            <div className="mx-3 mb-2 rounded-md p-2" style={{ background: 'rgba(30,58,95,0.06)', border: '1px solid #C4A661' }}>
+              <div className="grid grid-cols-3 gap-1.5 text-center">
                 <StatBox label="G" sublabel="GAMES" value={gamesAttended} />
                 <StatBox label="BM" sublabel="BUDDIES" value={buddiesMet} />
                 <StatBox label="TI" sublabel="INNINGS" value={totalInnings} />
@@ -299,7 +281,7 @@ export function BaseballCard({
             </div>
 
             {/* Detail sections */}
-            <div className="px-4 space-y-2.5 pb-4">
+            <div className="px-3 space-y-1.5 pb-3 flex-1 overflow-y-auto">
               {favoritePlayer && (
                 <DetailRow label="FAVORITE ALL-TIME CUB" value={favoritePlayer} emoji="⚾" />
               )}
@@ -319,17 +301,16 @@ export function BaseballCard({
                 <DetailRow label="SCOUTING REPORT" value={bio} emoji="📋" />
               )}
 
-              {/* Intent chips */}
               {intent.length > 0 && (
                 <div>
-                  <p className="text-[9px] font-bold uppercase tracking-widest mb-1" style={{ color: '#6B5B3E' }}>
+                  <p className="text-[8px] font-bold uppercase tracking-widest mb-0.5" style={{ color: '#6B5B3E' }}>
                     LOOKING FOR
                   </p>
                   <div className="flex flex-wrap gap-1">
                     {intent.map((i) => (
                       <span
                         key={i}
-                        className="inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[10px] font-bold"
+                        className="inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[9px] font-bold"
                         style={{
                           background: '#1E3A5F',
                           color: '#F5E6C8',
@@ -343,11 +324,10 @@ export function BaseballCard({
                 </div>
               )}
 
-              {/* Persona badge */}
               {persona && persona in PERSONA_CONFIG && (
-                <div className="flex items-center gap-1.5 mt-1">
-                  <span className="text-sm">{PERSONA_CONFIG[persona as GamedayPersona].emoji}</span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="text-xs">{PERSONA_CONFIG[persona as GamedayPersona].emoji}</span>
+                  <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
                     {PERSONA_CONFIG[persona as GamedayPersona].label}
                   </span>
                 </div>
@@ -356,7 +336,7 @@ export function BaseballCard({
 
             {/* Footer stripe */}
             <div
-              className="h-2"
+              className="h-1.5"
               style={{
                 background: 'linear-gradient(90deg, #CC3433 0%, #1E3A5F 33%, #2D7D46 66%, #C4A661 100%)',
               }}
@@ -364,7 +344,7 @@ export function BaseballCard({
           </div>
 
           {interactive && (
-            <p className="text-center text-[10px] text-muted-foreground mt-2 font-scoreboard uppercase tracking-widest">
+            <p className="text-center text-[9px] text-muted-foreground mt-1.5 font-scoreboard uppercase tracking-widest">
               Tap to flip back
             </p>
           )}

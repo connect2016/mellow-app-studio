@@ -123,9 +123,19 @@ export default function HiFives() {
         <p className="mb-6 text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Fans who sent you a Hi-Five 🖐️ — tap to reply!</p>
 
         {isLoading ? (
-          <div className="py-20 text-center">
-            <p className="text-4xl animate-pulse">🖐️</p>
-            <p className="mt-2 font-semibold text-muted-foreground">Loading...</p>
+          <div className="space-y-3">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="rounded-2xl border border-border bg-card p-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-12 w-12 rounded-full bg-muted animate-pulse" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 w-28 bg-muted rounded animate-pulse" />
+                    <div className="h-3 w-40 bg-muted rounded animate-pulse" />
+                  </div>
+                  <div className="h-9 w-20 rounded-full bg-muted animate-pulse" />
+                </div>
+              </div>
+            ))}
           </div>
         ) : hiFives.length === 0 ? (
           <motion.div

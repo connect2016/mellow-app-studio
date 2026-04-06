@@ -133,9 +133,17 @@ export default function Messages() {
         <h2 className="mb-4 text-lg font-bold">Messages</h2>
 
         {isLoading ? (
-          <div className="py-20 text-center">
-            <p className="text-4xl animate-pulse">💬</p>
-            <p className="mt-2 font-semibold text-muted-foreground">Loading conversations...</p>
+          <div className="space-y-2">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3">
+                <div className="h-11 w-11 rounded-full bg-muted animate-pulse shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 w-24 bg-muted rounded animate-pulse" />
+                  <div className="h-3 w-44 bg-muted rounded animate-pulse" />
+                </div>
+                <div className="h-3 w-10 bg-muted rounded animate-pulse" />
+              </div>
+            ))}
           </div>
         ) : conversations.length === 0 ? (
           <motion.div

@@ -193,6 +193,42 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ── Final CTA ── */}
+      <section className="relative overflow-hidden py-20">
+        <div className="absolute inset-0">
+          <img src={wrigleyHero} alt="" className="h-full w-full object-cover" loading="lazy" />
+        </div>
+        <div className="absolute inset-0 bg-foreground/40" />
+        <div className="relative mx-auto max-w-lg px-6 text-center">
+          <h2 className="mb-3 text-3xl font-bold text-white sm:text-4xl"
+            style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>
+            Your crew is already here.
+          </h2>
+          <p className="mb-8 text-white/80" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}>
+            Join 1,200+ fans connecting at Wrigley Field and across Wrigleyville. It takes 30 seconds.
+          </p>
+          <div className="flex flex-col items-center gap-3">
+            <Link to="/auth">
+              <Button
+                size="lg"
+                className="rounded-full bg-secondary px-10 font-bold shadow-lg hover:bg-secondary/90"
+              >
+                Get in the Game
+                <ChevronRight className="ml-1 h-4 w-4" />
+              </Button>
+            </Link>
+            <Button
+              variant="ghost"
+              size="lg"
+              onClick={handleBrowseAsGuest}
+              className="rounded-full px-8 font-medium text-white/80 hover:text-white hover:bg-white/10 gap-2"
+            >
+              <Eye className="h-4 w-4" />
+              Browse as Guest
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* ── Footer ── */}
       <footer className="border-t bg-background py-8 text-center text-sm text-muted-foreground">

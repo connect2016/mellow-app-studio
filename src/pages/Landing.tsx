@@ -1,9 +1,8 @@
 // @ts-ignore
 import '@fontsource/norwester';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye, Check, MessageCircle } from 'lucide-react';
+import { Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import wrigleyHero from '@/assets/wrigley-hero.jpg';
 import HeroVideo from '@/components/landing/HeroVideo';
@@ -11,47 +10,13 @@ import fansCheering from '@/assets/fans-cheering.jpg';
 import beerCheers from '@/assets/beer-cheers.jpg';
 
 const features = [
-  {
-    icon: Users,
-    title: 'Find Your Crew',
-    description: 'Match with fans who share your vibe—friends, beer buddies, or something more.',
-  },
-  {
-    icon: MapPin,
-    title: 'Live Game-Day Map',
-    description: "See who's at Wrigley or your favorite bar. Connect in real-time, not after the fact.",
-  },
-  {
-    icon: Zap,
-    title: 'Hi-Fives & Meetups',
-    description: 'Send a Hi-Five to break the ice. Join flash meetups at bars around the ballpark.',
-  },
-  {
-    icon: Beer,
-    title: 'Send a Round',
-    description: "Buy someone a beer with a note. It's the Wrigleyville way to say hello.",
-  },
-  {
-    icon: Heart,
-    title: 'Your Intent, Your Way',
-    description: 'Looking to watch the game? Grab a beer? Post-game hangs? You set the vibe.',
-  },
-  {
-    icon: Shield,
-    title: 'Built for Safety',
-    description: 'Location privacy controls, safety timers, verified profiles, and easy blocking.',
-  },
+  { icon: Users, title: 'Find Your Crew', description: 'Match with fans who share your vibe—friends, beer buddies, or something more.' },
+  { icon: MapPin, title: 'Live Game-Day Map', description: "See who's at Wrigley or your favorite bar. Connect in real-time, not after the fact." },
+  { icon: Zap, title: 'Hi-Fives & Meetups', description: 'Send a Hi-Five to break the ice. Join flash meetups at bars around the ballpark.' },
+  { icon: Beer, title: 'Send a Round', description: "Buy someone a beer with a note. It's the Wrigleyville way to say hello." },
+  { icon: Heart, title: 'Your Intent, Your Way', description: 'Looking to watch the game? Grab a beer? Post-game hangs? You set the vibe.' },
+  { icon: Shield, title: 'Built for Safety', description: 'Location privacy controls, safety timers, verified profiles, and easy blocking.' },
 ];
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' as const } },
-};
 
 const stats = [
   { label: 'Cubs Fans', value: '1,200+' },
@@ -66,21 +31,9 @@ const howItWorks = [
 ];
 
 const testimonials = [
-  {
-    quote: "I moved to Chicago last year and didn't know anyone. Found my whole game-day crew on Cubbies Buddies in one homestand.",
-    name: 'Sarah M.',
-    detail: 'Section 204 regular',
-  },
-  {
-    quote: "The flash meetup feature is genius. We met 6 strangers at Murphy's before the NLDS and now we have a group chat that never stops.",
-    name: 'Jake T.',
-    detail: 'Die-Hard since \'03',
-  },
-  {
-    quote: "Finally an app that gets it — I'm not here to swipe, I'm here to find someone who wants to split a pitcher and yell at the ump.",
-    name: 'Marcus D.',
-    detail: 'Bleacher creature',
-  },
+  { quote: "I moved to Chicago last year and didn't know anyone. Found my whole game-day crew on Cubbies Buddies in one homestand.", name: 'Sarah M.', detail: 'Section 204 regular' },
+  { quote: "The flash meetup feature is genius. We met 6 strangers at Murphy's before the NLDS and now we have a group chat that never stops.", name: 'Jake T.', detail: "Die-Hard since '03" },
+  { quote: "Finally an app that gets it — I'm not here to swipe, I'm here to find someone who wants to split a pitcher and yell at the ump.", name: 'Marcus D.', detail: 'Bleacher creature' },
 ];
 
 export default function Landing() {
@@ -112,13 +65,7 @@ export default function Landing() {
       {/* ── Fan Culture Photo Strip ── */}
       <section className="bg-background py-16">
         <div className="mx-auto max-w-5xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-10 text-center"
-          >
+          <div className="mb-10 text-center">
             <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               More Than a Game.{' '}
               <span className="text-secondary">It's a Community.</span>
@@ -126,37 +73,15 @@ export default function Landing() {
             <p className="text-muted-foreground max-w-xl mx-auto">
               Pregame beers, seventh-inning sing-alongs, and friendships that last way beyond the final out.
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="overflow-hidden rounded-2xl"
-            >
-              <img
-                src={fansCheering}
-                alt="Cubs fans cheering at a Wrigleyville bar"
-                className="h-64 w-full object-cover sm:h-80"
-                loading="lazy"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="overflow-hidden rounded-2xl"
-            >
-              <img
-                src={beerCheers}
-                alt="Friends clinking beers at the ballpark"
-                className="h-64 w-full object-cover sm:h-80"
-                loading="lazy"
-              />
-            </motion.div>
+            <div className="overflow-hidden rounded-2xl">
+              <img src={fansCheering} alt="Cubs fans cheering at a Wrigleyville bar" className="h-64 w-full object-cover sm:h-80" loading="lazy" />
+            </div>
+            <div className="overflow-hidden rounded-2xl">
+              <img src={beerCheers} alt="Friends clinking beers at the ballpark" className="h-64 w-full object-cover sm:h-80" loading="lazy" />
+            </div>
           </div>
         </div>
       </section>
@@ -164,35 +89,22 @@ export default function Landing() {
       {/* ── How It Works ── */}
       <section className="bg-muted/30 py-20">
         <div className="mx-auto max-w-4xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-12 text-center"
-          >
+          <div className="mb-12 text-center">
             <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Three Steps to Your Next{' '}
               <span className="text-primary">Wrigleyville Friend</span>
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {howItWorks.map((step, i) => (
-              <motion.div
-                key={step.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="text-center"
-              >
+            {howItWorks.map((step) => (
+              <div key={step.step} className="text-center">
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-2xl font-extrabold text-primary-foreground shadow-md">
                   {step.step}
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-foreground">{step.title}</h3>
                 <p className="text-sm text-muted-foreground">{step.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -201,13 +113,7 @@ export default function Landing() {
       {/* ── Feature Highlights ── */}
       <section className="bg-background py-20">
         <div className="mx-auto max-w-5xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-12 text-center"
-          >
+          <div className="mb-12 text-center">
             <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Everything You Need on{' '}
               <span className="text-primary">Game Day</span>
@@ -215,57 +121,37 @@ export default function Landing() {
             <p className="text-muted-foreground">
               Six ways Cubbies Buddies makes your Wrigley experience legendary.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
-          >
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((f) => (
-              <motion.div
+              <div
                 key={f.title}
-                variants={item}
-                className="group rounded-2xl border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
+                className="group rounded-2xl border bg-card p-6 shadow-sm"
               >
-                <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3 transition-colors group-hover:bg-secondary/10">
-                  <f.icon className="h-6 w-6 text-primary group-hover:text-secondary" />
+                <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
+                  <f.icon className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="mb-1 text-lg font-semibold text-card-foreground">{f.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{f.description}</p>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ── Testimonials ── */}
       <section className="bg-muted/30 py-20">
         <div className="mx-auto max-w-5xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-12 text-center"
-          >
+          <div className="mb-12 text-center">
             <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Real Fans. Real Connections.
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="rounded-2xl border bg-card p-6 shadow-sm"
-              >
+            {testimonials.map((t) => (
+              <div key={t.name} className="rounded-2xl border bg-card p-6 shadow-sm">
                 <div className="mb-3 flex gap-1">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star key={s} className="h-4 w-4 fill-amber-400 text-amber-400" />
@@ -276,7 +162,7 @@ export default function Landing() {
                   <p className="text-sm font-bold text-foreground">{t.name}</p>
                   <p className="text-xs text-muted-foreground">{t.detail}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -285,48 +171,23 @@ export default function Landing() {
       {/* ── FAQ ── */}
       <section className="bg-background py-20">
         <div className="mx-auto max-w-2xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-10 text-center"
-          >
+          <div className="mb-10 text-center">
             <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Questions? We Got You.
             </h2>
-          </motion.div>
+          </div>
 
           <div className="space-y-4">
             {[
-              {
-                q: 'Is this a dating app?',
-                a: "It can be — but most people use it to find friends and pregame crews. You choose your intent: watch party, grab a beer, post-game hangs, or yeah, dating too.",
-              },
-              {
-                q: 'Do I need to be at Wrigley Field to use it?',
-                a: "Nope! The app covers all of Wrigleyville — bars, restaurants, rooftops. You can also use it from home to plan meetups for upcoming games.",
-              },
-              {
-                q: 'Is it free?',
-                a: "Yes, completely free. No paywalls, no premium tiers. We're building a community, not a paywall.",
-              },
-              {
-                q: 'How do you keep people safe?',
-                a: "Every user has location privacy controls, a built-in safety timer for meetups, easy blocking and reporting, and optional fan verification.",
-              },
+              { q: 'Is this a dating app?', a: "It can be — but most people use it to find friends and pregame crews. You choose your intent: watch party, grab a beer, post-game hangs, or yeah, dating too." },
+              { q: 'Do I need to be at Wrigley Field to use it?', a: "Nope! The app covers all of Wrigleyville — bars, restaurants, rooftops. You can also use it from home to plan meetups for upcoming games." },
+              { q: 'Is it free?', a: "Yes, completely free. No paywalls, no premium tiers. We're building a community, not a paywall." },
+              { q: 'How do you keep people safe?', a: "Every user has location privacy controls, a built-in safety timer for meetups, easy blocking and reporting, and optional fan verification." },
             ].map((faq, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="rounded-2xl border bg-card p-5"
-              >
+              <div key={i} className="rounded-2xl border bg-card p-5">
                 <h3 className="text-sm font-bold text-foreground mb-1">{faq.q}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -348,7 +209,7 @@ export default function Landing() {
             <Link to="/auth">
               <Button
                 size="lg"
-                className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90 min-h-[48px]"
+                className="rounded-full bg-secondary px-10 font-bold shadow-lg hover:bg-secondary/90"
               >
                 Get in the Game
                 <ChevronRight className="ml-1 h-4 w-4" />
@@ -358,7 +219,7 @@ export default function Landing() {
               variant="ghost"
               size="lg"
               onClick={handleBrowseAsGuest}
-              className="rounded-full px-8 text-base font-medium text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 gap-2 min-h-[48px]"
+              className="rounded-full px-8 font-medium text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 gap-2"
             >
               <Eye className="h-4 w-4" />
               Browse as Guest

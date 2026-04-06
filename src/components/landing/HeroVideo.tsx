@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, ChevronDown, Eye } from 'lucide-react';
 import logoTransparent from '@/assets/logo-transparent.png';
@@ -55,7 +54,7 @@ export default function HeroVideo() {
       <img
         src="/hero-fallback.jpg"
         alt=""
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${ready ? 'opacity-0' : 'opacity-100'}`}
+        className={`absolute inset-0 h-full w-full object-cover ${ready ? 'opacity-0' : 'opacity-100'}`}
         aria-hidden="true"
       />
 
@@ -64,7 +63,7 @@ export default function HeroVideo() {
         <video
           key={src}
           ref={setRef(idx)}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+          className="absolute inset-0 h-full w-full object-cover"
           style={{ opacity: activeIndex === idx && ready ? 1 : 0 }}
           src={src}
           muted
@@ -78,26 +77,15 @@ export default function HeroVideo() {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-foreground/35" />
 
-      {/* Content overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 flex h-full flex-col items-center justify-center px-6 pt-4 text-center"
-      >
-        <motion.img
+      {/* Content overlay — no motion, renders instantly */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 pt-4 text-center">
+        <img
           src={logoTransparent}
           alt="Cubbies Buddies"
-          initial={{ opacity: 0, scale: 0.55, y: -40 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-4 w-full max-w-[280px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-sm"
         />
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
+        <h1
           className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl"
           style={{
             fontFamily: 'Montserrat, sans-serif',
@@ -112,12 +100,9 @@ export default function HeroVideo() {
           Your Wrigleyville
           <br />
           <span style={{ color: 'hsl(var(--secondary))' }}>Connection Hub</span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.85 }}
+        <p
           className="mb-8 max-w-sm text-base font-medium sm:text-lg"
           style={{
             color: 'rgba(255,255,255,0.9)',
@@ -126,18 +111,13 @@ export default function HeroVideo() {
         >
           Find your crew, grab a beer, and make game day unforgettable —
           at Wrigley Field and across Wrigleyville.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 1.0 }}
-          className="flex flex-col items-center gap-3"
-        >
+        <div className="flex flex-col items-center gap-3">
           <Link to="/auth">
             <Button
               size="lg"
-              className="rounded-full bg-secondary px-10 text-base font-bold shadow-lg hover:bg-secondary/90 min-h-[48px]"
+              className="rounded-full bg-secondary px-10 font-bold shadow-lg hover:bg-secondary/90"
               aria-label="Get in the Game — sign up for Cubbies Buddies"
             >
               Join Free — It Takes 30 Seconds
@@ -148,28 +128,18 @@ export default function HeroVideo() {
             variant="ghost"
             size="lg"
             onClick={handleBrowseAsGuest}
-            className="rounded-full px-8 text-base font-medium text-white/80 hover:text-white hover:bg-white/10 gap-2 min-h-[48px]"
+            className="rounded-full px-8 font-medium text-white/80 hover:text-white hover:bg-white/10 gap-2"
           >
             <Eye className="h-4 w-4" />
             Browse as Guest
           </Button>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-        >
-          <ChevronDown className="h-8 w-8 text-white/70 drop-shadow-lg" />
-        </motion.div>
-      </motion.div>
+      {/* Scroll cue — simple CSS animation instead of framer-motion */}
+      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce">
+        <ChevronDown className="h-8 w-8 text-white/70 drop-shadow-lg" />
+      </div>
     </section>
   );
 }

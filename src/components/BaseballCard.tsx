@@ -1,0 +1,416 @@
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
+import { IntentType, INTENT_LABELS, INTENT_EMOJI, GameStatus, GAME_STATUS_LABELS, GAME_STATUS_EMOJI } from '@/types';
+import { ShieldCheck, MapPin } from 'lucide-react';
+import { GamedayPersona, PERSONA_CONFIG } from '@/components/PersonaBadge';
+
+// "Position" labels based on fan style / persona
+const POSITION_LABELS: Record<string, string> = {
+  die_hard: 'STAT GEEK',
+  social_butterfly: 'BEER SNAKE LEADER',
+  tourist: 'ROOKIE FAN',
+};
+
+interface BaseballCardProps {
+  displayName: string;
+  age?: number | null;
+  profilePhoto?: string | null;
+  isVerified?: boolean | null;
+  gameStatus?: GameStatus;
+  wrigleySection?: string | null;
+  wrigleyRow?: string | null;
+  wrigleyvilleBar?: string | null;
+  intent?: IntentType[];
+  persona?: string | null;
+  bio?: string | null;
+  favoritePlayer?: string | null;
+  favoriteMoment?: string | null;
+  superstition?: string | null;
+  stretchSong?: string | null;
+  bestBar?: string | null;
+  pronouns?: string | null;
+  // Stats
+  gamesAttended?: number;
+  buddiesMet?: number;
+  totalInnings?: number;
+  className?: string;
+  interactive?: boolean;
+}
+
+export function BaseballCard({
+  displayName,
+  age,
+  profilePhoto,
+  isVerified,
+  gameStatus,
+  wrigleySection,
+  wrigleyRow,
+  wrigleyvilleBar,
+  intent = [],
+  persona,
+  bio,
+  favoritePlayer,
+  favoriteMoment,
+  superstition,
+  stretchSong,
+  bestBar,
+  pronouns,
+  gamesAttended = 0,
+  buddiesMet = 0,
+  totalInnings = 0,
+  className,
+  interactive = true,
+}: BaseballCardProps) {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const position = persona && POSITION_LABELS[persona]
+    ? POSITION_LABELS[persona]
+    : 'BLEACHER BUM';
+
+  const location = wrigleyvilleBar
+    || (wrigleySection ? `Section ${wrigleySection}` : null)
+    || 'WRIGLEYVILLE';
+
+  const primaryIntent = intent[0];
+
+  const handleFlip = () => {
+    if (interactive) setIsFlipped(!isFlipped);
+  };
+
+  return (
+    <div
+      className={cn('baseball-card-perspective cursor-pointer', className)}
+      onClick={handleFlip}
+      style={{ perspective: '1200px' }}
+    >
+      <div
+        className="baseball-card-inner relative w-full transition-transform duration-700"
+        style={{
+          transformStyle: 'preserve-3d',
+          transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+        }}
+      >
+        {/* ===== FRONT ===== */}
+        <div
+          className="baseball-card-face w-full"
+          style={{ backfaceVisibility: 'hidden' }}
+        >
+          <div className="relative rounded-lg overflow-hidden border-[6px] border-[#C4A661] shadow-xl"
+            style={{
+              background: 'linear-gradient(135deg, #1E3A5F 0%, #14284B 100%)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+            }}
+          >
+            {/* Pennant overlay */}
+            <div className="absolute top-2 left-2 z-20">
+              <div
+                className="relative px-3 py-1"
+                style={{
+                  background: 'linear-gradient(135deg, #CC3433 0%, #A02020 100%)',
+                  clipPath: 'polygon(0 0, 100% 0, 90% 100%, 0 100%)',
+                  boxShadow: '2px 2px 6px rgba(0,0,0,0.3)',
+                }}
+              >
+                <span
+                  className="text-[9px] font-bold tracking-wider uppercase"
+                  style={{ color: '#FFF8DC', fontFamily: "'Playball', cursive", fontSize: '11px', letterSpacing: '0.05em' }}
+                >
+                  Cubbies Buddies
+                </span>
+              </div>
+            </div>
+
+            {/* Photo area */}
+            <div className="relative pt-10 px-4 pb-3">
+              <div className="relative mx-auto w-48 h-48 rounded-full overflow-hidden border-4 border-[#C4A661] shadow-lg"
+                style={{
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.1)',
+                }}
+              >
+                <img
+                  src={profilePhoto || '/placeholder.svg'}
+                  alt={displayName}
+                  className="w-full h-full object-cover"
+                  style={{ filter: 'sepia(15%) contrast(1.05) saturate(0.9)' }}
+                />
+                {/* Vintage vignette */}
+                <div className="absolute inset-0 rounded-full"
+                  style={{
+                    background: 'radial-gradient(circle, transparent 60%, rgba(0,0,0,0.3) 100%)',
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Name plate */}
+            <div className="px-4 pb-2 text-center">
+              <div
+                className="mx-auto rounded-md py-2 px-4"
+                style={{
+                  background: 'linear-gradient(180deg, #F5E6C8 0%, #E8D5A8 100%)',
+                  border: '2px solid #C4A661',
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.5)',
+                }}
+              >
+                <h2
+                  className="text-xl font-black uppercase tracking-wide"
+                  style={{
+                    fontFamily: "'Graduate', 'Barlow Condensed', serif",
+                    color: '#1E3A5F',
+                    textShadow: '1px 1px 0 rgba(255,255,255,0.3)',
+                  }}
+                >
+                  {displayName}{age ? `, ${age}` : ''}
+                </h2>
+                <div className="flex items-center justify-center gap-2 mt-0.5">
+                  <span
+                    className="text-[10px] font-bold uppercase tracking-widest"
+                    style={{ color: '#CC3433', fontFamily: "'Barlow Condensed', sans-serif" }}
+                  >
+                    {position}
+                  </span>
+                  {isVerified && (
+                    <span className="inline-flex items-center gap-0.5">
+                      <ShieldCheck className="h-3 w-3" style={{ color: '#2D7D46' }} />
+                      <span className="text-[8px] font-bold" style={{ color: '#2D7D46' }}>VERIFIED</span>
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Location bar */}
+            <div
+              className="mx-4 mb-2 rounded-md px-3 py-1.5 flex items-center justify-center gap-1.5"
+              style={{
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(196,166,97,0.3)',
+              }}
+            >
+              <MapPin className="h-3 w-3" style={{ color: '#C4A661' }} />
+              <span
+                className="text-[10px] font-bold uppercase tracking-wider"
+                style={{ color: '#F5E6C8' }}
+              >
+                {location}
+              </span>
+            </div>
+
+            {/* Status + Intent row */}
+            <div className="px-4 pb-3 flex items-center justify-between">
+              {gameStatus && gameStatus !== 'NotSet' && (
+                <span
+                  className="text-[10px] font-semibold uppercase tracking-wide"
+                  style={{ color: '#8CC63F' }}
+                >
+                  {GAME_STATUS_EMOJI[gameStatus]} {GAME_STATUS_LABELS[gameStatus]}
+                </span>
+              )}
+              <div className="flex-1" />
+              {/* Intent sticker */}
+              {primaryIntent && (
+                <div
+                  className="w-11 h-11 rounded-full flex items-center justify-center border-2"
+                  style={{
+                    background: 'linear-gradient(135deg, #CC3433, #A02020)',
+                    borderColor: '#C4A661',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                  }}
+                  title={INTENT_LABELS[primaryIntent]}
+                >
+                  <span className="text-lg">{INTENT_EMOJI[primaryIntent]}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Footer decorative stripe */}
+            <div
+              className="h-2"
+              style={{
+                background: 'linear-gradient(90deg, #CC3433 0%, #1E3A5F 33%, #2D7D46 66%, #C4A661 100%)',
+              }}
+            />
+          </div>
+
+          {/* Tap hint */}
+          {interactive && (
+            <p className="text-center text-[10px] text-muted-foreground mt-2 font-scoreboard uppercase tracking-widest">
+              Tap to flip card
+            </p>
+          )}
+        </div>
+
+        {/* ===== BACK ===== */}
+        <div
+          className="baseball-card-face absolute top-0 left-0 w-full"
+          style={{
+            backfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg)',
+          }}
+        >
+          <div
+            className="relative rounded-lg overflow-hidden border-[6px] border-[#C4A661] shadow-xl"
+            style={{
+              background: 'linear-gradient(180deg, #F5E6C8 0%, #EAD8A0 50%, #DCC886 100%)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+            }}
+          >
+            {/* Pennant on back too */}
+            <div className="absolute top-2 right-2 z-20">
+              <div
+                className="relative px-2.5 py-0.5"
+                style={{
+                  background: 'linear-gradient(135deg, #1E3A5F 0%, #14284B 100%)',
+                  clipPath: 'polygon(10% 0, 100% 0, 100% 100%, 0 100%)',
+                  boxShadow: '2px 2px 6px rgba(0,0,0,0.2)',
+                }}
+              >
+                <span className="text-[8px] font-bold tracking-wider uppercase" style={{ color: '#F5E6C8' }}>
+                  ⚾ CUBBIES BUDDIES
+                </span>
+              </div>
+            </div>
+
+            {/* Header */}
+            <div className="px-4 pt-4 pb-2">
+              <h3
+                className="text-lg font-black uppercase tracking-wide"
+                style={{
+                  fontFamily: "'Graduate', serif",
+                  color: '#1E3A5F',
+                  borderBottom: '2px solid #C4A661',
+                  paddingBottom: '6px',
+                }}
+              >
+                {displayName}
+              </h3>
+              {pronouns && (
+                <span className="text-[10px] font-scoreboard" style={{ color: '#6B5B3E' }}>{pronouns}</span>
+              )}
+            </div>
+
+            {/* Stats box */}
+            <div className="mx-4 mb-3 rounded-md p-3" style={{ background: 'rgba(30,58,95,0.06)', border: '1px solid #C4A661' }}>
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <StatBox label="G" sublabel="GAMES" value={gamesAttended} />
+                <StatBox label="BM" sublabel="BUDDIES" value={buddiesMet} />
+                <StatBox label="TI" sublabel="INNINGS" value={totalInnings} />
+              </div>
+            </div>
+
+            {/* Detail sections */}
+            <div className="px-4 space-y-2.5 pb-4">
+              {favoritePlayer && (
+                <DetailRow label="FAVORITE ALL-TIME CUB" value={favoritePlayer} emoji="⚾" />
+              )}
+              {bestBar && (
+                <DetailRow label="HOME BAR" value={bestBar} emoji="🍻" />
+              )}
+              {superstition && (
+                <DetailRow label="GAME DAY SUPERSTITION" value={superstition} emoji="🧢" />
+              )}
+              {stretchSong && (
+                <DetailRow label="7TH INNING STRETCH SONG" value={stretchSong} emoji="🎵" />
+              )}
+              {favoriteMoment && (
+                <DetailRow label="BEST BALLPARK STORY" value={favoriteMoment} emoji="🎉" />
+              )}
+              {bio && (
+                <DetailRow label="SCOUTING REPORT" value={bio} emoji="📋" />
+              )}
+
+              {/* Intent chips */}
+              {intent.length > 0 && (
+                <div>
+                  <p className="text-[9px] font-bold uppercase tracking-widest mb-1" style={{ color: '#6B5B3E' }}>
+                    LOOKING FOR
+                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {intent.map((i) => (
+                      <span
+                        key={i}
+                        className="inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[10px] font-bold"
+                        style={{
+                          background: '#1E3A5F',
+                          color: '#F5E6C8',
+                          border: '1px solid #C4A661',
+                        }}
+                      >
+                        {INTENT_EMOJI[i]} {INTENT_LABELS[i]}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Persona badge */}
+              {persona && persona in PERSONA_CONFIG && (
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span className="text-sm">{PERSONA_CONFIG[persona as GamedayPersona].emoji}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
+                    {PERSONA_CONFIG[persona as GamedayPersona].label}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Footer stripe */}
+            <div
+              className="h-2"
+              style={{
+                background: 'linear-gradient(90deg, #CC3433 0%, #1E3A5F 33%, #2D7D46 66%, #C4A661 100%)',
+              }}
+            />
+          </div>
+
+          {interactive && (
+            <p className="text-center text-[10px] text-muted-foreground mt-2 font-scoreboard uppercase tracking-widest">
+              Tap to flip back
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatBox({ label, sublabel, value }: { label: string; sublabel: string; value: number }) {
+  return (
+    <div>
+      <p
+        className="text-2xl font-black"
+        style={{ fontFamily: "'Graduate', serif", color: '#1E3A5F' }}
+      >
+        {value}
+      </p>
+      <p className="text-[8px] font-bold uppercase tracking-widest" style={{ color: '#6B5B3E' }}>
+        {label}
+      </p>
+      <p className="text-[7px] uppercase tracking-wider" style={{ color: '#8B7B5E' }}>
+        {sublabel}
+      </p>
+    </div>
+  );
+}
+
+function DetailRow({ label, value, emoji }: { label: string; value: string; emoji: string }) {
+  return (
+    <div
+      className="rounded-md px-3 py-2"
+      style={{
+        background: 'rgba(30,58,95,0.04)',
+        borderLeft: '3px solid #CC3433',
+      }}
+    >
+      <p className="text-[8px] font-bold uppercase tracking-widest mb-0.5" style={{ color: '#6B5B3E' }}>
+        {emoji} {label}
+      </p>
+      <p
+        className="text-xs font-medium"
+        style={{ fontFamily: "'Share Tech Mono', monospace", color: '#1E3A5F' }}
+      >
+        {value}
+      </p>
+    </div>
+  );
+}

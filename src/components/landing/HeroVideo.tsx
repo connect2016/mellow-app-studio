@@ -162,11 +162,11 @@ export default function HeroVideo() {
           <Link to="/welcome">
             <Button
               size="lg"
-              className="rounded-full bg-secondary px-10 font-bold shadow-lg hover:bg-secondary/90"
-              aria-label="Get Started — sign up for Cubbies Buddies"
+              className="rounded-full bg-secondary px-10 py-4 text-lg font-bold shadow-lg hover:bg-secondary/90"
+              aria-label="Get in the Game — sign up for Cubbies Buddies"
             >
-              Get Started — 30 Seconds
-              <ChevronRight className="ml-1 h-4 w-4" />
+              Get in the Game
+              <ChevronRight className="ml-1 h-5 w-5" />
             </Button>
           </Link>
           <Button

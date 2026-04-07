@@ -231,6 +231,10 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
   .safe-area-pb {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
+  .hero-title-size {
+    font-size: clamp(48px, 9vw, 88px) !important;
+    line-height: 1.1 !important;
+  }
 }
 
 /* Vintage Ticket Stub card style */

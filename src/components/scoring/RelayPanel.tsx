@@ -114,8 +114,9 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
                 <Avatar className={`h-10 w-10 border-2 transition-all ${isActive ? 'ring-2 ring-offset-1' : ''}`}
                   style={{
                     borderColor: isActive ? 'hsl(var(--ivy-green))' : 'transparent',
-                    ringColor: isActive ? 'hsl(var(--secondary))' : undefined,
                     opacity: isActive ? 1 : 0.5,
+                    // ring via box-shadow
+                    boxShadow: isActive ? '0 0 0 2px hsl(var(--secondary) / 0.4)' : 'none',
                   }}
                 >
                   <AvatarImage src={m.profile_photo ?? undefined} />

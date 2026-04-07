@@ -10,11 +10,20 @@ const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2
 /* Layered title style: each line renders 3 stacked elements —
    bottom = black stroke (thinnest outer trim), middle = white stroke, top = color fill */
 function StrokedTitle({ text, color }: { text: string; color: string }) {
+  const fontSize = 'clamp(48px, 9vw, 88px)';
+  const layerStyle: React.CSSProperties = {
+    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+    fontWeight: 900,
+    fontSize,
+    lineHeight: 1.1,
+    letterSpacing: '-0.02em',
+    textAlign: 'center',
+  };
   return (
-    <div className="grid text-6xl sm:text-7xl md:text-8xl font-black" style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", letterSpacing: '-0.02em' }}>
-      <span aria-hidden="true" className="[grid-area:1/1] text-center" style={{ color: 'transparent', WebkitTextStroke: '10px hsl(0 0% 0%)', paintOrder: 'stroke fill' }}>{text}</span>
-      <span aria-hidden="true" className="[grid-area:1/1] text-center" style={{ color: 'transparent', WebkitTextStroke: '7px hsl(0 0% 100%)', paintOrder: 'stroke fill' }}>{text}</span>
-      <span className="[grid-area:1/1] text-center" style={{ color }}>{text}</span>
+    <div style={{ display: 'grid' }}>
+      <div aria-hidden="true" style={{ ...layerStyle, gridArea: '1/1', color: 'transparent', WebkitTextStroke: '10px hsl(0 0% 0%)', paintOrder: 'stroke fill' }}>{text}</div>
+      <div aria-hidden="true" style={{ ...layerStyle, gridArea: '1/1', color: 'transparent', WebkitTextStroke: '7px hsl(0 0% 100%)', paintOrder: 'stroke fill' }}>{text}</div>
+      <div style={{ ...layerStyle, gridArea: '1/1', color }}>{text}</div>
     </div>
   );
 }

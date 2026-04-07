@@ -9,54 +9,28 @@ const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2
 
 /* Layered title style: each line renders 3 stacked elements —
    bottom = black stroke (thinnest outer trim), middle = white stroke, top = color fill */
-const titleBase: React.CSSProperties = {
+const titleFont: React.CSSProperties = {
   fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
   fontWeight: 900,
   fontSize: 'clamp(3rem, 9vw, 5.5rem)',
   lineHeight: 1.1,
   letterSpacing: '-0.02em',
-  position: 'absolute',
-  inset: 0,
-  textAlign: 'center',
-  whiteSpace: 'nowrap',
 };
 
 function StrokedTitle({ text, color }: { text: string; color: string }) {
+  const layerStyle: React.CSSProperties = {
+    ...titleFont,
+    gridArea: '1/1',
+    textAlign: 'center',
+  };
   return (
-    <div className="relative w-full flex justify-center" style={{ minHeight: '1.15em', fontSize: 'clamp(3rem, 9vw, 5.5rem)', fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", fontWeight: 900 }}>
-      {/* Layer 1 (bottom): thin black outer trim */}
-      <span
-        aria-hidden="true"
-        style={{
-          ...titleBase,
-          color: 'transparent',
-          WebkitTextStroke: '10px hsl(0 0% 0%)',
-          paintOrder: 'stroke fill',
-        }}
-      >
-        {text}
-      </span>
-      {/* Layer 2 (middle): thick white outline */}
-      <span
-        aria-hidden="true"
-        style={{
-          ...titleBase,
-          color: 'transparent',
-          WebkitTextStroke: '7px hsl(0 0% 100%)',
-          paintOrder: 'stroke fill',
-        }}
-      >
-        {text}
-      </span>
-      {/* Layer 3 (top): color fill */}
-      <span
-        style={{
-          ...titleBase,
-          color,
-        }}
-      >
-        {text}
-      </span>
+    <div style={{ display: 'grid' }}>
+      {/* Layer 1: thin black outer trim */}
+      <span aria-hidden="true" style={{ ...layerStyle, color: 'transparent', WebkitTextStroke: '10px hsl(0 0% 0%)', paintOrder: 'stroke fill' }}>{text}</span>
+      {/* Layer 2: thick white outline */}
+      <span aria-hidden="true" style={{ ...layerStyle, color: 'transparent', WebkitTextStroke: '7px hsl(0 0% 100%)', paintOrder: 'stroke fill' }}>{text}</span>
+      {/* Layer 3: color fill */}
+      <span style={{ ...layerStyle, color }}>{text}</span>
     </div>
   );
 }

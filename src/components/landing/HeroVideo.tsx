@@ -145,26 +145,17 @@ export default function HeroVideo() {
         </div>
 
         <p
-          className="mt-3 max-w-md text-base font-medium sm:text-lg"
+          className="mt-3 max-w-md text-xl sm:text-2xl font-bold tracking-wider uppercase"
           style={{
-            fontFamily: 'Inter, sans-serif',
-            color: 'rgba(255,255,255,0.9)',
-            textShadow: '0 1px 8px rgba(0,0,0,0.5)',
-          }}
-        >
-          Where solo fans become gameday friends.
-        </p>
-
-        <p
-          className="mt-2 mb-0 text-sm font-semibold tracking-wide uppercase"
-          style={{
-            color: 'rgba(255,255,255,0.65)',
-            textShadow: '0 1px 4px rgba(0,0,0,0.4)',
-            letterSpacing: '0.12em',
+            fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+            fontVariant: 'small-caps',
+            color: 'rgba(255,255,255,0.95)',
+            textShadow: '0 2px 8px rgba(0,0,0,0.6)',
+            letterSpacing: '0.08em',
             paddingBottom: '2rem',
           }}
         >
-          Safe · Simple · Built for real fans
+          Sync. Meet. Celebrate.
         </p>
 
         <div className="flex flex-col items-center gap-3">

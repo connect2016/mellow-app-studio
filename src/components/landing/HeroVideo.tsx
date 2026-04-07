@@ -97,23 +97,22 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
+          className="text-5xl sm:text-6xl lg:text-7xl font-extrabold"
           style={{
             fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-            fontWeight: 800,
-            letterSpacing: '-0.01em',
-            lineHeight: 1.1,
-            textWrap: 'balance',
+            fontWeight: 900,
+            letterSpacing: '-0.02em',
+            lineHeight: 1.05,
           }}
         >
           <span className="block">
             <span
               style={{
-                color: 'hsl(0, 80%, 45%)',
-                WebkitTextStroke: '1.5px black',
+                color: 'hsl(350, 85%, 50%)',
+                WebkitTextStroke: '2px black',
                 paintOrder: 'stroke fill',
                 textShadow:
-                  '2px 2px 0 rgba(255,255,255,0.9), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+                  '3px 3px 0 rgba(255,255,255,0.95), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
               }}
             >
               Your Wrigleyville
@@ -123,10 +122,10 @@ export default function HeroVideo() {
             <span
               style={{
                 color: 'hsl(222, 82%, 40%)',
-                WebkitTextStroke: '1.5px black',
+                WebkitTextStroke: '2px black',
                 paintOrder: 'stroke fill',
                 textShadow:
-                  '2px 2px 0 rgba(255,255,255,0.9), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+                  '3px 3px 0 rgba(255,255,255,0.95), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
               }}
             >
               Connection Hub

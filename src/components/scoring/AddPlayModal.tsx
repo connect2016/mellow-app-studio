@@ -3,16 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PlayIcon, MiniDiamond } from './PlayIcons';
 
 const PLAY_TYPES = [
-  { value: '1b', label: '1B', emoji: '☝️', color: '#4CAF50' },
-  { value: '2b', label: '2B', emoji: '✌️', color: '#2196F3' },
-  { value: '3b', label: '3B', emoji: '🤟', color: '#9C27B0' },
-  { value: 'hr', label: 'HR', emoji: '💣', color: '#F44336' },
-  { value: 'k', label: 'K', emoji: '🔥', color: '#FF9800' },
-  { value: 'bb', label: 'BB', emoji: '🚶', color: '#607D8B' },
-  { value: 'out', label: 'OUT', emoji: '👎', color: '#795548' },
-  { value: 'other', label: '...', emoji: '⚾', color: '#9E9E9E' },
+  { value: '1b', label: '1B', sealColor: 'green' as const },
+  { value: '2b', label: '2B', sealColor: 'green' as const },
+  { value: '3b', label: '3B', sealColor: 'green' as const },
+  { value: 'hr', label: 'HR', sealColor: 'blue' as const },
+  { value: 'k', label: 'K', sealColor: 'green' as const },
+  { value: 'k_looking', label: 'Ꞣ', sealColor: 'green' as const },
+  { value: 'bb', label: 'BB', sealColor: 'green' as const },
+  { value: 'out', label: 'OUT', sealColor: 'green' as const },
+  { value: 'dp', label: 'DP', sealColor: 'blue' as const },
 ];
 
 interface AddPlayModalProps {
@@ -64,14 +66,23 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
             className="w-full max-w-lg rounded-t-3xl p-5 space-y-4"
             style={{ backgroundColor: '#F9F8F4' }}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold font-['Graduate'] tracking-wide" style={{ color: 'hsl(var(--ivy-green))' }}>
-                ⚾ Quick Score
-              </h3>
-              <button onClick={onClose} className="h-8 w-8 rounded-full flex items-center justify-center" style={{ backgroundColor: 'hsl(var(--muted))' }}>
-                <X className="h-4 w-4 text-muted-foreground" />
-              </button>
+            {/* Header with diamond */}
+            <div className="flex items-start justify-between">
+              <div>
+                <h3 className="text-lg font-bold font-['Graduate'] tracking-wide" style={{ color: 'hsl(var(--ivy-green))' }}>
+                  ⚾ Quick Score
+                </h3>
+                <p className="text-[10px] font-['Share_Tech_Mono'] mt-0.5" style={{ color: 'hsl(var(--muted-foreground))' }}>
+                  {half === 'top' ? '▲' : '▼'} Inning {inning}
+                </p>
+              </div>
+              {/* Mini Diamond */}
+              <div className="flex items-center gap-2">
+                <MiniDiamond playType={playType} size={64} />
+                <button onClick={onClose} className="h-8 w-8 rounded-full flex items-center justify-center" style={{ backgroundColor: 'hsl(var(--muted))' }}>
+                  <X className="h-4 w-4 text-muted-foreground" />
+                </button>
+              </div>
             </div>
 
             {/* Inning selector */}
@@ -115,33 +126,43 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
               </div>
             </div>
 
-            {/* Play type grid */}
-            <div className="grid grid-cols-4 gap-2">
+            {/* Play type grid — custom hand-drawn icons */}
+            <div className="grid grid-cols-3 gap-2.5">
               {PLAY_TYPES.map(p => (
-                <button
+                <motion.button
                   key={p.value}
+                  whileTap={{ scale: 0.93 }}
                   onClick={() => setPlayType(p.value)}
-                  className="flex flex-col items-center gap-1 rounded-xl border-2 px-2 py-3 transition-all"
+                  className="flex flex-col items-center gap-1.5 rounded-xl border-2 py-2.5 px-1 transition-all"
                   style={{
-                    borderColor: playType === p.value ? p.color : 'hsl(var(--ivy-green) / 0.15)',
-                    backgroundColor: playType === p.value ? `${p.color}10` : 'transparent',
+                    borderColor: playType === p.value
+                      ? (p.sealColor === 'blue' ? 'hsl(var(--accent))' : 'hsl(var(--ivy-green))')
+                      : 'hsl(var(--ivy-green) / 0.12)',
+                    backgroundColor: playType === p.value
+                      ? (p.sealColor === 'blue' ? 'hsl(var(--accent) / 0.06)' : 'hsl(var(--ivy-green) / 0.06)')
+                      : 'transparent',
                   }}
                 >
-                  <span className="text-xl">{p.emoji}</span>
+                  <PlayIcon type={p.value} size={40} selected={playType === p.value} sealColor={p.sealColor} />
                   <span
-                    className="text-xs font-black font-['Share_Tech_Mono']"
-                    style={{ color: playType === p.value ? p.color : 'hsl(var(--foreground))' }}
+                    className="text-[10px] font-bold font-['Share_Tech_Mono'] uppercase tracking-wider"
+                    style={{
+                      color: playType === p.value
+                        ? (p.sealColor === 'blue' ? 'hsl(var(--accent))' : 'hsl(var(--ivy-green))')
+                        : 'hsl(var(--muted-foreground))',
+                    }}
                   >
                     {p.label}
                   </span>
-                </button>
+                </motion.button>
               ))}
             </div>
 
             {/* One-Tap Out */}
-            <button
+            <motion.button
+              whileTap={{ scale: 0.97 }}
               onClick={handleQuickOut}
-              className="w-full rounded-xl py-3 text-sm font-bold border-2 transition-all"
+              className="w-full rounded-xl py-3 text-sm font-bold border-2 transition-all flex items-center justify-center gap-2"
               style={{
                 borderColor: 'hsl(var(--ivy-green) / 0.3)',
                 backgroundColor: 'hsl(var(--ivy-green) / 0.05)',
@@ -149,12 +170,13 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
                 fontFamily: "'Share Tech Mono', monospace",
               }}
             >
-              👎 One-Tap Out — Next Batter
-            </button>
+              <PlayIcon type="out" size={24} selected sealColor="green" />
+              One-Tap Out — Next Batter
+            </motion.button>
 
             {/* Description (optional) */}
             <Input
-              placeholder="Add a note (optional)… e.g. 'Suzuki 2-run blast'"
+              placeholder="Add a note… e.g. 'Suzuki 2-run blast'"
               value={description}
               onChange={e => setDescription(e.target.value)}
               className="rounded-xl border-2"

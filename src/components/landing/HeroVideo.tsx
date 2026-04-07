@@ -109,10 +109,10 @@ export default function HeroVideo() {
             style={{
               fontSize: 'clamp(2.5rem, 8vw, 5rem)',
               color: 'hsl(350, 85%, 50%)',
-              WebkitTextStroke: '6px white',
+              WebkitTextStroke: '5px white',
               paintOrder: 'stroke fill',
               textShadow:
-                '-2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black, 0 -2px 0 black, 0 2px 0 black, -2px 0 0 black, 2px 0 0 black',
+                '-4px -4px 0 black, 4px -4px 0 black, -4px 4px 0 black, 4px 4px 0 black, 0 -4px 0 black, 0 4px 0 black, -4px 0 0 black, 4px 0 0 black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black',
             }}
           >
             Your Wrigleyville
@@ -121,10 +121,10 @@ export default function HeroVideo() {
             style={{
               fontSize: 'clamp(2.5rem, 8vw, 5rem)',
               color: 'hsl(222, 82%, 40%)',
-              WebkitTextStroke: '6px white',
+              WebkitTextStroke: '5px white',
               paintOrder: 'stroke fill',
               textShadow:
-                '-2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black, 0 -2px 0 black, 0 2px 0 black, -2px 0 0 black, 2px 0 0 black',
+                '-4px -4px 0 black, 4px -4px 0 black, -4px 4px 0 black, 4px 4px 0 black, 0 -4px 0 black, 0 4px 0 black, -4px 0 0 black, 4px 0 0 black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black',
             }}
           >
             Connection Hub

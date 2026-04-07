@@ -97,7 +97,6 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="font-extrabold"
           style={{
             fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: 900,
@@ -106,32 +105,28 @@ export default function HeroVideo() {
             lineHeight: 1.05,
           }}
         >
-          <span className="block">
-            <span
-              style={{
-                color: 'hsl(350, 85%, 50%)',
-                WebkitTextStroke: '2px black',
-                paintOrder: 'stroke fill',
-                textShadow:
-                  '3px 3px 0 rgba(255,255,255,0.95), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
-              }}
-            >
-              Your Wrigleyville
-            </span>
-          </span>
-          <span className="block">
-            <span
-              style={{
-                color: 'hsl(222, 82%, 40%)',
-                WebkitTextStroke: '2px black',
-                paintOrder: 'stroke fill',
-                textShadow:
-                  '3px 3px 0 rgba(255,255,255,0.95), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
-              }}
-            >
-              Connection Hub
-            </span>
-          </span>
+          <div
+            style={{
+              color: 'hsl(350, 85%, 50%)',
+              WebkitTextStroke: '2px black',
+              paintOrder: 'stroke fill',
+              textShadow:
+                '3px 3px 0 rgba(255,255,255,0.95), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+            }}
+          >
+            Your Wrigleyville
+          </div>
+          <div
+            style={{
+              color: 'hsl(222, 82%, 40%)',
+              WebkitTextStroke: '2px black',
+              paintOrder: 'stroke fill',
+              textShadow:
+                '3px 3px 0 rgba(255,255,255,0.95), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+            }}
+          >
+            Connection Hub
+          </div>
         </h1>
 
         <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">

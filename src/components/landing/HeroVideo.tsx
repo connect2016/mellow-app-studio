@@ -150,37 +150,9 @@ export default function HeroVideo() {
           className="mb-4 w-full max-w-[280px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-sm"
         />
 
-        <h1
-          style={{
-            fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-            fontWeight: 900,
-            fontSize: 'clamp(3.2rem, 10vw, 6.5rem)',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.05,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-              color: 'hsl(350, 85%, 50%)',
-              WebkitTextStroke: '6px hsl(0 0% 100%)',
-              paintOrder: 'stroke fill',
-              textShadow: HERO_OUTER_TRIM,
-            }}
-          >
-            Your Wrigleyville
-          </div>
-          <div
-            style={{
-              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-              color: 'hsl(222, 82%, 40%)',
-              WebkitTextStroke: '6px hsl(0 0% 100%)',
-              paintOrder: 'stroke fill',
-              textShadow: HERO_OUTER_TRIM,
-            }}
-          >
-            Connection Hub
-          </div>
+        <h1 className="flex flex-col items-center gap-1">
+          <StrokedTitle text="Your Wrigleyville" color="hsl(350, 85%, 50%)" />
+          <StrokedTitle text="Connection Hub" color="hsl(222, 82%, 40%)" />
         </h1>
 
         <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">

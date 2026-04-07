@@ -1258,6 +1258,7 @@ export type Database = {
           id: string
           inning: number
           runs: number
+          scored_by: string | null
           session_id: string
           updated_at: string
           user_id: string
@@ -1271,6 +1272,7 @@ export type Database = {
           id?: string
           inning: number
           runs?: number
+          scored_by?: string | null
           session_id: string
           updated_at?: string
           user_id: string
@@ -1284,6 +1286,7 @@ export type Database = {
           id?: string
           inning?: number
           runs?: number
+          scored_by?: string | null
           session_id?: string
           updated_at?: string
           user_id?: string
@@ -1414,9 +1417,12 @@ export type Database = {
       }
       scoring_sessions: {
         Row: {
+          active_batter: number | null
+          active_scorer_id: string | null
           away_team: string
           created_at: string
           creator_id: string
+          finalized_at: string | null
           game_id: string | null
           home_team: string
           id: string
@@ -1427,9 +1433,12 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          active_batter?: number | null
+          active_scorer_id?: string | null
           away_team?: string
           created_at?: string
           creator_id: string
+          finalized_at?: string | null
           game_id?: string | null
           home_team?: string
           id?: string
@@ -1440,9 +1449,12 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          active_batter?: number | null
+          active_scorer_id?: string | null
           away_team?: string
           created_at?: string
           creator_id?: string
+          finalized_at?: string | null
           game_id?: string | null
           home_team?: string
           id?: string

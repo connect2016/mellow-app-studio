@@ -6,6 +6,8 @@ import logoTransparent from '@/assets/logo-transparent.png';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 
 const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
+const HERO_OUTER_TRIM =
+  '-2px -2px 0 hsl(0 0% 0%), 0 -2px 0 hsl(0 0% 0%), 2px -2px 0 hsl(0 0% 0%), -2px 0 0 hsl(0 0% 0%), 2px 0 0 hsl(0 0% 0%), -2px 2px 0 hsl(0 0% 0%), 0 2px 0 hsl(0 0% 0%), 2px 2px 0 hsl(0 0% 0%)';
 
 export default function HeroVideo() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
@@ -109,10 +111,9 @@ export default function HeroVideo() {
             style={{
               fontSize: 'clamp(2.5rem, 8vw, 5rem)',
               color: 'hsl(350, 85%, 50%)',
-              WebkitTextStroke: '5px white',
+              WebkitTextStroke: '6px hsl(0 0% 100%)',
               paintOrder: 'stroke fill',
-              textShadow:
-                '-4px -4px 0 black, 4px -4px 0 black, -4px 4px 0 black, 4px 4px 0 black, 0 -4px 0 black, 0 4px 0 black, -4px 0 0 black, 4px 0 0 black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black',
+              textShadow: HERO_OUTER_TRIM,
             }}
           >
             Your Wrigleyville
@@ -121,10 +122,9 @@ export default function HeroVideo() {
             style={{
               fontSize: 'clamp(2.5rem, 8vw, 5rem)',
               color: 'hsl(222, 82%, 40%)',
-              WebkitTextStroke: '5px white',
+              WebkitTextStroke: '6px hsl(0 0% 100%)',
               paintOrder: 'stroke fill',
-              textShadow:
-                '-4px -4px 0 black, 4px -4px 0 black, -4px 4px 0 black, 4px 4px 0 black, 0 -4px 0 black, 0 4px 0 black, -4px 0 0 black, 4px 0 0 black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black',
+              textShadow: HERO_OUTER_TRIM,
             }}
           >
             Connection Hub

@@ -117,10 +117,10 @@ export default function HeroVideo() {
           className="mb-4 w-full max-w-[280px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-sm"
         />
 
-        <h1 className="flex w-full max-w-3xl flex-col items-center gap-0">
+        <div role="heading" aria-level={1} className="flex w-full max-w-3xl flex-col items-center gap-0">
           <StrokedTitle text="Your Wrigleyville" color="hsl(350, 85%, 50%)" />
           <StrokedTitle text="Connection Hub" color="hsl(222, 82%, 40%)" />
-        </h1>
+        </div>
 
         <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">
           <span className="relative flex h-2.5 w-2.5">

@@ -1705,6 +1705,37 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      award_ivy_leaf: {
+        Args: {
+          _amount?: number
+          _homestand_id?: string
+          _source: string
+          _source_id?: string
+        }
+        Returns: undefined
+      }
+      award_user_points: {
+        Args: { _points?: number; _source: string; _source_id?: string }
+        Returns: undefined
+      }
+      get_map_fans: {
+        Args: never
+        Returns: {
+          fan_display_name: string
+          fan_fan_style: string[]
+          fan_game_status: string
+          fan_gameday_intents: string[]
+          fan_gameday_persona: string
+          fan_intent: string[]
+          fan_latitude: number
+          fan_location_last_set_at: string
+          fan_longitude: number
+          fan_profile_photo: string
+          fan_user_id: string
+          fan_wrigley_section: string
+          fan_wrigleyville_bar: string
+        }[]
+      }
       is_conversation_member: {
         Args: { _conversation_id: string; _user_id: string }
         Returns: boolean

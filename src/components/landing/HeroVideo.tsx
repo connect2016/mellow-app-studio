@@ -7,38 +7,57 @@ import { useGuestMode } from '@/contexts/GuestModeContext';
 
 const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
 
-/* Layered title style: each line renders 3 stacked elements —
-   bottom = black stroke (thinnest outer trim), middle = white stroke, top = color fill */
-// Generate multi-directional text-shadow for solid outline effect
-function outlineShadow(color: string, size: number): string {
-  const shadows: string[] = [];
-  for (let x = -size; x <= size; x++) {
-    for (let y = -size; y <= size; y++) {
-      if (x === 0 && y === 0) continue;
-      shadows.push(`${x}px ${y}px 0 ${color}`);
-    }
-  }
-  return shadows.join(', ');
-}
-
+/* True layered title: thin black outer stroke, thicker white middle stroke, color fill on top. */
 function StrokedTitle({ text, color }: { text: string; color: string }) {
+  const sharedStyle = {
+    gridArea: '1 / 1',
+    fontSize: 'clamp(48px, 9vw, 88px)',
+    fontWeight: 900,
+    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+    lineHeight: 1.1,
+    letterSpacing: '-0.02em',
+    textAlign: 'center' as const,
+    whiteSpace: 'nowrap' as const,
+  };
+
   return (
     <div
-      className="hero-title-size"
-      style={{
-        fontSize: 'clamp(48px, 9vw, 88px)',
-        fontWeight: 900,
-        fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-        lineHeight: 1.1,
-        letterSpacing: '-0.02em',
-        textAlign: 'center',
-        color,
-        WebkitTextStroke: '8px hsl(0 0% 100%)',
-        paintOrder: 'stroke fill',
-        textShadow: outlineShadow('hsl(0 0% 0%)', 6),
-      }}
+      className="hero-title-size inline-grid place-items-center"
+      aria-label={text}
     >
-      {text}
+      <span
+        aria-hidden="true"
+        style={{
+          ...sharedStyle,
+          color: 'transparent',
+          WebkitTextFillColor: 'transparent',
+          WebkitTextStroke: '10px hsl(0 0% 0%)',
+        }}
+      >
+        {text}
+      </span>
+      <span
+        aria-hidden="true"
+        style={{
+          ...sharedStyle,
+          color: 'transparent',
+          WebkitTextFillColor: 'transparent',
+          WebkitTextStroke: '8px hsl(0 0% 100%)',
+        }}
+      >
+        {text}
+      </span>
+      <span
+        aria-hidden="true"
+        style={{
+          ...sharedStyle,
+          color,
+          WebkitTextFillColor: color,
+          WebkitTextStroke: '0px transparent',
+        }}
+      >
+        {text}
+      </span>
     </div>
   );
 }

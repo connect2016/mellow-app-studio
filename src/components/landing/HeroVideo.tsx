@@ -97,38 +97,40 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="text-[1.5rem] sm:text-4xl lg:text-5xl"
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
           style={{
-            fontFamily: 'Bungee, cursive',
-            letterSpacing: '0.03em',
-            lineHeight: 1.15,
+            fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+            fontWeight: 800,
+            letterSpacing: '-0.01em',
+            lineHeight: 1.1,
             textWrap: 'balance',
           }}
         >
-          <span
-            style={{
-              color: 'white',
-              WebkitTextStroke: '2px black',
-              paintOrder: 'stroke fill',
-              textShadow:
-                '3px 3px 0 hsl(0, 75%, 50%), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
-            }}
-          >
-            The Wrigleyville
-            <br />
-            Connection
+          <span className="block">
+            <span
+              style={{
+                color: 'hsl(0, 80%, 45%)',
+                WebkitTextStroke: '1.5px black',
+                paintOrder: 'stroke fill',
+                textShadow:
+                  '2px 2px 0 rgba(255,255,255,0.9), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+              }}
+            >
+              Your Wrigleyville
+            </span>
           </span>
-          <br />
-          <span
-            style={{
-              color: 'hsl(222, 82%, 35%)',
-              WebkitTextStroke: '2px black',
-              paintOrder: 'stroke fill',
-              textShadow:
-                '3px 3px 0 rgba(255,255,255,0.7), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
-            }}
-          >
-            Clubhouse
+          <span className="block">
+            <span
+              style={{
+                color: 'hsl(222, 82%, 40%)',
+                WebkitTextStroke: '1.5px black',
+                paintOrder: 'stroke fill',
+                textShadow:
+                  '2px 2px 0 rgba(255,255,255,0.9), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+              }}
+            >
+              Connection Hub
+            </span>
           </span>
         </h1>
 
@@ -143,37 +145,28 @@ export default function HeroVideo() {
         </div>
 
         <p
-          className="mt-3 max-w-md text-base font-medium sm:text-lg"
+          className="mt-3 max-w-md text-xl sm:text-2xl font-bold tracking-wider uppercase"
           style={{
-            fontFamily: 'Inter, sans-serif',
-            color: 'rgba(255,255,255,0.9)',
-            textShadow: '0 1px 8px rgba(0,0,0,0.5)',
-          }}
-        >
-          Where solo fans become gameday friends.
-        </p>
-
-        <p
-          className="mt-2 mb-0 text-sm font-semibold tracking-wide uppercase"
-          style={{
-            color: 'rgba(255,255,255,0.65)',
-            textShadow: '0 1px 4px rgba(0,0,0,0.4)',
-            letterSpacing: '0.12em',
+            fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+            fontVariant: 'small-caps',
+            color: 'rgba(255,255,255,0.95)',
+            textShadow: '0 2px 8px rgba(0,0,0,0.6)',
+            letterSpacing: '0.08em',
             paddingBottom: '2rem',
           }}
         >
-          Safe · Simple · Built for real fans
+          Sync. Meet. Celebrate.
         </p>
 
         <div className="flex flex-col items-center gap-3">
           <Link to="/welcome">
             <Button
               size="lg"
-              className="rounded-full bg-secondary px-10 font-bold shadow-lg hover:bg-secondary/90"
-              aria-label="Get Started — sign up for Cubbies Buddies"
+              className="rounded-full bg-secondary px-10 py-4 text-lg font-bold shadow-lg hover:bg-secondary/90"
+              aria-label="Get in the Game — sign up for Cubbies Buddies"
             >
-              Get Started — 30 Seconds
-              <ChevronRight className="ml-1 h-4 w-4" />
+              Get in the Game
+              <ChevronRight className="ml-1 h-5 w-5" />
             </Button>
           </Link>
           <Button

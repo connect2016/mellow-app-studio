@@ -97,10 +97,11 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="text-5xl sm:text-6xl lg:text-7xl font-extrabold"
+          className="font-extrabold"
           style={{
             fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: 900,
+            fontSize: 'clamp(2.5rem, 8vw, 5rem)',
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
           }}

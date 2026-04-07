@@ -350,6 +350,7 @@ function ScorecardSheet({
           userId={userId}
           onPassPencil={onPassPencil}
           activeBatter={(session as any).active_batter ?? 1}
+          currentInning={currentInning}
         />
       )}
       {tab === 'predict' && (

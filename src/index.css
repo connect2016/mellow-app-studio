@@ -346,3 +346,9 @@ body::before {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
+/* Hero title override — must be outside @layer to beat body rule */
+.hero-title-size {
+  font-size: clamp(48px, 9vw, 88px) !important;
+  line-height: 1.1 !important;
+}

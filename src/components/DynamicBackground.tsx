@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import bgWrigleyville from '@/assets/bg-wrigleyville-lofts.jpg';
+import bgBarPatio from '@/assets/cubs-bar-patio.png';
 import bgPinball from '@/assets/bg-pinball.jpg';
 import bgOldstyle from '@/assets/bg-oldstyle.jpg';
 import bgConcourse from '@/assets/bg-concourse.jpg';
@@ -15,7 +16,7 @@ const ALL_IMAGES = [bgWrigleyville, bgPinball, bgOldstyle, bgConcourse, bgRizzo,
 
 // Deterministic mapping for main tabs so consecutive tabs never share an image
 const ROUTE_IMAGE_MAP: Record<string, string> = {
-  '/discover': bgWrigleyville,
+  '/discover': bgBarPatio,
   '/vibe': bgField,
   '/hi-fives': bgRizzo,
   '/profile': bgSeats,

@@ -22,7 +22,7 @@ import { PostGameExperience } from '@/components/PostGameExperience';
 import { CubsScoreboard } from '@/components/CubsScoreboard';
 import { GamedayStateHero } from '@/components/GamedayStateHero';
 import { useGamedayMode } from '@/contexts/GamedayModeContext';
-import bgWrigleyville from '@/assets/cubs-bar-patio.png';
+import bgWrigleyville from '@/assets/cubs-bar-interior.webp';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';

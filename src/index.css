@@ -7,8 +7,13 @@ html {
   font-size: 16px;
 }
 
-/* Enforce minimum font size for body text */
-body, p, span, li, td, th, label, input, textarea, select, button {
+/* Enforce minimum font size for body text (exclude headings) */
+body, p, li, td, th, label, input, textarea, select, button {
+  font-size: max(1rem, 16px);
+  line-height: 1.5;
+}
+/* Body-level spans get minimum size, but spans inside headings inherit */
+span:not(h1 span):not(h2 span):not(h3 span):not(h4 span) {
   font-size: max(1rem, 16px);
   line-height: 1.5;
 }

@@ -70,7 +70,7 @@ export default function Landing() {
               More Than a Game.{' '}
               <span className="text-secondary">It's a Community.</span>
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="max-w-xl mx-auto text-slate-950">
               Pregame beers, seventh-inning sing-alongs, and friendships that last way beyond the final out.
             </p>
           </div>

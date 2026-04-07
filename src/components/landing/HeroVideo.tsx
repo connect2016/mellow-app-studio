@@ -33,9 +33,9 @@ function StrokedTitle({ text, color }: { text: string; color: string }) {
         letterSpacing: '-0.02em',
         textAlign: 'center',
         color,
-        WebkitTextStroke: '4px hsl(0 0% 100%)',
+        WebkitTextStroke: '6px hsl(0 0% 100%)',
         paintOrder: 'stroke fill',
-        textShadow: outlineShadow('hsl(0 0% 0%)', 3),
+        textShadow: outlineShadow('hsl(0 0% 0%)', 5),
       }}
     >
       {text}

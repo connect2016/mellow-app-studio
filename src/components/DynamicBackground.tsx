@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import bgWrigleyville from '@/assets/bg-wrigleyville-lofts.jpg';
+import bgBarPatio from '@/assets/cubs-bar-patio.png';
 import bgPinball from '@/assets/bg-pinball.jpg';
 import bgOldstyle from '@/assets/bg-oldstyle.jpg';
 import bgConcourse from '@/assets/bg-concourse.jpg';

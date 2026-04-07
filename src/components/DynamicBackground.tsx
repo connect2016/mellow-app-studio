@@ -16,7 +16,7 @@ const ALL_IMAGES = [bgWrigleyville, bgPinball, bgOldstyle, bgConcourse, bgRizzo,
 
 // Deterministic mapping for main tabs so consecutive tabs never share an image
 const ROUTE_IMAGE_MAP: Record<string, string> = {
-  '/discover': bgWrigleyville,
+  '/discover': bgBarPatio,
   '/vibe': bgField,
   '/hi-fives': bgRizzo,
   '/profile': bgSeats,

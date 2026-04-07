@@ -11,7 +11,7 @@ const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2
 function StrokedTitle({ text, color }: { text: string; color: string }) {
   const sharedStyle = {
     gridArea: '1 / 1',
-    fontSize: 'clamp(48px, 9vw, 88px)',
+    fontSize: 'clamp(32px, 6vw, 64px)',
     fontWeight: 900,
     fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     lineHeight: 1.1,

@@ -112,7 +112,11 @@ export default function Landing() {
       </section>
 
       {/* ── Feature Highlights ── */}
-      <section className="bg-background py-20">
+      <section className="relative overflow-hidden py-20">
+        <div className="absolute inset-0">
+          <img src={wrigleyvilleAerial} alt="" className="h-full w-full object-cover" loading="lazy" />
+        </div>
+        <div className="absolute inset-0 bg-background/80" />
         <div className="mx-auto max-w-5xl px-6">
           <div className="mb-12 text-center">
             <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

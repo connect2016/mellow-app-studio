@@ -3,6 +3,8 @@ import wrigleySeatsImg from '@/assets/wrigley-seats.jpg';
 import bgConcourse from '@/assets/bg-concourse.jpg';
 import bgField from '@/assets/bg-field.jpg';
 import bgRizzo from '@/assets/bg-rizzo.jpg';
+import cubsFansParade from '@/assets/cubs-fans-parade.webp';
+import bgRizzo from '@/assets/bg-rizzo.jpg';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';

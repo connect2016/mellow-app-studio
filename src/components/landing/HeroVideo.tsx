@@ -12,18 +12,19 @@ const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2
 const titleBase: React.CSSProperties = {
   fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
   fontWeight: 900,
-  fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-  lineHeight: 1.05,
+  fontSize: 'clamp(3rem, 9vw, 5.5rem)',
+  lineHeight: 1.1,
   letterSpacing: '-0.02em',
   position: 'absolute',
-  left: 0,
-  right: 0,
+  inset: 0,
+  textAlign: 'center',
+  whiteSpace: 'nowrap',
 };
 
 function StrokedTitle({ text, color }: { text: string; color: string }) {
   return (
-    <div className="relative w-full" style={{ height: 'clamp(2.5rem, 8vw, 5rem)', lineHeight: 1.05 }}>
-      {/* Layer 1 (bottom): black outer trim */}
+    <div className="relative w-full" style={{ height: '1.1em', fontSize: 'clamp(3rem, 9vw, 5.5rem)' }}>
+      {/* Layer 1 (bottom): thin black outer trim */}
       <span
         aria-hidden="true"
         style={{
@@ -52,7 +53,6 @@ function StrokedTitle({ text, color }: { text: string; color: string }) {
         style={{
           ...titleBase,
           color,
-          WebkitTextStroke: '0px transparent',
         }}
       >
         {text}

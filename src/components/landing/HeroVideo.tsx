@@ -23,7 +23,7 @@ const titleBase: React.CSSProperties = {
 
 function StrokedTitle({ text, color }: { text: string; color: string }) {
   return (
-    <div className="relative w-full" style={{ height: '1.1em', fontSize: 'clamp(3rem, 9vw, 5.5rem)' }}>
+    <div className="relative w-full flex justify-center" style={{ minHeight: '1.15em', fontSize: 'clamp(3rem, 9vw, 5.5rem)', fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", fontWeight: 900 }}>
       {/* Layer 1 (bottom): thin black outer trim */}
       <span
         aria-hidden="true"

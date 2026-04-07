@@ -17,16 +17,18 @@ function StrokedTitle({ text, color }: { text: string; color: string }) {
     lineHeight: 1.1,
     letterSpacing: '-0.02em',
     textAlign: 'center' as const,
-    gridArea: '1/1',
   };
+  const abs: React.CSSProperties = { ...base, position: 'absolute', top: 0, left: 0, right: 0 };
   return (
-    <div style={{ display: 'grid' }}>
+    <div className="relative hero-title-size" style={{ textAlign: 'center' }}>
+      {/* Invisible sizer */}
+      <div style={{ ...base, visibility: 'hidden' }}>{text}</div>
       {/* Layer 1: black outer trim */}
-      <div aria-hidden="true" className="hero-title-size" style={{ ...base, color: 'transparent', WebkitTextStroke: '16px hsl(0 0% 0%)', paintOrder: 'stroke fill' }}>{text}</div>
+      <div aria-hidden="true" style={{ ...abs, color: 'transparent', WebkitTextStroke: '16px hsl(0 0% 0%)', paintOrder: 'stroke fill' }}>{text}</div>
       {/* Layer 2: thick white outline */}
-      <div aria-hidden="true" className="hero-title-size" style={{ ...base, color: 'transparent', WebkitTextStroke: '10px hsl(0 0% 100%)', paintOrder: 'stroke fill' }}>{text}</div>
+      <div aria-hidden="true" style={{ ...abs, color: 'transparent', WebkitTextStroke: '10px hsl(0 0% 100%)', paintOrder: 'stroke fill' }}>{text}</div>
       {/* Layer 3: color fill */}
-      <div className="hero-title-size" style={{ ...base, color }}>{text}</div>
+      <div style={{ ...abs, color }}>{text}</div>
     </div>
   );
 }

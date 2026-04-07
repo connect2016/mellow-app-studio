@@ -6,8 +6,14 @@ import logoTransparent from '@/assets/logo-transparent.png';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 
 const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
-const HERO_OUTER_TRIM =
-  '-2px -2px 0 hsl(0 0% 0%), 0 -2px 0 hsl(0 0% 0%), 2px -2px 0 hsl(0 0% 0%), -2px 0 0 hsl(0 0% 0%), 2px 0 0 hsl(0 0% 0%), -2px 2px 0 hsl(0 0% 0%), 0 2px 0 hsl(0 0% 0%), 2px 2px 0 hsl(0 0% 0%)';
+
+/* Layered title style: each line renders 3 stacked elements —
+   bottom = black stroke (thinnest outer trim), middle = white stroke, top = color fill */
+function StrokedTitle({ text, color }: { text: string; color: string }) {
+  return (
+    <p style={{ fontSize: '80px', fontWeight: 900, color, fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>{text}</p>
+  );
+}
 
 export default function HeroVideo() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
@@ -98,38 +104,10 @@ export default function HeroVideo() {
           className="mb-4 w-full max-w-[280px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-sm"
         />
 
-        <h1
-          style={{
-            fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-            fontWeight: 900,
-            fontSize: 'clamp(3.2rem, 10vw, 6.5rem)',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.05,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-              color: 'hsl(350, 85%, 50%)',
-              WebkitTextStroke: '6px hsl(0 0% 100%)',
-              paintOrder: 'stroke fill',
-              textShadow: HERO_OUTER_TRIM,
-            }}
-          >
-            Your Wrigleyville
-          </div>
-          <div
-            style={{
-              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-              color: 'hsl(222, 82%, 40%)',
-              WebkitTextStroke: '6px hsl(0 0% 100%)',
-              paintOrder: 'stroke fill',
-              textShadow: HERO_OUTER_TRIM,
-            }}
-          >
-            Connection Hub
-          </div>
-        </h1>
+        <div role="heading" aria-level={1} className="flex w-full max-w-3xl flex-col items-center gap-0">
+          <StrokedTitle text="Your Wrigleyville" color="hsl(350, 85%, 50%)" />
+          <StrokedTitle text="Connection Hub" color="hsl(222, 82%, 40%)" />
+        </div>
 
         <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">
           <span className="relative flex h-2.5 w-2.5">

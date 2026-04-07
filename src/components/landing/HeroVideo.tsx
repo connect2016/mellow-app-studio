@@ -15,7 +15,7 @@ function StrokedTitle({ text, color }: { text: string; color: string }) {
     fontWeight: 900,
     fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     lineHeight: 1.1,
-    letterSpacing: '-0.02em',
+    letterSpacing: '0.06em',
     textAlign: 'center' as const,
     whiteSpace: 'nowrap' as const,
   };

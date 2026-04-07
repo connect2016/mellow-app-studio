@@ -10,14 +10,8 @@ const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2
 /* Layered title style: each line renders 3 stacked elements —
    bottom = black stroke (thinnest outer trim), middle = white stroke, top = color fill */
 function StrokedTitle({ text, color }: { text: string; color: string }) {
-  const base = "hero-title-size font-black tracking-tight text-center";
-  const font: React.CSSProperties = { fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", letterSpacing: '-0.02em' };
   return (
-    <div style={{ display: 'grid' }}>
-      <div aria-hidden="true" className={base} style={{ ...font, gridArea: '1/1', color: 'transparent', WebkitTextStroke: '10px hsl(0 0% 0%)', paintOrder: 'stroke fill' }}>{text}</div>
-      <div aria-hidden="true" className={base} style={{ ...font, gridArea: '1/1', color: 'transparent', WebkitTextStroke: '7px hsl(0 0% 100%)', paintOrder: 'stroke fill' }}>{text}</div>
-      <div className={base} style={{ ...font, gridArea: '1/1', color }}>{text}</div>
-    </div>
+    <p style={{ fontSize: '80px', fontWeight: 900, color, fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>{text}</p>
   );
 }
 

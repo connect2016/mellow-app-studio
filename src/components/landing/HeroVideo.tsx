@@ -97,41 +97,38 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
           style={{
             fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-            fontWeight: 800,
-            letterSpacing: '-0.01em',
-            lineHeight: 1.1,
-            textWrap: 'balance',
+            fontWeight: 900,
+            fontSize: 'clamp(2.8rem, 8vw, 5rem)',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.05,
           }}
         >
-          <span className="block">
-            <span
-              style={{
-                color: 'hsl(0, 80%, 45%)',
-                WebkitTextStroke: '1.5px black',
-                paintOrder: 'stroke fill',
-                textShadow:
-                  '2px 2px 0 rgba(255,255,255,0.9), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
-              }}
-            >
-              Your Wrigleyville
-            </span>
-          </span>
-          <span className="block">
-            <span
-              style={{
-                color: 'hsl(222, 82%, 40%)',
-                WebkitTextStroke: '1.5px black',
-                paintOrder: 'stroke fill',
-                textShadow:
-                  '2px 2px 0 rgba(255,255,255,0.9), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
-              }}
-            >
-              Connection Hub
-            </span>
-          </span>
+          <div
+            style={{
+              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+              color: 'hsl(350, 85%, 50%)',
+              WebkitTextStroke: '2px black',
+              paintOrder: 'stroke fill',
+              textShadow:
+                '3px 3px 0 rgba(255,255,255,0.95), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+            }}
+          >
+            Your Wrigleyville
+          </div>
+          <div
+            style={{
+              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+              color: 'hsl(222, 82%, 40%)',
+              WebkitTextStroke: '2px black',
+              paintOrder: 'stroke fill',
+              textShadow:
+                '3px 3px 0 rgba(255,255,255,0.95), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+            }}
+          >
+            Connection Hub
+          </div>
         </h1>
 
         <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">

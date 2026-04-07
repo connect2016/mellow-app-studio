@@ -97,22 +97,39 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="text-[1.6rem] font-extrabold sm:text-4xl lg:text-5xl"
+          className="text-[1.5rem] sm:text-4xl lg:text-5xl"
           style={{
-            fontFamily: 'Graduate, serif',
-            color: 'white',
-            WebkitTextStroke: '1.5px black',
-            paintOrder: 'stroke fill',
-            textShadow: '0 2px 20px rgba(0,0,0,0.6)',
-            letterSpacing: '0.02em',
-            lineHeight: 1.2,
+            fontFamily: 'Bungee, cursive',
+            letterSpacing: '0.03em',
+            lineHeight: 1.15,
             textWrap: 'balance',
           }}
         >
-          The Wrigleyville
+          <span
+            style={{
+              color: 'white',
+              WebkitTextStroke: '2px black',
+              paintOrder: 'stroke fill',
+              textShadow:
+                '3px 3px 0 hsl(0, 75%, 50%), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+            }}
+          >
+            The Wrigleyville
+            <br />
+            Connection
+          </span>
           <br />
-          Connection{' '}
-          <span style={{ color: 'hsl(var(--secondary))' }}>Clubhouse</span>
+          <span
+            style={{
+              color: 'hsl(222, 82%, 35%)',
+              WebkitTextStroke: '2px black',
+              paintOrder: 'stroke fill',
+              textShadow:
+                '3px 3px 0 rgba(255,255,255,0.7), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+            }}
+          >
+            Clubhouse
+          </span>
         </h1>
 
         <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">

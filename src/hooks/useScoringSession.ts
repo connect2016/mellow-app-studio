@@ -104,6 +104,7 @@ export function useScoringSession(sessionId: string | undefined) {
       .on('postgres_changes', { event: '*', schema: 'public', table: 'scoring_timeline', filter: `session_id=eq.${sessionId}` }, () => qc.invalidateQueries({ queryKey: ['scoring-timeline', sessionId] }))
       .on('postgres_changes', { event: '*', schema: 'public', table: 'scoring_session_members', filter: `session_id=eq.${sessionId}` }, () => qc.invalidateQueries({ queryKey: ['scoring-members', sessionId] }))
       .on('postgres_changes', { event: '*', schema: 'public', table: 'scoring_predictions', filter: `session_id=eq.${sessionId}` }, () => qc.invalidateQueries({ queryKey: ['scoring-predictions', sessionId] }))
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'scoring_sessions', filter: `id=eq.${sessionId}` }, () => qc.invalidateQueries({ queryKey: ['scoring-session', sessionId] }))
       .subscribe();
     return () => { supabase.removeChannel(channel); };
   }, [sessionId, qc]);
@@ -127,6 +128,7 @@ export function useScoringSession(sessionId: string | undefined) {
       const { error } = await supabase.from('scoring_entries').upsert({
         session_id: sessionId,
         user_id: user.id,
+        scored_by: user.id,
         inning: entry.inning,
         half: entry.half,
         runs: entry.runs,
@@ -179,6 +181,47 @@ export function useScoringSession(sessionId: string | undefined) {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['scoring-reactions', sessionId] }),
   });
 
+  // Pass the Pencil
+  const passPencil = useMutation({
+    mutationFn: async (toUserId: string) => {
+      if (!sessionId) throw new Error('No session');
+      const { error } = await supabase
+        .from('scoring_sessions')
+        .update({ active_scorer_id: toUserId } as any)
+        .eq('id', sessionId);
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['scoring-session', sessionId] }),
+  });
+
+  // Finalize game
+  const finalizeGame = useMutation({
+    mutationFn: async () => {
+      if (!sessionId) throw new Error('No session');
+      const { error } = await supabase
+        .from('scoring_sessions')
+        .update({ status: 'final', finalized_at: new Date().toISOString() } as any)
+        .eq('id', sessionId);
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['scoring-session', sessionId] }),
+  });
+
+  // Advance batter
+  const advanceBatter = useMutation({
+    mutationFn: async () => {
+      if (!sessionId || !session.data) throw new Error('No session');
+      const current = (session.data as any).active_batter ?? 1;
+      const next = current >= 9 ? 1 : current + 1;
+      const { error } = await supabase
+        .from('scoring_sessions')
+        .update({ active_batter: next } as any)
+        .eq('id', sessionId);
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['scoring-session', sessionId] }),
+  });
+
   const PREDICTION_POINTS: Record<string, number> = {
     hr: 25, strikeout: 10, double_play: 20, hit: 8, walk: 5, flyout: 5, groundout: 5, steal: 15,
   };
@@ -199,7 +242,6 @@ export function useScoringSession(sessionId: string | undefined) {
   const resolvePrediction = useMutation({
     mutationFn: async ({ predictionId, isCorrect }: { predictionId: string; isCorrect: boolean }) => {
       if (!user) throw new Error('Not authenticated');
-      // Get prediction to calculate points
       const { data: pred } = await supabase.from('scoring_predictions').select('*').eq('id', predictionId).single();
       if (!pred) throw new Error('Prediction not found');
 
@@ -210,9 +252,7 @@ export function useScoringSession(sessionId: string | undefined) {
         points_awarded: points,
       }).eq('id', predictionId);
 
-      // Update scorer stats
       if (isCorrect && points > 0) {
-        // Award points to the predictor
         await supabase.from('user_points').insert({
           user_id: pred.user_id,
           points,
@@ -221,7 +261,6 @@ export function useScoringSession(sessionId: string | undefined) {
         });
       }
 
-      // Upsert scorer stats
       const { data: existingStats } = await supabase.from('scorer_stats').select('*').eq('user_id', pred.user_id).single();
       if (existingStats) {
         const newStreak = isCorrect ? existingStats.streak + 1 : 0;
@@ -253,7 +292,7 @@ export function useScoringSession(sessionId: string | undefined) {
   return {
     session, members, entries, timeline, reactions, predictions,
     joinSession, addEntry, confirmEntry, addTimelineEvent, sendReaction,
-    makePrediction, resolvePrediction,
+    makePrediction, resolvePrediction, passPencil, finalizeGame, advanceBatter,
   };
 }
 
@@ -292,6 +331,8 @@ export function useScoringSessions() {
         user_id: user.id,
         location_label: 'Session Creator',
       });
+      // Set creator as active scorer
+      await supabase.from('scoring_sessions').update({ active_scorer_id: user.id } as any).eq('id', data.id);
       return data;
     },
   });

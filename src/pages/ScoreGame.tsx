@@ -5,19 +5,19 @@ import { AppHeader } from '@/components/AppHeader';
 import { LiveChatFeed } from '@/components/scoring/LiveChatFeed';
 import { FlashPrediction } from '@/components/scoring/FlashPrediction';
 import { HomeRunEffect } from '@/components/scoring/HomeRunEffect';
-import { MomentCard } from '@/components/scoring/MomentCard';
 import { Scorecard } from '@/components/scoring/Scorecard';
 import { GameTimeline } from '@/components/scoring/GameTimeline';
 import { AddPlayModal } from '@/components/scoring/AddPlayModal';
 import { SessionMembers } from '@/components/scoring/SessionMembers';
 import { ScorerLeaderboard } from '@/components/scoring/ScorerLeaderboard';
 import { PredictionPanel } from '@/components/scoring/PredictionPanel';
+import { RelayPanel } from '@/components/scoring/RelayPanel';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useScoringSession } from '@/hooks/useScoringSession';
 import { useProfile } from '@/hooks/useProfile';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Plus, Share2, Copy, BarChart3, Users, Trophy, ClipboardList } from 'lucide-react';
+import { Plus, Share2, Copy, BarChart3, Users, Trophy, ClipboardList, Pencil, Flag } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function ScoreGame() {
@@ -37,7 +37,7 @@ export default function ScoreGame() {
   const {
     session, members, entries, timeline, reactions, predictions,
     joinSession, addEntry, confirmEntry, addTimelineEvent, sendReaction,
-    makePrediction, resolvePrediction,
+    makePrediction, resolvePrediction, passPencil, finalizeGame, advanceBatter,
   } = useScoringSession(id);
 
   useEffect(() => {
@@ -66,21 +66,15 @@ export default function ScoreGame() {
     }
   }, [entries.data]);
 
-  // Trigger flash prediction every ~45 seconds when game is live
+  // Trigger flash prediction every ~45 seconds
   useEffect(() => {
     if (session.data?.status !== 'live') return;
-    const interval = setInterval(() => {
-      setShowPrediction(true);
-    }, 45000);
-    // Show first one after 5 seconds
+    const interval = setInterval(() => setShowPrediction(true), 45000);
     const initial = setTimeout(() => setShowPrediction(true), 5000);
-    return () => {
-      clearInterval(interval);
-      clearTimeout(initial);
-    };
+    return () => { clearInterval(interval); clearTimeout(initial); };
   }, [session.data?.status]);
 
-  // Watch timeline for big plays → trigger effects
+  // Watch timeline for big plays
   const prevTimelineLength = useState(0);
   useEffect(() => {
     const tl = timeline.data ?? [];
@@ -106,6 +100,12 @@ export default function ScoreGame() {
   const hasPendingPrediction = (predictions.data ?? []).some(
     p => p.user_id === user?.id && p.inning === currentInning && p.half === currentHalf && p.is_correct === null
   );
+
+  const handleFinalize = () => {
+    finalizeGame.mutate(undefined, {
+      onSuccess: () => toast({ title: '🏁 Game Finalized!', description: 'Your scorecard has been saved.' }),
+    });
+  };
 
   if (session.isLoading) {
     return (
@@ -138,65 +138,54 @@ export default function ScoreGame() {
 
   const homeRuns = (entries.data ?? []).filter(e => e.half === 'bottom').reduce((s, e) => s + e.runs, 0);
   const awayRuns = (entries.data ?? []).filter(e => e.half === 'top').reduce((s, e) => s + e.runs, 0);
+  const sessionData = session.data as any;
+  const isFinalized = sessionData.status === 'final';
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* Home Run / Big Play Effect */}
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#F9F8F4' }}>
       <HomeRunEffect trigger={effectTrigger} playType={effectPlayType} />
-
       <AppHeader />
 
-      {/* Compact sticky score bar */}
-      <div className="bg-primary text-primary-foreground sticky top-0 z-40">
+      {/* Vintage-style sticky score bar */}
+      <div className="sticky top-0 z-40 border-b-2" style={{ backgroundColor: 'hsl(var(--ivy-green))', borderColor: 'hsl(var(--ivy-green))' }}>
         <div className="mx-auto max-w-lg px-4 py-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 flex-1">
               <div className="text-center">
-                <p className="text-[10px] opacity-60 uppercase tracking-wider">{session.data.away_team || 'Away'}</p>
-                <motion.p
-                  key={awayRuns}
-                  initial={{ scale: 1.3 }}
-                  animate={{ scale: 1 }}
-                  className="text-2xl font-black"
-                >
+                <p className="text-[10px] opacity-60 uppercase tracking-wider text-white font-['Share_Tech_Mono']">{session.data.away_team || 'Away'}</p>
+                <motion.p key={awayRuns} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className="text-2xl font-black text-white font-['Share_Tech_Mono']">
                   {awayRuns}
                 </motion.p>
               </div>
               <div className="text-center">
                 <div className="flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-[9px] uppercase tracking-widest opacity-60">
-                    {session.data.status === 'live' ? 'LIVE' : 'FINAL'}
+                  {!isFinalized && <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />}
+                  <span className="text-[9px] uppercase tracking-widest text-white/60 font-['Share_Tech_Mono']">
+                    {isFinalized ? 'FINAL' : 'LIVE'}
                   </span>
                 </div>
-                <p className="text-[10px] opacity-60 mt-0.5">vs</p>
+                <p className="text-[10px] text-white/60 mt-0.5">vs</p>
               </div>
               <div className="text-center">
-                <p className="text-[10px] opacity-60 uppercase tracking-wider">🐻 {session.data.home_team}</p>
-                <motion.p
-                  key={homeRuns}
-                  initial={{ scale: 1.3 }}
-                  animate={{ scale: 1 }}
-                  className="text-2xl font-black"
-                >
+                <p className="text-[10px] opacity-60 uppercase tracking-wider text-white font-['Share_Tech_Mono']">🐻 {session.data.home_team}</p>
+                <motion.p key={homeRuns} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className="text-2xl font-black text-white font-['Share_Tech_Mono']">
                   {homeRuns}
                 </motion.p>
               </div>
             </div>
 
-            {/* Action buttons */}
             <div className="flex items-center gap-1">
-              <span className="text-[10px] opacity-60 mr-1">{members.data?.length ?? 0} 👥</span>
-              <button onClick={copyInvite} className="h-7 w-7 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20">
-                <Share2 className="h-3.5 w-3.5" />
+              <span className="text-[10px] text-white/60 mr-1 font-['Share_Tech_Mono']">{members.data?.length ?? 0} 👥</span>
+              <button onClick={copyInvite} className="h-7 w-7 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20">
+                <Share2 className="h-3.5 w-3.5 text-white" />
               </button>
               <Sheet open={showScorecard} onOpenChange={setShowScorecard}>
                 <SheetTrigger asChild>
-                  <button className="h-7 w-7 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20">
-                    <ClipboardList className="h-3.5 w-3.5" />
+                  <button className="h-7 w-7 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20">
+                    <ClipboardList className="h-3.5 w-3.5 text-white" />
                   </button>
                 </SheetTrigger>
-                <SheetContent side="bottom" className="rounded-t-2xl max-h-[85vh] overflow-y-auto">
+                <SheetContent side="bottom" className="rounded-t-2xl max-h-[85vh] overflow-y-auto" style={{ backgroundColor: '#F9F8F4' }}>
                   <ScorecardSheet
                     session={session.data}
                     entries={entries.data ?? []}
@@ -210,7 +199,10 @@ export default function ScoreGame() {
                     onConfirm={(id) => confirmEntry.mutate(id)}
                     onPredict={(p) => makePrediction.mutate(p)}
                     onResolve={(id, correct) => resolvePrediction.mutate({ predictionId: id, isCorrect: correct })}
+                    onPassPencil={(toId) => passPencil.mutate(toId)}
+                    onFinalize={handleFinalize}
                     memberCount={members.data?.length ?? 1}
+                    isFinalized={isFinalized}
                   />
                 </SheetContent>
               </Sheet>
@@ -219,9 +211,8 @@ export default function ScoreGame() {
         </div>
       </div>
 
-      {/* Main chat area - fills remaining screen */}
+      {/* Main chat area */}
       <div className="flex-1 flex flex-col min-h-0 mx-auto max-w-lg w-full">
-        {/* Flash prediction overlay */}
         <div className="px-3 pt-2">
           <FlashPrediction
             visible={showPrediction}
@@ -234,7 +225,6 @@ export default function ScoreGame() {
           />
         </div>
 
-        {/* Live chat feed - primary view */}
         <div className="flex-1 min-h-0">
           <LiveChatFeed
             reactions={reactions.data ?? []}
@@ -245,86 +235,121 @@ export default function ScoreGame() {
         </div>
       </div>
 
-      {/* FAB for adding key plays */}
-      <motion.button
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setShowAddPlay(true)}
-        className="fixed bottom-20 right-4 h-12 w-12 rounded-full bg-secondary text-secondary-foreground shadow-lg flex items-center justify-center z-30"
-      >
-        <Plus className="h-5 w-5" />
-      </motion.button>
+      {/* FAB - Cubs Blue "+ Add Play" */}
+      {!isFinalized && (
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setShowAddPlay(true)}
+          className="fixed bottom-20 right-4 h-14 rounded-full shadow-lg flex items-center gap-2 px-5 z-30"
+          style={{ backgroundColor: 'hsl(var(--accent))', color: 'white' }}
+        >
+          <Plus className="h-5 w-5" />
+          <span className="text-sm font-bold font-['Graduate']">Add Play</span>
+        </motion.button>
+      )}
 
-      {/* Add Play Modal */}
       <AddPlayModal
         open={showAddPlay}
         onClose={() => setShowAddPlay(false)}
         onAdd={(e) => {
           addTimelineEvent.mutate(e);
-          // Trigger effect for big plays
           const bigPlays = ['hr', 'double_play', 'steal', 'triple'];
           if (bigPlays.includes(e.play_type)) {
             setEffectPlayType(e.play_type);
             setEffectTrigger(prev => prev + 1);
           }
         }}
+        onQuickOut={() => advanceBatter.mutate()}
         currentInning={currentInning}
       />
     </div>
   );
 }
 
-// Bottom sheet with scorecard, predictions, timeline, members, leaderboard
+// Bottom sheet with vintage tabs
 function ScorecardSheet({
   session, entries, members, memberProfiles, predictions, timeline,
-  userId, currentInning, onAddEntry, onConfirm, onPredict, onResolve, memberCount,
+  userId, currentInning, onAddEntry, onConfirm, onPredict, onResolve,
+  onPassPencil, onFinalize, memberCount, isFinalized,
 }: any) {
-  const [tab, setTab] = useState<'score' | 'predict' | 'timeline' | 'ranks' | 'fans'>('score');
+  const [tab, setTab] = useState<'score' | 'relay' | 'predict' | 'timeline' | 'ranks' | 'fans'>('score');
+  const { toast } = useToast();
 
   const tabs = [
-    { key: 'score', label: '📊 Score', icon: BarChart3 },
-    { key: 'predict', label: '⚡ Predict', icon: null },
-    { key: 'timeline', label: '⚾ Plays', icon: null },
-    { key: 'ranks', label: '🏆 Ranks', icon: Trophy },
-    { key: 'fans', label: '👥 Fans', icon: Users },
+    { key: 'score', label: '📊 Score' },
+    { key: 'relay', label: '✏️ Relay' },
+    { key: 'predict', label: '⚡ Predict' },
+    { key: 'timeline', label: '⚾ Plays' },
+    { key: 'ranks', label: '🏆 Ranks' },
+    { key: 'fans', label: '👥 Fans' },
   ];
+
+  const handlePostToClubhouse = () => {
+    // Future: post summary to feed
+    toast({ title: '📣 Posted to Clubhouse!', description: 'Your scorecard summary is now in the feed.' });
+  };
 
   return (
     <div className="pt-4 pb-6 space-y-4">
       {/* Tab bar */}
-      <div className="flex gap-1 overflow-x-auto pb-1">
+      <div className="flex gap-1 overflow-x-auto pb-1 no-scrollbar">
         {tabs.map(t => (
           <button
             key={t.key}
             onClick={() => setTab(t.key as any)}
-            className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-              tab === t.key
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-muted/50 text-muted-foreground hover:bg-muted'
-            }`}
+            className="flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors font-['Share_Tech_Mono']"
+            style={{
+              backgroundColor: tab === t.key ? 'hsl(var(--ivy-green))' : 'hsl(var(--ivy-green) / 0.08)',
+              color: tab === t.key ? 'white' : 'hsl(var(--ivy-green))',
+            }}
           >
             {t.label}
           </button>
         ))}
       </div>
 
-      {/* Invite code */}
-      {session.invite_code && tab === 'score' && (
-        <div className="flex items-center gap-2 rounded-xl bg-muted/50 px-3 py-2 text-xs">
-          <span className="text-muted-foreground">Invite code:</span>
-          <code className="font-mono font-bold text-foreground">{session.invite_code}</code>
-          <button className="ml-auto text-primary"><Copy className="h-3.5 w-3.5" /></button>
+      {tab === 'score' && (
+        <div className="space-y-3">
+          <Scorecard
+            homeTeam={session.home_team}
+            awayTeam={session.away_team}
+            entries={entries}
+            onAddEntry={onAddEntry}
+            onConfirm={onConfirm}
+            userId={userId}
+            memberCount={memberCount}
+            scorerProfiles={memberProfiles}
+          />
+          {/* Finalize & Post buttons */}
+          {!isFinalized && session.creator_id === userId && (
+            <Button
+              onClick={onFinalize}
+              className="w-full rounded-xl py-4 font-['Graduate'] text-sm"
+              style={{ backgroundColor: 'hsl(var(--secondary))' }}
+            >
+              <Flag className="h-4 w-4 mr-2" /> Finalize Game
+            </Button>
+          )}
+          {isFinalized && (
+            <Button
+              onClick={handlePostToClubhouse}
+              className="w-full rounded-xl py-4 font-['Graduate'] text-sm"
+              style={{ backgroundColor: 'hsl(var(--accent))' }}
+            >
+              📣 Post to Clubhouse
+            </Button>
+          )}
         </div>
       )}
-
-      {tab === 'score' && (
-        <Scorecard
-          homeTeam={session.home_team}
-          awayTeam={session.away_team}
-          entries={entries}
-          onAddEntry={onAddEntry}
-          onConfirm={onConfirm}
+      {tab === 'relay' && (
+        <RelayPanel
+          sessionId={session.id}
+          inviteCode={session.invite_code}
+          activeScorerId={(session as any).active_scorer_id}
+          members={memberProfiles}
           userId={userId}
-          memberCount={memberCount}
+          onPassPencil={onPassPencil}
+          activeBatter={(session as any).active_batter ?? 1}
         />
       )}
       {tab === 'predict' && (

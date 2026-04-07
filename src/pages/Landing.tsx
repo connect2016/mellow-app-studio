@@ -1,6 +1,7 @@
 // @ts-ignore
 import '@fontsource/norwester';
 import { Link, useNavigate } from 'react-router-dom';
+import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.jpg';
 import { Button } from '@/components/ui/button';
 import { Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
@@ -111,8 +112,12 @@ export default function Landing() {
       </section>
 
       {/* ── Feature Highlights ── */}
-      <section className="bg-background py-20">
-        <div className="mx-auto max-w-5xl px-6">
+      <section className="relative overflow-hidden py-20">
+        <div className="absolute inset-0">
+          <img src={wrigleyvilleAerial} alt="" className="h-full w-full object-cover" loading="lazy" />
+        </div>
+        <div className="absolute inset-0 bg-background/80" />
+        <div className="relative mx-auto max-w-5xl px-6">
           <div className="mb-12 text-center">
             <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Everything You Need on{' '}

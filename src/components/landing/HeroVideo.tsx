@@ -22,9 +22,9 @@ function StrokedTitle({ text, color }: { text: string; color: string }) {
   return (
     <div style={{ display: 'grid' }}>
       {/* Layer 1: thin black outer trim */}
-      <div aria-hidden="true" className="hero-title-size" style={{ ...base, color: 'transparent', WebkitTextStroke: '10px hsl(0 0% 0%)', paintOrder: 'stroke fill' }}>{text}</div>
+      <div aria-hidden="true" className="hero-title-size" style={{ ...base, color: 'transparent', WebkitTextStroke: '14px hsl(0 0% 0%)', paintOrder: 'stroke fill' }}>{text}</div>
       {/* Layer 2: thick white outline */}
-      <div aria-hidden="true" className="hero-title-size" style={{ ...base, color: 'transparent', WebkitTextStroke: '7px hsl(0 0% 100%)', paintOrder: 'stroke fill' }}>{text}</div>
+      <div aria-hidden="true" className="hero-title-size" style={{ ...base, color: 'transparent', WebkitTextStroke: '10px hsl(0 0% 100%)', paintOrder: 'stroke fill' }}>{text}</div>
       {/* Layer 3: color fill */}
       <div className="hero-title-size" style={{ ...base, color }}>{text}</div>
     </div>

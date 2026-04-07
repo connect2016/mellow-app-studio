@@ -7,8 +7,8 @@ html {
   font-size: 16px;
 }
 
-/* Enforce minimum font size for body text */
-body, p, li, td, th, label, input, textarea, select, button {
+/* Enforce minimum font size for body text — excludes headings & hero */
+body, .body-text, li, td, th, label, input, textarea, select, button {
   font-size: max(1rem, 16px);
   line-height: 1.5;
 }

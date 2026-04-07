@@ -100,7 +100,7 @@ export default function HeroVideo() {
           style={{
             fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: 900,
-            fontSize: '80px',
+            fontSize: 'clamp(2.8rem, 8vw, 5rem)',
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
           }}

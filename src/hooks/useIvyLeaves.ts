@@ -118,15 +118,12 @@ export function useEarnIvyLeaf() {
   return useMutation({
     mutationFn: async ({ source, sourceId, amount = 1 }: { source: string; sourceId?: string; amount?: number }) => {
       if (!user) throw new Error('Not authenticated');
-      const { error } = await supabase
-        .from('ivy_leaves')
-        .insert({
-          user_id: user.id,
-          homestand_id: homestand?.id ?? null,
-          source,
-          source_id: sourceId ?? null,
-          amount,
-        });
+      const { error } = await supabase.rpc('award_ivy_leaf', {
+        _source: source,
+        _source_id: sourceId ?? null,
+        _amount: Math.min(Math.max(amount, 1), 10),
+        _homestand_id: homestand?.id ?? null,
+      });
       if (error) throw error;
     },
     onSuccess: () => {

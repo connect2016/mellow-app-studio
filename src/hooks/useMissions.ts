@@ -182,12 +182,11 @@ export function useClaimReward() {
         .update({ reward_claimed: true })
         .eq('id', progressId);
 
-      // Award points
-      await supabase.from('user_points').insert({
-        user_id: user.id,
-        points,
-        source: 'mission',
-        source_id: missionId,
+      // Award points via secure server function
+      await supabase.rpc('award_user_points', {
+        _source: 'mission',
+        _source_id: missionId,
+        _points: Math.min(Math.max(points, 1), 100),
       });
 
       // Award badge if applicable

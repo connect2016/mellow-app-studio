@@ -119,6 +119,7 @@ export default function HeroVideo() {
           </div>
           <div
             style={{
+              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
               color: 'hsl(222, 82%, 40%)',
               WebkitTextStroke: '2px black',
               paintOrder: 'stroke fill',

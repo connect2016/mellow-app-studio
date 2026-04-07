@@ -9,9 +9,37 @@ const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2
 
 /* Layered title style: each line renders 3 stacked elements —
    bottom = black stroke (thinnest outer trim), middle = white stroke, top = color fill */
+// Generate multi-directional text-shadow for solid outline effect
+function outlineShadow(color: string, size: number): string {
+  const shadows: string[] = [];
+  for (let x = -size; x <= size; x++) {
+    for (let y = -size; y <= size; y++) {
+      if (x === 0 && y === 0) continue;
+      shadows.push(`${x}px ${y}px 0 ${color}`);
+    }
+  }
+  return shadows.join(', ');
+}
+
 function StrokedTitle({ text, color }: { text: string; color: string }) {
   return (
-    <p style={{ fontSize: '80px', fontWeight: 900, color, fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>{text}</p>
+    <div
+      className="hero-title-size"
+      style={{
+        fontSize: 'clamp(48px, 9vw, 88px)',
+        fontWeight: 900,
+        fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+        lineHeight: 1.1,
+        letterSpacing: '-0.02em',
+        textAlign: 'center',
+        color,
+        WebkitTextStroke: '8px hsl(0 0% 100%)',
+        paintOrder: 'stroke fill',
+        textShadow: outlineShadow('hsl(0 0% 0%)', 6),
+      }}
+    >
+      {text}
+    </div>
   );
 }
 

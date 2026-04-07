@@ -6,8 +6,60 @@ import logoTransparent from '@/assets/logo-transparent.png';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 
 const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
-const HERO_OUTER_TRIM =
-  '-2px -2px 0 hsl(0 0% 0%), 0 -2px 0 hsl(0 0% 0%), 2px -2px 0 hsl(0 0% 0%), -2px 0 0 hsl(0 0% 0%), 2px 0 0 hsl(0 0% 0%), -2px 2px 0 hsl(0 0% 0%), 0 2px 0 hsl(0 0% 0%), 2px 2px 0 hsl(0 0% 0%)';
+
+/* Layered title style: each line renders 3 stacked elements —
+   bottom = black stroke (thinnest outer trim), middle = white stroke, top = color fill */
+const titleBase: React.CSSProperties = {
+  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+  fontWeight: 900,
+  fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+  lineHeight: 1.05,
+  letterSpacing: '-0.02em',
+  position: 'absolute',
+  left: 0,
+  right: 0,
+};
+
+function StrokedTitle({ text, color }: { text: string; color: string }) {
+  return (
+    <div className="relative w-full" style={{ height: 'clamp(2.5rem, 8vw, 5rem)', lineHeight: 1.05 }}>
+      {/* Layer 1 (bottom): black outer trim */}
+      <span
+        aria-hidden="true"
+        style={{
+          ...titleBase,
+          color: 'transparent',
+          WebkitTextStroke: '10px hsl(0 0% 0%)',
+          paintOrder: 'stroke fill',
+        }}
+      >
+        {text}
+      </span>
+      {/* Layer 2 (middle): thick white outline */}
+      <span
+        aria-hidden="true"
+        style={{
+          ...titleBase,
+          color: 'transparent',
+          WebkitTextStroke: '7px hsl(0 0% 100%)',
+          paintOrder: 'stroke fill',
+        }}
+      >
+        {text}
+      </span>
+      {/* Layer 3 (top): color fill */}
+      <span
+        style={{
+          ...titleBase,
+          color,
+          WebkitTextStroke: '0px transparent',
+        }}
+      >
+        {text}
+      </span>
+    </div>
+  );
+}
 
 export default function HeroVideo() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);

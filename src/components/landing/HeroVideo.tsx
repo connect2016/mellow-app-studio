@@ -97,38 +97,40 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="text-[1.5rem] sm:text-4xl lg:text-5xl"
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
           style={{
-            fontFamily: 'Bungee, cursive',
-            letterSpacing: '0.03em',
-            lineHeight: 1.15,
+            fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+            fontWeight: 800,
+            letterSpacing: '-0.01em',
+            lineHeight: 1.1,
             textWrap: 'balance',
           }}
         >
-          <span
-            style={{
-              color: 'white',
-              WebkitTextStroke: '2px black',
-              paintOrder: 'stroke fill',
-              textShadow:
-                '3px 3px 0 hsl(0, 75%, 50%), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
-            }}
-          >
-            The Wrigleyville
-            <br />
-            Connection
+          <span className="block">
+            <span
+              style={{
+                color: 'hsl(0, 80%, 45%)',
+                WebkitTextStroke: '1.5px black',
+                paintOrder: 'stroke fill',
+                textShadow:
+                  '2px 2px 0 rgba(255,255,255,0.9), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+              }}
+            >
+              Your Wrigleyville
+            </span>
           </span>
-          <br />
-          <span
-            style={{
-              color: 'hsl(222, 82%, 35%)',
-              WebkitTextStroke: '2px black',
-              paintOrder: 'stroke fill',
-              textShadow:
-                '3px 3px 0 rgba(255,255,255,0.7), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
-            }}
-          >
-            Clubhouse
+          <span className="block">
+            <span
+              style={{
+                color: 'hsl(222, 82%, 40%)',
+                WebkitTextStroke: '1.5px black',
+                paintOrder: 'stroke fill',
+                textShadow:
+                  '2px 2px 0 rgba(255,255,255,0.9), -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
+              }}
+            >
+              Connection Hub
+            </span>
           </span>
         </h1>
 

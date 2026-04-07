@@ -1,6 +1,7 @@
 // @ts-ignore
 import '@fontsource/norwester';
 import { Link, useNavigate } from 'react-router-dom';
+import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.jpg';
 import { Button } from '@/components/ui/button';
 import { Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';

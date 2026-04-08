@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Users, Target, MapPin, Beer, Shield, ChevronRight } from 'lucide-react';
 import logoTransparent from '@/assets/logo-transparent.png';
+import welcomeBg from '@/assets/welcome-bg.png';
 
 const steps = [
   {

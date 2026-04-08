@@ -52,7 +52,18 @@ export default function Welcome() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between bg-primary px-6 py-10">
+    <div className="relative flex min-h-screen flex-col items-center justify-between px-6 py-10">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${welcomeBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 z-0 bg-primary/75" />
       {/* Dots */}
       <div className="flex gap-2">
         {steps.map((_, i) => (

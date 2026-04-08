@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Users, Target, MapPin, Beer, Shield, ChevronRight } from 'lucide-react';
 import logoTransparent from '@/assets/logo-transparent.png';
+import welcomeBg from '@/assets/welcome-bg.png';
 
 const steps = [
   {
@@ -51,9 +52,20 @@ export default function Welcome() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between bg-primary px-6 py-10">
+    <div className="relative flex min-h-screen flex-col items-center justify-between px-6 py-10">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${welcomeBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 z-0 bg-primary/75" />
       {/* Dots */}
-      <div className="flex gap-2">
+      <div className="relative z-10 flex gap-2">
         {steps.map((_, i) => (
           <div
             key={i}
@@ -65,7 +77,7 @@ export default function Welcome() {
       </div>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col items-center justify-center text-center max-w-sm">
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center text-center max-w-sm">
         <img
           src={logoTransparent}
           alt="Cubbies Buddies"
@@ -113,7 +125,7 @@ export default function Welcome() {
       </div>
 
       {/* CTA */}
-      <div className="w-full max-w-sm space-y-3">
+      <div className="relative z-10 w-full max-w-sm space-y-3">
         <Button
           size="lg"
           onClick={advance}

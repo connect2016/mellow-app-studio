@@ -125,7 +125,7 @@ export default function Welcome() {
       </div>
 
       {/* CTA */}
-      <div className="w-full max-w-sm space-y-3">
+      <div className="relative z-10 w-full max-w-sm space-y-3">
         <Button
           size="lg"
           onClick={advance}

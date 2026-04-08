@@ -77,7 +77,7 @@ export default function Welcome() {
       </div>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col items-center justify-center text-center max-w-sm">
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center text-center max-w-sm">
         <img
           src={logoTransparent}
           alt="Cubbies Buddies"

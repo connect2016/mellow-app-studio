@@ -65,7 +65,7 @@ export default function Welcome() {
       {/* Dark overlay for readability */}
       <div className="absolute inset-0 z-0 bg-primary/75" />
       {/* Dots */}
-      <div className="flex gap-2">
+      <div className="relative z-10 flex gap-2">
         {steps.map((_, i) => (
           <div
             key={i}

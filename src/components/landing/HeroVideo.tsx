@@ -144,7 +144,7 @@ export default function HeroVideo() {
       <div className="absolute inset-0 bg-foreground/35" />
 
       {/* Content overlay — no motion, renders instantly */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 pt-4 text-center">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 -mt-12 text-center">
         <img
           src={wrigleyvilleLogo}
           alt="Wrigleyville 60613 Logo"

@@ -65,25 +65,26 @@ export function UserBaseballCard({
         )}
       </div>
 
-      {/* Display name in white area at bottom */}
+      {/* Display name in white area — lower right */}
       <div
-        className="absolute flex items-center justify-center"
+        className="absolute flex items-end justify-end"
         style={{
-          bottom: '2.5%',
-          left: '10%',
-          right: '10%',
-          height: '7%',
+          bottom: '2%',
+          left: '40%',
+          right: '5%',
+          height: '8%',
           zIndex: 10,
         }}
       >
         <span
-          className="font-bold truncate px-3"
+          className="font-bold truncate px-2"
           style={{
-            fontSize: 'clamp(11px, 3.5vw, 18px)',
+            fontSize: 'clamp(10px, 3.2vw, 17px)',
             fontFamily: "'Graduate', 'Inter', serif",
             color: '#1a237e',
             maxWidth: '100%',
             letterSpacing: '0.5px',
+            lineHeight: 1.2,
           }}
         >
           {displayName}

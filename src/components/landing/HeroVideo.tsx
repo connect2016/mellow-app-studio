@@ -2,7 +2,7 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, ChevronDown, Eye } from 'lucide-react';
-import logoTransparent from '@/assets/logo-transparent.png';
+import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 
 const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
@@ -146,8 +146,8 @@ export default function HeroVideo() {
       {/* Content overlay — no motion, renders instantly */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 pt-4 text-center">
         <img
-          src={logoTransparent}
-          alt="Cubbies Buddies"
+          src={wrigleyvilleLogo}
+          alt="Wrigleyville 60613 Logo"
           className="mb-4 w-full max-w-[280px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-sm"
         />
 

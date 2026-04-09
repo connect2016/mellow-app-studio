@@ -69,12 +69,13 @@ export function UserBaseballCard({
       <div
         className="absolute flex items-center justify-center"
         style={{
-          bottom: '14.8%',
+          bottom: '15.2%',
           left: '38%',
           right: '5%',
-          height: '5.5%',
+          height: '6%',
           background: 'linear-gradient(90deg, #c62828 0%, #b71c1c 100%)',
           borderRadius: '6px',
+          zIndex: 10,
         }}
       >
         <span

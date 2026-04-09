@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Target, Users, MessageCircle, User, Settings, Bell, Beer } from 'lucide-react';
+import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';

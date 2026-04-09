@@ -30,21 +30,23 @@ export function UserBaseballCard({
       style={{ aspectRatio: '2.5 / 3.5' }}
       onClick={onClick}
     >
-      {/* Card template background */}
-      <img
-        src={cardTemplate}
-        alt="Wrigleyville 60613 Baseball Card"
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none rounded-lg"
-        draggable={false}
-      />
+      {/* Wrapper that matches image aspect ratio exactly */}
+      <div className="relative w-full" style={{ aspectRatio: '2.5 / 3.5' }}>
+        {/* Card template background */}
+        <img
+          src={cardTemplate}
+          alt="Wrigleyville 60613 Baseball Card"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none rounded-lg"
+          draggable={false}
+        />
 
-      {/* Drop shadow for depth */}
-      <div
-        className="absolute inset-0 rounded-lg pointer-events-none"
-        style={{
-          boxShadow: '0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15)',
-        }}
-      />
+        {/* Drop shadow for depth */}
+        <div
+          className="absolute inset-0 rounded-lg pointer-events-none"
+          style={{
+            boxShadow: '0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15)',
+          }}
+        />
 
       {/* Profile photo circle overlay — positioned to match the template's circle */}
       <div

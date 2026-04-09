@@ -42,7 +42,7 @@ function StrokedTitle({ text, color }: { text: string; color: string }) {
           ...sharedStyle,
           color: 'transparent',
           WebkitTextFillColor: 'transparent',
-          WebkitTextStroke: '6px hsl(0 0% 100%)',
+          WebkitTextStroke: '5px hsl(0 0% 100%)',
         }}
       >
         {text}

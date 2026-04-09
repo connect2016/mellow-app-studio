@@ -65,26 +65,25 @@ export function UserBaseballCard({
         )}
       </div>
 
-      {/* Display name overlay */}
+      {/* Display name in white area at bottom */}
       <div
         className="absolute flex items-center justify-center"
         style={{
-          bottom: '15.2%',
-          left: '38%',
-          right: '5%',
-          height: '6%',
-          background: 'linear-gradient(90deg, #c62828 0%, #b71c1c 100%)',
-          borderRadius: '6px',
+          bottom: '2.5%',
+          left: '10%',
+          right: '10%',
+          height: '7%',
           zIndex: 10,
         }}
       >
         <span
-          className="text-white font-bold truncate drop-shadow-lg px-2"
+          className="font-bold truncate px-3"
           style={{
-            fontSize: 'clamp(12px, 4vw, 20px)',
+            fontSize: 'clamp(11px, 3.5vw, 18px)',
             fontFamily: "'Graduate', 'Inter', serif",
-            textShadow: '1px 1px 3px rgba(0,0,0,0.7)',
+            color: '#1a237e',
             maxWidth: '100%',
+            letterSpacing: '0.5px',
           }}
         >
           {displayName}

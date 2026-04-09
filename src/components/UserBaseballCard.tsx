@@ -109,6 +109,7 @@ export function UserBaseballCard({
           boxShadow: '0 0 20px rgba(204,52,51,0.3), 0 0 40px rgba(30,58,95,0.2)',
         }}
       />
+      </div>
     </div>
   );
 }

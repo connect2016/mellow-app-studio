@@ -83,13 +83,10 @@ export function AppHeader() {
         <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-4">
           <Link to="/" className="flex items-center gap-2">
             <img
-              alt="Cubbies Buddies"
-              className="h-12 w-auto"
-              src="/lovable-uploads/0f9703ae-330e-481b-b9d8-1f6cc6a16e18.png"
+              alt="Wrigleyville 60613 Logo"
+              className="h-14 w-auto object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
+              src={wrigleyvilleLogo}
             />
-            <span className="text-xl font-bold text-foreground leading-tight">
-              Cubbies Buddies
-            </span>
           </Link>
           <div className="flex items-center gap-1">
             <Link to="/beer-money" data-tour="beer-money" className="relative rounded-full p-2 hover:bg-muted transition-colors">

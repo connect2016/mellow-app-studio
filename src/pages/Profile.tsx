@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { DynamicBackground } from '@/components/DynamicBackground';
 import { AppHeader } from '@/components/AppHeader';
 import { BaseballCard } from '@/components/BaseballCard';
+import { UserBaseballCard } from '@/components/UserBaseballCard';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Flag, Ban, EyeOff, MessageCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';

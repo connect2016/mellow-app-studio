@@ -141,7 +141,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
     --lineup-teal: 168 55% 38%;
     --lineup-teal-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 160 50% 8%;
     --sidebar-foreground: 40 20% 92%;

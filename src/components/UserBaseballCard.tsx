@@ -75,20 +75,22 @@ export function UserBaseballCard({
         )}
       </div>
 
-      {/* Display name overlay — positioned at the bottom-right name area */}
+      {/* Display name overlay — covers the template's "Profile name here" text */}
       <div
-        className="absolute flex items-center justify-end pr-[6%]"
+        className="absolute flex items-center justify-center"
         style={{
-          bottom: '3.5%',
-          left: '40%',
-          right: '4%',
-          height: '6%',
+          bottom: '4.2%',
+          left: '38%',
+          right: '5%',
+          height: '5.5%',
+          background: 'linear-gradient(90deg, #b91c1c 0%, #991b1b 100%)',
+          borderRadius: '4px',
         }}
       >
         <span
-          className="text-white font-bold truncate drop-shadow-lg"
+          className="text-white font-bold truncate drop-shadow-lg px-2"
           style={{
-            fontSize: 'clamp(10px, 3.5vw, 18px)',
+            fontSize: 'clamp(11px, 3.5vw, 18px)',
             fontFamily: "'Graduate', 'Inter', serif",
             textShadow: '1px 1px 3px rgba(0,0,0,0.7)',
             maxWidth: '100%',

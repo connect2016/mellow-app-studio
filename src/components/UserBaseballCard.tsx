@@ -81,7 +81,7 @@ export function UserBaseballCard({
         <span
           className="text-white font-bold truncate drop-shadow-lg px-2"
           style={{
-            fontSize: 'clamp(10px, 3vw, 16px)',
+            fontSize: 'clamp(12px, 4vw, 20px)',
             fontFamily: "'Graduate', 'Inter', serif",
             textShadow: '1px 1px 3px rgba(0,0,0,0.7)',
             maxWidth: '100%',

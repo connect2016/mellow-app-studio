@@ -27,7 +27,7 @@ export function UserBaseballCard({
         'transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]',
         className
       )}
-      style={{ aspectRatio: '2.5 / 3.5' }}
+      
       onClick={onClick}
     >
       {/* Wrapper that matches image aspect ratio exactly */}

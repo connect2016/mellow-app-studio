@@ -7,7 +7,6 @@ interface UserBaseballCardProps {
   displayName: string;
   className?: string;
   onClick?: () => void;
-  /** Future extensibility */
   badges?: string[];
   stats?: Record<string, number>;
 }
@@ -27,34 +26,25 @@ export function UserBaseballCard({
         'transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]',
         className
       )}
-      style={{ aspectRatio: '2.5 / 3.5' }}
       onClick={onClick}
     >
-      {/* Card template background */}
+      {/* Card template — renders naturally to define container size */}
       <img
         src={cardTemplate}
         alt="Wrigleyville 60613 Baseball Card"
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none rounded-lg"
+        className="w-full h-auto block rounded-lg"
         draggable={false}
       />
 
-      {/* Drop shadow for depth */}
-      <div
-        className="absolute inset-0 rounded-lg pointer-events-none"
-        style={{
-          boxShadow: '0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15)',
-        }}
-      />
-
-      {/* Profile photo circle overlay — positioned to match the template's circle */}
+      {/* Profile photo circle overlay */}
       <div
         className="absolute overflow-hidden rounded-full"
         style={{
-          top: '28%',
+          top: '26%',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: '52%',
-          height: '37%',
+          width: '50%',
+          height: '36%',
         }}
       >
         {profileImage ? (
@@ -75,20 +65,23 @@ export function UserBaseballCard({
         )}
       </div>
 
-      {/* Display name overlay — positioned at the bottom-right name area */}
+      {/* Display name overlay */}
       <div
-        className="absolute flex items-center justify-end pr-[6%]"
+        className="absolute flex items-center justify-center"
         style={{
-          bottom: '3.5%',
-          left: '40%',
-          right: '4%',
+          bottom: '15.2%',
+          left: '38%',
+          right: '5%',
           height: '6%',
+          background: 'linear-gradient(90deg, #c62828 0%, #b71c1c 100%)',
+          borderRadius: '6px',
+          zIndex: 10,
         }}
       >
         <span
-          className="text-white font-bold truncate drop-shadow-lg"
+          className="text-white font-bold truncate drop-shadow-lg px-2"
           style={{
-            fontSize: 'clamp(10px, 3.5vw, 18px)',
+            fontSize: 'clamp(12px, 4vw, 20px)',
             fontFamily: "'Graduate', 'Inter', serif",
             textShadow: '1px 1px 3px rgba(0,0,0,0.7)',
             maxWidth: '100%',

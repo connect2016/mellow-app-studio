@@ -5,6 +5,13 @@ import strikeoutImg from '@/assets/reactions/strikeout.png';
 import doubleplayImg from '@/assets/reactions/doubleplay.png';
 import shockedImg from '@/assets/reactions/shocked.png';
 import gocubsImg from '@/assets/reactions/gocubs.png';
+import beercheersImg from '@/assets/reactions/beercheers.png';
+import wflagImg from '@/assets/reactions/wflag.png';
+import ivywallImg from '@/assets/reactions/ivywall.jpg';
+import scoreboardImg from '@/assets/reactions/scoreboard.png';
+import hotdogImg from '@/assets/reactions/hotdog.png';
+import crowdImg from '@/assets/reactions/crowd.png';
+import sunsetImg from '@/assets/reactions/sunset.png';
 
 export interface ReactionDef {
   key: string;
@@ -21,6 +28,13 @@ export const REACTIONS: ReactionDef[] = [
   { key: 'doubleplay', label: 'DP!', image: doubleplayImg, shortText: 'DP!' },
   { key: 'shocked', label: 'No way!', image: shockedImg, shortText: 'No way!' },
   { key: 'gocubs', label: 'Go Cubs!', image: gocubsImg, shortText: 'Go Cubs!' },
+  { key: 'beercheers', label: 'Cheers!', image: beercheersImg, shortText: '🍻 Cheers!' },
+  { key: 'wflag', label: 'Fly the W!', image: wflagImg, shortText: 'Fly the W!' },
+  { key: 'ivywall', label: 'Ivy!', image: ivywallImg, shortText: 'Ivy!' },
+  { key: 'scoreboard', label: 'Lights!', image: scoreboardImg, shortText: 'Lights!' },
+  { key: 'hotdog', label: 'Hot Dog!', image: hotdogImg, shortText: 'Hot Dog!' },
+  { key: 'crowd', label: 'Roar!', image: crowdImg, shortText: 'Roar!' },
+  { key: 'sunset', label: 'Golden!', image: sunsetImg, shortText: 'Golden!' },
 ];
 
 export function getReactionByKey(key: string): ReactionDef | undefined {

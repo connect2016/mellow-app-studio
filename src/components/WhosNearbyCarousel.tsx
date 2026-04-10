@@ -30,16 +30,16 @@ export function WhosNearbyCarousel() {
     queryKey: ['whos-nearby'],
     queryFn: async (): Promise<NearbyFan[]> => {
       const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
-      const { data } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo, game_status, wrigley_section, wrigleyville_bar, vibe_emoji')
-        .eq('is_banned', false)
-        .gte('location_last_set_at', sixHoursAgo)
-        .neq('user_id', user?.id ?? '')
-        .in('game_status', ['AtWrigley', 'AtBar', 'Tailgating', 'BeerSnake'])
-        .limit(20);
+      const { data } = await supabase.rpc('get_public_profiles', {
+        p_exclude_ids: user?.id ? [user.id] : [],
+        p_active_since: sixHoursAgo,
+        p_limit: 20,
+      });
 
-      return (data ?? []) as NearbyFan[];
+      const filtered = (data ?? []).filter(
+        (p: any) => ['AtWrigley', 'AtBar', 'Tailgating', 'BeerSnake'].includes(p.game_status ?? '')
+      );
+      return filtered as NearbyFan[];
     },
     refetchInterval: 20000,
     enabled: !!user,

@@ -52,10 +52,9 @@ export default function MemoriesContent() {
     queryKey: ['memory-profiles', allProfileIds.join(',')],
     queryFn: async () => {
       if (allProfileIds.length === 0) return {};
-      const { data } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .in('user_id', allProfileIds);
+      const { data } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: allProfileIds,
+      });
       const map: Record<string, { display_name: string; profile_photo: string | null }> = {};
       data?.forEach(p => { map[p.user_id] = p; });
       return map;
@@ -67,12 +66,12 @@ export default function MemoriesContent() {
     queryKey: ['tag-search', tagSearch],
     queryFn: async () => {
       if (tagSearch.length < 2) return [];
-      const { data } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .ilike('display_name', `%${tagSearch}%`)
-        .neq('user_id', user?.id ?? '')
-        .limit(5);
+      const { data } = await supabase.rpc('get_public_profiles', {
+        p_exclude_ids: user?.id ? [user.id] : [],
+        p_limit: 5,
+      }).then(r => ({
+        data: (r.data ?? []).filter((p: any) => (p.display_name as string)?.toLowerCase().includes(tagSearch.toLowerCase())),
+      }));
       return data ?? [];
     },
     enabled: tagSearch.length >= 2,

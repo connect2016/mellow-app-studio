@@ -25,18 +25,17 @@ export default function Profile() {
     queryKey: ['view-profile', id],
     queryFn: async () => {
       if (!id) return null;
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('user_id', id)
-        .single();
+      const { data, error } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: [id],
+        p_limit: 1,
+      });
       if (error) throw error;
-      return data;
+      return (data && data.length > 0) ? data[0] : null;
     },
     enabled: !!id && !isOwnProfile,
   });
 
-  const profile = isOwnProfile ? myProfile : otherProfile;
+  const profile = isOwnProfile ? myProfile : otherProfile as any;
 
   const blockUser = useMutation({
     mutationFn: async () => {

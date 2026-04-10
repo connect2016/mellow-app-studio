@@ -48,10 +48,9 @@ export default function HiFives() {
       const userIds = data.map(d => d.from_user);
       if (userIds.length === 0) return [];
 
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo, favorite_player, game_status, wrigleyville_bar')
-        .in('user_id', userIds);
+      const { data: profiles } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: userIds,
+      });
 
       const { data: sentBack } = await supabase
         .from('likes')

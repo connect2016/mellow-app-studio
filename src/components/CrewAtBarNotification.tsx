@@ -36,12 +36,11 @@ export function CrewAtBarNotification() {
 
       const memberIds = crewMembers.map(m => m.user_id);
 
-      const { data: activeMembers } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, game_status, wrigleyville_bar')
-        .in('user_id', memberIds)
-        .eq('game_status', 'AtBar')
-        .gte('location_last_set_at', sixHoursAgo);
+      const { data: activeMembers } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: memberIds,
+        p_game_status: 'AtBar',
+        p_active_since: sixHoursAgo,
+      });
 
       if (!activeMembers || activeMembers.length === 0) return null;
 

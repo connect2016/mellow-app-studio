@@ -32,10 +32,9 @@ export function useConversationProfiles(conversations: { participant_a: string; 
     queryKey: ['conversation-profiles', otherIds.sort().join(',')],
     queryFn: async () => {
       if (!otherIds.length) return {};
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .in('user_id', otherIds);
+      const { data, error } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: otherIds,
+      });
       if (error) throw error;
       const map: Record<string, { display_name: string; profile_photo: string | null }> = {};
       data?.forEach(p => { map[p.user_id] = p; });

@@ -81,11 +81,9 @@ export default function BallparkBuddy() {
 
       // Get profiles for these users
       const userIds = searches.map((s) => s.user_id);
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo, bio, intent, game_status, wrigley_section')
-        .in('user_id', userIds)
-        .eq('is_banned', false);
+      const { data: profiles } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: userIds,
+      });
 
       const profileMap = new Map(profiles?.map((p) => [p.user_id, p]) ?? []);
 

@@ -34,12 +34,11 @@ export function SocialProofBanner() {
         { data: recentLikes },
       ] = await Promise.all([
         // Total active fans
-        supabase
-          .from('profiles')
-          .select('user_id, display_name, profile_photo, game_status, wrigleyville_bar')
-          .eq('is_banned', false)
-          .eq('onboarding_completed', true)
-          .gte('location_last_set_at', sixHoursAgo),
+        supabase.rpc('get_public_profiles', {
+          p_only_onboarded: true,
+          p_active_since: sixHoursAgo,
+          p_limit: 200,
+        }),
         // Active game-time matches
         supabase
           .from('game_time_matches')
@@ -88,11 +87,9 @@ export function SocialProofBanner() {
 
       let popularFans: PopularFan[] = [];
       if (topUserIds.length > 0) {
-        const { data: topProfiles } = await supabase
-          .from('profiles')
-          .select('user_id, display_name, profile_photo')
-          .in('user_id', topUserIds)
-          .eq('is_banned', false);
+        const { data: topProfiles } = await supabase.rpc('get_public_profiles', {
+          p_user_ids: topUserIds,
+        });
         popularFans = (topProfiles ?? []).map((p) => ({
           ...p,
           like_count: likeCounts[p.user_id] ?? 0,

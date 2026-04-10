@@ -31,14 +31,10 @@ export function LiveActivityFeed({ maxItems = 5 }: { maxItems?: number }) {
       const thirtyMinAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
 
       const [{ data: recentCheckIns }, { data: recentMatches }] = await Promise.all([
-        supabase
-          .from('profiles')
-          .select('user_id, display_name, game_status, wrigleyville_bar, location_last_set_at')
-          .eq('is_banned', false)
-          .neq('game_status', 'NotSet')
-          .gte('location_last_set_at', thirtyMinAgo)
-          .order('location_last_set_at', { ascending: false })
-          .limit(10),
+        supabase.rpc('get_public_profiles', {
+          p_active_since: thirtyMinAgo,
+          p_limit: 10,
+        }).then(r => ({ data: (r.data ?? []).filter((p: any) => p.game_status !== 'NotSet') })),
         supabase
           .from('game_time_matches')
           .select('id, meeting_spot, created_at')

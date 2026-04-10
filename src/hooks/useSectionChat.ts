@@ -104,12 +104,13 @@ export function useSectionMembers(gameId: string | undefined, section: string | 
     queryKey: ['section-members', gameId, section],
     queryFn: async () => {
       if (!section) return [];
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .eq('wrigley_section', section)
-        .eq('game_status', 'AtWrigley')
-        .limit(50);
+      const { data, error } = await supabase.rpc('get_public_profiles', {
+        p_game_status: 'AtWrigley',
+        p_limit: 50,
+      }).then(r => ({
+        data: (r.data ?? []).filter((p: any) => p.wrigley_section === section),
+        error: r.error,
+      }));
 
       if (error) throw error;
       return data ?? [];

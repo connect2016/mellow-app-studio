@@ -13,12 +13,11 @@ export function NearbyFansOnline() {
     queryFn: async () => {
       const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
 
-      const { data: active } = await supabase
-        .from('profiles')
-        .select('game_status, wrigleyville_bar')
-        .eq('is_banned', false)
-        .eq('onboarding_completed', true)
-        .gte('location_last_set_at', sixHoursAgo);
+      const { data: active } = await supabase.rpc('get_public_profiles', {
+        p_only_onboarded: true,
+        p_active_since: sixHoursAgo,
+        p_limit: 200,
+      });
 
       const total = active?.length ?? 0;
       const atBars = active?.filter(p => p.game_status === 'AtBar').length ?? 0;

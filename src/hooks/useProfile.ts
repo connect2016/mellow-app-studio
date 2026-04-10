@@ -51,7 +51,7 @@ export function useDiscoverProfiles() {
     queryFn: async () => {
       if (!user) return [];
 
-      // Get current user's profile for blocked_users list
+      // Get current user's profile for blocked_users list (owner-only RLS)
       const { data: myProfile } = await supabase
         .from('profiles')
         .select('blocked_users')
@@ -68,13 +68,11 @@ export function useDiscoverProfiles() {
       const blockedIds = (myProfile?.blocked_users as string[]) ?? [];
       const excludeIds = [...new Set([...passedIds, ...blockedIds, user.id])];
 
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('is_banned', false)
-        .eq('hidden_from_discover', false)
-        .eq('onboarding_completed', true)
-        .not('user_id', 'in', `(${excludeIds.join(',')})`);
+      const { data, error } = await supabase.rpc('get_public_profiles', {
+        p_exclude_ids: excludeIds,
+        p_only_onboarded: true,
+        p_limit: 200,
+      });
 
       if (error) throw error;
       return data ?? [];

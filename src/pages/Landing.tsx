@@ -66,7 +66,7 @@ export default function Landing() {
 
       {/* ── Fan Culture Photo Strip ── */}
       <section className="bg-background py-16">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <div className="mb-10 text-center">
             <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               More Than a Game.{' '}

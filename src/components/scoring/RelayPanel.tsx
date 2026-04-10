@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Pencil, ArrowRightLeft, Copy, Users } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 interface MemberProfile {
   user_id: string;
@@ -23,34 +23,57 @@ interface RelayPanelProps {
 }
 
 export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, userId, onPassPencil, activeBatter, currentInning = 1 }: RelayPanelProps) {
-  const { toast } = useToast();
   const [pencilTarget, setPencilTarget] = useState<string | null>(null);
+  const [travelAnim, setTravelAnim] = useState<{ fromX: number; fromY: number; toX: number; toY: number } | null>(null);
+  const avatarRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const containerRef = useRef<HTMLDivElement>(null);
   const isActiveScorer = activeScorerId === userId;
   const activeScorer = members.find(m => m.user_id === activeScorerId);
 
   const copyInvite = () => {
     const link = `${window.location.origin}/score/${sessionId}`;
     navigator.clipboard.writeText(link);
-    toast({ title: '🔗 Link copied!', description: 'Share with friends to co-score' });
+    toast('🔗 Link copied!', { description: 'Share with friends to co-score' });
   };
 
   const copyCode = () => {
     if (!inviteCode) return;
     navigator.clipboard.writeText(inviteCode);
-    toast({ title: '📋 Code copied!', description: inviteCode });
+    toast('📋 Code copied!', { description: inviteCode });
   };
 
   const handlePassPencil = (toUserId: string) => {
+    // Calculate travel animation coordinates
+    const fromEl = activeScorerId ? avatarRefs.current[activeScorerId] : null;
+    const toEl = avatarRefs.current[toUserId];
+    const container = containerRef.current;
+
+    if (fromEl && toEl && container) {
+      const cRect = container.getBoundingClientRect();
+      const fRect = fromEl.getBoundingClientRect();
+      const tRect = toEl.getBoundingClientRect();
+      setTravelAnim({
+        fromX: fRect.left - cRect.left + fRect.width / 2,
+        fromY: fRect.top - cRect.top,
+        toX: tRect.left - cRect.left + tRect.width / 2,
+        toY: tRect.top - cRect.top,
+      });
+    }
+
     setPencilTarget(toUserId);
     const target = members.find(m => m.user_id === toUserId);
     onPassPencil(toUserId);
-    // Toast confirmation for the recipient context
-    toast({
-      title: '✏️ Pencil passed!',
-      description: `${target?.display_name ?? 'Co-scorer'} now has the pencil for Inning ${currentInning}.`,
+
+    // Spec toast: "You've got the pencil! Scoring Inning X."
+    toast(`✏️ ${target?.display_name ?? 'Co-scorer'} has the pencil!`, {
+      description: `Scoring Inning ${currentInning}.`,
     });
-    // Reset animation state after a beat
-    setTimeout(() => setPencilTarget(null), 800);
+
+    // Reset animation states
+    setTimeout(() => {
+      setPencilTarget(null);
+      setTravelAnim(null);
+    }, 900);
   };
 
   return (
@@ -99,49 +122,67 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
           </span>
         </div>
 
-        {/* Active scorer display with pencil badge */}
-        <div className="flex items-center gap-3">
-          {members.map(m => {
-            const isActive = m.user_id === activeScorerId;
-            const isTarget = m.user_id === pencilTarget;
-            return (
-              <motion.div
-                key={m.user_id}
-                className="relative"
-                animate={isTarget ? { scale: [1, 1.15, 1] } : {}}
-                transition={{ duration: 0.4 }}
-              >
-                <Avatar className={`h-10 w-10 border-2 transition-all ${isActive ? 'ring-2 ring-offset-1' : ''}`}
-                  style={{
-                    borderColor: isActive ? 'hsl(var(--ivy-green))' : 'transparent',
-                    opacity: isActive ? 1 : 0.5,
-                    // ring via box-shadow
-                    boxShadow: isActive ? '0 0 0 2px hsl(var(--secondary) / 0.4)' : 'none',
-                  }}
+        {/* Active scorer display with pencil badge + travel animation */}
+        <div className="relative" ref={containerRef}>
+          <div className="flex items-center gap-3">
+            {members.map(m => {
+              const isActive = m.user_id === activeScorerId;
+              const isTarget = m.user_id === pencilTarget;
+              return (
+                <motion.div
+                  key={m.user_id}
+                  className="relative"
+                  ref={(el) => { avatarRefs.current[m.user_id] = el; }}
+                  animate={isTarget ? { scale: [1, 1.15, 1] } : {}}
+                  transition={{ duration: 0.4 }}
                 >
-                  <AvatarImage src={m.profile_photo ?? undefined} />
-                  <AvatarFallback className="text-xs font-bold">{m.display_name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                {/* Pencil badge on active scorer */}
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      initial={{ scale: 0, y: 5 }}
-                      animate={{ scale: 1, y: 0 }}
-                      exit={{ scale: 0, x: 20 }}
-                      className="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full flex items-center justify-center shadow-sm"
-                      style={{ backgroundColor: 'hsl(var(--secondary))' }}
-                    >
-                      <Pencil className="h-2.5 w-2.5 text-white" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                <p className="text-[8px] text-center mt-0.5 font-['Share_Tech_Mono'] truncate max-w-[48px]" style={{ color: 'hsl(var(--muted-foreground))' }}>
-                  {m.display_name.split(' ')[0]}
-                </p>
+                  <Avatar className={`h-10 w-10 border-2 transition-all ${isActive ? 'ring-2 ring-offset-1' : ''}`}
+                    style={{
+                      borderColor: isActive ? 'hsl(var(--ivy-green))' : 'transparent',
+                      opacity: isActive ? 1 : 0.5,
+                      boxShadow: isActive ? '0 0 0 2px hsl(var(--secondary) / 0.4)' : 'none',
+                    }}
+                  >
+                    <AvatarImage src={m.profile_photo ?? undefined} />
+                    <AvatarFallback className="text-xs font-bold">{m.display_name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  {/* Pencil badge on active scorer (hidden during travel) */}
+                  <AnimatePresence>
+                    {isActive && !travelAnim && (
+                      <motion.div
+                        initial={{ scale: 0, y: 5 }}
+                        animate={{ scale: 1, y: 0 }}
+                        exit={{ scale: 0, x: 20 }}
+                        className="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full flex items-center justify-center shadow-sm"
+                        style={{ backgroundColor: 'hsl(var(--secondary))' }}
+                      >
+                        <Pencil className="h-2.5 w-2.5 text-white" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <p className="text-[8px] text-center mt-0.5 font-['Share_Tech_Mono'] truncate max-w-[48px]" style={{ color: 'hsl(var(--muted-foreground))' }}>
+                    {m.display_name.split(' ')[0]}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Travelling pencil animation */}
+          <AnimatePresence>
+            {travelAnim && (
+              <motion.div
+                initial={{ x: travelAnim.fromX - 10, y: travelAnim.fromY - 8, scale: 1, opacity: 1 }}
+                animate={{ x: travelAnim.toX - 10, y: travelAnim.toY - 8, scale: [1, 1.4, 1], opacity: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute z-20 h-5 w-5 rounded-full flex items-center justify-center shadow-lg pointer-events-none"
+                style={{ backgroundColor: 'hsl(var(--secondary))' }}
+              >
+                <Pencil className="h-2.5 w-2.5 text-white" />
               </motion.div>
-            );
-          })}
+            )}
+          </AnimatePresence>
         </div>
 
         {activeScorer && (

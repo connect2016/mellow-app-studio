@@ -163,6 +163,20 @@ export function usePubCrawls() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pub-crawls'] }),
   });
 
+  const markArrived = useMutation({
+    mutationFn: async ({ stopId }: { stopId: string }) => {
+      const { error } = await supabase
+        .from('pub_crawl_stops')
+        .update({ arrived_at: new Date().toISOString() })
+        .eq('id', stopId);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['pub-crawl-stops'] });
+      toast.success('Arrived! 🍻');
+    },
+  });
+
   const getStopsForCrawl = (crawlId: string) =>
     (stopsQuery.data || []).filter(s => s.crawl_id === crawlId);
 
@@ -174,6 +188,8 @@ export function usePubCrawls() {
 
   return {
     crawls: crawlsQuery.data || [],
+    stops: stopsQuery.data || [],
+    members: membersQuery.data || [],
     isLoading: crawlsQuery.isLoading,
     getStopsForCrawl,
     getMembersForCrawl,
@@ -182,5 +198,6 @@ export function usePubCrawls() {
     joinCrawl,
     leaveCrawl,
     updateStatus,
+    markArrived,
   };
 }

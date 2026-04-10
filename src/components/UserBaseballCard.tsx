@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { MapPin } from 'lucide-react';
 import cardTemplate from '@/assets/baseball-card-template.png';
 import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
+import { GameStatus } from '@/types';
 
 interface UserBaseballCardProps {
   profileImage?: string | null;
@@ -12,6 +14,9 @@ interface UserBaseballCardProps {
   badges?: string[];
   stats?: Record<string, number>;
   showReactions?: boolean;
+  gameStatus?: GameStatus | string | null;
+  wrigleySection?: string | null;
+  wrigleyvilleBar?: string | null;
 }
 
 export function UserBaseballCard({
@@ -20,6 +25,9 @@ export function UserBaseballCard({
   className,
   onClick,
   showReactions = true,
+  gameStatus,
+  wrigleySection,
+  wrigleyvilleBar,
 }: UserBaseballCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [activeReactions, setActiveReactions] = useState<ReactionDef[]>([]);
@@ -32,10 +40,16 @@ export function UserBaseballCard({
     }
   };
 
+  const statusLabel = gameStatus === 'AtWrigley' ? `🏟️ At Wrigley${wrigleySection ? ` · Sec ${wrigleySection}` : ''}`
+    : gameStatus === 'AtBar' ? `🍺 ${wrigleyvilleBar || 'At the bar'}`
+    : gameStatus === 'Tailgating' ? '🌭 Tailgating'
+    : gameStatus === 'WatchingRemote' ? '📺 Watching from home'
+    : null;
+
   return (
     <div
       className={cn(
-        'relative w-full max-w-[360px] mx-auto group cursor-pointer select-none',
+        'relative w-full mx-auto group cursor-pointer select-none',
         'transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]',
         className
       )}
@@ -109,6 +123,20 @@ export function UserBaseballCard({
           {displayName}
         </span>
       </div>
+
+      {/* Status & location badge */}
+      {statusLabel && (
+        <div
+          className="absolute flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-sm px-3 py-1.5 border border-white/15"
+          style={{ top: '6%', left: '50%', transform: 'translateX(-50%)', zIndex: 15 }}
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+          </span>
+          <span className="text-[11px] font-semibold text-white whitespace-nowrap">{statusLabel}</span>
+        </div>
+      )}
 
       {/* Active reaction overlays — bottom right of card */}
       {activeReactions.length > 0 && (

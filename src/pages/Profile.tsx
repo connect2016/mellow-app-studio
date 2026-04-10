@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { DynamicBackground } from '@/components/DynamicBackground';
 import { AppHeader } from '@/components/AppHeader';
-import { BaseballCard } from '@/components/BaseballCard';
+
 import { UserBaseballCard } from '@/components/UserBaseballCard';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Flag, Ban, EyeOff, MessageCircle } from 'lucide-react';
@@ -10,7 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { IntentType, GameStatus, PrivacyLevel, GamedayIntentType, FanStyleType } from '@/types';
+import { IntentType, GameStatus } from '@/types';
 
 export default function Profile() {
   const { id } = useParams();
@@ -82,45 +82,21 @@ export default function Profile() {
     <DynamicBackground className="pb-24">
       <AppHeader />
 
-      <div className="mx-auto max-w-sm px-4 pt-4">
+      <div className="mx-auto max-w-lg px-4 pt-4">
         {!isOwnProfile && (
           <button onClick={() => navigate(-1)} className="flex items-center gap-1 mb-4 text-sm text-muted-foreground hover:text-foreground min-h-[44px] min-w-[44px]">
             <ArrowLeft className="h-4 w-4" /> Back
           </button>
         )}
 
-        {/* New baseball card front */}
         <UserBaseballCard
           profileImage={profile.profile_photo}
           displayName={profile.display_name}
+          gameStatus={profile.game_status as GameStatus}
+          wrigleySection={profile.wrigley_section}
+          wrigleyvilleBar={(profile as any).wrigleyville_bar}
+          className="max-w-full"
         />
-
-        {/* Tap to flip for stats (back side) */}
-        <div className="mt-4">
-          <BaseballCard
-            displayName={profile.display_name}
-            age={profile.age}
-            profilePhoto={profile.profile_photo}
-            isVerified={profile.is_verified}
-            gameStatus={profile.game_status as GameStatus}
-            wrigleySection={profile.wrigley_section}
-            wrigleyRow={profile.wrigley_row}
-            wrigleyvilleBar={(profile as any).wrigleyville_bar}
-            intent={(profile.intent as IntentType[]) ?? []}
-            persona={(profile as any).gameday_persona}
-            bio={profile.bio}
-            favoritePlayer={profile.favorite_player}
-            favoriteMoment={profile.favorite_moment}
-            superstition={(profile as any).superstition}
-            stretchSong={(profile as any).stretch_song}
-            bestBar={(profile as any).best_bar}
-            pronouns={profile.pronouns}
-            gamesAttended={Math.floor(Math.random() * 50) + 1}
-            buddiesMet={Math.floor(Math.random() * 30)}
-            totalInnings={Math.floor(Math.random() * 400) + 9}
-            interactive={false}
-          />
-        </div>
 
         {/* Action buttons */}
         <div className="mt-6 space-y-3">

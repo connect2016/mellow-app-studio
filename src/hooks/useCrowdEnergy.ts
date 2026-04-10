@@ -73,19 +73,17 @@ export function useCrowdEnergy() {
         { data: recentHiFives },
         { data: recentMeetups },
       ] = await Promise.all([
-        supabase
-          .from('profiles')
-          .select('user_id, display_name, profile_photo, wrigleyville_bar')
-          .eq('game_status', 'AtBar')
-          .eq('is_banned', false)
-          .gte('location_last_set_at', threeHoursAgo)
-          .not('wrigleyville_bar', 'is', null),
-        supabase
-          .from('profiles')
-          .select('user_id, display_name, profile_photo, wrigley_section')
-          .eq('game_status', 'AtWrigley')
-          .eq('is_banned', false)
-          .gte('location_last_set_at', threeHoursAgo),
+        supabase.rpc('get_public_profiles', {
+          p_game_status: 'AtBar',
+          p_active_since: threeHoursAgo,
+          p_require_bar: true,
+          p_limit: 200,
+        }),
+        supabase.rpc('get_public_profiles', {
+          p_game_status: 'AtWrigley',
+          p_active_since: threeHoursAgo,
+          p_limit: 200,
+        }),
         supabase
           .from('bar_votes')
           .select('bar_name, vibe')

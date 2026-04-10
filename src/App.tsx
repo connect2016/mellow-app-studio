@@ -88,6 +88,7 @@ const App = () => (
             <Route path="/section-chat" element={<SectionChat />} />
             <Route path="/verify" element={<VerifyFan />} />
             <Route path="/venues" element={<Venues />} />
+            <Route path="/pub-crawl" element={<PubCrawl />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>

@@ -60,12 +60,12 @@ export function GamePhaseTimeline() {
         { data: activeSessions },
         { data: topBars },
       ] = await Promise.all([
-        supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('game_status', 'AtWrigley').gte('location_last_set_at', sixHoursAgo).eq('is_banned', false),
-        supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('game_status', 'AtBar').gte('location_last_set_at', sixHoursAgo).eq('is_banned', false),
+        supabase.rpc('get_public_profiles', { p_game_status: 'AtWrigley', p_active_since: sixHoursAgo, p_limit: 500 }).then(r => ({ count: r.data?.length ?? 0 })),
+        supabase.rpc('get_public_profiles', { p_game_status: 'AtBar', p_active_since: sixHoursAgo, p_limit: 500 }).then(r => ({ count: r.data?.length ?? 0 })),
         supabase.from('lineup_meetups').select('id, location_name, meeting_time').eq('status', 'active').gte('expires_at', new Date().toISOString()).limit(5),
-        supabase.from('profiles').select('user_id, display_name, game_status, wrigleyville_bar, location_last_set_at').eq('is_banned', false).neq('game_status', 'NotSet').gte('location_last_set_at', thirtyMinAgo).order('location_last_set_at', { ascending: false }).limit(8),
+        supabase.rpc('get_public_profiles', { p_active_since: thirtyMinAgo, p_limit: 8 }).then(r => ({ data: (r.data ?? []).filter((p: any) => p.game_status !== 'NotSet') })),
         supabase.from('scoring_sessions').select('id, title').eq('status', 'live').limit(3),
-        supabase.from('profiles').select('wrigleyville_bar').eq('game_status', 'AtBar').eq('is_banned', false).gte('location_last_set_at', sixHoursAgo).not('wrigleyville_bar', 'is', null),
+        supabase.rpc('get_public_profiles', { p_game_status: 'AtBar', p_active_since: sixHoursAgo, p_require_bar: true, p_limit: 500 }),
       ]);
 
       // Aggregate bar counts

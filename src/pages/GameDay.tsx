@@ -101,12 +101,15 @@ export default function GameDay() {
     queryKey: ['fan-counts'],
     queryFn: async () => {
       const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
-      const { data: atWrigley } = await supabase.from('profiles').select('id', { count: 'exact', head: true }).eq('game_status', 'AtWrigley').gte('location_last_set_at', sixHoursAgo);
-      const { data: atBars } = await supabase.from('profiles').select('id', { count: 'exact', head: true }).eq('game_status', 'AtBar').gte('location_last_set_at', sixHoursAgo);
-      const { data: barProfiles } = await supabase.from('profiles').select('wrigleyville_bar').eq('game_status', 'AtBar').gte('location_last_set_at', sixHoursAgo).not('wrigleyville_bar', 'is', null);
+      const { data: allActive } = await supabase.rpc('get_public_profiles', {
+        p_active_since: sixHoursAgo,
+        p_limit: 500,
+      });
+      const atWrigleyCount = allActive?.filter((p: any) => p.game_status === 'AtWrigley').length ?? 0;
+      const atBarsCount = allActive?.filter((p: any) => p.game_status === 'AtBar').length ?? 0;
       const barCounts: Record<string, number> = {};
-      barProfiles?.forEach(p => { const b = p.wrigleyville_bar as string; barCounts[b] = (barCounts[b] || 0) + 1; });
-      return { wrigley: atWrigley?.length ?? 0, bars: atBars?.length ?? 0, barBreakdown: barCounts };
+      allActive?.filter((p: any) => p.game_status === 'AtBar' && p.wrigleyville_bar).forEach((p: any) => { const b = p.wrigleyville_bar as string; barCounts[b] = (barCounts[b] || 0) + 1; });
+      return { wrigley: atWrigleyCount, bars: atBarsCount, barBreakdown: barCounts };
     },
     refetchInterval: 30000,
     enabled: !!user,
@@ -117,13 +120,12 @@ export default function GameDay() {
     queryKey: ['wrigley-live-fans'],
     queryFn: async () => {
       const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
-      const { data } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo, wrigley_section, wrigley_location_privacy')
-        .eq('game_status', 'AtWrigley')
-        .eq('is_banned', false)
-        .gte('location_last_set_at', sixHoursAgo)
-        .not('wrigley_section', 'is', null);
+      const { data } = await supabase.rpc('get_public_profiles', {
+        p_game_status: 'AtWrigley',
+        p_active_since: sixHoursAgo,
+        p_require_section: true,
+        p_limit: 200,
+      });
       return data ?? [];
     },
     refetchInterval: 30000,
@@ -135,14 +137,12 @@ export default function GameDay() {
     queryFn: async () => {
       if (status === 'NotSet' || !user) return [];
       const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
-      const { data } = await supabase
-        .from('profiles')
-        .select('id, display_name, profile_photo, game_status, wrigley_section, wrigleyville_bar, wrigley_location_privacy, bar_location_privacy')
-        .eq('game_status', status)
-        .eq('is_banned', false)
-        .gte('location_last_set_at', sixHoursAgo)
-        .neq('user_id', user.id)
-        .limit(12);
+      const { data } = await supabase.rpc('get_public_profiles', {
+        p_game_status: status,
+        p_active_since: sixHoursAgo,
+        p_exclude_ids: user ? [user.id] : [],
+        p_limit: 12,
+      });
       return data ?? [];
     },
     enabled: !!user && status !== 'NotSet',

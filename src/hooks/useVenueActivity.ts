@@ -47,13 +47,12 @@ export function useVenueActivity() {
         { data: meetups },
         { data: meetupMembers },
       ] = await Promise.all([
-        supabase
-          .from('profiles')
-          .select('user_id, display_name, profile_photo, wrigleyville_bar')
-          .eq('game_status', 'AtBar')
-          .eq('is_banned', false)
-          .gte('location_last_set_at', sixHoursAgo)
-          .not('wrigleyville_bar', 'is', null),
+        supabase.rpc('get_public_profiles', {
+          p_game_status: 'AtBar',
+          p_active_since: sixHoursAgo,
+          p_require_bar: true,
+          p_limit: 200,
+        }),
         supabase
           .from('bar_votes')
           .select('bar_name, vibe, wait_time')

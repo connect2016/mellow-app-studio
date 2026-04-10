@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send } from 'lucide-react';
+import { Send, SmilePlus } from 'lucide-react';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
+import { ReactionBar } from '@/components/reactions/ReactionBar';
+import { ReactionPicker } from '@/components/reactions/ReactionPicker';
+import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
+import { getReactionFromBody } from '@/components/reactions/reactionData';
 
 interface Reaction {
   id: string;
@@ -16,16 +20,6 @@ interface MemberProfile {
   display_name: string;
   profile_photo: string | null;
 }
-
-const QUICK_REACTIONS = [
-  { emoji: '💣', text: 'HR!!!' },
-  { emoji: '🔥', text: "Let's go!" },
-  { emoji: '😤', text: 'Bad call!' },
-  { emoji: '⚡', text: 'K!' },
-  { emoji: '👏', text: 'DP!' },
-  { emoji: '😱', text: 'No way!' },
-  { emoji: '🐻', text: 'Go Cubs!' },
-];
 
 interface LiveChatFeedProps {
   reactions: Reaction[];
@@ -50,22 +44,27 @@ export function LiveChatFeed({ reactions, profiles, userId, onSend }: LiveChatFe
     setMessage('');
   };
 
+  const handleReaction = (r: { type: string; body: string; key: string }) => {
+    onSend({ type: r.type, body: r.body });
+  };
+
   return (
     <div className="flex flex-col h-full">
       {/* Chat stream */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-2 space-y-1.5 min-h-0">
         <AnimatePresence initial={false}>
-          {reactions.map((r, i) => {
+          {reactions.map(r => {
             const profile = getProfile(r.user_id);
             const isMe = r.user_id === userId;
             const isReaction = r.type === 'reaction';
+            const matchedReaction = isReaction ? getReactionFromBody(r.body) : undefined;
 
             return (
               <motion.div
                 key={r.id}
                 initial={{ opacity: 0, x: isReaction ? 40 : -40, scale: 0.9 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                transition={{ type: 'spring' as const, stiffness: 500, damping: 30 }}
                 className={`flex gap-2 ${isMe ? 'flex-row-reverse' : ''}`}
               >
                 {/* Avatar */}
@@ -91,7 +90,17 @@ export function LiveChatFeed({ reactions, profiles, userId, onSend }: LiveChatFe
                       />
                     )}
                   </div>
-                  {isReaction ? (
+                  {isReaction && matchedReaction ? (
+                    <motion.div
+                      initial={{ scale: 0.6 }}
+                      animate={{ scale: [0.6, 1.15, 1] }}
+                      transition={{ duration: 0.35 }}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-secondary/10 border border-secondary/20"
+                    >
+                      <RealisticEmoji src={matchedReaction.image} alt={matchedReaction.label} size="sm" animate />
+                      <span className="text-secondary font-bold text-sm">{matchedReaction.shortText}</span>
+                    </motion.div>
+                  ) : isReaction ? (
                     <motion.div
                       initial={{ scale: 0.8 }}
                       animate={{ scale: [0.8, 1.1, 1] }}
@@ -125,22 +134,16 @@ export function LiveChatFeed({ reactions, profiles, userId, onSend }: LiveChatFe
         )}
       </div>
 
-      {/* Quick reactions strip */}
-      <div className="flex gap-1 px-3 py-2 overflow-x-auto border-t border-border/50 bg-background/50 backdrop-blur-sm">
-        {QUICK_REACTIONS.map(r => (
-          <motion.button
-            key={r.text}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => onSend({ type: 'reaction', body: `${r.emoji} ${r.text}` })}
-            className="flex-shrink-0 px-2 py-1 rounded-full bg-muted/70 border border-border/50 text-[10px] font-semibold text-foreground hover:bg-primary/10 hover:border-primary/20 transition-colors"
-          >
-            {r.emoji} {r.text}
-          </motion.button>
-        ))}
-      </div>
+      {/* Realistic reaction bar */}
+      <ReactionBar onReact={handleReaction} />
 
       {/* Input */}
       <div className="px-3 py-2 border-t border-border flex gap-2 bg-card">
+        <ReactionPicker onReact={handleReaction}>
+          <button className="h-9 w-9 rounded-xl bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
+            <SmilePlus className="h-4 w-4 text-muted-foreground" />
+          </button>
+        </ReactionPicker>
         <input
           placeholder="Type a message..."
           value={message}

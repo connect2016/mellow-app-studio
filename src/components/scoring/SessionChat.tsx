@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send } from 'lucide-react';
+import { Send, SmilePlus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { ReactionBar } from '@/components/reactions/ReactionBar';
+import { ReactionPicker } from '@/components/reactions/ReactionPicker';
+import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
+import { getReactionFromBody } from '@/components/reactions/reactionData';
 
 interface Reaction {
   id: string;
@@ -16,15 +20,6 @@ interface MemberProfile {
   display_name: string;
   profile_photo: string | null;
 }
-
-const QUICK_REACTIONS = [
-  { emoji: '💣', text: 'HR!!!' },
-  { emoji: '🔥', text: "Let's go Cubs!" },
-  { emoji: '😤', text: 'What was that call??' },
-  { emoji: '⚡', text: 'Strikeout!' },
-  { emoji: '👏', text: 'Double play!' },
-  { emoji: '😱', text: 'No way!' },
-];
 
 interface SessionChatProps {
   reactions: Reaction[];
@@ -49,20 +44,14 @@ export function SessionChat({ reactions, profiles, userId, onSend }: SessionChat
     setMessage('');
   };
 
+  const handleReaction = (r: { type: string; body: string; key: string }) => {
+    onSend({ type: r.type, body: r.body });
+  };
+
   return (
-    <div className="rounded-2xl border border-border bg-card shadow-sm flex flex-col" style={{ height: 320 }}>
-      {/* Quick reactions */}
-      <div className="flex gap-1.5 px-3 py-2.5 border-b border-border overflow-x-auto">
-        {QUICK_REACTIONS.map(r => (
-          <button
-            key={r.text}
-            onClick={() => onSend({ type: 'reaction', body: `${r.emoji} ${r.text}` })}
-            className="flex-shrink-0 px-2.5 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-xs font-medium text-foreground hover:bg-primary/10 transition-colors"
-          >
-            {r.emoji} {r.text}
-          </button>
-        ))}
-      </div>
+    <div className="rounded-2xl border border-border bg-card shadow-sm flex flex-col" style={{ height: 360 }}>
+      {/* Realistic reaction bar at top */}
+      <ReactionBar onReact={handleReaction} />
 
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-2 space-y-2">
@@ -70,6 +59,9 @@ export function SessionChat({ reactions, profiles, userId, onSend }: SessionChat
           {reactions.map(r => {
             const profile = getProfile(r.user_id);
             const isMe = r.user_id === userId;
+            const isReaction = r.type === 'reaction';
+            const matchedReaction = isReaction ? getReactionFromBody(r.body) : undefined;
+
             return (
               <motion.div
                 key={r.id}
@@ -88,29 +80,46 @@ export function SessionChat({ reactions, profiles, userId, onSend }: SessionChat
                 </div>
                 <div className={`max-w-[75%] ${isMe ? 'text-right' : ''}`}>
                   <p className="text-[10px] text-muted-foreground mb-0.5">{profile?.display_name ?? 'Fan'}</p>
-                  <div className={`inline-block px-3 py-1.5 rounded-2xl text-xs ${
-                    r.type === 'reaction'
-                      ? 'bg-secondary/10 text-secondary font-semibold'
-                      : isMe
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-foreground'
-                  }`}>
-                    {r.body}
-                  </div>
+                  {isReaction && matchedReaction ? (
+                    <motion.div
+                      initial={{ scale: 0.6 }}
+                      animate={{ scale: [0.6, 1.15, 1] }}
+                      transition={{ duration: 0.35 }}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-secondary/10 border border-secondary/20"
+                    >
+                      <RealisticEmoji src={matchedReaction.image} alt={matchedReaction.label} size="sm" animate />
+                      <span className="text-secondary font-semibold text-xs">{matchedReaction.shortText}</span>
+                    </motion.div>
+                  ) : (
+                    <div className={`inline-block px-3 py-1.5 rounded-2xl text-xs ${
+                      isReaction
+                        ? 'bg-secondary/10 text-secondary font-semibold'
+                        : isMe
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted text-foreground'
+                    }`}>
+                      {r.body}
+                    </div>
+                  )}
                 </div>
               </motion.div>
             );
           })}
         </AnimatePresence>
         {reactions.length === 0 && (
-           <div className="text-center text-xs text-muted-foreground py-8">
-             The press box is quiet — be the first to call the play! ⚾
-           </div>
+          <div className="text-center text-xs text-muted-foreground py-8">
+            The press box is quiet — be the first to call the play! ⚾
+          </div>
         )}
       </div>
 
       {/* Input */}
       <div className="px-3 py-2.5 border-t border-border flex gap-2">
+        <ReactionPicker onReact={handleReaction}>
+          <button className="h-9 w-9 rounded-xl bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
+            <SmilePlus className="h-4 w-4 text-muted-foreground" />
+          </button>
+        </ReactionPicker>
         <Input
           placeholder="Type a message..."
           value={message}

@@ -69,12 +69,8 @@ function useBuddyClusters() {
 
       if (!locations || locations.length === 0) return [];
 
-      // Fetch home/work addresses for geofence hiding
-      const userIds = locations.map((l) => l.user_id);
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('user_id, home_lat, home_lng, work_lat, work_lng')
-        .in('user_id', userIds);
+      // Home/work geofencing is handled server-side by get_map_fans RPC
+      // No need to fetch sensitive coordinates client-side
 
       const profileMap = new Map(
         profiles?.map((p) => [p.user_id, p]) ?? []

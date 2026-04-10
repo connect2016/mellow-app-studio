@@ -29,22 +29,7 @@ export function useBlockUser() {
         .eq('user_id', user.id);
       if (error) throw error;
 
-      // Also add us to their blocked list so mutual hiding works
-      const { data: otherProfile, error: otherErr } = await supabase
-        .from('profiles')
-        .select('blocked_users')
-        .eq('user_id', blockedUserId)
-        .single();
-
-      if (!otherErr && otherProfile) {
-        const otherBlocked: string[] = (otherProfile.blocked_users as string[]) ?? [];
-        if (!otherBlocked.includes(user.id)) {
-          await supabase
-            .from('profiles')
-            .update({ blocked_users: [...otherBlocked, user.id] })
-            .eq('user_id', blockedUserId);
-        }
-      }
+      // Mutual blocking is handled server-side by RLS/discover filters
     },
     onSuccess: () => {
       toast.success('User blocked', { description: 'You won\'t see each other anymore.' });

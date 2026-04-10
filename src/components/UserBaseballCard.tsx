@@ -101,24 +101,23 @@ export function UserBaseballCard({
 
       {/* Display name centered in the bottom oval */}
       <div
-        className="absolute flex items-center justify-center"
+        className="absolute flex items-center justify-center pointer-events-none"
         style={{
-          bottom: '3%',
-          left: '28%',
+          bottom: '5%',
+          left: '30%',
           right: '8%',
-          height: '6%',
-          zIndex: 10,
+          height: '5%',
+          zIndex: 20,
         }}
       >
         <span
-          className="font-bold truncate text-center w-full px-2"
+          className="font-extrabold truncate text-center w-full"
           style={{
-            fontSize: 'clamp(12px, 3vw, 20px)',
+            fontSize: 'clamp(13px, 3vw, 22px)',
             fontFamily: "'Graduate', 'Inter', serif",
-            color: '#14205a',
-            letterSpacing: '0.5px',
+            color: '#0a1445',
+            letterSpacing: '1px',
             lineHeight: 1,
-            textShadow: '0 0 1px rgba(255,255,255,0.5)',
           }}
         >
           {displayName || 'Fan'}

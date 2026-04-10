@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import cardTemplate from '@/assets/baseball-card-template.png';
 import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';
@@ -66,6 +65,7 @@ export function UserBaseballCard({
             src={profileImage}
             alt={displayName}
             loading="lazy"
+            decoding="async"
             onLoad={() => setImgLoaded(true)}
             className={cn(
               'w-full h-full object-cover transition-opacity duration-300',
@@ -74,7 +74,12 @@ export function UserBaseballCard({
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-muted/60">
-            <span className="text-4xl">⚾</span>
+            <img
+              src={cardTemplate}
+              alt=""
+              className="h-8 w-8 opacity-30 object-contain"
+              draggable={false}
+            />
           </div>
         )}
       </div>
@@ -106,56 +111,47 @@ export function UserBaseballCard({
       </div>
 
       {/* Active reaction overlays — bottom right of card */}
-      <AnimatePresence>
-        {activeReactions.length > 0 && (
-          <div
-            className="absolute flex gap-1 items-end"
-            style={{ bottom: '12%', right: '6%', zIndex: 20 }}
-          >
-            {activeReactions.map((r) => (
-              <motion.div
-                key={r.key}
-                initial={{ scale: 0, opacity: 0, y: 10 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0, opacity: 0, y: 10 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 20 }}
-              >
-                <RealisticEmoji src={r.image} alt={r.label} size="md" />
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </AnimatePresence>
+      {activeReactions.length > 0 && (
+        <div
+          className="absolute flex gap-1 items-end"
+          style={{ bottom: '12%', right: '6%', zIndex: 20 }}
+        >
+          {activeReactions.map((r) => (
+            <div key={r.key} className="animate-scale-in">
+              <RealisticEmoji src={r.image} alt={r.label} size="md" />
+            </div>
+          ))}
+        </div>
+      )}
 
-      {/* Hover glow effect */}
+      {/* Hover glow — Cubs red/blue */}
       <div
         className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         style={{
-          boxShadow: '0 0 20px rgba(204,52,51,0.3), 0 0 40px rgba(30,58,95,0.2)',
+          boxShadow: '0 0 20px hsla(0, 65%, 50%, 0.3), 0 0 40px hsla(215, 52%, 25%, 0.2)',
         }}
       />
 
       {/* Quick-react strip below card */}
       {showReactions && (
-        <div className="mt-2 flex gap-1 overflow-x-auto pb-1 px-1 scrollbar-hide">
+        <div className="mt-2 flex gap-1.5 overflow-x-auto pb-1 px-1 scrollbar-hide">
           {REACTIONS.slice(0, 8).map((r) => (
-            <motion.button
+            <button
               key={r.key}
-              whileTap={{ scale: 0.85 }}
-              whileHover={{ scale: 1.12 }}
               onClick={(e) => {
                 e.stopPropagation();
                 handleReact(r);
               }}
               className={cn(
-                'flex-shrink-0 p-1.5 rounded-full border transition-colors',
+                'flex-shrink-0 p-2 rounded-full border min-h-[44px] min-w-[44px] flex items-center justify-center',
+                'active:scale-90 transition-all duration-150',
                 activeReactions.find(a => a.key === r.key)
-                  ? 'border-primary bg-primary/10'
+                  ? 'border-primary bg-primary/10 shadow-sm'
                   : 'border-border/50 bg-muted/40 hover:bg-primary/5'
               )}
             >
               <RealisticEmoji src={r.image} alt={r.label} size="xs" />
-            </motion.button>
+            </button>
           ))}
         </div>
       )}

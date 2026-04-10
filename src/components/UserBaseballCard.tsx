@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { MapPin } from 'lucide-react';
 import cardTemplate from '@/assets/baseball-card-template.png';
 import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
+import { GameStatus } from '@/types';
 
 interface UserBaseballCardProps {
   profileImage?: string | null;
@@ -12,6 +14,9 @@ interface UserBaseballCardProps {
   badges?: string[];
   stats?: Record<string, number>;
   showReactions?: boolean;
+  gameStatus?: GameStatus | string | null;
+  wrigleySection?: string | null;
+  wrigleyvilleBar?: string | null;
 }
 
 export function UserBaseballCard({
@@ -20,6 +25,9 @@ export function UserBaseballCard({
   className,
   onClick,
   showReactions = true,
+  gameStatus,
+  wrigleySection,
+  wrigleyvilleBar,
 }: UserBaseballCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [activeReactions, setActiveReactions] = useState<ReactionDef[]>([]);
@@ -35,7 +43,10 @@ export function UserBaseballCard({
   return (
     <div
       className={cn(
-        'relative w-full max-w-[360px] mx-auto group cursor-pointer select-none',
+        'relative w-full mx-auto group cursor-pointer select-none',
+        'transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]',
+        className
+      )}
         'transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]',
         className
       )}

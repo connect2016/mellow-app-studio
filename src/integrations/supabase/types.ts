@@ -1736,50 +1736,98 @@ export type Database = {
           fan_wrigleyville_bar: string
         }[]
       }
-      get_public_profiles: {
-        Args: {
-          p_exclude_ids?: string[]
-          p_game_status?: string
-          p_limit?: number
-          p_only_onboarded?: boolean
-          p_user_ids?: string[]
-        }
-        Returns: {
-          age: number
-          best_bar: string
-          bio: string
-          created_at: string
-          display_name: string
-          fan_style: string[]
-          fan_tier: string
-          fan_tier_emoji: string
-          fan_title: string
-          fan_xp: number
-          favorite_moment: string
-          favorite_player: string
-          game_status: string
-          gameday_intents: string[]
-          gameday_persona: string
-          id: string
-          intent: string[]
-          is_banned: boolean
-          is_verified: boolean
-          location_last_set_at: string
-          onboarding_completed: boolean
-          profile_photo: string
-          pronouns: string
-          stretch_song: string
-          superstition: string
-          updated_at: string
-          user_id: string
-          vibe_emoji: string
-          vibe_state: string
-          wrigley_row: string
-          wrigley_seat: string
-          wrigley_section: string
-          wrigleyville_bar: string
-        }[]
-      }
+      get_public_profiles:
+        | {
+            Args: {
+              p_exclude_ids?: string[]
+              p_game_status?: string
+              p_limit?: number
+              p_only_onboarded?: boolean
+              p_user_ids?: string[]
+            }
+            Returns: {
+              age: number
+              best_bar: string
+              bio: string
+              created_at: string
+              display_name: string
+              fan_style: string[]
+              fan_tier: string
+              fan_tier_emoji: string
+              fan_title: string
+              fan_xp: number
+              favorite_moment: string
+              favorite_player: string
+              game_status: string
+              gameday_intents: string[]
+              gameday_persona: string
+              id: string
+              intent: string[]
+              is_banned: boolean
+              is_verified: boolean
+              location_last_set_at: string
+              onboarding_completed: boolean
+              profile_photo: string
+              pronouns: string
+              stretch_song: string
+              superstition: string
+              updated_at: string
+              user_id: string
+              vibe_emoji: string
+              vibe_state: string
+              wrigley_row: string
+              wrigley_seat: string
+              wrigley_section: string
+              wrigleyville_bar: string
+            }[]
+          }
+        | {
+            Args: {
+              p_active_since?: string
+              p_exclude_ids?: string[]
+              p_game_status?: string
+              p_limit?: number
+              p_only_onboarded?: boolean
+              p_require_bar?: boolean
+              p_require_section?: boolean
+              p_user_ids?: string[]
+            }
+            Returns: {
+              age: number
+              best_bar: string
+              bio: string
+              created_at: string
+              display_name: string
+              fan_style: string[]
+              fan_tier: string
+              fan_tier_emoji: string
+              fan_title: string
+              fan_xp: number
+              favorite_moment: string
+              favorite_player: string
+              game_status: string
+              gameday_intents: string[]
+              gameday_persona: string
+              id: string
+              intent: string[]
+              is_banned: boolean
+              is_verified: boolean
+              location_last_set_at: string
+              onboarding_completed: boolean
+              profile_photo: string
+              pronouns: string
+              stretch_song: string
+              superstition: string
+              updated_at: string
+              user_id: string
+              vibe_emoji: string
+              vibe_state: string
+              wrigley_row: string
+              wrigley_seat: string
+              wrigley_section: string
+              wrigleyville_bar: string
+            }[]
+          }
       is_conversation_member: {
         Args: { _conversation_id: string; _user_id: string }
         Returns: boolean

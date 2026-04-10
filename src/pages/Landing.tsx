@@ -9,6 +9,7 @@ import wrigleyHero from '@/assets/wrigley-hero.jpg';
 import HeroVideo from '@/components/landing/HeroVideo';
 import fansCheering from '@/assets/fans-cheering.jpg';
 import beerCheers from '@/assets/beer-cheers.jpg';
+import wFlag from '@/assets/w_flag.webp';
 
 const features = [
   { icon: Users, title: 'Find Your Crew', description: 'Match with fans who share your vibe—friends, beer buddies, or something more.' },
@@ -76,12 +77,15 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="overflow-hidden rounded-2xl">
               <img src={fansCheering} alt="Cubs fans cheering at a Wrigleyville bar" className="h-64 w-full object-cover sm:h-80" loading="lazy" />
             </div>
             <div className="overflow-hidden rounded-2xl">
               <img src={beerCheers} alt="Friends clinking beers at the ballpark" className="h-64 w-full object-cover sm:h-80" loading="lazy" />
+            </div>
+            <div className="overflow-hidden rounded-2xl">
+              <img src={wFlag} alt="Cubs fans waving W flags after a win at Wrigley Field" className="h-64 w-full object-cover sm:h-80" loading="lazy" />
             </div>
           </div>
         </div>

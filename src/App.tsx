@@ -37,6 +37,7 @@ import BuddyHeatmap from "./pages/BuddyHeatmap";
 import SectionChat from "./pages/SectionChat";
 import VerifyFan from "./pages/VerifyFan";
 import Venues from "./pages/Venues";
+import PubCrawl from "./pages/PubCrawl";
 import NotFound from "./pages/NotFound";
 import { preloadReactionImages } from "@/lib/reaction-cache";
 

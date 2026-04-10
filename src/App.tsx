@@ -38,6 +38,10 @@ import SectionChat from "./pages/SectionChat";
 import VerifyFan from "./pages/VerifyFan";
 import Venues from "./pages/Venues";
 import NotFound from "./pages/NotFound";
+import { preloadReactionImages } from "@/lib/reaction-cache";
+
+// Preload reaction images on app boot for instant rendering
+preloadReactionImages();
 
 const queryClient = new QueryClient();
 

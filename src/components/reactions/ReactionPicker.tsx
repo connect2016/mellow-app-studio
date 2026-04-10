@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { REACTIONS } from './reactionData';
 import { RealisticEmoji } from './RealisticEmoji';
+import { cn } from '@/lib/utils';
 
 interface ReactionPickerProps {
   onReact: (reaction: { type: string; body: string; key: string }) => void;
@@ -42,36 +42,29 @@ export function ReactionPicker({ onReact, children }: ReactionPickerProps) {
         {children}
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 8 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 28 }}
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 bg-card border border-border rounded-2xl shadow-lg p-2 flex gap-1"
-          >
-            {REACTIONS.map((r, i) => (
-              <motion.button
-                key={r.key}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: i * 0.04, type: 'spring', stiffness: 500, damping: 20 }}
-                whileHover={{ scale: 1.3, y: -4 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => {
-                  onReact({ type: 'reaction', body: r.shortText, key: r.key });
-                  setOpen(false);
-                }}
-                className="flex flex-col items-center gap-0.5 p-1 rounded-xl hover:bg-primary/10 transition-colors"
-              >
-                <RealisticEmoji src={r.image} alt={r.label} size="md" />
-                <span className="text-[8px] font-medium text-muted-foreground">{r.shortText}</span>
-              </motion.button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {open && (
+        <div
+          className={cn(
+            'absolute bottom-full left-0 mb-2 z-50 bg-card border border-border rounded-2xl shadow-lg p-2',
+            'grid grid-cols-7 gap-1 min-w-[280px] sm:min-w-[340px]',
+            'animate-scale-in'
+          )}
+        >
+          {REACTIONS.map((r) => (
+            <button
+              key={r.key}
+              onClick={() => {
+                onReact({ type: 'reaction', body: r.shortText, key: r.key });
+                setOpen(false);
+              }}
+              className="flex flex-col items-center gap-0.5 p-1.5 rounded-xl hover:bg-primary/10 active:scale-90 transition-all duration-150 min-h-[44px] justify-center"
+            >
+              <RealisticEmoji src={r.image} alt={r.label} size="sm" />
+              <span className="text-[7px] sm:text-[8px] font-medium text-muted-foreground leading-tight">{r.shortText}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

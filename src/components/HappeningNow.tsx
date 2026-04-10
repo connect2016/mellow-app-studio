@@ -22,21 +22,17 @@ export function HappeningNow() {
         { data: barFans },
         { data: activeMeetups },
       ] = await Promise.all([
-        supabase
-          .from('profiles')
-          .select('user_id, display_name, profile_photo, wrigley_section')
-          .eq('game_status', 'AtWrigley')
-          .eq('is_banned', false)
-          .gte('location_last_set_at', sixHoursAgo)
-          .limit(20),
-        supabase
-          .from('profiles')
-          .select('user_id, display_name, profile_photo, wrigleyville_bar')
-          .eq('game_status', 'AtBar')
-          .eq('is_banned', false)
-          .gte('location_last_set_at', sixHoursAgo)
-          .not('wrigleyville_bar', 'is', null)
-          .limit(50),
+        supabase.rpc('get_public_profiles', {
+          p_game_status: 'AtWrigley',
+          p_active_since: sixHoursAgo,
+          p_limit: 20,
+        }),
+        supabase.rpc('get_public_profiles', {
+          p_game_status: 'AtBar',
+          p_active_since: sixHoursAgo,
+          p_require_bar: true,
+          p_limit: 50,
+        }),
         supabase
           .from('game_time_matches')
           .select('id, user_a, user_b, meeting_spot, created_at, expires_at')

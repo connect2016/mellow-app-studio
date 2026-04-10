@@ -90,10 +90,9 @@ export function useLeaderboard() {
 
       // Fetch profiles
       const userIds = sorted.map(s => s.user_id);
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .in('user_id', userIds);
+      const { data: profiles } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: userIds,
+      });
 
       const profileMap = new Map(profiles?.map(p => [p.user_id, p]) ?? []);
 

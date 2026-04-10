@@ -26,10 +26,9 @@ export function ScorerLeaderboard() {
         .limit(20);
       if (!stats || stats.length === 0) return [];
       const userIds = stats.map(s => s.user_id);
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .in('user_id', userIds);
+      const { data: profiles } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: userIds,
+      });
       return stats.map(s => ({
         ...s,
         profile: profiles?.find(p => p.user_id === s.user_id),

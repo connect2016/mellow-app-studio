@@ -44,6 +44,36 @@ export type Database = {
         }
         Relationships: []
       }
+      bar_checkins: {
+        Row: {
+          bar_name: string
+          checked_in_at: string
+          created_at: string
+          expires_at: string
+          id: string
+          user_id: string
+          visibility: string
+        }
+        Insert: {
+          bar_name: string
+          checked_in_at?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          user_id: string
+          visibility?: string
+        }
+        Update: {
+          bar_name?: string
+          checked_in_at?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          user_id?: string
+          visibility?: string
+        }
+        Relationships: []
+      }
       bar_votes: {
         Row: {
           bar_name: string
@@ -1159,6 +1189,109 @@ export type Database = {
           wrigley_seat?: string | null
           wrigley_section?: string | null
           wrigleyville_bar?: string | null
+        }
+        Relationships: []
+      }
+      pub_crawl_members: {
+        Row: {
+          crawl_id: string
+          id: string
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          crawl_id: string
+          id?: string
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          crawl_id?: string
+          id?: string
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pub_crawl_members_crawl_id_fkey"
+            columns: ["crawl_id"]
+            isOneToOne: false
+            referencedRelation: "pub_crawls"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pub_crawl_stops: {
+        Row: {
+          arrived_at: string | null
+          bar_name: string
+          crawl_id: string
+          created_at: string
+          id: string
+          stop_order: number
+        }
+        Insert: {
+          arrived_at?: string | null
+          bar_name: string
+          crawl_id: string
+          created_at?: string
+          id?: string
+          stop_order?: number
+        }
+        Update: {
+          arrived_at?: string | null
+          bar_name?: string
+          crawl_id?: string
+          created_at?: string
+          id?: string
+          stop_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pub_crawl_stops_crawl_id_fkey"
+            columns: ["crawl_id"]
+            isOneToOne: false
+            referencedRelation: "pub_crawls"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pub_crawls: {
+        Row: {
+          created_at: string
+          creator_id: string
+          id: string
+          invite_code: string | null
+          is_public: boolean
+          start_bar: string
+          start_time: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          id?: string
+          invite_code?: string | null
+          is_public?: boolean
+          start_bar: string
+          start_time: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          id?: string
+          invite_code?: string | null
+          is_public?: boolean
+          start_bar?: string
+          start_time?: string
+          status?: string
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }

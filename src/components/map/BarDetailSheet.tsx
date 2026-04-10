@@ -1,6 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Navigation, Clock, MapPin, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { BarCheckInButton } from '@/components/map/BarCheckInButton';
+import { WhosHereNow } from '@/components/map/WhosHereNow';
+import { useBarCheckins } from '@/hooks/useBarCheckins';
 
 interface BarInfo {
   name: string;
@@ -29,12 +32,12 @@ const BAR_VIBES: Record<string, { emoji: string; vibe: string; hours: string }> 
 
 export function BarDetailSheet({ bar, onClose }: Props) {
   const info = bar ? BAR_VIBES[bar.name] : null;
+  const { visibleCheckins } = useBarCheckins(bar?.name);
 
   return (
     <AnimatePresence>
       {bar && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -42,22 +45,20 @@ export function BarDetailSheet({ bar, onClose }: Props) {
             className="fixed inset-0 z-[2000] bg-black/20"
             onClick={onClose}
           />
-          {/* Bottom Sheet — 60% height */}
           <motion.div
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
             className="fixed bottom-0 left-0 right-0 z-[2001] bg-card border-t border-border rounded-t-3xl shadow-2xl"
-            style={{ height: '60vh' }}
+            style={{ height: '65vh' }}
           >
-            {/* Drag handle */}
             <div className="flex justify-center pt-3 pb-2">
               <div className="w-12 h-1.5 rounded-full bg-muted-foreground/30" />
             </div>
 
-            <div className="px-5 pb-6 overflow-y-auto" style={{ height: 'calc(60vh - 56px)' }}>
-              {/* Header row */}
+            <div className="px-5 pb-6 overflow-y-auto" style={{ height: 'calc(65vh - 56px)' }}>
+              {/* Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
@@ -77,6 +78,9 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                 </button>
               </div>
 
+              {/* Who's Here Now */}
+              <WhosHereNow checkins={visibleCheckins} />
+
               {/* Info cards */}
               {info && (
                 <div className="grid grid-cols-2 gap-3 mb-5">
@@ -94,7 +98,7 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                 </div>
               )}
 
-              {/* Type badge */}
+              {/* Checked-in count badge */}
               <div className="flex items-center gap-2 mb-5">
                 <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${
                   bar.type === 'landmark'
@@ -104,12 +108,21 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                   <Star className="h-3 w-3" />
                   {bar.type === 'landmark' ? 'Wrigleyville Landmark' : 'Wrigleyville Bar'}
                 </span>
+                {visibleCheckins.length > 0 && (
+                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold bg-accent/10 text-accent-foreground">
+                    {visibleCheckins.length} checked in
+                  </span>
+                )}
               </div>
 
-              {/* Action buttons */}
+              {/* Actions */}
               <div className="space-y-3">
+                {bar.type !== 'landmark' && (
+                  <BarCheckInButton barName={bar.name} />
+                )}
                 <Button
                   asChild
+                  variant={bar.type === 'landmark' ? 'default' : 'secondary'}
                   className="w-full gap-2 rounded-xl min-h-[48px] text-sm font-bold"
                 >
                   <a

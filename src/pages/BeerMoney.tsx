@@ -37,12 +37,11 @@ export default function BeerMoney() {
     queryKey: ['beer-recipient', toUserId],
     queryFn: async () => {
       if (!toUserId) return null;
-      const { data } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .eq('user_id', toUserId)
-        .single();
-      return data;
+      const { data } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: [toUserId],
+        p_limit: 1,
+      });
+      return data && data.length > 0 ? data[0] : null;
     },
     enabled: !!toUserId,
   });

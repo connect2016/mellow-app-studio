@@ -53,10 +53,9 @@ function useVibeProfiles(userIds: string[]) {
     queryKey: ['vibe-profiles', userIds.sort().join(',')],
     queryFn: async () => {
       if (!userIds.length) return {};
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .in('user_id', userIds);
+      const { data, error } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: userIds,
+      });
       if (error) throw error;
       const map: Record<string, { display_name: string; profile_photo: string | null }> = {};
       data?.forEach(p => { map[p.user_id] = p; });

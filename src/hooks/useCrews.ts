@@ -121,10 +121,9 @@ export function useCrewMembers(crewId: string | undefined) {
 
       // Fetch profiles for members
       const userIds = (data ?? []).map(m => m.user_id);
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .in('user_id', userIds);
+      const { data: profiles } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: userIds,
+      });
 
       return (data ?? []).map(m => ({
         ...m,
@@ -152,10 +151,9 @@ export function useCrewMessages(crewId: string | undefined) {
       if (error) throw error;
 
       const senderIds = [...new Set((data ?? []).map(m => m.sender_id))];
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('user_id, display_name, profile_photo')
-        .in('user_id', senderIds);
+      const { data: profiles } = await supabase.rpc('get_public_profiles', {
+        p_user_ids: senderIds,
+      });
 
       return (data ?? []).map(m => ({
         ...m,

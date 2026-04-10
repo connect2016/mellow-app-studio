@@ -65,13 +65,13 @@ export function UserBaseballCard({
 
       {/* Profile photo circle overlay */}
       <div
-        className="absolute overflow-hidden rounded-full"
+        className="absolute overflow-hidden rounded-full border-[3px] border-white/80"
         style={{
-          top: '26%',
+          top: '24%',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: '50%',
-          height: '36%',
+          width: '46%',
+          aspectRatio: '1 / 1',
         }}
       >
         {profileImage ? (
@@ -98,26 +98,25 @@ export function UserBaseballCard({
         )}
       </div>
 
-      {/* Display name */}
+      {/* Display name in the oval at bottom right */}
       <div
-        className="absolute flex items-end justify-end"
+        className="absolute flex items-center justify-center"
         style={{
-          bottom: '2%',
-          left: '40%',
-          right: '5%',
-          height: '8%',
+          bottom: '3.5%',
+          left: '32%',
+          right: '6%',
+          height: '6%',
           zIndex: 10,
         }}
       >
         <span
-          className="font-bold truncate px-2"
+          className="font-bold truncate text-center w-full px-4"
           style={{
-            fontSize: 'clamp(10px, 3.2vw, 17px)',
+            fontSize: 'clamp(9px, 2.5vw, 15px)',
             fontFamily: "'Graduate', 'Inter', serif",
             color: '#1a237e',
-            maxWidth: '100%',
             letterSpacing: '0.5px',
-            lineHeight: 1.2,
+            lineHeight: 1,
           }}
         >
           {displayName}

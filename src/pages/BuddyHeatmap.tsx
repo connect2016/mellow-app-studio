@@ -69,32 +69,9 @@ function useBuddyClusters() {
 
       if (!locations || locations.length === 0) return [];
 
-      // Home/work geofencing is handled server-side by get_map_fans RPC
-      // No need to fetch sensitive coordinates client-side
-
-      const profileMap = new Map(
-        profiles?.map((p) => [p.user_id, p]) ?? []
-      );
-
-      // Snap to privacy grid and aggregate — skip users near home/work
+      // Snap to privacy grid and aggregate (geofencing handled server-side)
       const grid = new Map<string, { lat: number; lng: number; count: number }>();
       for (const loc of locations) {
-        const prof = profileMap.get(loc.user_id);
-        // Geofence hiding: suppress if within 100m of home or work
-        if (
-          prof &&
-          isNearHomeOrWork(
-            loc.latitude,
-            loc.longitude,
-            prof.home_lat as number | null,
-            prof.home_lng as number | null,
-            prof.work_lat as number | null,
-            prof.work_lng as number | null
-          )
-        ) {
-          continue; // hide this user
-        }
-
         const snapped = snapToPrivacyGrid(loc.latitude, loc.longitude);
         const key = `${snapped.lat},${snapped.lng}`;
         const existing = grid.get(key);

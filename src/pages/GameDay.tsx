@@ -152,8 +152,8 @@ export default function GameDay() {
   // Build section → fan count map for live map
   const sectionFanMap = useMemo(() => {
     const map: Record<string, number> = {};
-    wrigleyFans.forEach(f => {
-      if (f.wrigley_section && f.wrigley_location_privacy === 'Public') {
+    wrigleyFans.forEach((f: any) => {
+      if (f.wrigley_section) {
         map[f.wrigley_section] = (map[f.wrigley_section] || 0) + 1;
       }
     });

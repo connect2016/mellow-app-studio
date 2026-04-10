@@ -17,24 +17,22 @@ const SIZE_MAP = {
 };
 
 export function RealisticEmoji({ src, alt, size = 'sm', animate = false, className }: RealisticEmojiProps) {
-  const Wrapper = animate ? motion.div : 'div';
-  const animProps = animate
-    ? {
-        initial: { scale: 0.5, opacity: 0 },
-        animate: { scale: [0.5, 1.2, 1], opacity: 1 },
-        transition: { type: 'spring', stiffness: 400, damping: 15 },
-      }
-    : {};
+  if (animate) {
+    return (
+      <motion.div
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: [0.5, 1.2, 1], opacity: 1 }}
+        transition={{ type: 'spring' as const, stiffness: 400, damping: 15 }}
+        className={cn('inline-flex items-center justify-center flex-shrink-0', className)}
+      >
+        <img src={src} alt={alt} loading="lazy" className={cn('object-contain rounded-full', SIZE_MAP[size])} draggable={false} />
+      </motion.div>
+    );
+  }
 
   return (
-    <Wrapper {...animProps} className={cn('inline-flex items-center justify-center flex-shrink-0', className)}>
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        className={cn('object-contain rounded-full', SIZE_MAP[size])}
-        draggable={false}
-      />
-    </Wrapper>
+    <div className={cn('inline-flex items-center justify-center flex-shrink-0', className)}>
+      <img src={src} alt={alt} loading="lazy" className={cn('object-contain rounded-full', SIZE_MAP[size])} draggable={false} />
+    </div>
   );
 }

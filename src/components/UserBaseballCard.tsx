@@ -103,24 +103,25 @@ export function UserBaseballCard({
       <div
         className="absolute flex items-center justify-center"
         style={{
-          bottom: '2.8%',
-          left: '22%',
-          right: '10%',
-          height: '5.5%',
+          bottom: '3%',
+          left: '28%',
+          right: '8%',
+          height: '6%',
           zIndex: 10,
         }}
       >
         <span
           className="font-bold truncate text-center w-full px-2"
           style={{
-            fontSize: 'clamp(11px, 2.8vw, 18px)',
+            fontSize: 'clamp(12px, 3vw, 20px)',
             fontFamily: "'Graduate', 'Inter', serif",
-            color: '#1a237e',
+            color: '#14205a',
             letterSpacing: '0.5px',
             lineHeight: 1,
+            textShadow: '0 0 1px rgba(255,255,255,0.5)',
           }}
         >
-          {displayName}
+          {displayName || 'Fan'}
         </span>
       </div>
 

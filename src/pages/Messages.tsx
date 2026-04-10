@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Send, MessageCircle, ArrowLeft } from 'lucide-react';
 import { ErrorState } from '@/components/ErrorState';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
-import bgWrigleyPlayball from '@/assets/bg-wrigley-playball.png';
+import bgWrigleyRooftops from '@/assets/bg-wrigley-rooftops.webp';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   useConversations,
@@ -50,7 +50,7 @@ export default function Messages() {
   if (selectedConvoId && selectedConvo) {
     return (
       <div className="relative flex min-h-screen flex-col pb-24">
-        <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgWrigleyPlayball})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgWrigleyRooftops})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
         <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
         <div className="relative z-10 flex flex-1 flex-col">
         <AppHeader />
@@ -126,7 +126,7 @@ export default function Messages() {
 
   return (
     <div className="relative min-h-screen pb-24">
-      <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgWrigleyPlayball})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgWrigleyRooftops})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
       <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
       <div className="relative z-10">
       <AppHeader />

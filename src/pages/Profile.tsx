@@ -31,7 +31,6 @@ export default function Profile() {
       });
       if (error) throw error;
       return (data && data.length > 0) ? data[0] : null;
-      return data;
     },
     enabled: !!id && !isOwnProfile,
   });

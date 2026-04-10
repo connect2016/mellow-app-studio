@@ -36,7 +36,7 @@ export default function Profile() {
     enabled: !!id && !isOwnProfile,
   });
 
-  const profile = isOwnProfile ? myProfile : otherProfile;
+  const profile = isOwnProfile ? myProfile : otherProfile as any;
 
   const blockUser = useMutation({
     mutationFn: async () => {

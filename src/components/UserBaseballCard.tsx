@@ -105,7 +105,7 @@ export function UserBaseballCard({
         <div
           className="absolute flex items-center justify-center pointer-events-none"
           style={{
-            bottom: '5%',
+            bottom: '7.5%',
             left: '30%',
             right: '8%',
             height: '5%',

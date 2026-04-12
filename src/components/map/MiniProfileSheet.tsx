@@ -29,7 +29,7 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
     const introText = getRandomMicroIntro(fan?.name ?? 'A Buddy');
     try {
       await supabase.from('notifications').insert({
-        user_id: targetFan.userId,
+        user_id: targetFan.id,
         type: 'micro_intro',
         title: '👋 Someone nearby!',
         body: introText,

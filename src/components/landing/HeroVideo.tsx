@@ -7,61 +7,6 @@ import { useGuestMode } from '@/contexts/GuestModeContext';
 
 const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
 
-/* True layered title: thin black outer stroke, thicker white middle stroke, color fill on top. */
-function StrokedTitle({ text, color }: { text: string; color: string }) {
-  const sharedStyle = {
-    gridArea: '1 / 1',
-    fontSize: 'clamp(32px, 6vw, 64px)',
-    fontWeight: 900,
-    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-    lineHeight: 1.1,
-    letterSpacing: '0.06em',
-    textAlign: 'center' as const,
-    whiteSpace: 'nowrap' as const,
-  };
-
-  return (
-    <div
-      className="hero-title-size inline-grid place-items-center"
-      aria-label={text}
-    >
-      <span
-        aria-hidden="true"
-        style={{
-          ...sharedStyle,
-          color: 'transparent',
-          WebkitTextFillColor: 'transparent',
-          WebkitTextStroke: '10px hsl(0 0% 0%)',
-        }}
-      >
-        {text}
-      </span>
-      <span
-        aria-hidden="true"
-        style={{
-          ...sharedStyle,
-          color: 'transparent',
-          WebkitTextFillColor: 'transparent',
-          WebkitTextStroke: '5px hsl(0 0% 100%)',
-        }}
-      >
-        {text}
-      </span>
-      <span
-        aria-hidden="true"
-        style={{
-          ...sharedStyle,
-          color,
-          WebkitTextFillColor: color,
-          WebkitTextStroke: '0px transparent',
-        }}
-      >
-        {text}
-      </span>
-    </div>
-  );
-}
-
 export default function HeroVideo() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
   const [activeIndex, setActiveIndex] = useState(0);

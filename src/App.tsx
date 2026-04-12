@@ -7,6 +7,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { GamedayModeProvider } from "@/contexts/GamedayModeContext";
 import { GuestModeProvider } from "@/contexts/GuestModeContext";
 import { MessageToastListener } from "@/components/MessageToastListener";
+import { BucketListPanel } from "@/components/BucketListPanel";
+import { IcebreakerNotifier } from "@/components/IcebreakerNotifier";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Welcome from "./pages/Welcome";
@@ -56,6 +58,8 @@ const App = () => (
           <GuestModeProvider>
           <GamedayModeProvider>
             <MessageToastListener />
+            <BucketListPanel />
+            <IcebreakerNotifier />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />

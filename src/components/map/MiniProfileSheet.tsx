@@ -1,6 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Hand } from 'lucide-react';
+import { X, Hand, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { getRandomMicroIntro } from '@/lib/icebreakers';
+import { toast } from 'sonner';
 import type { MapFan } from './useMapClusters';
 
 const STATUS_LABELS: Record<string, string> = {
@@ -18,6 +22,27 @@ interface Props {
 }
 
 export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
+  const { user } = useAuth();
+
+  const sendIcebreaker = async (targetFan: MapFan) => {
+    if (!user) return;
+    const introText = getRandomMicroIntro(fan?.name ?? 'A Buddy');
+    try {
+      await supabase.from('notifications').insert({
+        user_id: targetFan.id,
+        type: 'micro_intro',
+        title: '👋 Someone nearby!',
+        body: introText,
+        emoji: '👋',
+        action_url: `/profile/${user.id}`,
+        metadata: { from_user: user.id },
+      });
+      if (navigator.vibrate) navigator.vibrate([20, 40, 20]);
+      toast.success('Icebreaker sent! 🧊');
+    } catch {
+      toast.error('Failed to send icebreaker');
+    }
+  };
   return (
     <AnimatePresence>
       {fan && (
@@ -72,14 +97,24 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
                 </button>
               </div>
 
-              {/* Action */}
-              <Button
-                onClick={() => onHiFive(fan)}
-                className="w-full gap-2 rounded-xl min-h-[48px] text-sm font-bold"
-              >
-                <Hand className="h-5 w-5" />
-                Send a High-Five 🖐️
-              </Button>
+              {/* Actions */}
+              <div className="space-y-2">
+                <Button
+                  onClick={() => onHiFive(fan)}
+                  className="w-full gap-2 rounded-xl min-h-[48px] text-sm font-bold"
+                >
+                  <Hand className="h-5 w-5" />
+                  Send a High-Five 🖐️
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => sendIcebreaker(fan)}
+                  className="w-full gap-2 rounded-xl min-h-[48px] text-sm font-bold"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Send an Icebreaker 🧊
+                </Button>
+              </div>
             </div>
           </motion.div>
         </>

@@ -100,7 +100,7 @@ export default function HeroVideo() {
           className="mt-4 text-[2rem] sm:text-[2.5rem] font-bold uppercase text-center leading-tight"
           style={{
             fontFamily: 'Norwester, sans-serif',
-            color: '#4169E1',
+            color: '#3458B5',
             textShadow:
               '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 2px 2px 0 rgba(0,0,0,0.2), -2px -2px 0 rgba(0,0,0,0.1), 0px 2px 3px rgba(0,0,0,0.5)',
             letterSpacing: '2px',

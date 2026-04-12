@@ -104,6 +104,27 @@ export type Database = {
         }
         Relationships: []
       }
+      bucket_list_progress: {
+        Row: {
+          completed_at: string
+          id: string
+          task_key: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          id?: string
+          task_key: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          id?: string
+          task_key?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string
@@ -1065,6 +1086,7 @@ export type Database = {
           favorite_player: string | null
           game_status: string | null
           gameday_intents: string[] | null
+          gameday_legend_until: string | null
           gameday_persona: string | null
           hidden_from_discover: boolean | null
           home_lat: number | null
@@ -1114,6 +1136,7 @@ export type Database = {
           favorite_player?: string | null
           game_status?: string | null
           gameday_intents?: string[] | null
+          gameday_legend_until?: string | null
           gameday_persona?: string | null
           hidden_from_discover?: boolean | null
           home_lat?: number | null
@@ -1163,6 +1186,7 @@ export type Database = {
           favorite_player?: string | null
           game_status?: string | null
           gameday_intents?: string[] | null
+          gameday_legend_until?: string | null
           gameday_persona?: string | null
           hidden_from_discover?: boolean | null
           home_lat?: number | null

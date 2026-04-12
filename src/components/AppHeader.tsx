@@ -80,7 +80,7 @@ export function AppHeader() {
     <>
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-lg">
-        <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-4">
+        <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-2">
           <Link to="/" className="flex flex-col items-center gap-0">
             <img
               alt="Wrigleyville 60613 Logo"

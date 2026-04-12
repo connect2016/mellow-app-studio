@@ -151,34 +151,30 @@ export default function HeroVideo() {
           className="mb-4 w-full max-w-[280px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-sm"
         />
 
-        <div role="heading" aria-level={1} className="flex w-full max-w-3xl flex-col items-center gap-3">
-          <StrokedTitle text="Your Wrigleyville" color="hsl(350, 85%, 50%)" />
-          <StrokedTitle text="Connection Hub" color="hsl(222, 82%, 40%)" />
-        </div>
-
-        <span
+        <h1
           className="mt-4 text-[2rem] sm:text-[2.5rem] font-bold uppercase text-center leading-tight"
           style={{
-            fontFamily: 'Graduate, serif',
+            fontFamily: 'Norwester, sans-serif',
             color: '#0E3386',
             textShadow:
-              '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 2px 2px 0 rgba(0,0,0,0.15), -2px -2px 0 rgba(0,0,0,0.08), 0px 2px 3px rgba(0,0,0,0.5)',
-            letterSpacing: '0.04em',
+              '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 2px 2px 0 rgba(0,0,0,0.2), -2px -2px 0 rgba(0,0,0,0.1), 0px 2px 3px rgba(0,0,0,0.5)',
+            letterSpacing: '2px',
           }}
         >
           The Wrigleyville Social App
-        </span>
-        <span
-          className="mt-2 text-[1.1rem] sm:text-[1.3rem] font-normal italic text-center leading-tight"
+        </h1>
+        <p
+          className="mt-2 text-[1.2rem] sm:text-[1.5rem] font-bold uppercase text-center leading-tight"
           style={{
-            fontFamily: 'Inter, sans-serif',
-            color: '#CC3433',
+            fontFamily: 'Norwester, sans-serif',
+            color: '#FFFFFF',
             textShadow:
-              '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff',
+              '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000',
+            letterSpacing: '2px',
           }}
         >
           Where Fans Find Friends
-        </span>
+        </p>
 
         <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">
           <span className="relative flex h-2.5 w-2.5">

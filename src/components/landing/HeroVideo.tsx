@@ -156,6 +156,30 @@ export default function HeroVideo() {
           <StrokedTitle text="Connection Hub" color="hsl(222, 82%, 40%)" />
         </div>
 
+        <span
+          className="mt-4 text-[2rem] sm:text-[2.5rem] font-bold uppercase text-center leading-tight"
+          style={{
+            fontFamily: 'Graduate, serif',
+            color: '#0E3386',
+            textShadow:
+              '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 2px 2px 0 rgba(0,0,0,0.15), -2px -2px 0 rgba(0,0,0,0.08), 0px 2px 3px rgba(0,0,0,0.5)',
+            letterSpacing: '0.04em',
+          }}
+        >
+          The Wrigleyville Social App
+        </span>
+        <span
+          className="mt-2 text-[1.1rem] sm:text-[1.3rem] font-normal italic text-center leading-tight"
+          style={{
+            fontFamily: 'Inter, sans-serif',
+            color: '#CC3433',
+            textShadow:
+              '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff',
+          }}
+        >
+          Where Fans Find Friends
+        </span>
+
         <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">
           <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />

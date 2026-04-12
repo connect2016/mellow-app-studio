@@ -81,12 +81,24 @@ export function AppHeader() {
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-lg">
         <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-4">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex flex-col items-center gap-0">
             <img
               alt="Wrigleyville 60613 Logo"
               className="h-14 w-auto object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
               src={wrigleyvilleLogo}
             />
+            <span
+              className="text-[2rem] sm:text-[2.5rem] font-bold uppercase text-center leading-tight"
+              style={{
+                fontFamily: 'Graduate, serif',
+                color: '#0E3386',
+                textShadow:
+                  '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 2px 2px 0 rgba(0,0,0,0.15), -2px -2px 0 rgba(0,0,0,0.08), 0px 2px 3px rgba(0,0,0,0.5)',
+                letterSpacing: '0.04em',
+              }}
+            >
+              The Wrigleyville Social App
+            </span>
           </Link>
           <div className="flex items-center gap-1">
             <Link to="/beer-money" data-tour="beer-money" className="relative rounded-full p-2 hover:bg-muted transition-colors">

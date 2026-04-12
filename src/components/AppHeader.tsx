@@ -99,6 +99,17 @@ export function AppHeader() {
             >
               The Wrigleyville Social App
             </span>
+            <span
+              className="text-[1.1rem] sm:text-[1.3rem] font-normal italic text-center leading-tight mt-[0.5rem]"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                color: '#CC3433',
+                textShadow:
+                  '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff',
+              }}
+            >
+              Where Fans Find Friends
+            </span>
           </Link>
           <div className="flex items-center gap-1">
             <Link to="/beer-money" data-tour="beer-money" className="relative rounded-full p-2 hover:bg-muted transition-colors">

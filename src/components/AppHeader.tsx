@@ -84,7 +84,7 @@ export function AppHeader() {
           <Link to="/" className="flex items-center gap-3">
             <img
               alt="Wrigleyville 60613 Logo"
-              className="h-16 w-auto object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
+              className="h-24 w-auto object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
               src={wrigleyvilleLogo}
             />
             <div className="flex flex-col items-start">

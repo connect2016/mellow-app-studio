@@ -81,36 +81,38 @@ export function AppHeader() {
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b border-border/30 bg-transparent backdrop-blur-sm">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-2">
-          <Link to="/" className="flex flex-col items-center gap-0">
+          <Link to="/" className="flex items-center gap-3">
             <img
               alt="Wrigleyville 60613 Logo"
-              className="h-10 w-auto object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
+              className="h-16 w-auto object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
               src={wrigleyvilleLogo}
             />
-            <span
-              className="text-[1.1rem] sm:text-[1.4rem] font-bold uppercase text-center leading-tight whitespace-nowrap"
-              style={{
-                fontFamily: 'Norwester, sans-serif',
-                color: '#3458B5',
-                textShadow:
-                  '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0px 1px 2px rgba(0,0,0,0.3)',
-                letterSpacing: '2px',
-              }}
-            >
-              The Wrigleyville Social App
-            </span>
-            <span
-              className="text-[0.65rem] sm:text-[0.8rem] font-bold uppercase text-center leading-tight"
-              style={{
-                fontFamily: 'Norwester, sans-serif',
-                color: '#CC3433',
-                textShadow:
-                  '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff',
-                letterSpacing: '2px',
-              }}
-            >
-              Where Fans Find Friends
-            </span>
+            <div className="flex flex-col items-start">
+              <span
+                className="text-[1.1rem] sm:text-[1.4rem] font-bold uppercase leading-tight whitespace-nowrap"
+                style={{
+                  fontFamily: 'Norwester, sans-serif',
+                  color: '#3458B5',
+                  textShadow:
+                    '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0px 1px 2px rgba(0,0,0,0.3)',
+                  letterSpacing: '2px',
+                }}
+              >
+                The Wrigleyville Social App
+              </span>
+              <span
+                className="text-[0.55rem] sm:text-[0.7rem] font-bold uppercase leading-tight"
+                style={{
+                  fontFamily: 'Norwester, sans-serif',
+                  color: '#CC3433',
+                  textShadow:
+                    '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff',
+                  letterSpacing: '2px',
+                }}
+              >
+                Where Fans Find Friends
+              </span>
+            </div>
           </Link>
           <div className="flex items-center gap-1">
             <Link to="/beer-money" data-tour="beer-money" className="relative rounded-full p-2 hover:bg-muted transition-colors">

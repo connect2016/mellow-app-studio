@@ -79,33 +79,34 @@ export function AppHeader() {
   return (
     <>
       {/* Top bar */}
-      <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-lg">
+      <header className="sticky top-0 z-50 border-b border-border/30 bg-transparent backdrop-blur-sm">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-2">
           <Link to="/" className="flex flex-col items-center gap-0">
             <img
               alt="Wrigleyville 60613 Logo"
-              className="h-14 w-auto object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
+              className="h-10 w-auto object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
               src={wrigleyvilleLogo}
             />
             <span
-              className="text-[2rem] sm:text-[2.5rem] font-bold uppercase text-center leading-tight"
+              className="text-[1.1rem] sm:text-[1.4rem] font-bold uppercase text-center leading-tight whitespace-nowrap"
               style={{
-                fontFamily: 'Graduate, serif',
-                color: '#0E3386',
+                fontFamily: 'Norwester, sans-serif',
+                color: '#3458B5',
                 textShadow:
-                  '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 2px 2px 0 rgba(0,0,0,0.15), -2px -2px 0 rgba(0,0,0,0.08), 0px 2px 3px rgba(0,0,0,0.5)',
-                letterSpacing: '0.04em',
+                  '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0px 1px 2px rgba(0,0,0,0.3)',
+                letterSpacing: '2px',
               }}
             >
               The Wrigleyville Social App
             </span>
             <span
-              className="text-[1.1rem] sm:text-[1.3rem] font-normal italic text-center leading-tight mt-[0.5rem]"
+              className="text-[0.65rem] sm:text-[0.8rem] font-bold uppercase text-center leading-tight"
               style={{
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'Norwester, sans-serif',
                 color: '#CC3433',
                 textShadow:
-                  '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff',
+                  '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff',
+                letterSpacing: '2px',
               }}
             >
               Where Fans Find Friends

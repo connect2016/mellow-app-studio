@@ -130,10 +130,11 @@ export function UserBaseballCard({
     >
       {/* Flip container */}
       <div
-        className="relative w-full transition-transform duration-700"
+        className="relative w-full"
         style={{
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          transition: 'transform 240ms cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         {/* ===== FRONT SIDE ===== */}

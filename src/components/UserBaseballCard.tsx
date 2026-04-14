@@ -6,6 +6,7 @@ import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { GameStatus, IntentType, GamedayIntentType, INTENT_LABELS, INTENT_EMOJI, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
 import { Button } from '@/components/ui/button';
+import { StatPreference, StatKey, DEFAULT_STAT_PREFS, StatVisibility } from '@/hooks/useStatPreferences';
 
 interface CardStats {
   beersToday?: number;
@@ -29,6 +30,36 @@ interface UserBaseballCardProps {
   wrigleyvilleBar?: string | null;
   intents?: IntentType[];
   gamedayIntents?: GamedayIntentType[];
+  statPreferences?: StatPreference[];
+  /** Whether the viewer is a match of this user */
+  isMatch?: boolean;
+  /** Whether the viewer is the owner of this card */
+  isOwner?: boolean;
+}
+
+const STAT_ICONS: Record<StatKey, React.ElementType> = {
+  beersToday: Beer,
+  beersThisWeek: Beer,
+  barsVisitedToday: Building2,
+  barsVisitedThisWeek: Building2,
+  meetupsFinished: CheckCircle2,
+  fansConnected: Users,
+};
+
+const STAT_LABELS: Record<StatKey, string> = {
+  beersToday: 'Beers Today',
+  beersThisWeek: 'Beers This Week',
+  barsVisitedToday: 'Bars Today',
+  barsVisitedThisWeek: 'Bars This Week',
+  meetupsFinished: 'Meetups Done',
+  fansConnected: 'Fans Connected',
+};
+
+function canViewStat(visibility: StatVisibility, isOwner: boolean, isMatch: boolean): boolean {
+  if (isOwner) return true;
+  if (visibility === 'everyone') return true;
+  if (visibility === 'matches_only' && isMatch) return true;
+  return false;
 }
 
 export function UserBaseballCard({
@@ -43,6 +74,9 @@ export function UserBaseballCard({
   intents,
   gamedayIntents,
   stats,
+  statPreferences,
+  isMatch = false,
+  isOwner = false,
 }: UserBaseballCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [activeReactions, setActiveReactions] = useState<ReactionDef[]>([]);
@@ -71,14 +105,20 @@ export function UserBaseballCard({
     fansConnected: 0,
   };
 
-  const statItems = [
-    { icon: Beer, value: cardStats.beersToday ?? 0, label: 'Beers Today' },
-    { icon: Beer, value: cardStats.beersThisWeek ?? 0, label: 'Beers This Week' },
-    { icon: Building2, value: cardStats.barsVisitedToday ?? 0, label: 'Bars Today' },
-    { icon: Building2, value: cardStats.barsVisitedThisWeek ?? 0, label: 'Bars This Week' },
-    { icon: CheckCircle2, value: cardStats.meetupsFinished ?? 0, label: 'Meetups Done' },
-    { icon: Users, value: cardStats.fansConnected ?? 0, label: 'Fans Connected' },
-  ];
+  const prefs = statPreferences ?? DEFAULT_STAT_PREFS;
+
+  // Filter and sort stats based on preferences + visibility
+  const visibleStats = prefs
+    .filter(p => p.enabled && canViewStat(p.visibility, isOwner, isMatch))
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .map(p => ({
+      key: p.stat_key,
+      icon: STAT_ICONS[p.stat_key],
+      value: cardStats[p.stat_key] ?? 0,
+      label: STAT_LABELS[p.stat_key],
+      timeRange: p.time_range,
+      visibility: p.visibility,
+    }));
 
   return (
     <div
@@ -223,20 +263,22 @@ export function UserBaseballCard({
           )}
 
           {/* View Stats button */}
-          <div className="mt-3 flex justify-center px-1">
-            <Button
-              variant="outline"
-              size="sm"
-              className="rounded-xl gap-1.5 font-semibold"
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsFlipped(true);
-              }}
-            >
-              <BarChart3 className="h-4 w-4" />
-              View Stats
-            </Button>
-          </div>
+          {visibleStats.length > 0 && (
+            <div className="mt-3 flex justify-center px-1">
+              <Button
+                variant="outline"
+                size="sm"
+                className="rounded-xl gap-1.5 font-semibold"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsFlipped(true);
+                }}
+              >
+                <BarChart3 className="h-4 w-4" />
+                View Stats
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* ===== BACK SIDE (Stats) ===== */}
@@ -264,16 +306,21 @@ export function UserBaseballCard({
 
             {/* Stats grid */}
             <div className="flex-1 grid grid-cols-2 gap-3 p-5">
-              {statItems.map((stat) => {
+              {visibleStats.map((stat) => {
                 const Icon = stat.icon;
                 return (
                   <div
-                    key={stat.label}
+                    key={stat.key}
                     className="flex flex-col items-center justify-center rounded-xl bg-muted/40 border border-border/30 p-3 gap-1"
                   >
                     <Icon className="h-5 w-5 text-primary/70" />
                     <span className="text-2xl font-extrabold text-foreground leading-none">{stat.value}</span>
                     <span className="text-[10px] font-medium text-muted-foreground text-center leading-tight">{stat.label}</span>
+                    {isOwner && stat.visibility !== 'everyone' && (
+                      <span className="text-[9px] text-muted-foreground/60">
+                        {stat.visibility === 'matches_only' ? '🤝' : '🔒'}
+                      </span>
+                    )}
                   </div>
                 );
               })}

@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility } from 'lucide-react';
+import { StatsCustomizer } from '@/components/StatsCustomizer';
 import bgCubsFansCelebrating from '@/assets/bg-cubs-fans-celebrating.png';
 
 export default function Settings() {
@@ -105,6 +106,11 @@ export default function Settings() {
             </div>
             <Switch checked={reducedMotion} onCheckedChange={setReducedMotion} />
           </div>
+        </div>
+
+        {/* Stats Customization */}
+        <div className="rounded-xl border bg-card p-4">
+          <StatsCustomizer />
         </div>
 
         {/* Account */}

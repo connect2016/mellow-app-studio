@@ -11,6 +11,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { IntentType, GameStatus, GamedayIntentType } from '@/types';
+import { useStatPreferences } from '@/hooks/useStatPreferences';
 
 export default function Profile() {
   const { id } = useParams();
@@ -20,6 +21,7 @@ export default function Profile() {
   const { data: myProfile } = useProfile();
   const queryClient = useQueryClient();
   const isOwnProfile = !id || id === user?.id;
+  const { preferences: statPreferences } = useStatPreferences();
 
   const { data: otherProfile, isLoading } = useQuery({
     queryKey: ['view-profile', id],
@@ -97,6 +99,8 @@ export default function Profile() {
           wrigleyvilleBar={(profile as any).wrigleyville_bar}
           intents={(profile.intent as IntentType[]) ?? []}
           gamedayIntents={(profile.gameday_intents as GamedayIntentType[]) ?? []}
+          statPreferences={statPreferences}
+          isOwner={isOwnProfile}
           className="max-w-full"
         />
 

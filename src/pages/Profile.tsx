@@ -95,6 +95,8 @@ export default function Profile() {
           gameStatus={profile.game_status as GameStatus}
           wrigleySection={profile.wrigley_section}
           wrigleyvilleBar={(profile as any).wrigleyville_bar}
+          intents={(profile.intent as IntentType[]) ?? []}
+          gamedayIntents={(profile.gameday_intents as GamedayIntentType[]) ?? []}
           className="max-w-full"
         />
 

@@ -10,7 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { IntentType, GameStatus } from '@/types';
+import { IntentType, GameStatus, GamedayIntentType } from '@/types';
 
 export default function Profile() {
   const { id } = useParams();

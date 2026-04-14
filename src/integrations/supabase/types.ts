@@ -1710,6 +1710,42 @@ export type Database = {
           },
         ]
       }
+      stat_preferences: {
+        Row: {
+          created_at: string
+          enabled: boolean
+          id: string
+          sort_order: number
+          stat_key: string
+          time_range: string
+          updated_at: string
+          user_id: string
+          visibility: string
+        }
+        Insert: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          sort_order?: number
+          stat_key: string
+          time_range?: string
+          updated_at?: string
+          user_id: string
+          visibility?: string
+        }
+        Update: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          sort_order?: number
+          stat_key?: string
+          time_range?: string
+          updated_at?: string
+          user_id?: string
+          visibility?: string
+        }
+        Relationships: []
+      }
       user_locations: {
         Row: {
           id: string

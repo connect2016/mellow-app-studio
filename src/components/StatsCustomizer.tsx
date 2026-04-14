@@ -66,16 +66,22 @@ export function StatsCustomizer() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5" role="region" aria-label="Stats customization">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-foreground">Customize Card Stats</h3>
-        <Button size="sm" onClick={handleSave} disabled={isSaving} className="gap-1.5 rounded-xl">
-          <Save className="h-4 w-4" />
+        <h3 className="font-semibold text-lg text-foreground">Customize Card Stats</h3>
+        <Button
+          size="default"
+          onClick={handleSave}
+          disabled={isSaving}
+          className="gap-2 rounded-2xl min-h-[48px] px-5 font-semibold active:scale-[0.97] transition-all"
+          aria-label="Save stats preferences"
+        >
+          <Save className="h-5 w-5" />
           {isSaving ? 'Saving...' : 'Save'}
         </Button>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         {localPrefs.map((pref, idx) => {
           const Icon = STAT_ICONS[pref.stat_key];
           return (
@@ -85,27 +91,29 @@ export function StatsCustomizer() {
               onDragStart={() => handleDragStart(idx)}
               onDragOver={(e) => handleDragOver(e, idx)}
               onDragEnd={handleDragEnd}
+              role="listitem"
+              aria-label={`${STAT_LABELS[pref.stat_key]} stat settings`}
               className={cn(
-                'flex items-center gap-3 rounded-xl border border-border/50 bg-card p-3 transition-all',
+                'flex items-center gap-4 rounded-2xl border border-border/50 bg-card p-4 shadow-sm transition-all',
                 dragIdx === idx && 'opacity-50 scale-95'
               )}
             >
-              <GripVertical className="h-4 w-4 text-muted-foreground cursor-grab flex-shrink-0" />
-              <Icon className="h-4 w-4 text-primary/70 flex-shrink-0" />
+              <GripVertical className="h-5 w-5 text-muted-foreground cursor-grab flex-shrink-0" aria-hidden="true" />
+              <Icon className="h-5 w-5 text-primary/70 flex-shrink-0" aria-hidden="true" />
 
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-foreground truncate">{STAT_LABELS[pref.stat_key]}</p>
-                <div className="flex flex-wrap gap-2 mt-1.5">
+                <p className="text-base font-medium text-foreground truncate">{STAT_LABELS[pref.stat_key]}</p>
+                <div className="flex flex-wrap gap-2.5 mt-2">
                   <Select
                     value={pref.time_range}
                     onValueChange={(v) => updatePref(idx, { time_range: v as TimeRange })}
                   >
-                    <SelectTrigger className="h-7 w-[110px] text-xs rounded-lg">
+                    <SelectTrigger className="h-9 w-[120px] text-sm rounded-xl" aria-label="Time range">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.entries(TIME_RANGE_LABELS).map(([k, v]) => (
-                        <SelectItem key={k} value={k} className="text-xs">{v}</SelectItem>
+                        <SelectItem key={k} value={k} className="text-sm min-h-[44px]">{v}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -114,12 +122,12 @@ export function StatsCustomizer() {
                     value={pref.visibility}
                     onValueChange={(v) => updatePref(idx, { visibility: v as StatVisibility })}
                   >
-                    <SelectTrigger className="h-7 w-[140px] text-xs rounded-lg">
+                    <SelectTrigger className="h-9 w-[155px] text-sm rounded-xl" aria-label="Visibility">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.entries(VISIBILITY_LABELS).map(([k, v]) => (
-                        <SelectItem key={k} value={k} className="text-xs">{v}</SelectItem>
+                        <SelectItem key={k} value={k} className="text-sm min-h-[44px]">{v}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -130,6 +138,7 @@ export function StatsCustomizer() {
                 checked={pref.enabled}
                 onCheckedChange={(c) => updatePref(idx, { enabled: c })}
                 className="flex-shrink-0"
+                aria-label={`Toggle ${STAT_LABELS[pref.stat_key]}`}
               />
             </div>
           );

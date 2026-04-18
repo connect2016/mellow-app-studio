@@ -1,256 +1,176 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { Beer, ChevronRight } from 'lucide-react';
+import { Beer, ChevronRight, Map as MapIcon, Sparkles } from 'lucide-react';
 import { AppHeader } from '@/components/AppHeader';
-import { WRIGLEYVILLE_BARS } from '@/types';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
-import { BarDetailSheet } from '@/components/map/BarDetailSheet';
 import { useVenueActivity } from '@/hooks/useVenueActivity';
-import { usePubCrawls } from '@/hooks/usePubCrawls';
 import { useBarCheckins } from '@/hooks/useBarCheckins';
-import barIconImg from '@/assets/map/bar-icon.png';
-import landmarkIconImg from '@/assets/map/landmark-icon.png';
+import { useBarVotes, WAIT_LABELS } from '@/hooks/useBarVotes';
+import {
+  CURATED_BARS,
+  type BarVibe,
+  type BarGroupFit,
+  type BarGameTiming,
+  type DistanceBucket,
+  DISTANCE_BUCKETS,
+} from '@/lib/wrigleyville-bar-guide';
+import { BarGuideFilters } from '@/components/bars/BarGuideFilters';
+import { CuratedBarCard } from '@/components/bars/CuratedBarCard';
 
-const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
-
-const BAR_LOCATIONS: Record<string, { lat: number; lng: number; type: 'bar' | 'landmark' }> = {
-  "Almost Home Tavern & Grill": { lat: 41.9493, lng: -87.6578, type: 'bar' },
-  "Begyle Brewing Company": { lat: 41.9585, lng: -87.6810, type: 'bar' },
-  "Bernie's": { lat: 41.9503, lng: -87.6559, type: 'bar' },
-  "Cork Lounge": { lat: 41.9475, lng: -87.6750, type: 'bar' },
-  "Demo Brewing Company": { lat: 41.9575, lng: -87.6830, type: 'bar' },
-  "Dovetail Brewery": { lat: 41.9590, lng: -87.6810, type: 'bar' },
-  "F. O'Mahony's": { lat: 41.9495, lng: -87.6480, type: 'bar' },
-  "Farm Bar Ravenswood": { lat: 41.9615, lng: -87.6785, type: 'bar' },
-  "GMAN Tavern": { lat: 41.9505, lng: -87.6560, type: 'bar' },
-  "Kit Kat Lounge & Supper Club": { lat: 41.9455, lng: -87.6490, type: 'bar' },
-  "Lucky Dorr": { lat: 41.9495, lng: -87.6565, type: 'landmark' },
-  "Martyrs'": { lat: 41.9520, lng: -87.6685, type: 'bar' },
-  "Metro Chicago": { lat: 41.9498, lng: -87.6562, type: 'landmark' },
-  "Moe's Cantina": { lat: 41.9460, lng: -87.6560, type: 'bar' },
-  "Mordecai": { lat: 41.9487, lng: -87.6560, type: 'bar' },
-  "Murphy's Bleachers": { lat: 41.9498, lng: -87.6536, type: 'bar' },
-  "Smartbar": { lat: 41.9498, lng: -87.6562, type: 'bar' },
-  "The Cubby Bear Lounge Chicago": { lat: 41.9474, lng: -87.6565, type: 'bar' },
-  "The Dugout Sports Bar and Grill": { lat: 41.9474, lng: -87.6545, type: 'bar' },
-  "The Long Room": { lat: 41.9540, lng: -87.6700, type: 'bar' },
-  "The North End": { lat: 41.9505, lng: -87.6490, type: 'bar' },
-  "The Ravenswood Tavern": { lat: 41.9610, lng: -87.6795, type: 'bar' },
-  "The Sports Corner Bar and Grill": { lat: 41.9474, lng: -87.6540, type: 'bar' },
-  "Toons Bar & Grill": { lat: 41.9468, lng: -87.6635, type: 'bar' },
-  "Trace": { lat: 41.9502, lng: -87.6560, type: 'bar' },
-  "Wolcott Tap": { lat: 41.9610, lng: -87.6785, type: 'bar' },
-  "Yak-Zie's Bar & Grill": { lat: 41.9500, lng: -87.6560, type: 'bar' },
-};
-
-function getCrowdLabel(checkinCount: number, venueLevel?: string): { label: string; color: string } {
-  const level = venueLevel || (checkinCount === 0 ? 'empty' : checkinCount <= 3 ? 'chill' : checkinCount <= 8 ? 'busy' : 'packed');
-  switch (level) {
-    case 'packed': return { label: '🔥 Packed', color: '#ef4444' };
-    case 'busy': return { label: '⚡ Active', color: '#f59e0b' };
-    case 'chill': return { label: '😎 Chill', color: '#3b82f6' };
-    default: return { label: '💤 Quiet', color: '#94a3b8' };
-  }
-}
-
-function createHeritageIcon(type: 'bar' | 'landmark', hasMeetup: boolean, crowd?: string) {
-  const imgSrc = type === 'landmark' ? landmarkIconImg : barIconImg;
-  const glowRing = hasMeetup ? 'box-shadow: 0 0 12px 4px rgba(34,197,94,0.6); border: 2px solid #22c55e;' : '';
-  const crowdInfo = crowd ? getCrowdLabel(0, crowd) : null;
-  const crowdBadge = crowdInfo ? `<div style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:${crowdInfo.color};color:white;font-size:8px;font-weight:700;padding:1px 5px;border-radius:8px;white-space:nowrap;line-height:1.3;">${crowdInfo.label}</div>` : '';
-
-  return L.divIcon({
-    html: `<div style="width:48px;height:56px;position:relative;display:flex;align-items:flex-start;justify-content:center;cursor:pointer;">
-      <img src="${imgSrc}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;${glowRing}" />
-      ${crowdBadge}
-    </div>`,
-    className: 'heritage-pin-marker',
-    iconSize: [48, 56],
-    iconAnchor: [24, 48],
-    popupAnchor: [0, -48],
-  });
-}
-
-const wrigleyIcon = L.divIcon({
-  html: `<div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-    <div style="width:36px;height:36px;border-radius:50%;background:#dc2626;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;">🏟️</div>
-  </div>`,
-  className: 'wrigley-marker',
-  iconSize: [48, 48],
-  iconAnchor: [24, 48],
-});
-
-type BarWithCoords = (typeof WRIGLEYVILLE_BARS)[0] & { lat: number; lng: number; type: string };
+const EDITOR_PICKS = new Set(['murphys-bleachers', 'mordecai', 'old-crow']);
 
 export default function BarMap() {
   const { isGuest } = useGuestMode();
-  const [selectedBar, setSelectedBar] = useState<BarWithCoords | null>(null);
   const { data: venues } = useVenueActivity();
-  const { crawls, getStopsForCrawl } = usePubCrawls();
   const { checkins } = useBarCheckins();
+  const { getSummary } = useBarVotes();
 
-  // Count checkins per bar
+  const [vibes, setVibes] = useState<BarVibe[]>([]);
+  const [groups, setGroups] = useState<BarGroupFit[]>([]);
+  const [timings, setTimings] = useState<BarGameTiming[]>([]);
+  const [distance, setDistance] = useState<DistanceBucket>('all');
+
+  // Live signal indexes
   const checkinCounts = useMemo(() => {
     const counts: Record<string, number> = {};
-    checkins.forEach(c => {
+    checkins.forEach((c) => {
       counts[c.bar_name] = (counts[c.bar_name] || 0) + 1;
     });
     return counts;
   }, [checkins]);
 
-  // Check which bars have active meetups
-  const barsWithMeetups = useMemo(() => {
-    const set = new Set<string>();
-    venues?.forEach(v => {
-      if (v.meetups.length > 0) set.add(v.name);
-    });
-    return set;
-  }, [venues]);
-
-  // Get venue crowd level
-  const venueLevel = useMemo(() => {
-    const map: Record<string, string> = {};
-    venues?.forEach(v => { map[v.name] = v.crowdLevel; });
+  const venueByName = useMemo(() => {
+    const map: Record<string, (typeof venues extends (infer T)[] | undefined ? T : never)> = {} as any;
+    venues?.forEach((v) => { (map as any)[v.name] = v; });
     return map;
   }, [venues]);
 
-  const bars = useMemo(() => {
-    return WRIGLEYVILLE_BARS.map((bar) => {
-      const coords = BAR_LOCATIONS[bar.name];
-      if (!coords) return null;
-      return { ...bar, ...coords };
-    }).filter(Boolean) as BarWithCoords[];
-  }, []);
+  const filtered = useMemo(() => {
+    const distMax = DISTANCE_BUCKETS.find((d) => d.key === distance)?.max ?? 99;
+    return CURATED_BARS.filter((bar) => {
+      if (vibes.length && !bar.vibe.some((v) => vibes.includes(v))) return false;
+      if (groups.length && !bar.groupFit.some((g) => groups.includes(g))) return false;
+      if (timings.length && !bar.bestFor.some((t) => timings.includes(t))) return false;
+      if (bar.blocksFromWrigley > distMax) return false;
+      return true;
+    });
+  }, [vibes, groups, timings, distance]);
 
-  // Pub crawl trail lines
-  const crawlTrails = useMemo(() => {
-    return crawls
-      .filter(c => c.status === 'live')
-      .map(c => {
-        const stops = getStopsForCrawl(c.id);
-        const points: [number, number][] = [];
-        stops.forEach(s => {
-          const loc = BAR_LOCATIONS[s.bar_name];
-          if (loc) points.push([loc.lat, loc.lng]);
-        });
-        return { id: c.id, points, title: c.title };
-      })
-      .filter(t => t.points.length >= 2);
-  }, [crawls, getStopsForCrawl]);
+  // Sort: editor picks first, then by live activity, then by distance
+  const sorted = useMemo(() => {
+    return [...filtered].sort((a, b) => {
+      const aPick = EDITOR_PICKS.has(a.id) ? 1 : 0;
+      const bPick = EDITOR_PICKS.has(b.id) ? 1 : 0;
+      if (aPick !== bPick) return bPick - aPick;
+      const aLive = (checkinCounts[a.name] || 0) + (((venueByName as any)[a.name]?.meetups?.length) || 0) * 2;
+      const bLive = (checkinCounts[b.name] || 0) + (((venueByName as any)[b.name]?.meetups?.length) || 0) * 2;
+      if (aLive !== bLive) return bLive - aLive;
+      return a.blocksFromWrigley - b.blocksFromWrigley;
+    });
+  }, [filtered, checkinCounts, venueByName]);
 
   return (
     <div className={`min-h-screen bg-background ${isGuest ? 'pb-20' : 'pb-24'}`}>
       <AppHeader />
-      <div className="mx-auto max-w-3xl px-4 pt-6">
-        <div className="mb-4 text-center">
-          <h1 className="text-2xl font-bold tracking-tight">
-            Wrigleyville Bar Map
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {bars.length} bars plotted · Tap a pin for details
-          </p>
-          <div className="flex items-center justify-center gap-4 mt-2 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1">
-              <img src={barIconImg} className="w-4 h-4 rounded-full" alt="" /> Bars
-            </span>
-            <span className="flex items-center gap-1">
-              <img src={landmarkIconImg} className="w-4 h-4 rounded-full" alt="" /> Landmarks
-            </span>
-            {crawlTrails.length > 0 && (
-              <span className="flex items-center gap-1">
-                <span className="w-4 h-0.5 bg-primary rounded" /> Pub Crawl
-              </span>
-            )}
-          </div>
+
+      {/* Editorial hero */}
+      <header className="px-4 pt-6 pb-4 max-w-3xl mx-auto">
+        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+          <Sparkles className="h-3 w-3" /> Curated · Wrigleyville
         </div>
+        <h1 className="mt-2 font-display text-3xl font-bold tracking-tight leading-none text-foreground">
+          The Wrigleyville
+          <br />
+          <span className="text-primary">Bar Guide</span>
+        </h1>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-prose">
+          Hand-picked bars near the Friendly Confines, ranked by what fans actually do
+          — pre-game pours, in-game hangs, and the postgame celebrations that spill
+          onto Clark. Live crowd signals included.
+        </p>
 
-        {/* Beer Money CTA */}
-        <Link
-          to="/beer-money"
-          className="mb-4 flex items-center gap-3 rounded-2xl border border-border bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 p-4 shadow-sm transition active:scale-[0.98] hover:shadow-md"
-          aria-label="Send Beer Money to a fellow fan"
-        >
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">
-            <Beer className="h-6 w-6" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="text-base font-bold leading-tight">Send Beer Money 🍺</div>
-            <div className="text-xs text-muted-foreground mt-0.5">
-              Buy a buddy a round at any Wrigleyville bar
-            </div>
-          </div>
-          <ChevronRight className="h-5 w-5 text-muted-foreground shrink-0" />
-        </Link>
-
-        <div className="rounded-2xl overflow-hidden border border-border shadow-sm" style={{ height: '65vh' }}>
-          <MapContainer
-            center={WRIGLEY_CENTER}
-            zoom={15}
-            scrollWheelZoom={true}
-            style={{ height: '100%', width: '100%' }}
+        {/* Mode switch + Beer Money strip */}
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <Link
+            to="/beer-money"
+            className="flex items-center gap-2.5 rounded-xl border border-border bg-gradient-to-br from-amber-500/10 to-orange-500/5 px-3 py-2.5 transition active:scale-[0.98]"
           >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-
-            {/* Wrigley Field */}
-            <Marker
-              position={WRIGLEY_CENTER}
-              icon={wrigleyIcon}
-              eventHandlers={{
-                click: () => setSelectedBar({
-                  id: 'wrigley-field',
-                  name: '🏟️ Wrigley Field',
-                  address: '1060 W Addison St',
-                  lat: WRIGLEY_CENTER[0],
-                  lng: WRIGLEY_CENTER[1],
-                  type: 'landmark',
-                } as any),
-              }}
-            />
-
-            {/* Heritage bar markers */}
-            {bars.map((bar) => {
-              const hasMeetup = barsWithMeetups.has(bar.name);
-              const crowd = venueLevel[bar.name] || (checkinCounts[bar.name] ? (checkinCounts[bar.name] > 5 ? 'packed' : checkinCounts[bar.name] > 2 ? 'busy' : 'chill') : undefined);
-              return (
-                <Marker
-                  key={bar.id}
-                  position={[bar.lat, bar.lng]}
-                  icon={createHeritageIcon(bar.type as 'bar' | 'landmark', hasMeetup, crowd)}
-                  eventHandlers={{
-                    click: () => setSelectedBar(bar),
-                  }}
-                />
-              );
-            })}
-
-            {/* Pub crawl trail lines */}
-            {crawlTrails.map(trail => (
-              <Polyline
-                key={trail.id}
-                positions={trail.points}
-                pathOptions={{
-                  color: 'hsl(217, 91%, 60%)',
-                  weight: 3,
-                  dashArray: '8, 12',
-                  opacity: 0.8,
-                }}
-              />
-            ))}
-          </MapContainer>
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400">
+              <Beer className="h-4 w-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[12px] font-bold leading-tight text-foreground">Send Beer Money</div>
+              <div className="text-[10px] text-muted-foreground truncate">Buy a round at any bar</div>
+            </div>
+            <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground shrink-0" />
+          </Link>
+          <Link
+            to="/check-in"
+            className="flex items-center gap-2.5 rounded-xl border border-border bg-gradient-to-br from-blue-500/10 to-blue-500/5 px-3 py-2.5 transition active:scale-[0.98]"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400">
+              <MapIcon className="h-4 w-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[12px] font-bold leading-tight text-foreground">Check in</div>
+              <div className="text-[10px] text-muted-foreground truncate">Show fans where you are</div>
+            </div>
+            <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground shrink-0" />
+          </Link>
         </div>
+      </header>
+
+      {/* Filters */}
+      <div className="max-w-3xl mx-auto">
+        <BarGuideFilters
+          vibes={vibes}
+          groups={groups}
+          timings={timings}
+          distance={distance}
+          onToggleVibe={(v) => setVibes((cur) => cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v])}
+          onToggleGroup={(g) => setGroups((cur) => cur.includes(g) ? cur.filter((x) => x !== g) : [...cur, g])}
+          onToggleTiming={(t) => setTimings((cur) => cur.includes(t) ? cur.filter((x) => x !== t) : [...cur, t])}
+          onSetDistance={setDistance}
+          onClear={() => { setVibes([]); setGroups([]); setTimings([]); setDistance('all'); }}
+          totalShown={sorted.length}
+          totalAll={CURATED_BARS.length}
+        />
       </div>
 
-      <BarDetailSheet
-        bar={selectedBar}
-        onClose={() => setSelectedBar(null)}
-      />
+      {/* Results */}
+      <section className="max-w-3xl mx-auto px-4 pt-4 space-y-3">
+        {sorted.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center">
+            <div className="text-3xl mb-2">🍺</div>
+            <h3 className="font-bold text-foreground mb-1">No bars match those filters</h3>
+            <p className="text-xs text-muted-foreground">Try clearing a chip — Wrigleyville's bigger than you think.</p>
+          </div>
+        ) : (
+          sorted.map((bar, idx) => {
+            const venue = (venueByName as any)[bar.name];
+            const summary = getSummary(bar.name);
+            return (
+              <CuratedBarCard
+                key={bar.id}
+                bar={bar}
+                index={idx}
+                liveCheckins={checkinCounts[bar.name] || venue?.totalUsers || 0}
+                liveCrowdLevel={venue?.crowdLevel}
+                liveVibe={venue?.dominantVibe}
+                liveWait={summary.topWait ? WAIT_LABELS[summary.topWait] : undefined}
+                meetupCount={venue?.meetups?.length || 0}
+                isEditorPick={EDITOR_PICKS.has(bar.id)}
+              />
+            );
+          })
+        )}
+
+        <div className="pt-4 text-center text-[10px] text-muted-foreground italic">
+          Editorially curated by Cubbies Buddies · Want your bar listed?{' '}
+          <Link to="/settings" className="text-primary hover:underline not-italic font-semibold">Get in touch</Link>
+        </div>
+      </section>
 
       {isGuest && <GuestBanner />}
     </div>

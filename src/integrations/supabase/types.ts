@@ -1081,6 +1081,7 @@ export type Database = {
           fan_tier_emoji: string | null
           fan_title: string | null
           fan_xp: number | null
+          favorite_bars: string[] | null
           favorite_moment: string | null
           favorite_moment_is_valid: boolean | null
           favorite_player: string | null
@@ -1097,6 +1098,7 @@ export type Database = {
           is_verified: boolean | null
           location_last_set_at: string | null
           onboarding_completed: boolean | null
+          private_mode: boolean | null
           profile_photo: string | null
           pronouns: string | null
           stretch_song: string | null
@@ -1131,6 +1133,7 @@ export type Database = {
           fan_tier_emoji?: string | null
           fan_title?: string | null
           fan_xp?: number | null
+          favorite_bars?: string[] | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
@@ -1147,6 +1150,7 @@ export type Database = {
           is_verified?: boolean | null
           location_last_set_at?: string | null
           onboarding_completed?: boolean | null
+          private_mode?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null
           stretch_song?: string | null
@@ -1181,6 +1185,7 @@ export type Database = {
           fan_tier_emoji?: string | null
           fan_title?: string | null
           fan_xp?: number | null
+          favorite_bars?: string[] | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
@@ -1197,6 +1202,7 @@ export type Database = {
           is_verified?: boolean | null
           location_last_set_at?: string | null
           onboarding_completed?: boolean | null
+          private_mode?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null
           stretch_song?: string | null

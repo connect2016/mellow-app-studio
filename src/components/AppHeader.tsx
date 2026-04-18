@@ -9,7 +9,7 @@ import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
   { to: '/discover', icon: Home, label: 'Home' },
-  { to: '/crews', icon: Users, label: 'Meetups' },
+  { to: '/meetups', icon: Users, label: 'Meetups' },
   { to: '/bar-map', icon: MapPin, label: 'Bars' },
   { to: '/game-day', icon: Trophy, label: 'Game Day' },
   { to: '/profile', icon: User, label: 'Profile' },
@@ -140,9 +140,9 @@ export function AppHeader() {
             const active =
               location.pathname === to ||
               (to === '/profile' && location.pathname.startsWith('/profile')) ||
-              (to === '/crews' && location.pathname.startsWith('/crews'));
+              (to === '/meetups' && location.pathname.startsWith('/meetups'));
             const badge = getBadge(to);
-            const tourAttr = to === '/bar-map' ? 'buddy-map' : to === '/crews' ? 'friends-tab' : undefined;
+            const tourAttr = to === '/bar-map' ? 'buddy-map' : to === '/meetups' ? 'friends-tab' : undefined;
             return (
               <Link
                 key={to}

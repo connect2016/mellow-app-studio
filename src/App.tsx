@@ -40,6 +40,8 @@ import SectionChat from "./pages/SectionChat";
 import VerifyFan from "./pages/VerifyFan";
 import Venues from "./pages/Venues";
 import PubCrawl from "./pages/PubCrawl";
+import Meetups from "./pages/Meetups";
+import MeetupDetail from "./pages/MeetupDetail";
 import NotFound from "./pages/NotFound";
 import { preloadReactionImages } from "@/lib/reaction-cache";
 
@@ -93,6 +95,8 @@ const App = () => (
             <Route path="/verify" element={<VerifyFan />} />
             <Route path="/venues" element={<Venues />} />
             <Route path="/pub-crawl" element={<PubCrawl />} />
+            <Route path="/meetups" element={<Meetups />} />
+            <Route path="/meetups/:id" element={<MeetupDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>

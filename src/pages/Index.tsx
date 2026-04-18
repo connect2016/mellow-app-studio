@@ -33,6 +33,7 @@ const Index = () => {
         </div>
 
         {/* Retention Hooks */}
+        <CubsGameTracker />
         <GameDayCountdown />
         <CrewAtBarNotification />
         <NearbyFansOnline />

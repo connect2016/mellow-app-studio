@@ -982,6 +982,51 @@ export type Database = {
         }
         Relationships: []
       }
+      notification_preferences: {
+        Row: {
+          bar_freq: string
+          created_at: string
+          friend_freq: string
+          gameday_freq: string
+          id: string
+          meetup_freq: string
+          quiet_end: string | null
+          quiet_hours_enabled: boolean
+          quiet_start: string | null
+          timezone: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bar_freq?: string
+          created_at?: string
+          friend_freq?: string
+          gameday_freq?: string
+          id?: string
+          meetup_freq?: string
+          quiet_end?: string | null
+          quiet_hours_enabled?: boolean
+          quiet_start?: string | null
+          timezone?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bar_freq?: string
+          created_at?: string
+          friend_freq?: string
+          gameday_freq?: string
+          id?: string
+          meetup_freq?: string
+          quiet_end?: string | null
+          quiet_hours_enabled?: boolean
+          quiet_start?: string | null
+          timezone?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           action_url: string | null
@@ -2035,6 +2080,7 @@ export type Database = {
         Args: { _crew_id: string; _user_id: string }
         Returns: boolean
       }
+      notification_category: { Args: { _type: string }; Returns: string }
     }
     Enums: {
       [_ in never]: never

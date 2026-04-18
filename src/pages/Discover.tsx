@@ -36,6 +36,7 @@ import { Plus } from 'lucide-react';
 import { NearbyFansOnline } from '@/components/NearbyFansOnline';
 import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
 import { GameDayCountdown } from '@/components/GameDayCountdown';
+import { HomeDashboard } from '@/components/home/HomeDashboard';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },
@@ -327,42 +328,8 @@ export default function Discover() {
           </p>
         </div>
 
-        {/* Dynamic Gameday State Hero */}
-        <div className="mb-4">
-          <GamedayStateHero />
-        </div>
-
-        {/* Cubs Scoreboard (only in Gameday Mode) */}
-        {gamedayMode && (
-          <div className="mb-4">
-            <CubsScoreboard />
-          </div>
-        )}
-
-        {/* Game Day Countdown */}
-        <div className="mb-4">
-          <GameDayCountdown />
-        </div>
-
-        {/* Crew at Bar Notification */}
-        <div className="mb-4">
-          <CrewAtBarNotification />
-        </div>
-
-        {/* Nearby Fans Online */}
-        <div className="mb-4">
-          <NearbyFansOnline />
-        </div>
-
-        {/* Social Proof */}
-        <div className="mb-4">
-          <SocialProofBanner />
-        </div>
-
-        {/* Post-Game Experience */}
-        <div className="mb-4">
-          <PostGameExperience />
-        </div>
+        {/* New focused home dashboard: game header, vibes, meetups, map, specials, photos */}
+        <HomeDashboard />
 
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
@@ -381,26 +348,6 @@ export default function Discover() {
           </div>
           <span className="text-xs font-semibold text-yellow-300">View →</span>
         </motion.button>
-
-        {/* Happening Now */}
-        <div className="mb-4">
-          <HappeningNow />
-        </div>
-
-        {/* Live Activity Feed */}
-        <div className="mb-4 rounded-2xl border border-border bg-card p-3">
-          <LiveActivityFeed maxItems={4} />
-        </div>
-
-        {/* AI Meetup Suggestions */}
-        <div className="mb-4">
-          <SmartMeetupSuggestions />
-        </div>
-
-        {/* The Lineup - Public Meetups */}
-        <div className="mb-4">
-          <LineupFeed />
-        </div>
 
         {/* Current Status Toggle */}
         <div className="mb-4">

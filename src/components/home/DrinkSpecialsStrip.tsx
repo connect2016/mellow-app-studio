@@ -19,11 +19,14 @@ const SPECIALS: Special[] = [
 export function DrinkSpecialsStrip() {
   return (
     <section aria-labelledby="drink-specials-heading" className="mb-5">
-      <div className="flex items-baseline justify-between mb-2.5 px-1">
+      <div className="flex items-baseline justify-between mb-1 px-1">
         <h2 id="drink-specials-heading" className="text-base font-extrabold text-foreground flex items-center gap-1.5">
           <Beer className="h-4 w-4 text-amber-500" /> Tonight's Drink Specials
         </h2>
       </div>
+      <p className="text-[11px] text-muted-foreground px-1 mb-2.5 italic">
+        Sample specials — partner bars coming soon
+      </p>
 
       <div className="flex gap-3 overflow-x-auto -mx-4 px-4 pb-2 scrollbar-none snap-x snap-mandatory">
         {SPECIALS.map((s) => (

@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Beer, ChevronRight } from 'lucide-react';
 import { AppHeader } from '@/components/AppHeader';
 import { WRIGLEYVILLE_BARS } from '@/types';
 import { useGuestMode } from '@/contexts/GuestModeContext';
@@ -165,6 +167,24 @@ export default function BarMap() {
             )}
           </div>
         </div>
+
+        {/* Beer Money CTA */}
+        <Link
+          to="/beer-money"
+          className="mb-4 flex items-center gap-3 rounded-2xl border border-border bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 p-4 shadow-sm transition active:scale-[0.98] hover:shadow-md"
+          aria-label="Send Beer Money to a fellow fan"
+        >
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">
+            <Beer className="h-6 w-6" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="text-base font-bold leading-tight">Send Beer Money 🍺</div>
+            <div className="text-xs text-muted-foreground mt-0.5">
+              Buy a buddy a round at any Wrigleyville bar
+            </div>
+          </div>
+          <ChevronRight className="h-5 w-5 text-muted-foreground shrink-0" />
+        </Link>
 
         <div className="rounded-2xl overflow-hidden border border-border shadow-sm" style={{ height: '65vh' }}>
           <MapContainer

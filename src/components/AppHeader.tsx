@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Target, Users, MessageCircle, User, Settings, Bell, Beer } from 'lucide-react';
+import { Home, Users, MapPin, Trophy, User, Settings, Bell, Beer } from 'lucide-react';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,9 +9,9 @@ import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
   { to: '/discover', icon: Home, label: 'Home' },
-  { to: '/missions', icon: Target, label: 'Missions' },
-  { to: '/hi-fives', icon: Users, label: 'Fans' },
-  { to: '/messages', icon: MessageCircle, label: 'Messages' },
+  { to: '/crews', icon: Users, label: 'Meetups' },
+  { to: '/bar-map', icon: MapPin, label: 'Bars' },
+  { to: '/game-day', icon: Trophy, label: 'Game Day' },
   { to: '/profile', icon: User, label: 'Profile' },
 ];
 
@@ -137,9 +137,12 @@ export function AppHeader() {
       <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/50 bg-card/95 backdrop-blur-xl safe-area-pb shadow-[0_-2px_10px_rgba(0,0,0,0.06)]">
         <div className="mx-auto flex max-w-lg items-center justify-around py-2 px-1">
           {navItems.map(({ to, icon: Icon, label }) => {
-            const active = location.pathname === to || (to === '/profile' && location.pathname.startsWith('/profile'));
+            const active =
+              location.pathname === to ||
+              (to === '/profile' && location.pathname.startsWith('/profile')) ||
+              (to === '/crews' && location.pathname.startsWith('/crews'));
             const badge = getBadge(to);
-            const tourAttr = to === '/hi-fives' ? 'friends-tab' : to === '/discover' ? 'buddy-map' : undefined;
+            const tourAttr = to === '/bar-map' ? 'buddy-map' : to === '/crews' ? 'friends-tab' : undefined;
             return (
               <Link
                 key={to}

@@ -7,6 +7,7 @@ import { GameDayCountdown } from '@/components/GameDayCountdown';
 import { NearbyFansOnline } from '@/components/NearbyFansOnline';
 import { MissionStreak } from '@/components/MissionStreak';
 import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
+import { CubsGameTracker } from '@/components/CubsGameTracker';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -32,6 +33,7 @@ const Index = () => {
         </div>
 
         {/* Retention Hooks */}
+        <CubsGameTracker />
         <GameDayCountdown />
         <CrewAtBarNotification />
         <NearbyFansOnline />

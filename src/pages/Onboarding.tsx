@@ -542,7 +542,7 @@ export default function Onboarding() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-xs font-semibold text-muted-foreground">7th-inning stretch song</Label>
+                        <Label className="text-xs font-semibold text-destructive-foreground">7th-inning stretch song</Label>
                         <Input
                           placeholder="e.g. Go Cubs Go (obviously)"
                           value={stretchSong}
@@ -558,7 +558,7 @@ export default function Onboarding() {
                     <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
                       🎨 Your Style
                     </h3>
-                    <p className="text-xs font-medium text-muted-foreground">Tap all that fit</p>
+                    <p className="text-xs font-medium text-destructive-foreground">Tap all that fit</p>
                     <div className="grid grid-cols-2 gap-2.5">
                       {FAN_STYLE_OPTIONS.map((opt) => {
                         const isSelected = fanStyles.includes(opt.value);

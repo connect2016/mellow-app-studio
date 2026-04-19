@@ -118,10 +118,13 @@ export default function BeerMoney() {
   const isAdult = (toUser?.age ?? 21) >= 21;
   const isFanRecipientInvalid = recipientType === 'fan' && toUser && !isAdult;
 
+  const participatingBar = recipientType === 'bar' ? findParticipatingBar(barName) : null;
+  const isBarRecipientInvalid = recipientType === 'bar' && !participatingBar;
+
   const finalAmount = customAmount ? Number(customAmount) : amount;
   const isAmountValid = finalAmount >= 3 && finalAmount <= 25;
   const hasRecipient = !!recipientType && (toUser || toMeetup || barName);
-  const canSend = isAmountValid && hasRecipient && !isFanRecipientInvalid;
+  const canSend = isAmountValid && hasRecipient && !isFanRecipientInvalid && !isBarRecipientInvalid;
 
   const recipientLabel = toUser?.display_name || toMeetup?.location_name || barName || '';
 

@@ -995,6 +995,56 @@ export type Database = {
         }
         Relationships: []
       }
+      meetup_coordination: {
+        Row: {
+          arrival_status: string
+          created_at: string
+          eta_minutes: number | null
+          id: string
+          meetup_id: string
+          note: string | null
+          shared_label: string | null
+          shared_lat: number | null
+          shared_lng: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          arrival_status?: string
+          created_at?: string
+          eta_minutes?: number | null
+          id?: string
+          meetup_id: string
+          note?: string | null
+          shared_label?: string | null
+          shared_lat?: number | null
+          shared_lng?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          arrival_status?: string
+          created_at?: string
+          eta_minutes?: number | null
+          id?: string
+          meetup_id?: string
+          note?: string | null
+          shared_label?: string | null
+          shared_lat?: number | null
+          shared_lng?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meetup_coordination_meetup_id_fkey"
+            columns: ["meetup_id"]
+            isOneToOne: false
+            referencedRelation: "lineup_meetups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       messages: {
         Row: {
           body: string
@@ -2224,6 +2274,10 @@ export type Database = {
       }
       is_crew_member: {
         Args: { _crew_id: string; _user_id: string }
+        Returns: boolean
+      }
+      is_meetup_participant: {
+        Args: { _meetup_id: string; _user_id: string }
         Returns: boolean
       }
       notification_category: { Args: { _type: string }; Returns: string }

@@ -16,8 +16,9 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { format, formatDistanceToNowStrict } from 'date-fns';
+import { BarPlansTab } from '@/components/crews/BarPlansTab';
 
-type Tab = 'chat' | 'events' | 'members';
+type Tab = 'chat' | 'plans' | 'events' | 'members';
 
 export default function CrewDetail() {
   const { id: crewId } = useParams<{ id: string }>();
@@ -101,6 +102,7 @@ export default function CrewDetail() {
 
   const TABS: { key: Tab; label: string; count?: number }[] = [
     { key: 'chat', label: 'Chat', count: messages.length },
+    { key: 'plans', label: 'Plans' },
     { key: 'events', label: 'Meetups', count: events.length },
     { key: 'members', label: 'Members', count: members.length },
   ];

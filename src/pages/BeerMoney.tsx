@@ -22,6 +22,8 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
+import { findParticipatingBar } from '@/lib/wrigleyville-bar-coords';
+import { BarLocationPreview } from '@/components/BarLocationPreview';
 
 const AMOUNTS = [3, 5, 10, 15, 25];
 
@@ -116,10 +118,13 @@ export default function BeerMoney() {
   const isAdult = (toUser?.age ?? 21) >= 21;
   const isFanRecipientInvalid = recipientType === 'fan' && toUser && !isAdult;
 
+  const participatingBar = recipientType === 'bar' ? findParticipatingBar(barName) : null;
+  const isBarRecipientInvalid = recipientType === 'bar' && !participatingBar;
+
   const finalAmount = customAmount ? Number(customAmount) : amount;
   const isAmountValid = finalAmount >= 3 && finalAmount <= 25;
   const hasRecipient = !!recipientType && (toUser || toMeetup || barName);
-  const canSend = isAmountValid && hasRecipient && !isFanRecipientInvalid;
+  const canSend = isAmountValid && hasRecipient && !isFanRecipientInvalid && !isBarRecipientInvalid;
 
   const recipientLabel = toUser?.display_name || toMeetup?.location_name || barName || '';
 
@@ -497,7 +502,7 @@ export default function BeerMoney() {
 
           {/* BAR recipient */}
           {recipientType === 'bar' && barName && (
-            <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+            <div className="rounded-2xl border border-border bg-card p-4 shadow-sm space-y-3">
               <div className="flex items-start gap-3">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-2xl">
                   🍺
@@ -505,19 +510,47 @@ export default function BeerMoney() {
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold text-foreground">{barName}</p>
                   <div className="mt-1 flex flex-wrap items-center gap-1.5">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-700 dark:text-amber-400">
-                      Wrigleyville Bar
-                    </span>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
-                      <ShieldCheck className="h-3 w-3" /> 21+ venue
-                    </span>
+                    {participatingBar ? (
+                      <>
+                        <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-700 dark:text-amber-400">
+                          Participating venue
+                        </span>
+                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                          <ShieldCheck className="h-3 w-3" /> 21+ venue
+                        </span>
+                      </>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-semibold text-destructive">
+                        <AlertTriangle className="h-3 w-3" /> Not a participating venue
+                      </span>
+                    )}
                   </div>
-                  <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
-                    <MapPin className="h-3 w-3 text-primary" />
-                    <span>Tip the next round at this bar</span>
-                  </div>
+                  {participatingBar && (
+                    <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
+                      <MapPin className="h-3 w-3 text-primary" />
+                      <span className="truncate">Redeemable at {participatingBar.address}</span>
+                    </div>
+                  )}
                 </div>
               </div>
+
+              {participatingBar ? (
+                <BarLocationPreview bar={participatingBar} />
+              ) : (
+                <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3">
+                  <p className="text-[11px] font-semibold text-destructive">
+                    🚫 Beer Money can only be redeemed at participating Wrigleyville venues.
+                  </p>
+                  <Button
+                    asChild
+                    size="sm"
+                    variant="outline"
+                    className="mt-2 w-full rounded-xl text-xs"
+                  >
+                    <Link to="/bar-map">Pick a participating bar from the Beer Map</Link>
+                  </Button>
+                </div>
+              )}
             </div>
           )}
         </section>

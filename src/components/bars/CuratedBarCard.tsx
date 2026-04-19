@@ -230,12 +230,17 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
                 </div>
 
                 {/* CTAs */}
-                <div className="grid grid-cols-2 gap-2 pt-1">
+                <div className="grid grid-cols-3 gap-2 pt-1">
                   <Button asChild size="sm" variant="outline" className="h-9 text-xs">
-                    <Link to={`/check-in?bar=${encodeURIComponent(bar.name)}`}>Check in here</Link>
+                    <Link to={`/check-in?bar=${encodeURIComponent(bar.name)}`}>Check in</Link>
                   </Button>
-                  <Button asChild size="sm" className="h-9 text-xs">
-                    <Link to={`/meetups?venue=${encodeURIComponent(bar.name)}`}>See meetups</Link>
+                  <Button asChild size="sm" variant="outline" className="h-9 text-xs">
+                    <Link to={`/meetups?venue=${encodeURIComponent(bar.name)}`}>Meetups</Link>
+                  </Button>
+                  <Button asChild size="sm" className="h-9 text-xs gap-1">
+                    <Link to={`/beer-money?bar=${encodeURIComponent(bar.name)}`}>
+                      <Beer className="h-3 w-3" /> Tip
+                    </Link>
                   </Button>
                 </div>
               </div>

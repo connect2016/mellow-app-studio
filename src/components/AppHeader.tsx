@@ -114,20 +114,33 @@ export function AppHeader() {
               </span>
             </div>
           </Link>
-          <div className="flex items-center gap-1">
-            <Link to="/beer-money" data-tour="beer-money" className="relative rounded-full p-2 hover:bg-muted transition-colors">
-              <Beer className="h-5 w-5 text-muted-foreground" />
+          <div className="flex items-center gap-2 sm:gap-3 pr-1 sm:pr-2 pt-1">
+            <Link
+              to="/beer-money"
+              data-tour="beer-money"
+              aria-label="Beer Money"
+              className="relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)] ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
+            >
+              <Beer className="h-5 w-5" strokeWidth={2.25} />
             </Link>
-            <Link to="/notifications" className="relative rounded-full p-2 hover:bg-muted transition-colors">
-              <Bell className="h-5 w-5 text-muted-foreground" />
+            <Link
+              to="/notifications"
+              aria-label="Notifications"
+              className="relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)] ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
+            >
+              <Bell className="h-5 w-5" strokeWidth={2.25} />
               {unreadNotifs > 0 && (
-                <span className="absolute top-1 right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-secondary px-1 text-[9px] font-bold text-secondary-foreground">
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-white px-1 text-[9px] font-bold text-[#C8102E] ring-2 ring-[#C8102E]">
                   {unreadNotifs > 99 ? '99+' : unreadNotifs}
                 </span>
               )}
             </Link>
-            <Link to="/settings" className="rounded-full p-2 hover:bg-muted transition-colors">
-              <Settings className="h-5 w-5 text-muted-foreground" />
+            <Link
+              to="/settings"
+              aria-label="Settings"
+              className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)] ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
+            >
+              <Settings className="h-5 w-5" strokeWidth={2.25} />
             </Link>
           </div>
         </div>

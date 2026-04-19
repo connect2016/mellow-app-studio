@@ -213,17 +213,17 @@ export default function BeerMoney() {
 
       <div className="mx-auto max-w-lg px-4 pt-4 pb-12">
         <div className="flex items-center gap-2 mb-1">
-          <Beer className="h-5 w-5 text-primary" />
-          <h2 className="text-lg font-bold">Send Beer Money</h2>
+          <Beer className="h-5 w-5 text-[#fbf02d]" />
+          <h2 className="text-lg font-bold text-destructive-foreground">Send Beer Money</h2>
         </div>
-        <p className="mb-5 text-sm text-muted-foreground">
+        <p className="mb-5 text-sm text-[#ecfb13]">
           Buy a fellow fan a round 🍺 — 21+ only
         </p>
 
         {/* ============ SEND TO (Recipient context) ============ */}
         <section className="mb-6">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-secondary-foreground">
               Send to
             </p>
             {hasRecipient && (
@@ -241,7 +241,7 @@ export default function BeerMoney() {
             <div className="rounded-2xl border-2 border-dashed border-border bg-card/50 p-5 text-center">
               <Lock className="mx-auto mb-2 h-6 w-6 text-muted-foreground" />
               <p className="text-sm font-semibold text-foreground">Pick someone first</p>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1 text-xs text-accent">
                 Beer Money needs a clear recipient — a fan, meetup, or bar.
               </p>
               <div className="mt-4 grid grid-cols-2 gap-2">
@@ -456,7 +456,7 @@ export default function BeerMoney() {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm text-muted-foreground">Or enter custom ($3–$25)</Label>
+            <Label className="text-sm text-destructive-foreground">Or enter custom ($3–$25)</Label>
             <div className="relative">
               <DollarSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -489,8 +489,8 @@ export default function BeerMoney() {
 
         {/* 21+ disclaimer */}
         <div className="mt-4 flex items-start gap-2 rounded-xl border border-border bg-muted/40 p-3">
-          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
-          <p className="text-[11px] leading-relaxed text-muted-foreground">
+          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#28f915]" />
+          <p className="text-[11px] leading-relaxed text-neutral-900">
             By sending Beer Money, you confirm you're <strong>21 or older</strong>. Funds are only
             redeemable at verified Wrigleyville venues. No alcohol is delivered through the app.
           </p>

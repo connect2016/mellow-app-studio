@@ -162,6 +162,25 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
     --stadium-seat-foreground: 40 20% 95%;
 
     --ticket-cream: 40 15% 88%;
+
+    /* ===== Premium design tokens ===== */
+    --surface: 40 18% 92%;
+    --surface-elevated: 40 22% 95%;
+    --surface-sunken: 40 10% 86%;
+    --hairline: 160 25% 18% / 0.08;
+
+    --gradient-ivy: linear-gradient(135deg, hsl(160 52% 18%), hsl(160 48% 12%));
+    --gradient-brick: linear-gradient(135deg, hsl(350 78% 46%), hsl(350 83% 36%));
+    --gradient-cream: linear-gradient(180deg, hsl(40 22% 95%), hsl(40 15% 88%));
+    --gradient-sky: linear-gradient(135deg, hsl(222 75% 38%), hsl(222 82% 24%));
+
+    --shadow-card: 0 1px 2px hsl(160 30% 10% / 0.05), 0 4px 12px hsl(160 30% 10% / 0.06);
+    --shadow-elevated: 0 2px 4px hsl(160 30% 10% / 0.06), 0 12px 32px hsl(160 30% 10% / 0.10);
+    --shadow-pennant: 0 6px 16px hsl(350 60% 30% / 0.18);
+    --shadow-inset-paper: inset 0 1px 0 hsl(40 30% 100% / 0.6), inset 0 -1px 0 hsl(160 30% 10% / 0.04);
+
+    --motion-snappy: cubic-bezier(0.32, 0.72, 0, 1);
+    --motion-soft: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
@@ -206,6 +225,21 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 
     --lineup-teal: 168 50% 42%;
     --lineup-teal-foreground: 0 0% 100%;
+
+    --surface: 160 35% 9%;
+    --surface-elevated: 160 32% 12%;
+    --surface-sunken: 160 40% 6%;
+    --hairline: 40 20% 90% / 0.08;
+
+    --gradient-ivy: linear-gradient(135deg, hsl(160 45% 22%), hsl(160 50% 12%));
+    --gradient-brick: linear-gradient(135deg, hsl(350 70% 55%), hsl(350 65% 40%));
+    --gradient-cream: linear-gradient(180deg, hsl(160 32% 12%), hsl(160 35% 9%));
+    --gradient-sky: linear-gradient(135deg, hsl(222 65% 55%), hsl(222 70% 38%));
+
+    --shadow-card: 0 1px 2px hsl(0 0% 0% / 0.3), 0 4px 12px hsl(0 0% 0% / 0.25);
+    --shadow-elevated: 0 2px 4px hsl(0 0% 0% / 0.35), 0 12px 32px hsl(0 0% 0% / 0.4);
+    --shadow-pennant: 0 6px 16px hsl(350 60% 20% / 0.5);
+    --shadow-inset-paper: inset 0 1px 0 hsl(40 20% 90% / 0.05), inset 0 -1px 0 hsl(0 0% 0% / 0.2);
   }
 }
 
@@ -347,4 +381,74 @@ body::before {
 .hero-title-size {
   font-size: clamp(48px, 9vw, 88px) !important;
   line-height: 1.1 !important;
+}
+
+/* ===== Premium chrome utilities ===== */
+.surface-card {
+  background: hsl(var(--surface-elevated));
+  box-shadow: var(--shadow-card), var(--shadow-inset-paper);
+  border: 1px solid hsl(160 25% 18% / 0.08);
+}
+.dark .surface-card { border-color: hsl(40 20% 90% / 0.08); }
+.surface-elevated {
+  background: hsl(var(--surface-elevated));
+  box-shadow: var(--shadow-elevated), var(--shadow-inset-paper);
+  border: 1px solid hsl(160 25% 18% / 0.08);
+}
+.dark .surface-elevated { border-color: hsl(40 20% 90% / 0.08); }
+
+/* Pennant — triangular banner motif */
+.pennant {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 1.25rem 0.25rem 0.75rem;
+  background: var(--gradient-brick);
+  color: hsl(var(--secondary-foreground));
+  font-family: 'Graduate', serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-pennant);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
+}
+.pennant--ivy { background: var(--gradient-ivy); color: hsl(var(--primary-foreground)); }
+.pennant--sky { background: var(--gradient-sky); color: hsl(var(--accent-foreground)); }
+
+/* Scoreboard chip — mono pill counter */
+.score-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.375rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  box-shadow: inset 0 -2px 0 hsl(0 0% 0% / 0.18), inset 0 1px 0 hsl(255 100% 100% / 0.08);
+}
+
+/* Refined heading rhythm */
+.h-display {
+  font-family: 'Graduate', 'Rye', serif;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+.h-section {
+  font-family: 'Graduate', serif;
+  font-size: 1.125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+}
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
 }

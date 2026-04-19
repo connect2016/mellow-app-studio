@@ -12,6 +12,7 @@ export interface MeetupAttendee {
   fan_xp: number;
   is_host: boolean;
   joined_at: string;
+  is_visible: boolean;
 }
 
 export interface MeetupDetail {
@@ -30,6 +31,7 @@ export interface MeetupDetail {
   is_member: boolean;
   is_host: boolean;
   mutual_count: number;
+  my_is_visible: boolean;
 }
 
 /**
@@ -71,10 +73,10 @@ export function useMeetupDetail(meetupId: string | undefined) {
       if (error) throw error;
       if (!meetup) return null;
 
-      // Members
+      // Members (with per-meetup visibility flag)
       const { data: memberRows } = await supabase
         .from('lineup_members')
-        .select('user_id, joined_at')
+        .select('user_id, joined_at, is_visible')
         .eq('meetup_id', meetupId);
 
       const memberIds = (memberRows || []).map(m => m.user_id);
@@ -90,7 +92,11 @@ export function useMeetupDetail(meetupId: string | undefined) {
         (profiles || []).map((p: any) => [p.user_id, p])
       );
       const joinedMap = new Map<string, string>();
-      (memberRows || []).forEach(m => joinedMap.set(m.user_id, m.joined_at));
+      const visibleMap = new Map<string, boolean>();
+      (memberRows || []).forEach(m => {
+        joinedMap.set(m.user_id, m.joined_at);
+        visibleMap.set(m.user_id, (m as any).is_visible !== false);
+      });
 
       const buildAttendee = (uid: string, isHost: boolean): MeetupAttendee => {
         const p: any = profileMap.get(uid) || {};
@@ -104,6 +110,8 @@ export function useMeetupDetail(meetupId: string | undefined) {
           fan_xp: p.fan_xp || 0,
           is_host: isHost,
           joined_at: isHost ? meetup.created_at : (joinedMap.get(uid) || meetup.created_at),
+          // Hosts are always visible; members default to visible.
+          is_visible: isHost ? true : (visibleMap.get(uid) ?? true),
         };
       };
 
@@ -133,6 +141,9 @@ export function useMeetupDetail(meetupId: string | undefined) {
 
       const is_member = !!user && allIds.includes(user.id);
       const is_host = !!user && meetup.creator_id === user.id;
+      const my_is_visible = is_host
+        ? true
+        : (user ? (visibleMap.get(user.id) ?? true) : true);
 
       return {
         ...meetup,
@@ -142,6 +153,7 @@ export function useMeetupDetail(meetupId: string | undefined) {
         is_member,
         is_host,
         mutual_count,
+        my_is_visible,
       };
     },
   });

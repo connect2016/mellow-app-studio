@@ -472,7 +472,7 @@ export default function BeerMoney() {
           </div>
 
           <div className="space-y-2">
-            <Label className="font-semibold">
+            <Label className="font-semibold text-white">
               Add a message{' '}
               <span className="font-normal text-muted-foreground">(optional)</span>
             </Label>

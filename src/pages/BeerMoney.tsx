@@ -57,6 +57,23 @@ export default function BeerMoney() {
   const [note, setNote] = useState('');
   const [showConfirm, setShowConfirm] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [showFanPicker, setShowFanPicker] = useState(false);
+
+  // Icebreaker: nearby active fans
+  const { data: nearbyFans, isLoading: loadingNearbyFans } = useQuery({
+    queryKey: ['beer-nearby-fans', user?.id],
+    queryFn: async () => {
+      const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString();
+      const { data } = await supabase.rpc('get_public_profiles', {
+        p_only_onboarded: true,
+        p_exclude_ids: user?.id ? [user.id] : null,
+        p_active_since: sixHoursAgo,
+        p_limit: 12,
+      });
+      return data ?? [];
+    },
+    enabled: !!user && showFanPicker,
+  });
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');

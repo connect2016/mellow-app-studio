@@ -22,6 +22,8 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
+import { findParticipatingBar } from '@/lib/wrigleyville-bar-coords';
+import { BarLocationPreview } from '@/components/BarLocationPreview';
 
 const AMOUNTS = [3, 5, 10, 15, 25];
 

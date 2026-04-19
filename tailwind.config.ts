@@ -73,6 +73,22 @@ export default {
           DEFAULT: "hsl(var(--lineup-teal))",
           foreground: "hsl(var(--lineup-teal-foreground))",
         },
+        surface: {
+          DEFAULT: "hsl(var(--surface))",
+          elevated: "hsl(var(--surface-elevated))",
+          sunken: "hsl(var(--surface-sunken))",
+        },
+      },
+      backgroundImage: {
+        "gradient-ivy": "var(--gradient-ivy)",
+        "gradient-brick": "var(--gradient-brick)",
+        "gradient-cream": "var(--gradient-cream)",
+        "gradient-sky": "var(--gradient-sky)",
+      },
+      boxShadow: {
+        card: "var(--shadow-card)",
+        elevated: "var(--shadow-elevated)",
+        pennant: "var(--shadow-pennant)",
       },
       borderRadius: {
         lg: "var(--radius)",

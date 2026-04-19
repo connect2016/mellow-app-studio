@@ -23,6 +23,12 @@ const badgeVariants = cva(
           "border-transparent bg-[hsl(var(--warning))] text-white",
         info:
           "border-transparent bg-[hsl(var(--info))] text-white",
+        pennant:
+          "border-transparent bg-gradient-brick text-secondary-foreground shadow-pennant uppercase tracking-wider font-heading",
+        ivy:
+          "border-transparent bg-gradient-ivy text-primary-foreground shadow-card uppercase tracking-wider font-heading",
+        sky:
+          "border-transparent bg-gradient-sky text-accent-foreground shadow-card uppercase tracking-wider font-heading",
       },
     },
     defaultVariants: {

@@ -22,6 +22,10 @@ const buttonVariants = cva(
         tertiary:
           "bg-transparent text-primary hover:text-primary/80 hover:underline underline-offset-4",
         link: "text-primary underline-offset-4 hover:underline",
+        premium:
+          "bg-gradient-ivy text-primary-foreground shadow-elevated hover:brightness-110 hover:shadow-elevated",
+        pennant:
+          "bg-gradient-brick text-secondary-foreground shadow-pennant hover:brightness-110 uppercase tracking-wider",
       },
       size: {
         default: "h-12 min-h-[48px] px-5 py-2.5 text-base",

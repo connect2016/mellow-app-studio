@@ -89,16 +89,18 @@ export function AppHeader() {
             />
             <div className="flex min-w-0 flex-col items-start">
               <span
-                className="text-[0.85rem] sm:text-[1.05rem] md:text-[1.3rem] font-bold uppercase leading-tight truncate max-w-full"
+                className="text-[0.75rem] sm:text-[0.95rem] md:text-[1.2rem] font-bold uppercase leading-[1.05] max-w-full"
                 style={{
                   fontFamily: 'Norwester, sans-serif',
                   color: '#3458B5',
                   textShadow:
                     '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0px 1px 2px rgba(0,0,0,0.3)',
-                  letterSpacing: '1.5px',
+                  letterSpacing: '1.25px',
                 }}
               >
-                The Wrigleyville Social App
+                The Wrigleyville
+                <br />
+                Social App
               </span>
               <span
                 className="text-[0.55rem] sm:text-[0.7rem] font-bold uppercase leading-tight"

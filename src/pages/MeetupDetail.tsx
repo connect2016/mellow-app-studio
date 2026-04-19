@@ -11,6 +11,7 @@ import { useJoinMeetup, useLeaveMeetup } from '@/hooks/useLineup';
 import { ShareInviteSheet } from '@/components/meetups/ShareInviteSheet';
 import { SafetyTimerModal } from '@/components/SafetyTimerModal';
 import { LineupChat } from '@/components/lineup/LineupChat';
+import { CoordinationPanel } from '@/components/meetups/CoordinationPanel';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { toast } from 'sonner';
@@ -242,6 +243,18 @@ export default function MeetupDetail() {
             </li>
           </ul>
         </section>
+
+        {/* Live coordination */}
+        <CoordinationPanel
+          meetupId={meetup.id}
+          locationName={meetup.location_name}
+          attendees={meetup.attendees.map(a => ({
+            user_id: a.user_id,
+            display_name: a.display_name,
+            profile_photo: a.profile_photo,
+          }))}
+          isMember={!!meetup.is_member}
+        />
 
         {/* Attendees */}
         <section className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm">

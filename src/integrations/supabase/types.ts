@@ -1383,6 +1383,7 @@ export type Database = {
           private_mode: boolean | null
           profile_photo: string | null
           pronouns: string | null
+          quick_start: Json | null
           stretch_song: string | null
           superstition: string | null
           updated_at: string
@@ -1435,6 +1436,7 @@ export type Database = {
           private_mode?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null
+          quick_start?: Json | null
           stretch_song?: string | null
           superstition?: string | null
           updated_at?: string
@@ -1487,6 +1489,7 @@ export type Database = {
           private_mode?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null
+          quick_start?: Json | null
           stretch_song?: string | null
           superstition?: string | null
           updated_at?: string

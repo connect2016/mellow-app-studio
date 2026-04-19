@@ -12,6 +12,7 @@ import { ShareInviteSheet } from '@/components/meetups/ShareInviteSheet';
 import { SafetyTimerModal } from '@/components/SafetyTimerModal';
 import { LineupChat } from '@/components/lineup/LineupChat';
 import { CoordinationPanel } from '@/components/meetups/CoordinationPanel';
+import { MeetupTrustPanel } from '@/components/meetups/MeetupTrustPanel';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { toast } from 'sonner';
@@ -217,32 +218,17 @@ export default function MeetupDetail() {
           </section>
         )}
 
-        {/* Trust signals */}
-        <section className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-2">
-            Trust & safety
-          </p>
-          <ul className="space-y-2 text-xs">
-            {meetup.host?.is_verified && (
-              <li className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-primary shrink-0" />
-                <span className="text-foreground/90">Host is a verified fan</span>
-              </li>
-            )}
-            {meetup.mutual_count > 0 && (
-              <li className="flex items-center gap-2">
-                <Users className="h-4 w-4 text-primary shrink-0" />
-                <span className="text-foreground/90">
-                  <span className="font-bold">{meetup.mutual_count}</span> {meetup.mutual_count === 1 ? 'fan you\'ve matched with' : 'fans you\'ve matched with'} {meetup.mutual_count === 1 ? 'is' : 'are'} going
-                </span>
-              </li>
-            )}
-            <li className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-primary shrink-0" />
-              <span className="text-foreground/90">Safety timer available after you RSVP</span>
-            </li>
-          </ul>
-        </section>
+        {/* Trust & safety */}
+        <MeetupTrustPanel
+          meetupId={meetup.id}
+          meetupTitle={meetup.location_name}
+          hostId={meetup.host?.user_id ?? meetup.creator_id}
+          hostIsVerified={!!meetup.host?.is_verified}
+          mutualCount={meetup.mutual_count}
+          isMember={!!meetup.is_member}
+          isHost={!!meetup.is_host}
+          myMembershipVisible={meetup.my_is_visible}
+        />
 
         {/* Live coordination */}
         <CoordinationPanel

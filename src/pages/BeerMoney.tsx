@@ -238,20 +238,99 @@ export default function BeerMoney() {
 
           {/* No recipient → block sending */}
           {!recipientType && (
-            <div className="rounded-2xl border-2 border-dashed border-border bg-card/50 p-5 text-center">
-              <Lock className="mx-auto mb-2 h-6 w-6 text-muted-foreground" />
-              <p className="text-sm font-semibold text-foreground">Pick someone first</p>
-              <p className="mt-1 text-xs text-accent">
-                Beer Money needs a clear recipient — a fan, meetup, or bar.
-              </p>
-              <div className="mt-4 grid grid-cols-2 gap-2">
+            <div className="rounded-2xl border-2 border-dashed border-border bg-card/50 p-5">
+              <div className="text-center">
+                <Lock className="mx-auto mb-2 h-6 w-6 text-muted-foreground" />
+                <p className="text-sm font-semibold text-foreground">Pick someone first</p>
+                <p className="mt-1 text-xs text-accent">
+                  Beer Money needs a clear recipient — a fan, meetup, or bar.
+                </p>
+              </div>
+              <div className="mt-4 grid grid-cols-3 gap-2">
                 <Button asChild variant="outline" className="rounded-xl text-xs">
                   <Link to="/bar-map">🗺️ Beer Map</Link>
                 </Button>
                 <Button asChild variant="outline" className="rounded-xl text-xs">
                   <Link to="/meetups">🍻 Live Meetups</Link>
                 </Button>
+                <Button
+                  variant="outline"
+                  className="rounded-xl text-xs"
+                  onClick={() => setShowFanPicker(true)}
+                >
+                  🧊 Pick a Fan
+                </Button>
               </div>
+
+              {/* Icebreaker: nearby fan picker */}
+              {showFanPicker && (
+                <div className="mt-4 rounded-xl border border-border bg-background/60 p-3">
+                  <div className="mb-2 flex items-center justify-between">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-secondary-foreground">
+                      Icebreaker · Active fans
+                    </p>
+                    <button
+                      onClick={() => setShowFanPicker(false)}
+                      className="text-[11px] text-muted-foreground hover:underline"
+                    >
+                      Close
+                    </button>
+                  </div>
+                  {loadingNearbyFans ? (
+                    <div className="space-y-2">
+                      {[1, 2, 3].map((i) => (
+                        <div key={i} className="flex items-center gap-2 animate-pulse">
+                          <div className="h-9 w-9 rounded-full bg-muted" />
+                          <div className="h-3 flex-1 rounded bg-muted" />
+                        </div>
+                      ))}
+                    </div>
+                  ) : nearbyFans && nearbyFans.length > 0 ? (
+                    <ul className="max-h-64 space-y-1 overflow-y-auto">
+                      {nearbyFans.map((f: any) => (
+                        <li key={f.user_id}>
+                          <button
+                            onClick={() => navigate(`/beer-money?to=${f.user_id}`)}
+                            className="flex w-full items-center gap-2 rounded-lg p-2 text-left hover:bg-muted/60"
+                          >
+                            <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-muted">
+                              {f.profile_photo ? (
+                                <img
+                                  src={f.profile_photo}
+                                  alt={f.display_name}
+                                  className="h-full w-full object-cover"
+                                />
+                              ) : (
+                                <div className="flex h-full w-full items-center justify-center text-xs font-bold text-muted-foreground">
+                                  {f.display_name?.charAt(0)}
+                                </div>
+                              )}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="truncate text-sm font-semibold text-foreground">
+                                {f.display_name}{' '}
+                                {f.fan_tier_emoji && (
+                                  <span className="text-xs">{f.fan_tier_emoji}</span>
+                                )}
+                              </p>
+                              <p className="truncate text-[11px] text-muted-foreground">
+                                {f.wrigleyville_bar
+                                  ? `At ${f.wrigleyville_bar}`
+                                  : formatActive(f.location_last_set_at) ?? 'Active recently'}
+                              </p>
+                            </div>
+                            <Beer className="h-4 w-4 shrink-0 text-[#fbf02d]" />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="py-4 text-center text-xs text-muted-foreground">
+                      No active fans right now. Check back soon!
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           )}
 

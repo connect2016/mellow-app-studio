@@ -242,47 +242,69 @@ export default function MeetupDetail() {
           isMember={!!meetup.is_member}
         />
 
-        {/* Attendees */}
-        <section className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
-          <div className="flex items-baseline justify-between mb-3">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-              Going ({meetup.attendees.length})
-            </p>
-          </div>
-          <ul className="space-y-2.5">
-            {meetup.attendees.map(a => (
-              <li key={a.user_id}>
-                <Link
-                  to={`/profile/${a.user_id}`}
-                  className="flex items-center gap-3 rounded-xl px-2 py-1.5 -mx-2 hover:bg-muted transition min-h-[52px]"
-                >
-                  <img
-                    src={a.profile_photo || '/placeholder.svg'}
-                    alt=""
-                    className="h-10 w-10 rounded-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-sm font-semibold text-foreground truncate">
-                        {a.display_name}
-                      </span>
-                      {a.is_verified && <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />}
-                      {a.is_host && (
-                        <Badge variant="outline" className="text-[9px] py-0 px-1.5 h-4 font-bold">
-                          HOST
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="text-[11px] text-muted-foreground truncate">
-                      {a.fan_tier_emoji} {a.fan_title}
-                    </p>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {/* Attendees — non-members see only host + count of hidden RSVPs respected */}
+        {(() => {
+          const visibleAttendees = meetup.attendees.filter(a => a.is_host || a.is_visible || meetup.is_member);
+          const hiddenCount = meetup.attendees.length - visibleAttendees.length;
+          return (
+            <section className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
+              <div className="flex items-baseline justify-between mb-3">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                  Going ({meetup.attendees.length})
+                </p>
+                {!meetup.is_member && (
+                  <span className="text-[10px] text-muted-foreground">RSVP to see everyone</span>
+                )}
+              </div>
+              <ul className="space-y-2.5">
+                {visibleAttendees.map(a => {
+                  const hideForOthers = !meetup.is_member && !a.is_host;
+                  return (
+                    <li key={a.user_id}>
+                      <Link
+                        to={`/profile/${a.user_id}`}
+                        className="flex items-center gap-3 rounded-xl px-2 py-1.5 -mx-2 hover:bg-muted transition min-h-[52px]"
+                      >
+                        <img
+                          src={a.profile_photo || '/placeholder.svg'}
+                          alt=""
+                          className={`h-10 w-10 rounded-full object-cover ${hideForOthers ? 'blur-sm' : ''}`}
+                          loading="lazy"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="text-sm font-semibold text-foreground truncate">
+                              {hideForOthers ? a.display_name.split(' ')[0] : a.display_name}
+                            </span>
+                            {a.is_verified && <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />}
+                            {a.is_host && (
+                              <Badge variant="outline" className="text-[9px] py-0 px-1.5 h-4 font-bold">
+                                HOST
+                              </Badge>
+                            )}
+                            {meetup.is_member && !a.is_visible && !a.is_host && (
+                              <Badge variant="secondary" className="text-[9px] py-0 px-1.5 h-4">
+                                Private RSVP
+                              </Badge>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-muted-foreground truncate">
+                            {a.fan_tier_emoji} {a.fan_title}
+                          </p>
+                        </div>
+                      </Link>
+                    </li>
+                  );
+                })}
+                {hiddenCount > 0 && (
+                  <li className="text-[11px] text-muted-foreground italic px-2">
+                    + {hiddenCount} more — visible to RSVPs only
+                  </li>
+                )}
+              </ul>
+            </section>
+          );
+        })()}
       </main>
 
       {/* Sticky RSVP bar */}

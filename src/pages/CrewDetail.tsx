@@ -250,6 +250,11 @@ export default function CrewDetail() {
             </motion.div>
           )}
 
+          {/* ─── Plans Tab ─── */}
+          {tab === 'plans' && crewId && (
+            <BarPlansTab crewId={crewId} isMember={isMember} />
+          )}
+
           {/* ─── Events/Meetups Tab ─── */}
           {tab === 'events' && (
             <motion.div key="events" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="overflow-y-auto h-[calc(100vh-260px)]">

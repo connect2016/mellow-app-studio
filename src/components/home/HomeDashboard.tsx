@@ -21,7 +21,7 @@ const DEFAULT_ORDER = ['game', 'vibes', 'meetups', 'map', 'specials', 'photos'];
 
 export function HomeDashboard() {
   const [showCreate, setShowCreate] = useState(false);
-  const { profile } = useProfile();
+  const { data: profile } = useProfile();
 
   const order = useMemo(() => {
     const intent = (profile?.quick_start as { primary_intent?: Intent } | null)?.primary_intent;

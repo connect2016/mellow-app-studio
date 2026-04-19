@@ -30,12 +30,12 @@ export function SocialPhotoFeed() {
   return (
     <section aria-labelledby="photo-feed-heading" className="mb-5">
       <div className="flex items-baseline justify-between mb-2.5 px-1">
-        <h2 id="photo-feed-heading" className="text-base font-extrabold text-foreground flex items-center gap-1.5">
-          <Camera className="h-4 w-4 text-primary" /> Live from Wrigleyville
+        <h2 id="photo-feed-heading" className="text-base font-extrabold text-on-image flex items-center gap-1.5">
+          <Camera className="h-4 w-4 text-white" /> Live from Wrigleyville
         </h2>
         <Link
           to="/vibe"
-          className="text-xs font-semibold text-primary hover:underline flex items-center gap-0.5"
+          className="text-xs font-semibold text-on-image hover:underline flex items-center gap-0.5"
         >
           See feed <ChevronRight className="h-3 w-3" />
         </Link>

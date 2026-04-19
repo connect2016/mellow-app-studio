@@ -106,7 +106,7 @@ export function MeetupTrustPanel({
           {trust?.is_first_time && !trust?.is_trusted && (
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2 py-1 rounded-full cursor-help">
+                <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide bg-secondary/40 text-secondary-foreground px-2 py-1 rounded-full cursor-help">
                   <Sparkles className="h-3 w-3" /> New host
                 </span>
               </TooltipTrigger>
@@ -188,7 +188,7 @@ export function MeetupTrustPanel({
                       <p className="font-semibold text-foreground text-xs">Block or report the host</p>
                       <p className="text-[10px] text-muted-foreground">You won't see each other again</p>
                     </div>
-                    <QuickBlockButton userId={hostId} userName="host" />
+                    <QuickBlockButton targetUserId={hostId} targetName="this host" />
                   </div>
                 )}
               </div>

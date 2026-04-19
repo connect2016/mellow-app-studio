@@ -20,6 +20,7 @@ import { MeetupHistorySection } from '@/components/profile/MeetupHistorySection'
 import { SavedPlansSection } from '@/components/profile/SavedPlansSection';
 import { PrivateModeBanner } from '@/components/profile/PrivateModeBanner';
 import { PrivateModeToggle } from '@/components/profile/PrivateModeToggle';
+import { AchievementsHub } from '@/components/achievements/AchievementsHub';
 
 export default function Profile() {
   const { id } = useParams();
@@ -262,6 +263,9 @@ export default function Profile() {
               <PrivateModeBanner />
             ) : (
               <>
+                {isOwnProfile && (
+                  <AchievementsHub compact onSeeAll={() => navigate('/missions')} />
+                )}
                 <FavoriteBarsSection
                   bars={localBars}
                   isOwner={isOwnProfile}

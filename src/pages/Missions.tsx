@@ -8,6 +8,7 @@ import { useMissions, useTotalPoints, useClaimReward, type MissionWithProgress }
 import { Trophy, Star, Zap, Gift, CheckCircle2, Lock, Flame } from 'lucide-react';
 import { ErrorState } from '@/components/ErrorState';
 import { MissionStreak } from '@/components/MissionStreak';
+import { AchievementsHub } from '@/components/achievements/AchievementsHub';
 import { toast } from 'sonner';
 
 const CATEGORY_CONFIG: Record<string, { label: string; emoji: string }> = {
@@ -98,6 +99,11 @@ export default function Missions() {
         {/* Mission Streak */}
         <div className="mb-4">
           <MissionStreak />
+        </div>
+
+        {/* Achievements: streaks + milestones */}
+        <div className="mb-5">
+          <AchievementsHub />
         </div>
 
         {/* Points header */}

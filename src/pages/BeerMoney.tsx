@@ -432,7 +432,7 @@ export default function BeerMoney() {
           className="space-y-4 disabled:opacity-50"
         >
           <div>
-            <Label className="font-semibold">Pick an amount</Label>
+            <Label className="font-semibold text-white">Pick an amount</Label>
             <div className="mt-2 grid grid-cols-5 gap-2">
               {AMOUNTS.map((a) => (
                 <motion.button

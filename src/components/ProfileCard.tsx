@@ -32,7 +32,7 @@ const ICEBREAKERS = [
   { emoji: '⚾', text: 'Who\'s your all-time favorite Cub?' },
   { emoji: '🍺', text: 'What\'s your go-to Wrigleyville bar?' },
   { emoji: '🐻', text: 'Were you there for the 2016 World Series?' },
-  { emoji: '🎵', text: 'What\'s your 7th-inning stretch song?' },
+  { emoji: '🎵', text: 'Favorite 7th-inning singer besides Harry?' },
   { emoji: '🌭', text: 'Hot dog or Chicago dog at Wrigley?' },
   { emoji: '🧢', text: 'What\'s your Cubs superstition?' },
 ];
@@ -41,7 +41,7 @@ function getPrompts(user: UserProfile): PromptItem[] {
   const prompts: PromptItem[] = [];
   if (user.superstition) prompts.push({ label: 'My Cubs superstition', value: user.superstition, emoji: '🧢' });
   if (user.best_bar) prompts.push({ label: 'Favorite Wrigleyville bar', value: user.best_bar, emoji: '🍻' });
-  if (user.stretch_song) prompts.push({ label: '7th-inning stretch song', value: user.stretch_song, emoji: '🎵' });
+  if (user.stretch_song) prompts.push({ label: 'Favorite 7th-inning singer besides Harry', value: user.stretch_song, emoji: '🎵' });
   if (user.favorite_player) prompts.push({ label: 'Favorite player ever', value: user.favorite_player, emoji: '⚾' });
   if (user.favorite_moment) prompts.push({ label: 'Favorite Cubs moment', value: user.favorite_moment, emoji: '🎉' });
   return prompts;

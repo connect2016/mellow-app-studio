@@ -542,7 +542,7 @@ export default function Onboarding() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-xs font-semibold text-destructive-foreground">7th-inning stretch song</Label>
+                        <Label className="text-xs font-semibold text-destructive-foreground">Favorite 7th-inning singer besides Harry</Label>
                         <Input
                           placeholder="e.g. Go Cubs Go (obviously)"
                           value={stretchSong}

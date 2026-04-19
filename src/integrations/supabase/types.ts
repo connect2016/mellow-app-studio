@@ -74,6 +74,152 @@ export type Database = {
         }
         Relationships: []
       }
+      bar_plan_comments: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          plan_id: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          plan_id: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          plan_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bar_plan_comments_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "bar_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bar_plan_options: {
+        Row: {
+          added_by: string
+          address: string | null
+          bar_name: string
+          bar_slug: string | null
+          created_at: string
+          emoji: string | null
+          id: string
+          plan_id: string
+        }
+        Insert: {
+          added_by: string
+          address?: string | null
+          bar_name: string
+          bar_slug?: string | null
+          created_at?: string
+          emoji?: string | null
+          id?: string
+          plan_id: string
+        }
+        Update: {
+          added_by?: string
+          address?: string | null
+          bar_name?: string
+          bar_slug?: string | null
+          created_at?: string
+          emoji?: string | null
+          id?: string
+          plan_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bar_plan_options_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "bar_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bar_plan_votes: {
+        Row: {
+          created_at: string
+          id: string
+          option_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          option_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          option_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bar_plan_votes_option_id_fkey"
+            columns: ["option_id"]
+            isOneToOne: false
+            referencedRelation: "bar_plan_options"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bar_plans: {
+        Row: {
+          created_at: string
+          creator_id: string
+          crew_id: string
+          finalized_option_id: string | null
+          id: string
+          notes: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          crew_id: string
+          finalized_option_id?: string | null
+          id?: string
+          notes?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          crew_id?: string
+          finalized_option_id?: string | null
+          id?: string
+          notes?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bar_plans_crew_id_fkey"
+            columns: ["crew_id"]
+            isOneToOne: false
+            referencedRelation: "crews"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bar_votes: {
         Row: {
           bar_name: string

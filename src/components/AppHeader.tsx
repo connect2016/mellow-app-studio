@@ -81,21 +81,21 @@ export function AppHeader() {
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b border-border/30 bg-transparent backdrop-blur-sm">
         <div className="mx-auto flex max-w-lg items-center justify-between gap-4 px-4 py-2">
-          <Link to="/" className="flex min-w-0 flex-1 items-center gap-3">
+          <Link to="/" className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
             <img
               alt="Wrigleyville 60613 Logo"
-              className="h-24 w-auto object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
+              className="h-16 sm:h-20 md:h-24 w-auto shrink-0 object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
               src={wrigleyvilleLogo}
             />
             <div className="flex min-w-0 flex-col items-start">
               <span
-                className="text-[1.1rem] sm:text-[1.4rem] font-bold uppercase leading-tight whitespace-nowrap"
+                className="text-[0.85rem] sm:text-[1.05rem] md:text-[1.3rem] font-bold uppercase leading-tight truncate max-w-full"
                 style={{
                   fontFamily: 'Norwester, sans-serif',
                   color: '#3458B5',
                   textShadow:
                     '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0px 1px 2px rgba(0,0,0,0.3)',
-                  letterSpacing: '2px',
+                  letterSpacing: '1.5px',
                 }}
               >
                 The Wrigleyville Social App

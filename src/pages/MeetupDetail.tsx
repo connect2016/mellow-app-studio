@@ -12,6 +12,7 @@ import { ShareInviteSheet } from '@/components/meetups/ShareInviteSheet';
 import { SafetyTimerModal } from '@/components/SafetyTimerModal';
 import { LineupChat } from '@/components/lineup/LineupChat';
 import { CoordinationPanel } from '@/components/meetups/CoordinationPanel';
+import { MeetupTrustPanel } from '@/components/meetups/MeetupTrustPanel';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { toast } from 'sonner';
@@ -217,32 +218,17 @@ export default function MeetupDetail() {
           </section>
         )}
 
-        {/* Trust signals */}
-        <section className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-2">
-            Trust & safety
-          </p>
-          <ul className="space-y-2 text-xs">
-            {meetup.host?.is_verified && (
-              <li className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-primary shrink-0" />
-                <span className="text-foreground/90">Host is a verified fan</span>
-              </li>
-            )}
-            {meetup.mutual_count > 0 && (
-              <li className="flex items-center gap-2">
-                <Users className="h-4 w-4 text-primary shrink-0" />
-                <span className="text-foreground/90">
-                  <span className="font-bold">{meetup.mutual_count}</span> {meetup.mutual_count === 1 ? 'fan you\'ve matched with' : 'fans you\'ve matched with'} {meetup.mutual_count === 1 ? 'is' : 'are'} going
-                </span>
-              </li>
-            )}
-            <li className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-primary shrink-0" />
-              <span className="text-foreground/90">Safety timer available after you RSVP</span>
-            </li>
-          </ul>
-        </section>
+        {/* Trust & safety */}
+        <MeetupTrustPanel
+          meetupId={meetup.id}
+          meetupTitle={meetup.location_name}
+          hostId={meetup.host?.user_id ?? meetup.creator_id}
+          hostIsVerified={!!meetup.host?.is_verified}
+          mutualCount={meetup.mutual_count}
+          isMember={!!meetup.is_member}
+          isHost={!!meetup.is_host}
+          myMembershipVisible={meetup.my_is_visible}
+        />
 
         {/* Live coordination */}
         <CoordinationPanel
@@ -256,47 +242,69 @@ export default function MeetupDetail() {
           isMember={!!meetup.is_member}
         />
 
-        {/* Attendees */}
-        <section className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
-          <div className="flex items-baseline justify-between mb-3">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-              Going ({meetup.attendees.length})
-            </p>
-          </div>
-          <ul className="space-y-2.5">
-            {meetup.attendees.map(a => (
-              <li key={a.user_id}>
-                <Link
-                  to={`/profile/${a.user_id}`}
-                  className="flex items-center gap-3 rounded-xl px-2 py-1.5 -mx-2 hover:bg-muted transition min-h-[52px]"
-                >
-                  <img
-                    src={a.profile_photo || '/placeholder.svg'}
-                    alt=""
-                    className="h-10 w-10 rounded-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-sm font-semibold text-foreground truncate">
-                        {a.display_name}
-                      </span>
-                      {a.is_verified && <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />}
-                      {a.is_host && (
-                        <Badge variant="outline" className="text-[9px] py-0 px-1.5 h-4 font-bold">
-                          HOST
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="text-[11px] text-muted-foreground truncate">
-                      {a.fan_tier_emoji} {a.fan_title}
-                    </p>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {/* Attendees — non-members see only host + count of hidden RSVPs respected */}
+        {(() => {
+          const visibleAttendees = meetup.attendees.filter(a => a.is_host || a.is_visible || meetup.is_member);
+          const hiddenCount = meetup.attendees.length - visibleAttendees.length;
+          return (
+            <section className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
+              <div className="flex items-baseline justify-between mb-3">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                  Going ({meetup.attendees.length})
+                </p>
+                {!meetup.is_member && (
+                  <span className="text-[10px] text-muted-foreground">RSVP to see everyone</span>
+                )}
+              </div>
+              <ul className="space-y-2.5">
+                {visibleAttendees.map(a => {
+                  const hideForOthers = !meetup.is_member && !a.is_host;
+                  return (
+                    <li key={a.user_id}>
+                      <Link
+                        to={`/profile/${a.user_id}`}
+                        className="flex items-center gap-3 rounded-xl px-2 py-1.5 -mx-2 hover:bg-muted transition min-h-[52px]"
+                      >
+                        <img
+                          src={a.profile_photo || '/placeholder.svg'}
+                          alt=""
+                          className={`h-10 w-10 rounded-full object-cover ${hideForOthers ? 'blur-sm' : ''}`}
+                          loading="lazy"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="text-sm font-semibold text-foreground truncate">
+                              {hideForOthers ? a.display_name.split(' ')[0] : a.display_name}
+                            </span>
+                            {a.is_verified && <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />}
+                            {a.is_host && (
+                              <Badge variant="outline" className="text-[9px] py-0 px-1.5 h-4 font-bold">
+                                HOST
+                              </Badge>
+                            )}
+                            {meetup.is_member && !a.is_visible && !a.is_host && (
+                              <Badge variant="secondary" className="text-[9px] py-0 px-1.5 h-4">
+                                Private RSVP
+                              </Badge>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-muted-foreground truncate">
+                            {a.fan_tier_emoji} {a.fan_title}
+                          </p>
+                        </div>
+                      </Link>
+                    </li>
+                  );
+                })}
+                {hiddenCount > 0 && (
+                  <li className="text-[11px] text-muted-foreground italic px-2">
+                    + {hiddenCount} more — visible to RSVPs only
+                  </li>
+                )}
+              </ul>
+            </section>
+          );
+        })()}
       </main>
 
       {/* Sticky RSVP bar */}

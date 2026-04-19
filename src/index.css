@@ -429,9 +429,9 @@ body::before {
   padding: 0.25rem 1.25rem 0.25rem 0.75rem;
   background: var(--gradient-brick);
   color: hsl(var(--secondary-foreground));
-  font-family: 'Graduate', serif;
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   box-shadow: var(--shadow-pennant);
   clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);

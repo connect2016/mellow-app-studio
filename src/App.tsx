@@ -13,6 +13,7 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Welcome from "./pages/Welcome";
 import Onboarding from "./pages/Onboarding";
+import QuickStart from "./pages/QuickStart";
 import Discover from "./pages/Discover";
 import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
@@ -67,6 +68,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/quick-start" element={<QuickStart />} />
             <Route path="/discover" element={<Discover />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:id" element={<Profile />} />

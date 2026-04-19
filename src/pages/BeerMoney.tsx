@@ -456,7 +456,7 @@ export default function BeerMoney() {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm text-destructive-foreground">Or enter custom ($3–$25)</Label>
+            <Label className="text-sm text-white">Or enter custom ($3–$25)</Label>
             <div className="relative">
               <DollarSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input

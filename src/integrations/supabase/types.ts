@@ -836,18 +836,21 @@ export type Database = {
       lineup_members: {
         Row: {
           id: string
+          is_visible: boolean
           joined_at: string
           meetup_id: string
           user_id: string
         }
         Insert: {
           id?: string
+          is_visible?: boolean
           joined_at?: string
           meetup_id: string
           user_id: string
         }
         Update: {
           id?: string
+          is_visible?: boolean
           joined_at?: string
           meetup_id?: string
           user_id?: string
@@ -1038,6 +1041,44 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "meetup_coordination_meetup_id_fkey"
+            columns: ["meetup_id"]
+            isOneToOne: false
+            referencedRelation: "lineup_meetups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meetup_reports: {
+        Row: {
+          created_at: string
+          details: string | null
+          id: string
+          meetup_id: string
+          reason: string
+          reporter_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          meetup_id: string
+          reason?: string
+          reporter_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          meetup_id?: string
+          reason?: string
+          reporter_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meetup_reports_meetup_id_fkey"
             columns: ["meetup_id"]
             isOneToOne: false
             referencedRelation: "lineup_meetups"
@@ -2157,6 +2198,16 @@ export type Database = {
       award_user_points: {
         Args: { _points?: number; _source: string; _source_id?: string }
         Returns: undefined
+      }
+      get_host_trust: {
+        Args: { _host_id: string }
+        Returns: {
+          hosted_count: number
+          is_first_time: boolean
+          is_trusted: boolean
+          is_verified: boolean
+          recent_reports: number
+        }[]
       }
       get_map_fans: {
         Args: never

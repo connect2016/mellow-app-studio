@@ -432,7 +432,7 @@ export default function BeerMoney() {
           className="space-y-4 disabled:opacity-50"
         >
           <div>
-            <Label className="font-semibold">Pick an amount</Label>
+            <Label className="font-semibold text-white">Pick an amount</Label>
             <div className="mt-2 grid grid-cols-5 gap-2">
               {AMOUNTS.map((a) => (
                 <motion.button
@@ -456,7 +456,7 @@ export default function BeerMoney() {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm text-destructive-foreground">Or enter custom ($3–$25)</Label>
+            <Label className="text-sm text-white">Or enter custom ($3–$25)</Label>
             <div className="relative">
               <DollarSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -472,7 +472,7 @@ export default function BeerMoney() {
           </div>
 
           <div className="space-y-2">
-            <Label className="font-semibold">
+            <Label className="font-semibold text-white">
               Add a message{' '}
               <span className="font-normal text-muted-foreground">(optional)</span>
             </Label>

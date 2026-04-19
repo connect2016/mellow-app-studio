@@ -103,7 +103,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
   box-shadow: none !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Graduate&family=Rye&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800&family=Playball&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
 
 @layer base {
   :root {
@@ -256,9 +256,30 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Graduate', 'Rye', 'Barlow Condensed', serif;
-    letter-spacing: 0.02em;
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    line-height: 1.05;
+    font-weight: 400;
   }
+  h1 { font-size: clamp(2rem, 5vw, 2.5rem); }
+  h2 { font-size: clamp(1.5rem, 4vw, 1.75rem); }
+  h3 { font-family: 'Inter', sans-serif; font-size: 1.125rem; font-weight: 600; text-transform: none; letter-spacing: -0.01em; line-height: 1.3; }
+  h4, h5, h6 { font-family: 'Inter', sans-serif; font-weight: 600; text-transform: none; letter-spacing: -0.005em; line-height: 1.3; }
+}
+
+/* Bebas Neue heading outline utilities — premium sports broadcast feel */
+.heading-outline-light {
+  -webkit-text-stroke: 1px hsl(0 0% 0% / 0.85);
+  paint-order: stroke fill;
+}
+.heading-outline-dark {
+  -webkit-text-stroke: 1.25px hsl(0 0% 100% / 0.9);
+  paint-order: stroke fill;
+}
+.heading-outline {
+  -webkit-text-stroke: 1px currentColor;
+  paint-order: stroke fill;
 }
 
 @layer utilities {
@@ -379,8 +400,11 @@ body::before {
 
 /* Hero title override — must be outside @layer to beat body rule */
 .hero-title-size {
-  font-size: clamp(48px, 9vw, 88px) !important;
-  line-height: 1.1 !important;
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-size: clamp(56px, 11vw, 104px) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.005em !important;
+  text-transform: uppercase !important;
 }
 
 /* ===== Premium chrome utilities ===== */
@@ -405,9 +429,9 @@ body::before {
   padding: 0.25rem 1.25rem 0.25rem 0.75rem;
   background: var(--gradient-brick);
   color: hsl(var(--secondary-foreground));
-  font-family: 'Graduate', serif;
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   box-shadow: var(--shadow-pennant);
   clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
@@ -432,16 +456,18 @@ body::before {
 
 /* Refined heading rhythm */
 .h-display {
-  font-family: 'Graduate', 'Rye', serif;
-  font-size: clamp(2rem, 5vw, 3.25rem);
-  line-height: 1.05;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1;
   letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 .h-section {
-  font-family: 'Graduate', serif;
-  font-size: 1.125rem;
-  letter-spacing: 0.06em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+  line-height: 1.1;
   color: hsl(var(--primary));
 }
 .eyebrow {

@@ -119,7 +119,9 @@ export default {
       },
       fontFamily: {
         scoreboard: ["'Share Tech Mono'", "'Courier New'", "monospace"],
-        heading: ["'Graduate'", "'Rye'", "'Barlow Condensed'", "serif"],
+        heading: ["'Bebas Neue'", "'Inter'", "sans-serif"],
+        display: ["'Bebas Neue'", "sans-serif"],
+        sans: ["'Inter'", "system-ui", "sans-serif"],
       },
     },
   },

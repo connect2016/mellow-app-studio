@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Beer, ChevronRight, Map as MapIcon, Sparkles, Flame, Zap } from 'lucide-react';
+import { Beer, ChevronRight, Map as MapIcon, Sparkles, Flame, Zap, Utensils } from 'lucide-react';
 import { LiveBeerProof, BarBeerBadge, BeerFomoToast } from '@/components/beer/LiveBeerProof';
 import { useLiveBeerFeed } from '@/hooks/useLiveBeerFeed';
 import { AppHeader } from '@/components/AppHeader';
@@ -104,33 +104,43 @@ export default function BarMap() {
           onto Clark. Live crowd signals included.
         </p>
 
-        {/* Mode switch + Beer Money strip */}
-        <div className="mt-4 grid grid-cols-2 gap-2">
+        {/* Mode switch strip */}
+        <div className="mt-4 grid grid-cols-3 gap-2">
           <Link
             to="/beer-money"
-            className="flex items-center gap-2.5 rounded-xl border border-border bg-gradient-to-br from-amber-500/10 to-orange-500/5 px-3 py-2.5 transition active:scale-[0.98]"
+            className="flex items-center gap-2 rounded-xl border border-border bg-gradient-to-br from-amber-500/10 to-orange-500/5 px-2.5 py-2.5 transition active:scale-[0.98]"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400">
-              <Beer className="h-4 w-4" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400 shrink-0">
+              <Beer className="h-3.5 w-3.5" />
             </div>
             <div className="min-w-0">
-              <div className="text-[12px] font-bold leading-tight text-foreground">Send Beer Money</div>
-              <div className="text-[10px] text-muted-foreground truncate">Buy a round at any bar</div>
+              <div className="text-[11px] font-bold leading-tight text-foreground">Beer Money</div>
+              <div className="text-[9px] text-muted-foreground truncate">Buy a round</div>
             </div>
-            <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground shrink-0" />
+          </Link>
+          <Link
+            to="/eats"
+            className="flex items-center gap-2 rounded-xl border border-border bg-gradient-to-br from-red-500/10 to-orange-500/5 px-2.5 py-2.5 transition active:scale-[0.98]"
+          >
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500/20 text-red-600 dark:text-red-400 shrink-0">
+              <Utensils className="h-3.5 w-3.5" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[11px] font-bold leading-tight text-foreground">Eats</div>
+              <div className="text-[9px] text-muted-foreground truncate">Food & drink</div>
+            </div>
           </Link>
           <Link
             to="/check-in"
-            className="flex items-center gap-2.5 rounded-xl border border-border bg-gradient-to-br from-blue-500/10 to-blue-500/5 px-3 py-2.5 transition active:scale-[0.98]"
+            className="flex items-center gap-2 rounded-xl border border-border bg-gradient-to-br from-blue-500/10 to-blue-500/5 px-2.5 py-2.5 transition active:scale-[0.98]"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400">
-              <MapIcon className="h-4 w-4" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 shrink-0">
+              <MapIcon className="h-3.5 w-3.5" />
             </div>
             <div className="min-w-0">
-              <div className="text-[12px] font-bold leading-tight text-foreground">Check in</div>
-              <div className="text-[10px] text-muted-foreground truncate">Show fans where you are</div>
+              <div className="text-[11px] font-bold leading-tight text-foreground">Check in</div>
+              <div className="text-[9px] text-muted-foreground truncate">Show fans</div>
             </div>
-            <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground shrink-0" />
           </Link>
         </div>
 

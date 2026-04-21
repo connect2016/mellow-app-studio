@@ -637,23 +637,34 @@ export default function BeerMoney() {
                     </div>
                   </div>
 
-                  {/* Invite a friend CTA */}
-                  <div className="rounded-xl border border-dashed border-primary/30 bg-primary/5 p-4 text-center">
-                    <Gift className="h-5 w-5 text-primary mx-auto mb-1.5" />
-                    <p className="text-xs font-bold text-foreground mb-1">Know someone who should be here?</p>
-                    <p className="text-[11px] text-muted-foreground mb-3">
-                      Invite a friend to Cubbies Buddies — buy them their first beer.
-                    </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="rounded-xl gap-1.5 text-xs"
-                      onClick={handleShare}
-                    >
-                      <Share2 className="h-3.5 w-3.5" />
-                      {copied ? 'Copied!' : 'Share Invite Link'}
-                    </Button>
-                  </div>
+                  {/* Send to non-user */}
+                  {!showNonUserSend ? (
+                    <div className="rounded-xl border border-dashed border-primary/30 bg-primary/5 p-4 text-center">
+                      <Gift className="h-5 w-5 text-primary mx-auto mb-1.5" />
+                      <p className="text-xs font-bold text-foreground mb-1">Know someone who should be here?</p>
+                      <p className="text-[11px] text-muted-foreground mb-3">
+                        Buy them a beer — they'll get a link to sign up & claim it at the bar.
+                      </p>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="rounded-xl gap-1.5 text-xs"
+                        onClick={() => setShowNonUserSend(true)}
+                      >
+                        <Share2 className="h-3.5 w-3.5" />
+                        Send to a Friend (Not on App)
+                      </Button>
+                    </div>
+                  ) : (
+                    <SendToNonUserPanel
+                      amount={amount}
+                      note={note}
+                      onClaimGenerated={(url, name) => {
+                        setClaimLinkUrl(url);
+                        toast({ title: `Claim link created for ${name}!`, description: 'Share the link so they can redeem their beer 🍺' });
+                      }}
+                    />
+                  )}
                 </div>
               )}
 

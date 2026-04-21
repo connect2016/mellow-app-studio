@@ -17,6 +17,8 @@ interface Props {
   liveWait?: string;
   meetupCount: number;
   isEditorPick?: boolean;
+  liveBeerCount?: number;
+  onSendBeer?: (barName: string) => void;
 }
 
 const crowdConfig: Record<string, { label: string; emoji: string; color: string }> = {
@@ -38,7 +40,7 @@ const accentBar: Record<string, string> = {
   amber: 'bg-amber-500',
 };
 
-export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveVibe, liveWait, meetupCount, isEditorPick }: Props) {
+export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveVibe, liveWait, meetupCount, isEditorPick, liveBeerCount, onSendBeer }: Props) {
   const [open, setOpen] = useState(false);
   const crowd = crowdConfig[liveCrowdLevel ?? 'empty'];
 

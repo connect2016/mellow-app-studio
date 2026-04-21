@@ -17,6 +17,8 @@ interface Props {
   liveWait?: string;
   meetupCount: number;
   isEditorPick?: boolean;
+  liveBeerCount?: number;
+  onSendBeer?: (barName: string) => void;
 }
 
 const crowdConfig: Record<string, { label: string; emoji: string; color: string }> = {
@@ -38,7 +40,7 @@ const accentBar: Record<string, string> = {
   amber: 'bg-amber-500',
 };
 
-export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveVibe, liveWait, meetupCount, isEditorPick }: Props) {
+export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveVibe, liveWait, meetupCount, isEditorPick, liveBeerCount, onSendBeer }: Props) {
   const [open, setOpen] = useState(false);
   const crowd = crowdConfig[liveCrowdLevel ?? 'empty'];
 
@@ -91,6 +93,11 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
           {meetupCount > 0 && (
             <span className="inline-flex items-center gap-1 text-[11px] text-primary font-semibold">
               ⚡ {meetupCount} meetup{meetupCount !== 1 ? 's' : ''}
+            </span>
+          )}
+          {liveBeerCount != null && liveBeerCount > 0 && (
+            <span className="inline-flex items-center gap-1 text-[11px] text-amber-600 dark:text-amber-400 font-semibold">
+              🍺 {liveBeerCount} beer{liveBeerCount !== 1 ? 's' : ''} sent
             </span>
           )}
           {liveWait && liveWait !== 'no_line' && (
@@ -150,6 +157,32 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
               <Building2 className="h-2.5 w-2.5" /> Rooftop
             </span>
           )}
+        </div>
+
+        {/* Quick Beer CTA */}
+        <div className="px-5 pb-3 flex items-center gap-2">
+          <Button
+            size="sm"
+            className="flex-1 h-9 rounded-xl gap-1.5 text-xs font-bold bg-amber-500 hover:bg-amber-600 text-amber-950"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onSendBeer) {
+                onSendBeer(bar.name);
+              }
+            }}
+            asChild={!onSendBeer}
+          >
+            {onSendBeer ? (
+              <span><Beer className="h-3.5 w-3.5" /> Buy a Beer Here 🍺</span>
+            ) : (
+              <Link to={`/beer-money?bar=${encodeURIComponent(bar.name)}`}>
+                <Beer className="h-3.5 w-3.5" /> Buy a Beer Here 🍺
+              </Link>
+            )}
+          </Button>
+          <Button asChild size="sm" variant="outline" className="h-9 rounded-xl text-xs">
+            <Link to={`/check-in?bar=${encodeURIComponent(bar.name)}`}>Check in</Link>
+          </Button>
         </div>
 
         {/* Expand toggle */}

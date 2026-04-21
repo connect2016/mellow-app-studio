@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Beer, ChevronRight, Map as MapIcon, Sparkles, Flame } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Beer, ChevronRight, Map as MapIcon, Sparkles, Flame, Zap } from 'lucide-react';
 import { LiveBeerProof, BarBeerBadge, BeerFomoToast } from '@/components/beer/LiveBeerProof';
 import { useLiveBeerFeed } from '@/hooks/useLiveBeerFeed';
 import { AppHeader } from '@/components/AppHeader';
@@ -19,11 +19,13 @@ import {
 } from '@/lib/wrigleyville-bar-guide';
 import { BarGuideFilters } from '@/components/bars/BarGuideFilters';
 import { CuratedBarCard } from '@/components/bars/CuratedBarCard';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const EDITOR_PICKS = new Set(['murphys-bleachers', 'mordecai', 'old-crow']);
 
 export default function BarMap() {
   const { isGuest } = useGuestMode();
+  const navigate = useNavigate();
   const { data: venues } = useVenueActivity();
   const { checkins } = useBarCheckins();
   const { getSummary } = useBarVotes();
@@ -48,6 +50,15 @@ export default function BarMap() {
     venues?.forEach((v) => { (map as any)[v.name] = v; });
     return map;
   }, [venues]);
+
+  // Beer activity per bar
+  const beerCountByBar = useMemo(() => {
+    const counts: Record<string, number> = {};
+    beerActivities.forEach((a) => {
+      counts[a.bar] = (counts[a.bar] || 0) + 1;
+    });
+    return counts;
+  }, [beerActivities]);
 
   const filtered = useMemo(() => {
     const distMax = DISTANCE_BUCKETS.find((d) => d.key === distance)?.max ?? 99;
@@ -122,10 +133,35 @@ export default function BarMap() {
             <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground shrink-0" />
           </Link>
         </div>
+
         {/* Live beer activity ticker */}
         <div className="mt-3">
           <LiveBeerProof activities={beerActivities} stats={beerStats} variant="ticker" />
         </div>
+
+        {/* Hottest bar banner */}
+        {beerStats.hottestBar && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-3 rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-transparent p-3 flex items-center gap-3"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500/20 text-lg shrink-0">
+              🔥
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Hottest bar right now</p>
+              <p className="text-sm font-bold text-foreground truncate">{beerStats.hottestBar}</p>
+              <p className="text-[10px] text-muted-foreground">{beerStats.totalRoundsToday} rounds bought today</p>
+            </div>
+            <button
+              onClick={() => navigate(`/beer-money?bar=${encodeURIComponent(beerStats.hottestBar!)}`)}
+              className="shrink-0 flex items-center gap-1 rounded-lg bg-amber-500 px-3 py-1.5 text-[11px] font-bold text-amber-950 active:scale-95 transition-transform"
+            >
+              <Beer className="h-3 w-3" /> Send
+            </button>
+          </motion.div>
+        )}
       </header>
 
       {/* Filters */}
@@ -168,6 +204,8 @@ export default function BarMap() {
                   liveWait={summary.topWait ? WAIT_LABELS[summary.topWait] : undefined}
                   meetupCount={venue?.meetups?.length || 0}
                   isEditorPick={EDITOR_PICKS.has(bar.id)}
+                  liveBeerCount={beerCountByBar[bar.name] || 0}
+                  onSendBeer={(name) => navigate(`/beer-money?bar=${encodeURIComponent(name)}`)}
                 />
                 {/* Beer activity badge inline */}
                 <div className="mt-1 ml-2">
@@ -183,6 +221,21 @@ export default function BarMap() {
           <Link to="/settings" className="text-primary hover:underline not-italic font-semibold">Get in touch</Link>
         </div>
       </section>
+
+      {/* Floating beer CTA */}
+      <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 max-w-lg w-[calc(100%-2rem)]">
+        <motion.button
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          onClick={() => navigate('/beer-money')}
+          className="w-full flex items-center justify-center gap-2 rounded-2xl bg-amber-500 py-3 px-6 text-sm font-bold text-amber-950 shadow-lg shadow-amber-500/25 active:scale-[0.97] transition-transform"
+        >
+          <Beer className="h-4 w-4" />
+          Buy a Fan a Beer — {beerStats.totalRoundsToday} sent today
+          <Zap className="h-3.5 w-3.5" />
+        </motion.button>
+      </div>
 
       {isGuest && <GuestBanner />}
       <BeerFomoToast activities={beerActivities} />

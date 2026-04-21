@@ -95,6 +95,11 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
               ⚡ {meetupCount} meetup{meetupCount !== 1 ? 's' : ''}
             </span>
           )}
+          {liveBeerCount != null && liveBeerCount > 0 && (
+            <span className="inline-flex items-center gap-1 text-[11px] text-amber-600 dark:text-amber-400 font-semibold">
+              🍺 {liveBeerCount} beer{liveBeerCount !== 1 ? 's' : ''} sent
+            </span>
+          )}
           {liveWait && liveWait !== 'no_line' && (
             <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
               <Clock className="h-3 w-3" /> {liveWait.replace('_', ' ')}

@@ -122,6 +122,10 @@ export default function BarMap() {
             <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground shrink-0" />
           </Link>
         </div>
+        {/* Live beer activity ticker */}
+        <div className="mt-3">
+          <LiveBeerProof activities={beerActivities} stats={beerStats} variant="ticker" />
+        </div>
       </header>
 
       {/* Filters */}

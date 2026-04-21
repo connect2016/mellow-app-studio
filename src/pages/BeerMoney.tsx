@@ -373,9 +373,9 @@ export default function BeerMoney() {
         {/* ===== STATS BAR ===== */}
         <div className="mb-4 grid grid-cols-3 gap-2">
           {[
-            { icon: <Beer className="h-3.5 w-3.5" />, label: 'Rounds today', value: '47', color: 'text-primary' },
-            { icon: <Users className="h-3.5 w-3.5" />, label: 'Fans active', value: '23', color: 'text-emerald-500' },
-            { icon: <TrendingUp className="h-3.5 w-3.5" />, label: 'Your rounds', value: '3', color: 'text-amber-500' },
+            { icon: <Beer className="h-3.5 w-3.5" />, label: 'Rounds today', value: String(liveStats.totalRoundsToday), color: 'text-primary' },
+            { icon: <Users className="h-3.5 w-3.5" />, label: 'Fans active', value: String(liveStats.fansActive), color: 'text-emerald-500' },
+            { icon: <TrendingUp className="h-3.5 w-3.5" />, label: 'Bars active', value: String(liveStats.activeBarCount), color: 'text-amber-500' },
           ].map((s, i) => (
             <div key={i} className="rounded-xl border border-border bg-card/60 p-2.5 text-center">
               <div className={`flex items-center justify-center gap-1 ${s.color} mb-0.5`}>

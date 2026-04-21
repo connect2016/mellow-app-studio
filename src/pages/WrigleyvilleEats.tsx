@@ -11,6 +11,8 @@ import { Badge } from '@/components/ui/badge';
 import { AppHeader } from '@/components/AppHeader';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
+import { EatsCheckInButton } from '@/components/eats/EatsCheckInButton';
+import { BleacherBarometer } from '@/components/eats/BleacherBarometer';
 import {
   FOOD_SPOTS,
   CATEGORY_META,

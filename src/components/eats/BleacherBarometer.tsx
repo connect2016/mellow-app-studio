@@ -1,19 +1,33 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { formatDistanceToNowStrict } from 'date-fns';
-import { MessageSquare, Users } from 'lucide-react';
+import { formatDistanceToNowStrict, differenceInMinutes } from 'date-fns';
+import { MessageSquare, Users, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 
 const STATUS_DISPLAY: Record<string, { emoji: string; label: string }> = {
   looking_for_buddy: { emoji: '🤝', label: 'Looking for a Buddy' },
-  splitting_app: { emoji: '🥨', label: 'Splitting an App' },
-  carbing_up: { emoji: '🍺', label: 'Carbing Up' },
+  splitting_app: { emoji: '🥨', label: 'Appetizer Wingman' },
+  carbing_up: { emoji: '🍺', label: 'Carb Load' },
+  victory_round: { emoji: '🏆', label: 'Victory Round' },
   checkin: { emoji: '📍', label: 'Checked in' },
 };
+
+/** Returns today's 4:00 AM CST cutoff. If it's before 4 AM, use yesterday's. */
+function getTodayCutoff(): string {
+  const now = new Date();
+  // Build "today 10:00 UTC" which is 4:00 AM CST (UTC-6)
+  const cutoff = new Date(Date.UTC(
+    now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 10, 0, 0,
+  ));
+  // If we haven't passed today's cutoff yet, use yesterday's
+  if (now < cutoff) cutoff.setUTCDate(cutoff.getUTCDate() - 1);
+  return cutoff.toISOString();
+}
 
 interface FeedItem {
   id: string;
@@ -29,17 +43,41 @@ interface FeedItem {
 export function BleacherBarometer() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [visibleItems, setVisibleItems] = useState<FeedItem[]>([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Pull-to-refresh handler
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    await queryClient.invalidateQueries({ queryKey: ['bleacher-barometer-feed'] });
+    // Brief visual delay so user sees the spin
+    setTimeout(() => setIsRefreshing(false), 600);
+  }, [queryClient]);
+
+  // Touch-based pull-to-refresh
+  const [touchStart, setTouchStart] = useState(0);
+  const onTouchStart = (e: React.TouchEvent) => setTouchStart(e.touches[0].clientY);
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const delta = e.changedTouches[0].clientY - touchStart;
+    if (delta > 80) handleRefresh();
+  };
 
   const { data: feedItems } = useQuery({
     queryKey: ['bleacher-barometer-feed'],
     queryFn: async () => {
       const now = new Date().toISOString();
+      const cutoff = getTodayCutoff();
+      // Use the later of: 12h ago or today's 4 AM CST
+      const twelveHoursAgo = new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString();
+      const effectiveCutoff = cutoff > twelveHoursAgo ? cutoff : twelveHoursAgo;
+
       const { data: checkins, error } = await supabase
         .from('bar_checkins')
         .select('id, user_id, bar_name, status, custom_message, checked_in_at, visibility')
         .eq('visibility', 'visible')
         .gt('expires_at', now)
+        .gt('checked_in_at', effectiveCutoff)
         .order('checked_in_at', { ascending: false })
         .limit(20);
 
@@ -90,30 +128,60 @@ export function BleacherBarometer() {
     navigate(`/messages?to=${item.user_id}`);
   };
 
+  const isLive = (checkedInAt: string) => differenceInMinutes(new Date(), new Date(checkedInAt)) < 60;
+
   if (!user) return null;
 
   return (
-    <section className="space-y-3">
+    <section
+      className="space-y-3"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[hsl(142,71%,45%)]" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[hsl(142,71%,45%)]" />
           </span>
           <h2 className="text-sm font-bold text-foreground tracking-tight">The Bleacher Barometer</h2>
         </div>
-        {activeCount > 0 && (
-          <div className="flex items-center gap-1 text-[10px] font-bold text-primary bg-primary/10 rounded-full px-2 py-0.5">
-            <Users className="h-3 w-3" />
-            {activeCount} active
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          {activeCount > 0 && (
+            <div className="flex items-center gap-1 text-[10px] font-bold text-primary bg-primary/10 rounded-full px-2 py-0.5">
+              <Users className="h-3 w-3" />
+              {activeCount} active
+            </div>
+          )}
+          <button
+            onClick={handleRefresh}
+            className="p-1 rounded-full hover:bg-muted/60 transition-colors"
+            aria-label="Refresh feed"
+          >
+            <RefreshCw className={`h-3.5 w-3.5 text-muted-foreground ${isRefreshing ? 'animate-spin' : ''}`} />
+          </button>
+        </div>
       </div>
 
       <p className="text-[11px] text-muted-foreground">
-        See what fans are doing around Wrigleyville right now.
+        See what fans are doing around Wrigleyville right now. Resets every morning at 4 AM.
       </p>
+
+      {/* Pull indicator */}
+      <AnimatePresence>
+        {isRefreshing && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 32, opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="flex items-center justify-center"
+          >
+            <RefreshCw className="h-4 w-4 text-primary animate-spin" />
+            <span className="text-[11px] text-muted-foreground ml-1.5">Updating…</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* CTA Banner */}
       {activeCount === 0 && (
@@ -130,6 +198,7 @@ export function BleacherBarometer() {
           {visibleItems.map((item) => {
             const statusMeta = STATUS_DISPLAY[item.status] || STATUS_DISPLAY.checkin;
             const isMe = item.user_id === user?.id;
+            const live = isLive(item.checked_in_at);
 
             return (
               <motion.div
@@ -144,19 +213,34 @@ export function BleacherBarometer() {
                 <div className="rounded-xl border border-border bg-card p-3 space-y-2">
                   {/* Top row */}
                   <div className="flex items-center gap-2.5">
-                    <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center overflow-hidden shrink-0">
-                      {item.profile_photo ? (
-                        <img src={item.profile_photo} alt="" className="h-full w-full object-cover" />
-                      ) : (
-                        <span className="text-sm">⚾</span>
+                    <div className="relative h-8 w-8 shrink-0">
+                      <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center overflow-hidden">
+                        {item.profile_photo ? (
+                          <img src={item.profile_photo} alt="" className="h-full w-full object-cover" />
+                        ) : (
+                          <span className="text-sm">⚾</span>
+                        )}
+                      </div>
+                      {live && (
+                        <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[hsl(142,71%,45%)]" />
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-[hsl(142,71%,45%)] border-2 border-card" />
+                        </span>
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-foreground leading-snug">
-                        <span className="font-bold">{isMe ? 'You' : item.display_name}</span>
-                        {' '}is at{' '}
-                        <span className="font-bold text-primary">{item.bar_name}</span>
-                      </p>
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-xs text-foreground leading-snug truncate">
+                          <span className="font-bold">{isMe ? 'You' : item.display_name}</span>
+                          {' '}at{' '}
+                          <span className="font-bold text-primary">{item.bar_name}</span>
+                        </p>
+                        {live && (
+                          <Badge variant="outline" className="shrink-0 h-4 px-1.5 text-[9px] font-bold border-[hsl(142,71%,45%)]/40 text-[hsl(142,71%,45%)] bg-[hsl(142,71%,45%)]/10">
+                            LIVE
+                          </Badge>
+                        )}
+                      </div>
                       <div className="flex items-center gap-1.5 mt-0.5">
                         <span className="text-xs">{statusMeta.emoji}</span>
                         <span className="text-[10px] font-semibold text-muted-foreground">{statusMeta.label}</span>
@@ -194,7 +278,7 @@ export function BleacherBarometer() {
         </AnimatePresence>
       </div>
 
-      {/* Contextual CTAs between items */}
+      {/* Contextual CTAs */}
       {activeCount > 0 && activeCount < 5 && (
         <div className="rounded-xl bg-primary/5 border border-primary/20 p-3 text-center">
           <p className="text-xs font-bold text-foreground">Don't fly solo. Find a Buddy at the bar. 🤝</p>

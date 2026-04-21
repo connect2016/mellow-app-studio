@@ -104,6 +104,8 @@ export default function BeerMoney() {
   const [showCelebration, setShowCelebration] = useState(false);
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<'send' | 'feed' | 'leaderboard'>('send');
+  const [showNonUserSend, setShowNonUserSend] = useState(false);
+  const [claimLinkUrl, setClaimLinkUrl] = useState('');
 
   // Nearby fans
   const { data: nearbyFans } = useQuery({

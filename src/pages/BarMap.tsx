@@ -185,6 +185,7 @@ export default function BarMap() {
       </section>
 
       {isGuest && <GuestBanner />}
+      <BeerFomoToast activities={beerActivities} />
     </div>
   );
 }

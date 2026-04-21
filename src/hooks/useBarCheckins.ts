@@ -10,6 +10,8 @@ export interface BarCheckin {
   visibility: 'visible' | 'incognito';
   checked_in_at: string;
   expires_at: string;
+  status?: string;
+  custom_message?: string | null;
 }
 
 export function useBarCheckins(barName?: string) {
@@ -57,7 +59,7 @@ export function useBarCheckins(barName?: string) {
   });
 
   const checkIn = useMutation({
-    mutationFn: async ({ barName, visibility }: { barName: string; visibility: 'visible' | 'incognito' }) => {
+    mutationFn: async ({ barName, visibility, status, customMessage }: { barName: string; visibility: 'visible' | 'incognito'; status?: string; customMessage?: string }) => {
       if (!user) throw new Error('Not authenticated');
 
       // Delete any existing active check-in first
@@ -68,13 +70,17 @@ export function useBarCheckins(barName?: string) {
         .eq('user_id', user.id)
         .gt('expires_at', now);
 
+      const insertData: any = {
+        user_id: user.id,
+        bar_name: barName,
+        visibility,
+      };
+      if (status) insertData.status = status;
+      if (customMessage) insertData.custom_message = customMessage;
+
       const { data, error } = await supabase
         .from('bar_checkins')
-        .insert({
-          user_id: user.id,
-          bar_name: barName,
-          visibility,
-        })
+        .insert(insertData)
         .select()
         .single();
 

@@ -97,14 +97,14 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="mt-4 text-[2rem] sm:text-[2.75rem] md:text-[3rem] font-bold uppercase text-center leading-tight"
+          className="mt-4 text-[1.75rem] sm:text-[2.25rem] md:text-[2.75rem] font-bold uppercase text-center leading-tight"
           style={{
-            fontFamily: "'Bungee', cursive",
+            fontFamily: "'Bungee Shade', 'Bungee', cursive",
             color: '#0E3386',
-            WebkitTextStroke: '2px #fff',
+            WebkitTextStroke: '1.5px #fff',
             paintOrder: 'stroke fill',
             textShadow:
-              '3px 3px 0 rgba(0,0,0,0.7), 4px 4px 0 rgba(0,0,0,0.3)',
+              '3px 3px 0 rgba(0,0,0,0.65), 4px 4px 0 rgba(0,0,0,0.25)',
             letterSpacing: '2px',
           }}
         >

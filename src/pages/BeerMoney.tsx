@@ -480,28 +480,7 @@ export default function BeerMoney() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
 
             {/* ── LIVE SOCIAL PROOF TICKER ── */}
-            <div className="overflow-hidden rounded-xl border border-border bg-card/60">
-              <div className="flex items-center gap-2 px-3 py-2 border-b border-border/50">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                </span>
-                <p className="text-[11px] font-semibold text-foreground">Happening now in Wrigleyville</p>
-              </div>
-              <div className="divide-y divide-border/30">
-                {MOCK_FEED.slice(0, 3).map((a, i) => (
-                  <div key={i} className="flex items-center gap-2 px-3 py-2">
-                    <span className="text-sm">{a.emoji}</span>
-                    <p className="flex-1 text-[11px] text-muted-foreground">
-                      <span className="font-semibold text-foreground">{a.from}</span> bought{' '}
-                      <span className="font-semibold text-foreground">{a.to}</span> a beer at{' '}
-                      <span className="font-semibold text-foreground">{a.bar}</span>
-                    </p>
-                    <span className="text-[10px] text-muted-foreground shrink-0">{a.time}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <LiveBeerProof activities={liveActivities} stats={liveStats} variant="compact" />
 
             {/* ── STEP 1: RECIPIENT ── */}
             <section>

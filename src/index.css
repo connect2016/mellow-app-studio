@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Atlanta College';
+  src: url('/fonts/Atlanta-College.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== ACCESSIBILITY: Global minimum body text ===== */
 html {
   font-size: 16px;

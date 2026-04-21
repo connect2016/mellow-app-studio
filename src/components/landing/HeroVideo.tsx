@@ -97,9 +97,9 @@ export default function HeroVideo() {
         />
 
         <h1
-          className="mt-4 text-[1.75rem] sm:text-[2.25rem] md:text-[2.75rem] font-bold uppercase text-center leading-tight"
+          className="mt-4 text-[2rem] sm:text-[2.75rem] md:text-[3.25rem] font-bold uppercase text-center leading-tight"
           style={{
-            fontFamily: "'Bungee Shade', 'Bungee', cursive",
+            fontFamily: "'Atlanta College', 'Bungee', cursive",
             color: '#0E3386',
             WebkitTextStroke: '1.5px #fff',
             paintOrder: 'stroke fill',

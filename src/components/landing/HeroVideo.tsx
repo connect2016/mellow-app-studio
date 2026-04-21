@@ -99,12 +99,11 @@ export default function HeroVideo() {
         <h1
           className="mt-4 text-[2rem] sm:text-[2.75rem] md:text-[3.25rem] font-bold uppercase text-center leading-tight"
           style={{
-            fontFamily: "'Wildcat College', cursive",
+            fontFamily: "'Tropika Island', cursive",
             color: '#1A4DB5',
-            WebkitTextStroke: '2.5px #fff',
+            WebkitTextStroke: '1.5px #fff',
             paintOrder: 'stroke fill',
-            textShadow:
-              '3px 3px 0 rgba(0,0,0,0.65), 4px 4px 0 rgba(0,0,0,0.25)',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
             letterSpacing: '2px',
           }}
         >

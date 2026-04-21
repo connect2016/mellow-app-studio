@@ -45,6 +45,7 @@ import Meetups from "./pages/Meetups";
 import MeetupDetail from "./pages/MeetupDetail";
 import NotFound from "./pages/NotFound";
 import ClaimBeer from "./pages/ClaimBeer";
+import WrigleyvilleEats from "./pages/WrigleyvilleEats";
 import { preloadReactionImages } from "@/lib/reaction-cache";
 
 // Preload reaction images on app boot for instant rendering
@@ -101,6 +102,7 @@ const App = () => (
             <Route path="/meetups" element={<Meetups />} />
              <Route path="/meetups/:id" element={<MeetupDetail />} />
              <Route path="/claim/:code" element={<ClaimBeer />} />
+             <Route path="/eats" element={<WrigleyvilleEats />} />
              <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>

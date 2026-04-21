@@ -159,6 +159,32 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
           )}
         </div>
 
+        {/* Quick Beer CTA */}
+        <div className="px-5 pb-3 flex items-center gap-2">
+          <Button
+            size="sm"
+            className="flex-1 h-9 rounded-xl gap-1.5 text-xs font-bold bg-amber-500 hover:bg-amber-600 text-amber-950"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onSendBeer) {
+                onSendBeer(bar.name);
+              }
+            }}
+            asChild={!onSendBeer}
+          >
+            {onSendBeer ? (
+              <span><Beer className="h-3.5 w-3.5" /> Buy a Beer Here 🍺</span>
+            ) : (
+              <Link to={`/beer-money?bar=${encodeURIComponent(bar.name)}`}>
+                <Beer className="h-3.5 w-3.5" /> Buy a Beer Here 🍺
+              </Link>
+            )}
+          </Button>
+          <Button asChild size="sm" variant="outline" className="h-9 rounded-xl text-xs">
+            <Link to={`/check-in?bar=${encodeURIComponent(bar.name)}`}>Check in</Link>
+          </Button>
+        </div>
+
         {/* Expand toggle */}
         <button
           onClick={() => setOpen((o) => !o)}

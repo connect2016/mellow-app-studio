@@ -6,9 +6,10 @@ import { useBarCheckins } from '@/hooks/useBarCheckins';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const STATUS_OPTIONS = [
-  { key: 'looking_for_buddy', emoji: '🤝', label: 'Looking for a Buddy' },
-  { key: 'splitting_app', emoji: '🥨', label: 'Splitting an App' },
-  { key: 'carbing_up', emoji: '🍺', label: 'Carbing Up' },
+  { key: 'looking_for_buddy', emoji: '🤝', label: 'Looking for a Buddy', quickMsg: 'Looking for someone to hang with!' },
+  { key: 'splitting_app', emoji: '🥨', label: 'Appetizer Wingman', quickMsg: 'Looking for someone to split an appetizer!' },
+  { key: 'carbing_up', emoji: '🍺', label: 'Carb Load', quickMsg: 'Time to carb up before the first pitch!' },
+  { key: 'victory_round', emoji: '🏆', label: 'Victory Round', quickMsg: 'Cubs Win! Who is grabbing a round nearby?' },
 ] as const;
 
 interface Props {
@@ -51,6 +52,18 @@ export function EatsCheckInButton({ spotName }: Props) {
     );
   }
 
+  const handleQuickPost = (opt: typeof STATUS_OPTIONS[number]) => {
+    checkIn.mutate(
+      {
+        barName: spotName,
+        visibility: 'visible',
+        status: opt.key,
+        customMessage: opt.quickMsg,
+      },
+      { onSuccess: () => { setStep('idle'); setSelectedStatus(''); setCustomMessage(''); } },
+    );
+  };
+
   const handleCheckin = () => {
     checkIn.mutate(
       {
@@ -77,14 +90,24 @@ export function EatsCheckInButton({ spotName }: Props) {
             <p className="text-xs font-semibold text-foreground text-center">What's the move?</p>
             <div className="flex flex-col gap-1.5">
               {STATUS_OPTIONS.map((opt) => (
-                <button
-                  key={opt.key}
-                  onClick={() => { setSelectedStatus(opt.key); setStep('message'); }}
-                  className="flex items-center gap-2 rounded-xl border border-border bg-card hover:border-primary/50 hover:bg-primary/5 p-2.5 text-left transition-all"
-                >
-                  <span className="text-lg">{opt.emoji}</span>
-                  <span className="text-xs font-semibold text-foreground">{opt.label}</span>
-                </button>
+                <div key={opt.key} className="flex items-center gap-1.5">
+                  <button
+                    onClick={() => { setSelectedStatus(opt.key); setCustomMessage(''); setStep('message'); }}
+                    className="flex-1 flex items-center gap-2 rounded-xl border border-border bg-card hover:border-primary/50 hover:bg-primary/5 p-2.5 text-left transition-all"
+                  >
+                    <span className="text-lg">{opt.emoji}</span>
+                    <span className="text-xs font-semibold text-foreground">{opt.label}</span>
+                  </button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-9 px-2 text-[10px] font-bold text-primary shrink-0"
+                    onClick={() => handleQuickPost(opt)}
+                    disabled={checkIn.isPending}
+                  >
+                    ⚡ Post
+                  </Button>
+                </div>
               ))}
             </div>
             <button onClick={() => setStep('idle')} className="text-[11px] text-muted-foreground hover:text-foreground w-full text-center">
@@ -122,8 +145,8 @@ export function EatsCheckInButton({ spotName }: Props) {
                 disabled={checkIn.isPending}
               >
                 <span className="relative flex h-2 w-2 mr-1">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[hsl(var(--primary))]" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[hsl(var(--primary))]" />
                 </span>
                 Go Live
               </Button>

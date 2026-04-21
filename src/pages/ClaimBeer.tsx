@@ -356,43 +356,122 @@ export default function ClaimBeer() {
             </motion.div>
           )}
 
-          {/* STEP: DONE — viral loop */}
+          {/* STEP: DONE — reciprocity loop */}
           {step === 'done' && (
             <motion.div
               key="done"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="space-y-4"
+              className="space-y-5"
             >
-              <div className="text-center">
+              {/* Celebration */}
+              <div className="text-center relative">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute rounded-full"
+                    style={{
+                      width: Math.random() * 8 + 4,
+                      height: Math.random() * 8 + 4,
+                      left: `${10 + Math.random() * 80}%`,
+                      top: `${20 + Math.random() * 60}%`,
+                      background: ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'][i % 6],
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{
+                      opacity: [0, 1, 1, 0],
+                      scale: [0, 1.5, 1, 0],
+                      y: [0, -(Math.random() * 80 + 40)],
+                    }}
+                    transition={{ duration: 2, delay: Math.random() * 0.5, ease: 'easeOut' }}
+                  />
+                ))}
                 <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
+                  initial={{ scale: 0, rotate: -20 }}
+                  animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: 'spring', stiffness: 200 }}
-                  className="text-5xl mb-2"
+                  className="relative z-10"
                 >
-                  🎉
+                  <div className="flex items-end justify-center gap-0 mb-2">
+                    <motion.span
+                      initial={{ x: -30, rotate: -25 }}
+                      animate={{ x: 0, rotate: -10 }}
+                      transition={{ delay: 0.2, type: 'spring' }}
+                      className="text-5xl"
+                    >🍺</motion.span>
+                    <motion.span
+                      initial={{ y: -20, opacity: 0, scale: 0 }}
+                      animate={{ y: 0, opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.5, type: 'spring' }}
+                      className="text-3xl -mx-1 mb-3"
+                    >💥</motion.span>
+                    <motion.span
+                      initial={{ x: 30, rotate: 25 }}
+                      animate={{ x: 0, rotate: 10 }}
+                      transition={{ delay: 0.2, type: 'spring' }}
+                      className="text-5xl"
+                    >🍺</motion.span>
+                  </div>
                 </motion.div>
-                <h2 className="text-lg font-bold text-foreground mb-1">Cheers! Enjoy your drink!</h2>
-                <p className="text-sm text-muted-foreground">Now pay it forward — the best rounds are shared.</p>
+                <h2 className="text-xl font-bold text-foreground mb-1">Cheers! 🎉</h2>
+                <p className="text-sm text-muted-foreground">
+                  {claim.senderName} just made your day — now make someone else's.
+                </p>
               </div>
 
-              {/* Pay it forward CTA */}
-              <Button
-                onClick={() => navigate('/beer-money')}
-                className="w-full rounded-2xl py-5 text-base font-semibold gap-2 shadow-lg shadow-primary/20"
+              {/* Primary reciprocity CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="rounded-2xl border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent p-5 text-center"
               >
-                <Beer className="h-5 w-5" /> Buy Someone a Beer
-              </Button>
+                <p className="text-lg mb-1">🔄</p>
+                <h3 className="text-base font-bold text-foreground mb-1">
+                  Return the Favor?
+                </h3>
+                <p className="text-xs text-muted-foreground mb-4">
+                  {claim.senderName} bought you a ${claim.amount} drink. Keep the good vibes rolling — buy them one back or send a round to another fan!
+                </p>
+                <div className="flex flex-col gap-2">
+                  <Button
+                    onClick={() => navigate('/beer-money')}
+                    className="w-full rounded-2xl py-5 text-base font-semibold gap-2 bg-amber-500 hover:bg-amber-600 text-amber-950 shadow-lg shadow-amber-500/20"
+                  >
+                    <Beer className="h-5 w-5" /> Buy {claim.senderName.split(' ')[0]} a Beer Back 🍻
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate('/beer-money')}
+                    className="w-full rounded-xl gap-2 text-sm"
+                  >
+                    <PartyPopper className="h-4 w-4" /> Send to Someone Else
+                  </Button>
+                </div>
+              </motion.div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant="outline"
-                  className="rounded-xl gap-1.5 text-xs"
-                  onClick={() => navigate('/discover')}
-                >
-                  <Sparkles className="h-3.5 w-3.5" /> Explore App
-                </Button>
+              {/* Social proof nudge */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.0 }}
+                className="flex items-center justify-center gap-2 text-[11px] text-muted-foreground"
+              >
+                <div className="flex -space-x-1.5">
+                  {['🧑', '👩', '🧔', '👨'].map((e, i) => (
+                    <span key={i} className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[10px] ring-1 ring-card">{e}</span>
+                  ))}
+                </div>
+                <span>72% of fans buy a beer back within 10 minutes</span>
+              </motion.div>
+
+              {/* Secondary nav */}
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 }}
+                className="grid grid-cols-2 gap-2"
+              >
                 <Button
                   variant="outline"
                   className="rounded-xl gap-1.5 text-xs"
@@ -400,14 +479,27 @@ export default function ClaimBeer() {
                 >
                   <MapPin className="h-3.5 w-3.5" /> Beer Map
                 </Button>
-              </div>
+                <Button
+                  variant="outline"
+                  className="rounded-xl gap-1.5 text-xs"
+                  onClick={() => navigate('/discover')}
+                >
+                  <Sparkles className="h-3.5 w-3.5" /> Explore App
+                </Button>
+              </motion.div>
 
-              <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
-                <p className="text-xs font-bold text-foreground mb-1">🏆 You're now a Cubbie Buddy!</p>
+              {/* Profile nudge */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5 }}
+                className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center"
+              >
+                <p className="text-xs font-bold text-foreground mb-1">🏆 You're a Cubbie Buddy now!</p>
                 <p className="text-[11px] text-muted-foreground">
-                  Complete your profile to unlock meetups, missions, and more.
+                  Complete your profile to unlock meetups, missions, and earn Ivy Leaves.
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

@@ -158,17 +158,22 @@ export default function BarMap() {
             const venue = (venueByName as any)[bar.name];
             const summary = getSummary(bar.name);
             return (
-              <CuratedBarCard
-                key={bar.id}
-                bar={bar}
-                index={idx}
-                liveCheckins={checkinCounts[bar.name] || venue?.totalUsers || 0}
-                liveCrowdLevel={venue?.crowdLevel}
-                liveVibe={venue?.dominantVibe}
-                liveWait={summary.topWait ? WAIT_LABELS[summary.topWait] : undefined}
-                meetupCount={venue?.meetups?.length || 0}
-                isEditorPick={EDITOR_PICKS.has(bar.id)}
-              />
+              <div key={bar.id}>
+                <CuratedBarCard
+                  bar={bar}
+                  index={idx}
+                  liveCheckins={checkinCounts[bar.name] || venue?.totalUsers || 0}
+                  liveCrowdLevel={venue?.crowdLevel}
+                  liveVibe={venue?.dominantVibe}
+                  liveWait={summary.topWait ? WAIT_LABELS[summary.topWait] : undefined}
+                  meetupCount={venue?.meetups?.length || 0}
+                  isEditorPick={EDITOR_PICKS.has(bar.id)}
+                />
+                {/* Beer activity badge inline */}
+                <div className="mt-1 ml-2">
+                  <BarBeerBadge barName={bar.name} activities={beerActivities} />
+                </div>
+              </div>
             );
           })
         )}

@@ -49,8 +49,10 @@ export type Database = {
           bar_name: string
           checked_in_at: string
           created_at: string
+          custom_message: string | null
           expires_at: string
           id: string
+          status: string
           user_id: string
           visibility: string
         }
@@ -58,8 +60,10 @@ export type Database = {
           bar_name: string
           checked_in_at?: string
           created_at?: string
+          custom_message?: string | null
           expires_at?: string
           id?: string
+          status?: string
           user_id: string
           visibility?: string
         }
@@ -67,8 +71,10 @@ export type Database = {
           bar_name?: string
           checked_in_at?: string
           created_at?: string
+          custom_message?: string | null
           expires_at?: string
           id?: string
+          status?: string
           user_id?: string
           visibility?: string
         }

@@ -11,6 +11,8 @@ import { Badge } from '@/components/ui/badge';
 import { AppHeader } from '@/components/AppHeader';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
+import { EatsCheckInButton } from '@/components/eats/EatsCheckInButton';
+import { BleacherBarometer } from '@/components/eats/BleacherBarometer';
 import {
   FOOD_SPOTS,
   CATEGORY_META,
@@ -182,6 +184,11 @@ export default function WrigleyvilleEats() {
         )}
       </div>
 
+      {/* Bleacher Barometer */}
+      <section className="max-w-3xl mx-auto px-4 mb-5">
+        <BleacherBarometer />
+      </section>
+
       {/* Results */}
       <section className="max-w-3xl mx-auto px-4 space-y-3">
         {sorted.length === 0 ? (
@@ -323,6 +330,9 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
       </div>
 
       {/* CTAs */}
+      <div className="px-5 pb-3">
+        <EatsCheckInButton spotName={spot.name} />
+      </div>
       <div className="px-5 pb-4 flex gap-2">
         <Button
           size="sm"

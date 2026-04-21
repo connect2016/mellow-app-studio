@@ -108,6 +108,7 @@ export default function BeerMoney() {
   const [activeTab, setActiveTab] = useState<'send' | 'feed' | 'leaderboard'>('send');
   const [showNonUserSend, setShowNonUserSend] = useState(false);
   const [claimLinkUrl, setClaimLinkUrl] = useState('');
+  const { activities: liveActivities, stats: liveStats } = useLiveBeerFeed();
 
   // Nearby fans
   const { data: nearbyFans } = useQuery({

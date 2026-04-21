@@ -326,21 +326,38 @@ export default function BeerMoney() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.4 }}
-                className="mt-6 flex flex-col gap-2"
+                className="mt-6 flex flex-col gap-2 w-full max-w-xs"
               >
+                {/* Reciprocity nudge */}
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.8 }}
+                  className="text-xs text-primary-foreground/60 text-center mb-1"
+                >
+                  🔄 72% of fans send a beer back — keep the streak going!
+                </motion.p>
+                <Button
+                  onClick={() => { setShowCelebration(false); navigate('/beer-money'); }}
+                  variant="secondary"
+                  className="rounded-2xl gap-2 text-sm font-semibold w-full"
+                >
+                  <Beer className="h-4 w-4" />
+                  Buy Another Round 🍻
+                </Button>
                 <Button
                   onClick={handleShare}
-                  variant="secondary"
-                  className="rounded-2xl gap-2 text-sm font-semibold"
+                  variant="ghost"
+                  className="rounded-2xl gap-2 text-sm font-semibold text-primary-foreground/80 hover:text-primary-foreground w-full"
                 >
                   <Share2 className="h-4 w-4" />
                   Share & Invite Friends
                 </Button>
                 <button
-                  onClick={() => { setShowCelebration(false); navigate('/beer-money'); }}
-                  className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors"
+                  onClick={() => { setShowCelebration(false); navigate('/bar-map'); }}
+                  className="text-xs text-primary-foreground/50 hover:text-primary-foreground transition-colors"
                 >
-                  Buy another round →
+                  Back to Beer Map →
                 </button>
               </motion.div>
             </motion.div>

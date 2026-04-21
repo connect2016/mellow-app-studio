@@ -27,6 +27,7 @@ export default function BarMap() {
   const { data: venues } = useVenueActivity();
   const { checkins } = useBarCheckins();
   const { getSummary } = useBarVotes();
+  const { activities: beerActivities, stats: beerStats } = useLiveBeerFeed();
 
   const [vibes, setVibes] = useState<BarVibe[]>([]);
   const [groups, setGroups] = useState<BarGroupFit[]>([]);

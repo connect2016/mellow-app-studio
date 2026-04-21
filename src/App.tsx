@@ -44,6 +44,7 @@ import PubCrawl from "./pages/PubCrawl";
 import Meetups from "./pages/Meetups";
 import MeetupDetail from "./pages/MeetupDetail";
 import NotFound from "./pages/NotFound";
+import ClaimBeer from "./pages/ClaimBeer";
 import { preloadReactionImages } from "@/lib/reaction-cache";
 
 // Preload reaction images on app boot for instant rendering
@@ -98,8 +99,9 @@ const App = () => (
             <Route path="/venues" element={<Venues />} />
             <Route path="/pub-crawl" element={<PubCrawl />} />
             <Route path="/meetups" element={<Meetups />} />
-            <Route path="/meetups/:id" element={<MeetupDetail />} />
-            <Route path="*" element={<NotFound />} />
+             <Route path="/meetups/:id" element={<MeetupDetail />} />
+             <Route path="/claim/:code" element={<ClaimBeer />} />
+             <Route path="*" element={<NotFound />} />
           </Routes>
           </GamedayModeProvider>
           </GuestModeProvider>

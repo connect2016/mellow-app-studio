@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Beer, ChevronRight, Map as MapIcon, Sparkles } from 'lucide-react';
+import { Beer, ChevronRight, Map as MapIcon, Sparkles, Flame } from 'lucide-react';
+import { LiveBeerProof, BarBeerBadge, BeerFomoToast } from '@/components/beer/LiveBeerProof';
+import { useLiveBeerFeed } from '@/hooks/useLiveBeerFeed';
 import { AppHeader } from '@/components/AppHeader';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';

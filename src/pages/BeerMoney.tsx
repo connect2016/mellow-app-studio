@@ -984,6 +984,9 @@ export default function BeerMoney() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* FOMO toast for new beer activity */}
+      <BeerFomoToast activities={liveActivities} />
     </DynamicBackground>
   );
 }

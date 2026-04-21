@@ -10,6 +10,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Wildcat College';
+  src: url('/fonts/Wildcat-College.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== ACCESSIBILITY: Global minimum body text ===== */
 html {
   font-size: 16px;

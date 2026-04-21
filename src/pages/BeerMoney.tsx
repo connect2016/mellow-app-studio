@@ -413,46 +413,7 @@ export default function BeerMoney() {
         {/* ===== TAB: LIVE FEED ===== */}
         {activeTab === 'feed' && (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              <p className="text-xs font-bold text-foreground">Live beer transactions</p>
-            </div>
-
-            {MOCK_FEED.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.08 }}
-                className="rounded-xl border border-border bg-card/60 p-3"
-              >
-                <div className="flex items-start gap-2.5">
-                  <span className="text-xl">{item.emoji}</span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-foreground">
-                      <span className="font-bold">{item.from}</span>
-                      {' → '}
-                      <span className="font-bold">{item.to}</span>
-                    </p>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
-                        <MapPin className="h-2.5 w-2.5" /> {item.bar}
-                      </span>
-                    </div>
-                    {item.msg && (
-                      <p className="mt-1 text-[11px] text-muted-foreground italic">"{item.msg}"</p>
-                    )}
-                  </div>
-                  <div className="text-right shrink-0">
-                    <p className="text-xs font-bold text-primary">${item.amount}</p>
-                    <p className="text-[9px] text-muted-foreground">{item.time}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+            <LiveBeerProof activities={liveActivities} stats={liveStats} variant="full" />
 
             {/* CTA at bottom of feed */}
             <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">

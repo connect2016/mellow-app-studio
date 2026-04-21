@@ -36,6 +36,8 @@ import { useQuery } from '@tanstack/react-query';
 import { findParticipatingBar, PARTICIPATING_BARS, type ParticipatingBar } from '@/lib/wrigleyville-bar-coords';
 import { BarLocationPreview } from '@/components/BarLocationPreview';
 import { SendToNonUserPanel } from '@/components/beer/SendToNonUserPanel';
+import { LiveBeerProof, BeerFomoToast } from '@/components/beer/LiveBeerProof';
+import { useLiveBeerFeed } from '@/hooks/useLiveBeerFeed';
 
 /* ─── Constants ─── */
 const AMOUNTS = [

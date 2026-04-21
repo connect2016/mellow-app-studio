@@ -35,6 +35,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { findParticipatingBar, PARTICIPATING_BARS, type ParticipatingBar } from '@/lib/wrigleyville-bar-coords';
 import { BarLocationPreview } from '@/components/BarLocationPreview';
+import { SendToNonUserPanel } from '@/components/beer/SendToNonUserPanel';
 
 /* ─── Constants ─── */
 const AMOUNTS = [

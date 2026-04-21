@@ -36,6 +36,8 @@ import { useQuery } from '@tanstack/react-query';
 import { findParticipatingBar, PARTICIPATING_BARS, type ParticipatingBar } from '@/lib/wrigleyville-bar-coords';
 import { BarLocationPreview } from '@/components/BarLocationPreview';
 import { SendToNonUserPanel } from '@/components/beer/SendToNonUserPanel';
+import { LiveBeerProof, BeerFomoToast } from '@/components/beer/LiveBeerProof';
+import { useLiveBeerFeed } from '@/hooks/useLiveBeerFeed';
 
 /* ─── Constants ─── */
 const AMOUNTS = [
@@ -106,6 +108,7 @@ export default function BeerMoney() {
   const [activeTab, setActiveTab] = useState<'send' | 'feed' | 'leaderboard'>('send');
   const [showNonUserSend, setShowNonUserSend] = useState(false);
   const [claimLinkUrl, setClaimLinkUrl] = useState('');
+  const { activities: liveActivities, stats: liveStats } = useLiveBeerFeed();
 
   // Nearby fans
   const { data: nearbyFans } = useQuery({
@@ -370,9 +373,9 @@ export default function BeerMoney() {
         {/* ===== STATS BAR ===== */}
         <div className="mb-4 grid grid-cols-3 gap-2">
           {[
-            { icon: <Beer className="h-3.5 w-3.5" />, label: 'Rounds today', value: '47', color: 'text-primary' },
-            { icon: <Users className="h-3.5 w-3.5" />, label: 'Fans active', value: '23', color: 'text-emerald-500' },
-            { icon: <TrendingUp className="h-3.5 w-3.5" />, label: 'Your rounds', value: '3', color: 'text-amber-500' },
+            { icon: <Beer className="h-3.5 w-3.5" />, label: 'Rounds today', value: String(liveStats.totalRoundsToday), color: 'text-primary' },
+            { icon: <Users className="h-3.5 w-3.5" />, label: 'Fans active', value: String(liveStats.fansActive), color: 'text-emerald-500' },
+            { icon: <TrendingUp className="h-3.5 w-3.5" />, label: 'Bars active', value: String(liveStats.activeBarCount), color: 'text-amber-500' },
           ].map((s, i) => (
             <div key={i} className="rounded-xl border border-border bg-card/60 p-2.5 text-center">
               <div className={`flex items-center justify-center gap-1 ${s.color} mb-0.5`}>
@@ -410,46 +413,7 @@ export default function BeerMoney() {
         {/* ===== TAB: LIVE FEED ===== */}
         {activeTab === 'feed' && (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              <p className="text-xs font-bold text-foreground">Live beer transactions</p>
-            </div>
-
-            {MOCK_FEED.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.08 }}
-                className="rounded-xl border border-border bg-card/60 p-3"
-              >
-                <div className="flex items-start gap-2.5">
-                  <span className="text-xl">{item.emoji}</span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-foreground">
-                      <span className="font-bold">{item.from}</span>
-                      {' → '}
-                      <span className="font-bold">{item.to}</span>
-                    </p>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
-                        <MapPin className="h-2.5 w-2.5" /> {item.bar}
-                      </span>
-                    </div>
-                    {item.msg && (
-                      <p className="mt-1 text-[11px] text-muted-foreground italic">"{item.msg}"</p>
-                    )}
-                  </div>
-                  <div className="text-right shrink-0">
-                    <p className="text-xs font-bold text-primary">${item.amount}</p>
-                    <p className="text-[9px] text-muted-foreground">{item.time}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+            <LiveBeerProof activities={liveActivities} stats={liveStats} variant="full" />
 
             {/* CTA at bottom of feed */}
             <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
@@ -516,28 +480,7 @@ export default function BeerMoney() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
 
             {/* ── LIVE SOCIAL PROOF TICKER ── */}
-            <div className="overflow-hidden rounded-xl border border-border bg-card/60">
-              <div className="flex items-center gap-2 px-3 py-2 border-b border-border/50">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                </span>
-                <p className="text-[11px] font-semibold text-foreground">Happening now in Wrigleyville</p>
-              </div>
-              <div className="divide-y divide-border/30">
-                {MOCK_FEED.slice(0, 3).map((a, i) => (
-                  <div key={i} className="flex items-center gap-2 px-3 py-2">
-                    <span className="text-sm">{a.emoji}</span>
-                    <p className="flex-1 text-[11px] text-muted-foreground">
-                      <span className="font-semibold text-foreground">{a.from}</span> bought{' '}
-                      <span className="font-semibold text-foreground">{a.to}</span> a beer at{' '}
-                      <span className="font-semibold text-foreground">{a.bar}</span>
-                    </p>
-                    <span className="text-[10px] text-muted-foreground shrink-0">{a.time}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <LiveBeerProof activities={liveActivities} stats={liveStats} variant="compact" />
 
             {/* ── STEP 1: RECIPIENT ── */}
             <section>
@@ -1041,6 +984,9 @@ export default function BeerMoney() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* FOMO toast for new beer activity */}
+      <BeerFomoToast activities={liveActivities} />
     </DynamicBackground>
   );
 }

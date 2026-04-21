@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Beer, ChevronRight, Map as MapIcon, Sparkles } from 'lucide-react';
+import { Beer, ChevronRight, Map as MapIcon, Sparkles, Flame } from 'lucide-react';
+import { LiveBeerProof, BarBeerBadge, BeerFomoToast } from '@/components/beer/LiveBeerProof';
+import { useLiveBeerFeed } from '@/hooks/useLiveBeerFeed';
 import { AppHeader } from '@/components/AppHeader';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
@@ -25,6 +27,7 @@ export default function BarMap() {
   const { data: venues } = useVenueActivity();
   const { checkins } = useBarCheckins();
   const { getSummary } = useBarVotes();
+  const { activities: beerActivities, stats: beerStats } = useLiveBeerFeed();
 
   const [vibes, setVibes] = useState<BarVibe[]>([]);
   const [groups, setGroups] = useState<BarGroupFit[]>([]);
@@ -119,6 +122,10 @@ export default function BarMap() {
             <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground shrink-0" />
           </Link>
         </div>
+        {/* Live beer activity ticker */}
+        <div className="mt-3">
+          <LiveBeerProof activities={beerActivities} stats={beerStats} variant="ticker" />
+        </div>
       </header>
 
       {/* Filters */}
@@ -151,17 +158,22 @@ export default function BarMap() {
             const venue = (venueByName as any)[bar.name];
             const summary = getSummary(bar.name);
             return (
-              <CuratedBarCard
-                key={bar.id}
-                bar={bar}
-                index={idx}
-                liveCheckins={checkinCounts[bar.name] || venue?.totalUsers || 0}
-                liveCrowdLevel={venue?.crowdLevel}
-                liveVibe={venue?.dominantVibe}
-                liveWait={summary.topWait ? WAIT_LABELS[summary.topWait] : undefined}
-                meetupCount={venue?.meetups?.length || 0}
-                isEditorPick={EDITOR_PICKS.has(bar.id)}
-              />
+              <div key={bar.id}>
+                <CuratedBarCard
+                  bar={bar}
+                  index={idx}
+                  liveCheckins={checkinCounts[bar.name] || venue?.totalUsers || 0}
+                  liveCrowdLevel={venue?.crowdLevel}
+                  liveVibe={venue?.dominantVibe}
+                  liveWait={summary.topWait ? WAIT_LABELS[summary.topWait] : undefined}
+                  meetupCount={venue?.meetups?.length || 0}
+                  isEditorPick={EDITOR_PICKS.has(bar.id)}
+                />
+                {/* Beer activity badge inline */}
+                <div className="mt-1 ml-2">
+                  <BarBeerBadge barName={bar.name} activities={beerActivities} />
+                </div>
+              </div>
             );
           })
         )}
@@ -173,6 +185,7 @@ export default function BarMap() {
       </section>
 
       {isGuest && <GuestBanner />}
+      <BeerFomoToast activities={beerActivities} />
     </div>
   );
 }

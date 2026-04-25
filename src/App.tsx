@@ -11,7 +11,7 @@ import { BucketListPanel } from "@/components/BucketListPanel";
 import { IcebreakerNotifier } from "@/components/IcebreakerNotifier";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
-import Welcome from "./pages/Welcome";
+
 import Onboarding from "./pages/Onboarding";
 import QuickStart from "./pages/QuickStart";
 import Discover from "./pages/Discover";
@@ -68,7 +68,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/welcome" element={<Welcome />} />
+            
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/quick-start" element={<QuickStart />} />
             <Route path="/discover" element={<Discover />} />

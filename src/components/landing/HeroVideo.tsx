@@ -147,7 +147,7 @@ export default function HeroVideo() {
         </p>
 
         <div className="flex flex-col items-center gap-3">
-          <Link to="/welcome">
+          <Link to="/quick-start">
             <Button
               size="lg"
               className="rounded-full bg-secondary px-10 py-4 text-lg font-bold shadow-lg hover:bg-secondary/90"

@@ -99,7 +99,7 @@ export default function HeroVideo() {
         <h1
           className="mt-4 text-[2rem] sm:text-[2.75rem] md:text-[3.25rem] font-bold uppercase text-center leading-tight"
           style={{
-            fontFamily: "'Graduate', serif",
+            fontFamily: "'Legend M54', serif",
             color: '#1A4DB5',
             WebkitTextStroke: '1.5px #fff',
             paintOrder: 'stroke fill',

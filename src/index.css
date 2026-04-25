@@ -18,6 +18,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Legend M54';
+  src: url('/fonts/Legend-M54.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== ACCESSIBILITY: Global minimum body text ===== */
 html {
   font-size: 16px;

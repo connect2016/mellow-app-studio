@@ -217,7 +217,7 @@ export default function Landing() {
             Join 1,200+ fans connecting at Wrigley Field and across Wrigleyville. It takes 30 seconds.
           </p>
           <div className="flex flex-col items-center gap-3">
-            <Link to="/welcome">
+            <Link to="/quick-start">
               <Button
                 size="lg"
                 className="rounded-full bg-secondary px-10 font-bold shadow-lg hover:bg-secondary/90"

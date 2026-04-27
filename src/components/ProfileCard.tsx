@@ -412,15 +412,31 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
 
       {/* Actions */}
       <div className="flex items-center justify-around border-t border-border px-2 py-2.5">
-        <motion.button
-          onClick={handleHiFive}
-          animate={hiFiveAnim ? { scale: [1, 1.4, 1], rotate: [0, -15, 15, 0] } : {}}
-          transition={{ duration: 0.4 }}
-          className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
-        >
-          <span className="text-xl">🖐️</span>
-          <span className="font-medium">Hi-Five</span>
-        </motion.button>
+        <div className="relative">
+          <AnimatePresence>
+            {showHiFiveTooltip && (
+              <motion.div
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                transition={{ duration: 0.2 }}
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 whitespace-nowrap rounded-lg bg-foreground px-3 py-1.5 text-[11px] font-semibold text-background shadow-lg"
+              >
+                Hi-Fives are the easiest way to break the ice.
+                <span className="absolute left-1/2 -bottom-1 -translate-x-1/2 h-2 w-2 rotate-45 bg-foreground" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <motion.button
+            onClick={handleHiFive}
+            animate={hiFiveAnim ? { scale: [1, 1.4, 1], rotate: [0, -15, 15, 0] } : {}}
+            transition={{ duration: 0.4 }}
+            className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+          >
+            <span className="text-xl">🖐️</span>
+            <span className="font-medium">Hi-Five</span>
+          </motion.button>
+        </div>
         <motion.button
           onClick={() => {
             setDogAnim(true);

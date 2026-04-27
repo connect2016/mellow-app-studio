@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MapPin, Clock, Users } from 'lucide-react';
+import { X, MapPin, Clock, Users, Sparkles, Flame, UserPlus, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -124,6 +124,16 @@ export function CreateMeetupModal({ open, onClose }: CreateMeetupModalProps) {
                     className="rounded-xl"
                   />
                 )}
+                {location && location !== '__custom__' && (
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2.5 py-1 text-[11px] font-semibold">
+                      <Sparkles className="h-3 w-3" /> Perfect spot for a pregame crew
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-orange-500/10 text-orange-600 px-2.5 py-1 text-[11px] font-semibold">
+                      <Flame className="h-3 w-3" /> This bar is heating up — great place to host
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Time */}
@@ -173,6 +183,39 @@ export function CreateMeetupModal({ open, onClose }: CreateMeetupModalProps) {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+
+              {/* Boost suggestions */}
+              <div className="pt-2 space-y-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    Boost your meetup
+                  </h4>
+                </div>
+                <p className="text-xs text-muted-foreground italic">
+                  Meetups are the fastest way to find your Wrigleyville crew.
+                </p>
+                <div className="-mx-6 px-6 overflow-x-auto">
+                  <div className="flex gap-3 pb-1 snap-x snap-mandatory">
+                    {[
+                      { icon: UserPlus, text: 'Fans nearby who might want to join', from: 'from-blue-500/15', to: 'to-blue-500/5', accent: 'text-blue-600' },
+                      { icon: Users, text: 'Invite your section', from: 'from-emerald-500/15', to: 'to-emerald-500/5', accent: 'text-emerald-600' },
+                      { icon: Zap, text: 'Start a flash meetup at a nearby bar', from: 'from-orange-500/15', to: 'to-orange-500/5', accent: 'text-orange-600' },
+                    ].map((s, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => toast.info('Coming up next pitch ⚾')}
+                        className={`snap-start shrink-0 w-[220px] min-h-[96px] rounded-2xl border border-border bg-gradient-to-br ${s.from} ${s.to} p-3 text-left hover:border-primary/40 transition-colors`}
+                      >
+                        <div className={`inline-flex items-center justify-center h-8 w-8 rounded-full bg-card ${s.accent} mb-2`}>
+                          <s.icon className="h-4 w-4" />
+                        </div>
+                        <p className="text-sm font-semibold text-foreground leading-snug">{s.text}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 

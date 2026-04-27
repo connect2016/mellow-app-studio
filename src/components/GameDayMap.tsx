@@ -12,6 +12,7 @@ import { QuickActionBar } from './map/QuickActionBar';
 import { useMapClusters, type MapFan } from './map/useMapClusters';
 import { StatusBubbleMarker } from './map/StatusBubbleMarker';
 import { MiniProfileSheet } from './map/MiniProfileSheet';
+import { TapFanHintPill } from './map/TapFanHintPill';
 import { useSendLike } from '@/hooks/useInteractions';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
@@ -63,6 +64,7 @@ function MapContent({ allPositions, heatZones, clusters, soloFans, onTapFan }: M
       {soloFans.map((fan) => (
         <StatusBubbleMarker key={fan.id} fan={fan} onTap={onTapFan} />
       ))}
+      <TapFanHintPill fanCount={soloFans.length} />
     </>
   );
 }

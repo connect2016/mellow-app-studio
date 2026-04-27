@@ -1,11 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Verified, MapPin, ShieldCheck, Clock } from 'lucide-react';
+import { Verified, MapPin, ShieldCheck, Clock, Flame } from 'lucide-react';
 import { UserProfile, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, GamedayIntentType, FanStyleType, FAN_STYLE_OPTIONS } from '@/types';
 import { IntentChip } from './IntentChip';
 import { StatusBadge } from './StatusBadge';
 import { VibeStateBadge } from './VibeStatePanel';
 import { FanTierBadge } from './FanIdentityPanel';
+
+const HIFIVE_TOOLTIP_KEY = 'cb_hifive_tooltip_views';
+const HIFIVE_STREAK_KEY = 'cb_hifive_streak';
+
+function getTodayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function readHiFiveStreak(): number {
+  try {
+    const raw = localStorage.getItem(HIFIVE_STREAK_KEY);
+    if (!raw) return 0;
+    const parsed = JSON.parse(raw);
+    return parsed.date === getTodayKey() ? Number(parsed.count) || 0 : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function bumpHiFiveStreak(): number {
+  const next = readHiFiveStreak() + 1;
+  try {
+    localStorage.setItem(HIFIVE_STREAK_KEY, JSON.stringify({ date: getTodayKey(), count: next }));
+  } catch {}
+  return next;
+}
+
+function streakMessage(count: number): string | null {
+  if (count >= 5) return 'Fans love your energy — keep it going.';
+  if (count >= 3) return `${count} Hi-Fives today — you're on a roll.`;
+  if (count >= 2) return 'Hi-Five streak activated!';
+  return null;
+}
 
 interface ProfileCardProps {
   user: UserProfile;
@@ -70,8 +103,23 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
   const [flyingEmoji, setFlyingEmoji] = useState(false);
   const [flyingDog, setFlyingDog] = useState(false);
   const [showIcebreakers, setShowIcebreakers] = useState(false);
+  const [showHiFiveTooltip, setShowHiFiveTooltip] = useState(false);
+  const [hiFiveStreak, setHiFiveStreak] = useState<number>(() => readHiFiveStreak());
   const activity = getActivityLabel(user);
   const prompts = getPrompts(user).slice(0, 2);
+
+  // Show the Hi-Five hint the first 3 times a profile card mounts
+  useEffect(() => {
+    try {
+      const views = parseInt(localStorage.getItem(HIFIVE_TOOLTIP_KEY) || '0', 10);
+      if (views < 3) {
+        setShowHiFiveTooltip(true);
+        localStorage.setItem(HIFIVE_TOOLTIP_KEY, String(views + 1));
+        const t = setTimeout(() => setShowHiFiveTooltip(false), 4500);
+        return () => clearTimeout(t);
+      }
+    } catch {}
+  }, []);
 
   // Pick 4 random icebreakers, personalized if possible
   const personalizedIcebreakers = (() => {
@@ -98,6 +146,8 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
     setShowIcebreakers(false);
     setHiFiveAnim(true);
     setFlyingEmoji(true);
+    setShowHiFiveTooltip(false);
+    setHiFiveStreak(bumpHiFiveStreak());
     setTimeout(() => setHiFiveAnim(false), 500);
     setTimeout(() => setFlyingEmoji(false), 1000);
     onHiFive?.(message);
@@ -172,7 +222,15 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
         )}
 
         {/* Trust badges - top right */}
-        <div className="absolute top-3 right-3 z-10 flex gap-1.5">
+        <div className="absolute top-3 right-3 z-10 flex gap-1.5 items-center">
+          {hiFiveStreak >= 2 && (
+            <div className="flex items-center gap-1 rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-2 py-0.5 shadow-md animate-fade-in">
+              <Flame className="h-3 w-3 text-white" />
+              <span className="text-[10px] font-bold text-white whitespace-nowrap">
+                {streakMessage(hiFiveStreak)}
+              </span>
+            </div>
+          )}
           {user.is_verified && (
             <div className="flex items-center gap-1 rounded-full bg-primary/80 backdrop-blur-md px-2 py-0.5">
               <ShieldCheck className="h-3 w-3 text-primary-foreground" />
@@ -354,15 +412,31 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
 
       {/* Actions */}
       <div className="flex items-center justify-around border-t border-border px-2 py-2.5">
-        <motion.button
-          onClick={handleHiFive}
-          animate={hiFiveAnim ? { scale: [1, 1.4, 1], rotate: [0, -15, 15, 0] } : {}}
-          transition={{ duration: 0.4 }}
-          className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
-        >
-          <span className="text-xl">🖐️</span>
-          <span className="font-medium">Hi-Five</span>
-        </motion.button>
+        <div className="relative">
+          <AnimatePresence>
+            {showHiFiveTooltip && (
+              <motion.div
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                transition={{ duration: 0.2 }}
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 whitespace-nowrap rounded-lg bg-foreground px-3 py-1.5 text-[11px] font-semibold text-background shadow-lg"
+              >
+                Hi-Fives are the easiest way to break the ice.
+                <span className="absolute left-1/2 -bottom-1 -translate-x-1/2 h-2 w-2 rotate-45 bg-foreground" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <motion.button
+            onClick={handleHiFive}
+            animate={hiFiveAnim ? { scale: [1, 1.4, 1], rotate: [0, -15, 15, 0] } : {}}
+            transition={{ duration: 0.4 }}
+            className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+          >
+            <span className="text-xl">🖐️</span>
+            <span className="font-medium">Hi-Five</span>
+          </motion.button>
+        </div>
         <motion.button
           onClick={() => {
             setDogAnim(true);

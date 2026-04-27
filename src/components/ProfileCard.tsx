@@ -103,8 +103,23 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
   const [flyingEmoji, setFlyingEmoji] = useState(false);
   const [flyingDog, setFlyingDog] = useState(false);
   const [showIcebreakers, setShowIcebreakers] = useState(false);
+  const [showHiFiveTooltip, setShowHiFiveTooltip] = useState(false);
+  const [hiFiveStreak, setHiFiveStreak] = useState<number>(() => readHiFiveStreak());
   const activity = getActivityLabel(user);
   const prompts = getPrompts(user).slice(0, 2);
+
+  // Show the Hi-Five hint the first 3 times a profile card mounts
+  useEffect(() => {
+    try {
+      const views = parseInt(localStorage.getItem(HIFIVE_TOOLTIP_KEY) || '0', 10);
+      if (views < 3) {
+        setShowHiFiveTooltip(true);
+        localStorage.setItem(HIFIVE_TOOLTIP_KEY, String(views + 1));
+        const t = setTimeout(() => setShowHiFiveTooltip(false), 4500);
+        return () => clearTimeout(t);
+      }
+    } catch {}
+  }, []);
 
   // Pick 4 random icebreakers, personalized if possible
   const personalizedIcebreakers = (() => {

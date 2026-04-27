@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Footprints, Flame, Star, Beer } from 'lucide-react';
+import { Sparkles, Footprints, Flame, Star, Beer, type LucideIcon } from 'lucide-react';
 
 type Card = {
   to: string;
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  icon: LucideIcon;
   title: string;
   copy: string;
   gradient: string;

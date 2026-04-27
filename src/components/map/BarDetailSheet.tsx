@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Navigation, Clock, MapPin, Star } from 'lucide-react';
+import { useRef } from 'react';
+import { X, Navigation, Clock, MapPin, Star, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BarCheckInButton } from '@/components/map/BarCheckInButton';
 import { WhosHereNow } from '@/components/map/WhosHereNow';
@@ -33,6 +34,11 @@ const BAR_VIBES: Record<string, { emoji: string; vibe: string; hours: string }> 
 export function BarDetailSheet({ bar, onClose }: Props) {
   const info = bar ? BAR_VIBES[bar.name] : null;
   const { visibleCheckins } = useBarCheckins(bar?.name);
+  const fansListRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToFans = () => {
+    fansListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <AnimatePresence>
@@ -78,8 +84,24 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                 </button>
               </div>
 
+              {/* Primary CTA: Meet Fans at This Bar */}
+              <Button
+                onClick={scrollToFans}
+                className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold mb-4 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg"
+              >
+                <Users className="h-4 w-4" />
+                Meet Fans at This Bar
+                {visibleCheckins.length > 0 && (
+                  <span className="ml-1 px-2 py-0.5 rounded-full bg-white/20 text-[11px]">
+                    {visibleCheckins.length}
+                  </span>
+                )}
+              </Button>
+
               {/* Who's Here Now */}
-              <WhosHereNow checkins={visibleCheckins} />
+              <div ref={fansListRef}>
+                <WhosHereNow checkins={visibleCheckins} />
+              </div>
 
               {/* Info cards */}
               {info && (

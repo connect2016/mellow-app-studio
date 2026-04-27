@@ -146,6 +146,8 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
     setShowIcebreakers(false);
     setHiFiveAnim(true);
     setFlyingEmoji(true);
+    setShowHiFiveTooltip(false);
+    setHiFiveStreak(bumpHiFiveStreak());
     setTimeout(() => setHiFiveAnim(false), 500);
     setTimeout(() => setFlyingEmoji(false), 1000);
     onHiFive?.(message);

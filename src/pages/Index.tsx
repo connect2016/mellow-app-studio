@@ -28,6 +28,7 @@ const Index = () => {
       <AppHeader />
       <div className="mx-auto max-w-lg">
         <FindFansBanner />
+        <HomeQuickCarousel />
       </div>
       <main className="mx-auto max-w-lg px-4 pt-4 pb-24 space-y-4">
         <div>

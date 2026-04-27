@@ -44,6 +44,15 @@ const gamedayIntentCards: { value: GamedayIntentType; label: string; emoji: stri
   { value: 'WrigleyvilleLocal', label: 'Wrigleyville Local', emoji: '🏘️', desc: 'You live in the neighborhood' },
 ];
 
+const vibeChips: { value: string; label: string; emoji: string }[] = [
+  { value: 'new_friends', label: 'Make new friends', emoji: '🤝' },
+  { value: 'pregame_hangs', label: 'Pregame hangs', emoji: '🍻' },
+  { value: 'postgame_food', label: 'Postgame food', emoji: '🍕' },
+  { value: 'open_meeting', label: 'Open to meeting fellow fans', emoji: '👋' },
+  { value: 'crew_tonight', label: 'Looking for a crew tonight', emoji: '⭐' },
+  { value: 'spontaneous', label: 'Down for spontaneous meetups', emoji: '⚡' },
+];
+
 const privacyOptions: { value: PrivacyLevel; label: string; icon: typeof Eye }[] = [
   { value: 'Public', label: 'Everyone', icon: Eye },
   { value: 'MatchesOnly', label: 'Matches Only', icon: Lock },
@@ -72,6 +81,7 @@ export default function Onboarding() {
   const [pronouns, setPronouns] = useState('');
   const [intents, setIntents] = useState<IntentType[]>([]);
   const [gamedayIntents, setGamedayIntents] = useState<GamedayIntentType[]>([]);
+  const [vibeTags, setVibeTags] = useState<string[]>([]);
   const [fanStyles, setFanStyles] = useState<FanStyleType[]>([]);
   const [favoritePlayer, setFavoritePlayer] = useState('');
   const [favoriteMoment, setFavoriteMoment] = useState('');
@@ -400,6 +410,47 @@ export default function Onboarding() {
               {/* Step 2: Intent Selection */}
               {step === 2 && (
                 <div className="space-y-6">
+                  {/* Friendly onboarding header */}
+                  <div className="rounded-2xl bg-card/95 backdrop-blur border border-border px-4 py-4 shadow-sm">
+                    <p className="text-base font-semibold text-foreground leading-snug">
+                      Cubs fans are some of the friendliest in baseball. Let's help you find your crew.
+                    </p>
+                  </div>
+
+                  {/* ── Vibe Chips (multi-select) ── */}
+                  <div className="space-y-3">
+                    <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
+                      <Sparkles className="h-4 w-4" /> Your Vibe
+                    </h3>
+                    <p className="text-xs font-medium text-muted-foreground">Pick anything that fits — multi-select.</p>
+                    <div className="flex flex-wrap gap-2">
+                      {vibeChips.map((chip) => {
+                        const isSelected = vibeTags.includes(chip.value);
+                        return (
+                          <button
+                            key={chip.value}
+                            type="button"
+                            onClick={() =>
+                              setVibeTags((prev) =>
+                                prev.includes(chip.value)
+                                  ? prev.filter((v) => v !== chip.value)
+                                  : [...prev, chip.value]
+                              )
+                            }
+                            className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 min-h-[44px] text-sm font-semibold transition-all ${
+                              isSelected
+                                ? 'border-primary bg-primary text-primary-foreground shadow-sm'
+                                : 'border-border bg-card text-foreground hover:border-primary/40'
+                            }`}
+                          >
+                            <span className="text-base leading-none">{chip.emoji}</span>
+                            <span>{chip.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
                   {/* ── Primary Intent ── */}
                   <div className="space-y-3">
                     <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>

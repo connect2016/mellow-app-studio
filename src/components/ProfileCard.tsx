@@ -222,7 +222,15 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
         )}
 
         {/* Trust badges - top right */}
-        <div className="absolute top-3 right-3 z-10 flex gap-1.5">
+        <div className="absolute top-3 right-3 z-10 flex gap-1.5 items-center">
+          {hiFiveStreak >= 2 && (
+            <div className="flex items-center gap-1 rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-2 py-0.5 shadow-md animate-fade-in">
+              <Flame className="h-3 w-3 text-white" />
+              <span className="text-[10px] font-bold text-white whitespace-nowrap">
+                {streakMessage(hiFiveStreak)}
+              </span>
+            </div>
+          )}
           {user.is_verified && (
             <div className="flex items-center gap-1 rounded-full bg-primary/80 backdrop-blur-md px-2 py-0.5">
               <ShieldCheck className="h-3 w-3 text-primary-foreground" />

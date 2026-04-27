@@ -8,6 +8,7 @@ import { NearbyFansOnline } from '@/components/NearbyFansOnline';
 import { MissionStreak } from '@/components/MissionStreak';
 import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
 import { CubsGameTracker } from '@/components/CubsGameTracker';
+import { FindFansBanner } from '@/components/home/FindFansBanner';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 

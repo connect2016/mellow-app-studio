@@ -123,6 +123,20 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
   border-radius: 12px !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
 }
+
+/* Friendly cluster label tooltip */
+.leaflet-tooltip.cluster-friendly-label {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1.5px solid rgba(14, 51, 134, 0.35);
+  border-radius: 9999px;
+  padding: 4px 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.leaflet-tooltip.cluster-friendly-label::before {
+  display: none;
+}
 .leaflet-popup-tip {
   box-shadow: none !important;
 }

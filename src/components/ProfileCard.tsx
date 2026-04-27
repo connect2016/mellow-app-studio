@@ -1,11 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Verified, MapPin, ShieldCheck, Clock } from 'lucide-react';
+import { Verified, MapPin, ShieldCheck, Clock, Flame } from 'lucide-react';
 import { UserProfile, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI, GamedayIntentType, FanStyleType, FAN_STYLE_OPTIONS } from '@/types';
 import { IntentChip } from './IntentChip';
 import { StatusBadge } from './StatusBadge';
 import { VibeStateBadge } from './VibeStatePanel';
 import { FanTierBadge } from './FanIdentityPanel';
+
+const HIFIVE_TOOLTIP_KEY = 'cb_hifive_tooltip_views';
+const HIFIVE_STREAK_KEY = 'cb_hifive_streak';
+
+function getTodayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function readHiFiveStreak(): number {
+  try {
+    const raw = localStorage.getItem(HIFIVE_STREAK_KEY);
+    if (!raw) return 0;
+    const parsed = JSON.parse(raw);
+    return parsed.date === getTodayKey() ? Number(parsed.count) || 0 : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function bumpHiFiveStreak(): number {
+  const next = readHiFiveStreak() + 1;
+  try {
+    localStorage.setItem(HIFIVE_STREAK_KEY, JSON.stringify({ date: getTodayKey(), count: next }));
+  } catch {}
+  return next;
+}
+
+function streakMessage(count: number): string | null {
+  if (count >= 5) return 'Fans love your energy — keep it going.';
+  if (count >= 3) return `${count} Hi-Fives today — you're on a roll.`;
+  if (count >= 2) return 'Hi-Five streak activated!';
+  return null;
+}
 
 interface ProfileCardProps {
   user: UserProfile;

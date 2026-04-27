@@ -64,6 +64,7 @@ function MapContent({ allPositions, heatZones, clusters, soloFans, onTapFan }: M
       {soloFans.map((fan) => (
         <StatusBubbleMarker key={fan.id} fan={fan} onTap={onTapFan} />
       ))}
+      <TapFanHintPill fanCount={soloFans.length} />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import { Marker, Popup } from 'react-leaflet';
+import { Marker, Popup, Tooltip, useMap } from 'react-leaflet';
 import type { VibeFilter, MovementFilter } from './MapFilters';
 
 export interface MapCluster {
@@ -25,15 +25,42 @@ const MOVEMENT_ARROWS: Record<MovementFilter, string> = {
   leaving: '↘',
 };
 
+const FRIENDLY_LABELS = [
+  'Your future crew is right here.',
+  'Mini-meetup happening here.',
+  'This corner is buzzing.',
+] as const;
+
+function pickLabel(id: string): string {
+  // Stable hash so each cluster keeps the same label across renders
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  return FRIENDLY_LABELS[Math.abs(h) % FRIENDLY_LABELS.length];
+}
+
 function clusterIcon(count: number, vibe: VibeFilter, movement: MovementFilter) {
   const color = VIBE_COLORS[vibe];
   const arrow = MOVEMENT_ARROWS[movement];
   const size = Math.min(28 + count * 4, 56);
   const pulseSize = size + 16;
+  const ringSize = size + 28;
 
   return L.divIcon({
     html: `
       <div style="position:relative;width:${size}px;height:${size}px;">
+        <!-- Outer friendly highlight ring -->
+        <div style="
+          position:absolute;
+          top:50%;left:50%;
+          width:${ringSize}px;height:${ringSize}px;
+          transform:translate(-50%,-50%);
+          border-radius:50%;
+          border:2px solid ${color};
+          opacity:0.55;
+          animation:cluster-pulse 2.4s ease-in-out infinite;
+          box-shadow:0 0 18px ${color}66;
+        "></div>
+        <!-- Inner soft pulse -->
         <div style="
           position:absolute;
           top:50%;left:50%;
@@ -41,8 +68,9 @@ function clusterIcon(count: number, vibe: VibeFilter, movement: MovementFilter) 
           transform:translate(-50%,-50%);
           border-radius:50%;
           background:${color};
-          opacity:0.15;
+          opacity:0.18;
           animation:cluster-pulse 2s ease-in-out infinite;
+          animation-delay:0.3s;
         "></div>
         <div style="
           position:relative;
@@ -55,6 +83,7 @@ function clusterIcon(count: number, vibe: VibeFilter, movement: MovementFilter) 
           box-shadow:0 3px 12px ${color}55;
           border:2.5px solid white;
           font-family:'Barlow Condensed',sans-serif;
+          cursor:pointer;
         ">
           ${count}
           <span style="
@@ -79,6 +108,9 @@ function clusterIcon(count: number, vibe: VibeFilter, movement: MovementFilter) 
 }
 
 export function ClusterMarkerComponent({ cluster }: { cluster: MapCluster }) {
+  const map = useMap();
+  const friendly = pickLabel(cluster.id);
+
   const vibeLabels: Record<VibeFilter, string> = {
     party: '🔥 Party Vibe',
     chill: '☕ Chill Vibe',
@@ -95,12 +127,38 @@ export function ClusterMarkerComponent({ cluster }: { cluster: MapCluster }) {
     <Marker
       position={[cluster.lat, cluster.lng]}
       icon={clusterIcon(cluster.count, cluster.vibe, cluster.movement)}
+      eventHandlers={{
+        click: () => {
+          const targetZoom = Math.min((map.getZoom() || 15) + 2, 18);
+          map.flyTo([cluster.lat, cluster.lng], targetZoom, { duration: 0.6 });
+        },
+      }}
     >
+      {/* Friendly floating label above the cluster */}
+      <Tooltip
+        permanent
+        direction="top"
+        offset={[0, -8]}
+        className="cluster-friendly-label"
+      >
+        <span
+          style={{
+            fontFamily: 'Norwester, sans-serif',
+            fontSize: '11px',
+            fontWeight: 700,
+            letterSpacing: '0.4px',
+            textTransform: 'uppercase',
+            color: '#0E3386',
+          }}
+        >
+          {friendly}
+        </span>
+      </Tooltip>
+
       <Popup closeButton={false}>
         <div className="min-w-[160px] p-1">
-          <p className="text-sm font-bold">
-            {cluster.label}
-          </p>
+          <p className="text-sm font-bold">{cluster.label}</p>
+          <p className="text-[11px] text-muted-foreground italic mt-0.5">{friendly}</p>
           <div className="flex items-center gap-2 mt-1 text-[10px] text-muted-foreground">
             <span>{vibeLabels[cluster.vibe]}</span>
             <span>·</span>

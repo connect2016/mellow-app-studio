@@ -44,6 +44,15 @@ const gamedayIntentCards: { value: GamedayIntentType; label: string; emoji: stri
   { value: 'WrigleyvilleLocal', label: 'Wrigleyville Local', emoji: '🏘️', desc: 'You live in the neighborhood' },
 ];
 
+const vibeChips: { value: string; label: string; emoji: string }[] = [
+  { value: 'new_friends', label: 'Make new friends', emoji: '🤝' },
+  { value: 'pregame_hangs', label: 'Pregame hangs', emoji: '🍻' },
+  { value: 'postgame_food', label: 'Postgame food', emoji: '🍕' },
+  { value: 'open_meeting', label: 'Open to meeting fellow fans', emoji: '👋' },
+  { value: 'crew_tonight', label: 'Looking for a crew tonight', emoji: '⭐' },
+  { value: 'spontaneous', label: 'Down for spontaneous meetups', emoji: '⚡' },
+];
+
 const privacyOptions: { value: PrivacyLevel; label: string; icon: typeof Eye }[] = [
   { value: 'Public', label: 'Everyone', icon: Eye },
   { value: 'MatchesOnly', label: 'Matches Only', icon: Lock },

@@ -19,7 +19,7 @@ export function BestVibesTonight() {
   return (
     <section aria-labelledby="best-vibes-heading" className="mb-5">
       <div className="flex items-baseline justify-between mb-2.5 px-1">
-        <h2 id="best-vibes-heading" className="text-base font-extrabold flex items-center gap-1.5 text-on-image">
+        <h2 id="best-vibes-heading" className="text-lg font-bold text-destructive-foreground flex items-center gap-1.5 text-on-image">
           <Flame className="h-4 w-4 text-orange-400" /> Best Vibes Tonight
         </h2>
         <Link

@@ -376,13 +376,13 @@ export default function BeerMoney() {
 
         {/* ===== HERO ===== */}
         <div className="mb-4">
-          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">
+          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] mb-1 text-destructive-foreground">
             <Sparkles className="h-3 w-3" /> Social · Wrigleyville · Live
           </div>
-          <h1 className="font-display text-2xl font-bold tracking-tight text-foreground leading-tight">
+          <h1 className="font-display text-2xl font-bold tracking-tight leading-tight text-destructive-foreground">
             Beer Money 🍺
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 text-sm text-destructive-foreground">
             Buy a real beer for a real fan at a real Wrigleyville bar. Every round starts a connection.
           </p>
         </div>
@@ -399,7 +399,7 @@ export default function BeerMoney() {
                 {s.icon}
                 <span className="text-lg font-bold">{s.value}</span>
               </div>
-              <p className="text-[9px] text-muted-foreground font-medium">{s.label}</p>
+              <p className="text-[9px] font-medium text-black">{s.label}</p>
             </div>
           ))}
         </div>
@@ -434,8 +434,8 @@ export default function BeerMoney() {
 
             {/* CTA at bottom of feed */}
             <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
-              <p className="text-sm font-bold text-foreground mb-1">Join the action! 🎯</p>
-              <p className="text-xs text-muted-foreground mb-3">Buy a fan a beer and show up in the feed.</p>
+              <p className="text-xs font-bold mb-1 text-destructive-foreground">Join the action! 🎯</p>
+              <p className="text-[11px] mb-3 text-destructive-foreground">Buy a fan a beer and show up in the feed.</p>
               <Button onClick={() => setActiveTab('send')} className="rounded-2xl gap-2 text-sm">
                 <Beer className="h-4 w-4" /> Send a Beer
               </Button>
@@ -450,7 +450,7 @@ export default function BeerMoney() {
               <p className="text-xs font-bold text-foreground flex items-center gap-1.5">
                 <Crown className="h-3.5 w-3.5 text-amber-500" /> This Homestand's Top Buyers
               </p>
-              <span className="text-[10px] text-muted-foreground">Resets each series</span>
+              <span className="text-[10px] text-destructive-foreground">Resets each series</span>
             </div>
 
             {LEADERBOARD_MOCK.map((entry, i) => (
@@ -479,10 +479,10 @@ export default function BeerMoney() {
 
             {/* Gamification CTA */}
             <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
-              <p className="text-sm font-bold text-foreground mb-1">
+              <p className="text-xs font-bold mb-1 text-destructive-foreground">
                 {user ? 'Climb the ranks! 🏆' : 'Join to compete! 🏆'}
               </p>
-              <p className="text-xs text-muted-foreground mb-3">
+              <p className="text-[11px] mb-3 text-destructive-foreground">
                 Buy 5 more rounds this homestand to crack the Top 3.
               </p>
               <Button onClick={() => setActiveTab('send')} className="rounded-2xl gap-2 text-sm">
@@ -503,7 +503,7 @@ export default function BeerMoney() {
             <section>
               <div className="flex items-center gap-2 mb-2.5">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">1</span>
-                <p className="text-xs font-bold uppercase tracking-wider text-foreground">Who's getting a beer?</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-destructive-foreground">Who's getting a beer?</p>
               </div>
 
               {/* No recipient yet */}
@@ -512,7 +512,7 @@ export default function BeerMoney() {
                   {/* Active fans carousel */}
                   {nearbyFans && nearbyFans.length > 0 && (
                     <div className="rounded-xl border border-border bg-card/60 p-3">
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-2">🧊 Fans active nearby</p>
+                      <p className="text-[11px] font-bold uppercase tracking-wider mb-2 text-black">🧊 Fans active nearby</p>
                       <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
                         {(nearbyFans as any[]).map((f) => (
                           <button
@@ -578,7 +578,7 @@ export default function BeerMoney() {
 
                   {/* Participating venues */}
                   <div className="rounded-xl border border-border bg-card/60 p-3">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-2">🗺️ Participating venues</p>
+                    <p className="text-[11px] font-bold uppercase tracking-wider mb-2 text-black">🗺️ Participating venues</p>
                     <div className="space-y-1">
                       {PARTICIPATING_BARS.map((bar) => (
                         <Link
@@ -601,8 +601,8 @@ export default function BeerMoney() {
                   {!showNonUserSend ? (
                     <div className="rounded-xl border border-dashed border-primary/30 bg-primary/5 p-4 text-center">
                       <Gift className="h-5 w-5 text-primary mx-auto mb-1.5" />
-                      <p className="text-xs font-bold text-foreground mb-1">Know someone who should be here?</p>
-                      <p className="text-[11px] text-muted-foreground mb-3">
+                      <p className="text-xs font-bold mb-1 text-destructive-foreground">Know someone who should be here?</p>
+                      <p className="text-[11px] mb-3 text-destructive-foreground">
                         Buy them a beer — they'll get a link to sign up & claim it at the bar.
                       </p>
                       <Button
@@ -801,7 +801,7 @@ export default function BeerMoney() {
               <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
                 <div className="flex items-center gap-2 mb-2.5">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">2</span>
-                  <p className="text-xs font-bold uppercase tracking-wider text-foreground">Pick your round</p>
+                  <p className="text-xs font-bold uppercase tracking-wider text-destructive-foreground">Pick your round</p>
                 </div>
                 <div className="grid grid-cols-5 gap-2">
                   {AMOUNTS.map((a) => (
@@ -822,7 +822,7 @@ export default function BeerMoney() {
                         </span>
                       )}
                       <span className="text-lg">{a.emoji}</span>
-                      <span className={`text-sm font-bold ${amount === a.value ? 'text-primary' : 'text-foreground'}`}>{a.label}</span>
+                      <span className={`text-sm font-bold ${amount === a.value ? 'text-amber-300' : 'text-destructive-foreground'}`}>{a.label}</span>
                       <span className="text-[9px] text-muted-foreground">{a.desc}</span>
                     </motion.button>
                   ))}
@@ -835,7 +835,7 @@ export default function BeerMoney() {
               <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
                 <div className="flex items-center gap-2 mb-2.5">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">3</span>
-                  <p className="text-xs font-bold uppercase tracking-wider text-foreground">
+                  <p className="text-xs font-bold uppercase tracking-wider text-destructive-foreground">
                     Add a message <span className="font-normal normal-case text-muted-foreground">(optional)</span>
                   </p>
                 </div>
@@ -869,8 +869,8 @@ export default function BeerMoney() {
               <div className="flex-1 flex items-start gap-2.5 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3">
                 <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
                 <div>
-                  <p className="text-[11px] font-semibold text-foreground mb-0.5">21+ Verified</p>
-                  <p className="text-[10px] leading-relaxed text-muted-foreground">
+                  <p className="text-[11px] font-semibold mb-0.5 text-destructive-foreground">21+ Verified</p>
+                  <p className="text-[10px] leading-relaxed text-destructive-foreground">
                     Redeemable only at verified Wrigleyville venues. No alcohol delivered through the app.
                   </p>
                 </div>
@@ -899,10 +899,10 @@ export default function BeerMoney() {
             <div className="rounded-xl border border-border bg-card/60 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-sm">🎟️</span>
-                <p className="text-xs font-bold text-foreground">Beer Money Credits</p>
+                <p className="text-xs font-bold text-amber-300">Beer Money Credits</p>
                 <span className="ml-auto text-[9px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full">Save up to 20%</span>
               </div>
-              <p className="text-[11px] text-muted-foreground mb-3">Pre-load → skip checkout every time.</p>
+              <p className="text-[11px] mb-3 text-destructive-foreground">Pre-load → skip checkout every time.</p>
               <div className="grid grid-cols-3 gap-2">
                 {[
                   { credits: 25, price: 25, bonus: '' },
@@ -931,9 +931,9 @@ export default function BeerMoney() {
             <div className="rounded-xl border border-dashed border-primary/30 bg-gradient-to-br from-primary/5 to-amber-500/5 p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Gift className="h-4 w-4 text-primary" />
-                <p className="text-xs font-bold text-foreground">Invite & Earn 🍺</p>
+                <p className="text-xs font-bold text-amber-300">Invite & Earn 🍺</p>
               </div>
-              <p className="text-[11px] text-muted-foreground mb-3">
+              <p className="text-[11px] mb-3 text-destructive-foreground">
                 For every friend who joins and buys their first round, you both get <span className="font-bold text-primary">$5 free credits</span>.
               </p>
               <Button variant="outline" size="sm" className="rounded-xl gap-1.5 text-xs" onClick={handleShare}>

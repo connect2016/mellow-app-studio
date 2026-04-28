@@ -352,7 +352,7 @@ export default function Discover() {
 
         {/* Current Status Toggle */}
         <div className="mb-4">
-          <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-secondary-foreground">Your Status</p>
+          <p className="text-sm text-destructive-foreground">Your Status</p>
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
             {STATUS_OPTIONS.map((opt) => {
               const active = currentStatus === opt.value;

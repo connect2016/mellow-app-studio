@@ -324,7 +324,7 @@ export default function Discover() {
             </div>
             <Switch checked={gamedayMode} onCheckedChange={toggleGamedayMode} />
           </div>
-          <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+          <p className="text-xs italic mt-0.5 text-destructive-foreground">
             Game Day Mode updates your meetups, missions, and fan badges live as the game unfolds.
           </p>
         </div>
@@ -344,15 +344,15 @@ export default function Discover() {
         >
           <span className="text-2xl">🎯</span>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-secondary-foreground">Game Day Missions</p>
-            <p className="text-[11px] text-secondary-foreground">Complete challenges, earn points & badges</p>
+            <p className="mt-2 font-semibold text-white">Game Day Missions</p>
+            <p className="text-sm text-destructive-foreground">Complete challenges, earn points & badges</p>
           </div>
           <span className="text-xs font-semibold text-yellow-300">View →</span>
         </motion.button>
 
         {/* Current Status Toggle */}
         <div className="mb-4">
-          <p className="text-xs font-semibold uppercase tracking-wider mb-2 text-secondary-foreground">Your Status</p>
+          <p className="text-sm text-destructive-foreground">Your Status</p>
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
             {STATUS_OPTIONS.map((opt) => {
               const active = currentStatus === opt.value;
@@ -395,7 +395,7 @@ export default function Discover() {
               className={`flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-green-500/40 bg-green-500/5 px-4 py-3 text-sm font-semibold cursor-pointer transition-colors hover:bg-green-500/10 ${uploadingSnake ? 'opacity-50 pointer-events-none' : ''}`}
             >
               <Camera className="h-5 w-5 text-green-600" />
-              <span className="text-green-700 dark:text-green-400">
+              <span className="text-amber-300">
                 {uploadingSnake ? 'Uploading...' : '📸 Share your Beer Snake pic!'}
               </span>
               <input

@@ -58,16 +58,16 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
                   className="h-10 w-10 rounded-full object-cover border-2 border-primary/20 shrink-0"
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-bold leading-tight truncate">
+                  <p className="text-base font-bold leading-tight truncate mt-2 text-destructive-foreground">
                     {m.location_name}
                   </p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 truncate">
+                  <p className="text-xs line-clamp-2 mt-1 text-destructive-foreground">
                     by {m.creator_name}
                   </p>
                 </div>
               </div>
               <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-border/60">
-                <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
+                <div className="flex items-center gap-3 text-xs line-clamp-2 mt-1 text-destructive-foreground">
                   <span className="flex items-center gap-1 font-semibold">
                     <Clock className="h-3 w-3" /> {formatTime(m.meeting_time)}
                   </span>

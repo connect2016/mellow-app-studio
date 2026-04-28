@@ -39,10 +39,10 @@ export function DrinkSpecialsStrip() {
               {s.emoji}
             </div>
             <div className="bg-card p-3">
-              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground truncate">
+              <p className="text-xs line-clamp-2 mt-1 text-destructive-foreground">
                 {s.bar}
               </p>
-              <p className="text-sm font-extrabold leading-tight mt-0.5 text-foreground">
+              <p className="text-base font-bold leading-tight mt-2 text-destructive-foreground">
                 {s.deal}
               </p>
             </div>

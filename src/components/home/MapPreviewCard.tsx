@@ -68,8 +68,8 @@ export function MapPreviewCard() {
 
       <div className="flex items-center justify-between px-4 py-3 bg-card">
         <div>
-          <p className="text-sm font-bold leading-tight">Open the live bar map</p>
-          <p className="text-xs text-muted-foreground mt-0.5">See who's where, plan your night</p>
+          <p className="text-base font-bold leading-tight mt-2 text-destructive-foreground">Open the live bar map</p>
+          <p className="text-xs line-clamp-2 mt-1 text-destructive-foreground">See who's where, plan your night</p>
         </div>
         <ChevronRight className="h-5 w-5 text-primary" />
       </div>

@@ -58,8 +58,8 @@ export function BestVibesTonight() {
                   {meta.emoji}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-base font-bold leading-tight truncate">{v.name}</p>
-                  <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground">
+                  <p className="text-base font-bold leading-tight truncate mt-2 text-destructive-foreground">{v.name}</p>
+                  <div className="flex items-center gap-2 mt-0.5 text-xs text-destructive-foreground">
                     <span className="font-semibold" style={{ color: 'inherit' }}>{meta.label}</span>
                     {v.totalUsers > 0 && (
                       <>

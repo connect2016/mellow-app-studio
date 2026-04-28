@@ -32,7 +32,7 @@ export function CarbUpStrip() {
 
   return (
     <section className="px-4 py-4">
-      <div className="flex items-end justify-between mb-1">
+      <div className="flex items-end justify-between mb-1 text-destructive-foreground">
         <div>
           <h2 className="flex items-center gap-2 text-lg font-extrabold text-foreground" style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.5px' }}>
             <Pizza className="h-5 w-5 text-orange-500" />

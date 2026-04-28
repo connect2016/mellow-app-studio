@@ -21,6 +21,7 @@ import { SavedPlansSection } from '@/components/profile/SavedPlansSection';
 import { PrivateModeBanner } from '@/components/profile/PrivateModeBanner';
 import { PrivateModeToggle } from '@/components/profile/PrivateModeToggle';
 import { AchievementsHub } from '@/components/achievements/AchievementsHub';
+import { FoodPromptsSection, type FoodPromptKey } from '@/components/profile/FoodPromptsSection';
 
 export default function Profile() {
   const { id } = useParams();
@@ -57,7 +58,7 @@ export default function Profile() {
       if (!targetId) return null;
       const { data } = await supabase
         .from('profiles')
-        .select('favorite_bars, private_mode')
+        .select('favorite_bars, private_mode, pregame_meal, postgame_food, carb_up_strategy, favorite_bar_food, post_win_meal')
         .eq('user_id', targetId)
         .maybeSingle();
       return data;
@@ -96,6 +97,23 @@ export default function Profile() {
     setLocalBars(next);
     updateProfile.mutate({ favorite_bars: next } as any, {
       onSuccess: () => queryClient.invalidateQueries({ queryKey: ['profile-extras'] }),
+    });
+  };
+
+  const foodPromptValues = {
+    pregame_meal: (extraFields as any)?.pregame_meal ?? (profile as any)?.pregame_meal ?? '',
+    postgame_food: (extraFields as any)?.postgame_food ?? (profile as any)?.postgame_food ?? '',
+    carb_up_strategy: (extraFields as any)?.carb_up_strategy ?? (profile as any)?.carb_up_strategy ?? '',
+    favorite_bar_food: (extraFields as any)?.favorite_bar_food ?? (profile as any)?.favorite_bar_food ?? '',
+    post_win_meal: (extraFields as any)?.post_win_meal ?? (profile as any)?.post_win_meal ?? '',
+  };
+
+  const handleFoodPromptSave = (key: FoodPromptKey, value: string) => {
+    updateProfile.mutate({ [key]: value || null } as any, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['profile-extras'] });
+        toast({ title: '🍽️ Saved', description: 'Your prompt is live on your profile.' });
+      },
     });
   };
 
@@ -270,6 +288,11 @@ export default function Profile() {
                   bars={localBars}
                   isOwner={isOwnProfile}
                   onChange={isOwnProfile ? handleBarsChange : undefined}
+                />
+                <FoodPromptsSection
+                  values={foodPromptValues}
+                  isOwner={isOwnProfile}
+                  onChange={isOwnProfile ? handleFoodPromptSave : undefined}
                 />
                 <BadgesSection userId={targetUserId} isOwner={isOwnProfile} />
                 <MeetupHistorySection userId={targetUserId} />

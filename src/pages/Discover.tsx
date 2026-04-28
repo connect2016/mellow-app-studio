@@ -37,6 +37,7 @@ import { NearbyFansOnline } from '@/components/NearbyFansOnline';
 import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
 import { GameDayCountdown } from '@/components/GameDayCountdown';
 import { HomeDashboard } from '@/components/home/HomeDashboard';
+import { pickCopy, LOADING_FANS, EMPTY_FANS } from '@/lib/fan-copy';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },

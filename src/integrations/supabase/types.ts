@@ -2058,6 +2058,36 @@ export type Database = {
         }
         Relationships: []
       }
+      teammate_requests: {
+        Row: {
+          created_at: string
+          id: string
+          recipient_id: string
+          requester_id: string
+          responded_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          recipient_id: string
+          requester_id: string
+          responded_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          recipient_id?: string
+          requester_id?: string
+          responded_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_locations: {
         Row: {
           id: string
@@ -2343,6 +2373,13 @@ export type Database = {
               wrigleyville_bar: string
             }[]
           }
+      get_teammate_ids: {
+        Args: { _user_id: string }
+        Returns: {
+          since: string
+          teammate_id: string
+        }[]
+      }
       is_conversation_member: {
         Args: { _conversation_id: string; _user_id: string }
         Returns: boolean

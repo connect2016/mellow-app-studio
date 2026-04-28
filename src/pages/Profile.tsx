@@ -22,6 +22,10 @@ import { PrivateModeBanner } from '@/components/profile/PrivateModeBanner';
 import { PrivateModeToggle } from '@/components/profile/PrivateModeToggle';
 import { AchievementsHub } from '@/components/achievements/AchievementsHub';
 import { FoodPromptsSection, type FoodPromptKey } from '@/components/profile/FoodPromptsSection';
+import { RecruitButton } from '@/components/teammates/RecruitButton';
+import { useTeammates } from '@/hooks/useTeammates';
+import { TeammatesSummary } from '@/components/teammates/TeammatesSummary';
+import { Users } from 'lucide-react';
 
 export default function Profile() {
   const { id } = useParams();
@@ -211,6 +215,7 @@ export default function Profile() {
             <div className="space-y-3">
               {!isOwnProfile ? (
                 <>
+                  <RecruitButton otherUserId={id!} />
                   <div className="grid grid-cols-3 gap-2">
                     <Button
                       onClick={() => toast({ title: '🖐️ Hi-Five sent — vibes delivered.' })}
@@ -281,6 +286,7 @@ export default function Profile() {
               <PrivateModeBanner />
             ) : (
               <>
+                {isOwnProfile && <TeammatesSummary />}
                 {isOwnProfile && (
                   <AchievementsHub compact onSeeAll={() => navigate('/missions')} />
                 )}

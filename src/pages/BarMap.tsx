@@ -20,6 +20,7 @@ import {
 import { BarGuideFilters } from '@/components/bars/BarGuideFilters';
 import { CuratedBarCard } from '@/components/bars/CuratedBarCard';
 import { motion, AnimatePresence } from 'framer-motion';
+import barMapBg from '@/assets/bar-map-bg.jpg';
 
 const EDITOR_PICKS = new Set(['murphys-bleachers', 'mordecai', 'old-crow']);
 
@@ -85,7 +86,13 @@ export default function BarMap() {
   }, [filtered, checkinCounts, venueByName]);
 
   return (
-    <div className={`min-h-screen bg-background ${isGuest ? 'pb-20' : 'pb-24'}`}>
+    <div className={`relative min-h-screen ${isGuest ? 'pb-20' : 'pb-24'}`}>
+      <div
+        className="fixed inset-0 z-0"
+        style={{ backgroundImage: `url(${barMapBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}
+      />
+      <div className="fixed inset-0 z-0 bg-black/65 pointer-events-none" />
+      <div className="relative z-10">
       <AppHeader />
 
       {/* Editorial hero */}

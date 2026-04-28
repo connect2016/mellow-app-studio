@@ -153,8 +153,8 @@ export default function Profile() {
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
           <p className="text-4xl mb-4">⚾</p>
-          <p className="font-semibold text-foreground">Fan not found</p>
-          <p className="text-sm text-muted-foreground mt-1">They may have stepped away from the ballpark.</p>
+          <p className="font-semibold text-destructive-foreground">Fan not found</p>
+          <p className="text-sm mt-1 text-destructive-foreground">They may have stepped away from the ballpark.</p>
           <Button variant="outline" className="mt-4 rounded-xl" onClick={() => navigate('/discover')}>Back to Discover</Button>
         </div>
       </div>

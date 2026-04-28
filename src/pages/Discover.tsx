@@ -495,13 +495,13 @@ export default function Discover() {
             {isLoading ? (
               <div className="py-20 text-center">
                 <p className="text-4xl animate-pulse">⚾</p>
-                <p className="mt-2 font-semibold text-muted-foreground">Finding fans...</p>
+                <p className="mt-2 font-semibold text-muted-foreground">{pickCopy(LOADING_FANS)}</p>
               </div>
             ) : filtered.length === 0 ? (
               <div className="py-20 text-center">
                 <p className="text-4xl">⚾</p>
                 <p className="mt-2 font-semibold">No fans found</p>
-                <p className="text-sm text-muted-foreground">Try adjusting your filters</p>
+                <p className="text-sm text-muted-foreground">{pickCopy(EMPTY_FANS)}</p>
               </div>
             ) : (
               <div className="space-y-4">

@@ -214,6 +214,7 @@ export default function Profile() {
             <div className="space-y-3">
               {!isOwnProfile ? (
                 <>
+                  <RecruitButton otherUserId={id!} />
                   <div className="grid grid-cols-3 gap-2">
                     <Button
                       onClick={() => toast({ title: '🖐️ Hi-Five sent — vibes delivered.' })}

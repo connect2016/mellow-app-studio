@@ -22,6 +22,9 @@ import { PrivateModeBanner } from '@/components/profile/PrivateModeBanner';
 import { PrivateModeToggle } from '@/components/profile/PrivateModeToggle';
 import { AchievementsHub } from '@/components/achievements/AchievementsHub';
 import { FoodPromptsSection, type FoodPromptKey } from '@/components/profile/FoodPromptsSection';
+import { RecruitButton } from '@/components/teammates/RecruitButton';
+import { useTeammates } from '@/hooks/useTeammates';
+import { Users } from 'lucide-react';
 
 export default function Profile() {
   const { id } = useParams();

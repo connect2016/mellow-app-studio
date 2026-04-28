@@ -154,10 +154,10 @@ function EmptyState({ onCreate, hasFilters }: { onCreate: () => void; hasFilters
   return (
     <div className="rounded-2xl border border-dashed border-primary/30 bg-primary/5 p-8 text-center">
       <CalendarDays className="h-10 w-10 mx-auto text-primary/60" />
-      <h3 className="mt-3 text-base font-bold text-foreground">
+      <h3 className="mt-3 text-base font-bold text-destructive-foreground">
         {hasFilters ? 'No meetups match your filters' : 'No meetups on deck'}
       </h3>
-      <p className="text-xs text-muted-foreground mt-1 max-w-xs mx-auto">
+      <p className="text-xs mt-1 max-w-xs mx-auto text-destructive-foreground">
         {hasFilters
           ? 'Try clearing filters or searching for a different bar.'
           : 'Your crew is out there — probably eating nachos. Be the first to post one.'}

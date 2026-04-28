@@ -117,6 +117,7 @@ export default function Profile() {
     });
   };
 
+  const handlePrivateToggle = (next: boolean) => {
     updateProfile.mutate({ private_mode: next } as any, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['profile-extras'] });

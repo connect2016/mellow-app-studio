@@ -51,8 +51,8 @@ export function SocialPhotoFeed() {
           className="block rounded-2xl border border-dashed border-border bg-card/90 p-5 text-center"
         >
           <p className="text-2xl mb-1">📸</p>
-          <p className="text-sm font-semibold">No photos yet tonight</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Be the first to share a moment</p>
+          <p className="text-sm font-bold text-destructive-foreground">No photos yet tonight</p>
+          <p className="text-sm text-destructive-foreground mt-0.5">Be the first to share a moment</p>
         </Link>
       ) : (
         <div className="flex gap-2 overflow-x-auto -mx-4 px-4 pb-2 scrollbar-none snap-x snap-mandatory">

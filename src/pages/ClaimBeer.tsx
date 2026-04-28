@@ -180,7 +180,7 @@ export default function ClaimBeer() {
 
             {bar && (
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1">
+                <p className="text-[11px] font-bold uppercase tracking-wider mb-2 flex items-center gap-1 text-black">
                   <MapPin className="h-3 w-3" /> Redeem at
                 </p>
                 <BarLocationPreview bar={bar} />
@@ -189,7 +189,7 @@ export default function ClaimBeer() {
 
             <div className="flex items-start gap-2 rounded-lg bg-emerald-500/5 border border-emerald-500/20 p-2.5">
               <ShieldCheck className="h-3.5 w-3.5 mt-0.5 text-emerald-500 shrink-0" />
-              <p className="text-[10px] text-muted-foreground">
+              <p className="text-[10px] leading-relaxed text-destructive-foreground">
                 21+ only. Show this to the bartender at a participating Wrigleyville venue to redeem.
               </p>
             </div>
@@ -208,7 +208,7 @@ export default function ClaimBeer() {
               className="space-y-4"
             >
               <div className="text-center">
-                <h2 className="text-lg font-bold text-foreground mb-1">Claim your drink in 30 seconds</h2>
+                <h2 className="text-lg font-bold mb-1 text-destructive-foreground">Claim your drink in 30 seconds</h2>
                 <p className="text-sm text-muted-foreground">Quick sign-up, then head to the bar 🍻</p>
               </div>
 
@@ -249,7 +249,7 @@ export default function ClaimBeer() {
             >
               <div className="text-center">
                 <Sparkles className="h-5 w-5 text-primary mx-auto mb-2" />
-                <h2 className="text-lg font-bold text-foreground mb-1">Join Cubbies Buddies</h2>
+                <h2 className="text-lg font-bold mb-1 text-destructive-foreground">Join Cubbies Buddies</h2>
                 <p className="text-xs text-muted-foreground">Free account — takes 30 seconds</p>
               </div>
 
@@ -326,7 +326,7 @@ export default function ClaimBeer() {
             >
               <div className="text-center">
                 <CheckCircle2 className="h-8 w-8 text-emerald-500 mx-auto mb-2" />
-                <h2 className="text-lg font-bold text-foreground mb-1">Ready to redeem!</h2>
+                <h2 className="text-lg font-bold mb-1 text-destructive-foreground">Ready to redeem!</h2>
                 <p className="text-sm text-muted-foreground">Show this screen to the bartender</p>
               </div>
 
@@ -413,7 +413,7 @@ export default function ClaimBeer() {
                     >🍺</motion.span>
                   </div>
                 </motion.div>
-                <h2 className="text-xl font-bold text-foreground mb-1">Cheers! 🎉</h2>
+                <h2 className="text-xl font-bold mb-1 text-destructive-foreground">Cheers! 🎉</h2>
                 <p className="text-sm text-muted-foreground">
                   {claim.senderName} just made your day — now make someone else's.
                 </p>

@@ -147,7 +147,7 @@ function EmptyState({ onCreate, hasFilters }: { onCreate: () => void; hasFilters
       <p className="text-xs text-muted-foreground mt-1 max-w-xs mx-auto">
         {hasFilters
           ? 'Try clearing filters or searching for a different bar.'
-          : 'Be the first to post one — your buddies will see it instantly.'}
+          : 'Your crew is out there — probably eating nachos. Be the first to post one.'}
       </p>
       <Button onClick={onCreate} className="mt-4 rounded-full gap-1.5 h-10 px-5 font-bold">
         <Plus className="h-4 w-4" /> Post a Meetup

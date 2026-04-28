@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility } from 'lucide-react';
 import { StatsCustomizer } from '@/components/StatsCustomizer';
 import { NotificationPreferencesPanel } from '@/components/NotificationPreferencesPanel';
-import bgCubsFansCelebrating from '@/assets/bg-cubs-fans-celebrating.png';
+import bgSettings from '@/assets/bg-settings-cubs-hallway.jpg';
 
 export default function Settings() {
   const { toast } = useToast();
@@ -32,31 +32,31 @@ export default function Settings() {
 
   return (
     <div className="min-h-screen bg-background pb-24 relative">
-      <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgCubsFansCelebrating})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
+      <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgSettings})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 8%, 0.55)' }} />
       <div className="relative z-10">
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4 space-y-6">
-        <h2 className="text-lg font-bold">Front Office</h2>
+        <h2 className="text-lg font-bold text-white drop-shadow-lg">Front Office</h2>
 
         {/* Privacy */}
-        <div className="rounded-xl border bg-card p-4 space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold">
+        <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-md p-4 space-y-4">
+          <div className="flex items-center gap-2 text-sm font-semibold text-white">
             <Eye className="h-4 w-4 text-primary" /> Privacy
           </div>
 
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium">Hide from Discover</p>
-              <p className="text-xs text-muted-foreground">Your profile won't appear to others</p>
+              <p className="text-sm font-medium text-white">Hide from Discover</p>
+              <p className="text-xs text-white/70">Your profile won't appear to others</p>
             </div>
             <Switch checked={hideFromDiscover} onCheckedChange={setHideFromDiscover} />
           </div>
 
-          <Separator />
+          <Separator className="bg-white/20" />
 
           <div className="space-y-2">
-            <Label className="text-sm">Seat location visibility</Label>
+            <Label className="text-sm text-white">Seat location visibility</Label>
             <Select value={seatPrivacy} onValueChange={setSeatPrivacy}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
@@ -68,7 +68,7 @@ export default function Settings() {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm">Bar location visibility</Label>
+            <Label className="text-sm text-white">Bar location visibility</Label>
             <Select value={barPrivacy} onValueChange={setBarPrivacy}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
@@ -81,8 +81,8 @@ export default function Settings() {
         </div>
 
         {/* Safety */}
-        <div className="rounded-xl border bg-card p-4 space-y-3">
-          <div className="flex items-center gap-2 text-sm font-semibold">
+        <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-md p-4 space-y-3">
+          <div className="flex items-center gap-2 text-sm font-semibold text-white">
             <Shield className="h-4 w-4 text-primary" /> Safety
           </div>
 
@@ -95,15 +95,15 @@ export default function Settings() {
         </div>
 
         {/* Accessibility */}
-        <div className="rounded-xl border bg-card p-4 space-y-4">
-          <div className="flex items-center gap-2 text-sm font-semibold">
+        <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-md p-4 space-y-4">
+          <div className="flex items-center gap-2 text-sm font-semibold text-white">
             <Accessibility className="h-4 w-4 text-primary" /> Accessibility
           </div>
 
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium">Reduce Motion</p>
-              <p className="text-xs text-muted-foreground">Disable animations and transitions</p>
+              <p className="text-sm font-medium text-white">Reduce Motion</p>
+              <p className="text-xs text-white/70">Disable animations and transitions</p>
             </div>
             <Switch checked={reducedMotion} onCheckedChange={setReducedMotion} />
           </div>
@@ -113,13 +113,13 @@ export default function Settings() {
         <NotificationPreferencesPanel />
 
         {/* Stats Customization */}
-        <div className="rounded-xl border bg-card p-4">
+        <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-md p-4">
           <StatsCustomizer />
         </div>
 
         {/* Account */}
-        <div className="rounded-xl border bg-card p-4 space-y-3">
-          <div className="text-sm font-semibold">Account</div>
+        <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-md p-4 space-y-3">
+          <div className="text-sm font-semibold text-white">Account</div>
           <Button variant="outline" className="w-full justify-start gap-2 rounded-xl" onClick={() => toast({ title: 'Logged out' })}>
             <LogOut className="h-4 w-4" /> Sign Out
           </Button>

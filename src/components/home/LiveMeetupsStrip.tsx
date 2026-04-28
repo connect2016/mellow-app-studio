@@ -19,7 +19,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
   return (
     <section aria-labelledby="live-meetups-heading" className="mb-5">
       <div className="flex items-baseline justify-between mb-2.5 px-1">
-        <h2 id="live-meetups-heading" className="text-base font-extrabold text-on-image">
+        <h2 id="live-meetups-heading" className="text-lg font-bold text-destructive-foreground text-on-image">
           📋 Live Meetups
         </h2>
         <button

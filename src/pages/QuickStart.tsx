@@ -221,7 +221,7 @@ export default function QuickStart() {
           </div>
           <button
             onClick={() => navigate('/discover')}
-            className="block mx-auto mt-3 text-xs text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
+            className="block mx-auto mt-3 text-sm text-destructive-foreground hover:text-foreground underline-offset-4 hover:underline"
           >
             Skip for now
           </button>

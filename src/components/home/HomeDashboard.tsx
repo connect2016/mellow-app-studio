@@ -5,6 +5,7 @@ import { LiveMeetupsStrip } from './LiveMeetupsStrip';
 import { MapPreviewCard } from './MapPreviewCard';
 import { DrinkSpecialsStrip } from './DrinkSpecialsStrip';
 import { SocialPhotoFeed } from './SocialPhotoFeed';
+import { CarbUpStrip } from './CarbUpStrip';
 import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
 import { useProfile } from '@/hooks/useProfile';
 
@@ -12,12 +13,12 @@ type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date';
 
 // Module ordering by primary intent — surfaces what matters most for each user.
 const ORDER_BY_INTENT: Record<Intent, string[]> = {
-  watch_game: ['game', 'meetups', 'photos', 'vibes', 'map', 'specials'],
-  meet_fans: ['meetups', 'map', 'vibes', 'game', 'photos', 'specials'],
-  bar_hop: ['vibes', 'specials', 'map', 'meetups', 'game', 'photos'],
-  date: ['meetups', 'vibes', 'photos', 'specials', 'map', 'game'],
+  watch_game: ['game', 'meetups', 'carbs', 'photos', 'vibes', 'map', 'specials'],
+  meet_fans: ['meetups', 'map', 'vibes', 'carbs', 'game', 'photos', 'specials'],
+  bar_hop: ['vibes', 'specials', 'carbs', 'map', 'meetups', 'game', 'photos'],
+  date: ['meetups', 'vibes', 'carbs', 'photos', 'specials', 'map', 'game'],
 };
-const DEFAULT_ORDER = ['game', 'vibes', 'meetups', 'map', 'specials', 'photos'];
+const DEFAULT_ORDER = ['game', 'vibes', 'meetups', 'carbs', 'map', 'specials', 'photos'];
 
 export function HomeDashboard() {
   const [showCreate, setShowCreate] = useState(false);
@@ -35,6 +36,7 @@ export function HomeDashboard() {
     map: <MapPreviewCard key="map" />,
     specials: <DrinkSpecialsStrip key="specials" />,
     photos: <SocialPhotoFeed key="photos" />,
+    carbs: <CarbUpStrip key="carbs" />,
   };
 
   return (

@@ -31,7 +31,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-6 text-center text-sm text-muted-foreground">
+        <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-6 text-center text-sm text-destructive-foreground">
           Loading meetups…
         </div>
       ) : top.length === 0 ? (

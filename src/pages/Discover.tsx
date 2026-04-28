@@ -395,7 +395,7 @@ export default function Discover() {
               className={`flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-green-500/40 bg-green-500/5 px-4 py-3 text-sm font-semibold cursor-pointer transition-colors hover:bg-green-500/10 ${uploadingSnake ? 'opacity-50 pointer-events-none' : ''}`}
             >
               <Camera className="h-5 w-5 text-green-600" />
-              <span className="text-green-700 dark:text-green-400">
+              <span className="text-amber-300">
                 {uploadingSnake ? 'Uploading...' : '📸 Share your Beer Snake pic!'}
               </span>
               <input

@@ -361,6 +361,68 @@ Deno.serve(async (req) => {
       }
     }
 
+    // ─── FOOD NUDGES (pre/post game, humor-forward) ───
+    // Pre-game: 60–180 min before first pitch → carb-up nudge
+    // Day game: starts before 5pm local Chicago time → swap copy
+    const FOOD_PRE_GENERIC = [
+      "Carb up at Dimo's before the beers start flowing.",
+      "Pizza now means you'll still be standing in the 7th.",
+      "Pregame fuel: a slice never let anyone down.",
+    ];
+    const FOOD_PRE_DAYGAME = [
+      "It's a day game. Carb up at Dimo's before the beers start flowing.",
+      "Day game energy requires breakfast burritos. We don't make the rules.",
+      "Sun's out, slices out — carb-load before first pitch.",
+    ];
+    const FOOD_POST = [
+      "Postgame hunger incoming — fans love Big Star for recovery mode.",
+      "Win or lose, you deserve a sandwich.",
+      "The 9th inning called. It said: tacos.",
+      "Recovery tacos at Big Star or sandwich heaven at Small Cheval. Pick your fighter.",
+    ];
+
+    function pickOne<T>(arr: T[], seed: string): T {
+      let h = 0;
+      for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+      return arr[h % arr.length];
+    }
+
+    // Pre-game food nudge: 60–180 min before first pitch
+    if (gamePhase === "pre" && activeGame && minsToFirstPitch !== null) {
+      const isDayGame = new Date(activeGame.game_start).getHours() < 17;
+      const pool = isDayGame ? FOOD_PRE_DAYGAME : FOOD_PRE_GENERIC;
+      if (minsToFirstPitch >= 60 && minsToFirstPitch <= 180) {
+        for (const user of activeProfiles || []) {
+          if (!shouldNotify(user.user_id, "food_pregame")) continue;
+          notifications.push({
+            user_id: user.user_id,
+            type: "food_pregame",
+            title: isDayGame ? "Day game carb-up ☀️🍕" : "Pregame fuel check 🍕",
+            body: pickOne(pool, `${user.user_id}:${activeGame.id}:pre`),
+            emoji: "🍕",
+            action_url: "/eats",
+            metadata: { game_id: activeGame.id, day_game: isDayGame },
+          });
+        }
+      }
+    }
+
+    // Post-game food nudge: any time inside the 2h post window
+    if (gamePhase === "post" && activeGame) {
+      for (const user of activeProfiles || []) {
+        if (!shouldNotify(user.user_id, "food_postgame")) continue;
+        notifications.push({
+          user_id: user.user_id,
+          type: "food_postgame",
+          title: "Postgame hunger incoming 🌮",
+          body: pickOne(FOOD_POST, `${user.user_id}:${activeGame.id}:post`),
+          emoji: "🥪",
+          action_url: "/eats",
+          metadata: { game_id: activeGame.id },
+        });
+      }
+    }
+
     // New hi-fives received in last hour
     const { data: recentHiFives } = await supabase
       .from("likes")

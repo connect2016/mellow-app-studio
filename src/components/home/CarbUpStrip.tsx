@@ -34,11 +34,11 @@ export function CarbUpStrip() {
     <section className="px-4 py-4">
       <div className="flex items-end justify-between mb-1 text-destructive-foreground">
         <div>
-          <h2 className="flex items-center gap-2 text-lg font-extrabold text-foreground" style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.5px' }}>
+          <h2 className="flex items-center gap-2 text-lg font-extrabold text-primary-foreground" style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.5px' }}>
             <Pizza className="h-5 w-5 text-orange-500" />
             CARB UP BEFORE FIRST PITCH
           </h2>
-          <p className="text-xs text-muted-foreground italic mt-0.5">{subcopy}</p>
+          <p className="text-xs italic mt-0.5 text-destructive-foreground">{subcopy}</p>
         </div>
         <Link to="/wrigleyville-eats" className="flex items-center text-xs font-semibold text-primary hover:underline shrink-0 ml-2">
           See all <ChevronRight className="h-3 w-3" />
@@ -60,8 +60,8 @@ export function CarbUpStrip() {
                     {label}
                   </span>
                 </div>
-                <p className="text-base font-bold text-foreground leading-tight mt-2">{spot.name}</p>
-                <p className="text-xs text-muted-foreground line-clamp-2 mt-1">{spot.fanTip}</p>
+                <p className="text-base font-bold leading-tight mt-2 text-destructive-foreground">{spot.name}</p>
+                <p className="text-xs line-clamp-2 mt-1 text-destructive-foreground">{spot.fanTip}</p>
               </div>
               <div className="flex items-center gap-1 text-[11px] font-semibold text-foreground/70">
                 <MapPin className="h-3 w-3" />

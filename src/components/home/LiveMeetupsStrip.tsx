@@ -71,7 +71,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
                   <span className="flex items-center gap-1 font-bold text-destructive-foreground">
                     <Clock className="h-3 w-3" /> {formatTime(m.meeting_time)}
                   </span>
-                  <span className="flex items-center gap-1 font-semibold">
+                  <span className="flex items-center gap-1 font-bold text-destructive-foreground">
                     <Users className="h-3 w-3" /> {m.member_count}/{m.max_members}
                   </span>
                 </div>

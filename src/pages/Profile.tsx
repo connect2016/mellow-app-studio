@@ -21,6 +21,7 @@ import { SavedPlansSection } from '@/components/profile/SavedPlansSection';
 import { PrivateModeBanner } from '@/components/profile/PrivateModeBanner';
 import { PrivateModeToggle } from '@/components/profile/PrivateModeToggle';
 import { AchievementsHub } from '@/components/achievements/AchievementsHub';
+import { FoodPromptsSection, type FoodPromptKey } from '@/components/profile/FoodPromptsSection';
 
 export default function Profile() {
   const { id } = useParams();

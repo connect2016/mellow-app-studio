@@ -91,7 +91,7 @@ export default function BarMap() {
         className="fixed inset-0 z-0"
         style={{ backgroundImage: `url(${barMapBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}
       />
-      <div className="fixed inset-0 z-0 bg-black/65 pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-black/35 pointer-events-none" />
       <div className="relative z-10">
       <AppHeader />
 

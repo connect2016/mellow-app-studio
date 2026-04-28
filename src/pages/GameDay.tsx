@@ -17,6 +17,7 @@ import { LiveMomentsPanel } from '@/components/LiveMomentsPanel';
 import { FlashMeetupsPanel } from '@/components/FlashMeetupsPanel';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import gamedayBg from '@/assets/gameday-bg.jpg';
 
 export default function GameDay() {
   const navigate = useNavigate();
@@ -48,68 +49,82 @@ export default function GameDay() {
   const isLive = cubsGame?.status === 'live';
 
   return (
-    <div className="min-h-screen bg-background pb-24">
-      <AppHeader />
+    <div className="relative min-h-screen pb-24">
+      {/* Background image */}
+      <div
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: `url(${gamedayBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="fixed inset-0 z-0 bg-black/65 pointer-events-none" />
 
-      {/* Sticky live pulse strip */}
-      <div className={`sticky top-14 z-30 border-b backdrop-blur-md transition-colors ${
-        isLive ? 'bg-red-500/10 border-red-500/20' : 'bg-primary/5 border-primary/10'
-      }`}>
-        <div className="mx-auto max-w-lg px-4 py-2 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${isLive ? 'bg-red-500' : 'bg-emerald-500'}`} />
-              <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${isLive ? 'bg-red-500' : 'bg-emerald-500'}`} />
-            </span>
-            <span className="text-[12px] font-bold text-foreground">
-              {isLive ? 'Game Day · LIVE' : isOffDay ? 'Off-day mode' : 'Game Day mode'}
-            </span>
-          </div>
-          {fanCounts && (
-            <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
-              <span><strong className="text-foreground tabular-nums">{fanCounts.wrigley}</strong> 🏟️</span>
-              <span><strong className="text-foreground tabular-nums">{fanCounts.bars}</strong> 🍻</span>
-              <span><strong className="text-foreground tabular-nums">{fanCounts.total}</strong> live</span>
+      <div className="relative z-10">
+        <AppHeader />
+
+        {/* Sticky live pulse strip */}
+        <div className={`sticky top-14 z-30 border-b backdrop-blur-md transition-colors ${
+          isLive ? 'bg-red-500/20 border-red-500/40' : 'bg-black/50 border-white/20'
+        }`}>
+          <div className="mx-auto max-w-lg px-4 py-2 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${isLive ? 'bg-red-400' : 'bg-emerald-400'}`} />
+                <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${isLive ? 'bg-red-400' : 'bg-emerald-400'}`} />
+              </span>
+              <span className="text-[12px] font-bold text-white drop-shadow-md">
+                {isLive ? 'Game Day · LIVE' : isOffDay ? 'Off-day mode' : 'Game Day mode'}
+              </span>
             </div>
-          )}
-        </div>
-      </div>
-
-      <main className="mx-auto max-w-lg px-4 pt-4 space-y-4">
-        <SafetyTimerBanner />
-
-        {/* Editorial header */}
-        <motion.header
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="pt-1"
-        >
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
-            {isLive ? '📡 Live · The Friendly Confines' : isOffDay ? '🌙 Off-day' : '⚾ Game Day'}
+            {fanCounts && (
+              <div className="flex items-center gap-3 text-[11px] text-white/85 drop-shadow">
+                <span><strong className="text-white tabular-nums">{fanCounts.wrigley}</strong> 🏟️</span>
+                <span><strong className="text-white tabular-nums">{fanCounts.bars}</strong> 🍻</span>
+                <span><strong className="text-white tabular-nums">{fanCounts.total}</strong> live</span>
+              </div>
+            )}
           </div>
-          <h1 className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-foreground">
-            Game Day Mode
-          </h1>
-        </motion.header>
+        </div>
 
-        {isOffDay ? (
-          <OffDayState />
-        ) : (
-          <>
-            <LiveGameHeader />
-            <WeatherCard />
-            <ScoreWithFriendCTA />
-            <HotMeetupsLive />
-            <TrendingBarsLive />
+        <main className="mx-auto max-w-lg px-4 pt-4 space-y-4">
+          <SafetyTimerBanner />
 
-            {/* Game phase + crowd energy still useful */}
-            <GamePhaseTimeline />
-            <LiveMomentsPanel />
-            <FlashMeetupsPanel />
-            <CrowdEnergyMap />
-          </>
-        )}
-      </main>
+          {/* Editorial header */}
+          <motion.header
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="pt-1"
+          >
+            <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-amber-300 drop-shadow-md">
+              {isLive ? '📡 Live · The Friendly Confines' : isOffDay ? '🌙 Off-day' : '⚾ Game Day'}
+            </div>
+            <h1 className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-white drop-shadow-lg">
+              Game Day Mode
+            </h1>
+          </motion.header>
+
+          {isOffDay ? (
+            <OffDayState />
+          ) : (
+            <>
+              <LiveGameHeader />
+              <WeatherCard />
+              <ScoreWithFriendCTA />
+              <HotMeetupsLive />
+              <TrendingBarsLive />
+
+              {/* Game phase + crowd energy still useful */}
+              <GamePhaseTimeline />
+              <LiveMomentsPanel />
+              <FlashMeetupsPanel />
+              <CrowdEnergyMap />
+            </>
+          )}
+        </main>
+      </div>
     </div>
   );
 }

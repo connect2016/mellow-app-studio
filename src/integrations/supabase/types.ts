@@ -1360,6 +1360,7 @@ export type Database = {
           best_bar: string | null
           bio: string | null
           blocked_users: string[] | null
+          carb_up_strategy: string | null
           created_at: string
           display_name: string
           distance_pref_miles: number | null
@@ -1369,6 +1370,7 @@ export type Database = {
           fan_tier_emoji: string | null
           fan_title: string | null
           fan_xp: number | null
+          favorite_bar_food: string | null
           favorite_bars: string[] | null
           favorite_moment: string | null
           favorite_moment_is_valid: boolean | null
@@ -1386,6 +1388,9 @@ export type Database = {
           is_verified: boolean | null
           location_last_set_at: string | null
           onboarding_completed: boolean | null
+          post_win_meal: string | null
+          postgame_food: string | null
+          pregame_meal: string | null
           private_mode: boolean | null
           profile_photo: string | null
           pronouns: string | null
@@ -1413,6 +1418,7 @@ export type Database = {
           best_bar?: string | null
           bio?: string | null
           blocked_users?: string[] | null
+          carb_up_strategy?: string | null
           created_at?: string
           display_name?: string
           distance_pref_miles?: number | null
@@ -1422,6 +1428,7 @@ export type Database = {
           fan_tier_emoji?: string | null
           fan_title?: string | null
           fan_xp?: number | null
+          favorite_bar_food?: string | null
           favorite_bars?: string[] | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
@@ -1439,6 +1446,9 @@ export type Database = {
           is_verified?: boolean | null
           location_last_set_at?: string | null
           onboarding_completed?: boolean | null
+          post_win_meal?: string | null
+          postgame_food?: string | null
+          pregame_meal?: string | null
           private_mode?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null
@@ -1466,6 +1476,7 @@ export type Database = {
           best_bar?: string | null
           bio?: string | null
           blocked_users?: string[] | null
+          carb_up_strategy?: string | null
           created_at?: string
           display_name?: string
           distance_pref_miles?: number | null
@@ -1475,6 +1486,7 @@ export type Database = {
           fan_tier_emoji?: string | null
           fan_title?: string | null
           fan_xp?: number | null
+          favorite_bar_food?: string | null
           favorite_bars?: string[] | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
@@ -1492,6 +1504,9 @@ export type Database = {
           is_verified?: boolean | null
           location_last_set_at?: string | null
           onboarding_completed?: boolean | null
+          post_win_meal?: string | null
+          postgame_food?: string | null
+          pregame_meal?: string | null
           private_mode?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null

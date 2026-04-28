@@ -7,8 +7,9 @@ import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Check, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import quickstartBg from '@/assets/quickstart-bg.jpg';
 
-type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date';
+type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
 type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere';
 type GroupSize = 'solo' | 'small' | 'big';

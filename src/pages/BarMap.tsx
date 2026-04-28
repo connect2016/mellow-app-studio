@@ -97,15 +97,15 @@ export default function BarMap() {
 
       {/* Editorial hero */}
       <header className="px-4 pt-6 pb-4 max-w-3xl mx-auto">
-        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-300 drop-shadow">
           <Sparkles className="h-3 w-3" /> Curated · Wrigleyville
         </div>
-        <h1 className="mt-2 font-display text-3xl font-bold tracking-tight leading-none text-foreground">
+        <h1 className="mt-2 font-display text-3xl font-bold tracking-tight leading-none text-white drop-shadow-lg">
           The Wrigleyville
           <br />
-          <span className="text-primary">Bar Guide</span>
+          <span className="text-amber-300">Bar Guide</span>
         </h1>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-prose">
+        <p className="mt-3 text-sm leading-relaxed text-white/90 max-w-prose drop-shadow">
           Hand-picked bars near the Friendly Confines, ranked by what fans actually do
           — pre-game pours, in-game hangs, and the postgame celebrations that spill
           onto Clark. Live crowd signals included.
@@ -115,38 +115,38 @@ export default function BarMap() {
         <div className="mt-4 grid grid-cols-3 gap-2">
           <Link
             to="/beer-money"
-            className="flex items-center gap-2 rounded-xl border border-border bg-gradient-to-br from-amber-500/10 to-orange-500/5 px-2.5 py-2.5 transition active:scale-[0.98]"
+            className="flex items-center gap-2 rounded-xl border border-white/20 bg-black/50 backdrop-blur px-2.5 py-2.5 transition active:scale-[0.98]"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400 shrink-0">
               <Beer className="h-3.5 w-3.5" />
             </div>
             <div className="min-w-0">
-              <div className="text-[11px] font-bold leading-tight text-foreground">Beer Money</div>
-              <div className="text-[9px] text-muted-foreground truncate">Buy a round</div>
+              <div className="text-[11px] font-bold leading-tight text-white">Beer Money</div>
+              <div className="text-[9px] text-white/75 truncate">Buy a round</div>
             </div>
           </Link>
           <Link
             to="/eats"
-            className="flex items-center gap-2 rounded-xl border border-border bg-gradient-to-br from-red-500/10 to-orange-500/5 px-2.5 py-2.5 transition active:scale-[0.98]"
+            className="flex items-center gap-2 rounded-xl border border-white/20 bg-black/50 backdrop-blur px-2.5 py-2.5 transition active:scale-[0.98]"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500/20 text-red-600 dark:text-red-400 shrink-0">
               <Utensils className="h-3.5 w-3.5" />
             </div>
             <div className="min-w-0">
-              <div className="text-[11px] font-bold leading-tight text-foreground">Eats</div>
-              <div className="text-[9px] text-muted-foreground truncate">Food & drink</div>
+              <div className="text-[11px] font-bold leading-tight text-white">Eats</div>
+              <div className="text-[9px] text-white/75 truncate">Food & drink</div>
             </div>
           </Link>
           <Link
             to="/check-in"
-            className="flex items-center gap-2 rounded-xl border border-border bg-gradient-to-br from-blue-500/10 to-blue-500/5 px-2.5 py-2.5 transition active:scale-[0.98]"
+            className="flex items-center gap-2 rounded-xl border border-white/20 bg-black/50 backdrop-blur px-2.5 py-2.5 transition active:scale-[0.98]"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 shrink-0">
               <MapIcon className="h-3.5 w-3.5" />
             </div>
             <div className="min-w-0">
-              <div className="text-[11px] font-bold leading-tight text-foreground">Check in</div>
-              <div className="text-[9px] text-muted-foreground truncate">Show fans</div>
+              <div className="text-[11px] font-bold leading-tight text-white">Check in</div>
+              <div className="text-[9px] text-white/75 truncate">Show fans</div>
             </div>
           </Link>
         </div>
@@ -161,15 +161,15 @@ export default function BarMap() {
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-3 rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-transparent p-3 flex items-center gap-3"
+            className="mt-3 rounded-xl border border-amber-500/40 bg-black/60 backdrop-blur p-3 flex items-center gap-3"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500/20 text-lg shrink-0">
               🔥
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Hottest bar right now</p>
-              <p className="text-sm font-bold text-foreground truncate">{beerStats.hottestBar}</p>
-              <p className="text-[10px] text-muted-foreground">{beerStats.totalRoundsToday} rounds bought today</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-amber-300">Hottest bar right now</p>
+              <p className="text-sm font-bold text-white truncate">{beerStats.hottestBar}</p>
+              <p className="text-[10px] text-white/75">{beerStats.totalRoundsToday} rounds bought today</p>
             </div>
             <button
               onClick={() => navigate(`/beer-money?bar=${encodeURIComponent(beerStats.hottestBar!)}`)}
@@ -201,10 +201,10 @@ export default function BarMap() {
       {/* Results */}
       <section className="max-w-3xl mx-auto px-4 pt-4 space-y-3">
         {sorted.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center">
+          <div className="rounded-2xl border border-dashed border-white/30 bg-black/50 backdrop-blur p-8 text-center">
             <div className="text-3xl mb-2">🍺</div>
-            <h3 className="font-bold text-foreground mb-1">No bars match those filters</h3>
-            <p className="text-xs text-muted-foreground">Try clearing a chip — Wrigleyville's bigger than you think.</p>
+            <h3 className="font-bold text-white mb-1">No bars match those filters</h3>
+            <p className="text-xs text-white/80">Try clearing a chip — Wrigleyville's bigger than you think.</p>
           </div>
         ) : (
           sorted.map((bar, idx) => {
@@ -233,9 +233,9 @@ export default function BarMap() {
           })
         )}
 
-        <div className="pt-4 text-center text-[10px] text-muted-foreground italic">
+        <div className="pt-4 text-center text-[10px] text-white/80 italic drop-shadow">
           Editorially curated by Cubbies Buddies · Want your bar listed?{' '}
-          <Link to="/settings" className="text-primary hover:underline not-italic font-semibold">Get in touch</Link>
+          <Link to="/settings" className="text-amber-300 hover:underline not-italic font-semibold">Get in touch</Link>
         </div>
       </section>
 

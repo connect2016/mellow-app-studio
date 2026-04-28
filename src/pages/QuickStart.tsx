@@ -7,8 +7,9 @@ import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Check, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import quickstartBg from '@/assets/quickstart-bg.jpg';
 
-type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date';
+type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
 type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere';
 type GroupSize = 'solo' | 'small' | 'big';
@@ -18,6 +19,7 @@ const INTENTS: { id: Intent; emoji: string; label: string; sub: string }[] = [
   { id: 'meet_fans', emoji: '🤝', label: 'Meet fellow fans', sub: 'Hi-fives, meetups, ballpark buddies' },
   { id: 'bar_hop', emoji: '🍻', label: 'Bar hop the neighborhood', sub: 'Vibe map, specials, pub crawls' },
   { id: 'date', emoji: '💘', label: 'Find a date who loves the Cubs', sub: 'Matches, conversations, low-key meetups' },
+  { id: 'all', emoji: '🌟', label: 'All of the above', sub: "Give me the full Wrigleyville experience" },
 ];
 
 const BEHAVIORS: { id: Behavior; emoji: string; label: string }[] = [
@@ -88,7 +90,13 @@ export default function QuickStart() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-cream">
+    <div
+      className="min-h-screen relative bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${quickstartBg})` }}
+    >
+      {/* Readability overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background/95 backdrop-blur-[2px]" aria-hidden />
+      <div className="relative z-10">
       <main className="mx-auto max-w-md px-4 pt-10 pb-32">
         {/* Progress dots */}
         <div className="flex justify-center gap-2 mb-6" aria-label={`Step ${step + 1} of ${totalSteps}`}>
@@ -219,6 +227,7 @@ export default function QuickStart() {
           </button>
         </div>
       </main>
+      </div>
     </div>
   );
 }

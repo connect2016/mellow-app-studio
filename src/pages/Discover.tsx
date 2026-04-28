@@ -324,7 +324,7 @@ export default function Discover() {
             </div>
             <Switch checked={gamedayMode} onCheckedChange={toggleGamedayMode} />
           </div>
-          <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+          <p className="text-xs italic mt-0.5 text-destructive-foreground">
             Game Day Mode updates your meetups, missions, and fan badges live as the game unfolds.
           </p>
         </div>

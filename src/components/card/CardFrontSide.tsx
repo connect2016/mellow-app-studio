@@ -83,16 +83,17 @@ export function CardFrontSide({
         {/* Display name */}
         <div
           className="absolute flex items-center justify-center pointer-events-none"
-          style={{ bottom: '7.5%', left: '30%', right: '8%', height: '5%', zIndex: 20 }}
+          style={{ bottom: '7.5%', left: '22%', right: '6%', height: '6%', zIndex: 20 }}
         >
           <span
-            className="font-extrabold truncate text-center w-full"
+            className="font-black truncate text-center w-full"
             style={{
-              fontSize: 'clamp(14px, 3vw, 22px)',
+              fontSize: 'clamp(20px, 4.6vw, 34px)',
               fontFamily: "'Graduate', 'Inter', serif",
-              color: 'hsl(var(--foreground))',
-              letterSpacing: '1px',
+              color: '#002F6C',
+              letterSpacing: '1.5px',
               lineHeight: 1,
+              textTransform: 'uppercase',
             }}
           >
             {displayName || 'Fan'}

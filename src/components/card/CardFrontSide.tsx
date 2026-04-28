@@ -80,25 +80,7 @@ export function CardFrontSide({
           )}
         </div>
 
-        {/* Display name */}
-        <div
-          className="absolute flex items-center justify-center pointer-events-none"
-          style={{ bottom: '7.5%', left: '22%', right: '6%', height: '6%', zIndex: 20 }}
-        >
-          <span
-            className="font-black truncate text-center w-full"
-            style={{
-              fontSize: 'clamp(20px, 4.6vw, 34px)',
-              fontFamily: "'Graduate', 'Inter', serif",
-              color: '#002F6C',
-              letterSpacing: '1.5px',
-              lineHeight: 1,
-              textTransform: 'uppercase',
-            }}
-          >
-            {displayName || 'Fan'}
-          </span>
-        </div>
+        {/* Display name is rendered as part of the card template image */}
 
         {/* Status badge */}
         {statusLabel && (

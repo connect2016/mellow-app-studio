@@ -42,7 +42,7 @@ export function SocialPhotoFeed() {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl border border-border bg-card/90 p-6 text-center text-sm text-muted-foreground">
+        <div className="rounded-2xl border border-border bg-card/90 p-6 text-center text-sm text-destructive-foreground">
           Loading photos…
         </div>
       ) : posts.length === 0 ? (

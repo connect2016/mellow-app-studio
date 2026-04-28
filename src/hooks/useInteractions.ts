@@ -55,12 +55,12 @@ export function useSendLike() {
     },
     onSuccess: (data, variables) => {
       if (data.isMatch) {
-        toast({ title: '🎉 It\'s a Match!', description: 'You can now message each other!' });
+        toast({ title: '🎉 It\'s a Match!', description: 'Nice! You just made a new Buddy.' });
         tracker.trackMatch();
       } else if (data.isMutualHiFive) {
         toast({
           title: '🙌 Mutual Hi-Five!',
-          description: 'You both Hi-Fived — that\'s a vibe! Send them a message.',
+          description: 'Nice! You just made a new Buddy — send them a message.',
         });
       } else if (variables.isHiFive && variables.message?.includes('🌭')) {
         toast({
@@ -70,8 +70,8 @@ export function useSendLike() {
         tracker.trackHiFive();
       } else if (variables.isHiFive) {
         toast({
-          title: '🖐️ Hi-Five sent!',
-          description: 'You just sent a Hi-Five 👋 — let\'s see if they Hi-Five back!',
+          title: '🖐️ Hi-Five sent — vibes delivered.',
+          description: 'Let\'s see if they Hi-Five back!',
         });
         tracker.trackHiFive();
       } else {

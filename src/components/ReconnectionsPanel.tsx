@@ -140,7 +140,7 @@ export function ReconnectionsPanel() {
           message: "Hey! Long time no see 🖐️",
         });
       if (!error) {
-        toast.success("🖐️ Hi-Five sent! They'll get a notification.");
+        toast.success("🖐️ Hi-Five sent — vibes delivered.");
       }
     }
   };

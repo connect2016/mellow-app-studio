@@ -220,7 +220,147 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ─── ALWAYS-ON NOTIFICATIONS (any time) ───
+    // ─── FELLOW FANS NUDGES (proximity / time-of-day / gameday) ───
+    // Top bar by current check-ins
+    const allBarCounts: Record<string, number> = {};
+    for (const p of recentlyActive) {
+      if (p.game_status === "AtBar" && p.wrigleyville_bar) {
+        allBarCounts[p.wrigleyville_bar] = (allBarCounts[p.wrigleyville_bar] || 0) + 1;
+      }
+    }
+    const topBarOverall = Object.entries(allBarCounts).sort((a, b) => b[1] - a[1])[0];
+
+    // Section counts (for "your section has X buddies")
+    const { data: sectionProfiles } = await supabase
+      .from("profiles")
+      .select("user_id, wrigley_section")
+      .eq("is_banned", false)
+      .not("wrigley_section", "is", null)
+      .gte("location_last_set_at", twoHoursAgo);
+
+    const sectionCounts: Record<string, number> = {};
+    for (const p of sectionProfiles || []) {
+      if (p.wrigley_section) {
+        sectionCounts[p.wrigley_section] = (sectionCounts[p.wrigley_section] || 0) + 1;
+      }
+    }
+
+    // Nearby flash meetups starting soon
+    const thirtyMinFromNow = new Date(now.getTime() + 30 * 60 * 1000).toISOString();
+    const { data: upcomingMeetups } = await supabase
+      .from("lineup_meetups")
+      .select("id, location_name, meeting_time")
+      .gte("meeting_time", now.toISOString())
+      .lte("meeting_time", thirtyMinFromNow);
+
+    // Brand-new fans (joined in last 2h) signal "say hi"
+    const { data: newFans } = await supabase
+      .from("profiles")
+      .select("user_id")
+      .eq("onboarding_completed", true)
+      .eq("is_banned", false)
+      .gte("created_at", twoHoursAgo);
+    const newFanCount = (newFans || []).length;
+
+    const minsToFirstPitch =
+      gamePhase === "pre" && activeGame
+        ? Math.floor((new Date(activeGame.game_start).getTime() - now.getTime()) / 60000)
+        : null;
+
+    const wrigleyvilleBuzzing = recentlyActive.length >= 8;
+
+    for (const user of activeProfiles || []) {
+      // 1) Fans gathering at top bar
+      if (
+        topBarOverall &&
+        topBarOverall[1] >= 3 &&
+        user.wrigleyville_bar !== topBarOverall[0] &&
+        shouldNotify(user.user_id, "fellow_bar_gather")
+      ) {
+        notifications.push({
+          user_id: user.user_id,
+          type: "fellow_bar_gather",
+          title: "Fellow fans nearby 🍺",
+          body: `Fans are gathering at ${topBarOverall[0]} — want to join?`,
+          emoji: "🍺",
+          action_url: "/bar-map",
+          metadata: { bar: topBarOverall[0], count: topBarOverall[1] },
+        });
+      }
+
+      // 2) Your section has X buddies
+      const myProfile = (sectionProfiles || []).find((p) => p.user_id === user.user_id);
+      if (myProfile?.wrigley_section) {
+        const count = (sectionCounts[myProfile.wrigley_section] || 1) - 1;
+        if (count >= 2 && shouldNotify(user.user_id, "section_buddies")) {
+          notifications.push({
+            user_id: user.user_id,
+            type: "section_buddies",
+            title: "Your section is loaded 🏟️",
+            body: `Your section has ${count} Buddies nearby.`,
+            emoji: "📍",
+            action_url: "/discover",
+            metadata: { section: myProfile.wrigley_section, count },
+          });
+        }
+      }
+
+      // 3) Meetup starting 2 blocks away
+      if ((upcomingMeetups || []).length > 0 && shouldNotify(user.user_id, "meetup_nearby")) {
+        const m = upcomingMeetups![0];
+        notifications.push({
+          user_id: user.user_id,
+          type: "meetup_nearby",
+          title: "Meetup starting soon 📍",
+          body: `A meetup is starting 2 blocks away at ${m.location_name}.`,
+          emoji: "🏃",
+          action_url: `/meetups/${m.id}`,
+          metadata: { meetup_id: m.id },
+        });
+      }
+
+      // 4) New fan just joined
+      if (newFanCount >= 1 && shouldNotify(user.user_id, "new_fan_nearby")) {
+        notifications.push({
+          user_id: user.user_id,
+          type: "new_fan_nearby",
+          title: "Fresh face in Wrigleyville 👋",
+          body: "A new fan just joined near you — say hi!",
+          emoji: "👋",
+          action_url: "/discover",
+        });
+      }
+
+      // 5) Wrigleyville is buzzing (broad activity)
+      if (wrigleyvilleBuzzing && shouldNotify(user.user_id, "wrigleyville_buzz")) {
+        notifications.push({
+          user_id: user.user_id,
+          type: "wrigleyville_buzz",
+          title: "The neighborhood is alive ⚡",
+          body: "Wrigleyville is buzzing — jump into the action.",
+          emoji: "⚡",
+          action_url: "/discover",
+        });
+      }
+
+      // 6) Almost first pitch — find your crew
+      if (
+        minsToFirstPitch !== null &&
+        minsToFirstPitch > 0 &&
+        minsToFirstPitch <= 30 &&
+        shouldNotify(user.user_id, "almost_first_pitch")
+      ) {
+        notifications.push({
+          user_id: user.user_id,
+          type: "almost_first_pitch",
+          title: "Almost first pitch ⚾",
+          body: "It's almost first pitch — find your crew.",
+          emoji: "⏰",
+          action_url: "/discover",
+        });
+      }
+    }
+
     // New hi-fives received in last hour
     const { data: recentHiFives } = await supabase
       .from("likes")

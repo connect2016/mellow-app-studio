@@ -142,8 +142,8 @@ function Section({ title, count, children }: { title: string; count: number; chi
   return (
     <section>
       <div className="flex items-baseline justify-between mb-2 px-1">
-        <h2 className="text-sm font-extrabold uppercase tracking-wider text-foreground">{title}</h2>
-        <span className="text-[11px] font-semibold text-muted-foreground">{count}</span>
+        <h2 className="text-sm font-extrabold uppercase tracking-wider text-white drop-shadow">{title}</h2>
+        <span className="text-[11px] font-semibold text-white/75">{count}</span>
       </div>
       {children}
     </section>

@@ -8,6 +8,7 @@ import { MeetupCard } from '@/components/meetups/MeetupCard';
 import { MeetupFilters, type WhenFilter, type WhereFilter } from '@/components/meetups/MeetupFilters';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
+import meetupsBg from '@/assets/meetups-bg.jpg';
 
 function isToday(iso: string) {
   const d = new Date(iso);

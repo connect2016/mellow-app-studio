@@ -308,6 +308,6 @@ export default function Profile() {
           </TabsContent>
         </Tabs>
       </div>
-    </DynamicBackground>
+    </div>
   );
 }

@@ -42,7 +42,7 @@ export function DrinkSpecialsStrip() {
               <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground truncate">
                 {s.bar}
               </p>
-              <p className="text-sm font-extrabold leading-tight mt-0.5 text-foreground">
+              <p className="text-base font-bold leading-tight mt-2 text-destructive-foreground">
                 {s.deal}
               </p>
             </div>

@@ -71,7 +71,7 @@ export function NotificationPreferencesPanel() {
   return (
     <div className="rounded-xl border bg-card p-4 space-y-4">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm font-semibold">
+        <div className="flex items-center gap-2 text-sm font-semibold text-destructive-foreground">
           <Bell className="h-4 w-4 text-primary" /> Notifications
         </div>
         {allOff && (

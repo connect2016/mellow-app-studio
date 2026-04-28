@@ -213,7 +213,7 @@ export default function Profile() {
                 <>
                   <div className="grid grid-cols-3 gap-2">
                     <Button
-                      onClick={() => toast({ title: '🖐️ Hi-Five sent!' })}
+                      onClick={() => toast({ title: '🖐️ Hi-Five sent — vibes delivered.' })}
                       variant="outline"
                       className="rounded-xl h-12 font-semibold text-sm"
                     >

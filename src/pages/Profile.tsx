@@ -58,7 +58,7 @@ export default function Profile() {
       if (!targetId) return null;
       const { data } = await supabase
         .from('profiles')
-        .select('favorite_bars, private_mode')
+        .select('favorite_bars, private_mode, pregame_meal, postgame_food, carb_up_strategy, favorite_bar_food, post_win_meal')
         .eq('user_id', targetId)
         .maybeSingle();
       return data;

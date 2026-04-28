@@ -21,7 +21,7 @@ export function ScoreWithFriendCTA() {
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            <h3 className="font-display text-sm font-bold text-foreground">
+            <h3 className="font-display text-sm font-bold text-destructive-foreground">
               Score the game with a friend
             </h3>
             {isLive && (

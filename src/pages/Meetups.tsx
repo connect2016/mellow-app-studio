@@ -59,15 +59,26 @@ export default function Meetups() {
   });
 
   return (
-    <div className={`min-h-screen bg-background ${isGuest ? 'pb-20' : 'pb-24'}`}>
+    <div className={`min-h-screen relative ${isGuest ? 'pb-20' : 'pb-24'}`}>
+      <div
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: `url(${meetupsBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div className="fixed inset-0 z-0 bg-black/55 pointer-events-none" />
+      <div className="relative z-10">
       <AppHeader />
 
       <main className="mx-auto max-w-2xl px-4 pt-4">
         {/* Hero header */}
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="min-w-0">
-            <h1 className="text-2xl font-extrabold tracking-tight text-foreground">Meetups</h1>
-            <p className="text-sm text-muted-foreground mt-0.5">
+            <h1 className="text-2xl font-extrabold tracking-tight text-white drop-shadow-md">Meetups</h1>
+            <p className="text-sm text-white/85 mt-0.5 drop-shadow">
               Find your crew · Tap any card to RSVP
             </p>
           </div>

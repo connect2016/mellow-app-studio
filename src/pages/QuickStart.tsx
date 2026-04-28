@@ -227,6 +227,7 @@ export default function QuickStart() {
           </button>
         </div>
       </main>
+      </div>
     </div>
   );
 }

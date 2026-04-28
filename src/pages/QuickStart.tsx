@@ -19,6 +19,7 @@ const INTENTS: { id: Intent; emoji: string; label: string; sub: string }[] = [
   { id: 'meet_fans', emoji: '🤝', label: 'Meet fellow fans', sub: 'Hi-fives, meetups, ballpark buddies' },
   { id: 'bar_hop', emoji: '🍻', label: 'Bar hop the neighborhood', sub: 'Vibe map, specials, pub crawls' },
   { id: 'date', emoji: '💘', label: 'Find a date who loves the Cubs', sub: 'Matches, conversations, low-key meetups' },
+  { id: 'all', emoji: '🌟', label: 'All of the above', sub: "Give me the full Wrigleyville experience" },
 ];
 
 const BEHAVIORS: { id: Behavior; emoji: string; label: string }[] = [

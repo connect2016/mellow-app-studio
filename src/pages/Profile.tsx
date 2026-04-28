@@ -286,6 +286,7 @@ export default function Profile() {
               <PrivateModeBanner />
             ) : (
               <>
+                {isOwnProfile && <TeammatesSummary />}
                 {isOwnProfile && (
                   <AchievementsHub compact onSeeAll={() => navigate('/missions')} />
                 )}

@@ -40,8 +40,8 @@ export function BestVibesTonight() {
           className="block rounded-2xl border border-dashed border-border bg-card/90 backdrop-blur-sm p-5 text-center"
         >
           <p className="text-2xl mb-1">🍻</p>
-          <p className="text-sm font-semibold">No live activity yet</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Be the first to check in at a bar</p>
+          <p className="text-sm font-bold text-destructive-foreground">No live activity yet</p>
+          <p className="text-sm text-destructive-foreground mt-0.5">Be the first to check in at a bar</p>
         </Link>
       ) : (
         <div className="space-y-2">

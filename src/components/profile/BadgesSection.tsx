@@ -18,7 +18,7 @@ export function BadgesSection({ userId, isOwner }: Props) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm font-semibold">
+        <div className="flex items-center gap-2 text-sm font-semibold text-destructive-foreground">
           <Award className="h-4 w-4 text-primary" /> Pennants Earned
         </div>
         <span className="text-xs text-muted-foreground">

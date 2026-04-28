@@ -60,7 +60,7 @@ export function SavedPlansSection({ userId }: Props) {
                 <span className="text-lg">{task.emoji}</span>
                 <span
                   className={`flex-1 text-sm ${
-                    done ? 'font-semibold' : 'text-muted-foreground'
+                    done ? 'font-semibold' : 'text-destructive-foreground'
                   }`}
                 >
                   {task.title}

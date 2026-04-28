@@ -100,7 +100,23 @@ export default function Profile() {
     });
   };
 
-  const handlePrivateToggle = (next: boolean) => {
+  const foodPromptValues = {
+    pregame_meal: (extraFields as any)?.pregame_meal ?? (profile as any)?.pregame_meal ?? '',
+    postgame_food: (extraFields as any)?.postgame_food ?? (profile as any)?.postgame_food ?? '',
+    carb_up_strategy: (extraFields as any)?.carb_up_strategy ?? (profile as any)?.carb_up_strategy ?? '',
+    favorite_bar_food: (extraFields as any)?.favorite_bar_food ?? (profile as any)?.favorite_bar_food ?? '',
+    post_win_meal: (extraFields as any)?.post_win_meal ?? (profile as any)?.post_win_meal ?? '',
+  };
+
+  const handleFoodPromptSave = (key: FoodPromptKey, value: string) => {
+    updateProfile.mutate({ [key]: value || null } as any, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['profile-extras'] });
+        toast({ title: '🍽️ Saved', description: 'Your prompt is live on your profile.' });
+      },
+    });
+  };
+
     updateProfile.mutate({ private_mode: next } as any, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['profile-extras'] });

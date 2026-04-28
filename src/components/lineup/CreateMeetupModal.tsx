@@ -86,7 +86,7 @@ export function CreateMeetupModal({ open, onClose }: CreateMeetupModalProps) {
             </div>
 
             <div className="flex items-center justify-between px-6 pb-3">
-              <h3 className="text-lg font-bold text-foreground" style={{ fontFamily: 'Rye, serif' }}>
+              <h3 className="text-lg font-bold text-destructive-foreground" style={{ fontFamily: 'Rye, serif' }}>
                 📋 Post to The Lineup
               </h3>
               <button onClick={onClose} className="rounded-full p-1.5 transition-colors hover:bg-muted">

@@ -177,7 +177,7 @@ export default function Profile() {
   }
 
   return (
-    <DynamicBackground className="pb-24">
+    <div className="relative min-h-screen bg-background pb-24">
       <AppHeader />
 
       <div className="mx-auto max-w-lg px-4 pt-4">
@@ -308,6 +308,6 @@ export default function Profile() {
           </TabsContent>
         </Tabs>
       </div>
-    </DynamicBackground>
+    </div>
   );
 }

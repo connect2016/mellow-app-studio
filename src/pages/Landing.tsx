@@ -115,7 +115,7 @@ function ProfileMock() {
       <div className="flex items-center gap-2 pb-3">
         <div className="h-12 w-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground font-bold text-sm">JT</div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-bold text-foreground truncate">Jake, 28</p>
+          <p className="text-xs font-bold text-destructive-foreground truncate">Jake, 28</p>
           <p className="text-[10px] text-muted-foreground">Sec 204 · 0.2mi away</p>
         </div>
       </div>
@@ -132,7 +132,7 @@ function ProfileMock() {
         </div>
         <div className="rounded-lg bg-card border p-2 mt-2">
           <p className="text-[9px] text-muted-foreground">Go-to bar</p>
-          <p className="text-[11px] font-semibold text-foreground">Murphy's Bleachers</p>
+          <p className="text-[11px] font-semibold text-destructive-foreground">Murphy's Bleachers</p>
         </div>
       </div>
       <div className="mt-auto flex gap-1.5 pt-3">
@@ -174,7 +174,7 @@ function MapMock() {
         </div>
       ))}
       <div className="absolute bottom-2 left-2 right-2 rounded-lg bg-background/95 backdrop-blur p-2 shadow-md">
-        <p className="text-[10px] font-bold text-foreground">12 fans nearby</p>
+        <p className="text-[10px] font-bold text-destructive-foreground">12 fans nearby</p>
         <p className="text-[9px] text-muted-foreground">Tap an avatar to say hi</p>
       </div>
     </div>
@@ -186,7 +186,7 @@ function MeetupMock() {
   return (
     <div className="flex h-full flex-col bg-gradient-to-b from-secondary/10 to-background p-3">
       <p className="text-[9px] font-bold uppercase tracking-wider text-secondary">Flash Meetup · 32m left</p>
-      <h4 className="mt-1 text-sm font-extrabold text-foreground leading-tight">Pregame Pints @ Murphy's</h4>
+      <h4 className="mt-1 text-sm font-extrabold text-destructive-foreground leading-tight">Pregame Pints @ Murphy's</h4>
       <div className="mt-2 flex items-center gap-1 text-[10px] text-muted-foreground">
         <MapPin className="h-3 w-3" /> Murphy's Bleachers · 0.1mi
       </div>
@@ -197,7 +197,7 @@ function MeetupMock() {
         <p className="text-[9px] text-muted-foreground mb-1">Hosted by</p>
         <div className="flex items-center gap-1.5">
           <div className="h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[9px] font-bold">SM</div>
-          <p className="text-[10px] font-semibold text-foreground">Sarah M.</p>
+          <p className="text-[10px] font-semibold text-destructive-foreground">Sarah M.</p>
           <span className="ml-auto text-[9px] text-muted-foreground">⭐ Verified</span>
         </div>
       </div>
@@ -234,7 +234,7 @@ function FeaturePreview({ kind }: { kind: 'map' | 'meetup' | 'hifive' }) {
     return (
       <div className="rounded-xl border bg-card p-3 space-y-1.5">
         <p className="text-[10px] font-bold uppercase text-secondary">Flash · 32m</p>
-        <p className="text-sm font-bold text-foreground leading-tight">Pregame @ Murphy's</p>
+        <p className="text-sm font-bold text-destructive-foreground leading-tight">Pregame @ Murphy's</p>
         <div className="flex items-center justify-between">
           <div className="flex -space-x-1.5">
             {['JT','MD','AL'].map((i) => (
@@ -250,7 +250,7 @@ function FeaturePreview({ kind }: { kind: 'map' | 'meetup' | 'hifive' }) {
     <div className="rounded-xl border bg-card p-3 flex items-center gap-3">
       <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-2xl">✋</div>
       <div className="flex-1">
-        <p className="text-xs font-bold text-foreground">Jake sent you a Hi-Five</p>
+        <p className="text-xs font-bold text-destructive-foreground">Jake sent you a Hi-Five</p>
         <p className="text-[10px] text-muted-foreground">Suggested: Murphy's, 5:30 PM</p>
       </div>
     </div>
@@ -299,8 +299,8 @@ export default function Landing() {
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-extrabold text-primary-foreground shadow">1</div>
-              <h3 className="mb-1 text-lg font-bold text-destructive-foreground">Create Your Fan Profile</h3>
-              <p className="mb-5 text-sm text-destructive-foreground max-w-xs">
+              <h3 className="mb-1 text-lg font-bold text-destructive-foreground text-xl font-bold">Create Your Fan Profile</h3>
+              <p className="mb-5 text-sm mt-1 text-destructive-foreground max-w-xs">
                 Pick your Gameday Persona, set your intent, drop your go-to bar.
               </p>
               <div className="rounded-2xl border bg-card p-4 w-full max-w-xs shadow-sm">
@@ -325,8 +325,8 @@ export default function Landing() {
             {/* Step 2 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-extrabold text-primary-foreground shadow">2</div>
-              <h3 className="mb-1 text-lg font-bold text-destructive-foreground">Find Your People</h3>
-              <p className="mb-5 text-sm text-destructive-foreground max-w-xs">
+              <h3 className="mb-1 text-lg font-bold text-destructive-foreground text-xl font-bold">Find Your People</h3>
+              <p className="mb-5 text-sm mt-1 text-destructive-foreground max-w-xs">
                 Open the live map. See fans nearby. Tap to send a Hi-Five.
               </p>
               <PhoneFrame className="max-w-[200px]"><MapMock /></PhoneFrame>
@@ -335,8 +335,8 @@ export default function Landing() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-extrabold text-primary-foreground shadow">3</div>
-              <h3 className="mb-1 text-lg font-bold text-destructive-foreground">Meet Up IRL</h3>
-              <p className="mb-5 text-sm text-destructive-foreground max-w-xs">
+              <h3 className="mb-1 text-lg font-bold text-destructive-foreground text-xl font-bold">Meet Up IRL</h3>
+              <p className="mb-5 text-sm mt-1 text-destructive-foreground max-w-xs">
                 Join a flash meetup at a bar near Wrigley — or host your own.
               </p>
               <PhoneFrame className="max-w-[200px]"><MeetupMock /></PhoneFrame>

@@ -92,7 +92,7 @@ export default function SectionChat() {
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
           <p className="text-5xl mb-4">🏟️</p>
-          <h2 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: "'Rye', cursive" }}>
+          <h2 className="text-xl font-bold text-destructive-foreground mb-2" style={{ fontFamily: "'Rye', cursive" }}>
             Set Your Section
           </h2>
           <p className="text-sm text-muted-foreground mb-6 max-w-xs">
@@ -113,7 +113,7 @@ export default function SectionChat() {
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
           <p className="text-5xl mb-4">📍</p>
-          <h2 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: "'Rye', cursive" }}>
+          <h2 className="text-xl font-bold text-destructive-foreground mb-2" style={{ fontFamily: "'Rye', cursive" }}>
             Get to the Ballpark!
           </h2>
           <p className="text-sm text-muted-foreground mb-4 max-w-xs">
@@ -140,7 +140,7 @@ export default function SectionChat() {
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
           <p className="text-5xl mb-4">📅</p>
-          <h2 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: "'Rye', cursive" }}>
+          <h2 className="text-xl font-bold text-destructive-foreground mb-2" style={{ fontFamily: "'Rye', cursive" }}>
             No Game Today
           </h2>
           <p className="text-sm text-muted-foreground max-w-xs">

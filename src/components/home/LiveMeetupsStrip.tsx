@@ -61,7 +61,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
                   <p className="text-base font-bold leading-tight truncate mt-2 text-destructive-foreground">
                     {m.location_name}
                   </p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 truncate">
+                  <p className="text-xs line-clamp-2 mt-1 text-destructive-foreground">
                     by {m.creator_name}
                   </p>
                 </div>

@@ -40,8 +40,8 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
           className="block w-full rounded-2xl border border-dashed border-border bg-card/90 backdrop-blur-sm p-5 text-center transition active:scale-[0.98]"
         >
           <p className="text-2xl mb-1">⚾</p>
-          <p className="text-sm font-semibold">No active meetups</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Tap to start one</p>
+          <p className="text-sm font-bold text-destructive-foreground">No active meetups</p>
+          <p className="text-sm text-destructive-foreground mt-0.5">Tap to start one</p>
         </button>
       ) : (
         <div className="flex gap-3 overflow-x-auto -mx-4 px-4 pb-2 scrollbar-none snap-x snap-mandatory">

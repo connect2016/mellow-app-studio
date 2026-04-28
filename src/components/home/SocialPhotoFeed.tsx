@@ -30,7 +30,7 @@ export function SocialPhotoFeed() {
   return (
     <section aria-labelledby="photo-feed-heading" className="mb-5">
       <div className="flex items-baseline justify-between mb-2.5 px-1">
-        <h2 id="photo-feed-heading" className="text-base font-extrabold text-on-image flex items-center gap-1.5">
+        <h2 id="photo-feed-heading" className="text-lg font-bold text-destructive-foreground text-on-image flex items-center gap-1.5">
           <Camera className="h-4 w-4 text-white" /> Live from Wrigleyville
         </h2>
         <Link
@@ -42,7 +42,7 @@ export function SocialPhotoFeed() {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl border border-border bg-card/90 p-6 text-center text-sm text-muted-foreground">
+        <div className="rounded-2xl border border-border bg-card/90 p-6 text-center text-sm text-destructive-foreground">
           Loading photos…
         </div>
       ) : posts.length === 0 ? (
@@ -51,8 +51,8 @@ export function SocialPhotoFeed() {
           className="block rounded-2xl border border-dashed border-border bg-card/90 p-5 text-center"
         >
           <p className="text-2xl mb-1">📸</p>
-          <p className="text-sm font-semibold">No photos yet tonight</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Be the first to share a moment</p>
+          <p className="text-sm font-bold text-destructive-foreground">No photos yet tonight</p>
+          <p className="text-sm text-destructive-foreground mt-0.5">Be the first to share a moment</p>
         </Link>
       ) : (
         <div className="flex gap-2 overflow-x-auto -mx-4 px-4 pb-2 scrollbar-none snap-x snap-mandatory">

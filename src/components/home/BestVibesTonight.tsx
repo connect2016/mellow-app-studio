@@ -19,7 +19,7 @@ export function BestVibesTonight() {
   return (
     <section aria-labelledby="best-vibes-heading" className="mb-5">
       <div className="flex items-baseline justify-between mb-2.5 px-1">
-        <h2 id="best-vibes-heading" className="text-base font-extrabold flex items-center gap-1.5 text-on-image">
+        <h2 id="best-vibes-heading" className="text-lg font-bold text-destructive-foreground flex items-center gap-1.5 text-on-image">
           <Flame className="h-4 w-4 text-orange-400" /> Best Vibes Tonight
         </h2>
         <Link
@@ -31,7 +31,7 @@ export function BestVibesTonight() {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-6 text-center text-sm text-muted-foreground">
+        <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-6 text-center text-sm text-destructive-foreground">
           Loading bars…
         </div>
       ) : top.length === 0 ? (
@@ -40,8 +40,8 @@ export function BestVibesTonight() {
           className="block rounded-2xl border border-dashed border-border bg-card/90 backdrop-blur-sm p-5 text-center"
         >
           <p className="text-2xl mb-1">🍻</p>
-          <p className="text-sm font-semibold">No live activity yet</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Be the first to check in at a bar</p>
+          <p className="text-sm font-bold text-destructive-foreground">No live activity yet</p>
+          <p className="text-sm text-destructive-foreground mt-0.5">Be the first to check in at a bar</p>
         </Link>
       ) : (
         <div className="space-y-2">
@@ -60,7 +60,7 @@ export function BestVibesTonight() {
                 <div className="min-w-0 flex-1">
                   <p className="text-base font-bold leading-tight truncate mt-2 text-destructive-foreground">{v.name}</p>
                   <div className="flex items-center gap-2 mt-0.5 text-xs text-destructive-foreground">
-                    <span className="font-semibold" style={{ color: 'inherit' }}>{meta.label}</span>
+                    <span className="font-bold text-destructive-foreground" style={{ color: 'inherit' }}>{meta.label}</span>
                     {v.totalUsers > 0 && (
                       <>
                         <span>·</span>

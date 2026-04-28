@@ -19,7 +19,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
   return (
     <section aria-labelledby="live-meetups-heading" className="mb-5">
       <div className="flex items-baseline justify-between mb-2.5 px-1">
-        <h2 id="live-meetups-heading" className="text-base font-extrabold text-on-image">
+        <h2 id="live-meetups-heading" className="text-lg font-bold text-destructive-foreground text-on-image">
           📋 Live Meetups
         </h2>
         <button
@@ -31,7 +31,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-6 text-center text-sm text-muted-foreground">
+        <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-6 text-center text-sm text-destructive-foreground">
           Loading meetups…
         </div>
       ) : top.length === 0 ? (
@@ -40,8 +40,8 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
           className="block w-full rounded-2xl border border-dashed border-border bg-card/90 backdrop-blur-sm p-5 text-center transition active:scale-[0.98]"
         >
           <p className="text-2xl mb-1">⚾</p>
-          <p className="text-sm font-semibold">No active meetups</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Tap to start one</p>
+          <p className="text-sm font-bold text-destructive-foreground">No active meetups</p>
+          <p className="text-sm text-destructive-foreground mt-0.5">Tap to start one</p>
         </button>
       ) : (
         <div className="flex gap-3 overflow-x-auto -mx-4 px-4 pb-2 scrollbar-none snap-x snap-mandatory">
@@ -68,10 +68,10 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
               </div>
               <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-border/60">
                 <div className="flex items-center gap-3 text-xs line-clamp-2 mt-1 text-destructive-foreground">
-                  <span className="flex items-center gap-1 font-semibold">
+                  <span className="flex items-center gap-1 font-bold text-destructive-foreground">
                     <Clock className="h-3 w-3" /> {formatTime(m.meeting_time)}
                   </span>
-                  <span className="flex items-center gap-1 font-semibold">
+                  <span className="flex items-center gap-1 font-bold text-destructive-foreground">
                     <Users className="h-3 w-3" /> {m.member_count}/{m.max_members}
                   </span>
                 </div>

@@ -299,8 +299,8 @@ export default function Landing() {
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-extrabold text-primary-foreground shadow">1</div>
-              <h3 className="mb-1 text-lg font-bold text-foreground">Create Your Fan Profile</h3>
-              <p className="mb-5 text-sm text-muted-foreground max-w-xs">
+              <h3 className="mb-1 text-lg font-bold text-destructive-foreground">Create Your Fan Profile</h3>
+              <p className="mb-5 text-sm text-destructive-foreground max-w-xs">
                 Pick your Gameday Persona, set your intent, drop your go-to bar.
               </p>
               <div className="rounded-2xl border bg-card p-4 w-full max-w-xs shadow-sm">
@@ -325,8 +325,8 @@ export default function Landing() {
             {/* Step 2 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-extrabold text-primary-foreground shadow">2</div>
-              <h3 className="mb-1 text-lg font-bold text-foreground">Find Your People</h3>
-              <p className="mb-5 text-sm text-muted-foreground max-w-xs">
+              <h3 className="mb-1 text-lg font-bold text-destructive-foreground">Find Your People</h3>
+              <p className="mb-5 text-sm text-destructive-foreground max-w-xs">
                 Open the live map. See fans nearby. Tap to send a Hi-Five.
               </p>
               <PhoneFrame className="max-w-[200px]"><MapMock /></PhoneFrame>
@@ -335,8 +335,8 @@ export default function Landing() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-base font-extrabold text-primary-foreground shadow">3</div>
-              <h3 className="mb-1 text-lg font-bold text-foreground">Meet Up IRL</h3>
-              <p className="mb-5 text-sm text-muted-foreground max-w-xs">
+              <h3 className="mb-1 text-lg font-bold text-destructive-foreground">Meet Up IRL</h3>
+              <p className="mb-5 text-sm text-destructive-foreground max-w-xs">
                 Join a flash meetup at a bar near Wrigley — or host your own.
               </p>
               <PhoneFrame className="max-w-[200px]"><MeetupMock /></PhoneFrame>

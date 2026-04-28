@@ -20,7 +20,7 @@ export function DrinkSpecialsStrip() {
   return (
     <section aria-labelledby="drink-specials-heading" className="mb-5">
       <div className="flex items-baseline justify-between mb-1 px-1">
-        <h2 id="drink-specials-heading" className="text-base font-extrabold text-on-image flex items-center gap-1.5">
+        <h2 id="drink-specials-heading" className="text-lg font-bold text-destructive-foreground text-on-image flex items-center gap-1.5">
           <Beer className="h-4 w-4 text-amber-400" /> Tonight's Drink Specials
         </h2>
       </div>

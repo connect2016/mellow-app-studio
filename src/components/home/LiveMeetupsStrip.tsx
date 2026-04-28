@@ -68,7 +68,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
               </div>
               <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-border/60">
                 <div className="flex items-center gap-3 text-xs line-clamp-2 mt-1 text-destructive-foreground">
-                  <span className="flex items-center gap-1 font-semibold">
+                  <span className="flex items-center gap-1 font-bold text-destructive-foreground">
                     <Clock className="h-3 w-3" /> {formatTime(m.meeting_time)}
                   </span>
                   <span className="flex items-center gap-1 font-semibold">

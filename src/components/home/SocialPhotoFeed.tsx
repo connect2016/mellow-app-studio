@@ -30,7 +30,7 @@ export function SocialPhotoFeed() {
   return (
     <section aria-labelledby="photo-feed-heading" className="mb-5">
       <div className="flex items-baseline justify-between mb-2.5 px-1">
-        <h2 id="photo-feed-heading" className="text-base font-extrabold text-on-image flex items-center gap-1.5">
+        <h2 id="photo-feed-heading" className="text-lg font-bold text-destructive-foreground text-on-image flex items-center gap-1.5">
           <Camera className="h-4 w-4 text-white" /> Live from Wrigleyville
         </h2>
         <Link

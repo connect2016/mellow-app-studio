@@ -270,7 +270,7 @@ function Choice({
         <div className="text-3xl shrink-0">{emoji}</div>
         <div className="flex-1 min-w-0">
           <div className="font-semibold text-base text-foreground">{label}</div>
-          <div className="text-sm text-muted-foreground truncate">{sub}</div>
+          <div className="text-sm text-destructive-foreground truncate">{sub}</div>
         </div>
         {selected && (
           <div className="size-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">

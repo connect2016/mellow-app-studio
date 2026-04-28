@@ -133,6 +133,7 @@ export default function Meetups() {
 
       <CreateMeetupModal open={showCreate} onClose={() => setShowCreate(false)} />
       {isGuest && <GuestBanner />}
+      </div>
     </div>
   );
 }

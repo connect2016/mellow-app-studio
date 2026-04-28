@@ -24,6 +24,7 @@ import { AchievementsHub } from '@/components/achievements/AchievementsHub';
 import { FoodPromptsSection, type FoodPromptKey } from '@/components/profile/FoodPromptsSection';
 import { RecruitButton } from '@/components/teammates/RecruitButton';
 import { useTeammates } from '@/hooks/useTeammates';
+import { TeammatesSummary } from '@/components/teammates/TeammatesSummary';
 import { Users } from 'lucide-react';
 
 export default function Profile() {

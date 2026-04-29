@@ -9,6 +9,7 @@
  */
 
 import { cn } from '@/lib/utils';
+import { ConceptIcon } from './ConceptIcon';
 import beerThumb from '@/assets/thumbs/beer.jpg';
 import hotdogThumb from '@/assets/thumbs/hotdog.jpg';
 import baseballThumb from '@/assets/thumbs/baseball.jpg';
@@ -169,8 +170,6 @@ export function ConceptVisual({
   if (src) {
     return <ConceptThumb name={name} size={size} className={className} />;
   }
-  // Lazy require to avoid a circular import at module init time.
-  const { ConceptIcon } = require('./ConceptIcon') as typeof import('./ConceptIcon');
   return (
     <ConceptIcon
       name={name ?? ''}

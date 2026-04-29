@@ -125,7 +125,7 @@ export default function QuickStart() {
                 key={opt.id}
                 selected={intent === opt.id}
                 onClick={() => setIntent(opt.id)}
-                emoji=<ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                emoji={opt.emoji}
                 label={opt.label}
                 sub={opt.sub}
               />

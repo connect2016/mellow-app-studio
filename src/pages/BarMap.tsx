@@ -86,13 +86,14 @@ export default function BarMap() {
   }, [filtered, checkinCounts, venueByName]);
 
   return (
-    <div className={`relative min-h-screen ${isGuest ? 'pb-20' : 'pb-24'}`}>
+    <div className={`relative min-h-screen overflow-x-hidden ${isGuest ? 'pb-20' : 'pb-24'}`}>
       <div
-        className="fixed inset-0 z-0"
+        className="fixed inset-0 z-0 swipe-drag-bg"
+        data-route-parallax="bg"
         style={{ backgroundImage: `url(${barMapBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}
       />
       <div className="fixed inset-0 z-0 bg-black/35 pointer-events-none" />
-      <div className="relative z-10">
+      <div className="relative z-10 swipe-drag" data-route-parallax="fg">
       <AppHeader />
 
       {/* Editorial hero */}

@@ -59,9 +59,10 @@ export default function Meetups() {
   });
 
   return (
-    <div className={`min-h-screen relative ${isGuest ? 'pb-20' : 'pb-24'}`}>
+    <div className={`min-h-screen relative overflow-x-hidden ${isGuest ? 'pb-20' : 'pb-24'}`}>
       <div
-        className="fixed inset-0 z-0"
+        className="fixed inset-0 z-0 swipe-drag-bg"
+        data-route-parallax="bg"
         style={{
           backgroundImage: `url(${meetupsBg})`,
           backgroundSize: 'cover',
@@ -70,7 +71,7 @@ export default function Meetups() {
         }}
       />
       <div className="fixed inset-0 z-0 bg-black/55 pointer-events-none" />
-      <div className="relative z-10">
+      <div className="relative z-10 swipe-drag" data-route-parallax="fg">
       <AppHeader />
 
       <main className="mx-auto max-w-2xl px-4 pt-4">

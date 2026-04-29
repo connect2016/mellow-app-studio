@@ -88,7 +88,7 @@ export function TonightModeView({ className }: Props) {
   };
 
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className={cn('space-y-6 tonight-activate', className)}>
       {/* SECTION 1 — Fans Nearby */}
       <section>
         <SectionHeader icon={<Users className="h-5 w-5" />} title="Fans Nearby" subtitle={`${fans.length} active right now`} />
@@ -96,10 +96,11 @@ export function TonightModeView({ className }: Props) {
           <EmptyCard text="No fans active nearby yet — check back in a few." />
         ) : (
           <div className="grid grid-cols-2 gap-3">
-            {fans.slice(0, 6).map((f: any) => (
+            {fans.slice(0, 6).map((f: any, idx: number) => (
               <div
                 key={f.user_id}
-                className="rounded-2xl bg-card/95 backdrop-blur-sm border border-border/40 p-3 flex flex-col gap-2 shadow-sm"
+                className="tonight-item rounded-2xl bg-card/95 backdrop-blur-sm border border-border/40 p-3 flex flex-col gap-2 shadow-sm"
+                style={{ ['--i' as any]: idx }}
               >
                 <button
                   onClick={() => navigate(`/profile/${f.user_id}`)}
@@ -159,14 +160,15 @@ export function TonightModeView({ className }: Props) {
           </EmptyCard>
         ) : (
           <div className="space-y-2">
-            {happeningSoon.map(m => {
+            {happeningSoon.map((m, idx) => {
               const mins = Math.round((new Date(m.meeting_time).getTime() - Date.now()) / 60000);
               const label = mins <= 0 ? 'LIVE' : `${mins}m`;
               return (
                 <button
                   key={m.id}
                   onClick={() => navigate(`/meetups/${m.id}`)}
-                  className="w-full flex items-center gap-3 rounded-2xl bg-card/95 backdrop-blur-sm border border-border/40 p-3 text-left shadow-sm hover:bg-card transition-colors"
+                  className="tonight-item w-full flex items-center gap-3 rounded-2xl bg-card/95 backdrop-blur-sm border border-border/40 p-3 text-left shadow-sm hover:bg-card transition-colors"
+                  style={{ ['--i' as any]: idx }}
                 >
                   <div className="flex flex-col items-center justify-center min-w-[52px] h-12 rounded-xl bg-[#C8102E] text-white px-2">
                     <span className="text-[11px] font-bold leading-none">{mins <= 0 ? '●' : 'IN'}</span>
@@ -202,7 +204,8 @@ export function TonightModeView({ className }: Props) {
             {barRanking.map((b, i) => (
               <div
                 key={b.name}
-                className="flex items-center gap-3 rounded-2xl bg-card/95 backdrop-blur-sm border border-border/40 p-3 shadow-sm"
+                className="tonight-item flex items-center gap-3 rounded-2xl bg-card/95 backdrop-blur-sm border border-border/40 p-3 shadow-sm"
+                style={{ ['--i' as any]: i }}
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-300 text-[#0E3386] font-extrabold text-base">
                   {i + 1}

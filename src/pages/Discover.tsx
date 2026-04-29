@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
@@ -91,6 +91,27 @@ export default function Discover() {
   const { data: cubsGame } = useMlbCubsGame();
   const isGameDay = !!cubsGame && cubsGame.status !== 'no-game';
   const tonight = useTonightMode({ isGameDay });
+
+  // Motion: badge flash on activation + brief exit animation when toggling off.
+  const [badgeFlash, setBadgeFlash] = useState(false);
+  const [exitingTonight, setExitingTonight] = useState(false);
+  const prevActive = useRef(tonight.active);
+  useEffect(() => {
+    if (prevActive.current === tonight.active) return;
+    if (tonight.active) {
+      setBadgeFlash(true);
+      const id = setTimeout(() => setBadgeFlash(false), 1200);
+      try { navigator.vibrate?.(10); } catch {}
+      prevActive.current = tonight.active;
+      return () => clearTimeout(id);
+    } else {
+      // Schedule exit animation, then mark previous so toggle is honored
+      setExitingTonight(true);
+      const id = setTimeout(() => setExitingTonight(false), 260);
+      prevActive.current = tonight.active;
+      return () => clearTimeout(id);
+    }
+  }, [tonight.active]);
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
@@ -236,9 +257,9 @@ export default function Discover() {
   };
 
   return (
-    <div className="min-h-screen pb-24 relative">
-      {/* Dynamic background image */}
-      <div className="fixed inset-0 z-0">
+    <div className="min-h-screen pb-24 relative overflow-x-hidden">
+      {/* Dynamic background image — parallax bg layer (40% drag) */}
+      <div className="fixed inset-0 z-0 swipe-drag-bg" data-route-parallax="bg">
         <img
           src={bgWrigleyville}
           alt=""
@@ -250,7 +271,8 @@ export default function Discover() {
         {gamedayMode && <div className="absolute inset-0 bg-background/30 backdrop-blur-[2px]" />}
       </div>
 
-      <div className="relative z-10">
+      {/* Foreground — full-speed drag layer */}
+      <div className="relative z-10 swipe-drag" data-route-parallax="fg">
       <AppHeader />
 
       {/* Match celebration overlay */}
@@ -350,8 +372,9 @@ export default function Discover() {
         >
           <div className="flex items-center gap-2 min-w-0">
             <span className={cn(
-              'flex h-7 w-7 items-center justify-center rounded-full',
-              tonight.active ? 'bg-yellow-300 text-[#0E3386]' : 'bg-muted text-muted-foreground'
+              'flex h-7 w-7 items-center justify-center rounded-full transition-colors',
+              tonight.active ? 'bg-yellow-300 text-[#0E3386]' : 'bg-muted text-muted-foreground',
+              badgeFlash && 'tonight-badge-flash'
             )}>
               {tonight.active ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </span>
@@ -392,6 +415,8 @@ export default function Discover() {
 
         {tonight.active ? (
           <TonightModeView className="mb-4" />
+        ) : exitingTonight ? (
+          <div className="tonight-exit mb-4" aria-hidden />
         ) : (
           <>
             {/* Game Day banner — only renders on game days */}

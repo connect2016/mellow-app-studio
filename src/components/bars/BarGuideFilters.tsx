@@ -47,7 +47,7 @@ export function BarGuideFilters({
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {(Object.keys(VIBE_LABELS) as BarVibe[]).map((v) => (
             <Chip key={v} active={vibes.includes(v)} onClick={() => onToggleVibe(v)}>
-              <span>{VIBE_LABELS[v].emoji}</span> {VIBE_LABELS[v].label}
+              <span><ConceptIcon name={VIBE_LABELS[v].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span> {VIBE_LABELS[v].label}
             </Chip>
           ))}
         </div>
@@ -71,7 +71,7 @@ export function BarGuideFilters({
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {(Object.keys(GROUP_LABELS) as BarGroupFit[]).map((g) => (
             <Chip key={g} active={groups.includes(g)} onClick={() => onToggleGroup(g)}>
-              <span>{GROUP_LABELS[g].emoji}</span> {GROUP_LABELS[g].label}
+              <span><ConceptIcon name={GROUP_LABELS[g].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span> {GROUP_LABELS[g].label}
             </Chip>
           ))}
         </div>
@@ -83,7 +83,7 @@ export function BarGuideFilters({
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {(Object.keys(TIMING_LABELS) as BarGameTiming[]).map((t) => (
             <Chip key={t} active={timings.includes(t)} onClick={() => onToggleTiming(t)}>
-              <span>{TIMING_LABELS[t].emoji}</span> {TIMING_LABELS[t].label}
+              <span><ConceptIcon name={TIMING_LABELS[t].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span> {TIMING_LABELS[t].label}
             </Chip>
           ))}
         </div>

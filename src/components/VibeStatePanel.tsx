@@ -21,7 +21,7 @@ export function VibeStatePanel() {
       const res = await classify.mutateAsync();
       if (res.vibe) {
         setResult(res.vibe);
-        toast.success(`Vibe updated: ${res.vibe.emoji} ${VIBE_STATES[res.vibe.vibe_state]?.label || res.vibe.vibe_state}`);
+        toast.success(`Vibe updated: $<ConceptIcon name={res.vibe.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${VIBE_STATES[res.vibe.vibe_state]?.label || res.vibe.vibe_state}`);
       }
     } catch (err: any) {
       toast.error(err.message || 'Failed to classify vibe');
@@ -92,7 +92,7 @@ export function VibeStatePanel() {
                     animate={{ scale: [1, 1.15, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    {displayVibe.emoji}
+                    <ConceptIcon name={displayVibe.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                   </motion.span>
                   <div className="flex-1">
                     <p className={`text-sm font-bold ${displayConf.color}`}>{displayConf.label}</p>

@@ -332,7 +332,7 @@ export default function SectionChat() {
                       }
                     >
                       {hasTrigger && (
-                        <span className="text-base mr-1">{hasTrigger.emoji}</span>
+                        <span className="text-base mr-1"><ConceptIcon name={hasTrigger.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                       )}
                       {msg.body}
                     </div>

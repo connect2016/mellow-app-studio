@@ -40,7 +40,7 @@ function StreakPennant({ streak, featured = false }: { streak: StreakData; featu
         }}
       >
         <div className="flex items-center gap-2.5">
-          <div className="text-2xl leading-none">{streak.emoji}</div>
+          <div className="text-2xl leading-none"><ConceptIcon name={streak.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
           <div className="min-w-0 flex-1">
             <p
               className="text-[10px] font-bold uppercase tracking-[0.12em] text-[hsl(222,82%,29%)]/70 truncate"

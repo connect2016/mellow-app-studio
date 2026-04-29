@@ -96,7 +96,7 @@ export function EatsCheckInButton({ spotName }: Props) {
                     onClick={() => { setSelectedStatus(opt.key); setCustomMessage(''); setStep('message'); }}
                     className="flex-1 flex items-center gap-2 rounded-xl border border-border bg-card hover:border-primary/50 hover:bg-primary/5 p-2.5 text-left transition-all"
                   >
-                    <span className="text-lg">{opt.emoji}</span>
+                    <span className="text-lg"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                     <span className="text-xs font-semibold text-foreground">{opt.label}</span>
                   </button>
                   <Button
@@ -120,7 +120,7 @@ export function EatsCheckInButton({ spotName }: Props) {
         {step === 'message' && (
           <>
             <p className="text-xs font-semibold text-foreground text-center">
-              {STATUS_OPTIONS.find(o => o.key === selectedStatus)?.emoji} Add a quick status (optional)
+              <ConceptIcon name={STATUS_OPTIONS.find(o => o.key === selectedStatus)?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Add a quick status (optional)
             </p>
             <Input
               placeholder="e.g. Who wants to split nachos?"

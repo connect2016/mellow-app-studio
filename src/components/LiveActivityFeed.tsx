@@ -145,7 +145,7 @@ export function LiveActivityFeed({ maxItems = 5 }: { maxItems?: number }) {
             className="overflow-hidden"
           >
             <div className="flex items-center gap-2.5 py-1.5">
-              <span className="text-base shrink-0">{item.emoji}</span>
+              <span className="text-base shrink-0"><ConceptIcon name={item.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
               <p className="text-xs text-foreground flex-1 min-w-0 truncate">
                 {item.text}
               </p>

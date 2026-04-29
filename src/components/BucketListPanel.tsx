@@ -154,7 +154,7 @@ export function BucketListPanel() {
                           )}
                           style={{ color: 'hsl(210, 50%, 20%)' }}
                         >
-                          {task.emoji} {task.title}
+                          <ConceptIcon name={task.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {task.title}
                         </p>
                         <p className="text-xs mt-0.5" style={{ color: 'hsl(35, 20%, 45%)' }}>
                           {task.description}

@@ -1,5 +1,6 @@
 import { Award } from 'lucide-react';
 import { BADGE_DEFINITIONS, useUserPennants } from '@/hooks/usePennants';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Props {
   userId: string | undefined;
@@ -46,7 +47,7 @@ export function BadgesSection({ userId, isOwner }: Props) {
                   className="group relative flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border bg-gradient-to-br from-primary/10 to-primary/5 p-2 text-center transition hover:scale-105"
                   title={badge.description}
                 >
-                  <span className="text-2xl">{badge.emoji}</span>
+                  <span className="text-2xl"><ConceptIcon name={badge.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   <span className="line-clamp-2 text-[10px] font-semibold leading-tight">
                     {badge.name}
                   </span>
@@ -67,7 +68,7 @@ export function BadgesSection({ userId, isOwner }: Props) {
                     className="flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border border-dashed bg-muted/30 p-2 text-center opacity-60"
                     title={badge.description}
                   >
-                    <span className="text-2xl grayscale">{badge.emoji}</span>
+                    <span className="text-2xl grayscale"><ConceptIcon name={badge.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                     <span className="line-clamp-2 text-[10px] font-medium leading-tight text-muted-foreground">
                       {badge.name}
                     </span>

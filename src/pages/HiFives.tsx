@@ -258,7 +258,7 @@ export default function HiFives() {
                                 disabled={hiFiveBack.isPending}
                                 className="flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 active:scale-95 transition-all"
                               >
-                                <span>{qr.emoji}</span>
+                                <span><ConceptIcon name={qr.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                                 <span>{qr.text}</span>
                               </motion.button>
                             ))}

@@ -178,7 +178,7 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                         key={spot.id}
                         className="flex items-center gap-3 rounded-xl border border-border bg-muted/30 p-3"
                       >
-                        <span className="text-xl shrink-0">{spot.emoji}</span>
+                        <span className="text-xl shrink-0"><ConceptIcon name={spot.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-foreground truncate">{spot.name}</p>
                           <p className="text-[11px] text-muted-foreground truncate">

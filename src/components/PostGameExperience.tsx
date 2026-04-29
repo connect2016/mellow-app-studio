@@ -120,7 +120,7 @@ export function PostGameExperience() {
       const { data: meetup, error } = await supabase.from('lineup_meetups').insert({
         creator_id: user.id,
         location_name: suggestion.bar,
-        description: `${suggestion.emoji} ${suggestion.title} — ${suggestion.description}`,
+        description: `$<ConceptIcon name={suggestion.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${suggestion.title} — ${suggestion.description}`,
         meeting_time: meetingTime,
         max_members: suggestion.group_size || 6,
       }).select('id').single();
@@ -403,7 +403,7 @@ export function PostGameExperience() {
                     }`}
                   >
                     <div className="flex items-start gap-2.5">
-                      <span className="text-xl mt-0.5 shrink-0">{s.emoji}</span>
+                      <span className="text-xl mt-0.5 shrink-0"><ConceptIcon name={s.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-foreground leading-snug">{s.title}</p>
                         <div className="flex items-center gap-2 mt-1 flex-wrap">

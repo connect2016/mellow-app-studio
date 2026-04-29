@@ -225,7 +225,7 @@ export default function Notifications() {
                         <div className={`flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full text-lg ${
                           notif.is_read ? 'bg-muted' : 'bg-primary/10'
                         }`}>
-                          {notif.emoji}
+                          <ConceptIcon name={notif.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                         </div>
 
                         <div className="flex-1 min-w-0">

@@ -139,7 +139,7 @@ export default function Discover() {
       queryClient.invalidateQueries({ queryKey: ['live-fan-counts'] });
       if (newStatus !== 'NotSet') {
         const opt = STATUS_OPTIONS.find(s => s.value === newStatus);
-        toast(`${opt?.emoji} Status set to "${opt?.label}"`);
+        toast(`$<ConceptIcon name={opt?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Status set to "${opt?.label}"`);
         // Track missions
         if (newStatus === 'AtWrigley') { tracker.trackCheckInWrigley(); tracker.trackAttendGame(); }
         if (newStatus === 'AtBar') tracker.trackCheckInBar();
@@ -493,7 +493,7 @@ export default function Discover() {
                       transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                     />
                   )}
-                  <span>{opt.emoji}</span>
+                  <span><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   <span>{opt.label}</span>
                 </motion.button>
               );

@@ -65,7 +65,7 @@ export function CoordinationPanel({ meetupId, locationName, attendees, isMember 
   const handleStatus = async (status: ArrivalStatus) => {
     try {
       await upsert.mutateAsync({ arrival_status: status });
-      toast.success(`${ARRIVAL_META[status].emoji} ${ARRIVAL_META[status].label}`);
+      toast.success(`$<ConceptIcon name={ARRIVAL_META[status].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${ARRIVAL_META[status].label}`);
     } catch {
       toast.error("Couldn't update status");
     }
@@ -163,7 +163,7 @@ export function CoordinationPanel({ meetupId, locationName, attendees, isMember 
               key={s}
               className="flex flex-col items-center justify-center rounded-xl bg-muted/60 py-2 px-1"
             >
-              <span className="text-base leading-none">{meta.emoji}</span>
+              <span className="text-base leading-none"><ConceptIcon name={meta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
               <span className="text-[10px] font-bold text-foreground mt-0.5">{n}</span>
               <span className="text-[9px] text-muted-foreground leading-tight text-center">
                 {meta.label}
@@ -193,7 +193,7 @@ export function CoordinationPanel({ meetupId, locationName, attendees, isMember 
                   : 'bg-card text-foreground border-border hover:bg-muted'
               }`}
             >
-              <span>{meta.emoji}</span>
+              <span><ConceptIcon name={meta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
               <span>{meta.label}</span>
             </motion.button>
           );
@@ -336,7 +336,7 @@ function RosterRow({ row, attendee }: { row: CoordinationRow; attendee?: Attende
             className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold"
             style={{ background: `${meta.color}20`, color: meta.color }}
           >
-            {meta.emoji} {meta.label}
+            <ConceptIcon name={meta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {meta.label}
           </span>
           {row.eta_minutes != null && row.arrival_status !== 'arrived' && (
             <span className="text-[10px] text-muted-foreground font-semibold">

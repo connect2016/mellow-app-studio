@@ -30,7 +30,7 @@ export function MomentCard({ playType, description, inning, half, calledIt }: Mo
       className="mx-3 my-1.5 rounded-xl border-2 border-primary/20 bg-primary/5 px-3 py-2.5"
     >
       <div className="flex items-center gap-2">
-        <span className="text-xl">{play.emoji}</span>
+        <span className="text-xl"><ConceptIcon name={play.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
         <div className="flex-1 min-w-0">
           <p
             className="text-xs font-black text-primary tracking-wide"

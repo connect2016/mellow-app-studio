@@ -470,7 +470,7 @@ export default function BeerMoney() {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-foreground truncate">{entry.name}</p>
                 </div>
-                <span className="text-sm">{entry.emoji}</span>
+                <span className="text-sm"><ConceptIcon name={entry.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                 <div className="text-right">
                   <p className="text-sm font-bold text-primary">{entry.rounds}</p>
                   <p className="text-[9px] text-muted-foreground">rounds</p>
@@ -822,7 +822,7 @@ export default function BeerMoney() {
                           {a.tag}
                         </span>
                       )}
-                      <span className="text-lg">{a.emoji}</span>
+                      <span className="text-lg"><ConceptIcon name={a.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                       <span className={`text-sm font-bold ${amount === a.value ? 'text-amber-300' : 'text-destructive-foreground'}`}>{a.label}</span>
                       <span className="text-[9px] text-muted-foreground">{a.desc}</span>
                     </motion.button>

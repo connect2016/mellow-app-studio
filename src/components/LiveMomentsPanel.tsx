@@ -66,7 +66,7 @@ function MomentCard({ moment, isJoined, onJoin, onLeave }: {
           animate={isJoined ? { scale: [1, 1.15, 1] } : {}}
           transition={{ duration: 0.8, repeat: Infinity }}
         >
-          {moment.emoji}
+          <ConceptIcon name={moment.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
         </motion.div>
 
         <div className="flex-1 min-w-0">
@@ -143,7 +143,7 @@ export function LiveMomentsPanel() {
       { type: preset.type, title: preset.title, emoji: preset.emoji, duration: preset.duration },
       {
         onSuccess: () => {
-          toast.success(`${preset.emoji} "${preset.title}" is live!`);
+          toast.success(`$<ConceptIcon name={preset.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> "${preset.title}" is live!`);
           setShowCreate(false);
         },
       }
@@ -242,7 +242,7 @@ export function LiveMomentsPanel() {
                         onClick={() => handleCreate(preset)}
                         disabled={createMoment.isPending}
                       >
-                        <span className="text-lg">{preset.emoji}</span>
+                        <span className="text-lg"><ConceptIcon name={preset.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                         <span className="truncate w-full text-center">{preset.title.split('!')[0]}</span>
                         <span className="text-[10px] text-muted-foreground">{preset.duration}s</span>
                       </Button>

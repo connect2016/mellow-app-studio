@@ -243,7 +243,7 @@ export function BleacherBarometer() {
                         )}
                       </div>
                       <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="text-xs">{statusMeta.emoji}</span>
+                        <span className="text-xs"><ConceptIcon name={statusMeta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                         <span className="text-[10px] font-semibold text-muted-foreground">{statusMeta.label}</span>
                         <span className="text-[10px] text-muted-foreground/60">·</span>
                         <span className="text-[10px] text-muted-foreground/60">

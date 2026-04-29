@@ -121,7 +121,7 @@ export default function Missions() {
                   {totalPoints}
                 </span>
                 <span className={`text-sm font-semibold ${tier.color}`}>
-                  {tier.emoji} {tier.name}
+                  <ConceptIcon name={tier.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {tier.name}
                 </span>
               </div>
             </div>
@@ -179,7 +179,7 @@ export default function Missions() {
                   : 'bg-card border border-border text-muted-foreground hover:text-foreground'
               }`}
             >
-              {cat === 'all' ? ' All' : `${CATEGORY_CONFIG[cat]?.emoji} ${CATEGORY_CONFIG[cat]?.label}`}
+              {cat === 'all' ? ' All' : `$<ConceptIcon name={CATEGORY_CONFIG[cat]?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${CATEGORY_CONFIG[cat]?.label}`}
             </button>
           ))}
         </div>

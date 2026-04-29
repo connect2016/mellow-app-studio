@@ -35,7 +35,7 @@ function MilestoneRow({ m }: { m: MilestoneWithProgress }) {
               : undefined
           }
         >
-          <span className={`text-2xl ${earned ? '' : 'grayscale opacity-40'}`}>{m.emoji}</span>
+          <span className={`text-2xl ${earned ? '' : 'grayscale opacity-40'}`}><ConceptIcon name={m.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
           {earned && tierRoman && (
             <span
               className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 rounded-full border border-[hsl(222,82%,29%)] bg-[hsl(222,82%,29%)] px-1.5 py-0 text-[8px] font-extrabold leading-tight tracking-wider text-[#F4ECDB]"

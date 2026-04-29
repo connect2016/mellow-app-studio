@@ -167,7 +167,7 @@ export default function VerifyFan() {
                     { emoji: '', label: 'Blue checkmark on your profile' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-2.5">
-                      <span className="text-lg">{item.emoji}</span>
+                      <span className="text-lg"><ConceptIcon name={item.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                       <span className="text-sm text-foreground">{item.label}</span>
                     </div>
                   ))}
@@ -178,7 +178,7 @@ export default function VerifyFan() {
               <div className="rounded-2xl border-2 border-dashed border-primary/30 bg-primary/5 p-5">
                 <p className="text-xs font-bold text-primary uppercase tracking-wider mb-2">Your Verification Pose</p>
                 <div className="flex items-center justify-center gap-3">
-                  <span className="text-5xl">{POSE_INSTRUCTION.emoji}</span>
+                  <span className="text-5xl"><ConceptIcon name={POSE_INSTRUCTION.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   <div className="text-left">
                     <p className="text-base font-bold text-foreground">{POSE_INSTRUCTION.label}</p>
                     <p className="text-sm text-muted-foreground">{POSE_INSTRUCTION.description}</p>
@@ -207,7 +207,7 @@ export default function VerifyFan() {
               className="space-y-4"
             >
               <div className="text-center mb-2">
-                <p className="text-sm font-semibold text-foreground">Show a {POSE_INSTRUCTION.emoji} {POSE_INSTRUCTION.label}</p>
+                <p className="text-sm font-semibold text-foreground">Show a <ConceptIcon name={POSE_INSTRUCTION.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {POSE_INSTRUCTION.label}</p>
                 <p className="text-xs text-muted-foreground">{POSE_INSTRUCTION.description}</p>
               </div>
 
@@ -223,7 +223,7 @@ export default function VerifyFan() {
                 {/* Pose guide overlay */}
                 <div className="absolute inset-0 border-4 border-dashed border-primary/40 rounded-2xl pointer-events-none" />
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full">
-                  {POSE_INSTRUCTION.emoji} Hold your {POSE_INSTRUCTION.label.toLowerCase()} and tap capture
+                  <ConceptIcon name={POSE_INSTRUCTION.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Hold your {POSE_INSTRUCTION.label.toLowerCase()} and tap capture
                 </div>
               </div>
 

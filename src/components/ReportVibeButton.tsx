@@ -60,7 +60,7 @@ export function ReportVibeButton({ barName }: ReportVibeButtonProps) {
                 disabled={isVoting}
                 className="flex-1 flex flex-col items-center gap-0.5 py-2 px-2 rounded-lg border border-primary/20 bg-primary/5 hover:bg-primary/15 hover:border-primary/40 transition-all active:scale-95"
               >
-                <span className="text-lg">{opt.emoji}</span>
+                <span className="text-lg"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                 <span className="text-[9px] font-bold text-foreground font-scoreboard uppercase tracking-wide">
                   {opt.label}
                 </span>

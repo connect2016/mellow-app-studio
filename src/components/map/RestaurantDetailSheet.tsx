@@ -136,7 +136,7 @@ export function RestaurantDetailSheet({ restaurant, onClose }: Props) {
                 className={`mb-4 rounded-2xl border border-border bg-gradient-to-br ${phaseMeta.gradient} p-4`}
               >
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-lg">{phaseMeta.emoji}</span>
+                  <span className="text-lg"><ConceptIcon name={phaseMeta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-foreground">
                     {phaseMeta.tag}
                   </p>

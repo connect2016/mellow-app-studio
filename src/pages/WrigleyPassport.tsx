@@ -196,7 +196,7 @@ export default function WrigleyPassport() {
                   {isChecked ? (
                     <CheckCircle2 className="h-5 w-5 text-primary" />
                   ) : (
-                    <span>{loc.emoji}</span>
+                    <span><ConceptIcon name={loc.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   )}
                 </div>
 

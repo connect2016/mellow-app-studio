@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Plus, Pencil, Check, X, Utensils } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export interface FoodPromptValues {
   pregame_meal?: string | null;
@@ -138,7 +139,7 @@ function PromptCard({
         className={`rounded-2xl border border-border bg-gradient-to-br ${def.gradient} p-4`}
       >
         <div className="mb-1.5 flex items-center gap-2">
-          <span className="text-base">{def.emoji}</span>
+          <span className="text-base"><ConceptIcon name={def.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
             {def.label}
           </p>
@@ -152,7 +153,7 @@ function PromptCard({
     return (
       <article className="rounded-2xl border border-primary/40 bg-card p-4 shadow-sm">
         <div className="mb-2 flex items-center gap-2">
-          <span className="text-base">{def.emoji}</span>
+          <span className="text-base"><ConceptIcon name={def.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-foreground">
             {def.label}
           </p>
@@ -207,7 +208,7 @@ function PromptCard({
       }`}
     >
       <div className="mb-1.5 flex items-center gap-2">
-        <span className="text-base">{def.emoji}</span>
+        <span className="text-base"><ConceptIcon name={def.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
         <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground flex-1">
           {def.label}
         </p>

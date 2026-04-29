@@ -92,7 +92,7 @@ function FlashMeetupCard({ meetup, onJoin, onLeave, isPending }: {
       {/* Title row */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="text-2xl shrink-0">{meetup.emoji}</span>
+          <span className="text-2xl shrink-0"><ConceptIcon name={meetup.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
           <h4 className="text-base font-bold text-foreground truncate">{meetup.title}</h4>
         </div>
         {meetup.is_system_generated && (
@@ -301,7 +301,7 @@ export function FlashMeetupsPanel() {
                               : 'border-border text-muted-foreground hover:border-primary/20'
                           }`}
                         >
-                          {v.emoji}
+                          <ConceptIcon name={v.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                         </button>
                       ))}
                     </div>

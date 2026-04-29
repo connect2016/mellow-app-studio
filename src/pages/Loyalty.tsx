@@ -52,7 +52,7 @@ function BadgeCard({
                 : 'bg-muted'
             }`}
           >
-            {badge.emoji}
+            <ConceptIcon name={badge.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
             {unlocked && (
               <motion.div
                 initial={{ scale: 0 }}
@@ -206,7 +206,7 @@ export default function Loyalty() {
                 transition={{ repeat: Infinity, duration: 1.2 }}
                 className="text-6xl mb-4"
               >
-                {celebration.emoji}
+                <ConceptIcon name={celebration.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
               </motion.div>
               <h2 className="text-2xl font-bold text-foreground mb-2">
                 Pennant Unlocked! 

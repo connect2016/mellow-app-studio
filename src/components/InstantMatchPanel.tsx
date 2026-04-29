@@ -78,7 +78,7 @@ export function InstantMatchPanel() {
       const { data: meetup, error } = await supabase.from('lineup_meetups').insert({
         creator_id: user.id,
         location_name: match.meeting_spot,
-        description: `${match.emoji} ${match.group_name} — ${match.reason}`,
+        description: `$<ConceptIcon name={match.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${match.group_name} — ${match.reason}`,
         meeting_time: meetingTime,
         max_members: match.member_ids.length + 1,
       }).select('id').single();
@@ -101,7 +101,7 @@ export function InstantMatchPanel() {
       const notifications = match.member_ids.map(uid => ({
         user_id: uid,
         type: 'instant_match',
-        title: `${match.emoji} Instant Match!`,
+        title: `$<ConceptIcon name={match.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Instant Match!`,
         body: `You've been matched into "${match.group_name}" — head to ${match.meeting_spot} now!`,
         emoji: match.emoji,
         action_url: '/game-day',
@@ -178,7 +178,7 @@ export function InstantMatchPanel() {
               animate={{ rotate: [0, -10, 10, -10, 0] }}
               transition={{ duration: 0.5 }}
             >
-              {match.emoji}
+              <ConceptIcon name={match.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
             </motion.span>
             <p className="text-sm font-bold text-foreground mt-2">You're in! </p>
             <p className="text-xs text-muted-foreground mt-1">
@@ -190,7 +190,7 @@ export function InstantMatchPanel() {
             {/* Match card */}
             <div className={`rounded-xl border p-3 ${energyConf.bg}`}>
               <div className="flex items-start gap-2.5">
-                <span className="text-2xl">{match.emoji}</span>
+                <span className="text-2xl"><ConceptIcon name={match.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-foreground">{match.group_name}</p>
                   <div className="flex items-center gap-2 mt-1 flex-wrap">

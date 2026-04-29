@@ -3,6 +3,7 @@ import { Bookmark, CheckCircle2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { BUCKET_LIST_TASKS } from '@/lib/bucket-list-tasks';
 import { Progress } from '@/components/ui/progress';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Props {
   userId: string | undefined;
@@ -57,7 +58,7 @@ export function SavedPlansSection({ userId }: Props) {
                   done ? 'border-primary/30 bg-primary/5' : 'bg-card/60 opacity-70'
                 }`}
               >
-                <span className="text-lg">{task.emoji}</span>
+                <span className="text-lg"><ConceptIcon name={task.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                 <span
                   className={`flex-1 text-sm ${
                     done ? 'font-semibold' : 'text-destructive-foreground'

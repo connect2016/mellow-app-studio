@@ -90,7 +90,7 @@ export function GameTriggerAnimation({ trigger, onComplete }: GameTriggerAnimati
             transition={{ duration: 0.5, delay: 0.3 }}
             className="absolute flex flex-col items-center gap-2"
           >
-            <span className="text-5xl">{trigger.emoji}</span>
+            <span className="text-5xl"><ConceptIcon name={trigger.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
             <span
               className="text-2xl font-bold tracking-wider uppercase px-6 py-2 rounded-xl"
               style={{

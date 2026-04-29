@@ -99,11 +99,11 @@ export function NextMovePanel() {
         toast.error(err.message || 'Failed to join');
       }
     } else if (rec.type === 'go_to_venue' || rec.type === 'explore_section') {
-      toast.success(`${rec.emoji} Heading to ${rec.location}!`);
+      toast.success(`$<ConceptIcon name={rec.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Heading to ${rec.location}!`);
     } else if (rec.type === 'start_meetup') {
       toast.info(`Create a meetup at ${rec.location} from the Lineup tab!`);
     } else {
-      toast.success(`${rec.emoji} ${rec.title}`);
+      toast.success(`$<ConceptIcon name={rec.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${rec.title}`);
     }
   };
 
@@ -181,7 +181,7 @@ export function NextMovePanel() {
                     <div className={`h-9 w-9 rounded-lg flex items-center justify-center shrink-0 ${
                       isTop ? 'bg-primary/10' : 'bg-muted/50'
                     }`}>
-                      <span className="text-lg">{rec.emoji}</span>
+                      <span className="text-lg"><ConceptIcon name={rec.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5">

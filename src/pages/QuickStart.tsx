@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { Check, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import quickstartBg from '@/assets/quickstart-bg.jpg';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
@@ -124,7 +125,7 @@ export default function QuickStart() {
                 key={opt.id}
                 selected={intent === opt.id}
                 onClick={() => setIntent(opt.id)}
-                emoji={opt.emoji}
+                emoji=<ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                 label={opt.label}
                 sub={opt.sub}
               />
@@ -144,7 +145,7 @@ export default function QuickStart() {
                     behavior === opt.id && 'ring-2 ring-primary bg-primary/5',
                   )}
                 >
-                  <div className="text-3xl mb-1">{opt.emoji}</div>
+                  <div className="text-3xl mb-1"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
                   <div className="text-sm font-semibold">{opt.label}</div>
                 </button>
               ))}
@@ -184,7 +185,7 @@ export default function QuickStart() {
                       group === opt.id && 'ring-2 ring-primary bg-primary/5',
                     )}
                   >
-                    <div className="text-2xl mb-0.5">{opt.emoji}</div>
+                    <div className="text-2xl mb-0.5"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
                     <div className="text-xs font-semibold">{opt.label}</div>
                   </button>
                 ))}

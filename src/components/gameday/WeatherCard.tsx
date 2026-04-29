@@ -25,12 +25,12 @@ export function WeatherCard() {
           </span>
         </div>
         <span className={`text-[10px] font-bold uppercase tracking-wider ${windCallout.color}`}>
-          {windCallout.emoji} {windCallout.label} {w.windRelativeToField.replace(/^(out|in) /, '')}
+          <ConceptIcon name={windCallout.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {windCallout.label} {w.windRelativeToField.replace(/^(out|in) /, '')}
         </span>
       </div>
 
       <div className="mt-2 flex items-center gap-4">
-        <div className="text-4xl">{w.emoji}</div>
+        <div className="text-4xl"><ConceptIcon name={w.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
         <div>
           <div className="font-display text-3xl font-extrabold leading-none text-foreground tabular-nums">
             {w.temperatureF}°

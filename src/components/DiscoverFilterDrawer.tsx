@@ -202,7 +202,7 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
                         local.wrigleyOnly && loc.value !== 'AtWrigley' && 'opacity-40 cursor-not-allowed'
                       )}
                     >
-                      <span>{loc.emoji}</span>
+                      <span><ConceptIcon name={loc.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                       <span>{loc.label}</span>
                     </button>
                   ))}

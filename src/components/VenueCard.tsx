@@ -52,7 +52,7 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="text-xl">{crowd.emoji}</span>
+          <span className="text-xl"><ConceptIcon name={crowd.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
           <div className="min-w-0">
             <h3 className="text-sm font-bold text-foreground truncate">
               {venue.name}

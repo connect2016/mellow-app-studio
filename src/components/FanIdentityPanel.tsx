@@ -16,7 +16,7 @@ export function FanIdentityPanel() {
       const res = await classify.mutateAsync();
       if (res.identity) {
         setResult(res.identity);
-        toast.success(`${res.identity.emoji} ${res.identity.title} — ${res.identity.tier.replace('_', ' ')}`);
+        toast.success(`$<ConceptIcon name={res.identity.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${res.identity.title} — ${res.identity.tier.replace('_', ' ')}`);
       }
     } catch (err: any) {
       toast.error(err.message || 'Failed to classify');
@@ -127,7 +127,7 @@ export function FanIdentityPanel() {
                       const arch = ARCHETYPE_LABELS[a];
                       return arch ? (
                         <span key={a} className="text-[10px] bg-muted/50 border border-border rounded-full px-2 py-0.5">
-                          {arch.emoji} {arch.label}
+                          <ConceptIcon name={arch.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {arch.label}
                         </span>
                       ) : null;
                     })}

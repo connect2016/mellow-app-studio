@@ -123,7 +123,7 @@ export function HomeRunEffect({ trigger, playType }: HomeRunEffectProps) {
                 className="absolute"
                 style={{ fontSize: p.size }}
               >
-                {p.emoji}
+                <ConceptIcon name={p.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
               </motion.div>
             );
           })}

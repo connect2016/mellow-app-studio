@@ -124,7 +124,7 @@ function computeCompatibility(me: ProfileLike, them: ProfileLike): Compatibility
   return {
     score,
     reasons,
-    topReasons: reasons.slice(0, 3).map(r => `${r.emoji} ${r.text}`),
+    topReasons: reasons.slice(0, 3).map(r => r.text),
   };
 }
 

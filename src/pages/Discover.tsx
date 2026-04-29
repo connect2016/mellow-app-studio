@@ -330,6 +330,9 @@ export default function Discover() {
           </p>
         </div>
 
+        {/* Game Day banner — only renders on game days */}
+        <GameDayBanner />
+
         {/* New focused home dashboard: game header, vibes, meetups, map, specials, photos */}
         <HomeDashboard />
 

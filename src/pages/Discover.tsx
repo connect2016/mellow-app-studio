@@ -372,8 +372,9 @@ export default function Discover() {
         >
           <div className="flex items-center gap-2 min-w-0">
             <span className={cn(
-              'flex h-7 w-7 items-center justify-center rounded-full',
-              tonight.active ? 'bg-yellow-300 text-[#0E3386]' : 'bg-muted text-muted-foreground'
+              'flex h-7 w-7 items-center justify-center rounded-full transition-colors',
+              tonight.active ? 'bg-yellow-300 text-[#0E3386]' : 'bg-muted text-muted-foreground',
+              badgeFlash && 'tonight-badge-flash'
             )}>
               {tonight.active ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </span>

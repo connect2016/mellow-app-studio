@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { REACTIONS } from './reactionData';
-import { RealisticEmoji } from './RealisticEmoji';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { cn } from '@/lib/utils';
 
 interface ReactionPickerProps {
@@ -57,9 +57,10 @@ export function ReactionPicker({ onReact, children }: ReactionPickerProps) {
                 onReact({ type: 'reaction', body: r.shortText, key: r.key });
                 setOpen(false);
               }}
+              aria-label={r.label}
               className="flex flex-col items-center gap-0.5 p-1.5 rounded-xl hover:bg-primary/10 active:scale-90 transition-all duration-150 min-h-[44px] justify-center"
             >
-              <RealisticEmoji src={r.image} alt={r.label} size="sm" />
+              <ConceptIcon name={r.icon} className="h-5 w-5 text-foreground" />
               <span className="text-[7px] sm:text-[8px] font-medium text-muted-foreground leading-tight">{r.shortText}</span>
             </button>
           ))}
@@ -68,3 +69,4 @@ export function ReactionPicker({ onReact, children }: ReactionPickerProps) {
     </div>
   );
 }
+

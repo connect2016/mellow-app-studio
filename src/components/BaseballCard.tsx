@@ -327,9 +327,9 @@ export function BaseballCard({
               )}
 
               {persona && persona in PERSONA_CONFIG && (
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="text-xs"><ConceptVisual name={PERSONA_CONFIG[persona as GamedayPersona].emoji} size="sm" /></span>
-                  <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
+                <div className="flex items-center gap-1.5 mt-0.5" style={{ color: '#CC3433' }}>
+                  <PersonaIcon name={persona} size={12} strokeWidth={2} />
+                  <span className="text-[9px] font-bold uppercase tracking-wider">
                     {PERSONA_CONFIG[persona as GamedayPersona].label}
                   </span>
                 </div>

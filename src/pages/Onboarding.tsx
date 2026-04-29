@@ -19,6 +19,7 @@ import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { useToast } from '@/hooks/use-toast';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { PersonaIcon } from '@/components/icons/PersonaIcons';
 
 const TOTAL_STEPS = 5;
 

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Clock, Users, MapPin, Sparkles, ShieldCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { deriveVibeTags } from '@/hooks/useMeetups';
+import { deriveVibeTags, deriveMeetupCategory } from '@/hooks/useMeetups';
 import type { LineupMeetup } from '@/hooks/useLineup';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { MeetupCategoryBadge } from '@/components/meetups/MeetupCategoryBadge';
+import { stripEmoji } from '@/components/icons/ConceptIcon';
 
 interface MeetupCardProps {
   meetup: LineupMeetup & { is_verified?: boolean; fan_tier_emoji?: string };
@@ -25,6 +26,9 @@ function formatAbs(iso: string) {
 
 export function MeetupCard({ meetup }: MeetupCardProps) {
   const vibeTags = deriveVibeTags(meetup);
+  const category = deriveMeetupCategory(meetup);
+  const cleanLocation = stripEmoji(meetup.location_name);
+  const cleanDesc = stripEmoji(meetup.description || '');
   const spotsLeft = Math.max(0, meetup.max_members - (meetup.member_count ?? 0));
   const isFull = spotsLeft === 0;
   const isStartingSoon = (() => {
@@ -36,7 +40,7 @@ export function MeetupCard({ meetup }: MeetupCardProps) {
     <Link
       to={`/meetups/${meetup.id}`}
       className="block rounded-2xl border border-border bg-card p-4 shadow-sm transition active:scale-[0.99] hover:shadow-md hover:border-primary/30"
-      aria-label={`Meetup at ${meetup.location_name}`}
+      aria-label={`Meetup at ${cleanLocation}`}
     >
       {/* Top row: host + status pill */}
       <div className="flex items-start gap-3">
@@ -49,17 +53,16 @@ export function MeetupCard({ meetup }: MeetupCardProps) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
             <span className="text-sm font-bold text-foreground truncate">
-              {meetup.creator_name}
+              {stripEmoji(meetup.creator_name)}
             </span>
             {meetup.is_verified && (
               <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" aria-label="Verified host" />
             )}
-            <span className="text-xs">{meetup.fan_tier_emoji ?? ''}</span>
             <span className="text-[11px] text-muted-foreground">· hosting</span>
           </div>
           <div className="flex items-center gap-1 mt-0.5 text-sm text-foreground/90">
             <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
-            <span className="font-semibold truncate">{meetup.location_name}</span>
+            <span className="font-semibold truncate">{cleanLocation}</span>
           </div>
         </div>
         {isStartingSoon && !isFull && (
@@ -69,11 +72,16 @@ export function MeetupCard({ meetup }: MeetupCardProps) {
         )}
       </div>
 
-      {/* Description */}
-      {meetup.description && (
-        <p className="mt-2.5 text-xs text-foreground/70 italic leading-relaxed line-clamp-2">
-          "{meetup.description}"
-        </p>
+      {/* Category + Description */}
+      {(category || cleanDesc) && (
+        <div className="mt-2.5 flex items-start gap-2 flex-wrap">
+          {category && <MeetupCategoryBadge category={category} size="sm" />}
+          {cleanDesc && (
+            <p className="text-xs text-foreground/70 italic leading-relaxed line-clamp-2 flex-1 min-w-0">
+              "{cleanDesc}"
+            </p>
+          )}
+        </div>
       )}
 
       {/* Vibe tags */}

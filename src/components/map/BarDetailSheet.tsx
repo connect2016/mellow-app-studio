@@ -98,6 +98,10 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                     <MapPin className="h-3.5 w-3.5 shrink-0" />
                     <span>{bar.address}</span>
                   </div>
+                  <div className="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-bold">
+                    <Users className="h-3 w-3" />
+                    {visibleCheckins.length} {visibleCheckins.length === 1 ? 'Buddy' : 'Buddies'} here now
+                  </div>
                 </div>
                 <button
                   onClick={onClose}

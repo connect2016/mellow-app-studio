@@ -38,6 +38,9 @@ import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
 import { GameDayCountdown } from '@/components/GameDayCountdown';
 import { HomeDashboard } from '@/components/home/HomeDashboard';
 import { GameDayBanner } from '@/components/home/GameDayBanner';
+import { FindFansBanner } from '@/components/home/FindFansBanner';
+import { HomeQuickCarousel } from '@/components/home/HomeQuickCarousel';
+import { WhosNearbyCarousel } from '@/components/WhosNearbyCarousel';
 import { pickCopy, LOADING_FANS, EMPTY_FANS } from '@/lib/fan-copy';
 
 const STATUS_OPTIONS = [

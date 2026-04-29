@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Footprints, Flame, Star, Beer, type LucideIcon } from 'lucide-react';
+import { Sparkles, Footprints, Flame, Star, Beer, Users, type LucideIcon } from 'lucide-react';
 
 type Card = {
   to: string;
@@ -51,6 +51,14 @@ const CARDS: Card[] = [
     copy: 'These spots are packed with friendly fans right now.',
     gradient: 'linear-gradient(135deg, #1B5E20 0%, #43A047 100%)',
     iconTint: '#FDB827',
+  },
+  {
+    to: '/crews',
+    icon: Users,
+    title: 'Crew Picks',
+    copy: 'Hand-picked crews looking for a few more fans tonight.',
+    gradient: 'linear-gradient(135deg, #0E3386 0%, #FDB827 100%)',
+    iconTint: '#FFFFFF',
   },
 ];
 

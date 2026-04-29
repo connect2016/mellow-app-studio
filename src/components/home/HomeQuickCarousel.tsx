@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Footprints, Flame, Star, Beer, type LucideIcon } from 'lucide-react';
+import { Sparkles, Footprints, Flame, Star, Beer, Users, type LucideIcon } from 'lucide-react';
 
 type Card = {
   to: string;

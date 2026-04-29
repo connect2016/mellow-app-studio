@@ -45,12 +45,29 @@ export default function Notifications() {
   const markRead = useMarkRead();
   const markAllRead = useMarkAllRead();
   const clearRead = useClearNotifications();
+  const [filter, setFilter] = useState<FilterKey>('all');
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
-  const unreadCount = notifications.filter(n => !n.is_read).length;
+  const filtered = useMemo(
+    () => (filter === 'all' ? notifications : notifications.filter((n) => categorize(n.type) === filter)),
+    [notifications, filter],
+  );
+
+  const counts = useMemo(() => {
+    const c: Record<FilterKey, number> = { all: 0, meetups: 0, fans: 0, gameday: 0, food: 0, hifives: 0 };
+    notifications.forEach((n) => {
+      if (n.is_read) return;
+      c.all += 1;
+      const k = categorize(n.type);
+      if (k !== 'all') c[k] += 1;
+    });
+    return c;
+  }, [notifications]);
+
+  const unreadCount = counts.all;
 
   const handleTap = (notif: typeof notifications[0]) => {
     if (!notif.is_read) markRead.mutate(notif.id);

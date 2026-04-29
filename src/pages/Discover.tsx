@@ -336,7 +336,29 @@ export default function Discover() {
         {/* Game Day banner — only renders on game days */}
         <GameDayBanner />
 
-        {/* New focused home dashboard: game header, vibes, meetups, map, specials, photos */}
+        {/* Friend-finding hero banner */}
+        <FindFansBanner />
+
+        {/* Personalized carousel: New Fans · Meetups · Bars · Crew Picks */}
+        <HomeQuickCarousel />
+
+        {/* Suggested fans strip */}
+        <div className="mb-2">
+          <div className="px-4 mb-1 flex items-baseline justify-between">
+            <h2
+              className="text-[15px] font-extrabold uppercase tracking-wide text-white"
+              style={{ fontFamily: 'Norwester, sans-serif', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}
+            >
+              Suggested Fans Nearby
+            </h2>
+            <Link to="/discover" className="text-[11px] font-bold text-white/90 underline-offset-2 hover:underline">
+              See all
+            </Link>
+          </div>
+          <WhosNearbyCarousel />
+        </div>
+
+        {/* Personalized feed: meetups, vibes, map, specials, photos, carb-up */}
         <HomeDashboard />
 
         {/* Game-Time Match Banner */}

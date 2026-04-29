@@ -33,7 +33,7 @@ function formatTime(iso: string) {
 }
 
 export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeetupModalProps) {
-  const isPresetBar = defaultLocation && (WRIGLEYVILLE_BARS as readonly string[]).includes(defaultLocation);
+  const isPresetBar = !!defaultLocation && WRIGLEYVILLE_BARS.some((b) => b.name === defaultLocation);
   const [location, setLocation] = useState(isPresetBar ? defaultLocation! : (defaultLocation ? '__custom__' : ''));
   const [customLocation, setCustomLocation] = useState(isPresetBar ? '' : (defaultLocation ?? ''));
   const [time, setTime] = useState('');

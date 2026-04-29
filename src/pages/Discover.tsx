@@ -236,9 +236,9 @@ export default function Discover() {
   };
 
   return (
-    <div className="min-h-screen pb-24 relative">
-      {/* Dynamic background image */}
-      <div className="fixed inset-0 z-0">
+    <div className="min-h-screen pb-24 relative overflow-x-hidden">
+      {/* Dynamic background image — parallax bg layer (40% drag) */}
+      <div className="fixed inset-0 z-0 swipe-drag-bg" data-route-parallax="bg">
         <img
           src={bgWrigleyville}
           alt=""
@@ -250,7 +250,8 @@ export default function Discover() {
         {gamedayMode && <div className="absolute inset-0 bg-background/30 backdrop-blur-[2px]" />}
       </div>
 
-      <div className="relative z-10">
+      {/* Foreground — full-speed drag layer */}
+      <div className="relative z-10 swipe-drag" data-route-parallax="fg">
       <AppHeader />
 
       {/* Match celebration overlay */}

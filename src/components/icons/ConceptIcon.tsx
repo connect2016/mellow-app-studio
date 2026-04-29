@@ -9,7 +9,7 @@
  *   <ConceptIcon name="hotdog" size={20} />
  */
 
-import { ComponentType, SVGProps } from 'react';
+import { SVGProps } from 'react';
 import {
   Activity,
   AlertTriangle,
@@ -90,7 +90,8 @@ import {
 } from './CustomIcons';
 import { cn } from '@/lib/utils';
 
-type IconComp = ComponentType<SVGProps<SVGSVGElement> & { size?: number | string; strokeWidth?: number }>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type IconComp = React.ComponentType<any>;
 
 /**
  * Master mapping. Keys can be:

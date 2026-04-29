@@ -21,7 +21,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
     <section aria-labelledby="live-meetups-heading" className="mb-5">
       <div className="flex items-baseline justify-between mb-2.5 px-1">
         <h2 id="live-meetups-heading" className="text-lg font-bold text-destructive-foreground text-on-image">
-          <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Live Meetups
+           Live Meetups
         </h2>
         <button
           onClick={onCreate}
@@ -40,7 +40,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
           onClick={onCreate}
           className="block w-full rounded-2xl border border-dashed border-border bg-card/90 backdrop-blur-sm p-5 text-center transition active:scale-[0.98]"
         >
-          <p className="text-2xl mb-1"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+          <p className="text-2xl mb-1"></p>
           <p className="text-sm font-bold text-destructive-foreground">No active meetups</p>
           <p className="text-sm text-destructive-foreground mt-0.5">Tap to start one</p>
         </button>

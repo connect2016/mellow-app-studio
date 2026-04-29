@@ -154,12 +154,12 @@ export default function CrewsContent() {
 
         {isLoading ? (
           <div className="py-16 text-center">
-            <p className="text-3xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-3xl animate-pulse"></p>
             <p className="mt-2 text-sm text-muted-foreground">Finding crews...</p>
           </div>
         ) : filtered.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-3xl"></p>
             <p className="mt-2 font-semibold text-foreground">No crews to discover</p>
             <p className="text-sm text-muted-foreground">Be the first — create one above!</p>
           </div>

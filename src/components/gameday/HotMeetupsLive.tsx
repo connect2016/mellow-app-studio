@@ -53,7 +53,7 @@ export function HotMeetupsLive() {
 
       {sorted.length === 0 ? (
         <div className="px-4 py-6 text-center">
-          <div className="text-2xl mb-1"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+          <div className="text-2xl mb-1"></div>
           <p className="text-[12px] text-muted-foreground">
             No active meetups. Start one and pull a crew together.
           </p>

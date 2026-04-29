@@ -113,9 +113,9 @@ export function ClusterMarkerComponent({ cluster }: { cluster: MapCluster }) {
   const friendly = pickLabel(cluster.id);
 
   const vibeLabels: Record<VibeFilter, string> = {
-    party: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Party Vibe',
-    chill: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Chill Vibe',
-    hardcore: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Hardcore Fans',
+    party: ' Party Vibe',
+    chill: ' Chill Vibe',
+    hardcore: ' Hardcore Fans',
   };
 
   const movementLabels: Record<MovementFilter, string> = {

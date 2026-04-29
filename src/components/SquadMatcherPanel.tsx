@@ -224,7 +224,7 @@ export function SquadMatcherPanel() {
           </div>
         ) : squads.length === 0 ? (
           <div className="py-6 text-center">
-            <p className="text-2xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-2xl"></p>
             <p className="mt-1 text-sm text-muted-foreground">Not enough fans nearby for squads</p>
             <p className="text-xs text-muted-foreground">Check back during game time!</p>
           </div>

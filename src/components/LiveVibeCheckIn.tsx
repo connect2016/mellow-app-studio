@@ -63,7 +63,7 @@ export function LiveVibeCheckIn({ preselectedBar }: { preselectedBar?: string })
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center">
-                <span className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                <span className="text-3xl"></span>
                 <h2 className="text-lg font-bold text-foreground mt-2">
                   Live Vibe Check-In
                 </h2>

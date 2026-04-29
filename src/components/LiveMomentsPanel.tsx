@@ -119,7 +119,7 @@ function MomentCard({ moment, isJoined, onJoin, onLeave }: {
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 1.2, repeat: Infinity }}
             >
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              
             </motion.span>
             Join In!
           </Button>
@@ -152,7 +152,7 @@ export function LiveMomentsPanel() {
 
   const handleJoin = (momentId: string) => {
     joinMoment.mutate(momentId, {
-      onSuccess: () => toast('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> You joined the moment!'),
+      onSuccess: () => toast(' You joined the moment!'),
     });
   };
 
@@ -206,7 +206,7 @@ export function LiveMomentsPanel() {
                 <div className="text-center py-6 text-sm text-muted-foreground">Loading moments…</div>
               ) : moments.length === 0 ? (
                 <div className="text-center py-6">
-                  <p className="text-3xl mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+                  <p className="text-3xl mb-2"></p>
                   <p className="text-sm text-muted-foreground">No live moments right now</p>
                   <p className="text-xs text-muted-foreground">Be the first to start one!</p>
                 </div>

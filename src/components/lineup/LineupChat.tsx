@@ -57,7 +57,7 @@ export function LineupChat({ meetup, open, onClose }: LineupChatProps) {
             <div className="flex items-center justify-between px-5 py-3 border-b border-border shrink-0">
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-bold text-foreground truncate" style={{ fontFamily: 'Rye, serif' }}>
-                  <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {meetup.location_name}
+                   {meetup.location_name}
                 </h3>
                 <p className="text-[11px] text-muted-foreground">
                   {meetup.member_count} fan{meetup.member_count !== 1 ? 's' : ''} in this meetup
@@ -72,7 +72,7 @@ export function LineupChat({ meetup, open, onClose }: LineupChatProps) {
             <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
               {messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
-                  <p className="text-3xl mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+                  <p className="text-3xl mb-2"></p>
                    <p className="text-sm font-semibold text-foreground">The bases are empty!</p>
                    <p className="text-xs text-muted-foreground">Be the first to start a conversation.</p>
                 </div>

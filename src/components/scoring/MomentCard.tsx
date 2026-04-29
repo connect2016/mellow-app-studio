@@ -10,18 +10,18 @@ interface MomentCardProps {
 }
 
 const PLAY_LABELS: Record<string, { emoji: string; label: string }> = {
-  hr: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'HOME RUN' },
-  strikeout: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'STRIKEOUT' },
-  double_play: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'DOUBLE PLAY' },
-  hit: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'BASE HIT' },
-  walk: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'WALK' },
-  steal: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'STOLEN BASE' },
-  flyout: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'FLY OUT' },
+  hr: { emoji: '', label: 'HOME RUN' },
+  strikeout: { emoji: '', label: 'STRIKEOUT' },
+  double_play: { emoji: '', label: 'DOUBLE PLAY' },
+  hit: { emoji: '', label: 'BASE HIT' },
+  walk: { emoji: '', label: 'WALK' },
+  steal: { emoji: '', label: 'STOLEN BASE' },
+  flyout: { emoji: '', label: 'FLY OUT' },
   groundout: { emoji: '⬇️', label: 'GROUND OUT' },
 };
 
 export function MomentCard({ playType, description, inning, half, calledIt }: MomentCardProps) {
-  const play = PLAY_LABELS[playType] ?? { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'KEY PLAY' };
+  const play = PLAY_LABELS[playType] ?? { emoji: '', label: 'KEY PLAY' };
 
   return (
     <motion.div
@@ -46,7 +46,7 @@ export function MomentCard({ playType, description, inning, half, calledIt }: Mo
       </div>
       {calledIt && calledIt.length > 0 && (
         <div className="mt-1.5 flex items-center gap-1">
-          <span className="text-[10px] text-secondary font-bold"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Called it:</span>
+          <span className="text-[10px] text-secondary font-bold"> Called it:</span>
           <span className="text-[10px] text-muted-foreground">{calledIt.join(', ')}</span>
         </div>
       )}

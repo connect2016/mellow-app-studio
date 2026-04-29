@@ -64,7 +64,7 @@ export function GameTriggerAnimation({ trigger, onComplete }: GameTriggerAnimati
                     ease: 'easeOut',
                   }}
                 >
-                  <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                  
                 </motion.span>
               ))}
             </>
@@ -78,7 +78,7 @@ export function GameTriggerAnimation({ trigger, onComplete }: GameTriggerAnimati
               transition={{ duration: 0.8, ease: 'easeOut' }}
               className="text-8xl"
             >
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              
             </motion.div>
           )}
 

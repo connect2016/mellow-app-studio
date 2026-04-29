@@ -115,7 +115,7 @@ export function InstantMatchPanel() {
     onSuccess: () => {
       setActivated(true);
       queryClient.invalidateQueries({ queryKey: ['lineup-meetups'] });
-      toast.success("You're matched! Group chat is live <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />");
+      toast.success("You're matched! Group chat is live ");
     },
     onError: (err: any) => toast.error(err.message || 'Failed to activate'),
   });
@@ -163,7 +163,7 @@ export function InstantMatchPanel() {
           </div>
         ) : !match ? (
           <div className="text-center py-6">
-            <span className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+            <span className="text-3xl"></span>
             <p className="text-sm text-muted-foreground mt-2">{data?.reason || 'No matches found nearby'}</p>
             <p className="text-xs text-muted-foreground mt-1">Check back closer to game time</p>
           </div>
@@ -180,7 +180,7 @@ export function InstantMatchPanel() {
             >
               {match.emoji}
             </motion.span>
-            <p className="text-sm font-bold text-foreground mt-2">You're in! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-sm font-bold text-foreground mt-2">You're in! </p>
             <p className="text-xs text-muted-foreground mt-1">
               Head to <span className="font-semibold text-foreground">{match.meeting_spot}</span> — group chat is live
             </p>
@@ -243,7 +243,7 @@ export function InstantMatchPanel() {
             </Button>
 
             <p className="text-center text-[10px] text-muted-foreground">
-              One tap — we handle the rest <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              One tap — we handle the rest 
             </p>
           </div>
         )}

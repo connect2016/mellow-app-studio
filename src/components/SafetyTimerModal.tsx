@@ -41,7 +41,7 @@ export function SafetyTimerModal({ open, onClose, meetupId, locationName }: Safe
         durationMinutes: duration,
       });
       toast({
-        title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Safety Timer Active',
+        title: ' Safety Timer Active',
         description: `We'll check in with you in ${duration / 60} hours. Tap "I'm Safe" when you're good!`,
       });
       setStep('ask');
@@ -118,7 +118,7 @@ export function SafetyTimerModal({ open, onClose, meetupId, locationName }: Safe
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-bold text-foreground">
-                    <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Safety Timer
+                     Safety Timer
                   </h3>
                   <button onClick={handleSkip} className="p-1.5 rounded-full hover:bg-muted">
                     <X className="h-4 w-4 text-muted-foreground" />

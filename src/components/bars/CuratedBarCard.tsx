@@ -23,10 +23,10 @@ interface Props {
 }
 
 const crowdConfig: Record<string, { label: string; emoji: string; color: string }> = {
-  empty: { label: 'Quiet', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', color: 'bg-muted text-muted-foreground' },
-  chill: { label: 'Chill', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', color: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' },
-  busy: { label: 'Buzzing', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', color: 'bg-amber-500/15 text-amber-700 dark:text-amber-400' },
-  packed: { label: 'Packed', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', color: 'bg-red-500/15 text-red-700 dark:text-red-400' },
+  empty: { label: 'Quiet', emoji: '', color: 'bg-muted text-muted-foreground' },
+  chill: { label: 'Chill', emoji: '', color: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' },
+  busy: { label: 'Buzzing', emoji: '', color: 'bg-amber-500/15 text-amber-700 dark:text-amber-400' },
+  packed: { label: 'Packed', emoji: '', color: 'bg-red-500/15 text-red-700 dark:text-red-400' },
 };
 
 const accentBg: Record<string, string> = {
@@ -93,12 +93,12 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
           )}
           {meetupCount > 0 && (
             <span className="inline-flex items-center gap-1 text-[11px] text-primary font-semibold">
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {meetupCount} meetup{meetupCount !== 1 ? 's' : ''}
+               {meetupCount} meetup{meetupCount !== 1 ? 's' : ''}
             </span>
           )}
           {liveBeerCount != null && liveBeerCount > 0 && (
             <span className="inline-flex items-center gap-1 text-[11px] text-amber-600 dark:text-amber-400 font-semibold">
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {liveBeerCount} beer{liveBeerCount !== 1 ? 's' : ''} sent
+               {liveBeerCount} beer{liveBeerCount !== 1 ? 's' : ''} sent
             </span>
           )}
           {liveWait && liveWait !== 'no_line' && (
@@ -174,10 +174,10 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
             asChild={!onSendBeer}
           >
             {onSendBeer ? (
-              <span><Beer className="h-3.5 w-3.5" /> Buy a Beer Here <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+              <span><Beer className="h-3.5 w-3.5" /> Buy a Beer Here </span>
             ) : (
               <Link to={`/beer-money?bar=${encodeURIComponent(bar.name)}`}>
-                <Beer className="h-3.5 w-3.5" /> Buy a Beer Here <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                <Beer className="h-3.5 w-3.5" /> Buy a Beer Here 
               </Link>
             )}
           </Button>
@@ -259,7 +259,7 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
                 {/* Footer / address */}
                 <div className="flex items-center justify-between pt-1">
                   <div className="text-[11px] text-muted-foreground">
-                    <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {bar.address} · est. {bar.established}
+                     {bar.address} · est. {bar.established}
                   </div>
                 </div>
 

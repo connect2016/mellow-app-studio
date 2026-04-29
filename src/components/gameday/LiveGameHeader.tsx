@@ -150,7 +150,7 @@ function CountdownCard({ game }: { game: CubsLiveGame }) {
       {(game.probablePitcherCubs || game.probablePitcherOpponent) && (
         <div className="flex items-center justify-center gap-3 text-[10px] text-muted-foreground">
           {game.probablePitcherCubs && (
-            <span><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {game.probablePitcherCubs}</span>
+            <span> {game.probablePitcherCubs}</span>
           )}
           <span className="text-muted-foreground/40">vs</span>
           {game.probablePitcherOpponent && (

@@ -77,7 +77,7 @@ export function MissionStreak() {
           </div>
           {data.streak > 0 ? (
             <p className="text-lg font-bold text-foreground">
-              {data.streak} day{data.streak !== 1 ? 's' : ''} <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              {data.streak} day{data.streak !== 1 ? 's' : ''} 
             </p>
           ) : (
             <p className="text-sm text-muted-foreground">Complete a mission today to start your streak!</p>

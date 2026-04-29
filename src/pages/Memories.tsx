@@ -154,7 +154,7 @@ export default function Memories() {
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Memory saved!');
+      toast.success(' Memory saved!');
       setShowUpload(false);
       setSelectedFile(null);
       setPreviewUrl(null);
@@ -226,7 +226,7 @@ export default function Memories() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-4 rounded-2xl border border-accent/30 bg-gradient-to-br from-accent/10 via-card to-primary/5 p-4 overflow-hidden relative"
           >
-            <div className="absolute top-2 right-2 opacity-10 text-6xl pointer-events-none"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+            <div className="absolute top-2 right-2 opacity-10 text-6xl pointer-events-none"></div>
             <div className="flex items-center gap-2 mb-3">
               <div className="flex items-center justify-center h-7 w-7 rounded-full bg-accent/20">
                 <Sparkles className="h-4 w-4 text-accent" />
@@ -264,7 +264,7 @@ export default function Memories() {
                 transition={{ delay: 0.3 }}
                 className="text-sm text-foreground/80 mt-3 text-center font-medium"
               >
-                <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> You met {dayStats.newFans} new fan{dayStats.newFans !== 1 ? 's' : ''} today!
+                 You met {dayStats.newFans} new fan{dayStats.newFans !== 1 ? 's' : ''} today!
               </motion.p>
             )}
           </motion.div>
@@ -296,7 +296,7 @@ export default function Memories() {
 
                 {/* Location tag */}
                 <div>
-                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Location</p>
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5"> Location</p>
                   <div className="flex gap-1.5 flex-wrap">
                     {LOCATION_TAGS.map(tag => (
                       <button
@@ -316,7 +316,7 @@ export default function Memories() {
 
                 {/* Tag people */}
                 <div>
-                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Tag People</p>
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5"> Tag People</p>
 
                   {taggedUsers.length > 0 && (
                     <div className="flex gap-1.5 flex-wrap mb-2">
@@ -368,7 +368,7 @@ export default function Memories() {
                     disabled={uploading}
                     onClick={() => uploadMemory.mutate()}
                   >
-                    {uploading ? 'Saving...' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Save Memory'}
+                    {uploading ? 'Saving...' : ' Save Memory'}
                   </Button>
                   <Button
                     variant="outline"
@@ -386,7 +386,7 @@ export default function Memories() {
         {/* Memories Feed */}
         {isLoading ? (
           <div className="py-16 text-center">
-            <p className="text-4xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-4xl animate-pulse"></p>
             <p className="mt-2 text-sm font-medium text-muted-foreground">Loading memories...</p>
           </div>
         ) : memories.length === 0 ? (

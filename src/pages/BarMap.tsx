@@ -166,7 +166,7 @@ export default function BarMap() {
             className="mt-3 rounded-xl border border-amber-500/40 bg-black/60 backdrop-blur p-3 flex items-center gap-3"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500/20 text-lg shrink-0">
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-[10px] font-bold uppercase tracking-wider text-amber-300">Hottest bar right now</p>
@@ -204,7 +204,7 @@ export default function BarMap() {
       <section className="max-w-3xl mx-auto px-4 pt-4 space-y-3">
         {sorted.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-white/30 bg-black/50 backdrop-blur p-8 text-center">
-            <div className="text-3xl mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+            <div className="text-3xl mb-2"></div>
             <h3 className="font-bold text-white mb-1">No bars match those filters</h3>
             <p className="text-xs text-white/80">Try clearing a chip — Wrigleyville's bigger than you think.</p>
           </div>

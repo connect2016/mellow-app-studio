@@ -112,7 +112,7 @@ export function StreaksSection({ compact = false }: Props) {
   if (active.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-[hsl(222,82%,29%)]/30 bg-[#F4ECDB]/40 p-4 text-center">
-        <p className="text-2xl mb-1"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+        <p className="text-2xl mb-1"></p>
         <p
           className="text-sm font-semibold text-[hsl(222,82%,29%)]"
           style={{ fontFamily: 'Montserrat, sans-serif' }}

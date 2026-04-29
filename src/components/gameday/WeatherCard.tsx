@@ -11,9 +11,9 @@ export function WeatherCard() {
   if (!w) return null;
 
   const windCallout = w.windRelativeToField.startsWith('out')
-    ? { label: 'Wind blowing out', color: 'text-emerald-600 dark:text-emerald-400', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' }
+    ? { label: 'Wind blowing out', color: 'text-emerald-600 dark:text-emerald-400', emoji: '' }
     : w.windRelativeToField.startsWith('in')
-    ? { label: 'Wind blowing in', color: 'text-blue-600 dark:text-blue-400', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' }
+    ? { label: 'Wind blowing in', color: 'text-blue-600 dark:text-blue-400', emoji: '' }
     : { label: 'Cross-wind', color: 'text-muted-foreground', emoji: '〰️' };
 
   return (

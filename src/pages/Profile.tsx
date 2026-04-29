@@ -117,7 +117,7 @@ export default function Profile() {
     updateProfile.mutate({ [key]: value || null } as any, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['profile-extras'] });
-        toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Saved', description: 'Your prompt is live on your profile.' });
+        toast({ title: ' Saved', description: 'Your prompt is live on your profile.' });
       },
     });
   };
@@ -127,7 +127,7 @@ export default function Profile() {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['profile-extras'] });
         toast({
-          title: next ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Private Mode on' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Private Mode off',
+          title: next ? ' Private Mode on' : ' Private Mode off',
           description: next
             ? 'Bars, badges, and history hidden from non-matches'
             : 'Your social content is visible again',
@@ -146,7 +146,7 @@ export default function Profile() {
         .eq('user_id', user.id);
     },
     onSuccess: () => {
-      toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> User blocked', description: "They won't appear in your feed anymore." });
+      toast({ title: ' User blocked', description: "They won't appear in your feed anymore." });
       queryClient.invalidateQueries({ queryKey: ['discover-profiles'] });
       navigate('/discover');
     },
@@ -157,7 +157,7 @@ export default function Profile() {
       <div className="min-h-screen bg-background pb-24">
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
-          <p className="text-4xl mb-4"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+          <p className="text-4xl mb-4"></p>
           <p className="font-semibold text-destructive-foreground">Fan not found</p>
           <p className="text-sm mt-1 text-destructive-foreground">They may have stepped away from the ballpark.</p>
           <Button variant="outline" className="mt-4 rounded-xl" onClick={() => navigate('/discover')}>Back to Discover</Button>
@@ -171,7 +171,7 @@ export default function Profile() {
       <div className="min-h-screen bg-background pb-24">
         <AppHeader />
         <div className="flex items-center justify-center pt-20">
-          <p className="text-4xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+          <p className="text-4xl animate-pulse"></p>
         </div>
       </div>
     );
@@ -219,11 +219,11 @@ export default function Profile() {
                   <RecruitButton otherUserId={id!} />
                   <div className="grid grid-cols-3 gap-2">
                     <Button
-                      onClick={() => toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Hi-Five sent — vibes delivered.' })}
+                      onClick={() => toast({ title: ' Hi-Five sent — vibes delivered.' })}
                       variant="outline"
                       className="rounded-xl h-12 font-semibold text-sm"
                     >
-                      <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Hi-Five
+                       Hi-Five
                     </Button>
                     <Button
                       onClick={() => navigate('/messages')}
@@ -237,7 +237,7 @@ export default function Profile() {
                       variant="outline"
                       className="rounded-xl h-12 font-semibold text-sm"
                     >
-                      <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Beer
+                       Beer
                     </Button>
                   </div>
                   <div className="flex items-center gap-1 pt-1">

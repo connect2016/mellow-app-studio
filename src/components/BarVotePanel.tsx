@@ -53,7 +53,7 @@ export function BarVotePanel({ barName, onClose }: { barName: string; onClose: (
 
         <div>
           <p className="text-xs font-semibold text-muted-foreground mb-1.5">
-            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Vibe
+             Vibe
           </p>
           <div className="flex gap-1.5">
             {VIBE_OPTIONS.map((v) => (

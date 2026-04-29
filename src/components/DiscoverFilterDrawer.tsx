@@ -30,11 +30,11 @@ const INTENTS: IntentType[] = ['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 
 const GAMEDAY_INTENTS: GamedayIntentType[] = ['BleacherRegular', 'FamilyFriendly', 'PreGameDrinks', 'ScoringTheGame', 'PostGameCelebration', 'WrigleyvilleLocal'];
 
 const LOCATIONS = [
-  { value: 'AtWrigley', label: 'In my Seat', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' },
-  { value: 'AtBar', label: 'At the Bar', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' },
-  { value: 'Tailgating', label: 'Tailgating', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' },
-  { value: 'BeerSnake', label: 'Beer Snake', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' },
-  { value: 'WatchingRemote', label: 'Watching from Home', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' },
+  { value: 'AtWrigley', label: 'In my Seat', emoji: '' },
+  { value: 'AtBar', label: 'At the Bar', emoji: '' },
+  { value: 'Tailgating', label: 'Tailgating', emoji: '' },
+  { value: 'BeerSnake', label: 'Beer Snake', emoji: '' },
+  { value: 'WatchingRemote', label: 'Watching from Home', emoji: '' },
 ];
 
 const DISTANCES = [1, 5, 10, 25];

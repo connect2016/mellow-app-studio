@@ -82,7 +82,7 @@ export function TonightModeView({ className }: Props) {
   const handleHiFive = async (uid: string, name: string) => {
     try {
       await sendLike.mutateAsync({ toUser: uid, isHiFive: true });
-      toast.success(`<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Hi-Fived ${name}!`);
+      toast.success(` Hi-Fived ${name}!`);
     } catch {
       toast.error('Could not send Hi-Five');
     }
@@ -126,7 +126,7 @@ export function TonightModeView({ className }: Props) {
                     className="h-9 text-xs font-bold"
                     onClick={() => handleHiFive(f.user_id, f.display_name)}
                   >
-                    <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Hi-Five
+                     Hi-Five
                   </Button>
                   <Button
                     size="sm"

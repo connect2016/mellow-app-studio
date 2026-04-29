@@ -12,8 +12,8 @@ interface TimelineEvent {
 }
 
 const PLAY_EMOJI: Record<string, string> = {
-  hr: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', strikeout: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', double_play: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', error: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
-  hit: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', walk: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', steal: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', catch: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', other: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  hr: '', strikeout: '', double_play: '', error: '',
+  hit: '', walk: '', steal: '', catch: '', other: '',
 };
 
 interface GameTimelineProps {
@@ -47,7 +47,7 @@ export function GameTimeline({ events }: GameTimelineProps) {
             {/* Dot */}
             <div className="relative z-10 flex-shrink-0 mt-1">
               <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center text-sm">
-                {PLAY_EMOJI[event.play_type] ?? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}
+                {PLAY_EMOJI[event.play_type] ?? ''}
               </div>
             </div>
             {/* Content */}
@@ -60,7 +60,7 @@ export function GameTimeline({ events }: GameTimelineProps) {
               </div>
               <p className="text-sm text-foreground mt-0.5">{event.description}</p>
               {event.confirmed_count > 1 && (
-                <span className="text-[10px] text-accent font-medium"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Confirmed by {event.confirmed_count} fans</span>
+                <span className="text-[10px] text-accent font-medium"> Confirmed by {event.confirmed_count} fans</span>
               )}
             </div>
           </motion.div>

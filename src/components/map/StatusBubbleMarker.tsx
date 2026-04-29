@@ -10,9 +10,9 @@ const PERSONA_COLORS: Record<string, string> = {
 };
 
 const PERSONA_EMOJI: Record<string, string> = {
-  die_hard: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
-  social_butterfly: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
-  tourist: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  die_hard: '',
+  social_butterfly: '',
+  tourist: '',
 };
 
 function fanIcon(fan: MapFan) {

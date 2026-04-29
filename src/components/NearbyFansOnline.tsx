@@ -64,12 +64,12 @@ export function NearbyFansOnline() {
       <div className="flex flex-wrap gap-2 mt-2">
         {data.atWrigley > 0 && (
           <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
-            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {data.atWrigley} at Wrigley
+             {data.atWrigley} at Wrigley
           </span>
         )}
         {data.atBars > 0 && (
           <span className="inline-flex items-center gap-1 rounded-full bg-secondary/10 px-2.5 py-1 text-[11px] font-medium text-secondary">
-            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {data.atBars} at bars
+             {data.atBars} at bars
           </span>
         )}
         {data.topBar && (

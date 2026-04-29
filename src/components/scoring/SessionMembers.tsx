@@ -15,9 +15,9 @@ interface Member {
 }
 
 const STATUS_ICON: Record<string, string> = {
-  AtWrigley: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
-  AtBar: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
-  WatchingRemote: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  AtWrigley: '',
+  AtBar: '',
+  WatchingRemote: '',
 };
 
 export function SessionMembers({ members }: { members: Member[] }) {
@@ -58,7 +58,7 @@ export function SessionMembers({ members }: { members: Member[] }) {
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-foreground truncate">{m.profile?.display_name ?? 'Fan'}</p>
                 <p className="text-[11px] text-muted-foreground flex items-center gap-1">
-                  <span>{STATUS_ICON[status] ?? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}</span>
+                  <span>{STATUS_ICON[status] ?? ''}</span>
                   {locationDetail}
                 </p>
               </div>

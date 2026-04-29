@@ -37,7 +37,7 @@ export function TrendingBarsLive() {
 
       {trending.length === 0 ? (
         <div className="px-4 py-6 text-center">
-          <div className="text-2xl mb-1"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+          <div className="text-2xl mb-1"></div>
           <p className="text-[12px] text-muted-foreground">
             Quiet right now. Be the first to check in.
           </p>
@@ -75,7 +75,7 @@ export function TrendingBarsLive() {
                       </span>
                       {v.meetups.length > 0 && (
                         <span className="inline-flex items-center gap-1 text-primary font-semibold">
-                          <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {v.meetups.length} meetup{v.meetups.length !== 1 ? 's' : ''}
+                           {v.meetups.length} meetup{v.meetups.length !== 1 ? 's' : ''}
                         </span>
                       )}
                     </div>

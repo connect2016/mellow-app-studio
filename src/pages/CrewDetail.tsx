@@ -113,7 +113,7 @@ export default function CrewDetail() {
       <div className="min-h-screen bg-background">
         <AppHeader />
         <div className="py-20 text-center">
-          <p className="text-3xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+          <p className="text-3xl animate-pulse"></p>
           <p className="mt-2 text-sm text-muted-foreground">Loading crew...</p>
         </div>
       </div>
@@ -187,7 +187,7 @@ export default function CrewDetail() {
                 <div className="mx-auto max-w-lg px-4 py-4 space-y-3">
                   {messages.length === 0 && (
                     <div className="py-12 text-center">
-                      <p className="text-2xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+                      <p className="text-2xl"></p>
                       <p className="mt-2 text-sm text-muted-foreground">The bases are empty! Be the first to start a conversation.</p>
                     </div>
                   )}
@@ -311,7 +311,7 @@ export default function CrewDetail() {
 
                         <div className="flex gap-2">
                           <Button onClick={handleCreateEvent} disabled={!eventTitle.trim() || createEvent.isPending} className="flex-1 rounded-xl">
-                            {createEvent.isPending ? 'Creating...' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Create Poll'}
+                            {createEvent.isPending ? 'Creating...' : ' Create Poll'}
                           </Button>
                           <Button variant="outline" onClick={() => setShowNewEvent(false)} className="rounded-xl">Cancel</Button>
                         </div>
@@ -323,7 +323,7 @@ export default function CrewDetail() {
                 {/* Event list */}
                 {events.length === 0 && !showNewEvent && (
                   <div className="py-12 text-center">
-                    <p className="text-2xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+                    <p className="text-2xl"></p>
                     <p className="mt-2 text-sm text-muted-foreground">No rallies planned yet — get one going!</p>
                   </div>
                 )}
@@ -349,7 +349,7 @@ export default function CrewDetail() {
                             ? 'bg-secondary/20 text-secondary-foreground'
                             : 'bg-primary/10 text-primary'
                         }`}>
-                          {event.status === 'voting' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Voting' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Finalized'}
+                          {event.status === 'voting' ? ' Voting' : ' Finalized'}
                         </span>
                       </div>
 

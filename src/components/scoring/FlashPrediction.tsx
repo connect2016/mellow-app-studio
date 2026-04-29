@@ -102,7 +102,7 @@ export function FlashPrediction({
                 <p className="text-lg">
                   {QUICK_PREDICTIONS.find(p => p.value === selected)?.emoji}
                 </p>
-                <p className="text-xs font-bold text-secondary mt-1">Locked in! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+                <p className="text-xs font-bold text-secondary mt-1">Locked in! </p>
               </motion.div>
             ) : hasPending ? (
               <p className="text-center text-xs text-muted-foreground py-2">

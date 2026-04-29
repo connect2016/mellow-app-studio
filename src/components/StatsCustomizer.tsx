@@ -24,9 +24,9 @@ const TIME_RANGE_LABELS: Record<TimeRange, string> = {
 };
 
 const VISIBILITY_LABELS: Record<StatVisibility, string> = {
-  everyone: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Everyone',
-  matches_only: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Matches Only',
-  hidden: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Hidden',
+  everyone: ' Everyone',
+  matches_only: ' Matches Only',
+  hidden: ' Hidden',
 };
 
 export function StatsCustomizer() {
@@ -60,7 +60,7 @@ export function StatsCustomizer() {
   const handleSave = async () => {
     try {
       await savePreferences(localPrefs);
-      toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Stats preferences saved!' });
+      toast({ title: ' Stats preferences saved!' });
     } catch {
       toast({ title: 'Error saving preferences', variant: 'destructive' });
     }

@@ -91,7 +91,7 @@ export function CoordinationPanel({ meetupId, locationName, attendees, isMember 
 
   const handlePing = async () => {
     try {
-      await ping.mutateAsync(`<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Where you at? Heading to ${locationName}.`);
+      await ping.mutateAsync(` Where you at? Heading to ${locationName}.`);
       toast.success('Pinged the group');
     } catch {
       toast.error("Couldn't send ping");
@@ -103,7 +103,7 @@ export function CoordinationPanel({ meetupId, locationName, attendees, isMember 
       toast.error('Location not supported');
       return;
     }
-    toast('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Grabbing your spot...');
+    toast(' Grabbing your spot...');
     navigator.geolocation.getCurrentPosition(
       async pos => {
         try {
@@ -113,7 +113,7 @@ export function CoordinationPanel({ meetupId, locationName, attendees, isMember 
             shared_label: 'My current spot',
           });
           await ping.mutateAsync(
-            `<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Shared my spot — https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`,
+            ` Shared my spot — https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`,
           );
           toast.success('Pin shared with the group');
         } catch {
@@ -269,10 +269,10 @@ export function CoordinationPanel({ meetupId, locationName, attendees, isMember 
           React:
         </span>
         {[
-          { e: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Cheers', icon: Beer },
-          { e: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Got it', icon: ThumbsUp },
-          { e: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Hustling', icon: Footprints },
-          { e: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Hyped', icon: Sparkles },
+          { e: '', label: 'Cheers', icon: Beer },
+          { e: '', label: 'Got it', icon: ThumbsUp },
+          { e: '', label: 'Hustling', icon: Footprints },
+          { e: '', label: 'Hyped', icon: Sparkles },
         ].map(r => (
           <motion.button
             key={r.e}

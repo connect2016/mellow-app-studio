@@ -91,7 +91,7 @@ export function FavoriteBarsSection({ bars, isOwner, onChange }: Props) {
                 variant="secondary"
                 className="gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium"
               >
-                <span>{bar?.emoji ?? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}</span>
+                <span>{bar?.emoji ?? ''}</span>
                 {name}
                 {isOwner && (
                   <button

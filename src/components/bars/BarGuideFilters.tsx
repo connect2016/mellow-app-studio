@@ -59,7 +59,7 @@ export function BarGuideFilters({
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {DISTANCE_BUCKETS.map((d) => (
             <Chip key={d.key} active={distance === d.key} onClick={() => onSetDistance(d.key)}>
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {d.label}
+               {d.label}
             </Chip>
           ))}
         </div>

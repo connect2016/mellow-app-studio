@@ -106,7 +106,7 @@ export function EatsCheckInButton({ spotName }: Props) {
                     onClick={() => handleQuickPost(opt)}
                     disabled={checkIn.isPending}
                   >
-                    <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Post
+                     Post
                   </Button>
                 </div>
               ))}

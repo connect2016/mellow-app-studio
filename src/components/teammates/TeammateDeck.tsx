@@ -78,7 +78,7 @@ export function TeammateDeck({ teammates, onCardClick }: TeammateDeckProps) {
   if (remaining.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center px-6">
-        <div className="text-6xl mb-3"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+        <div className="text-6xl mb-3"></div>
         <h3 className="font-display text-xl font-bold text-white mb-1">End of the deck</h3>
         <p className="text-sm text-white/80 mb-5">You've flipped through every card on your roster.</p>
         <Button onClick={handleReset} variant="outline" className="rounded-xl gap-2">
@@ -222,7 +222,7 @@ function CardFrame({ teammate: t, onClick }: { teammate: TeammateProfile; onClic
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
                 </span>
-                {t.vibe_emoji ?? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'} {t.vibe_state}
+                {t.vibe_emoji ?? ''} {t.vibe_state}
               </span>
             )}
           </div>

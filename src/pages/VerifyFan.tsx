@@ -121,7 +121,7 @@ export default function VerifyFan() {
       if (updateErr) throw updateErr;
 
       queryClient.invalidateQueries({ queryKey: ['user-profile'] });
-      toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Verified Fan!', description: 'Your blue checkmark is now live on your profile.' });
+      toast({ title: ' Verified Fan!', description: 'Your blue checkmark is now live on your profile.' });
       setStep('done');
     } catch (err: any) {
       toast({ title: 'Verification failed', description: err.message || 'Please try again.', variant: 'destructive' });
@@ -162,9 +162,9 @@ export default function VerifyFan() {
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">What you unlock</p>
                 <div className="space-y-2">
                   {[
-                    { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Join Section Chats & Lineup group chats' },
-                    { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Post to the Live Vibe Feed' },
-                    { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Blue checkmark on your profile' },
+                    { emoji: '', label: 'Join Section Chats & Lineup group chats' },
+                    { emoji: '', label: 'Post to the Live Vibe Feed' },
+                    { emoji: '', label: 'Blue checkmark on your profile' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-2.5">
                       <span className="text-lg">{item.emoji}</span>
@@ -244,7 +244,7 @@ export default function VerifyFan() {
               className="space-y-4"
             >
               <div className="text-center">
-                <p className="text-sm font-semibold text-foreground">Looking good! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+                <p className="text-sm font-semibold text-foreground">Looking good! </p>
                 <p className="text-xs text-muted-foreground">Make sure the {POSE_INSTRUCTION.label.toLowerCase()} is visible</p>
               </div>
 
@@ -296,7 +296,7 @@ export default function VerifyFan() {
               </motion.div>
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-2">
-                  You're Verified! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                  You're Verified! 
                 </h2>
                 <p className="text-sm text-muted-foreground max-w-xs mx-auto">
                   Your blue checkmark is live. You can now join group chats and post to the Vibe Feed.

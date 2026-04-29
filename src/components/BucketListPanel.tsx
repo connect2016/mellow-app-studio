@@ -24,7 +24,7 @@ function IvyCheckbox({ checked, onToggle }: { checked: boolean; onToggle: () => 
           animate={{ scale: 1, rotate: 0 }}
           className="text-lg leading-none"
         >
-          <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+          
         </motion.span>
       ) : null}
     </button>
@@ -85,7 +85,7 @@ export function BucketListPanel() {
                       color: 'hsl(210, 60%, 25%)',
                     }}
                   >
-                    <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Field Guide
+                     Field Guide
                   </h2>
                   <p
                     className="text-xs mt-1 font-medium"

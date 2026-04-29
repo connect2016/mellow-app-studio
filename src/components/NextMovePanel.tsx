@@ -94,7 +94,7 @@ export function NextMovePanel() {
           user_id: user!.id,
         });
         if (error) throw error;
-        toast.success(`Joined meetup at ${rec.location}! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />`);
+        toast.success(`Joined meetup at ${rec.location}! `);
       } catch (err: any) {
         toast.error(err.message || 'Failed to join');
       }
@@ -148,7 +148,7 @@ export function NextMovePanel() {
           </div>
         ) : recs.length === 0 ? (
           <div className="text-center py-6">
-            <span className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+            <span className="text-3xl"></span>
             <p className="text-sm text-muted-foreground mt-2">No recommendations yet</p>
             <p className="text-xs text-muted-foreground mt-1">Check in first to get personalized suggestions</p>
           </div>
@@ -251,7 +251,7 @@ export function NextMovePanel() {
             })}
 
             <p className="text-center text-[10px] text-muted-foreground mt-1">
-              Updated based on live crowd data <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              Updated based on live crowd data 
             </p>
           </div>
         )}

@@ -11,17 +11,17 @@ import { format } from 'date-fns';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const crowdConfig: Record<VenueData['crowdLevel'], { label: string; color: string; emoji: string; bars: number }> = {
-  empty: { label: 'Empty', color: 'bg-muted text-muted-foreground', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', bars: 0 },
-  chill: { label: 'Chill', color: 'bg-green-500/15 text-green-700 dark:text-green-400', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', bars: 1 },
-  busy: { label: 'Busy', color: 'bg-amber-500/15 text-amber-700 dark:text-amber-400', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', bars: 2 },
-  packed: { label: 'Packed', color: 'bg-red-500/15 text-red-700 dark:text-red-400', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', bars: 3 },
+  empty: { label: 'Empty', color: 'bg-muted text-muted-foreground', emoji: '', bars: 0 },
+  chill: { label: 'Chill', color: 'bg-green-500/15 text-green-700 dark:text-green-400', emoji: '', bars: 1 },
+  busy: { label: 'Busy', color: 'bg-amber-500/15 text-amber-700 dark:text-amber-400', emoji: '', bars: 2 },
+  packed: { label: 'Packed', color: 'bg-red-500/15 text-red-700 dark:text-red-400', emoji: '', bars: 3 },
 };
 
 const vibeEmoji: Record<string, string> = {
-  chill: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
-  party: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
-  hype: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
-  rowdy: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  chill: '',
+  party: '',
+  hype: '',
+  rowdy: '',
 };
 
 const waitLabels: Record<string, string> = {
@@ -154,7 +154,7 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
           onClick={() => setShowVote((v) => !v)}
           className="text-[10px] font-semibold text-primary hover:underline"
         >
-          {showVote ? 'Cancel' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Rate Wait & Vibe'}
+          {showVote ? 'Cancel' : ' Rate Wait & Vibe'}
         </button>
         <AnimatePresence>
           {showVote && <BarVotePanel barName={venue.name} onClose={() => setShowVote(false)} />}

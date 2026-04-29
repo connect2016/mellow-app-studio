@@ -49,7 +49,7 @@ export function CardBackSide({ displayName, visibleStats, isOwner, onFlipBack }:
                 <span className="text-xs font-medium text-muted-foreground text-center leading-tight">{stat.label}</span>
                 {isOwner && stat.visibility !== 'everyone' && (
                   <span className="text-[10px] text-muted-foreground/60" aria-label={stat.visibility === 'matches_only' ? 'Visible to matches only' : 'Hidden'}>
-                    {stat.visibility === 'matches_only' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}
+                    {stat.visibility === 'matches_only' ? '' : ''}
                   </span>
                 )}
               </div>

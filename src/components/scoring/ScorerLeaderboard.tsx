@@ -107,7 +107,7 @@ export function ScorerLeaderboard() {
                   <span className="flex items-center gap-0.5"><Award className="h-2.5 w-2.5" /> {scorer.games_scored} games</span>
                   <span className="flex items-center gap-0.5"><Target className="h-2.5 w-2.5" /> {accuracy}%</span>
                   {scorer.best_streak > 0 && (
-                    <span className="flex items-center gap-0.5"><Flame className="h-2.5 w-2.5" /> {scorer.best_streak}<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                    <span className="flex items-center gap-0.5"><Flame className="h-2.5 w-2.5" /> {scorer.best_streak}</span>
                   )}
                 </div>
               </div>

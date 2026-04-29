@@ -40,7 +40,7 @@ export function HallOfFameLeaderboard() {
       <div className="px-4 py-3">
         {isLoading ? (
           <div className="py-6 text-center">
-            <p className="text-2xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-2xl animate-pulse"></p>
             <p className="text-xs text-muted-foreground mt-1">Loading leaders...</p>
           </div>
         ) : !homestand ? (
@@ -50,7 +50,7 @@ export function HallOfFameLeaderboard() {
           </div>
         ) : leaders.length === 0 ? (
           <div className="py-6 text-center">
-            <p className="text-2xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-2xl"></p>
             <p className="text-sm font-semibold text-muted-foreground mt-1">Be the first to earn Ivy Leaves!</p>
             <p className="text-xs text-muted-foreground mt-0.5">Check in, join squads, or meet a buddy</p>
           </div>
@@ -90,7 +90,7 @@ export function HallOfFameLeaderboard() {
 
                 {/* Ivy count */}
                 <span className="flex items-center gap-1 text-xs font-bold text-emerald-400">
-                  <span><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span> {leader.total}
+                  <span></span> {leader.total}
                 </span>
               </motion.button>
             ))}

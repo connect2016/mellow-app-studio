@@ -93,7 +93,7 @@ export function HappeningNow() {
             className="flex items-center gap-3 rounded-xl bg-card border border-border px-3 py-2.5"
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-lg">
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-foreground">
@@ -136,7 +136,7 @@ export function HappeningNow() {
             className="flex items-center gap-3 rounded-xl bg-card border border-border px-3 py-2.5"
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary/20 text-lg">
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              
             </div>
             <div className="flex-1">
               <p className="text-sm font-semibold text-foreground">
@@ -166,7 +166,7 @@ export function HappeningNow() {
                   key={bar.name}
                   className="inline-flex items-center gap-1 rounded-full bg-accent/10 border border-accent/20 px-2.5 py-1 text-xs font-medium text-foreground"
                 >
-                  <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {bar.name}
+                   {bar.name}
                   <span className="text-[10px] font-bold text-accent ml-0.5">{bar.count}</span>
                 </span>
               ))}

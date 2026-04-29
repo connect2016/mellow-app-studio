@@ -129,7 +129,7 @@ export default function VibeFeed() {
       });
       if (error) throw error;
 
-      toast.success('Vibe posted! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />');
+      toast.success('Vibe posted! ');
       setShowCompose(false);
       setFile(null);
       setPreview(null);
@@ -240,7 +240,7 @@ export default function VibeFeed() {
               size="sm"
               className="rounded-full gap-1.5 text-xs"
             >
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Get Verified to Post
+               Get Verified to Post
             </Button>
           ) : (
             <Button
@@ -349,7 +349,7 @@ export default function VibeFeed() {
                   disabled={!file || !locationTag || uploading}
                   className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
                 >
-                  {uploading ? 'Posting…' : 'Post to Vibe Feed <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}
+                  {uploading ? 'Posting…' : 'Post to Vibe Feed '}
                 </Button>
               </motion.div>
             </motion.div>
@@ -359,7 +359,7 @@ export default function VibeFeed() {
         {/* Feed */}
         {posts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="text-5xl mb-4"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+            <div className="text-5xl mb-4"></div>
              <h3 className="text-lg font-semibold mb-1 text-yellow-300">The bases are empty!</h3>
             <p className="text-sm max-w-[240px] text-secondary-foreground">
               Be the first to start a conversation. Drop a vibe and get this section going!

@@ -113,10 +113,10 @@ export default function WrigleyPassport() {
     },
     onSuccess: ({ location, newCount }) => {
       qc.invalidateQueries({ queryKey: ['passport-checkins'] });
-      toast({ title: `<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${location.name} stamped!`, description: `${newCount}/${PASSPORT_LOCATIONS.length} locations visited` });
+      toast({ title: ` ${location.name} stamped!`, description: `${newCount}/${PASSPORT_LOCATIONS.length} locations visited` });
       if (newCount === PASSPORT_THRESHOLD) {
         setTimeout(() => {
-          toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Wrigley Legend Unlocked!', description: 'Your badge is now on your profile!' });
+          toast({ title: ' Wrigley Legend Unlocked!', description: 'Your badge is now on your profile!' });
         }, 1000);
       }
       setCheckingLocation(null);
@@ -165,7 +165,7 @@ export default function WrigleyPassport() {
               </span>
             ) : (
               <span className="text-xs text-muted-foreground">
-                {PASSPORT_THRESHOLD - checkedCount} more for <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> badge
+                {PASSPORT_THRESHOLD - checkedCount} more for  badge
               </span>
             )}
           </div>
@@ -239,7 +239,7 @@ export default function WrigleyPassport() {
         <div className="mt-8 rounded-2xl border border-border bg-card p-4 text-center">
           {legendUnlocked ? (
             <div>
-              <span className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+              <span className="text-3xl"></span>
               <p className="text-sm font-bold text-foreground mt-2">
                 You're a Wrigley Legend!
               </p>

@@ -110,7 +110,7 @@ export function SmartMeetupSuggestions() {
     },
     onSuccess: (result) => {
       if (result.type === 'crew') {
-        toast.success('Meetup posted to your crew! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />');
+        toast.success('Meetup posted to your crew! ');
         queryClient.invalidateQueries({ queryKey: ['crew-events'] });
         queryClient.invalidateQueries({ queryKey: ['crew-messages'] });
         navigate(`/crews/${result.crewId}`);
@@ -180,7 +180,7 @@ export function SmartMeetupSuggestions() {
           </div>
         ) : suggestions.length === 0 ? (
           <div className="py-6 text-center">
-            <p className="text-2xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-2xl"></p>
             <p className="mt-1 text-sm text-muted-foreground">No active fans nearby right now</p>
             <p className="text-xs text-muted-foreground">Check back during game time!</p>
           </div>

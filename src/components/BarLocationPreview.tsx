@@ -28,7 +28,7 @@ export function BarLocationPreview({ bar }: Props) {
           referrerPolicy="no-referrer-when-downgrade"
         />
         <div className="pointer-events-none absolute left-1/2 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-          <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+          
         </div>
       </div>
       <div className="flex items-start gap-2 p-2.5">

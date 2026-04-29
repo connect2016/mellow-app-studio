@@ -75,7 +75,7 @@ export function OffDayFlashback() {
               fontFamily: "'Rye', cursive",
             }}
           >
-            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Flashback
+             Flashback
           </span>
         </div>
 

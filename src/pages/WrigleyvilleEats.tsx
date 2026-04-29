@@ -194,7 +194,7 @@ export default function WrigleyvilleEats() {
       <section className="max-w-3xl mx-auto px-4 space-y-3">
         {sorted.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center">
-            <div className="text-3xl mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+            <div className="text-3xl mb-2"></div>
             <h3 className="font-bold text-foreground mb-1">No spots match those filters</h3>
             <p className="text-xs text-muted-foreground">Try removing a filter — Wrigleyville has more to offer.</p>
           </div>
@@ -305,7 +305,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
       {/* Fan tip */}
       <div className="px-5 pb-3">
         <p className="text-[13px] italic text-muted-foreground leading-snug">
-          <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> "{spot.fanTip}"
+           "{spot.fanTip}"
         </p>
       </div>
 
@@ -344,7 +344,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
         </Button>
         <Button asChild size="sm" variant="outline" className="h-9 rounded-xl text-xs gap-1">
           <Link to={`/beer-money?bar=${encodeURIComponent(spot.name)}`}>
-            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Buy a Beer
+             Buy a Beer
           </Link>
         </Button>
       </div>
@@ -381,7 +381,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
 
               {/* Address */}
               <div className="flex items-center justify-between pt-1">
-                <p className="text-[11px] text-muted-foreground"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {spot.address}</p>
+                <p className="text-[11px] text-muted-foreground"> {spot.address}</p>
               </div>
             </div>
           </motion.div>
@@ -406,7 +406,7 @@ function SuggestSpotForm({ onClose }: { onClose: () => void }) {
   if (submitted) {
     return (
       <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 text-center">
-        <p className="text-3xl mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+        <p className="text-3xl mb-2"></p>
         <h3 className="font-bold text-foreground mb-1">Thanks for the tip!</h3>
         <p className="text-xs text-muted-foreground mb-3">
           We'll check out <span className="font-semibold">{name}</span> and add it if it's legit.

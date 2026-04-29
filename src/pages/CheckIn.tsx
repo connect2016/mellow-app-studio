@@ -48,7 +48,7 @@ export default function CheckIn() {
     }
 
     setCheckedIn(true);
-    toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> You\'re checked in!', description: `Checked in at ${selectedBar}${openToBuddies ? ' • Open to new Buddies!' : ''}` });
+    toast({ title: ' You\'re checked in!', description: `Checked in at ${selectedBar}${openToBuddies ? ' • Open to new Buddies!' : ''}` });
     setTimeout(() => setCheckedIn(false), 3000);
   };
 

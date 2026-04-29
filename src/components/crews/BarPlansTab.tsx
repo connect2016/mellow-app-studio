@@ -70,7 +70,7 @@ export function BarPlansTab({ crewId, isMember }: Props) {
                 />
                 <div className="flex gap-2">
                   <Button onClick={handleCreate} disabled={!newTitle.trim() || createPlan.isPending} className="flex-1 rounded-xl">
-                    {createPlan.isPending ? 'Creating...' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Start Plan'}
+                    {createPlan.isPending ? 'Creating...' : ' Start Plan'}
                   </Button>
                   <Button variant="outline" onClick={() => setShowNewPlan(false)} className="rounded-xl">Cancel</Button>
                 </div>
@@ -81,14 +81,14 @@ export function BarPlansTab({ crewId, isMember }: Props) {
 
         {isLoading && (
           <div className="py-12 text-center">
-            <p className="text-2xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-2xl animate-pulse"></p>
             <p className="mt-2 text-sm text-muted-foreground">Loading plans...</p>
           </div>
         )}
 
         {!isLoading && plans.length === 0 && !showNewPlan && (
           <div className="py-12 text-center">
-            <p className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+            <p className="text-3xl"></p>
             <p className="mt-2 text-sm font-semibold text-foreground">No plans yet</p>
             <p className="text-xs text-muted-foreground mt-1">Shortlist bars together, vote on favorites, decide as a crew.</p>
           </div>
@@ -324,7 +324,7 @@ function AddBarDrawer({ existingNames, onClose, onAdd }: AddBarDrawerProps) {
   const handleAddCustom = async () => {
     const name = customName.trim();
     if (!name) return;
-    await onAdd({ bar_name: name, emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' });
+    await onAdd({ bar_name: name, emoji: '' });
     setCustomName('');
     onClose();
   };

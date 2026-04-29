@@ -20,7 +20,7 @@ export function IvyLeafBadge({ userId, size = 'sm' }: IvyLeafBadgeProps) {
         size === 'sm' ? 'px-2 py-0.5 text-[10px]' : 'px-3 py-1 text-xs'
       }`}
     >
-      <span><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+      <span></span>
       <span>{total}</span>
     </motion.span>
   );

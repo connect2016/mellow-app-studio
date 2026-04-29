@@ -67,7 +67,7 @@ export function OffDayState() {
           to="/bar-map"
           className="rounded-xl border border-border bg-card p-3 text-center transition-colors hover:bg-muted/40"
         >
-          <span className="mx-auto mb-1 block text-base"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+          <span className="mx-auto mb-1 block text-base"></span>
           <div className="text-[12px] font-bold text-foreground">Bar guide</div>
           <div className="text-[10px] text-muted-foreground">Browse Wrigleyville</div>
         </Link>

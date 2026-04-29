@@ -6,21 +6,21 @@ export type GamedayPersona = 'die_hard' | 'social_butterfly' | 'tourist';
 export const PERSONA_CONFIG: Record<GamedayPersona, { label: string; emoji: string; color: string; bg: string; border: string }> = {
   die_hard: {
     label: 'The Die-Hard',
-    emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+    emoji: '',
     color: 'text-red-100',
     bg: 'bg-gradient-to-r from-red-600 to-red-800',
     border: 'border-red-500/50',
   },
   social_butterfly: {
     label: 'The Social Butterfly',
-    emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+    emoji: '',
     color: 'text-amber-100',
     bg: 'bg-gradient-to-r from-amber-500 to-orange-600',
     border: 'border-amber-400/50',
   },
   tourist: {
     label: 'The Tourist',
-    emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+    emoji: '',
     color: 'text-sky-100',
     bg: 'bg-gradient-to-r from-sky-500 to-blue-600',
     border: 'border-sky-400/50',

@@ -22,8 +22,8 @@ const WHEN_OPTIONS: { value: WhenFilter; label: string }[] = [
 
 const WHERE_OPTIONS: { value: WhereFilter; label: string }[] = [
   { value: 'all', label: 'Anywhere' },
-  { value: 'wrigley', label: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Wrigley' },
-  { value: 'bars', label: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Bars' },
+  { value: 'wrigley', label: ' Wrigley' },
+  { value: 'bars', label: ' Bars' },
 ];
 
 function ChipRow<T extends string>({

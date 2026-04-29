@@ -42,7 +42,7 @@ export function ReportVibeButton({ barName }: ReportVibeButtonProps) {
         disabled={isVoting}
         className="text-[10px] font-bold uppercase tracking-wider text-primary hover:text-primary/80 transition-colors font-scoreboard"
       >
-        {myVote ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Update Vibe' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Report Vibe'}
+        {myVote ? ' Update Vibe' : ' Report Vibe'}
       </button>
 
       <AnimatePresence>

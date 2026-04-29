@@ -180,7 +180,7 @@ export function FlashMeetupsPanel() {
   const [location, setLocation] = useState('');
   const [vibe, setVibe] = useState('hype');
   const [duration, setDuration] = useState(30);
-  const [emoji, setEmoji] = useState('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />');
+  const [emoji, setEmoji] = useState('');
 
   const handleCreate = async () => {
     if (!title.trim() || !location.trim()) {
@@ -195,7 +195,7 @@ export function FlashMeetupsPanel() {
         vibe,
         duration_minutes: duration,
       });
-      toast.success('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Flash meetup is live!');
+      toast.success(' Flash meetup is live!');
       setShowCreate(false);
       setTitle('');
       setLocation('');
@@ -386,7 +386,7 @@ export function FlashMeetupsPanel() {
                   meetup={meetup}
                   onJoin={() => {
                     joinMeetup.mutate(meetup.id, {
-                      onSuccess: () => toast.success("You're in! We'll notify you when others join. <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />"),
+                      onSuccess: () => toast.success("You're in! We'll notify you when others join. "),
                       onError: (err: any) => toast.error(err.message || 'Failed to join'),
                     });
                   }}
@@ -415,7 +415,7 @@ export function FlashMeetupsPanel() {
             )}
 
             <p className="text-center text-[10px] text-muted-foreground">
-              Flash meetups auto-expire — jump in before they're gone <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              Flash meetups auto-expire — jump in before they're gone 
             </p>
           </div>
         )}

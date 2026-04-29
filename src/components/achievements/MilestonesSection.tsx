@@ -80,7 +80,7 @@ function MilestoneRow({ m }: { m: MilestoneWithProgress }) {
           )}
           {!m.nextTier && earned && (
             <p className="mt-1 text-[10px] font-semibold text-[hsl(222,82%,29%)]">
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Max tier reached
+               Max tier reached
             </p>
           )}
         </div>

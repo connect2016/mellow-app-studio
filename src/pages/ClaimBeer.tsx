@@ -91,7 +91,7 @@ export default function ClaimBeer() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="text-center max-w-sm">
-          <p className="text-4xl mb-3"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+          <p className="text-4xl mb-3"></p>
           <h1 className="text-xl font-bold text-foreground mb-2">Link Expired</h1>
           <p className="text-sm text-muted-foreground mb-4">{error}</p>
           <Button onClick={() => navigate('/')} className="rounded-2xl">Go to Cubbies Buddies</Button>
@@ -149,7 +149,7 @@ export default function ClaimBeer() {
               transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.2 }}
               className="text-6xl mb-3"
             >
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 10 }}
@@ -210,7 +210,7 @@ export default function ClaimBeer() {
             >
               <div className="text-center">
                 <h2 className="text-lg font-bold mb-1 text-destructive-foreground">Claim your drink in 30 seconds</h2>
-                <p className="text-sm text-muted-foreground">Quick sign-up, then head to the bar <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+                <p className="text-sm text-muted-foreground">Quick sign-up, then head to the bar </p>
               </div>
 
               <Button
@@ -230,7 +230,7 @@ export default function ClaimBeer() {
               {/* Social proof */}
               <div className="flex items-center justify-center gap-2 text-[11px] text-muted-foreground">
                 <div className="flex -space-x-1.5">
-                  {['<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'].map((e, i) => (
+                  {['', '', '', ''].map((e, i) => (
                     <span key={i} className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[10px] ring-1 ring-card">{e}</span>
                   ))}
                 </div>
@@ -307,7 +307,7 @@ export default function ClaimBeer() {
                 disabled={signingUp}
                 className="w-full rounded-2xl py-5 text-base font-semibold gap-2"
               >
-                {signingUp ? 'Creating account…' : 'Create Account & Claim Beer'} <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                {signingUp ? 'Creating account…' : 'Create Account & Claim Beer'} 
               </Button>
 
               <p className="text-[10px] text-muted-foreground text-center">
@@ -333,7 +333,7 @@ export default function ClaimBeer() {
 
               {/* Redemption ticket */}
               <div className="rounded-2xl border-2 border-dashed border-primary/30 bg-primary/5 p-5 text-center">
-                <p className="text-5xl mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+                <p className="text-5xl mb-2"></p>
                 <p className="text-2xl font-bold text-primary mb-1">${claim.amount} Beer Voucher</p>
                 <p className="text-xs text-muted-foreground mb-2">
                   From <span className="font-semibold">{claim.senderName}</span>
@@ -352,7 +352,7 @@ export default function ClaimBeer() {
                 onClick={() => setStep('done')}
                 className="w-full rounded-2xl py-5 text-base font-semibold gap-2"
               >
-                I've Redeemed My Beer <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                I've Redeemed My Beer 
               </Button>
             </motion.div>
           )}
@@ -399,22 +399,22 @@ export default function ClaimBeer() {
                       animate={{ x: 0, rotate: -10 }}
                       transition={{ delay: 0.2, type: 'spring' }}
                       className="text-5xl"
-                    ><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></motion.span>
+                    ></motion.span>
                     <motion.span
                       initial={{ y: -20, opacity: 0, scale: 0 }}
                       animate={{ y: 0, opacity: 1, scale: 1 }}
                       transition={{ delay: 0.5, type: 'spring' }}
                       className="text-3xl -mx-1 mb-3"
-                    ><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></motion.span>
+                    ></motion.span>
                     <motion.span
                       initial={{ x: 30, rotate: 25 }}
                       animate={{ x: 0, rotate: 10 }}
                       transition={{ delay: 0.2, type: 'spring' }}
                       className="text-5xl"
-                    ><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></motion.span>
+                    ></motion.span>
                   </div>
                 </motion.div>
-                <h2 className="text-xl font-bold mb-1 text-destructive-foreground">Cheers! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></h2>
+                <h2 className="text-xl font-bold mb-1 text-destructive-foreground">Cheers! </h2>
                 <p className="text-sm text-muted-foreground">
                   {claim.senderName} just made your day — now make someone else's.
                 </p>
@@ -427,7 +427,7 @@ export default function ClaimBeer() {
                 transition={{ delay: 0.6 }}
                 className="rounded-2xl border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent p-5 text-center"
               >
-                <p className="text-lg mb-1"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+                <p className="text-lg mb-1"></p>
                 <h3 className="text-base font-bold text-foreground mb-1">
                   Return the Favor?
                 </h3>
@@ -439,7 +439,7 @@ export default function ClaimBeer() {
                     onClick={() => navigate('/beer-money')}
                     className="w-full rounded-2xl py-5 text-base font-semibold gap-2 bg-amber-500 hover:bg-amber-600 text-amber-950 shadow-lg shadow-amber-500/20"
                   >
-                    <Beer className="h-5 w-5" /> Buy {claim.senderName.split(' ')[0]} a Beer Back <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                    <Beer className="h-5 w-5" /> Buy {claim.senderName.split(' ')[0]} a Beer Back 
                   </Button>
                   <Button
                     variant="outline"
@@ -459,7 +459,7 @@ export default function ClaimBeer() {
                 className="flex items-center justify-center gap-2 text-[11px] text-muted-foreground"
               >
                 <div className="flex -space-x-1.5">
-                  {['<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'].map((e, i) => (
+                  {['', '', '', ''].map((e, i) => (
                     <span key={i} className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[10px] ring-1 ring-card">{e}</span>
                   ))}
                 </div>
@@ -496,7 +496,7 @@ export default function ClaimBeer() {
                 transition={{ delay: 1.5 }}
                 className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center"
               >
-                <p className="text-xs font-bold text-foreground mb-1"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> You're a Cubbie Buddy now!</p>
+                <p className="text-xs font-bold text-foreground mb-1"> You're a Cubbie Buddy now!</p>
                 <p className="text-[11px] text-muted-foreground">
                   Complete your profile to unlock meetups, missions, and earn Ivy Leaves.
                 </p>

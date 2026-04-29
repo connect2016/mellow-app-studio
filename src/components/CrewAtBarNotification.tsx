@@ -82,7 +82,7 @@ export function CrewAtBarNotification() {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-bold text-foreground">
-            Your crew is at {crewActivity.barName}! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+            Your crew is at {crewActivity.barName}! 
           </p>
           <p className="text-xs text-muted-foreground mt-0.5 truncate">
             {displayNames}{extra > 0 ? ` +${extra} more` : ''} checked in

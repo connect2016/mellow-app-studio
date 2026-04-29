@@ -62,7 +62,7 @@ export function BarPlanCommentsSheet({ plan, onClose }: Props) {
           )}
           {!isLoading && comments.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-2xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
+              <p className="text-2xl"></p>
               <p className="mt-2 text-xs text-muted-foreground">No comments yet — start the conversation.</p>
             </div>
           )}

@@ -194,7 +194,7 @@ export function SocialProofBanner() {
                   {fan.display_name}
                 </span>
                 <span className="text-[9px] font-bold text-yellow-600 dark:text-yellow-400">
-                  <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />{fan.like_count}
+                  {fan.like_count}
                 </span>
               </motion.button>
             ))}

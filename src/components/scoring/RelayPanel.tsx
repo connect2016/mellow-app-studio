@@ -34,13 +34,13 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
   const copyInvite = () => {
     const link = `${window.location.origin}/score/${sessionId}`;
     navigator.clipboard.writeText(link);
-    toast('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Link copied!', { description: 'Share with friends to co-score' });
+    toast(' Link copied!', { description: 'Share with friends to co-score' });
   };
 
   const copyCode = () => {
     if (!inviteCode) return;
     navigator.clipboard.writeText(inviteCode);
-    toast('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Code copied!', { description: inviteCode });
+    toast(' Code copied!', { description: inviteCode });
   };
 
   const handlePassPencil = (toUserId: string) => {
@@ -66,7 +66,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
     onPassPencil(toUserId);
 
     // Spec toast: "You've got the pencil! Scoring Inning X."
-    toast(`<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${target?.display_name ?? 'Co-scorer'} has the pencil!`, {
+    toast(` ${target?.display_name ?? 'Co-scorer'} has the pencil!`, {
       description: `Scoring Inning ${currentInning}.`,
     });
 
@@ -94,7 +94,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
             className="flex-1 flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold border-2 transition-all"
             style={{ borderColor: 'hsl(var(--accent) / 0.3)', color: 'hsl(var(--accent))', fontFamily: "'Share Tech Mono', monospace" }}
           >
-            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Share Link
+             Share Link
           </button>
           {inviteCode && (
             <button
@@ -189,7 +189,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
         {activeScorer && (
           <div className="flex items-center gap-2 rounded-xl p-2.5" style={{ backgroundColor: 'hsl(var(--ivy-green) / 0.06)' }}>
             <p className="text-xs font-bold flex-1" style={{ color: 'hsl(var(--foreground))' }}>
-              {isActiveScorer ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> You have the pencil' : `<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${activeScorer.display_name} is scoring`}
+              {isActiveScorer ? ' You have the pencil' : ` ${activeScorer.display_name} is scoring`}
             </p>
             <span className="text-[10px] font-['Share_Tech_Mono'] px-2 py-0.5 rounded-full" style={{ backgroundColor: 'hsl(var(--accent) / 0.1)', color: 'hsl(var(--accent))' }}>
               Batter #{activeBatter}

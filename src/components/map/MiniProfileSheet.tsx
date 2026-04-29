@@ -9,11 +9,11 @@ import type { MapFan } from './useMapClusters';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const STATUS_LABELS: Record<string, string> = {
-  AtBar: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Grabbing a Brew',
-  AtWrigley: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Scorekeeping',
-  Tailgating: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> At the Concessions',
-  BeerSnake: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Just Saying Hey',
-  WatchingRemote: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Just Saying Hey',
+  AtBar: ' Grabbing a Brew',
+  AtWrigley: ' Scorekeeping',
+  Tailgating: ' At the Concessions',
+  BeerSnake: ' Just Saying Hey',
+  WatchingRemote: ' Just Saying Hey',
 };
 
 interface Props {
@@ -32,14 +32,14 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
       await supabase.from('notifications').insert({
         user_id: targetFan.id,
         type: 'micro_intro',
-        title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Someone nearby!',
+        title: ' Someone nearby!',
         body: introText,
-        emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+        emoji: '',
         action_url: `/profile/${user.id}`,
         metadata: { from_user: user.id },
       });
       if (navigator.vibrate) navigator.vibrate([20, 40, 20]);
-      toast.success('Icebreaker sent! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />');
+      toast.success('Icebreaker sent! ');
     } catch {
       toast.error('Failed to send icebreaker');
     }
@@ -87,7 +87,7 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
                   <p className="text-sm font-bold text-foreground truncate">{fan.name}</p>
                   <p className="text-xs text-muted-foreground">{fan.locationLabel}</p>
                   <span className="inline-block mt-1 text-[11px] font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                    {STATUS_LABELS[fan.gameStatus] ?? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Just Saying Hey'}
+                    {STATUS_LABELS[fan.gameStatus] ?? ' Just Saying Hey'}
                   </span>
                 </div>
                 <button
@@ -105,7 +105,7 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
                   className="w-full gap-2 rounded-xl min-h-[48px] text-sm font-bold"
                 >
                   <Hand className="h-5 w-5" />
-                  Send a High-Five <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                  Send a High-Five 
                 </Button>
                 <Button
                   variant="outline"
@@ -113,7 +113,7 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
                   className="w-full gap-2 rounded-xl min-h-[48px] text-sm font-bold"
                 >
                   <MessageCircle className="h-5 w-5" />
-                  Send an Icebreaker <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                  Send an Icebreaker 
                 </Button>
               </div>
             </div>

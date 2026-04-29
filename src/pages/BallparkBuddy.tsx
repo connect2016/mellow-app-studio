@@ -60,7 +60,7 @@ export default function BallparkBuddy() {
     onSuccess: (params) => {
       setSearchParams(params);
       qc.invalidateQueries({ queryKey: ['ballpark-buddy'] });
-      toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> You\'re in!', description: 'Looking for nearby buddies...' });
+      toast({ title: ' You\'re in!', description: 'Looking for nearby buddies...' });
     },
     onError: () => {
       toast({ title: 'Something went wrong', variant: 'destructive' });
@@ -143,7 +143,7 @@ export default function BallparkBuddy() {
   };
 
   const intentLabel = (val: string) =>
-    val === 'beer' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : val === 'marquee' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />';
+    val === 'beer' ? '' : val === 'marquee' ? '' : '';
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -282,7 +282,7 @@ export default function BallparkBuddy() {
               {nearbyMatches.length > 0 && (
                 <div>
                   <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
-                    <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> In Your Area (±{NEARBY_RANGE} sections)
+                     In Your Area (±{NEARBY_RANGE} sections)
                   </p>
                   <div className="space-y-2">
                     {nearbyMatches.map((m, i) => (
@@ -388,7 +388,7 @@ function BuddyCard({
           'text-xs font-bold',
           match.isNearby ? 'text-primary' : 'text-muted-foreground'
         )}>
-          {match.distance === 0 ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : `${match.distance}`}
+          {match.distance === 0 ? '' : `${match.distance}`}
         </div>
         <div className="text-[9px] text-muted-foreground">
           {match.distance === 0 ? 'exact' : 'sec away'}

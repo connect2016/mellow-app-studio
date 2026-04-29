@@ -35,7 +35,7 @@ export function MapPreviewCard() {
           <div className="relative">
             <span className="absolute inset-0 rounded-full bg-red-500 animate-ping opacity-50" />
             <div className="relative h-7 w-7 rounded-full bg-red-600 border-2 border-white shadow-lg flex items-center justify-center text-sm">
-              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              
             </div>
           </div>
         </div>

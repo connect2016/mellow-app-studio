@@ -1,12 +1,42 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications, useMarkRead, useMarkAllRead, useClearNotifications } from '@/hooks/useNotifications';
 import { Button } from '@/components/ui/button';
-import { Bell, Check, CheckCheck, Trash2 } from 'lucide-react';
+import { Bell, Check, CheckCheck, Trash2, Users, MapPin, Trophy, Utensils, Hand } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
+
+type FilterKey = 'all' | 'meetups' | 'fans' | 'gameday' | 'food' | 'hifives';
+
+const FILTERS: { key: FilterKey; label: string; icon: typeof Bell }[] = [
+  { key: 'all', label: 'All', icon: Bell },
+  { key: 'meetups', label: 'Meetups', icon: Users },
+  { key: 'fans', label: 'Fans Nearby', icon: MapPin },
+  { key: 'gameday', label: 'Game Day', icon: Trophy },
+  { key: 'food', label: 'Food', icon: Utensils },
+  { key: 'hifives', label: 'Hi-Fives', icon: Hand },
+];
+
+function categorize(type: string): FilterKey {
+  if (type.startsWith('meetup')) return 'meetups';
+  if (type.startsWith('game') || type === 'weather') return 'gameday';
+  if (type === 'hi_five' || type.includes('streak')) return 'hifives';
+  if (type === 'food' || type.includes('food') || type === 'eats') return 'food';
+  if (
+    type === 'match' ||
+    type === 'message' ||
+    type === 'friend_checkin' ||
+    type === 'friend_meetup' ||
+    type === 'fans_nearby' ||
+    type === 'teammate_request' ||
+    type === 'teammate_accepted'
+  )
+    return 'fans';
+  return 'all';
+}
 
 export default function Notifications() {
   const navigate = useNavigate();
@@ -15,12 +45,29 @@ export default function Notifications() {
   const markRead = useMarkRead();
   const markAllRead = useMarkAllRead();
   const clearRead = useClearNotifications();
+  const [filter, setFilter] = useState<FilterKey>('all');
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
-  const unreadCount = notifications.filter(n => !n.is_read).length;
+  const filtered = useMemo(
+    () => (filter === 'all' ? notifications : notifications.filter((n) => categorize(n.type) === filter)),
+    [notifications, filter],
+  );
+
+  const counts = useMemo(() => {
+    const c: Record<FilterKey, number> = { all: 0, meetups: 0, fans: 0, gameday: 0, food: 0, hifives: 0 };
+    notifications.forEach((n) => {
+      if (n.is_read) return;
+      c.all += 1;
+      const k = categorize(n.type);
+      if (k !== 'all') c[k] += 1;
+    });
+    return c;
+  }, [notifications]);
+
+  const unreadCount = counts.all;
 
   const handleTap = (notif: typeof notifications[0]) => {
     if (!notif.is_read) markRead.mutate(notif.id);
@@ -43,9 +90,9 @@ export default function Notifications() {
   yesterday.setDate(yesterday.getDate() - 1);
 
   const groups = [
-    { label: 'Today', items: notifications.filter(n => new Date(n.created_at) >= today) },
-    { label: 'Yesterday', items: notifications.filter(n => { const d = new Date(n.created_at); return d >= yesterday && d < today; }) },
-    { label: 'Earlier', items: notifications.filter(n => new Date(n.created_at) < yesterday) },
+    { label: 'Today', items: filtered.filter(n => new Date(n.created_at) >= today) },
+    { label: 'Yesterday', items: filtered.filter(n => { const d = new Date(n.created_at); return d >= yesterday && d < today; }) },
+    { label: 'Earlier', items: filtered.filter(n => new Date(n.created_at) < yesterday) },
   ].filter(g => g.items.length > 0);
 
   return (
@@ -92,18 +139,63 @@ export default function Notifications() {
           </div>
         </div>
 
+        {/* Category filter chips */}
+        <div
+          className="flex gap-2 overflow-x-auto pb-3 -mx-1 px-1 [&::-webkit-scrollbar]:hidden"
+          style={{ scrollbarWidth: 'none' }}
+        >
+          {FILTERS.map(({ key, label, icon: Icon }) => {
+            const active = filter === key;
+            const count = counts[key];
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setFilter(key)}
+                className={cn(
+                  'shrink-0 inline-flex items-center gap-1.5 rounded-full px-3.5 min-h-[36px] text-[12px] font-bold whitespace-nowrap transition-all duration-150 active:scale-95',
+                  active
+                    ? 'bg-primary text-primary-foreground shadow-md'
+                    : 'bg-card/80 text-foreground border border-border hover:bg-card',
+                )}
+              >
+                <Icon className="h-3.5 w-3.5" strokeWidth={2.5} />
+                {label}
+                {count > 0 && (
+                  <span
+                    className={cn(
+                      'ml-0.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold',
+                      active
+                        ? 'bg-primary-foreground text-primary'
+                        : 'bg-primary text-primary-foreground',
+                    )}
+                  >
+                    {count > 99 ? '99+' : count}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
         {isLoading ? (
           <div className="py-16 text-center">
             <p className="text-4xl animate-pulse">🔔</p>
             <p className="mt-2 text-sm font-medium text-muted-foreground">Loading notifications...</p>
           </div>
-        ) : notifications.length === 0 ? (
+        ) : filtered.length === 0 ? (
           <div className="py-16 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
               <Bell className="h-8 w-8 text-muted-foreground" />
             </div>
-            <p className="font-semibold text-foreground">All caught up!</p>
-            <p className="text-sm text-muted-foreground mt-1">We'll notify you when something happens</p>
+            <p className="font-semibold text-foreground">
+              {filter === 'all' ? 'All caught up!' : 'Nothing here yet'}
+            </p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {filter === 'all'
+                ? "We'll notify you when something happens"
+                : 'Try another category or check back later.'}
+            </p>
           </div>
         ) : (
           <div className="space-y-5">

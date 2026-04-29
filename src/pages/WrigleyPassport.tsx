@@ -11,6 +11,7 @@ import { useIncrementBadge, BADGE_DEFINITIONS } from '@/hooks/usePennants';
 import { cn } from '@/lib/utils';
 import { MapPin, CheckCircle2, Loader2, Navigation, Trophy, Lock } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const PASSPORT_THRESHOLD = 5;
 const GEO_RADIUS_METERS = 200; // must be within 200m
@@ -196,7 +197,7 @@ export default function WrigleyPassport() {
                   {isChecked ? (
                     <CheckCircle2 className="h-5 w-5 text-primary" />
                   ) : (
-                    <span><ConceptIcon name={loc.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                    <span><ConceptVisual name={loc.emoji} size="sm" /></span>
                   )}
                 </div>
 

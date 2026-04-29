@@ -1,6 +1,7 @@
 import { useWrigleyWeather } from '@/hooks/useWrigleyWeather';
 import { Wind, Droplets } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 export function WeatherCard() {
   const { data: w, isLoading } = useWrigleyWeather();
@@ -25,12 +26,12 @@ export function WeatherCard() {
           </span>
         </div>
         <span className={`text-[10px] font-bold uppercase tracking-wider ${windCallout.color}`}>
-          <ConceptIcon name={windCallout.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {windCallout.label} {w.windRelativeToField.replace(/^(out|in) /, '')}
+          <ConceptVisual name={windCallout.emoji} size="sm" /> {windCallout.label} {w.windRelativeToField.replace(/^(out|in) /, '')}
         </span>
       </div>
 
       <div className="mt-2 flex items-center gap-4">
-        <div className="text-4xl"><ConceptIcon name={w.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+        <div className="text-4xl"><ConceptVisual name={w.emoji} size="sm" /></div>
         <div>
           <div className="font-display text-3xl font-extrabold leading-none text-foreground tabular-nums">
             {w.temperatureF}°

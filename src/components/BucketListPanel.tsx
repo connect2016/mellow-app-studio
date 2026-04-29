@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useBucketList } from '@/hooks/useBucketList';
 import { cn } from '@/lib/utils';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 function IvyCheckbox({ checked, onToggle }: { checked: boolean; onToggle: () => void }) {
   return (
@@ -154,7 +155,7 @@ export function BucketListPanel() {
                           )}
                           style={{ color: 'hsl(210, 50%, 20%)' }}
                         >
-                          <ConceptIcon name={task.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {task.title}
+                          <ConceptVisual name={task.emoji} size="sm" /> {task.title}
                         </p>
                         <p className="text-xs mt-0.5" style={{ color: 'hsl(35, 20%, 45%)' }}>
                           {task.description}

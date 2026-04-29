@@ -5,6 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface ActivityItem {
   id: string;
@@ -145,7 +146,7 @@ export function LiveActivityFeed({ maxItems = 5 }: { maxItems?: number }) {
             className="overflow-hidden"
           >
             <div className="flex items-center gap-2.5 py-1.5">
-              <span className="text-base shrink-0"><ConceptIcon name={item.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+              <span className="text-base shrink-0"><ConceptVisual name={item.emoji} size="sm" /></span>
               <p className="text-xs text-foreground flex-1 min-w-0 truncate">
                 {item.text}
               </p>

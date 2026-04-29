@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const VIBE_OPTIONS = [
   { value: 'hype', label: 'Hype', emoji: '', color: 'text-amber-500', bg: 'bg-amber-500/10 border-amber-500/20' },
@@ -92,7 +93,7 @@ function FlashMeetupCard({ meetup, onJoin, onLeave, isPending }: {
       {/* Title row */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="text-2xl shrink-0"><ConceptIcon name={meetup.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+          <span className="text-2xl shrink-0"><ConceptVisual name={meetup.emoji} size="sm" /></span>
           <h4 className="text-base font-bold text-foreground truncate">{meetup.title}</h4>
         </div>
         {meetup.is_system_generated && (
@@ -301,7 +302,7 @@ export function FlashMeetupsPanel() {
                               : 'border-border text-muted-foreground hover:border-primary/20'
                           }`}
                         >
-                          <ConceptIcon name={v.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                          <ConceptVisual name={v.emoji} size="sm" />
                         </button>
                       ))}
                     </div>

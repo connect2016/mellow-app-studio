@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { BarPlanCommentsSheet } from './BarPlanCommentsSheet';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface Props {
   crewId: string;
@@ -196,7 +197,7 @@ function PlanCard({ plan, isMember, isCreator, currentUserId, onAddBar, onVote, 
       {/* Finalized banner */}
       {isFinalized && finalOption && (
         <div className="rounded-xl bg-primary/10 border border-primary/30 px-3 py-2.5 flex items-center gap-2">
-          <span className="text-xl"><ConceptIcon name={finalOption.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+          <span className="text-xl"><ConceptVisual name={finalOption.emoji} size="sm" /></span>
           <div className="min-w-0 flex-1">
             <p className="text-xs font-bold text-primary uppercase tracking-wide">Going to</p>
             <p className="text-sm font-semibold text-foreground truncate">{finalOption.bar_name}</p>
@@ -229,7 +230,7 @@ function PlanCard({ plan, isMember, isCreator, currentUserId, onAddBar, onVote, 
                   style={{ width: `${pct}%` }}
                 />
                 <div className="relative flex items-center gap-2 p-2.5">
-                  <span className="text-xl shrink-0"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                  <span className="text-xl shrink-0"><ConceptVisual name={opt.emoji} size="sm" /></span>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-semibold text-foreground truncate">{opt.bar_name}</p>
                     {opt.address && (
@@ -373,7 +374,7 @@ function AddBarDrawer({ existingNames, onClose, onAdd }: AddBarDrawerProps) {
                       : 'border-border bg-background hover:border-primary/40 hover:bg-primary/5'
                   }`}
                 >
-                  <span className="text-xl shrink-0"><ConceptIcon name={bar.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                  <span className="text-xl shrink-0"><ConceptVisual name={bar.emoji} size="sm" /></span>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-semibold text-foreground truncate">{bar.name}</p>
                     <p className="text-[10px] text-muted-foreground truncate">{bar.address}</p>

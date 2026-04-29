@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import {
   type CuratedBar, VIBE_LABELS, GROUP_LABELS, TIMING_LABELS,
 } from '@/lib/wrigleyville-bar-guide';
@@ -70,7 +71,7 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
         {/* Header — title + tagline */}
         <div className="px-5 pt-5 pb-3">
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl leading-none"><ConceptIcon name={bar.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+            <span className="text-2xl leading-none"><ConceptVisual name={bar.emoji} size="sm" /></span>
             <h2 className="font-display text-lg font-bold tracking-tight text-foreground leading-tight">
               {bar.name}
             </h2>
@@ -83,7 +84,7 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
         {/* Live signals strip */}
         <div className="px-5 pb-3 flex items-center gap-2 flex-wrap">
           <Badge variant="outline" className={`text-[10px] px-2 py-0 h-5 border-0 ${crowd.color}`}>
-            <ConceptIcon name={crowd.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {crowd.label}
+            <ConceptVisual name={crowd.emoji} size="sm" /> {crowd.label}
           </Badge>
           {liveCheckins > 0 && (
             <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
@@ -140,12 +141,12 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
         <div className="px-5 pb-3 flex flex-wrap gap-1.5">
           {bar.vibe.map((v) => (
             <span key={v} className="inline-flex items-center gap-1 rounded-full bg-foreground/5 border border-border px-2 py-0.5 text-[10px] font-semibold text-foreground">
-              <ConceptIcon name={VIBE_LABELS[v].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {VIBE_LABELS[v].label}
+              <ConceptVisual name={VIBE_LABELS[v].emoji} size="sm" /> {VIBE_LABELS[v].label}
             </span>
           ))}
           {bar.bestFor.map((t) => (
             <span key={t} className="inline-flex items-center gap-1 rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-[10px] font-semibold text-primary">
-              <ConceptIcon name={TIMING_LABELS[t].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {TIMING_LABELS[t].label}
+              <ConceptVisual name={TIMING_LABELS[t].emoji} size="sm" /> {TIMING_LABELS[t].label}
             </span>
           ))}
           {bar.outdoor && (

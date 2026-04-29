@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { VIBE_LABELS, GROUP_LABELS, TIMING_LABELS, DISTANCE_BUCKETS, type BarVibe, type BarGroupFit, type BarGameTiming, type DistanceBucket } from '@/lib/wrigleyville-bar-guide';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface Props {
   vibes: BarVibe[];
@@ -47,7 +48,7 @@ export function BarGuideFilters({
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {(Object.keys(VIBE_LABELS) as BarVibe[]).map((v) => (
             <Chip key={v} active={vibes.includes(v)} onClick={() => onToggleVibe(v)}>
-              <span><ConceptIcon name={VIBE_LABELS[v].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span> {VIBE_LABELS[v].label}
+              <span><ConceptVisual name={VIBE_LABELS[v].emoji} size="sm" /></span> {VIBE_LABELS[v].label}
             </Chip>
           ))}
         </div>
@@ -71,7 +72,7 @@ export function BarGuideFilters({
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {(Object.keys(GROUP_LABELS) as BarGroupFit[]).map((g) => (
             <Chip key={g} active={groups.includes(g)} onClick={() => onToggleGroup(g)}>
-              <span><ConceptIcon name={GROUP_LABELS[g].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span> {GROUP_LABELS[g].label}
+              <span><ConceptVisual name={GROUP_LABELS[g].emoji} size="sm" /></span> {GROUP_LABELS[g].label}
             </Chip>
           ))}
         </div>
@@ -83,7 +84,7 @@ export function BarGuideFilters({
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {(Object.keys(TIMING_LABELS) as BarGameTiming[]).map((t) => (
             <Chip key={t} active={timings.includes(t)} onClick={() => onToggleTiming(t)}>
-              <span><ConceptIcon name={TIMING_LABELS[t].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span> {TIMING_LABELS[t].label}
+              <span><ConceptVisual name={TIMING_LABELS[t].emoji} size="sm" /></span> {TIMING_LABELS[t].label}
             </Chip>
           ))}
         </div>

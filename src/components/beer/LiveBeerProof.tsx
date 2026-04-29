@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Beer, MapPin, TrendingUp, Flame } from 'lucide-react';
 import type { BeerActivity } from '@/hooks/useLiveBeerFeed';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface Props {
   activities: BeerActivity[];
@@ -42,7 +43,7 @@ export function LiveBeerProof({ activities, stats, variant = 'full' }: Props) {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            <span className="text-sm"><ConceptIcon name={item.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+            <span className="text-sm"><ConceptVisual name={item.emoji} size="sm" /></span>
             <p className="flex-1 text-[11px] text-muted-foreground truncate">
               <span className="font-semibold text-foreground">{item.from}</span> bought{' '}
               <span className="font-semibold text-foreground">{item.to}</span> a beer at{' '}
@@ -85,7 +86,7 @@ export function LiveBeerProof({ activities, stats, variant = 'full' }: Props) {
               animate={{ opacity: 1, x: 0 }}
               className={`flex items-center gap-2 py-1 ${i > 0 ? 'border-t border-border/30' : ''}`}
             >
-              <span className="text-sm"><ConceptIcon name={a.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+              <span className="text-sm"><ConceptVisual name={a.emoji} size="sm" /></span>
               <p className="flex-1 text-[11px] text-muted-foreground truncate">
                 <span className="font-semibold text-foreground">{a.from}</span> → <span className="font-semibold text-foreground">{a.to}</span>
                 <span className="ml-1 text-[10px]">@ {a.bar}</span>
@@ -135,7 +136,7 @@ export function LiveBeerProof({ activities, stats, variant = 'full' }: Props) {
               transition={{ duration: 0.4 }}
               className="flex items-center gap-2 px-3 py-2"
             >
-              <span className="text-sm"><ConceptIcon name={a.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+              <span className="text-sm"><ConceptVisual name={a.emoji} size="sm" /></span>
               <div className="flex-1 min-w-0">
                 <p className="text-[11px] text-muted-foreground truncate">
                   <span className="font-semibold text-foreground">{a.from}</span> bought{' '}
@@ -182,7 +183,7 @@ export function BeerFomoToast({ activities }: { activities: BeerActivity[] }) {
           className="fixed bottom-20 left-4 right-4 z-40 mx-auto max-w-sm rounded-2xl border border-primary/20 bg-card shadow-xl px-4 py-3"
         >
           <div className="flex items-center gap-2.5">
-            <span className="text-2xl"><ConceptIcon name={current.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+            <span className="text-2xl"><ConceptVisual name={current.emoji} size="sm" /></span>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-foreground">
                 {current.from} just bought {current.to} a beer!

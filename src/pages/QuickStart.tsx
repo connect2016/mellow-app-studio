@@ -9,6 +9,7 @@ import { Check, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import quickstartBg from '@/assets/quickstart-bg.jpg';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
@@ -145,7 +146,7 @@ export default function QuickStart() {
                     behavior === opt.id && 'ring-2 ring-primary bg-primary/5',
                   )}
                 >
-                  <div className="text-3xl mb-1"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+                  <div className="text-3xl mb-1"><ConceptVisual name={opt.emoji} size="sm" /></div>
                   <div className="text-sm font-semibold">{opt.label}</div>
                 </button>
               ))}
@@ -185,7 +186,7 @@ export default function QuickStart() {
                       group === opt.id && 'ring-2 ring-primary bg-primary/5',
                     )}
                   >
-                    <div className="text-2xl mb-0.5"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
+                    <div className="text-2xl mb-0.5"><ConceptVisual name={opt.emoji} size="sm" /></div>
                     <div className="text-xs font-semibold">{opt.label}</div>
                   </button>
                 ))}

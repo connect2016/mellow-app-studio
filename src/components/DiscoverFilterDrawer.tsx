@@ -9,6 +9,7 @@ import { IntentChip } from '@/components/IntentChip';
 import { IntentType, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
 import { cn } from '@/lib/utils';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface FilterState {
   intents: IntentType[];
@@ -202,7 +203,7 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
                         local.wrigleyOnly && loc.value !== 'AtWrigley' && 'opacity-40 cursor-not-allowed'
                       )}
                     >
-                      <span><ConceptIcon name={loc.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                      <span><ConceptVisual name={loc.emoji} size="sm" /></span>
                       <span>{loc.label}</span>
                     </button>
                   ))}

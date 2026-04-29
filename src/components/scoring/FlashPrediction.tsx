@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const QUICK_PREDICTIONS = [
   { value: 'strikeout', emoji: '', label: 'K' },
@@ -100,7 +101,7 @@ export function FlashPrediction({
                 className="text-center py-2"
               >
                 <p className="text-lg">
-                  <ConceptIcon name={QUICK_PREDICTIONS.find(p => p.value === selected)?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                  <ConceptVisual name={QUICK_PREDICTIONS.find(p => p.value === selected)?.emoji} size="sm" />
                 </p>
                 <p className="text-xs font-bold text-secondary mt-1">Locked in! </p>
               </motion.div>
@@ -118,7 +119,7 @@ export function FlashPrediction({
                     onClick={() => handleSelect(opt.value)}
                     className="flex flex-col items-center gap-0.5 rounded-xl border border-border hover:border-secondary/50 bg-background px-1 py-2.5 transition-colors"
                   >
-                    <span className="text-lg"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                    <span className="text-lg"><ConceptVisual name={opt.emoji} size="sm" /></span>
                     <span className="text-[10px] font-semibold text-foreground">{opt.label}</span>
                   </motion.button>
                 ))}

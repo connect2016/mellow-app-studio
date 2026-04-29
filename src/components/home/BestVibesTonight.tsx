@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Flame, Users, ChevronRight } from 'lucide-react';
 import { useVenueActivity } from '@/hooks/useVenueActivity';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const CROWD_META: Record<string, { emoji: string; label: string; color: string }> = {
   packed: { emoji: '', label: 'Packed', color: 'text-red-600 bg-red-500/10' },
@@ -56,7 +57,7 @@ export function BestVibesTonight() {
                 aria-label={`${v.name} — ${meta.label}, ${v.totalUsers} fans here`}
               >
                 <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl ${meta.color}`}>
-                  <ConceptIcon name={meta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                  <ConceptVisual name={meta.emoji} size="sm" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-base font-bold leading-tight truncate mt-2 text-destructive-foreground">{v.name}</p>

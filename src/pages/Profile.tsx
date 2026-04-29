@@ -303,6 +303,50 @@ export default function Profile() {
                 <BadgesSection userId={targetUserId} isOwner={isOwnProfile} />
                 <MeetupHistorySection userId={targetUserId} />
                 <SavedPlansSection userId={targetUserId} />
+
+                {isOwnProfile && (
+                  <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm overflow-hidden shadow-sm">
+                    <div className="px-4 py-3 border-b border-border">
+                      <h3
+                        className="text-[13px] font-extrabold uppercase tracking-wide text-foreground"
+                        style={{ fontFamily: 'Norwester, sans-serif' }}
+                      >
+                        Account & Support
+                      </h3>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                        Manage your profile, preferences, and get help.
+                      </p>
+                    </div>
+                    <ul className="divide-y divide-border">
+                      {[
+                        { icon: UserCog, label: 'Edit Profile', desc: 'Photo, bio, fan stats', to: '/settings#profile' },
+                        { icon: Target, label: 'Intent Settings', desc: 'Friend, Beer, Meetup, Dating', to: '/settings#intent' },
+                        { icon: ShieldCheck, label: 'Safety Tools', desc: 'Blocking, verification, meetup safety', to: '/settings#safety' },
+                        { icon: SettingsIcon, label: 'Settings', desc: 'Notifications, privacy, account', to: '/settings' },
+                        { icon: HelpCircle, label: 'FAQ', desc: 'Common questions answered', to: '/settings#faq' },
+                        { icon: LifeBuoy, label: 'Support', desc: 'Contact the Cubbies Buddies team', to: '/settings#support' },
+                        { icon: Info, label: 'About', desc: 'App version & credits', to: '/settings#about' },
+                      ].map(({ icon: Icon, label, desc, to }) => (
+                        <li key={label}>
+                          <button
+                            type="button"
+                            onClick={() => navigate(to)}
+                            className="w-full flex items-center gap-3 px-4 py-3 min-h-[56px] text-left hover:bg-muted/40 active:bg-muted/60 transition-colors"
+                          >
+                            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                              <Icon className="h-4 w-4" strokeWidth={2.25} />
+                            </span>
+                            <span className="flex-1 min-w-0">
+                              <span className="block text-sm font-bold text-foreground leading-tight">{label}</span>
+                              <span className="block text-[11px] text-muted-foreground truncate">{desc}</span>
+                            </span>
+                            <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </>
             )}
           </TabsContent>

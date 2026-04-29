@@ -164,8 +164,6 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                 )}
               </div>
 
-              {/* Actions */}
-              <div className="space-y-3">
               {/* Food recommendations */}
               {foodRecs.length > 0 && (
                 <div className="mb-5">

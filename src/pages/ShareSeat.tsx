@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { PrivacyLevel } from '@/types';
 import { useToast } from '@/hooks/use-toast';
 import { MapPin, Armchair } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export default function ShareSeat() {
   const { toast } = useToast();
@@ -29,7 +30,7 @@ export default function ShareSeat() {
       ? 'the Bleachers'
       : `Section ${section}${row ? `, Row ${row}` : ''}${seat ? `, Seat ${seat}` : ''}`;
     toast({
-      title: '📍 Seat location shared!',
+      title: ' Seat location shared!',
       description: `You're in ${location}`,
     });
   };
@@ -152,7 +153,7 @@ export default function ShareSeat() {
                 className="text-center text-xs"
                 style={{ color: 'hsl(var(--stadium-seat-foreground) / 0.7)' }}
               >
-                🎉 Bleacher section selected — no seat number needed!
+                 Bleacher section selected — no seat number needed!
               </motion.p>
             )}
           </div>

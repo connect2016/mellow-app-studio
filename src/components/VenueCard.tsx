@@ -8,19 +8,20 @@ import { useBarVotes } from '@/hooks/useBarVotes';
 import { BarVibeBadge } from '@/components/BarVibeBadge';
 import { BarVotePanel } from '@/components/BarVotePanel';
 import { format } from 'date-fns';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const crowdConfig: Record<VenueData['crowdLevel'], { label: string; color: string; emoji: string; bars: number }> = {
-  empty: { label: 'Empty', color: 'bg-muted text-muted-foreground', emoji: '😴', bars: 0 },
-  chill: { label: 'Chill', color: 'bg-green-500/15 text-green-700 dark:text-green-400', emoji: '✌️', bars: 1 },
-  busy: { label: 'Busy', color: 'bg-amber-500/15 text-amber-700 dark:text-amber-400', emoji: '🔥', bars: 2 },
-  packed: { label: 'Packed', color: 'bg-red-500/15 text-red-700 dark:text-red-400', emoji: '🎉', bars: 3 },
+  empty: { label: 'Empty', color: 'bg-muted text-muted-foreground', emoji: '', bars: 0 },
+  chill: { label: 'Chill', color: 'bg-green-500/15 text-green-700 dark:text-green-400', emoji: '', bars: 1 },
+  busy: { label: 'Busy', color: 'bg-amber-500/15 text-amber-700 dark:text-amber-400', emoji: '', bars: 2 },
+  packed: { label: 'Packed', color: 'bg-red-500/15 text-red-700 dark:text-red-400', emoji: '', bars: 3 },
 };
 
 const vibeEmoji: Record<string, string> = {
-  chill: '😎',
-  party: '🎶',
-  hype: '⚡',
-  rowdy: '🤪',
+  chill: '',
+  party: '',
+  hype: '',
+  rowdy: '',
 };
 
 const waitLabels: Record<string, string> = {
@@ -51,7 +52,7 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="text-xl">{crowd.emoji}</span>
+          <span className="text-xl"><ConceptIcon name={crowd.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
           <div className="min-w-0">
             <h3 className="text-sm font-bold text-foreground truncate">
               {venue.name}
@@ -153,7 +154,7 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
           onClick={() => setShowVote((v) => !v)}
           className="text-[10px] font-semibold text-primary hover:underline"
         >
-          {showVote ? 'Cancel' : '📊 Rate Wait & Vibe'}
+          {showVote ? 'Cancel' : ' Rate Wait & Vibe'}
         </button>
         <AnimatePresence>
           {showVote && <BarVotePanel barName={venue.name} onClose={() => setShowVote(false)} />}

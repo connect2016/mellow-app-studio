@@ -150,7 +150,7 @@ export function useFlashMeetups() {
         title: input.title,
         location_name: input.location_name,
         description: input.description ?? '',
-        emoji: input.emoji ?? '⚡',
+        emoji: input.emoji ?? '',
         vibe: input.vibe ?? 'hype',
         max_members: input.max_members ?? 6,
         expires_at,

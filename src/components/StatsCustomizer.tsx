@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { GripVertical, Save, Beer, Building2, CheckCircle2, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const STAT_ICONS: Record<StatKey, React.ElementType> = {
   beersToday: Beer,
@@ -23,9 +24,9 @@ const TIME_RANGE_LABELS: Record<TimeRange, string> = {
 };
 
 const VISIBILITY_LABELS: Record<StatVisibility, string> = {
-  everyone: '👁 Everyone',
-  matches_only: '🤝 Matches Only',
-  hidden: '🔒 Hidden',
+  everyone: ' Everyone',
+  matches_only: ' Matches Only',
+  hidden: ' Hidden',
 };
 
 export function StatsCustomizer() {
@@ -59,7 +60,7 @@ export function StatsCustomizer() {
   const handleSave = async () => {
     try {
       await savePreferences(localPrefs);
-      toast({ title: '✅ Stats preferences saved!' });
+      toast({ title: ' Stats preferences saved!' });
     } catch {
       toast({ title: 'Error saving preferences', variant: 'destructive' });
     }

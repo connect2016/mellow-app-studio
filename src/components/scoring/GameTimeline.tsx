@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface TimelineEvent {
   id: string;
@@ -11,8 +12,8 @@ interface TimelineEvent {
 }
 
 const PLAY_EMOJI: Record<string, string> = {
-  hr: '💣', strikeout: '🔥', double_play: '👏', error: '😬',
-  hit: '💥', walk: '🚶', steal: '⚡', catch: '🧤', other: '⚾',
+  hr: '', strikeout: '', double_play: '', error: '',
+  hit: '', walk: '', steal: '', catch: '', other: '',
 };
 
 interface GameTimelineProps {
@@ -46,7 +47,7 @@ export function GameTimeline({ events }: GameTimelineProps) {
             {/* Dot */}
             <div className="relative z-10 flex-shrink-0 mt-1">
               <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center text-sm">
-                {PLAY_EMOJI[event.play_type] ?? '⚾'}
+                {PLAY_EMOJI[event.play_type] ?? ''}
               </div>
             </div>
             {/* Content */}
@@ -59,7 +60,7 @@ export function GameTimeline({ events }: GameTimelineProps) {
               </div>
               <p className="text-sm text-foreground mt-0.5">{event.description}</p>
               {event.confirmed_count > 1 && (
-                <span className="text-[10px] text-accent font-medium">✓ Confirmed by {event.confirmed_count} fans</span>
+                <span className="text-[10px] text-accent font-medium"> Confirmed by {event.confirmed_count} fans</span>
               )}
             </div>
           </motion.div>

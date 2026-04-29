@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useLiveMoments, useMyMomentJoins, useCreateMoment, useJoinMoment, useLeaveMoment, MOMENT_PRESETS, LiveMoment } from '@/hooks/useLiveMoments';
 import { Radio, Users, Plus, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function CountdownBadge({ expiresAt }: { expiresAt: string }) {
   const [remaining, setRemaining] = useState(0);
@@ -65,7 +66,7 @@ function MomentCard({ moment, isJoined, onJoin, onLeave }: {
           animate={isJoined ? { scale: [1, 1.15, 1] } : {}}
           transition={{ duration: 0.8, repeat: Infinity }}
         >
-          {moment.emoji}
+          <ConceptIcon name={moment.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
         </motion.div>
 
         <div className="flex-1 min-w-0">
@@ -118,7 +119,7 @@ function MomentCard({ moment, isJoined, onJoin, onLeave }: {
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 1.2, repeat: Infinity }}
             >
-              🤝
+              
             </motion.span>
             Join In!
           </Button>
@@ -142,7 +143,7 @@ export function LiveMomentsPanel() {
       { type: preset.type, title: preset.title, emoji: preset.emoji, duration: preset.duration },
       {
         onSuccess: () => {
-          toast.success(`${preset.emoji} "${preset.title}" is live!`);
+          toast.success(`$<ConceptIcon name={preset.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> "${preset.title}" is live!`);
           setShowCreate(false);
         },
       }
@@ -151,7 +152,7 @@ export function LiveMomentsPanel() {
 
   const handleJoin = (momentId: string) => {
     joinMoment.mutate(momentId, {
-      onSuccess: () => toast('🤝 You joined the moment!'),
+      onSuccess: () => toast(' You joined the moment!'),
     });
   };
 
@@ -205,7 +206,7 @@ export function LiveMomentsPanel() {
                 <div className="text-center py-6 text-sm text-muted-foreground">Loading moments…</div>
               ) : moments.length === 0 ? (
                 <div className="text-center py-6">
-                  <p className="text-3xl mb-2">📣</p>
+                  <p className="text-3xl mb-2"></p>
                   <p className="text-sm text-muted-foreground">No live moments right now</p>
                   <p className="text-xs text-muted-foreground">Be the first to start one!</p>
                 </div>
@@ -241,7 +242,7 @@ export function LiveMomentsPanel() {
                         onClick={() => handleCreate(preset)}
                         disabled={createMoment.isPending}
                       >
-                        <span className="text-lg">{preset.emoji}</span>
+                        <span className="text-lg"><ConceptIcon name={preset.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                         <span className="truncate w-full text-center">{preset.title.split('!')[0]}</span>
                         <span className="text-[10px] text-muted-foreground">{preset.duration}s</span>
                       </Button>

@@ -23,35 +23,35 @@ export interface FoodSpot {
 }
 
 export const CATEGORY_META: Record<FoodCategory, { label: string; emoji: string }> = {
-  'sports-bar': { label: 'Classic Sports Bars', emoji: '🏟️' },
-  'quick-bites': { label: 'Quick Bites', emoji: '🌭' },
-  'sit-down': { label: 'Sit-Down Dining', emoji: '🍽️' },
-  'hidden-gem': { label: 'Hidden Gems', emoji: '💎' },
+  'sports-bar': { label: 'Classic Sports Bars', emoji: '' },
+  'quick-bites': { label: 'Quick Bites', emoji: '' },
+  'sit-down': { label: 'Sit-Down Dining', emoji: '' },
+  'hidden-gem': { label: 'Hidden Gems', emoji: '' },
 };
 
 export const TAG_META: Record<FoodTag, { label: string; emoji: string }> = {
-  bbq: { label: 'BBQ', emoji: '🔥' },
-  pizza: { label: 'Pizza', emoji: '🍕' },
-  tacos: { label: 'Tacos', emoji: '🌮' },
-  burgers: { label: 'Burgers', emoji: '🍔' },
-  wings: { label: 'Wings', emoji: '🍗' },
-  brunch: { label: 'Brunch', emoji: '🥞' },
-  coffee: { label: 'Coffee', emoji: '☕' },
-  'late-night': { label: 'Late Night', emoji: '🌙' },
-  'dog-friendly': { label: 'Dog Friendly', emoji: '🐕' },
-  outdoor: { label: 'Outdoor', emoji: '☀️' },
-  family: { label: 'Family', emoji: '👨‍👩‍👧' },
-  'craft-beer': { label: 'Craft Beer', emoji: '🍺' },
-  cocktails: { label: 'Cocktails', emoji: '🍸' },
-  noodles: { label: 'Noodles', emoji: '🍜' },
-  donuts: { label: 'Donuts', emoji: '🍩' },
-  seafood: { label: 'Seafood', emoji: '🦞' },
+  bbq: { label: 'BBQ', emoji: '' },
+  pizza: { label: 'Pizza', emoji: '' },
+  tacos: { label: 'Tacos', emoji: '' },
+  burgers: { label: 'Burgers', emoji: '' },
+  wings: { label: 'Wings', emoji: '' },
+  brunch: { label: 'Brunch', emoji: '' },
+  coffee: { label: 'Coffee', emoji: '' },
+  'late-night': { label: 'Late Night', emoji: '' },
+  'dog-friendly': { label: 'Dog Friendly', emoji: '' },
+  outdoor: { label: 'Outdoor', emoji: '' },
+  family: { label: 'Family', emoji: '' },
+  'craft-beer': { label: 'Craft Beer', emoji: '' },
+  cocktails: { label: 'Cocktails', emoji: '' },
+  noodles: { label: 'Noodles', emoji: '' },
+  donuts: { label: 'Donuts', emoji: '' },
+  seafood: { label: 'Seafood', emoji: '' },
 };
 
 export const PHASE_META: Record<GameDayPhase, { label: string; emoji: string; color: string }> = {
-  before: { label: 'Pre-Game', emoji: '☀️', color: 'text-amber-600 dark:text-amber-400' },
-  during: { label: 'Mid-Game', emoji: '⚾', color: 'text-primary' },
-  after: { label: 'Post-Game', emoji: '🎉', color: 'text-emerald-600 dark:text-emerald-400' },
+  before: { label: 'Pre-Game', emoji: '', color: 'text-amber-600 dark:text-amber-400' },
+  during: { label: 'Mid-Game', emoji: '', color: 'text-primary' },
+  after: { label: 'Post-Game', emoji: '', color: 'text-emerald-600 dark:text-emerald-400' },
 };
 
 export const FOOD_SPOTS: FoodSpot[] = [
@@ -72,7 +72,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       after: 'Win-day shot specials — the place to be',
     },
     tvCount: 12,
-    emoji: '🍻',
+    emoji: '',
   },
   {
     id: 'budweiser-brickhouse',
@@ -90,7 +90,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       after: 'Live music and late-night apps',
     },
     tvCount: 42,
-    emoji: '📺',
+    emoji: '',
   },
   {
     id: 'sluggers',
@@ -108,7 +108,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       after: 'Dueling pianos kick off at 9pm',
     },
     tvCount: 25,
-    emoji: '⚾',
+    emoji: '',
   },
   {
     id: 'cubby-bear',
@@ -126,7 +126,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       after: 'Live bands or DJs most nights',
     },
     tvCount: 18,
-    emoji: '🐻',
+    emoji: '',
   },
 
   // ─── Quick Bites ───
@@ -145,7 +145,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Grab a burger between innings',
       after: 'Usually closes by 10pm — hit it early',
     },
-    emoji: '🍔',
+    emoji: '',
   },
   {
     id: 'wrigleyville-dogs',
@@ -162,7 +162,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Cheap and fast — perfect 7th inning snack run',
       after: 'Late-night spot for post-celebration fuel',
     },
-    emoji: '🌭',
+    emoji: '',
   },
   {
     id: 'do-rite-donuts',
@@ -179,7 +179,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Closes mid-afternoon on weekdays',
       after: 'Usually closed — hit it before the game',
     },
-    emoji: '🍩',
+    emoji: '',
   },
   {
     id: 'crisp-wrigleyville',
@@ -196,7 +196,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Perfect delivery order for a watch party',
       after: 'Closes at 9pm — plan accordingly',
     },
-    emoji: '🍗',
+    emoji: '',
   },
 
   // ─── Sit-Down Dining ───
@@ -215,7 +215,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Order delivery to your couch',
       after: 'Live blues, cold whiskey, slow-smoked brisket',
     },
-    emoji: '🔥',
+    emoji: '',
   },
   {
     id: 'big-star',
@@ -232,7 +232,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Patio crowd watches on phones together',
       after: 'Late-night tacos and margaritas',
     },
-    emoji: '🌮',
+    emoji: '',
   },
   {
     id: 'coda-di-volpe',
@@ -249,7 +249,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Quiet escape from the Clark St madness',
       after: 'Wood-fired pizza and a glass of wine',
     },
-    emoji: '🍕',
+    emoji: '',
   },
   {
     id: 'ella-elli',
@@ -266,7 +266,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Quiet, sit-down dining away from the crowds',
       after: 'Craft cocktails and shared plates',
     },
-    emoji: '🥂',
+    emoji: '',
   },
 
   // ─── Hidden Gems ───
@@ -285,7 +285,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Delivery to nearby bars',
       after: 'Cozy sit-down when you need a break from bars',
     },
-    emoji: '🍜',
+    emoji: '',
   },
   {
     id: 'nisei-lounge',
@@ -302,7 +302,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Locals-only vibe, no tourists',
       after: 'Late-night spot when Clark St is too much',
     },
-    emoji: '🥃',
+    emoji: '',
   },
   {
     id: 'dimo-pizza',
@@ -319,7 +319,7 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'Quick pizza break',
       after: 'The official late-night fuel of Wrigleyville',
     },
-    emoji: '🍕',
+    emoji: '',
   },
   {
     id: 'tango-sur',
@@ -336,6 +336,6 @@ export const FOOD_SPOTS: FoodSpot[] = [
       during: 'BYOB dinner while the game\'s on your phone',
       after: 'Celebratory steak dinner after a big win',
     },
-    emoji: '🥩',
+    emoji: '',
   },
 ];

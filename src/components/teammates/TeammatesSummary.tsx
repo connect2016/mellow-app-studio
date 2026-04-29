@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useTeammates } from '@/hooks/useTeammates';
 import { Users, ChevronRight } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function TeammatesSummary() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export function TeammatesSummary() {
               <div key={t.user_id} className="h-7 w-7 rounded-full overflow-hidden ring-2 ring-white bg-[#002F6C]/20 flex items-center justify-center text-xs">
                 {t.profile_photo ? (
                   <img src={t.profile_photo} alt="" className="h-full w-full object-cover" />
-                ) : '⚾'}
+                ) : ''}
               </div>
             ))}
             {count > previews.length && (

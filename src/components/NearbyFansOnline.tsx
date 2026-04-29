@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Users, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function NearbyFansOnline() {
   const { user } = useAuth();
@@ -63,12 +64,12 @@ export function NearbyFansOnline() {
       <div className="flex flex-wrap gap-2 mt-2">
         {data.atWrigley > 0 && (
           <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
-            ⚾ {data.atWrigley} at Wrigley
+             {data.atWrigley} at Wrigley
           </span>
         )}
         {data.atBars > 0 && (
           <span className="inline-flex items-center gap-1 rounded-full bg-secondary/10 px-2.5 py-1 text-[11px] font-medium text-secondary">
-            🍺 {data.atBars} at bars
+             {data.atBars} at bars
           </span>
         )}
         {data.topBar && (

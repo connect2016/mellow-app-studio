@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Zap, MapPin, Users, MessageCircle, RefreshCw, PartyPopper, Flame, Coffee, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface MatchMember {
   id: string;
@@ -77,7 +78,7 @@ export function InstantMatchPanel() {
       const { data: meetup, error } = await supabase.from('lineup_meetups').insert({
         creator_id: user.id,
         location_name: match.meeting_spot,
-        description: `${match.emoji} ${match.group_name} — ${match.reason}`,
+        description: `$<ConceptIcon name={match.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${match.group_name} — ${match.reason}`,
         meeting_time: meetingTime,
         max_members: match.member_ids.length + 1,
       }).select('id').single();
@@ -100,7 +101,7 @@ export function InstantMatchPanel() {
       const notifications = match.member_ids.map(uid => ({
         user_id: uid,
         type: 'instant_match',
-        title: `${match.emoji} Instant Match!`,
+        title: `$<ConceptIcon name={match.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Instant Match!`,
         body: `You've been matched into "${match.group_name}" — head to ${match.meeting_spot} now!`,
         emoji: match.emoji,
         action_url: '/game-day',
@@ -114,7 +115,7 @@ export function InstantMatchPanel() {
     onSuccess: () => {
       setActivated(true);
       queryClient.invalidateQueries({ queryKey: ['lineup-meetups'] });
-      toast.success("You're matched! Group chat is live 🎉");
+      toast.success("You're matched! Group chat is live ");
     },
     onError: (err: any) => toast.error(err.message || 'Failed to activate'),
   });
@@ -162,7 +163,7 @@ export function InstantMatchPanel() {
           </div>
         ) : !match ? (
           <div className="text-center py-6">
-            <span className="text-3xl">👀</span>
+            <span className="text-3xl"></span>
             <p className="text-sm text-muted-foreground mt-2">{data?.reason || 'No matches found nearby'}</p>
             <p className="text-xs text-muted-foreground mt-1">Check back closer to game time</p>
           </div>
@@ -177,9 +178,9 @@ export function InstantMatchPanel() {
               animate={{ rotate: [0, -10, 10, -10, 0] }}
               transition={{ duration: 0.5 }}
             >
-              {match.emoji}
+              <ConceptIcon name={match.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
             </motion.span>
-            <p className="text-sm font-bold text-foreground mt-2">You're in! 🎉</p>
+            <p className="text-sm font-bold text-foreground mt-2">You're in! </p>
             <p className="text-xs text-muted-foreground mt-1">
               Head to <span className="font-semibold text-foreground">{match.meeting_spot}</span> — group chat is live
             </p>
@@ -189,7 +190,7 @@ export function InstantMatchPanel() {
             {/* Match card */}
             <div className={`rounded-xl border p-3 ${energyConf.bg}`}>
               <div className="flex items-start gap-2.5">
-                <span className="text-2xl">{match.emoji}</span>
+                <span className="text-2xl"><ConceptIcon name={match.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-foreground">{match.group_name}</p>
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
@@ -242,7 +243,7 @@ export function InstantMatchPanel() {
             </Button>
 
             <p className="text-center text-[10px] text-muted-foreground">
-              One tap — we handle the rest ⚡
+              One tap — we handle the rest 
             </p>
           </div>
         )}

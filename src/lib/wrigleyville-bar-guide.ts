@@ -54,7 +54,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 1980,
-    emoji: '🍻',
+    emoji: '',
     accent: 'cubs-blue',
   },
   {
@@ -79,7 +79,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 1953,
-    emoji: '🎸',
+    emoji: '',
     accent: 'red',
   },
   {
@@ -104,7 +104,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 1985,
-    emoji: '🎯',
+    emoji: '',
     accent: 'amber',
   },
   {
@@ -129,7 +129,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 1972,
-    emoji: '🥃',
+    emoji: '',
     accent: 'cubs-blue',
   },
   {
@@ -154,7 +154,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 2014,
-    emoji: '🥃',
+    emoji: '',
     accent: 'amber',
   },
   {
@@ -179,7 +179,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 2016,
-    emoji: '🥃',
+    emoji: '',
     accent: 'red',
   },
   {
@@ -204,7 +204,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: true,
     cashOnly: false,
     established: 2014,
-    emoji: '🤠',
+    emoji: '',
     accent: 'amber',
   },
   {
@@ -229,7 +229,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 2019,
-    emoji: '🏟️',
+    emoji: '',
     accent: 'cubs-blue',
   },
   {
@@ -254,7 +254,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 2007,
-    emoji: '🌴',
+    emoji: '',
     accent: 'red',
   },
   {
@@ -279,7 +279,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 2007,
-    emoji: '🎸',
+    emoji: '',
     accent: 'red',
   },
   {
@@ -304,7 +304,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 1971,
-    emoji: '🥩',
+    emoji: '',
     accent: 'cubs-blue',
   },
   {
@@ -329,7 +329,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 1995,
-    emoji: '📺',
+    emoji: '',
     accent: 'amber',
   },
   {
@@ -354,7 +354,7 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 1968,
-    emoji: '🍺',
+    emoji: '',
     accent: 'cubs-blue',
   },
   {
@@ -379,28 +379,28 @@ export const CURATED_BARS: CuratedBar[] = [
     rooftop: false,
     cashOnly: false,
     established: 2010,
-    emoji: '🌮',
+    emoji: '',
     accent: 'amber',
   },
 ];
 
 export const VIBE_LABELS: Record<BarVibe, { label: string; emoji: string }> = {
-  party: { label: 'Party', emoji: '🔥' },
-  chill: { label: 'Chill', emoji: '😎' },
-  sports: { label: 'Sports', emoji: '📺' },
-  dive: { label: 'Dive', emoji: '🍺' },
+  party: { label: 'Party', emoji: '' },
+  chill: { label: 'Chill', emoji: '' },
+  sports: { label: 'Sports', emoji: '' },
+  dive: { label: 'Dive', emoji: '' },
 };
 
 export const GROUP_LABELS: Record<BarGroupFit, { label: string; emoji: string }> = {
-  solo: { label: 'Solo / Duo', emoji: '👤' },
-  small: { label: 'Small (3-5)', emoji: '👥' },
-  large: { label: 'Crew (6+)', emoji: '👨‍👩‍👧‍👦' },
+  solo: { label: 'Solo / Duo', emoji: '' },
+  small: { label: 'Small (3-5)', emoji: '' },
+  large: { label: 'Crew (6+)', emoji: '' },
 };
 
 export const TIMING_LABELS: Record<BarGameTiming, { label: string; emoji: string }> = {
-  pregame: { label: 'Pre-game', emoji: '🍻' },
-  ingame: { label: 'In-game', emoji: '⚾' },
-  postgame: { label: 'Post-game', emoji: '🎉' },
+  pregame: { label: 'Pre-game', emoji: '' },
+  ingame: { label: 'In-game', emoji: '' },
+  postgame: { label: 'Post-game', emoji: '' },
 };
 
 export const DISTANCE_BUCKETS = [

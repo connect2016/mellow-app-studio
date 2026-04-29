@@ -42,7 +42,7 @@ function computeCompatibility(me: ProfileLike, them: ProfileLike): Compatibility
   if (sharedIntents.length > 0) {
     const labels = sharedIntents.map(i => INTENT_LABELS[i] || i).slice(0, 2);
     reasons.push({
-      emoji: '🎯',
+      emoji: '',
       text: `You're both looking for ${labels.join(' & ')}`,
       weight: sharedIntents.length * 15,
     });
@@ -59,16 +59,16 @@ function computeCompatibility(me: ProfileLike, them: ProfileLike): Compatibility
       BeerSnake: 'You\'re both doing the Beer Snake!',
       WatchingRemote: 'You\'re both watching from home',
     };
-    reasons.push({ emoji: '📍', text: statusTexts[me.game_status] ?? 'Same vibe right now', weight: 20 });
+    reasons.push({ emoji: '', text: statusTexts[me.game_status] ?? 'Same vibe right now', weight: 20 });
   } else if (bothAtGame) {
-    reasons.push({ emoji: '🏟️', text: 'You\'re both at Wrigley today', weight: 12 });
+    reasons.push({ emoji: '', text: 'You\'re both at Wrigley today', weight: 12 });
   }
 
   // 3. Same bar preference (social/drinking)
   const myBar = me.best_bar || me.wrigleyville_bar;
   const theirBar = them.best_bar || them.wrigleyville_bar;
   if (myBar && theirBar && myBar.toLowerCase() === theirBar.toLowerCase()) {
-    reasons.push({ emoji: '🍺', text: `You both love ${myBar}`, weight: 15 });
+    reasons.push({ emoji: '', text: `You both love ${myBar}`, weight: 15 });
   }
 
   // 4. Same favorite player
@@ -81,37 +81,37 @@ function computeCompatibility(me: ProfileLike, them: ProfileLike): Compatibility
   if (me.wrigley_section && them.wrigley_section) {
     const diff = Math.abs(parseInt(me.wrigley_section) - parseInt(them.wrigley_section));
     if (diff === 0) {
-      reasons.push({ emoji: '🪑', text: 'You\'re in the same section!', weight: 18 });
+      reasons.push({ emoji: '', text: 'You\'re in the same section!', weight: 18 });
     } else if (diff <= 3) {
-      reasons.push({ emoji: '👋', text: `Only ${diff} sections apart`, weight: 10 });
+      reasons.push({ emoji: '', text: `Only ${diff} sections apart`, weight: 10 });
     }
   }
 
   // 6. Same superstition or stretch song (personality match)
   if (me.superstition && them.superstition &&
       me.superstition.toLowerCase().includes(them.superstition.toLowerCase().slice(0, 8))) {
-    reasons.push({ emoji: '🧢', text: 'Similar Cubs superstitions!', weight: 8 });
+    reasons.push({ emoji: '', text: 'Similar Cubs superstitions!', weight: 8 });
   }
   if (me.stretch_song && them.stretch_song &&
       me.stretch_song.toLowerCase() === them.stretch_song.toLowerCase()) {
-    reasons.push({ emoji: '🎵', text: `Both sing "${them.stretch_song}" at the stretch`, weight: 8 });
+    reasons.push({ emoji: '', text: `Both sing "${them.stretch_song}" at the stretch`, weight: 8 });
   }
 
   // 7. Similar age (social compatibility)
   if (me.age && them.age) {
     const ageDiff = Math.abs(me.age - them.age);
     if (ageDiff <= 3) {
-      reasons.push({ emoji: '👥', text: 'Similar age range', weight: 6 });
+      reasons.push({ emoji: '', text: 'Similar age range', weight: 6 });
     }
   }
 
   // 8. Solo vs group: if both have only 1 intent → solo vibes
   if (myIntents.length === 1 && theirIntents.length === 1 && sharedIntents.length === 1) {
-    reasons.push({ emoji: '🤝', text: 'Focused on the same thing', weight: 5 });
+    reasons.push({ emoji: '', text: 'Focused on the same thing', weight: 5 });
   }
   // If both have 3+ intents → social butterflies
   if (myIntents.length >= 3 && theirIntents.length >= 3) {
-    reasons.push({ emoji: '🦋', text: 'Both social butterflies — down for anything!', weight: 5 });
+    reasons.push({ emoji: '', text: 'Both social butterflies — down for anything!', weight: 5 });
   }
 
   // Calculate score
@@ -124,7 +124,7 @@ function computeCompatibility(me: ProfileLike, them: ProfileLike): Compatibility
   return {
     score,
     reasons,
-    topReasons: reasons.slice(0, 3).map(r => `${r.emoji} ${r.text}`),
+    topReasons: reasons.slice(0, 3).map(r => r.text),
   };
 }
 

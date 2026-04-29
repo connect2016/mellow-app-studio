@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PlayIcon, MiniDiamond } from './PlayIcons';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const PLAY_TYPES = [
   { value: '1b', label: '1B', sealColor: 'green' as const },
@@ -70,7 +71,7 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-lg font-bold font-['Graduate'] tracking-wide" style={{ color: 'hsl(var(--ivy-green))' }}>
-                  ⚾ Quick Score
+                   Quick Score
                 </h3>
                 <p className="text-[10px] font-['Share_Tech_Mono'] mt-0.5" style={{ color: 'hsl(var(--muted-foreground))' }}>
                   {half === 'top' ? '▲' : '▼'} Inning {inning}
@@ -190,7 +191,7 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
               className="w-full rounded-xl py-5 text-sm font-bold"
               style={{ backgroundColor: 'hsl(var(--accent))', fontFamily: "'Graduate', serif" }}
             >
-              Add to Scorecard ⚾
+              Add to Scorecard 
             </Button>
           </motion.div>
         </motion.div>

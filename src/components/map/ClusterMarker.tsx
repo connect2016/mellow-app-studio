@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import { Marker, Popup, Tooltip, useMap } from 'react-leaflet';
 import type { VibeFilter, MovementFilter } from './MapFilters';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export interface MapCluster {
   id: string;
@@ -112,9 +113,9 @@ export function ClusterMarkerComponent({ cluster }: { cluster: MapCluster }) {
   const friendly = pickLabel(cluster.id);
 
   const vibeLabels: Record<VibeFilter, string> = {
-    party: '🔥 Party Vibe',
-    chill: '☕ Chill Vibe',
-    hardcore: '🏆 Hardcore Fans',
+    party: ' Party Vibe',
+    chill: ' Chill Vibe',
+    hardcore: ' Hardcore Fans',
   };
 
   const movementLabels: Record<MovementFilter, string> = {

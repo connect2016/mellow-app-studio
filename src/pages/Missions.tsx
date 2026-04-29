@@ -10,11 +10,12 @@ import { ErrorState } from '@/components/ErrorState';
 import { MissionStreak } from '@/components/MissionStreak';
 import { AchievementsHub } from '@/components/achievements/AchievementsHub';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const CATEGORY_CONFIG: Record<string, { label: string; emoji: string }> = {
-  gameday: { label: 'Game Day', emoji: '🏟️' },
-  social: { label: 'Social', emoji: '🤝' },
-  milestone: { label: 'Milestones', emoji: '🏆' },
+  gameday: { label: 'Game Day', emoji: '' },
+  social: { label: 'Social', emoji: '' },
+  milestone: { label: 'Milestones', emoji: '' },
 };
 
 export default function Missions() {
@@ -41,7 +42,7 @@ export default function Missions() {
       });
       setCelebrating(m.id);
       setTimeout(() => setCelebrating(null), 2500);
-      toast.success(`+${m.points} points! ${m.badge_key ? '🏅 Badge unlocked!' : ''}`);
+      toast.success(`+${m.points} points! ${m.badge_key ? ' Badge unlocked!' : ''}`);
     } catch {
       toast.error('Failed to claim reward');
     }
@@ -54,10 +55,10 @@ export default function Missions() {
   const claimableCount = missions.filter(m => m.progress?.completed && !m.progress?.reward_claimed).length;
 
   // Points tier
-  const tier = totalPoints >= 500 ? { name: 'Legend', emoji: '🏆', color: 'text-yellow-500' }
+  const tier = totalPoints >= 500 ? { name: 'Legend', emoji: '', color: 'text-yellow-500' }
     : totalPoints >= 200 ? { name: 'All-Star', emoji: '⭐', color: 'text-primary' }
-    : totalPoints >= 50 ? { name: 'Rookie', emoji: '⚾', color: 'text-accent' }
-    : { name: 'Newcomer', emoji: '👋', color: 'text-muted-foreground' };
+    : totalPoints >= 50 ? { name: 'Rookie', emoji: '', color: 'text-accent' }
+    : { name: 'Newcomer', emoji: '', color: 'text-muted-foreground' };
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -84,7 +85,7 @@ export default function Missions() {
                 transition={{ repeat: Infinity, duration: 1.2 }}
                 className="text-7xl mb-4"
               >
-                🎖️
+                
               </motion.div>
               <h2 className="text-3xl font-bold text-primary-foreground mb-2">
                 Mission Complete!
@@ -120,7 +121,7 @@ export default function Missions() {
                   {totalPoints}
                 </span>
                 <span className={`text-sm font-semibold ${tier.color}`}>
-                  {tier.emoji} {tier.name}
+                  <ConceptIcon name={tier.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {tier.name}
                 </span>
               </div>
             </div>
@@ -178,7 +179,7 @@ export default function Missions() {
                   : 'bg-card border border-border text-muted-foreground hover:text-foreground'
               }`}
             >
-              {cat === 'all' ? '🎯 All' : `${CATEGORY_CONFIG[cat]?.emoji} ${CATEGORY_CONFIG[cat]?.label}`}
+              {cat === 'all' ? ' All' : `$<ConceptIcon name={CATEGORY_CONFIG[cat]?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${CATEGORY_CONFIG[cat]?.label}`}
             </button>
           ))}
         </div>
@@ -244,7 +245,7 @@ export default function Missions() {
                     <div className={`flex h-11 w-11 items-center justify-center rounded-xl text-xl shrink-0 ${
                       isComplete ? 'bg-primary/10' : 'bg-muted'
                     }`}>
-                      {isClaimed ? '✅' : m.emoji}
+                      <ConceptIcon name={isClaimed ? '' : m.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                     </div>
 
                     <div className="flex-1 min-w-0">

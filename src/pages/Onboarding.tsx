@@ -17,40 +17,41 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { useToast } from '@/hooks/use-toast';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const TOTAL_STEPS = 5;
 
 const stepMeta = [
-  { icon: User, title: 'Your Profile', subtitle: 'Let fans know who you are', emoji: '👋' },
-  { icon: Heart, title: 'Your Intent', subtitle: 'What are you looking for?', emoji: '🎯' },
-  { icon: Star, title: 'Cubs Identity', subtitle: 'Show off your fan credentials', emoji: '⚾' },
-  { icon: MapPin, title: 'Game Day Setup', subtitle: 'Where do you watch?', emoji: '🏟️' },
-  { icon: Star, title: 'Scouting Report', subtitle: 'What kind of fan are you?', emoji: '🔎' },
+  { icon: User, title: 'Your Profile', subtitle: 'Let fans know who you are', emoji: '' },
+  { icon: Heart, title: 'Your Intent', subtitle: 'What are you looking for?', emoji: '' },
+  { icon: Star, title: 'Cubs Identity', subtitle: 'Show off your fan credentials', emoji: '' },
+  { icon: MapPin, title: 'Game Day Setup', subtitle: 'Where do you watch?', emoji: '' },
+  { icon: Star, title: 'Scouting Report', subtitle: 'What kind of fan are you?', emoji: '' },
 ];
 
 const intentCards: { value: IntentType; label: string; emoji: string; desc: string }[] = [
-  { value: 'FriendToWatch', label: 'Friend to Watch', emoji: '⚾', desc: 'Find someone to catch the game with' },
-  { value: 'ShareABeer', label: 'Share a Beer', emoji: '🍺', desc: 'Grab a cold one with a fellow fan' },
-  { value: 'PostGameMeetup', label: 'Post-Game Meetup', emoji: '🎉', desc: 'Keep the party going after the W' },
-  { value: 'Dating', label: 'Dating', emoji: '❤️', desc: 'Find your Wrigley romance' },
+  { value: 'FriendToWatch', label: 'Friend to Watch', emoji: '', desc: 'Find someone to catch the game with' },
+  { value: 'ShareABeer', label: 'Share a Beer', emoji: '', desc: 'Grab a cold one with a fellow fan' },
+  { value: 'PostGameMeetup', label: 'Post-Game Meetup', emoji: '', desc: 'Keep the party going after the W' },
+  { value: 'Dating', label: 'Dating', emoji: '', desc: 'Find your Wrigley romance' },
 ];
 
 const gamedayIntentCards: { value: GamedayIntentType; label: string; emoji: string; desc: string }[] = [
-  { value: 'BleacherRegular', label: 'Bleacher Regular', emoji: '🎫', desc: 'The bleachers are your second home' },
-  { value: 'FamilyFriendly', label: 'Family Friendly', emoji: '👨‍👩‍👧‍👦', desc: 'Bringing the kids to the ballpark' },
-  { value: 'PreGameDrinks', label: 'Pre-game Drinks', emoji: '🍻', desc: 'The party starts before first pitch' },
-  { value: 'ScoringTheGame', label: 'Scoring the Game', emoji: '📊', desc: 'Keeping the book like a true fan' },
-  { value: 'PostGameCelebration', label: 'Post-game Celebration', emoji: '🎉', desc: 'Wrigleyville after the final out' },
-  { value: 'WrigleyvilleLocal', label: 'Wrigleyville Local', emoji: '🏘️', desc: 'You live in the neighborhood' },
+  { value: 'BleacherRegular', label: 'Bleacher Regular', emoji: '', desc: 'The bleachers are your second home' },
+  { value: 'FamilyFriendly', label: 'Family Friendly', emoji: '', desc: 'Bringing the kids to the ballpark' },
+  { value: 'PreGameDrinks', label: 'Pre-game Drinks', emoji: '', desc: 'The party starts before first pitch' },
+  { value: 'ScoringTheGame', label: 'Scoring the Game', emoji: '', desc: 'Keeping the book like a true fan' },
+  { value: 'PostGameCelebration', label: 'Post-game Celebration', emoji: '', desc: 'Wrigleyville after the final out' },
+  { value: 'WrigleyvilleLocal', label: 'Wrigleyville Local', emoji: '', desc: 'You live in the neighborhood' },
 ];
 
 const vibeChips: { value: string; label: string; emoji: string }[] = [
-  { value: 'new_friends', label: 'Make new friends', emoji: '🤝' },
-  { value: 'pregame_hangs', label: 'Pregame hangs', emoji: '🍻' },
-  { value: 'postgame_food', label: 'Postgame food', emoji: '🍕' },
-  { value: 'open_meeting', label: 'Open to meeting fellow fans', emoji: '👋' },
+  { value: 'new_friends', label: 'Make new friends', emoji: '' },
+  { value: 'pregame_hangs', label: 'Pregame hangs', emoji: '' },
+  { value: 'postgame_food', label: 'Postgame food', emoji: '' },
+  { value: 'open_meeting', label: 'Open to meeting fellow fans', emoji: '' },
   { value: 'crew_tonight', label: 'Looking for a crew tonight', emoji: '⭐' },
-  { value: 'spontaneous', label: 'Down for spontaneous meetups', emoji: '⚡' },
+  { value: 'spontaneous', label: 'Down for spontaneous meetups', emoji: '' },
 ];
 
 const privacyOptions: { value: PrivacyLevel; label: string; icon: typeof Eye }[] = [
@@ -112,7 +113,7 @@ export default function Onboarding() {
     setPhotoPreview(URL.createObjectURL(file));
     try {
       await uploadPhoto(file);
-      toast({ title: '📸 Photo uploaded!' });
+      toast({ title: ' Photo uploaded!' });
     } catch {
       toast({ title: 'Upload failed', description: 'Please try again.', variant: 'destructive' });
       setPhotoPreview(null);
@@ -210,7 +211,7 @@ export default function Onboarding() {
             transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
             className="text-7xl mb-6"
           >
-            🎉
+            
           </motion.div>
           <h1 className="text-3xl font-bold text-primary-foreground mb-2">
             Welcome to the crew!
@@ -306,7 +307,7 @@ export default function Onboarding() {
               {/* Step header */}
               <div className="flex items-center gap-3 mb-6">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-3xl">
-                  {currentMeta.emoji}
+                  <ConceptIcon name={currentMeta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                 </div>
                 <div>
                   <h2
@@ -443,7 +444,7 @@ export default function Onboarding() {
                                 : 'border-border bg-card text-foreground hover:border-primary/40'
                             }`}
                           >
-                            <span className="text-base leading-none">{chip.emoji}</span>
+                            <span className="text-base leading-none"><ConceptIcon name={chip.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                             <span>{chip.label}</span>
                           </button>
                         );
@@ -472,10 +473,10 @@ export default function Onboarding() {
                           >
                             {isSelected && (
                               <div className="absolute top-2 right-2 h-4 w-4 rounded-full bg-primary flex items-center justify-center">
-                                <span className="text-primary-foreground text-[9px] font-bold">✓</span>
+                                <span className="text-primary-foreground text-[9px] font-bold"></span>
                               </div>
                             )}
-                            <span className="text-2xl">{card.emoji}</span>
+                            <span className="text-2xl"><ConceptIcon name={card.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                             <div>
                               <span className="block text-sm font-semibold text-foreground">{card.label}</span>
                             </div>
@@ -498,14 +499,14 @@ export default function Onboarding() {
                           : 'border-border bg-card text-foreground hover:border-primary/40'
                       }`}
                     >
-                      🤝 Open to All
+                       Open to All
                     </button>
                   </div>
 
                   {/* ── Gameday Badges ── */}
                   <div className="space-y-3">
                     <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
-                      🏟️ Gameday Badges
+                       Gameday Badges
                     </h3>
                     <p className="text-xs font-medium text-muted-foreground">Pick up to 3 — shown on your card</p>
                     <div className="grid grid-cols-2 gap-3">
@@ -527,10 +528,10 @@ export default function Onboarding() {
                           >
                             {isSelected && (
                               <div className="absolute top-2 right-2 h-4 w-4 rounded-full bg-secondary flex items-center justify-center">
-                                <span className="text-secondary-foreground text-[9px] font-bold">✓</span>
+                                <span className="text-secondary-foreground text-[9px] font-bold"></span>
                               </div>
                             )}
-                            <span className="text-2xl">{card.emoji}</span>
+                            <span className="text-2xl"><ConceptIcon name={card.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                             <span className="text-sm font-semibold text-foreground">{card.label}</span>
                           </button>
                         );
@@ -572,7 +573,7 @@ export default function Onboarding() {
                         </p>
                       )}
                       <p className="text-[11px] text-muted-foreground italic">
-                        Go deeper cut than the obvious one 😉
+                        Go deeper cut than the obvious one 
                       </p>
                     </div>
                   </div>
@@ -607,7 +608,7 @@ export default function Onboarding() {
                   {/* ── Section: Fan Style ── */}
                   <div className="space-y-3">
                     <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>
-                      🎨 Your Style
+                       Your Style
                     </h3>
                     <p className="text-xs font-medium text-destructive-foreground">Tap all that fit</p>
                     <div className="grid grid-cols-2 gap-2.5">
@@ -623,7 +624,7 @@ export default function Onboarding() {
                                 : 'border-border bg-card text-foreground hover:border-accent/40'
                             }`}
                           >
-                            <span className="text-xl">{opt.emoji}</span>
+                            <span className="text-xl"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                             <span className="text-sm font-semibold">{opt.label}</span>
                           </button>
                         );
@@ -727,9 +728,9 @@ export default function Onboarding() {
                   </p>
                   <div className="space-y-3">
                     {([
-                      { value: 'die_hard', emoji: '🔥', label: 'The Die-Hard', desc: 'You live and breathe the score. Every pitch matters.', gradient: 'from-red-600 to-red-800', border: 'border-red-500' },
-                      { value: 'social_butterfly', emoji: '🦋', label: 'The Social Butterfly', desc: "You're here for the vibes, the beers, and the new friends.", gradient: 'from-amber-500 to-orange-600', border: 'border-amber-400' },
-                      { value: 'tourist', emoji: '📸', label: 'The Tourist', desc: "First time at Wrigley? We'll make it unforgettable.", gradient: 'from-sky-500 to-blue-600', border: 'border-sky-400' },
+                      { value: 'die_hard', emoji: '', label: 'The Die-Hard', desc: 'You live and breathe the score. Every pitch matters.', gradient: 'from-red-600 to-red-800', border: 'border-red-500' },
+                      { value: 'social_butterfly', emoji: '', label: 'The Social Butterfly', desc: "You're here for the vibes, the beers, and the new friends.", gradient: 'from-amber-500 to-orange-600', border: 'border-amber-400' },
+                      { value: 'tourist', emoji: '', label: 'The Tourist', desc: "First time at Wrigley? We'll make it unforgettable.", gradient: 'from-sky-500 to-blue-600', border: 'border-sky-400' },
                     ] as const).map((p) => {
                       const isSelected = gamedayPersona === p.value;
                       return (
@@ -749,10 +750,10 @@ export default function Onboarding() {
                               animate={{ scale: 1 }}
                               className="absolute top-3 right-3 h-6 w-6 rounded-full bg-white/20 flex items-center justify-center"
                             >
-                              <span className="text-white text-xs font-bold">✓</span>
+                              <span className="text-white text-xs font-bold"></span>
                             </motion.div>
                           )}
-                          <span className="text-4xl">{p.emoji}</span>
+                          <span className="text-4xl"><ConceptIcon name={p.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                           <div>
                             <span className={`block text-lg font-bold ${isSelected ? 'text-white' : 'text-foreground'}`}>{p.label}</span>
                             <span className={`block text-sm leading-snug ${isSelected ? 'text-white/80' : 'text-muted-foreground'}`}>{p.desc}</span>

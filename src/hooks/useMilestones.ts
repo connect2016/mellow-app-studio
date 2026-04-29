@@ -27,7 +27,7 @@ export const MILESTONE_DEFINITIONS: MilestoneDefinition[] = [
   {
     key: 'games_attended',
     label: 'Games Attended',
-    emoji: '⚾',
+    emoji: '',
     description: 'Days you checked in on game day',
     tiers: [
       { count: 1, label: 'First Pitch' },
@@ -40,7 +40,7 @@ export const MILESTONE_DEFINITIONS: MilestoneDefinition[] = [
   {
     key: 'bars_visited',
     label: 'Bars Explored',
-    emoji: '🍺',
+    emoji: '',
     description: 'Unique Wrigleyville bars you checked into',
     tiers: [
       { count: 1, label: 'First Round' },
@@ -52,7 +52,7 @@ export const MILESTONE_DEFINITIONS: MilestoneDefinition[] = [
   {
     key: 'meetups_joined',
     label: 'Meetups Joined',
-    emoji: '🤝',
+    emoji: '',
     description: 'Lineup meetups you joined or hosted',
     tiers: [
       { count: 1, label: 'Lineup' },
@@ -64,7 +64,7 @@ export const MILESTONE_DEFINITIONS: MilestoneDefinition[] = [
   {
     key: 'hi_fives',
     label: 'Hi-Fives Sent',
-    emoji: '🖐️',
+    emoji: '',
     description: 'Hi-fives sent to fellow fans',
     tiers: [
       { count: 1, label: 'Friendly' },
@@ -76,7 +76,7 @@ export const MILESTONE_DEFINITIONS: MilestoneDefinition[] = [
   {
     key: 'memories_shared',
     label: 'Memories Shared',
-    emoji: '📸',
+    emoji: '',
     description: 'Game-day photos posted',
     tiers: [
       { count: 1, label: 'Snapshot' },
@@ -87,7 +87,7 @@ export const MILESTONE_DEFINITIONS: MilestoneDefinition[] = [
   {
     key: 'passport_stamps',
     label: 'Passport Stamps',
-    emoji: '🏆',
+    emoji: '',
     description: 'Wrigley Passport locations verified',
     tiers: [
       { count: 1, label: 'Tourist' },

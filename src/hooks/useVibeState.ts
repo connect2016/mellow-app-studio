@@ -65,13 +65,13 @@ export function useVibeState() {
 
 // Vibe state display config
 export const VIBE_STATES: Record<string, { label: string; color: string; bg: string; emoji: string }> = {
-  lit: { label: 'Lit', color: 'text-orange-500', bg: 'bg-orange-500/10 border-orange-500/20', emoji: '🔥' },
-  chill: { label: 'Chill', color: 'text-sky-500', bg: 'bg-sky-500/10 border-sky-500/20', emoji: '😎' },
-  hype: { label: 'Hype', color: 'text-yellow-500', bg: 'bg-yellow-500/10 border-yellow-500/20', emoji: '⚡' },
-  social_butterfly: { label: 'Social Butterfly', color: 'text-pink-500', bg: 'bg-pink-500/10 border-pink-500/20', emoji: '🦋' },
-  die_hard: { label: 'Die Hard', color: 'text-red-600', bg: 'bg-red-600/10 border-red-600/20', emoji: '💀' },
-  new_in_town: { label: 'New in Town', color: 'text-emerald-500', bg: 'bg-emerald-500/10 border-emerald-500/20', emoji: '🌟' },
-  rally_mode: { label: 'Rally Mode', color: 'text-violet-500', bg: 'bg-violet-500/10 border-violet-500/20', emoji: '🚀' },
-  victory_lap: { label: 'Victory Lap', color: 'text-amber-500', bg: 'bg-amber-500/10 border-amber-500/20', emoji: '🏆' },
-  unknown: { label: 'Vibing', color: 'text-muted-foreground', bg: 'bg-muted/50 border-border', emoji: '⚾' },
+  lit: { label: 'Lit', color: 'text-orange-500', bg: 'bg-orange-500/10 border-orange-500/20', emoji: '' },
+  chill: { label: 'Chill', color: 'text-sky-500', bg: 'bg-sky-500/10 border-sky-500/20', emoji: '' },
+  hype: { label: 'Hype', color: 'text-yellow-500', bg: 'bg-yellow-500/10 border-yellow-500/20', emoji: '' },
+  social_butterfly: { label: 'Social Butterfly', color: 'text-pink-500', bg: 'bg-pink-500/10 border-pink-500/20', emoji: '' },
+  die_hard: { label: 'Die Hard', color: 'text-red-600', bg: 'bg-red-600/10 border-red-600/20', emoji: '' },
+  new_in_town: { label: 'New in Town', color: 'text-emerald-500', bg: 'bg-emerald-500/10 border-emerald-500/20', emoji: '' },
+  rally_mode: { label: 'Rally Mode', color: 'text-violet-500', bg: 'bg-violet-500/10 border-violet-500/20', emoji: '' },
+  victory_lap: { label: 'Victory Lap', color: 'text-amber-500', bg: 'bg-amber-500/10 border-amber-500/20', emoji: '' },
+  unknown: { label: 'Vibing', color: 'text-muted-foreground', bg: 'bg-muted/50 border-border', emoji: '' },
 };

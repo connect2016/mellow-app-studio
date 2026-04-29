@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { Check, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import quickstartBg from '@/assets/quickstart-bg.jpg';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
@@ -15,17 +16,17 @@ type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere';
 type GroupSize = 'solo' | 'small' | 'big';
 
 const INTENTS: { id: Intent; emoji: string; label: string; sub: string }[] = [
-  { id: 'watch_game', emoji: '⚾', label: 'Watch the game', sub: 'Live scores, section chats, predictions' },
-  { id: 'meet_fans', emoji: '🤝', label: 'Meet fellow fans', sub: 'Hi-fives, meetups, ballpark buddies' },
-  { id: 'bar_hop', emoji: '🍻', label: 'Bar hop the neighborhood', sub: 'Vibe map, specials, pub crawls' },
-  { id: 'date', emoji: '💘', label: 'Find a date who loves the Cubs', sub: 'Matches, conversations, low-key meetups' },
-  { id: 'all', emoji: '🌟', label: 'All of the above', sub: "Give me the full Wrigleyville experience" },
+  { id: 'watch_game', emoji: '', label: 'Watch the game', sub: 'Live scores, section chats, predictions' },
+  { id: 'meet_fans', emoji: '', label: 'Meet fellow fans', sub: 'Hi-fives, meetups, ballpark buddies' },
+  { id: 'bar_hop', emoji: '', label: 'Bar hop the neighborhood', sub: 'Vibe map, specials, pub crawls' },
+  { id: 'date', emoji: '', label: 'Find a date who loves the Cubs', sub: 'Matches, conversations, low-key meetups' },
+  { id: 'all', emoji: '', label: 'All of the above', sub: "Give me the full Wrigleyville experience" },
 ];
 
 const BEHAVIORS: { id: Behavior; emoji: string; label: string }[] = [
-  { id: 'at_park', emoji: '🏟️', label: 'At the park' },
-  { id: 'at_bar', emoji: '🍺', label: 'At a bar' },
-  { id: 'at_home', emoji: '🛋️', label: 'At home' },
+  { id: 'at_park', emoji: '', label: 'At the park' },
+  { id: 'at_bar', emoji: '', label: 'At a bar' },
+  { id: 'at_home', emoji: '', label: 'At home' },
 ];
 
 const ZONES: { id: Zone; label: string }[] = [
@@ -36,9 +37,9 @@ const ZONES: { id: Zone; label: string }[] = [
 ];
 
 const GROUPS: { id: GroupSize; emoji: string; label: string }[] = [
-  { id: 'solo', emoji: '👤', label: 'Solo' },
-  { id: 'small', emoji: '👥', label: 'Small (2–4)' },
-  { id: 'big', emoji: '🎉', label: 'Big crew (5+)' },
+  { id: 'solo', emoji: '', label: 'Solo' },
+  { id: 'small', emoji: '', label: 'Small (2–4)' },
+  { id: 'big', emoji: '', label: 'Big crew (5+)' },
 ];
 
 export default function QuickStart() {
@@ -85,7 +86,7 @@ export default function QuickStart() {
       toast.error('Could not save preferences');
       return;
     }
-    toast.success("You're all set — let's go ⚾");
+    toast.success("You're all set — let's go");
     navigate('/discover');
   };
 
@@ -144,7 +145,7 @@ export default function QuickStart() {
                     behavior === opt.id && 'ring-2 ring-primary bg-primary/5',
                   )}
                 >
-                  <div className="text-3xl mb-1">{opt.emoji}</div>
+                  <div className="text-3xl mb-1"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
                   <div className="text-sm font-semibold">{opt.label}</div>
                 </button>
               ))}
@@ -184,7 +185,7 @@ export default function QuickStart() {
                       group === opt.id && 'ring-2 ring-primary bg-primary/5',
                     )}
                   >
-                    <div className="text-2xl mb-0.5">{opt.emoji}</div>
+                    <div className="text-2xl mb-0.5"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
                     <div className="text-xs font-semibold">{opt.label}</div>
                   </button>
                 ))}

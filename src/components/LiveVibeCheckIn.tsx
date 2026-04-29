@@ -8,6 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { WRIGLEYVILLE_BARS } from '@/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function LiveVibeCheckIn({ preselectedBar }: { preselectedBar?: string }) {
   const { user } = useAuth();
@@ -62,7 +63,7 @@ export function LiveVibeCheckIn({ preselectedBar }: { preselectedBar?: string })
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center">
-                <span className="text-3xl">📊</span>
+                <span className="text-3xl"></span>
                 <h2 className="text-lg font-bold text-foreground mt-2">
                   Live Vibe Check-In
                 </h2>

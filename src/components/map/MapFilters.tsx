@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Flame, Coffee, Trophy, Users, ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export type VibeFilter = 'party' | 'chill' | 'hardcore';
 export type SizeFilter = 'solo' | 'small' | 'large';
@@ -15,9 +16,9 @@ interface MapFiltersProps {
 }
 
 const VIBE_OPTIONS: { key: VibeFilter; label: string; emoji: string; icon: typeof Flame; color: string }[] = [
-  { key: 'party', label: 'Party', emoji: '🔥', icon: Flame, color: 'hsl(var(--secondary))' },
-  { key: 'chill', label: 'Chill', emoji: '☕', icon: Coffee, color: 'hsl(var(--lineup-teal))' },
-  { key: 'hardcore', label: 'Hardcore', emoji: '🏆', icon: Trophy, color: 'hsl(var(--accent))' },
+  { key: 'party', label: 'Party', emoji: '', icon: Flame, color: 'hsl(var(--secondary))' },
+  { key: 'chill', label: 'Chill', emoji: '', icon: Coffee, color: 'hsl(var(--lineup-teal))' },
+  { key: 'hardcore', label: 'Hardcore', emoji: '', icon: Trophy, color: 'hsl(var(--accent))' },
 ];
 
 const SIZE_OPTIONS: { key: SizeFilter; label: string; range: string }[] = [
@@ -72,7 +73,7 @@ export function MapFilters({
         <div className="flex gap-1 overflow-x-auto no-scrollbar">
           {VIBE_OPTIONS.map((v) => (
             <Chip key={v.key} active={vibes.includes(v.key)} onClick={() => onToggleVibe(v.key)}>
-              <span>{v.emoji}</span>
+              <span><ConceptIcon name={v.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
               {v.label}
             </Chip>
           ))}

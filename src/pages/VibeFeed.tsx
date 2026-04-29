@@ -24,6 +24,7 @@ import { GuestGateModal } from '@/components/GuestGateModal';
 import { GuestBanner } from '@/components/GuestBanner';
 import { WelcomeTour } from '@/components/WelcomeTour';
 import { LiveVibeCheckIn } from '@/components/LiveVibeCheckIn';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),
@@ -128,7 +129,7 @@ export default function VibeFeed() {
       });
       if (error) throw error;
 
-      toast.success('Vibe posted! 🎉');
+      toast.success('Vibe posted! ');
       setShowCompose(false);
       setFile(null);
       setPreview(null);
@@ -239,7 +240,7 @@ export default function VibeFeed() {
               size="sm"
               className="rounded-full gap-1.5 text-xs"
             >
-              ✅ Get Verified to Post
+               Get Verified to Post
             </Button>
           ) : (
             <Button
@@ -348,7 +349,7 @@ export default function VibeFeed() {
                   disabled={!file || !locationTag || uploading}
                   className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
                 >
-                  {uploading ? 'Posting…' : 'Post to Vibe Feed 🎶'}
+                  {uploading ? 'Posting…' : 'Post to Vibe Feed '}
                 </Button>
               </motion.div>
             </motion.div>
@@ -358,7 +359,7 @@ export default function VibeFeed() {
         {/* Feed */}
         {posts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="text-5xl mb-4">📸</div>
+            <div className="text-5xl mb-4"></div>
              <h3 className="text-lg font-semibold mb-1 text-yellow-300">The bases are empty!</h3>
             <p className="text-sm max-w-[240px] text-secondary-foreground">
               Be the first to start a conversation. Drop a vibe and get this section going!

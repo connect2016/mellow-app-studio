@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Compass, RefreshCw, MapPin, Users, ArrowRight, Clock, TrendingUp, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Recommendation {
   rank: number;
@@ -93,16 +94,16 @@ export function NextMovePanel() {
           user_id: user!.id,
         });
         if (error) throw error;
-        toast.success(`Joined meetup at ${rec.location}! 🎉`);
+        toast.success(`Joined meetup at ${rec.location}! `);
       } catch (err: any) {
         toast.error(err.message || 'Failed to join');
       }
     } else if (rec.type === 'go_to_venue' || rec.type === 'explore_section') {
-      toast.success(`${rec.emoji} Heading to ${rec.location}!`);
+      toast.success(`$<ConceptIcon name={rec.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Heading to ${rec.location}!`);
     } else if (rec.type === 'start_meetup') {
       toast.info(`Create a meetup at ${rec.location} from the Lineup tab!`);
     } else {
-      toast.success(`${rec.emoji} ${rec.title}`);
+      toast.success(`$<ConceptIcon name={rec.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${rec.title}`);
     }
   };
 
@@ -147,7 +148,7 @@ export function NextMovePanel() {
           </div>
         ) : recs.length === 0 ? (
           <div className="text-center py-6">
-            <span className="text-3xl">🧭</span>
+            <span className="text-3xl"></span>
             <p className="text-sm text-muted-foreground mt-2">No recommendations yet</p>
             <p className="text-xs text-muted-foreground mt-1">Check in first to get personalized suggestions</p>
           </div>
@@ -180,7 +181,7 @@ export function NextMovePanel() {
                     <div className={`h-9 w-9 rounded-lg flex items-center justify-center shrink-0 ${
                       isTop ? 'bg-primary/10' : 'bg-muted/50'
                     }`}>
-                      <span className="text-lg">{rec.emoji}</span>
+                      <span className="text-lg"><ConceptIcon name={rec.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5">
@@ -250,7 +251,7 @@ export function NextMovePanel() {
             })}
 
             <p className="text-center text-[10px] text-muted-foreground mt-1">
-              Updated based on live crowd data 🧭
+              Updated based on live crowd data 
             </p>
           </div>
         )}

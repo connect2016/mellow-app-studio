@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useSquadMatcher, useActivateSquad, type Squad } from '@/hooks/useSquadMatcher';
 import { Sparkles, MapPin, Clock, Users, MessageCircle, Zap, RefreshCw, ChevronRight, Flame, Coffee, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const SQUAD_TYPE_CONFIG = {
   party: { icon: Flame, label: 'Party Squad', color: 'hsl(var(--secondary))' },
@@ -223,7 +224,7 @@ export function SquadMatcherPanel() {
           </div>
         ) : squads.length === 0 ? (
           <div className="py-6 text-center">
-            <p className="text-2xl">🏟️</p>
+            <p className="text-2xl"></p>
             <p className="mt-1 text-sm text-muted-foreground">Not enough fans nearby for squads</p>
             <p className="text-xs text-muted-foreground">Check back during game time!</p>
           </div>

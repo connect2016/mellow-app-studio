@@ -1,4 +1,5 @@
 import React from 'react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface PlayIconProps {
   type: string;
@@ -102,7 +103,7 @@ function renderMark(type: string, size: number, graphite: string, activeColor: s
         </g>
       );
     default:
-      return <text x={cx} y={cy} style={textStyleSmall}>⚾</text>;
+      return <text x={cx} y={cy} style={textStyleSmall}></text>;
   }
 }
 

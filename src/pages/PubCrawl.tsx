@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
 import { LiveCrawlMap } from '@/components/map/LiveCrawlMap';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function CreateCrawlForm({ onClose }: { onClose: () => void }) {
   const [title, setTitle] = useState('');
@@ -75,7 +76,7 @@ function CreateCrawlForm({ onClose }: { onClose: () => void }) {
       <div className="flex gap-2">
         <Button variant="outline" className="flex-1 rounded-xl" onClick={onClose}>Cancel</Button>
         <Button className="flex-1 rounded-xl" onClick={handleCreate} disabled={!title || !startBar || !startTime || createCrawl.isPending}>
-          {createCrawl.isPending ? 'Creating...' : 'Start Crawl 🍻'}
+          {createCrawl.isPending ? 'Creating...' : 'Start Crawl '}
         </Button>
       </div>
     </div>
@@ -196,7 +197,7 @@ export default function PubCrawl() {
                     className="w-full rounded-xl font-bold gap-2 bg-primary min-h-[44px]"
                     onClick={() => { joinCrawl.mutate(crawl.id); setViewingCrawlId(crawl.id); }}
                   >
-                    🍻 The Pack is at {currentBar.length > 18 ? currentBar.slice(0, 18) + '…' : currentBar} — Join Them!
+                     The Pack is at {currentBar.length > 18 ? currentBar.slice(0, 18) + '…' : currentBar} — Join Them!
                   </Button>
                 )}
 
@@ -211,7 +212,7 @@ export default function PubCrawl() {
                   {!inCrawl ? (
                     <Button size="sm" className="flex-1 rounded-xl min-h-[44px] text-xs font-bold"
                       onClick={() => joinCrawl.mutate(crawl.id)} disabled={joinCrawl.isPending}>
-                      Join Crawl 🍻
+                      Join Crawl 
                     </Button>
                   ) : (
                     <Button size="sm" variant="outline" className="flex-1 rounded-xl min-h-[44px] text-xs font-bold"
@@ -242,7 +243,7 @@ export default function PubCrawl() {
 
           {!isLoading && crawls.length === 0 && !showCreate && (
             <div className="text-center py-16 space-y-3">
-              <span className="text-4xl">🍻</span>
+              <span className="text-4xl"></span>
               <p className="text-base font-bold text-foreground">No active pub crawls</p>
               <p className="text-sm text-muted-foreground">Be the first to start one tonight!</p>
               <Button onClick={() => setShowCreate(true)} className="rounded-xl"><Plus className="h-4 w-4 mr-1" /> Create a Crawl</Button>

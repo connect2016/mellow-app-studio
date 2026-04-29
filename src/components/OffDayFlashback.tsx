@@ -6,6 +6,7 @@ import { Calendar, ChevronRight } from 'lucide-react';
 import bgBleachers from '@/assets/bg-bleachers.jpg';
 import bgField from '@/assets/bg-field.jpg';
 import bgRizzo from '@/assets/bg-rizzo.jpg';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const FLASHBACKS = [
   {
@@ -74,7 +75,7 @@ export function OffDayFlashback() {
               fontFamily: "'Rye', cursive",
             }}
           >
-            📸 Flashback
+             Flashback
           </span>
         </div>
 

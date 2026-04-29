@@ -4,12 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useBarCheckins } from '@/hooks/useBarCheckins';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const STATUS_OPTIONS = [
-  { key: 'looking_for_buddy', emoji: '🤝', label: 'Looking for a Buddy', quickMsg: 'Looking for someone to hang with!' },
-  { key: 'splitting_app', emoji: '🥨', label: 'Appetizer Wingman', quickMsg: 'Looking for someone to split an appetizer!' },
-  { key: 'carbing_up', emoji: '🍺', label: 'Carb Load', quickMsg: 'Time to carb up before the first pitch!' },
-  { key: 'victory_round', emoji: '🏆', label: 'Victory Round', quickMsg: 'Cubs Win! Who is grabbing a round nearby?' },
+  { key: 'looking_for_buddy', emoji: '', label: 'Looking for a Buddy', quickMsg: 'Looking for someone to hang with!' },
+  { key: 'splitting_app', emoji: '', label: 'Appetizer Wingman', quickMsg: 'Looking for someone to split an appetizer!' },
+  { key: 'carbing_up', emoji: '', label: 'Carb Load', quickMsg: 'Time to carb up before the first pitch!' },
+  { key: 'victory_round', emoji: '', label: 'Victory Round', quickMsg: 'Cubs Win! Who is grabbing a round nearby?' },
 ] as const;
 
 interface Props {
@@ -95,7 +96,7 @@ export function EatsCheckInButton({ spotName }: Props) {
                     onClick={() => { setSelectedStatus(opt.key); setCustomMessage(''); setStep('message'); }}
                     className="flex-1 flex items-center gap-2 rounded-xl border border-border bg-card hover:border-primary/50 hover:bg-primary/5 p-2.5 text-left transition-all"
                   >
-                    <span className="text-lg">{opt.emoji}</span>
+                    <span className="text-lg"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                     <span className="text-xs font-semibold text-foreground">{opt.label}</span>
                   </button>
                   <Button
@@ -105,7 +106,7 @@ export function EatsCheckInButton({ spotName }: Props) {
                     onClick={() => handleQuickPost(opt)}
                     disabled={checkIn.isPending}
                   >
-                    ⚡ Post
+                     Post
                   </Button>
                 </div>
               ))}
@@ -119,7 +120,7 @@ export function EatsCheckInButton({ spotName }: Props) {
         {step === 'message' && (
           <>
             <p className="text-xs font-semibold text-foreground text-center">
-              {STATUS_OPTIONS.find(o => o.key === selectedStatus)?.emoji} Add a quick status (optional)
+              <ConceptIcon name={STATUS_OPTIONS.find(o => o.key === selectedStatus)?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Add a quick status (optional)
             </p>
             <Input
               placeholder="e.g. Who wants to split nachos?"

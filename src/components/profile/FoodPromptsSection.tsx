@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Plus, Pencil, Check, X, Utensils } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export interface FoodPromptValues {
   pregame_meal?: string | null;
@@ -26,35 +27,35 @@ export const FOOD_PROMPTS: PromptDef[] = [
     key: 'pregame_meal',
     label: 'My go-to pregame meal is…',
     placeholder: 'Italian beef from Portillo\'s, no question.',
-    emoji: '🥪',
+    emoji: '',
     gradient: 'from-amber-500/15 to-orange-500/5',
   },
   {
     key: 'postgame_food',
     label: 'Best postgame food in Wrigleyville…',
     placeholder: 'Late-night slice at Dimo\'s hits different.',
-    emoji: '🍕',
+    emoji: '',
     gradient: 'from-red-500/15 to-orange-500/5',
   },
   {
     key: 'carb_up_strategy',
     label: 'Carb-up strategy:',
     placeholder: 'Two slices, one pretzel, zero regrets.',
-    emoji: '🍞',
+    emoji: '',
     gradient: 'from-yellow-500/15 to-amber-500/5',
   },
   {
     key: 'favorite_bar_food',
     label: 'Favorite Wrigleyville bar food…',
     placeholder: 'Nachos at Murphy\'s — fight me.',
-    emoji: '🍟',
+    emoji: '',
     gradient: 'from-emerald-500/15 to-lime-500/5',
   },
   {
     key: 'post_win_meal',
     label: 'What I\'m eating after a Cubs win…',
     placeholder: 'Tacos at Big Star. Always.',
-    emoji: '🌮',
+    emoji: '',
     gradient: 'from-rose-500/15 to-red-500/5',
   },
 ];
@@ -138,7 +139,7 @@ function PromptCard({
         className={`rounded-2xl border border-border bg-gradient-to-br ${def.gradient} p-4`}
       >
         <div className="mb-1.5 flex items-center gap-2">
-          <span className="text-base">{def.emoji}</span>
+          <span className="text-base"><ConceptIcon name={def.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
             {def.label}
           </p>
@@ -152,7 +153,7 @@ function PromptCard({
     return (
       <article className="rounded-2xl border border-primary/40 bg-card p-4 shadow-sm">
         <div className="mb-2 flex items-center gap-2">
-          <span className="text-base">{def.emoji}</span>
+          <span className="text-base"><ConceptIcon name={def.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-foreground">
             {def.label}
           </p>
@@ -207,7 +208,7 @@ function PromptCard({
       }`}
     >
       <div className="mb-1.5 flex items-center gap-2">
-        <span className="text-base">{def.emoji}</span>
+        <span className="text-base"><ConceptIcon name={def.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
         <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground flex-1">
           {def.label}
         </p>

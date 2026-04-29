@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useIncrementBadge, BADGE_DEFINITIONS } from '@/hooks/usePennants';
 import { cn } from '@/lib/utils';
 import { MapPin, CheckCircle2, Loader2, Navigation, Trophy, Lock } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const PASSPORT_THRESHOLD = 5;
 const GEO_RADIUS_METERS = 200; // must be within 200m
@@ -24,16 +25,16 @@ export interface PassportLocation {
 }
 
 export const PASSPORT_LOCATIONS: PassportLocation[] = [
-  { key: 'wrigley_field', name: 'Wrigley Field', address: '1060 W Addison St', emoji: '🏟️', lat: 41.9484, lng: -87.6553 },
-  { key: 'murphys_bleachers', name: "Murphy's Bleachers", address: '3655 N Sheffield Ave', emoji: '🍺', lat: 41.9493, lng: -87.6535 },
-  { key: 'cubby_bear', name: 'The Cubby Bear', address: '1059 W Addison St', emoji: '🐻', lat: 41.9474, lng: -87.6556 },
-  { key: 'wrigley_marquee', name: 'Wrigley Field Marquee', address: '1060 W Addison St', emoji: '✨', lat: 41.9478, lng: -87.6555 },
-  { key: 'gallagher_way', name: 'Gallagher Way', address: '3635 N Clark St', emoji: '🎪', lat: 41.9488, lng: -87.6558 },
-  { key: 'sluggers', name: 'Sluggers World Class Sports Bar', address: '3540 N Clark St', emoji: '⚾', lat: 41.9465, lng: -87.6560 },
-  { key: 'lucky_dorr', name: 'Lucky Dorr', address: '1101 W Waveland Ave', emoji: '🍀', lat: 41.9495, lng: -87.6565 },
-  { key: 'sports_corner', name: 'The Sports Corner', address: '956 W Addison St', emoji: '📺', lat: 41.9474, lng: -87.6540 },
-  { key: 'captain_morgan_club', name: 'Captain Morgan Club', address: 'Inside Wrigley Field', emoji: '🏴‍☠️', lat: 41.9486, lng: -87.6557 },
-  { key: 'sheffield_clock', name: 'Sheffield & Addison Corner', address: 'Sheffield Ave & Addison St', emoji: '🕐', lat: 41.9474, lng: -87.6530 },
+  { key: 'wrigley_field', name: 'Wrigley Field', address: '1060 W Addison St', emoji: '', lat: 41.9484, lng: -87.6553 },
+  { key: 'murphys_bleachers', name: "Murphy's Bleachers", address: '3655 N Sheffield Ave', emoji: '', lat: 41.9493, lng: -87.6535 },
+  { key: 'cubby_bear', name: 'The Cubby Bear', address: '1059 W Addison St', emoji: '', lat: 41.9474, lng: -87.6556 },
+  { key: 'wrigley_marquee', name: 'Wrigley Field Marquee', address: '1060 W Addison St', emoji: '', lat: 41.9478, lng: -87.6555 },
+  { key: 'gallagher_way', name: 'Gallagher Way', address: '3635 N Clark St', emoji: '', lat: 41.9488, lng: -87.6558 },
+  { key: 'sluggers', name: 'Sluggers World Class Sports Bar', address: '3540 N Clark St', emoji: '', lat: 41.9465, lng: -87.6560 },
+  { key: 'lucky_dorr', name: 'Lucky Dorr', address: '1101 W Waveland Ave', emoji: '', lat: 41.9495, lng: -87.6565 },
+  { key: 'sports_corner', name: 'The Sports Corner', address: '956 W Addison St', emoji: '', lat: 41.9474, lng: -87.6540 },
+  { key: 'captain_morgan_club', name: 'Captain Morgan Club', address: 'Inside Wrigley Field', emoji: '', lat: 41.9486, lng: -87.6557 },
+  { key: 'sheffield_clock', name: 'Sheffield & Addison Corner', address: 'Sheffield Ave & Addison St', emoji: '', lat: 41.9474, lng: -87.6530 },
 ];
 
 function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
@@ -112,10 +113,10 @@ export default function WrigleyPassport() {
     },
     onSuccess: ({ location, newCount }) => {
       qc.invalidateQueries({ queryKey: ['passport-checkins'] });
-      toast({ title: `📍 ${location.name} stamped!`, description: `${newCount}/${PASSPORT_LOCATIONS.length} locations visited` });
+      toast({ title: ` ${location.name} stamped!`, description: `${newCount}/${PASSPORT_LOCATIONS.length} locations visited` });
       if (newCount === PASSPORT_THRESHOLD) {
         setTimeout(() => {
-          toast({ title: '🏆 Wrigley Legend Unlocked!', description: 'Your badge is now on your profile!' });
+          toast({ title: ' Wrigley Legend Unlocked!', description: 'Your badge is now on your profile!' });
         }, 1000);
       }
       setCheckingLocation(null);
@@ -164,7 +165,7 @@ export default function WrigleyPassport() {
               </span>
             ) : (
               <span className="text-xs text-muted-foreground">
-                {PASSPORT_THRESHOLD - checkedCount} more for 🏆 badge
+                {PASSPORT_THRESHOLD - checkedCount} more for  badge
               </span>
             )}
           </div>
@@ -195,7 +196,7 @@ export default function WrigleyPassport() {
                   {isChecked ? (
                     <CheckCircle2 className="h-5 w-5 text-primary" />
                   ) : (
-                    <span>{loc.emoji}</span>
+                    <span><ConceptIcon name={loc.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   )}
                 </div>
 
@@ -238,7 +239,7 @@ export default function WrigleyPassport() {
         <div className="mt-8 rounded-2xl border border-border bg-card p-4 text-center">
           {legendUnlocked ? (
             <div>
-              <span className="text-3xl">🏆</span>
+              <span className="text-3xl"></span>
               <p className="text-sm font-bold text-foreground mt-2">
                 You're a Wrigley Legend!
               </p>

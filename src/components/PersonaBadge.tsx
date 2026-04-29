@@ -1,25 +1,26 @@
 import { motion } from 'framer-motion';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export type GamedayPersona = 'die_hard' | 'social_butterfly' | 'tourist';
 
 export const PERSONA_CONFIG: Record<GamedayPersona, { label: string; emoji: string; color: string; bg: string; border: string }> = {
   die_hard: {
     label: 'The Die-Hard',
-    emoji: '🔥',
+    emoji: '',
     color: 'text-red-100',
     bg: 'bg-gradient-to-r from-red-600 to-red-800',
     border: 'border-red-500/50',
   },
   social_butterfly: {
     label: 'The Social Butterfly',
-    emoji: '🦋',
+    emoji: '',
     color: 'text-amber-100',
     bg: 'bg-gradient-to-r from-amber-500 to-orange-600',
     border: 'border-amber-400/50',
   },
   tourist: {
     label: 'The Tourist',
-    emoji: '📸',
+    emoji: '',
     color: 'text-sky-100',
     bg: 'bg-gradient-to-r from-sky-500 to-blue-600',
     border: 'border-sky-400/50',
@@ -38,7 +39,7 @@ export function PersonaBadge({ persona, size = 'sm' }: PersonaBadgeProps) {
   if (size === 'sm') {
     return (
       <span className={`inline-flex items-center gap-1 rounded-full border ${config.border} ${config.bg} ${config.color} px-2 py-0.5 text-[10px] font-bold shadow-sm`}>
-        <span>{config.emoji}</span>
+        <span><ConceptIcon name={config.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
         {config.label}
       </span>
     );
@@ -50,7 +51,7 @@ export function PersonaBadge({ persona, size = 'sm' }: PersonaBadgeProps) {
       animate={{ scale: 1, opacity: 1 }}
       className={`inline-flex items-center gap-1.5 rounded-full border ${config.border} ${config.bg} ${config.color} px-3 py-1 text-xs font-bold shadow-md`}
     >
-      <span className="text-sm">{config.emoji}</span>
+      <span className="text-sm"><ConceptIcon name={config.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
       {config.label}
     </motion.span>
   );

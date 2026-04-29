@@ -9,6 +9,7 @@ import { ErrorState } from '@/components/ErrorState';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
 import bgWrigleyRooftops from '@/assets/bg-wrigley-rooftops.webp';
 import { useAuth } from '@/contexts/AuthContext';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import {
   useConversations,
   useConversationProfiles,
@@ -75,7 +76,7 @@ export default function Messages() {
           <div className="flex-1 space-y-3 p-4 overflow-y-auto">
             {messages.length === 0 && (
               <div className="text-center py-16">
-                <p className="text-3xl mb-3">💬</p>
+                <p className="text-3xl mb-3"></p>
                 <p className="font-semibold text-foreground text-sm">The bases are empty!</p>
                 <p className="text-xs text-muted-foreground mt-1">Be the first to start a conversation.</p>
               </div>
@@ -180,7 +181,7 @@ export default function Messages() {
                   {profile?.profile_photo ? (
                     <img src={profile.profile_photo} alt="" className="h-12 w-12 rounded-full object-cover ring-2 ring-border" />
                   ) : (
-                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center text-lg font-bold text-muted-foreground">⚾</div>
+                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center text-lg font-bold text-muted-foreground"></div>
                   )}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">

@@ -1,19 +1,12 @@
-import { REACTIONS } from '@/components/reactions/reactionData';
+/**
+ * Reactions are now icon components (no images to preload).
+ * Kept as a no-op to preserve callers; safe to remove later.
+ */
 
-const imageCache = new Map<string, HTMLImageElement>();
-
-/** Preload all reaction images into browser cache */
 export function preloadReactionImages(): void {
-  REACTIONS.forEach((r) => {
-    if (imageCache.has(r.key)) return;
-    const img = new Image();
-    img.src = r.image;
-    img.decoding = 'async';
-    imageCache.set(r.key, img);
-  });
+  // no-op: reactions are SVG icons rendered inline
 }
 
-/** Get a cached image element if available */
-export function getCachedReaction(key: string): HTMLImageElement | undefined {
-  return imageCache.get(key);
+export function getCachedReaction(_key: string): undefined {
+  return undefined;
 }

@@ -4,6 +4,7 @@ import { ClipboardList, X, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBucketList } from '@/hooks/useBucketList';
 import { cn } from '@/lib/utils';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function IvyCheckbox({ checked, onToggle }: { checked: boolean; onToggle: () => void }) {
   return (
@@ -23,7 +24,7 @@ function IvyCheckbox({ checked, onToggle }: { checked: boolean; onToggle: () => 
           animate={{ scale: 1, rotate: 0 }}
           className="text-lg leading-none"
         >
-          🌿
+          
         </motion.span>
       ) : null}
     </button>
@@ -84,7 +85,7 @@ export function BucketListPanel() {
                       color: 'hsl(210, 60%, 25%)',
                     }}
                   >
-                    🗺️ Field Guide
+                     Field Guide
                   </h2>
                   <p
                     className="text-xs mt-1 font-medium"
@@ -153,7 +154,7 @@ export function BucketListPanel() {
                           )}
                           style={{ color: 'hsl(210, 50%, 20%)' }}
                         >
-                          {task.emoji} {task.title}
+                          <ConceptIcon name={task.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {task.title}
                         </p>
                         <p className="text-xs mt-0.5" style={{ color: 'hsl(35, 20%, 45%)' }}>
                           {task.description}

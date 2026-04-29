@@ -8,6 +8,7 @@ import {
   UserPlus, MapPin, Share2, Copy, Check, ChevronRight, MessageSquare, Beer,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Props {
   amount: number;
@@ -46,7 +47,7 @@ export function SendToNonUserPanel({ amount, note, onClaimGenerated }: Props) {
   };
 
   const handleShareSMS = () => {
-    const text = `🍺 ${friendName}, someone bought you a beer on Cubbies Buddies! Claim it here: ${claimUrl}`;
+    const text = ` ${friendName}, someone bought you a beer on Cubbies Buddies! Claim it here: ${claimUrl}`;
     if (friendPhone) {
       window.open(`sms:${friendPhone}?body=${encodeURIComponent(text)}`, '_blank');
     } else {
@@ -56,7 +57,7 @@ export function SendToNonUserPanel({ amount, note, onClaimGenerated }: Props) {
 
   const handleShareNative = async () => {
     const shareData = {
-      title: '🍺 You got a beer!',
+      title: ' You got a beer!',
       text: `${friendName}, someone bought you a beer on Cubbies Buddies! Claim it now.`,
       url: claimUrl,
     };
@@ -75,7 +76,7 @@ export function SendToNonUserPanel({ amount, note, onClaimGenerated }: Props) {
         className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 space-y-3"
       >
         <div className="text-center">
-          <p className="text-3xl mb-1">🎉</p>
+          <p className="text-3xl mb-1"></p>
           <p className="text-sm font-bold text-foreground">Claim link ready for {friendName}!</p>
           <p className="text-[11px] text-muted-foreground mt-0.5">
             Send it via text, DM, or any way you want. They'll sign up and redeem at the bar.
@@ -111,7 +112,7 @@ export function SendToNonUserPanel({ amount, note, onClaimGenerated }: Props) {
         </div>
 
         <p className="text-[10px] text-muted-foreground text-center">
-          💡 When {friendName} taps the link, they'll create a free account and see their beer voucher instantly.
+           When {friendName} taps the link, they'll create a free account and see their beer voucher instantly.
         </p>
       </motion.div>
     );
@@ -176,7 +177,7 @@ export function SendToNonUserPanel({ amount, note, onClaimGenerated }: Props) {
                   onClick={() => { setSelectedBar(bar); setShowBarPicker(false); }}
                   className="flex items-center gap-2 w-full rounded-lg p-2 hover:bg-muted/60 transition-colors text-left"
                 >
-                  <span className="text-sm">🍺</span>
+                  <span className="text-sm"></span>
                   <p className="text-xs font-medium text-foreground flex-1 truncate">{bar.name}</p>
                   <ChevronRight className="h-3 w-3 text-muted-foreground" />
                 </button>

@@ -4,6 +4,7 @@ import { ChevronDown, MapPin, Users, Clock, Utensils, Beer, Sparkles, Sun, Build
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import {
   type CuratedBar, VIBE_LABELS, GROUP_LABELS, TIMING_LABELS,
 } from '@/lib/wrigleyville-bar-guide';
@@ -22,10 +23,10 @@ interface Props {
 }
 
 const crowdConfig: Record<string, { label: string; emoji: string; color: string }> = {
-  empty: { label: 'Quiet', emoji: '💤', color: 'bg-muted text-muted-foreground' },
-  chill: { label: 'Chill', emoji: '😎', color: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' },
-  busy: { label: 'Buzzing', emoji: '⚡', color: 'bg-amber-500/15 text-amber-700 dark:text-amber-400' },
-  packed: { label: 'Packed', emoji: '🔥', color: 'bg-red-500/15 text-red-700 dark:text-red-400' },
+  empty: { label: 'Quiet', emoji: '', color: 'bg-muted text-muted-foreground' },
+  chill: { label: 'Chill', emoji: '', color: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' },
+  busy: { label: 'Buzzing', emoji: '', color: 'bg-amber-500/15 text-amber-700 dark:text-amber-400' },
+  packed: { label: 'Packed', emoji: '', color: 'bg-red-500/15 text-red-700 dark:text-red-400' },
 };
 
 const accentBg: Record<string, string> = {
@@ -69,7 +70,7 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
         {/* Header — title + tagline */}
         <div className="px-5 pt-5 pb-3">
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl leading-none">{bar.emoji}</span>
+            <span className="text-2xl leading-none"><ConceptIcon name={bar.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
             <h2 className="font-display text-lg font-bold tracking-tight text-foreground leading-tight">
               {bar.name}
             </h2>
@@ -82,7 +83,7 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
         {/* Live signals strip */}
         <div className="px-5 pb-3 flex items-center gap-2 flex-wrap">
           <Badge variant="outline" className={`text-[10px] px-2 py-0 h-5 border-0 ${crowd.color}`}>
-            {crowd.emoji} {crowd.label}
+            <ConceptIcon name={crowd.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {crowd.label}
           </Badge>
           {liveCheckins > 0 && (
             <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
@@ -92,12 +93,12 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
           )}
           {meetupCount > 0 && (
             <span className="inline-flex items-center gap-1 text-[11px] text-primary font-semibold">
-              ⚡ {meetupCount} meetup{meetupCount !== 1 ? 's' : ''}
+               {meetupCount} meetup{meetupCount !== 1 ? 's' : ''}
             </span>
           )}
           {liveBeerCount != null && liveBeerCount > 0 && (
             <span className="inline-flex items-center gap-1 text-[11px] text-amber-600 dark:text-amber-400 font-semibold">
-              🍺 {liveBeerCount} beer{liveBeerCount !== 1 ? 's' : ''} sent
+               {liveBeerCount} beer{liveBeerCount !== 1 ? 's' : ''} sent
             </span>
           )}
           {liveWait && liveWait !== 'no_line' && (
@@ -139,12 +140,12 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
         <div className="px-5 pb-3 flex flex-wrap gap-1.5">
           {bar.vibe.map((v) => (
             <span key={v} className="inline-flex items-center gap-1 rounded-full bg-foreground/5 border border-border px-2 py-0.5 text-[10px] font-semibold text-foreground">
-              {VIBE_LABELS[v].emoji} {VIBE_LABELS[v].label}
+              <ConceptIcon name={VIBE_LABELS[v].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {VIBE_LABELS[v].label}
             </span>
           ))}
           {bar.bestFor.map((t) => (
             <span key={t} className="inline-flex items-center gap-1 rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-[10px] font-semibold text-primary">
-              {TIMING_LABELS[t].emoji} {TIMING_LABELS[t].label}
+              <ConceptIcon name={TIMING_LABELS[t].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {TIMING_LABELS[t].label}
             </span>
           ))}
           {bar.outdoor && (
@@ -173,10 +174,10 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
             asChild={!onSendBeer}
           >
             {onSendBeer ? (
-              <span><Beer className="h-3.5 w-3.5" /> Buy a Beer Here 🍺</span>
+              <span><Beer className="h-3.5 w-3.5" /> Buy a Beer Here </span>
             ) : (
               <Link to={`/beer-money?bar=${encodeURIComponent(bar.name)}`}>
-                <Beer className="h-3.5 w-3.5" /> Buy a Beer Here 🍺
+                <Beer className="h-3.5 w-3.5" /> Buy a Beer Here 
               </Link>
             )}
           </Button>
@@ -258,7 +259,7 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
                 {/* Footer / address */}
                 <div className="flex items-center justify-between pt-1">
                   <div className="text-[11px] text-muted-foreground">
-                    📍 {bar.address} · est. {bar.established}
+                     {bar.address} · est. {bar.established}
                   </div>
                 </div>
 

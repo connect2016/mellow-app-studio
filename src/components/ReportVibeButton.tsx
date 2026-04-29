@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useBarVotes, type WaitTime, type VibeType } from '@/hooks/useBarVotes';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const VIBE_OPTIONS: { key: VibeType; label: string; emoji: string; waitMap: WaitTime }[] = [
-  { key: 'chill', label: 'Dead', emoji: '💀', waitMap: 'no_line' },
-  { key: 'chill', label: 'Chilled', emoji: '😎', waitMap: '15_min' },
-  { key: 'packed', label: 'Electric', emoji: '⚡', waitMap: '30_plus' },
+  { key: 'chill', label: 'Dead', emoji: '', waitMap: 'no_line' },
+  { key: 'chill', label: 'Chilled', emoji: '', waitMap: '15_min' },
+  { key: 'packed', label: 'Electric', emoji: '', waitMap: '30_plus' },
 ];
 
 interface ReportVibeButtonProps {
@@ -41,7 +42,7 @@ export function ReportVibeButton({ barName }: ReportVibeButtonProps) {
         disabled={isVoting}
         className="text-[10px] font-bold uppercase tracking-wider text-primary hover:text-primary/80 transition-colors font-scoreboard"
       >
-        {myVote ? '✓ Update Vibe' : '📡 Report Vibe'}
+        {myVote ? ' Update Vibe' : ' Report Vibe'}
       </button>
 
       <AnimatePresence>
@@ -59,7 +60,7 @@ export function ReportVibeButton({ barName }: ReportVibeButtonProps) {
                 disabled={isVoting}
                 className="flex-1 flex flex-col items-center gap-0.5 py-2 px-2 rounded-lg border border-primary/20 bg-primary/5 hover:bg-primary/15 hover:border-primary/40 transition-all active:scale-95"
               >
-                <span className="text-lg">{opt.emoji}</span>
+                <span className="text-lg"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                 <span className="text-[9px] font-bold text-foreground font-scoreboard uppercase tracking-wide">
                   {opt.label}
                 </span>

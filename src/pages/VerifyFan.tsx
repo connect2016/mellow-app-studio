@@ -9,9 +9,10 @@ import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const POSE_INSTRUCTION = {
-  emoji: '👍',
+  emoji: '',
   label: 'Thumbs Up',
   description: 'Hold up a thumbs up next to your face',
 };
@@ -120,7 +121,7 @@ export default function VerifyFan() {
       if (updateErr) throw updateErr;
 
       queryClient.invalidateQueries({ queryKey: ['user-profile'] });
-      toast({ title: '✅ Verified Fan!', description: 'Your blue checkmark is now live on your profile.' });
+      toast({ title: ' Verified Fan!', description: 'Your blue checkmark is now live on your profile.' });
       setStep('done');
     } catch (err: any) {
       toast({ title: 'Verification failed', description: err.message || 'Please try again.', variant: 'destructive' });
@@ -161,12 +162,12 @@ export default function VerifyFan() {
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">What you unlock</p>
                 <div className="space-y-2">
                   {[
-                    { emoji: '💬', label: 'Join Section Chats & Lineup group chats' },
-                    { emoji: '📸', label: 'Post to the Live Vibe Feed' },
-                    { emoji: '✅', label: 'Blue checkmark on your profile' },
+                    { emoji: '', label: 'Join Section Chats & Lineup group chats' },
+                    { emoji: '', label: 'Post to the Live Vibe Feed' },
+                    { emoji: '', label: 'Blue checkmark on your profile' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-2.5">
-                      <span className="text-lg">{item.emoji}</span>
+                      <span className="text-lg"><ConceptIcon name={item.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                       <span className="text-sm text-foreground">{item.label}</span>
                     </div>
                   ))}
@@ -177,7 +178,7 @@ export default function VerifyFan() {
               <div className="rounded-2xl border-2 border-dashed border-primary/30 bg-primary/5 p-5">
                 <p className="text-xs font-bold text-primary uppercase tracking-wider mb-2">Your Verification Pose</p>
                 <div className="flex items-center justify-center gap-3">
-                  <span className="text-5xl">{POSE_INSTRUCTION.emoji}</span>
+                  <span className="text-5xl"><ConceptIcon name={POSE_INSTRUCTION.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   <div className="text-left">
                     <p className="text-base font-bold text-foreground">{POSE_INSTRUCTION.label}</p>
                     <p className="text-sm text-muted-foreground">{POSE_INSTRUCTION.description}</p>
@@ -206,7 +207,7 @@ export default function VerifyFan() {
               className="space-y-4"
             >
               <div className="text-center mb-2">
-                <p className="text-sm font-semibold text-foreground">Show a {POSE_INSTRUCTION.emoji} {POSE_INSTRUCTION.label}</p>
+                <p className="text-sm font-semibold text-foreground">Show a <ConceptIcon name={POSE_INSTRUCTION.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {POSE_INSTRUCTION.label}</p>
                 <p className="text-xs text-muted-foreground">{POSE_INSTRUCTION.description}</p>
               </div>
 
@@ -222,7 +223,7 @@ export default function VerifyFan() {
                 {/* Pose guide overlay */}
                 <div className="absolute inset-0 border-4 border-dashed border-primary/40 rounded-2xl pointer-events-none" />
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full">
-                  {POSE_INSTRUCTION.emoji} Hold your {POSE_INSTRUCTION.label.toLowerCase()} and tap capture
+                  <ConceptIcon name={POSE_INSTRUCTION.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Hold your {POSE_INSTRUCTION.label.toLowerCase()} and tap capture
                 </div>
               </div>
 
@@ -243,7 +244,7 @@ export default function VerifyFan() {
               className="space-y-4"
             >
               <div className="text-center">
-                <p className="text-sm font-semibold text-foreground">Looking good! 📸</p>
+                <p className="text-sm font-semibold text-foreground">Looking good! </p>
                 <p className="text-xs text-muted-foreground">Make sure the {POSE_INSTRUCTION.label.toLowerCase()} is visible</p>
               </div>
 
@@ -295,7 +296,7 @@ export default function VerifyFan() {
               </motion.div>
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-2">
-                  You're Verified! ✅
+                  You're Verified! 
                 </h2>
                 <p className="text-sm text-muted-foreground max-w-xs mx-auto">
                   Your blue checkmark is live. You can now join group chats and post to the Vibe Feed.

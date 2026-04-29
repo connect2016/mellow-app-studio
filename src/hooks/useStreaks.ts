@@ -195,7 +195,7 @@ export function useStreaks() {
         {
           key: 'gameday',
           label: 'Game Day',
-          emoji: '🏟️',
+          emoji: '',
           current: gameday.current,
           best: gameday.best,
           unit: 'days',
@@ -205,7 +205,7 @@ export function useStreaks() {
         {
           key: 'daily_app',
           label: 'Daily',
-          emoji: '🔥',
+          emoji: '',
           current: dailyApp.current,
           best: dailyApp.best,
           unit: 'days',
@@ -215,7 +215,7 @@ export function useStreaks() {
         {
           key: 'weekly_social',
           label: 'Social',
-          emoji: '🤝',
+          emoji: '',
           current: weeklySocial.current,
           best: weeklySocial.best,
           unit: 'weeks',
@@ -225,7 +225,7 @@ export function useStreaks() {
         {
           key: 'bar_checkin',
           label: 'Bar Crawl',
-          emoji: '🍺',
+          emoji: '',
           current: barCheckin.current,
           best: barCheckin.best,
           unit: 'weeks',

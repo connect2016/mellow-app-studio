@@ -4,6 +4,7 @@ import { IntentType, INTENT_LABELS, INTENT_EMOJI, GameStatus, GAME_STATUS_LABELS
 import { ShieldCheck, MapPin } from 'lucide-react';
 import { GamedayPersona, PERSONA_CONFIG } from '@/components/PersonaBadge';
 import logoTransparent from '@/assets/logo-transparent.png';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 // "Position" labels based on fan style / persona
 const POSITION_LABELS: Record<string, string> = {
@@ -283,22 +284,22 @@ export function BaseballCard({
             {/* Detail sections */}
             <div className="px-3 space-y-1.5 pb-3 flex-1 overflow-y-auto">
               {favoritePlayer && (
-                <DetailRow label="FAVORITE ALL-TIME CUB" value={favoritePlayer} emoji="⚾" />
+                <DetailRow label="FAVORITE ALL-TIME CUB" value={favoritePlayer} emoji="" />
               )}
               {bestBar && (
-                <DetailRow label="HOME BAR" value={bestBar} emoji="🍻" />
+                <DetailRow label="HOME BAR" value={bestBar} emoji="" />
               )}
               {superstition && (
-                <DetailRow label="GAME DAY SUPERSTITION" value={superstition} emoji="🧢" />
+                <DetailRow label="GAME DAY SUPERSTITION" value={superstition} emoji="" />
               )}
               {stretchSong && (
-                <DetailRow label="7TH INNING STRETCH SONG" value={stretchSong} emoji="🎵" />
+                <DetailRow label="7TH INNING STRETCH SONG" value={stretchSong} emoji="" />
               )}
               {favoriteMoment && (
-                <DetailRow label="BEST BALLPARK STORY" value={favoriteMoment} emoji="🎉" />
+                <DetailRow label="BEST BALLPARK STORY" value={favoriteMoment} emoji="" />
               )}
               {bio && (
-                <DetailRow label="SCOUTING REPORT" value={bio} emoji="📋" />
+                <DetailRow label="SCOUTING REPORT" value={bio} emoji="" />
               )}
 
               {intent.length > 0 && (
@@ -326,7 +327,7 @@ export function BaseballCard({
 
               {persona && persona in PERSONA_CONFIG && (
                 <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="text-xs">{PERSONA_CONFIG[persona as GamedayPersona].emoji}</span>
+                  <span className="text-xs"><ConceptIcon name={PERSONA_CONFIG[persona as GamedayPersona].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
                     {PERSONA_CONFIG[persona as GamedayPersona].label}
                   </span>

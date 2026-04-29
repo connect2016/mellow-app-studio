@@ -12,9 +12,9 @@ const SUBCOPY = [
 
 // Each card pins a humorous label to a spot id (with a fallback tag-based pick).
 const PICKS: { label: string; emoji: string; matchId: string; fallbackTag: string; gradient: string }[] = [
-  { label: 'Elite pre-beer fuel', emoji: '🍕', matchId: 'crisp-wrigleyville', fallbackTag: 'pizza', gradient: 'from-amber-500/20 to-orange-500/10' },
-  { label: 'Top recovery tacos', emoji: '🌮', matchId: 'big-star', fallbackTag: 'tacos', gradient: 'from-rose-500/20 to-red-500/10' },
-  { label: 'Postgame sandwich heaven', emoji: '🥪', matchId: 'small-cheval', fallbackTag: 'burgers', gradient: 'from-emerald-500/20 to-lime-500/10' },
+  { label: 'Elite pre-beer fuel', emoji: '', matchId: 'crisp-wrigleyville', fallbackTag: 'pizza', gradient: 'from-amber-500/20 to-orange-500/10' },
+  { label: 'Top recovery tacos', emoji: '', matchId: 'big-star', fallbackTag: 'tacos', gradient: 'from-rose-500/20 to-red-500/10' },
+  { label: 'Postgame sandwich heaven', emoji: '', matchId: 'small-cheval', fallbackTag: 'burgers', gradient: 'from-emerald-500/20 to-lime-500/10' },
 ];
 
 export function CarbUpStrip() {

@@ -129,7 +129,7 @@ export function useActivateSquad() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lineup-meetups'] });
       queryClient.invalidateQueries({ queryKey: ['squad-matcher'] });
-      toast.success('Squad activated! Chat is live 🎉');
+      toast.success('Squad activated! Chat is live');
     },
     onError: (err: any) => {
       toast.error(err.message || 'Failed to activate squad');

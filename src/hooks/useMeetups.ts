@@ -105,7 +105,7 @@ export function useMeetupDetail(meetupId: string | undefined) {
           display_name: p.display_name || 'A fan',
           profile_photo: p.profile_photo || '',
           is_verified: !!p.is_verified,
-          fan_tier_emoji: p.fan_tier_emoji || '🌱',
+          fan_tier_emoji: p.fan_tier_emoji || '',
           fan_title: p.fan_title || 'Rookie Fan',
           fan_xp: p.fan_xp || 0,
           is_host: isHost,
@@ -223,7 +223,7 @@ export function useSendMeetupInvites() {
         type: 'meetup_invite',
         title: 'You got an invite!',
         body: `Join "${params.meetupTitle}" — tap to RSVP`,
-        emoji: '⚾',
+        emoji: '',
         action_url: `/meetups/${params.meetupId}`,
         metadata: { meetup_id: params.meetupId, from_user: user.id },
       }));

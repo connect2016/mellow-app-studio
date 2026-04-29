@@ -4,6 +4,7 @@ import { Pencil, ArrowRightLeft, Copy, Users } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface MemberProfile {
   user_id: string;
@@ -33,13 +34,13 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
   const copyInvite = () => {
     const link = `${window.location.origin}/score/${sessionId}`;
     navigator.clipboard.writeText(link);
-    toast('🔗 Link copied!', { description: 'Share with friends to co-score' });
+    toast(' Link copied!', { description: 'Share with friends to co-score' });
   };
 
   const copyCode = () => {
     if (!inviteCode) return;
     navigator.clipboard.writeText(inviteCode);
-    toast('📋 Code copied!', { description: inviteCode });
+    toast(' Code copied!', { description: inviteCode });
   };
 
   const handlePassPencil = (toUserId: string) => {
@@ -65,7 +66,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
     onPassPencil(toUserId);
 
     // Spec toast: "You've got the pencil! Scoring Inning X."
-    toast(`✏️ ${target?.display_name ?? 'Co-scorer'} has the pencil!`, {
+    toast(` ${target?.display_name ?? 'Co-scorer'} has the pencil!`, {
       description: `Scoring Inning ${currentInning}.`,
     });
 
@@ -93,7 +94,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
             className="flex-1 flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold border-2 transition-all"
             style={{ borderColor: 'hsl(var(--accent) / 0.3)', color: 'hsl(var(--accent))', fontFamily: "'Share Tech Mono', monospace" }}
           >
-            🔗 Share Link
+             Share Link
           </button>
           {inviteCode && (
             <button
@@ -188,7 +189,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
         {activeScorer && (
           <div className="flex items-center gap-2 rounded-xl p-2.5" style={{ backgroundColor: 'hsl(var(--ivy-green) / 0.06)' }}>
             <p className="text-xs font-bold flex-1" style={{ color: 'hsl(var(--foreground))' }}>
-              {isActiveScorer ? '✏️ You have the pencil' : `✏️ ${activeScorer.display_name} is scoring`}
+              {isActiveScorer ? ' You have the pencil' : ` ${activeScorer.display_name} is scoring`}
             </p>
             <span className="text-[10px] font-['Share_Tech_Mono'] px-2 py-0.5 rounded-full" style={{ backgroundColor: 'hsl(var(--accent) / 0.1)', color: 'hsl(var(--accent))' }}>
               Batter #{activeBatter}

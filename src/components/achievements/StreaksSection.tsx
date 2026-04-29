@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Flame } from 'lucide-react';
 import { useStreaks, type StreakData } from '@/hooks/useStreaks';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Props {
   /** Show only the strongest streak as a compact card */
@@ -39,7 +40,7 @@ function StreakPennant({ streak, featured = false }: { streak: StreakData; featu
         }}
       >
         <div className="flex items-center gap-2.5">
-          <div className="text-2xl leading-none">{streak.emoji}</div>
+          <div className="text-2xl leading-none"><ConceptIcon name={streak.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
           <div className="min-w-0 flex-1">
             <p
               className="text-[10px] font-bold uppercase tracking-[0.12em] text-[hsl(222,82%,29%)]/70 truncate"
@@ -111,7 +112,7 @@ export function StreaksSection({ compact = false }: Props) {
   if (active.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-[hsl(222,82%,29%)]/30 bg-[#F4ECDB]/40 p-4 text-center">
-        <p className="text-2xl mb-1">🌱</p>
+        <p className="text-2xl mb-1"></p>
         <p
           className="text-sm font-semibold text-[hsl(222,82%,29%)]"
           style={{ fontFamily: 'Montserrat, sans-serif' }}

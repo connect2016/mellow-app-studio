@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { StatPreference, StatKey, DEFAULT_STAT_PREFS, StatVisibility } from '@/hooks/useStatPreferences';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface CardStats {
   beersToday?: number;
@@ -99,10 +100,10 @@ export function UserBaseballCard({
     }
   };
 
-  const statusLabel = gameStatus === 'AtWrigley' ? `🏟️ At Wrigley${wrigleySection ? ` · Sec ${wrigleySection}` : ''}`
-    : gameStatus === 'AtBar' ? `🍺 ${wrigleyvilleBar || 'At the bar'}`
-    : gameStatus === 'Tailgating' ? '🌭 Tailgating'
-    : gameStatus === 'WatchingRemote' ? '📺 Watching from home'
+  const statusLabel = gameStatus === 'AtWrigley' ? ` At Wrigley${wrigleySection ? ` · Sec ${wrigleySection}` : ''}`
+    : gameStatus === 'AtBar' ? ` ${wrigleyvilleBar || 'At the bar'}`
+    : gameStatus === 'Tailgating' ? ' Tailgating'
+    : gameStatus === 'WatchingRemote' ? ' Watching from home'
     : null;
 
   const cardStats: CardStats = stats || {
@@ -188,7 +189,7 @@ export function UserBaseballCard({
                   : 'border-border/50 bg-muted/40 hover:bg-primary/5'
               )}
             >
-              <RealisticEmoji src={r.image} alt={r.label} size="xs" />
+              <RealisticEmoji name={r.icon} alt={r.label} size="xs" />
             </button>
           ))}
         </div>

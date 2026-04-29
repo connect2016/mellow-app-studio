@@ -1,5 +1,6 @@
 import { useWrigleyWeather } from '@/hooks/useWrigleyWeather';
 import { Wind, Droplets } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function WeatherCard() {
   const { data: w, isLoading } = useWrigleyWeather();
@@ -10,9 +11,9 @@ export function WeatherCard() {
   if (!w) return null;
 
   const windCallout = w.windRelativeToField.startsWith('out')
-    ? { label: 'Wind blowing out', color: 'text-emerald-600 dark:text-emerald-400', emoji: '💣' }
+    ? { label: 'Wind blowing out', color: 'text-emerald-600 dark:text-emerald-400', emoji: '' }
     : w.windRelativeToField.startsWith('in')
-    ? { label: 'Wind blowing in', color: 'text-blue-600 dark:text-blue-400', emoji: '🥶' }
+    ? { label: 'Wind blowing in', color: 'text-blue-600 dark:text-blue-400', emoji: '' }
     : { label: 'Cross-wind', color: 'text-muted-foreground', emoji: '〰️' };
 
   return (
@@ -24,12 +25,12 @@ export function WeatherCard() {
           </span>
         </div>
         <span className={`text-[10px] font-bold uppercase tracking-wider ${windCallout.color}`}>
-          {windCallout.emoji} {windCallout.label} {w.windRelativeToField.replace(/^(out|in) /, '')}
+          <ConceptIcon name={windCallout.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {windCallout.label} {w.windRelativeToField.replace(/^(out|in) /, '')}
         </span>
       </div>
 
       <div className="mt-2 flex items-center gap-4">
-        <div className="text-4xl">{w.emoji}</div>
+        <div className="text-4xl"><ConceptIcon name={w.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
         <div>
           <div className="font-display text-3xl font-extrabold leading-none text-foreground tabular-nums">
             {w.temperatureF}°

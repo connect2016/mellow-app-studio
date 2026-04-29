@@ -3,6 +3,7 @@ import { Calendar, Sparkles } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { format, differenceInDays } from 'date-fns';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function useNextGame() {
   return useQuery({
@@ -66,7 +67,7 @@ export function OffDayState() {
           to="/bar-map"
           className="rounded-xl border border-border bg-card p-3 text-center transition-colors hover:bg-muted/40"
         >
-          <span className="mx-auto mb-1 block text-base">🍺</span>
+          <span className="mx-auto mb-1 block text-base"></span>
           <div className="text-[12px] font-bold text-foreground">Bar guide</div>
           <div className="text-[10px] text-muted-foreground">Browse Wrigleyville</div>
         </Link>

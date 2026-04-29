@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export type WhenFilter = 'all' | 'soon' | 'today' | 'later';
 export type WhereFilter = 'all' | 'wrigley' | 'bars';
@@ -21,8 +22,8 @@ const WHEN_OPTIONS: { value: WhenFilter; label: string }[] = [
 
 const WHERE_OPTIONS: { value: WhereFilter; label: string }[] = [
   { value: 'all', label: 'Anywhere' },
-  { value: 'wrigley', label: '🏟️ Wrigley' },
-  { value: 'bars', label: '🍺 Bars' },
+  { value: 'wrigley', label: ' Wrigley' },
+  { value: 'bars', label: ' Bars' },
 ];
 
 function ChipRow<T extends string>({

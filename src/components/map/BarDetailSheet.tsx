@@ -7,6 +7,7 @@ import { WhosHereNow } from '@/components/map/WhosHereNow';
 import { useBarCheckins } from '@/hooks/useBarCheckins';
 import { FOOD_SPOTS } from '@/lib/wrigleyville-eats';
 import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface BarInfo {
   name: string;
@@ -26,11 +27,11 @@ function getDirectionsUrl(lat: number, lng: number) {
 }
 
 const BAR_VIBES: Record<string, { emoji: string; vibe: string; hours: string }> = {
-  "Murphy's Bleachers": { emoji: '🍺', vibe: 'Classic Cubs bar', hours: 'Opens 2hrs before first pitch' },
-  "The Cubby Bear Lounge Chicago": { emoji: '🎸', vibe: 'Live music & sports', hours: '11AM – 2AM' },
-  "Mordecai": { emoji: '🍸', vibe: 'Craft cocktails', hours: '4PM – 12AM' },
-  "Bernie's": { emoji: '🎉', vibe: 'Party vibes', hours: '11AM – 2AM' },
-  "GMAN Tavern": { emoji: '🎶', vibe: 'Indie & chill', hours: '5PM – 2AM' },
+  "Murphy's Bleachers": { emoji: '', vibe: 'Classic Cubs bar', hours: 'Opens 2hrs before first pitch' },
+  "The Cubby Bear Lounge Chicago": { emoji: '', vibe: 'Live music & sports', hours: '11AM – 2AM' },
+  "Mordecai": { emoji: '', vibe: 'Craft cocktails', hours: '4PM – 12AM' },
+  "Bernie's": { emoji: '', vibe: 'Party vibes', hours: '11AM – 2AM' },
+  "GMAN Tavern": { emoji: '', vibe: 'Indie & chill', hours: '5PM – 2AM' },
 };
 
 export function BarDetailSheet({ bar, onClose }: Props) {
@@ -91,7 +92,7 @@ export function BarDetailSheet({ bar, onClose }: Props) {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-2xl">{info?.emoji || (bar.type === 'landmark' ? '🏛️' : '🍺')}</span>
+                    <ConceptIcon name={info?.emoji || ''} className="h-6 w-6" />
                     <h2 className="text-lg font-bold text-foreground leading-tight">{bar.name}</h2>
                   </div>
                   <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -177,7 +178,7 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                         key={spot.id}
                         className="flex items-center gap-3 rounded-xl border border-border bg-muted/30 p-3"
                       >
-                        <span className="text-xl shrink-0">{spot.emoji}</span>
+                        <span className="text-xl shrink-0"><ConceptIcon name={spot.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-foreground truncate">{spot.name}</p>
                           <p className="text-[11px] text-muted-foreground truncate">

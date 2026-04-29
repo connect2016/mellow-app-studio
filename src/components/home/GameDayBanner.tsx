@@ -5,6 +5,7 @@ import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
 import { useWrigleyWeather } from '@/hooks/useWrigleyWeather';
 import { Button } from '@/components/ui/button';
 import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function useCountdown(targetIso?: string) {
   const target = useMemo(() => (targetIso ? new Date(targetIso).getTime() : 0), [targetIso]);
@@ -124,7 +125,7 @@ export function GameDayBanner() {
         {/* Weather + wind */}
         {weather && (
           <div className="mx-4 mb-3 flex items-center gap-3 rounded-xl bg-white/10 backdrop-blur-sm px-3 py-2 ring-1 ring-white/15">
-            <span className="text-2xl leading-none">{weather.emoji}</span>
+            <span className="text-2xl leading-none"><ConceptIcon name={weather.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
             <div className="flex-1 min-w-0">
               <div className="flex items-baseline gap-2">
                 <span

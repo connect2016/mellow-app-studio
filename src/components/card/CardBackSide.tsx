@@ -1,6 +1,7 @@
 import { RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { VisibleStat } from '@/components/UserBaseballCard';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface CardBackSideProps {
   displayName: string;
@@ -48,7 +49,7 @@ export function CardBackSide({ displayName, visibleStats, isOwner, onFlipBack }:
                 <span className="text-xs font-medium text-muted-foreground text-center leading-tight">{stat.label}</span>
                 {isOwner && stat.visibility !== 'everyone' && (
                   <span className="text-[10px] text-muted-foreground/60" aria-label={stat.visibility === 'matches_only' ? 'Visible to matches only' : 'Hidden'}>
-                    {stat.visibility === 'matches_only' ? '🤝' : '🔒'}
+                    {stat.visibility === 'matches_only' ? '' : ''}
                   </span>
                 )}
               </div>

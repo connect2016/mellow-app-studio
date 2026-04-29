@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Camera, ChevronRight } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface VibePost {
   id: string;
@@ -50,7 +51,7 @@ export function SocialPhotoFeed() {
           to="/vibe"
           className="block rounded-2xl border border-dashed border-border bg-card/90 p-5 text-center"
         >
-          <p className="text-2xl mb-1">📸</p>
+          <p className="text-2xl mb-1"></p>
           <p className="text-sm font-bold text-destructive-foreground">No photos yet tonight</p>
           <p className="text-sm text-destructive-foreground mt-0.5">Be the first to share a moment</p>
         </Link>
@@ -69,7 +70,7 @@ export function SocialPhotoFeed() {
                 <img src={p.media_url} alt={p.caption ?? p.location_tag} className="w-full h-full object-cover" />
               )}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-2 py-2">
-                <p className="text-[10px] font-bold text-white truncate">📍 {p.location_tag}</p>
+                <p className="text-[10px] font-bold text-white truncate"> {p.location_tag}</p>
               </div>
             </Link>
           ))}

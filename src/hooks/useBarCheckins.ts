@@ -94,7 +94,7 @@ export function useBarCheckins(barName?: string) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bar-checkins'] });
       queryClient.invalidateQueries({ queryKey: ['my-bar-checkin'] });
-      toast.success('Checked in! 🍺 +1 Ivy Leaf earned');
+      toast.success('Checked in! +1 Ivy Leaf earned');
     },
     onError: () => toast.error('Failed to check in'),
   });

@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Flame, TrendingUp, Users, Zap, Crown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface PopularFan {
   user_id: string;
@@ -193,7 +194,7 @@ export function SocialProofBanner() {
                   {fan.display_name}
                 </span>
                 <span className="text-[9px] font-bold text-yellow-600 dark:text-yellow-400">
-                  🔥{fan.like_count}
+                  {fan.like_count}
                 </span>
               </motion.button>
             ))}

@@ -9,6 +9,7 @@ import { useSendLike } from '@/hooks/useInteractions';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Props {
   className?: string;
@@ -81,7 +82,7 @@ export function TonightModeView({ className }: Props) {
   const handleHiFive = async (uid: string, name: string) => {
     try {
       await sendLike.mutateAsync({ toUser: uid, isHiFive: true });
-      toast.success(`🙌 Hi-Fived ${name}!`);
+      toast.success(` Hi-Fived ${name}!`);
     } catch {
       toast.error('Could not send Hi-Five');
     }
@@ -125,7 +126,7 @@ export function TonightModeView({ className }: Props) {
                     className="h-9 text-xs font-bold"
                     onClick={() => handleHiFive(f.user_id, f.display_name)}
                   >
-                    🙌 Hi-Five
+                     Hi-Five
                   </Button>
                   <Button
                     size="sm"

@@ -18,6 +18,7 @@ import { FlashMeetupsPanel } from '@/components/FlashMeetupsPanel';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import gamedayBg from '@/assets/gameday-bg.jpg';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export default function GameDay() {
   const navigate = useNavigate();
@@ -81,8 +82,8 @@ export default function GameDay() {
             </div>
             {fanCounts && (
               <div className="flex items-center gap-3 text-[11px] text-white/85 drop-shadow">
-                <span><strong className="text-white tabular-nums">{fanCounts.wrigley}</strong> 🏟️</span>
-                <span><strong className="text-white tabular-nums">{fanCounts.bars}</strong> 🍻</span>
+                <span><strong className="text-white tabular-nums">{fanCounts.wrigley}</strong> </span>
+                <span><strong className="text-white tabular-nums">{fanCounts.bars}</strong> </span>
                 <span><strong className="text-white tabular-nums">{fanCounts.total}</strong> live</span>
               </div>
             )}
@@ -99,7 +100,7 @@ export default function GameDay() {
             className="pt-1"
           >
             <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-amber-300 drop-shadow-md">
-              {isLive ? '📡 Live · The Friendly Confines' : isOffDay ? '🌙 Off-day' : '⚾ Game Day'}
+              {isLive ? ' Live · The Friendly Confines' : isOffDay ? ' Off-day' : ' Game Day'}
             </div>
             <h1 className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-white drop-shadow-lg">
               Game Day Mode

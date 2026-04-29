@@ -117,7 +117,7 @@ export function useSendTeammateRequest() {
     },
     onSuccess: (_data, recipientId) => {
       qc.invalidateQueries({ queryKey: ['teammate-state', user?.id, recipientId] });
-      toast({ title: '🧢 Request sent', description: 'They\'ll see your invite to join your team.' });
+      toast({ title: 'Request sent', description: 'They\'ll see your invite to join your team.' });
     },
     onError: (e: any) => {
       toast({ title: 'Could not send request', description: e?.message ?? 'Try again', variant: 'destructive' });
@@ -143,7 +143,7 @@ export function useRespondToRequest() {
       qc.invalidateQueries({ queryKey: ['teammate-incoming', user?.id] });
       qc.invalidateQueries({ queryKey: ['teammate-state'] });
       toast({
-        title: accepted ? '🤝 New Teammate added' : 'Request declined',
+        title: accepted ? 'New Teammate added' : 'Request declined',
         description: accepted ? 'They\'re now in your Dugout.' : '',
       });
     },

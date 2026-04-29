@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sparkles, RefreshCw, Zap, Users } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function VibeStatePanel() {
   const { currentVibe, vibeLoading, classify } = useVibeState();
@@ -20,7 +21,7 @@ export function VibeStatePanel() {
       const res = await classify.mutateAsync();
       if (res.vibe) {
         setResult(res.vibe);
-        toast.success(`Vibe updated: ${res.vibe.emoji} ${VIBE_STATES[res.vibe.vibe_state]?.label || res.vibe.vibe_state}`);
+        toast.success(`Vibe updated: $<ConceptIcon name={res.vibe.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${VIBE_STATES[res.vibe.vibe_state]?.label || res.vibe.vibe_state}`);
       }
     } catch (err: any) {
       toast.error(err.message || 'Failed to classify vibe');
@@ -91,7 +92,7 @@ export function VibeStatePanel() {
                     animate={{ scale: [1, 1.15, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    {displayVibe.emoji}
+                    <ConceptIcon name={displayVibe.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                   </motion.span>
                   <div className="flex-1">
                     <p className={`text-sm font-bold ${displayConf.color}`}>{displayConf.label}</p>
@@ -143,7 +144,7 @@ export function VibeStatePanel() {
           </AnimatePresence>
         ) : (
           <div className="text-center py-5">
-            <span className="text-3xl">✨</span>
+            <span className="text-3xl"></span>
             <p className="text-sm text-muted-foreground mt-2">What's your vibe right now?</p>
             <Button
               className="mt-3 rounded-xl gap-2 text-sm"
@@ -167,7 +168,7 @@ export function VibeStateBadge({ vibeState, vibeEmoji }: { vibeState?: string | 
   const conf = VIBE_STATES[vibeState] || VIBE_STATES.unknown;
   return (
     <span className={`inline-flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.5 rounded-full border ${conf.bg}`}>
-      <span>{vibeEmoji || conf.emoji}</span>
+      <ConceptIcon name={vibeEmoji || conf.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
       <span className={conf.color}>{conf.label}</span>
     </span>
   );

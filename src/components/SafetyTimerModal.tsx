@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCreateSafetyTimer } from '@/hooks/useSafetyTimer';
 import { useToast } from '@/hooks/use-toast';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface SafetyTimerModalProps {
   open: boolean;
@@ -40,7 +41,7 @@ export function SafetyTimerModal({ open, onClose, meetupId, locationName }: Safe
         durationMinutes: duration,
       });
       toast({
-        title: '🛡️ Safety Timer Active',
+        title: ' Safety Timer Active',
         description: `We'll check in with you in ${duration / 60} hours. Tap "I'm Safe" when you're good!`,
       });
       setStep('ask');
@@ -117,7 +118,7 @@ export function SafetyTimerModal({ open, onClose, meetupId, locationName }: Safe
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-bold text-foreground">
-                    🛡️ Safety Timer
+                     Safety Timer
                   </h3>
                   <button onClick={handleSkip} className="p-1.5 rounded-full hover:bg-muted">
                     <X className="h-4 w-4 text-muted-foreground" />

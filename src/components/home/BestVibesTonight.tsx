@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Flame, Users, ChevronRight } from 'lucide-react';
 import { useVenueActivity } from '@/hooks/useVenueActivity';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const CROWD_META: Record<string, { emoji: string; label: string; color: string }> = {
-  packed: { emoji: '🔥', label: 'Packed', color: 'text-red-600 bg-red-500/10' },
-  busy: { emoji: '⚡', label: 'Buzzing', color: 'text-amber-600 bg-amber-500/10' },
-  chill: { emoji: '😎', label: 'Chill', color: 'text-blue-600 bg-blue-500/10' },
-  empty: { emoji: '💤', label: 'Quiet', color: 'text-slate-500 bg-slate-500/10' },
+  packed: { emoji: '', label: 'Packed', color: 'text-red-600 bg-red-500/10' },
+  busy: { emoji: '', label: 'Buzzing', color: 'text-amber-600 bg-amber-500/10' },
+  chill: { emoji: '', label: 'Chill', color: 'text-blue-600 bg-blue-500/10' },
+  empty: { emoji: '', label: 'Quiet', color: 'text-slate-500 bg-slate-500/10' },
 };
 
 export function BestVibesTonight() {
@@ -39,7 +40,7 @@ export function BestVibesTonight() {
           to="/bar-map"
           className="block rounded-2xl border border-dashed border-border bg-card/90 backdrop-blur-sm p-5 text-center"
         >
-          <p className="text-2xl mb-1">🍻</p>
+          <p className="text-2xl mb-1"></p>
           <p className="text-sm font-bold text-destructive-foreground">No live activity yet</p>
           <p className="text-sm text-destructive-foreground mt-0.5">Be the first to check in at a bar</p>
         </Link>
@@ -55,7 +56,7 @@ export function BestVibesTonight() {
                 aria-label={`${v.name} — ${meta.label}, ${v.totalUsers} fans here`}
               >
                 <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl ${meta.color}`}>
-                  {meta.emoji}
+                  <ConceptIcon name={meta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-base font-bold leading-tight truncate mt-2 text-destructive-foreground">{v.name}</p>
@@ -72,7 +73,7 @@ export function BestVibesTonight() {
                     {v.meetups.length > 0 && (
                       <>
                         <span>·</span>
-                        <span>📋 {v.meetups.length} meetup{v.meetups.length > 1 ? 's' : ''}</span>
+                        <span> {v.meetups.length} meetup{v.meetups.length > 1 ? 's' : ''}</span>
                       </>
                     )}
                   </div>

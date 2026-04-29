@@ -6,6 +6,7 @@ import { IntentChip } from './IntentChip';
 import { StatusBadge } from './StatusBadge';
 import { VibeStateBadge } from './VibeStatePanel';
 import { FanTierBadge } from './FanIdentityPanel';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const HIFIVE_TOOLTIP_KEY = 'cb_hifive_tooltip_views';
 const HIFIVE_STREAK_KEY = 'cb_hifive_streak';
@@ -60,23 +61,23 @@ interface PromptItem {
 }
 
 const ICEBREAKERS = [
-  { emoji: '🏟️', text: 'First Cubs game?' },
-  { emoji: '🎉', text: 'Best Wrigley memory?' },
-  { emoji: '⚾', text: 'Who\'s your all-time favorite Cub?' },
-  { emoji: '🍺', text: 'What\'s your go-to Wrigleyville bar?' },
-  { emoji: '🐻', text: 'Were you there for the 2016 World Series?' },
-  { emoji: '🎵', text: 'Favorite 7th-inning singer besides Harry?' },
-  { emoji: '🌭', text: 'Hot dog or Chicago dog at Wrigley?' },
-  { emoji: '🧢', text: 'What\'s your Cubs superstition?' },
+  { emoji: '', text: 'First Cubs game?' },
+  { emoji: '', text: 'Best Wrigley memory?' },
+  { emoji: '', text: 'Who\'s your all-time favorite Cub?' },
+  { emoji: '', text: 'What\'s your go-to Wrigleyville bar?' },
+  { emoji: '', text: 'Were you there for the 2016 World Series?' },
+  { emoji: '', text: 'Favorite 7th-inning singer besides Harry?' },
+  { emoji: '', text: 'Hot dog or Chicago dog at Wrigley?' },
+  { emoji: '', text: 'What\'s your Cubs superstition?' },
 ];
 
 function getPrompts(user: UserProfile): PromptItem[] {
   const prompts: PromptItem[] = [];
-  if (user.superstition) prompts.push({ label: 'My Cubs superstition', value: user.superstition, emoji: '🧢' });
-  if (user.best_bar) prompts.push({ label: 'Favorite Wrigleyville bar', value: user.best_bar, emoji: '🍻' });
-  if (user.stretch_song) prompts.push({ label: 'Favorite 7th-inning singer besides Harry', value: user.stretch_song, emoji: '🎵' });
-  if (user.favorite_player) prompts.push({ label: 'Favorite player ever', value: user.favorite_player, emoji: '⚾' });
-  if (user.favorite_moment) prompts.push({ label: 'Favorite Cubs moment', value: user.favorite_moment, emoji: '🎉' });
+  if (user.superstition) prompts.push({ label: 'My Cubs superstition', value: user.superstition, emoji: '' });
+  if (user.best_bar) prompts.push({ label: 'Favorite Wrigleyville bar', value: user.best_bar, emoji: '' });
+  if (user.stretch_song) prompts.push({ label: 'Favorite 7th-inning singer besides Harry', value: user.stretch_song, emoji: '' });
+  if (user.favorite_player) prompts.push({ label: 'Favorite player ever', value: user.favorite_player, emoji: '' });
+  if (user.favorite_moment) prompts.push({ label: 'Favorite Cubs moment', value: user.favorite_moment, emoji: '' });
   return prompts;
 }
 
@@ -84,8 +85,8 @@ function getActivityLabel(user: UserProfile): { text: string; pulse: boolean } |
   if (user.game_status === 'AtWrigley') return { text: 'In my seat right now', pulse: true };
   if (user.game_status === 'AtBar' && user.wrigleyville_bar) return { text: `At ${user.wrigleyville_bar}`, pulse: true };
   if (user.game_status === 'AtBar') return { text: 'At the bar', pulse: true };
-  if (user.game_status === 'Tailgating') return { text: 'Tailgating now 🌭', pulse: true };
-  if (user.game_status === 'BeerSnake') return { text: 'Beer Snake in the bleachers 🐍', pulse: true };
+  if (user.game_status === 'Tailgating') return { text: 'Tailgating now ', pulse: true };
+  if (user.game_status === 'BeerSnake') return { text: 'Beer Snake in the bleachers ', pulse: true };
   if (user.game_status === 'WatchingRemote') return { text: 'Watching from home', pulse: true };
   const lastActive = user.last_active ? new Date(user.last_active) : null;
   if (!lastActive) return null;
@@ -126,10 +127,10 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
     const picks = [...ICEBREAKERS];
     // Add contextual ones based on user profile
     if (user.game_status === 'AtWrigley') {
-      picks.unshift({ emoji: '📍', text: `How's the view from Section ${user.wrigley_section || 'yours'}?` });
+      picks.unshift({ emoji: '', text: `How's the view from Section ${user.wrigley_section || 'yours'}?` });
     }
     if (user.game_status === 'AtBar' && user.wrigleyville_bar) {
-      picks.unshift({ emoji: '🍻', text: `How's ${user.wrigleyville_bar} right now?` });
+      picks.unshift({ emoji: '', text: `How's ${user.wrigleyville_bar} right now?` });
     }
     if (user.favorite_player) {
       picks.unshift({ emoji: '⭐', text: `${user.favorite_player} fan too? What's your best memory of them?` });
@@ -169,7 +170,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="absolute bottom-20 left-1/4 z-30 text-4xl pointer-events-none"
           >
-            🖐️
+            
           </motion.div>
         )}
       </AnimatePresence>
@@ -184,7 +185,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="absolute bottom-20 right-1/4 z-30 text-4xl pointer-events-none"
           >
-            🌭
+            
           </motion.div>
         )}
       </AnimatePresence>
@@ -292,7 +293,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
             return (
               <div className="mt-2">
                 {hasCommon && (
-                  <p className="text-[10px] font-bold text-accent mb-1">⚡ Common Ground!</p>
+                  <p className="text-[10px] font-bold text-accent mb-1"> Common Ground!</p>
                 )}
                 <div className="flex flex-wrap gap-1">
                   {user.fan_style!.map((s) => {
@@ -308,7 +309,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
                             : 'bg-white/10 text-white/80 border-white/20'
                         }`}
                       >
-                        <span>{opt.emoji}</span>
+                        <span><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                         <span>{opt.label}</span>
                       </span>
                     );
@@ -356,7 +357,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
         <div className="border-t border-border px-4 py-3 space-y-2">
           {prompts.map((p) => (
             <div key={p.label} className="rounded-xl bg-muted/50 px-3 py-2.5">
-              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-0.5">{p.emoji} {p.label}</p>
+              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-0.5"><ConceptIcon name={p.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {p.label}</p>
               <p className="text-sm font-medium text-foreground leading-snug">{p.value}</p>
             </div>
           ))}
@@ -374,7 +375,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
           >
             <div className="px-4 py-3 bg-primary/[0.03]">
               <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-2">
-                🖐️ Send a Hi-Five with an icebreaker
+                 Send a Hi-Five with an icebreaker
               </p>
               <div className="space-y-1.5">
                 {personalizedIcebreakers.map((ib, i) => (
@@ -386,7 +387,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
                     onClick={() => sendHiFiveWithMessage(ib.text)}
                     className="w-full flex items-center gap-2.5 rounded-xl border border-border bg-card px-3 py-2.5 text-left transition-all hover:border-primary/40 hover:bg-primary/5 active:scale-[0.98]"
                   >
-                    <span className="text-base shrink-0">{ib.emoji}</span>
+                    <span className="text-base shrink-0"><ConceptIcon name={ib.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                     <span className="text-sm font-medium text-foreground">{ib.text}</span>
                   </motion.button>
                 ))}
@@ -396,7 +397,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
                   onClick={() => sendHiFiveWithMessage()}
                   className="flex-1 text-center text-xs font-medium text-muted-foreground py-2 rounded-lg hover:bg-muted transition-colors"
                 >
-                  Just Hi-Five 🖐️
+                  Just Hi-Five 
                 </button>
                 <button
                   onClick={() => setShowIcebreakers(false)}
@@ -433,7 +434,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
             transition={{ duration: 0.4 }}
             className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
           >
-            <span className="text-xl">🖐️</span>
+            <span className="text-xl"></span>
             <span className="font-medium">Hi-Five</span>
           </motion.button>
         </div>
@@ -449,21 +450,21 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
           transition={{ duration: 0.4 }}
           className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
         >
-          <span className="text-xl">🌭</span>
+          <span className="text-xl"></span>
           <span className="font-medium">Send Dog</span>
         </motion.button>
         <button
           onClick={onLike}
           className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-destructive transition-colors rounded-lg hover:bg-destructive/5"
         >
-          <span className="text-xl">❤️</span>
+          <span className="text-xl"></span>
           <span className="font-medium">Like</span>
         </button>
         <button
           onClick={onSendBeer}
           className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
         >
-          <span className="text-xl">🍺</span>
+          <span className="text-xl"></span>
           <span className="font-medium">Beer</span>
         </button>
         {onPass && (
@@ -471,7 +472,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
             onClick={onPass}
             className="flex flex-col items-center gap-0.5 px-3 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
           >
-            <span className="text-xl">👋</span>
+            <span className="text-xl"></span>
             <span className="font-medium">Pass</span>
           </button>
         )}

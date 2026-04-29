@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Beer, MapPin, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function CrewAtBarNotification() {
   const { user } = useAuth();
@@ -81,7 +82,7 @@ export function CrewAtBarNotification() {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-bold text-foreground">
-            Your crew is at {crewActivity.barName}! 🍻
+            Your crew is at {crewActivity.barName}! 
           </p>
           <p className="text-xs text-muted-foreground mt-0.5 truncate">
             {displayNames}{extra > 0 ? ` +${extra} more` : ''} checked in

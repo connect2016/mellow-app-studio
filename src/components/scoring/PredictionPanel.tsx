@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, CheckCircle2, XCircle, Clock } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Prediction {
   id: string;
@@ -20,14 +21,14 @@ interface MemberProfile {
 }
 
 const PREDICTION_OPTIONS = [
-  { value: 'hr', label: 'Home Run', emoji: '💣', points: 25 },
-  { value: 'strikeout', label: 'Strikeout', emoji: '🔥', points: 10 },
-  { value: 'double_play', label: 'Double Play', emoji: '👏', points: 20 },
-  { value: 'hit', label: 'Base Hit', emoji: '💥', points: 8 },
-  { value: 'walk', label: 'Walk', emoji: '🚶', points: 5 },
-  { value: 'flyout', label: 'Fly Out', emoji: '🪰', points: 5 },
+  { value: 'hr', label: 'Home Run', emoji: '', points: 25 },
+  { value: 'strikeout', label: 'Strikeout', emoji: '', points: 10 },
+  { value: 'double_play', label: 'Double Play', emoji: '', points: 20 },
+  { value: 'hit', label: 'Base Hit', emoji: '', points: 8 },
+  { value: 'walk', label: 'Walk', emoji: '', points: 5 },
+  { value: 'flyout', label: 'Fly Out', emoji: '', points: 5 },
   { value: 'groundout', label: 'Ground Out', emoji: '⬇️', points: 5 },
-  { value: 'steal', label: 'Stolen Base', emoji: '⚡', points: 15 },
+  { value: 'steal', label: 'Stolen Base', emoji: '', points: 15 },
 ];
 
 interface PredictionPanelProps {
@@ -87,7 +88,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
             <p className="text-[10px] text-muted-foreground">Correct</p>
           </div>
           <div className="text-center rounded-xl bg-muted/50 px-2 py-3">
-            <p className="text-lg font-bold text-secondary">{streak}🔥</p>
+            <p className="text-lg font-bold text-secondary">{streak}</p>
             <p className="text-[10px] text-muted-foreground">Streak</p>
           </div>
         </div>
@@ -107,7 +108,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
           <div className="rounded-xl bg-primary/5 border border-primary/20 p-3 text-center">
             <p className="text-xs text-muted-foreground">Your prediction</p>
             <p className="text-sm font-bold text-foreground mt-1">
-              {PREDICTION_OPTIONS.find(o => o.value === myPendingPrediction.predicted_play)?.emoji}{' '}
+              <ConceptIcon name={PREDICTION_OPTIONS.find(o => o.value === myPendingPrediction.predicted_play)?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />{' '}
               {PREDICTION_OPTIONS.find(o => o.value === myPendingPrediction.predicted_play)?.label}
             </p>
             <p className="text-[10px] text-muted-foreground mt-1 flex items-center justify-center gap-1">
@@ -127,7 +128,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
                       : 'border-border hover:border-primary/30 text-muted-foreground'
                   }`}
                 >
-                  <span className="text-base">{opt.emoji}</span>
+                  <span className="text-base"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   <span className="leading-tight text-center">{opt.label}</span>
                   <span className="text-primary font-bold">+{opt.points}</span>
                 </button>
@@ -138,7 +139,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
               disabled={!selectedPlay}
               className="w-full rounded-xl bg-secondary text-secondary-foreground py-2.5 text-sm font-semibold disabled:opacity-40 transition-opacity"
             >
-              ⚡ Lock In Prediction
+               Lock In Prediction
             </button>
           </>
         )}
@@ -172,7 +173,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium text-foreground truncate">{profile?.display_name ?? 'Fan'}</p>
                     <p className="text-[10px] text-muted-foreground">
-                      {opt?.emoji} {opt?.label} • {p.half === 'top' ? '▲' : '▼'}{p.inning}
+                      <ConceptIcon name={opt?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {opt?.label} • {p.half === 'top' ? '▲' : '▼'}{p.inning}
                     </p>
                   </div>
                   {canResolve && (
@@ -203,10 +204,10 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
               return (
                 <div key={p.id} className="flex items-center gap-2 text-xs">
                   <span className={p.is_correct ? 'text-accent' : 'text-destructive'}>
-                    {p.is_correct ? '✅' : '❌'}
+                    {p.is_correct ? '' : ''}
                   </span>
                   <span className="text-foreground font-medium">{profile?.display_name ?? 'Fan'}</span>
-                  <span className="text-muted-foreground">{opt?.emoji} {opt?.label}</span>
+                  <span className="text-muted-foreground"><ConceptIcon name={opt?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {opt?.label}</span>
                   {p.is_correct && p.points_awarded > 0 && (
                     <span className="ml-auto text-accent font-bold">+{p.points_awarded}pts</span>
                   )}

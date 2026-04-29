@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { IntentChip } from '@/components/IntentChip';
 import { IntentType, GamedayIntentType, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
 import { cn } from '@/lib/utils';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface FilterState {
   intents: IntentType[];
@@ -29,11 +30,11 @@ const INTENTS: IntentType[] = ['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 
 const GAMEDAY_INTENTS: GamedayIntentType[] = ['BleacherRegular', 'FamilyFriendly', 'PreGameDrinks', 'ScoringTheGame', 'PostGameCelebration', 'WrigleyvilleLocal'];
 
 const LOCATIONS = [
-  { value: 'AtWrigley', label: 'In my Seat', emoji: '⚾️' },
-  { value: 'AtBar', label: 'At the Bar', emoji: '🍺' },
-  { value: 'Tailgating', label: 'Tailgating', emoji: '🌭' },
-  { value: 'BeerSnake', label: 'Beer Snake', emoji: '🐍' },
-  { value: 'WatchingRemote', label: 'Watching from Home', emoji: '🏠' },
+  { value: 'AtWrigley', label: 'In my Seat', emoji: '' },
+  { value: 'AtBar', label: 'At the Bar', emoji: '' },
+  { value: 'Tailgating', label: 'Tailgating', emoji: '' },
+  { value: 'BeerSnake', label: 'Beer Snake', emoji: '' },
+  { value: 'WatchingRemote', label: 'Watching from Home', emoji: '' },
 ];
 
 const DISTANCES = [1, 5, 10, 25];
@@ -201,7 +202,7 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
                         local.wrigleyOnly && loc.value !== 'AtWrigley' && 'opacity-40 cursor-not-allowed'
                       )}
                     >
-                      <span>{loc.emoji}</span>
+                      <span><ConceptIcon name={loc.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                       <span>{loc.label}</span>
                     </button>
                   ))}

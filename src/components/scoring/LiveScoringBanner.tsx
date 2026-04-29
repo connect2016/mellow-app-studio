@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useScoringSessions } from '@/hooks/useScoringSession';
 import { Users, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function LiveScoringBanner() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export function LiveScoringBanner() {
       className="rounded-2xl border border-primary/20 bg-primary/5 p-4 shadow-sm"
     >
       <div className="flex items-center gap-3">
-        <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-xl">⚾</div>
+        <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-xl"></div>
         <div className="flex-1">
           <p className="text-sm font-bold text-foreground">Score Together</p>
           <p className="text-xs text-muted-foreground">

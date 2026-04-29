@@ -13,9 +13,9 @@ export const WAIT_LABELS: Record<WaitTime, string> = {
 };
 
 export const VIBE_LABELS: Record<VibeType, string> = {
-  chill: '😌 Chill',
-  rowdy: '🔥 Rowdy',
-  packed: '🎉 Packed',
+  chill: 'Chill',
+  rowdy: 'Rowdy',
+  packed: 'Packed',
 };
 
 export interface BarVoteSummary {

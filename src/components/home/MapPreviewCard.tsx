@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { MapPin, ChevronRight } from 'lucide-react';
 import { useVenueActivity } from '@/hooks/useVenueActivity';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function MapPreviewCard() {
   const { data: venues = [] } = useVenueActivity();
@@ -34,7 +35,7 @@ export function MapPreviewCard() {
           <div className="relative">
             <span className="absolute inset-0 rounded-full bg-red-500 animate-ping opacity-50" />
             <div className="relative h-7 w-7 rounded-full bg-red-600 border-2 border-white shadow-lg flex items-center justify-center text-sm">
-              🏟️
+              
             </div>
           </div>
         </div>

@@ -116,7 +116,7 @@ export function usePubCrawls() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pub-crawls'] });
-      toast.success('Pub crawl created! 🍻');
+      toast.success('Pub crawl created!');
     },
     onError: () => toast.error('Failed to create pub crawl'),
   });
@@ -131,7 +131,7 @@ export function usePubCrawls() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pub-crawl-members'] });
-      toast.success('Joined the crawl! 🎉');
+      toast.success('Joined the crawl!');
     },
     onError: () => toast.error('Failed to join'),
   });
@@ -173,7 +173,7 @@ export function usePubCrawls() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pub-crawl-stops'] });
-      toast.success('Arrived! 🍻');
+      toast.success('Arrived!');
     },
   });
 

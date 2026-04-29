@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Sparkles, MapPin, Clock, MessageCircle, ChevronRight, RefreshCw, Zap } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface MeetupSuggestion {
   headline: string;
@@ -71,7 +72,7 @@ export function SmartMeetupSuggestions() {
         const { error } = await supabase.from('crew_events').insert({
           crew_id: crewId,
           creator_id: user.id,
-          title: `${suggestion.emoji} ${suggestion.headline}`,
+          title: `$<ConceptIcon name={suggestion.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${suggestion.headline}`,
           description: suggestion.description,
         });
         if (error) throw error;
@@ -109,7 +110,7 @@ export function SmartMeetupSuggestions() {
     },
     onSuccess: (result) => {
       if (result.type === 'crew') {
-        toast.success('Meetup posted to your crew! 🎉');
+        toast.success('Meetup posted to your crew! ');
         queryClient.invalidateQueries({ queryKey: ['crew-events'] });
         queryClient.invalidateQueries({ queryKey: ['crew-messages'] });
         navigate(`/crews/${result.crewId}`);
@@ -179,7 +180,7 @@ export function SmartMeetupSuggestions() {
           </div>
         ) : suggestions.length === 0 ? (
           <div className="py-6 text-center">
-            <p className="text-2xl">🏟️</p>
+            <p className="text-2xl"></p>
             <p className="mt-1 text-sm text-muted-foreground">No active fans nearby right now</p>
             <p className="text-xs text-muted-foreground">Check back during game time!</p>
           </div>
@@ -203,7 +204,7 @@ export function SmartMeetupSuggestions() {
                     }`}
                   >
                     <div className="flex items-start gap-2.5">
-                      <span className="text-xl mt-0.5 shrink-0">{s.emoji}</span>
+                      <span className="text-xl mt-0.5 shrink-0"><ConceptIcon name={s.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-foreground leading-snug">{s.headline}</p>
                         <div className="flex items-center gap-2 mt-1 text-[11px] text-muted-foreground">

@@ -101,7 +101,7 @@ export function CardFrontSide({
           <div className="absolute flex gap-1 items-end" style={{ bottom: '12%', right: '6%', zIndex: 20 }}>
             {activeReactions.map((r) => (
               <div key={r.key} className="animate-scale-in">
-                <RealisticEmoji src={r.image} alt={r.label} size="md" />
+                <RealisticEmoji name={r.icon} alt={r.label} size="md" />
               </div>
             ))}
           </div>

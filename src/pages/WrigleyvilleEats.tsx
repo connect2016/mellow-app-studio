@@ -13,6 +13,7 @@ import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { EatsCheckInButton } from '@/components/eats/EatsCheckInButton';
 import { BleacherBarometer } from '@/components/eats/BleacherBarometer';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import {
   FOOD_SPOTS,
   CATEGORY_META,
@@ -119,7 +120,7 @@ export default function WrigleyvilleEats() {
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <span>{PHASE_META[p].emoji}</span>
+              <span><ConceptIcon name={PHASE_META[p].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
               <span>{PHASE_META[p].label}</span>
             </button>
           ))}
@@ -141,7 +142,7 @@ export default function WrigleyvilleEats() {
                     : 'bg-card/60 text-foreground border-border hover:border-primary/40'
                 }`}
               >
-                <span>{CATEGORY_META[cat].emoji}</span>
+                <span><ConceptIcon name={CATEGORY_META[cat].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                 <span>{CATEGORY_META[cat].label}</span>
               </button>
             );
@@ -164,7 +165,7 @@ export default function WrigleyvilleEats() {
                     : 'bg-muted/40 text-muted-foreground border-transparent hover:text-foreground'
                 }`}
               >
-                <span>{TAG_META[tag].emoji}</span>
+                <span><ConceptIcon name={TAG_META[tag].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                 <span>{TAG_META[tag].label}</span>
               </button>
             );
@@ -193,7 +194,7 @@ export default function WrigleyvilleEats() {
       <section className="max-w-3xl mx-auto px-4 space-y-3">
         {sorted.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center">
-            <div className="text-3xl mb-2">🍽️</div>
+            <div className="text-3xl mb-2"></div>
             <h3 className="font-bold text-foreground mb-1">No spots match those filters</h3>
             <p className="text-xs text-muted-foreground">Try removing a filter — Wrigleyville has more to offer.</p>
           </div>
@@ -273,12 +274,12 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
       <div className="px-5 pt-5 pb-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-baseline gap-2 min-w-0">
-            <span className="text-2xl leading-none shrink-0">{spot.emoji}</span>
+            <span className="text-2xl leading-none shrink-0"><ConceptIcon name={spot.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
             <div className="min-w-0">
               <h2 className="font-display text-lg font-bold tracking-tight text-foreground leading-tight truncate">
                 {spot.name}
               </h2>
-              <p className="text-[11px] text-muted-foreground mt-0.5">{cat.emoji} {cat.label}</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5"><ConceptIcon name={cat.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {cat.label}</p>
             </div>
           </div>
           <Badge variant="outline" className={`shrink-0 text-[10px] px-2 py-0 h-5 border-0 ${VIBE_COLORS[spot.vibe] || 'bg-muted text-muted-foreground'}`}>
@@ -304,7 +305,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
       {/* Fan tip */}
       <div className="px-5 pb-3">
         <p className="text-[13px] italic text-muted-foreground leading-snug">
-          💡 "{spot.fanTip}"
+           "{spot.fanTip}"
         </p>
       </div>
 
@@ -312,7 +313,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
       <div className="px-5 pb-3">
         <div className={`rounded-xl bg-muted/40 border border-border/60 p-3`}>
           <div className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider mb-1 ${PHASE_META[phase].color}`}>
-            <span>{PHASE_META[phase].emoji}</span> {PHASE_META[phase].label} pick
+            <span><ConceptIcon name={PHASE_META[phase].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span> {PHASE_META[phase].label} pick
           </div>
           <p className="text-xs text-foreground/90 leading-snug">
             {spot.gameDayHighlight[phase]}
@@ -324,7 +325,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
       <div className="px-5 pb-3 flex flex-wrap gap-1.5">
         {spot.tags.map((t) => (
           <span key={t} className="inline-flex items-center gap-1 rounded-full bg-foreground/5 border border-border px-2 py-0.5 text-[10px] font-semibold text-foreground">
-            {TAG_META[t].emoji} {TAG_META[t].label}
+            <ConceptIcon name={TAG_META[t].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {TAG_META[t].label}
           </span>
         ))}
       </div>
@@ -343,7 +344,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
         </Button>
         <Button asChild size="sm" variant="outline" className="h-9 rounded-xl text-xs gap-1">
           <Link to={`/beer-money?bar=${encodeURIComponent(spot.name)}`}>
-            🍺 Buy a Beer
+             Buy a Beer
           </Link>
         </Button>
       </div>
@@ -372,7 +373,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
               {(['before', 'during', 'after'] as GameDayPhase[]).map((p) => (
                 <div key={p} className="rounded-lg bg-card border border-border p-3">
                   <div className={`text-[9px] font-bold uppercase tracking-widest mb-0.5 ${PHASE_META[p].color}`}>
-                    {PHASE_META[p].emoji} {PHASE_META[p].label}
+                    <ConceptIcon name={PHASE_META[p].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {PHASE_META[p].label}
                   </div>
                   <p className="text-xs text-foreground/90">{spot.gameDayHighlight[p]}</p>
                 </div>
@@ -380,7 +381,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
 
               {/* Address */}
               <div className="flex items-center justify-between pt-1">
-                <p className="text-[11px] text-muted-foreground">📍 {spot.address}</p>
+                <p className="text-[11px] text-muted-foreground"> {spot.address}</p>
               </div>
             </div>
           </motion.div>
@@ -405,7 +406,7 @@ function SuggestSpotForm({ onClose }: { onClose: () => void }) {
   if (submitted) {
     return (
       <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 text-center">
-        <p className="text-3xl mb-2">🎉</p>
+        <p className="text-3xl mb-2"></p>
         <h3 className="font-bold text-foreground mb-1">Thanks for the tip!</h3>
         <p className="text-xs text-muted-foreground mb-3">
           We'll check out <span className="font-semibold">{name}</span> and add it if it's legit.

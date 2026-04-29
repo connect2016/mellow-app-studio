@@ -46,16 +46,16 @@ function classifyWindForField(degFrom: number): WrigleyWeather['windRelativeToFi
 
 function summarizeCode(code: number, isDay: boolean): { summary: string; emoji: string } {
   // Open-Meteo WMO weather codes
-  if (code === 0) return { summary: 'Clear', emoji: isDay ? '☀️' : '🌙' };
-  if (code <= 3) return { summary: code === 1 ? 'Mainly clear' : code === 2 ? 'Partly cloudy' : 'Overcast', emoji: '⛅' };
-  if (code <= 48) return { summary: 'Foggy', emoji: '🌫️' };
-  if (code <= 57) return { summary: 'Drizzle', emoji: '🌦️' };
-  if (code <= 67) return { summary: 'Rain', emoji: '🌧️' };
-  if (code <= 77) return { summary: 'Snow', emoji: '🌨️' };
-  if (code <= 82) return { summary: 'Rain showers', emoji: '🌧️' };
-  if (code <= 86) return { summary: 'Snow showers', emoji: '🌨️' };
-  if (code <= 99) return { summary: 'Thunderstorm', emoji: '⛈️' };
-  return { summary: '—', emoji: '🌡️' };
+  if (code === 0) return { summary: 'Clear', emoji: isDay ? '' : '' };
+  if (code <= 3) return { summary: code === 1 ? 'Mainly clear' : code === 2 ? 'Partly cloudy' : 'Overcast', emoji: '' };
+  if (code <= 48) return { summary: 'Foggy', emoji: '' };
+  if (code <= 57) return { summary: 'Drizzle', emoji: '' };
+  if (code <= 67) return { summary: 'Rain', emoji: '' };
+  if (code <= 77) return { summary: 'Snow', emoji: '' };
+  if (code <= 82) return { summary: 'Rain showers', emoji: '' };
+  if (code <= 86) return { summary: 'Snow showers', emoji: '' };
+  if (code <= 99) return { summary: 'Thunderstorm', emoji: '' };
+  return { summary: '—', emoji: '' };
 }
 
 export function useWrigleyWeather() {

@@ -92,6 +92,27 @@ export default function Discover() {
   const isGameDay = !!cubsGame && cubsGame.status !== 'no-game';
   const tonight = useTonightMode({ isGameDay });
 
+  // Motion: badge flash on activation + brief exit animation when toggling off.
+  const [badgeFlash, setBadgeFlash] = useState(false);
+  const [exitingTonight, setExitingTonight] = useState(false);
+  const prevActive = useRef(tonight.active);
+  useEffect(() => {
+    if (prevActive.current === tonight.active) return;
+    if (tonight.active) {
+      setBadgeFlash(true);
+      const id = setTimeout(() => setBadgeFlash(false), 1200);
+      try { navigator.vibrate?.(10); } catch {}
+      prevActive.current = tonight.active;
+      return () => clearTimeout(id);
+    } else {
+      // Schedule exit animation, then mark previous so toggle is honored
+      setExitingTonight(true);
+      const id = setTimeout(() => setExitingTonight(false), 260);
+      prevActive.current = tonight.active;
+      return () => clearTimeout(id);
+    }
+  }, [tonight.active]);
+
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [matchCelebration, setMatchCelebration] = useState<string | null>(null);

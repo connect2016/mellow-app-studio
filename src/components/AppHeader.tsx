@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Users, MapPin, Trophy, User, Settings, Bell, Beer } from 'lucide-react';
+import { useGamedayMode } from '@/contexts/GamedayModeContext';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,9 +10,8 @@ import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
   { to: '/discover', icon: Home, label: 'Home' },
+  { to: '/bar-map', icon: MapPin, label: 'Map' },
   { to: '/meetups', icon: Users, label: 'Meetups' },
-  { to: '/bar-map', icon: MapPin, label: 'Bars' },
-  { to: '/game-day', icon: Trophy, label: 'Game Day' },
   { to: '/profile', icon: User, label: 'Profile' },
 ];
 
@@ -68,6 +68,7 @@ export function AppHeader() {
   const location = useLocation();
   const { data: badges } = useNotificationCounts();
   const unreadNotifs = useUnreadCount();
+  const { gamedayMode, toggleGamedayMode } = useGamedayMode();
 
   const getBadge = (path: string): number => {
     if (!badges) return 0;
@@ -117,6 +118,24 @@ export function AppHeader() {
             </div>
           </Link>
           <div className="flex shrink-0 items-center gap-2 self-center">
+            <button
+              type="button"
+              onClick={toggleGamedayMode}
+              aria-label="Toggle Game Day Mode"
+              aria-pressed={gamedayMode}
+              title={gamedayMode ? 'Game Day Mode: ON' : 'Game Day Mode: OFF'}
+              className={cn(
+                'relative flex h-9 w-9 items-center justify-center rounded-full text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)] ring-1 ring-white/20 transition-all duration-200 active:scale-95',
+                gamedayMode
+                  ? 'bg-[#0E3386] hover:bg-[#0a2766] ring-2 ring-yellow-300'
+                  : 'bg-[#C8102E] hover:bg-[#a30d25]'
+              )}
+            >
+              <Trophy className="h-[18px] w-[18px]" strokeWidth={2.25} />
+              {gamedayMode && (
+                <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-yellow-300 ring-2 ring-white animate-pulse" />
+              )}
+            </button>
             <Link
               to="/beer-money"
               data-tour="beer-money"

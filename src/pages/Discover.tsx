@@ -37,6 +37,7 @@ import { NearbyFansOnline } from '@/components/NearbyFansOnline';
 import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
 import { GameDayCountdown } from '@/components/GameDayCountdown';
 import { HomeDashboard } from '@/components/home/HomeDashboard';
+import { GameDayBanner } from '@/components/home/GameDayBanner';
 import { pickCopy, LOADING_FANS, EMPTY_FANS } from '@/lib/fan-copy';
 
 const STATUS_OPTIONS = [
@@ -328,6 +329,9 @@ export default function Discover() {
             Game Day Mode updates your meetups, missions, and fan badges live as the game unfolds.
           </p>
         </div>
+
+        {/* Game Day banner — only renders on game days */}
+        <GameDayBanner />
 
         {/* New focused home dashboard: game header, vibes, meetups, map, specials, photos */}
         <HomeDashboard />

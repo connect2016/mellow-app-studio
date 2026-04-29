@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, MapPin, Trophy, User, Settings, Bell, Beer } from 'lucide-react';
+import { Home, Users, MapPin, Trophy, User, Bell } from 'lucide-react';
 import { useGamedayMode } from '@/contexts/GamedayModeContext';
+import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -77,77 +78,46 @@ export function AppHeader() {
     return 0;
   };
 
+  const { data: cubsGame } = useMlbCubsGame();
+  const isGameDay = cubsGame && cubsGame.status !== 'no-game';
+
   return (
     <>
       {/* Top bar */}
       <header className="sticky top-0 z-50 border-b border-border/30 bg-transparent backdrop-blur-sm">
-        <div className="mx-auto flex max-w-lg items-center justify-between gap-4 px-4 py-2">
-          <Link to="/" className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+        <div className="mx-auto flex max-w-lg items-center justify-between gap-3 px-4 py-2">
+          <Link to="/" aria-label="Cubbies Buddies home" className="flex min-w-0 items-center">
             <img
-              alt="Wrigleyville 60613 Logo"
-              className="h-16 sm:h-20 md:h-24 w-auto shrink-0 object-contain transition-transform duration-200 hover:scale-105 hover:brightness-110"
+              alt="Cubbies Buddies"
+              className="h-12 sm:h-14 w-auto shrink-0 object-contain transition-transform duration-200 hover:scale-105"
               src={wrigleyvilleLogo}
             />
-            <div className="flex min-w-0 flex-col items-start">
-              <span
-                className="text-[0.75rem] sm:text-[0.95rem] md:text-[1.2rem] font-bold uppercase leading-[1.05] max-w-full"
-                style={{
-                  fontFamily: 'Norwester, sans-serif',
-                  color: '#3458B5',
-                  textShadow:
-                    '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0px 1px 2px rgba(0,0,0,0.3)',
-                  letterSpacing: '1.25px',
-                }}
-              >
-                The Wrigleyville
-                <br />
-                Social App
-              </span>
-              <span
-                className="text-[0.55rem] sm:text-[0.7rem] font-bold uppercase leading-tight"
-                style={{
-                  fontFamily: 'Norwester, sans-serif',
-                  color: '#CC3433',
-                  textShadow:
-                    '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff',
-                  letterSpacing: '2px',
-                }}
-              >
-                Where Fans Find Friends
-              </span>
-            </div>
           </Link>
-          <div className="flex shrink-0 items-center gap-2 self-center">
-            <button
-              type="button"
-              onClick={toggleGamedayMode}
-              aria-label="Toggle Game Day Mode"
-              aria-pressed={gamedayMode}
-              title={gamedayMode ? 'Game Day Mode: ON' : 'Game Day Mode: OFF'}
-              className={cn(
-                'relative flex h-9 w-9 items-center justify-center rounded-full text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)] ring-1 ring-white/20 transition-all duration-200 active:scale-95',
-                gamedayMode
-                  ? 'bg-[#0E3386] hover:bg-[#0a2766] ring-2 ring-yellow-300'
-                  : 'bg-[#C8102E] hover:bg-[#a30d25]'
-              )}
-            >
-              <Trophy className="h-[18px] w-[18px]" strokeWidth={2.25} />
-              {gamedayMode && (
-                <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-yellow-300 ring-2 ring-white animate-pulse" />
-              )}
-            </button>
-            <Link
-              to="/beer-money"
-              data-tour="beer-money"
-              aria-label="Beer Money"
-              className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)] ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
-            >
-              <Beer className="h-[18px] w-[18px]" strokeWidth={2.25} />
-            </Link>
+          <div className="flex shrink-0 items-center gap-2">
+            {isGameDay && (
+              <button
+                type="button"
+                onClick={toggleGamedayMode}
+                aria-label="Toggle Game Day Mode"
+                aria-pressed={gamedayMode}
+                title={gamedayMode ? 'Game Day Mode: ON' : 'Game Day Mode: OFF'}
+                className={cn(
+                  'relative flex h-10 w-10 items-center justify-center rounded-full text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 active:scale-95',
+                  gamedayMode
+                    ? 'bg-[#0E3386] hover:bg-[#0a2766] ring-2 ring-yellow-300'
+                    : 'bg-[#C8102E] hover:bg-[#a30d25]'
+                )}
+              >
+                <Trophy className="h-[18px] w-[18px]" strokeWidth={2.25} />
+                {gamedayMode && (
+                  <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-yellow-300 ring-2 ring-white animate-pulse" />
+                )}
+              </button>
+            )}
             <Link
               to="/notifications"
               aria-label="Notifications"
-              className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)] ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
+              className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
             >
               <Bell className="h-[18px] w-[18px]" strokeWidth={2.25} />
               {unreadNotifs > 0 && (
@@ -155,13 +125,6 @@ export function AppHeader() {
                   {unreadNotifs > 99 ? '99+' : unreadNotifs}
                 </span>
               )}
-            </Link>
-            <Link
-              to="/settings"
-              aria-label="Settings"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)] ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
-            >
-              <Settings className="h-[18px] w-[18px]" strokeWidth={2.25} />
             </Link>
           </div>
         </div>

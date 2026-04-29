@@ -188,7 +188,7 @@ export function UserBaseballCard({
                   : 'border-border/50 bg-muted/40 hover:bg-primary/5'
               )}
             >
-              <RealisticEmoji src={r.image} alt={r.label} size="xs" />
+              <RealisticEmoji name={r.icon} alt={r.label} size="xs" />
             </button>
           ))}
         </div>

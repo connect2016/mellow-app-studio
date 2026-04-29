@@ -87,7 +87,7 @@ export function LiveChatFeed({ reactions, profiles, userId, onSend }: LiveChatFe
                 </div>
                 {isReaction && matchedReaction ? (
                   <div className="inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-secondary/10 border border-secondary/20 animate-scale-in">
-                    <RealisticEmoji src={matchedReaction.image} alt={matchedReaction.label} size="sm" animate />
+                    <RealisticEmoji name={matchedReaction.icon} alt={matchedReaction.label} size="sm" animate />
                     <span className="text-secondary font-bold text-sm">{matchedReaction.shortText}</span>
                   </div>
                 ) : isReaction ? (

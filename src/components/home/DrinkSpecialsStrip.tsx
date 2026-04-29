@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Beer } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface Special {
   bar: string;
@@ -37,7 +38,7 @@ export function DrinkSpecialsStrip() {
             className="snap-start shrink-0 w-[60%] sm:w-[42%] rounded-2xl overflow-hidden shadow-sm border border-border transition active:scale-[0.97] hover:shadow-md"
           >
             <div className={`h-20 bg-gradient-to-br ${s.accent} flex items-center justify-center text-4xl`}>
-              <ConceptIcon name={s.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+              <ConceptVisual name={s.emoji} size="sm" />
             </div>
             <div className="bg-card p-3">
               <p className="text-xs line-clamp-2 mt-1 text-destructive-foreground">

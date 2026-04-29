@@ -17,6 +17,7 @@ import { useGeofence } from '@/hooks/useGeofence';
 import { GameTriggerAnimation, useGameTrigger, detectGameTrigger } from '@/components/GameTriggerAnimation';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 export default function SectionChat() {
   const navigate = useNavigate();
@@ -332,7 +333,7 @@ export default function SectionChat() {
                       }
                     >
                       {hasTrigger && (
-                        <span className="text-base mr-1"><ConceptIcon name={hasTrigger.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                        <span className="text-base mr-1"><ConceptVisual name={hasTrigger.emoji} size="sm" /></span>
                       )}
                       {msg.body}
                     </div>

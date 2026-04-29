@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 // ────────────────────── Types ──────────────────────
 
@@ -327,7 +328,7 @@ export function GamePhaseTimeline() {
       {/* Phase header */}
       <div className={`flex items-center justify-between px-4 py-3 border-b border-border ${config.bgClass}`}>
         <div className="flex items-center gap-2">
-          <span className="text-lg"><ConceptIcon name={config.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+          <span className="text-lg"><ConceptVisual name={config.emoji} size="sm" /></span>
           <div>
             <h3 className="text-sm font-bold text-foreground">
               {config.label}
@@ -378,7 +379,7 @@ export function GamePhaseTimeline() {
                       className={`w-full text-left rounded-xl border p-3 transition-all hover:shadow-sm ${ACCENT_CLASSES[accentKey] ?? ''}`}
                     >
                       <div className="flex items-start gap-2.5">
-                        <span className="text-base mt-0.5 shrink-0"><ConceptIcon name={event.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                        <span className="text-base mt-0.5 shrink-0"><ConceptVisual name={event.emoji} size="sm" /></span>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-semibold text-foreground leading-snug">{event.headline}</p>
                           {event.subtext && (
@@ -396,7 +397,7 @@ export function GamePhaseTimeline() {
                   ) : event.type === 'milestone' ? (
                     <div className="rounded-xl border-2 border-dashed border-secondary/30 bg-secondary/[0.03] p-3">
                       <div className="flex items-center gap-2">
-                        <span className="text-base"><ConceptIcon name={event.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                        <span className="text-base"><ConceptVisual name={event.emoji} size="sm" /></span>
                         <div>
                           <p className="text-sm font-bold text-foreground">{event.headline}</p>
                           {event.subtext && <p className="text-[10px] text-muted-foreground">{event.subtext}</p>}
@@ -405,7 +406,7 @@ export function GamePhaseTimeline() {
                     </div>
                   ) : (
                     <div className="flex items-center gap-2.5">
-                      <span className="text-sm shrink-0"><ConceptIcon name={event.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                      <span className="text-sm shrink-0"><ConceptVisual name={event.emoji} size="sm" /></span>
                       <p className="text-xs text-foreground flex-1 min-w-0 truncate">{event.headline}</p>
                       {event.timestamp && (
                         <span className="text-[10px] text-muted-foreground whitespace-nowrap shrink-0">

@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { CURATED_BARS } from '@/lib/wrigleyville-bar-guide';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface Props {
   bars: string[];
@@ -65,7 +66,7 @@ export function FavoriteBarsSection({ bars, isOwner, onChange }: Props) {
                       disabled={disabled}
                       className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-muted disabled:opacity-40"
                     >
-                      <span className="text-base"><ConceptIcon name={bar.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                      <span className="text-base"><ConceptVisual name={bar.emoji} size="sm" /></span>
                       <span className="flex-1 truncate">{bar.name}</span>
                       {selected && <Check className="h-4 w-4 text-primary" />}
                     </button>
@@ -91,7 +92,7 @@ export function FavoriteBarsSection({ bars, isOwner, onChange }: Props) {
                 variant="secondary"
                 className="gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium"
               >
-                <ConceptIcon name={bar?.emoji ?? ''} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                <ConceptVisual name={bar?.emoji ?? ''} size="sm" />
                 {name}
                 {isOwner && (
                   <button

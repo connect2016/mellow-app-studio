@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Flame, Coffee, Trophy, Users, ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 export type VibeFilter = 'party' | 'chill' | 'hardcore';
 export type SizeFilter = 'solo' | 'small' | 'large';
@@ -73,7 +74,7 @@ export function MapFilters({
         <div className="flex gap-1 overflow-x-auto no-scrollbar">
           {VIBE_OPTIONS.map((v) => (
             <Chip key={v.key} active={vibes.includes(v.key)} onClick={() => onToggleVibe(v.key)}>
-              <span><ConceptIcon name={v.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+              <span><ConceptVisual name={v.emoji} size="sm" /></span>
               {v.label}
             </Chip>
           ))}

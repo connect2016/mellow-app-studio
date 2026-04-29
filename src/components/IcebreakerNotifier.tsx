@@ -5,6 +5,7 @@ import { getRandomIcebreaker } from '@/lib/icebreakers';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 /**
  * Invisible component that triggers "Social Pulse" icebreaker notifications
@@ -36,7 +37,7 @@ export function IcebreakerNotifier() {
       if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
 
       // Show toast
-      toast.info(`$<ConceptIcon name={icebreaker.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Social Pulse`, {
+      toast.info(`$<ConceptVisual name={icebreaker.emoji} size="sm" /> Social Pulse`, {
         description: icebreaker.text,
         duration: 8000,
       });
@@ -47,7 +48,7 @@ export function IcebreakerNotifier() {
         .insert({
           user_id: user.id,
           type: 'icebreaker',
-          title: `$<ConceptIcon name={icebreaker.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Social Pulse`,
+          title: `$<ConceptVisual name={icebreaker.emoji} size="sm" /> Social Pulse`,
           body: icebreaker.text,
           emoji: icebreaker.emoji,
           metadata: { bar_name: barName, buddy_count: othersAtBar.length },

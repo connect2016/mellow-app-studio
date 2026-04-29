@@ -5,6 +5,7 @@ import { X, Navigation, MapPin, Clock, Users, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FOOD_SPOTS, type FoodSpot, type GameDayPhase } from '@/lib/wrigleyville-eats';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface RestaurantInfo {
   /** Either pass a full FoodSpot id from the directory, or the raw fields below. */
@@ -112,7 +113,7 @@ export function RestaurantDetailSheet({ restaurant, onClose }: Props) {
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <ConceptIcon name={spot?.emoji || restaurant.emoji || ''} className="h-6 w-6" />
+                    <ConceptVisual name={spot?.emoji || restaurant.emoji || ''} size="sm" />
                     <h2 className="text-lg font-bold text-foreground leading-tight">
                       {restaurant.name}
                     </h2>
@@ -136,7 +137,7 @@ export function RestaurantDetailSheet({ restaurant, onClose }: Props) {
                 className={`mb-4 rounded-2xl border border-border bg-gradient-to-br ${phaseMeta.gradient} p-4`}
               >
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-lg"><ConceptIcon name={phaseMeta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                  <span className="text-lg"><ConceptVisual name={phaseMeta.emoji} size="sm" /></span>
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-foreground">
                     {phaseMeta.tag}
                   </p>

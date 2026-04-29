@@ -12,6 +12,7 @@ import { Zap, MessageCircle, ChevronDown } from 'lucide-react';
 import { ErrorState } from '@/components/ErrorState';
 import bgWrigleyvilleStreet from '@/assets/bg-wrigleyville-street.png';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const QUICK_REPLIES = [
   { emoji: '', text: 'My first game was unforgettable!' },
@@ -258,7 +259,7 @@ export default function HiFives() {
                                 disabled={hiFiveBack.isPending}
                                 className="flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 active:scale-95 transition-all"
                               >
-                                <span><ConceptIcon name={qr.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                                <span><ConceptVisual name={qr.emoji} size="sm" /></span>
                                 <span>{qr.text}</span>
                               </motion.button>
                             ))}

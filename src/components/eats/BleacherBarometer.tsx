@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const STATUS_DISPLAY: Record<string, { emoji: string; label: string }> = {
   looking_for_buddy: { emoji: '', label: 'Looking for a Buddy' },
@@ -243,7 +244,7 @@ export function BleacherBarometer() {
                         )}
                       </div>
                       <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="text-xs"><ConceptIcon name={statusMeta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                        <span className="text-xs"><ConceptVisual name={statusMeta.emoji} size="sm" /></span>
                         <span className="text-[10px] font-semibold text-muted-foreground">{statusMeta.label}</span>
                         <span className="text-[10px] text-muted-foreground/60">·</span>
                         <span className="text-[10px] text-muted-foreground/60">

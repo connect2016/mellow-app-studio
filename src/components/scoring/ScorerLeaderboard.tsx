@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { motion } from 'framer-motion';
 import { Trophy, Target, Flame, Award } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const TIER_BADGES = [
   { min: 0, label: 'Rookie Scorer', emoji: '', color: 'text-muted-foreground' },
@@ -101,7 +102,7 @@ export function ScorerLeaderboard() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="text-sm font-semibold text-foreground truncate">{scorer.profile?.display_name ?? 'Fan'}</span>
-                  <span className="text-xs" title={badge.label}><ConceptIcon name={badge.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                  <span className="text-xs" title={badge.label}><ConceptVisual name={badge.emoji} size="sm" /></span>
                 </div>
                 <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
                   <span className="flex items-center gap-0.5"><Award className="h-2.5 w-2.5" /> {scorer.games_scored} games</span>

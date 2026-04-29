@@ -9,6 +9,7 @@ import { BarVibeBadge } from '@/components/BarVibeBadge';
 import { BarVotePanel } from '@/components/BarVotePanel';
 import { format } from 'date-fns';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const crowdConfig: Record<VenueData['crowdLevel'], { label: string; color: string; emoji: string; bars: number }> = {
   empty: { label: 'Empty', color: 'bg-muted text-muted-foreground', emoji: '', bars: 0 },
@@ -52,7 +53,7 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="text-xl"><ConceptIcon name={crowd.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+          <span className="text-xl"><ConceptVisual name={crowd.emoji} size="sm" /></span>
           <div className="min-w-0">
             <h3 className="text-sm font-bold text-foreground truncate">
               {venue.name}

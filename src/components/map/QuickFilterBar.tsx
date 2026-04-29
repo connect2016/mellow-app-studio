@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 export type QuickMapFilter = 'all' | 'in-stadium' | 'bars' | 'looking-for-buddy';
 
@@ -31,7 +32,7 @@ export function QuickFilterBar({ active, onChange }: Props) {
                 : 'bg-muted text-muted-foreground hover:bg-muted/80'
             }`}
           >
-            <span><ConceptIcon name={f.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+            <span><ConceptVisual name={f.emoji} size="sm" /></span>
             {f.label}
           </motion.button>
         );

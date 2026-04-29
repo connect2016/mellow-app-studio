@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, CheckCircle2, XCircle, Clock } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface Prediction {
   id: string;
@@ -108,7 +109,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
           <div className="rounded-xl bg-primary/5 border border-primary/20 p-3 text-center">
             <p className="text-xs text-muted-foreground">Your prediction</p>
             <p className="text-sm font-bold text-foreground mt-1">
-              <ConceptIcon name={PREDICTION_OPTIONS.find(o => o.value === myPendingPrediction.predicted_play)?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />{' '}
+              <ConceptVisual name={PREDICTION_OPTIONS.find(o => o.value === myPendingPrediction.predicted_play)?.emoji} size="sm" />{' '}
               {PREDICTION_OPTIONS.find(o => o.value === myPendingPrediction.predicted_play)?.label}
             </p>
             <p className="text-[10px] text-muted-foreground mt-1 flex items-center justify-center gap-1">
@@ -128,7 +129,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
                       : 'border-border hover:border-primary/30 text-muted-foreground'
                   }`}
                 >
-                  <span className="text-base"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                  <span className="text-base"><ConceptVisual name={opt.emoji} size="sm" /></span>
                   <span className="leading-tight text-center">{opt.label}</span>
                   <span className="text-primary font-bold">+{opt.points}</span>
                 </button>
@@ -173,7 +174,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium text-foreground truncate">{profile?.display_name ?? 'Fan'}</p>
                     <p className="text-[10px] text-muted-foreground">
-                      <ConceptIcon name={opt?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {opt?.label} • {p.half === 'top' ? '▲' : '▼'}{p.inning}
+                      <ConceptVisual name={opt?.emoji} size="sm" /> {opt?.label} • {p.half === 'top' ? '▲' : '▼'}{p.inning}
                     </p>
                   </div>
                   {canResolve && (
@@ -207,7 +208,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
                     {p.is_correct ? '' : ''}
                   </span>
                   <span className="text-foreground font-medium">{profile?.display_name ?? 'Fan'}</span>
-                  <span className="text-muted-foreground"><ConceptIcon name={opt?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {opt?.label}</span>
+                  <span className="text-muted-foreground"><ConceptVisual name={opt?.emoji} size="sm" /> {opt?.label}</span>
                   {p.is_correct && p.points_awarded > 0 && (
                     <span className="ml-auto text-accent font-bold">+{p.points_awarded}pts</span>
                   )}

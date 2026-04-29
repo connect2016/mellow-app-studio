@@ -11,6 +11,7 @@ import { MissionStreak } from '@/components/MissionStreak';
 import { AchievementsHub } from '@/components/achievements/AchievementsHub';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const CATEGORY_CONFIG: Record<string, { label: string; emoji: string }> = {
   gameday: { label: 'Game Day', emoji: '' },
@@ -121,7 +122,7 @@ export default function Missions() {
                   {totalPoints}
                 </span>
                 <span className={`text-sm font-semibold ${tier.color}`}>
-                  <ConceptIcon name={tier.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {tier.name}
+                  <ConceptVisual name={tier.emoji} size="sm" /> {tier.name}
                 </span>
               </div>
             </div>
@@ -179,7 +180,7 @@ export default function Missions() {
                   : 'bg-card border border-border text-muted-foreground hover:text-foreground'
               }`}
             >
-              {cat === 'all' ? ' All' : `$<ConceptIcon name={CATEGORY_CONFIG[cat]?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${CATEGORY_CONFIG[cat]?.label}`}
+              {cat === 'all' ? ' All' : `$<ConceptVisual name={CATEGORY_CONFIG[cat]?.emoji} size="sm" /> ${CATEGORY_CONFIG[cat]?.label}`}
             </button>
           ))}
         </div>
@@ -245,7 +246,7 @@ export default function Missions() {
                     <div className={`flex h-11 w-11 items-center justify-center rounded-xl text-xl shrink-0 ${
                       isComplete ? 'bg-primary/10' : 'bg-muted'
                     }`}>
-                      <ConceptIcon name={isClaimed ? '' : m.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                      <ConceptVisual name={isClaimed ? '' : m.emoji} size="sm" />
                     </div>
 
                     <div className="flex-1 min-w-0">

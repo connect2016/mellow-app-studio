@@ -14,6 +14,7 @@ import { Progress } from '@/components/ui/progress';
 import { Card } from '@/components/ui/card';
 import { Trophy, Lock, Sparkles } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 function BadgeCard({
   badge,
@@ -52,7 +53,7 @@ function BadgeCard({
                 : 'bg-muted'
             }`}
           >
-            <ConceptIcon name={badge.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+            <ConceptVisual name={badge.emoji} size="sm" />
             {unlocked && (
               <motion.div
                 initial={{ scale: 0 }}
@@ -206,7 +207,7 @@ export default function Loyalty() {
                 transition={{ repeat: Infinity, duration: 1.2 }}
                 className="text-6xl mb-4"
               >
-                <ConceptIcon name={celebration.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                <ConceptVisual name={celebration.emoji} size="sm" />
               </motion.div>
               <h2 className="text-2xl font-bold text-foreground mb-2">
                 Pennant Unlocked! 

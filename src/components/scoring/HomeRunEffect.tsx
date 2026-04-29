@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 interface Particle {
   id: number;
@@ -123,7 +124,7 @@ export function HomeRunEffect({ trigger, playType }: HomeRunEffectProps) {
                 className="absolute"
                 style={{ fontSize: p.size }}
               >
-                <ConceptIcon name={p.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                <ConceptVisual name={p.emoji} size="sm" />
               </motion.div>
             );
           })}

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Sparkles, RefreshCw, Zap, Users } from 'lucide-react';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 export function VibeStatePanel() {
   const { currentVibe, vibeLoading, classify } = useVibeState();
@@ -21,7 +22,7 @@ export function VibeStatePanel() {
       const res = await classify.mutateAsync();
       if (res.vibe) {
         setResult(res.vibe);
-        toast.success(`Vibe updated: $<ConceptIcon name={res.vibe.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${VIBE_STATES[res.vibe.vibe_state]?.label || res.vibe.vibe_state}`);
+        toast.success(`Vibe updated: $<ConceptVisual name={res.vibe.emoji} size="sm" /> ${VIBE_STATES[res.vibe.vibe_state]?.label || res.vibe.vibe_state}`);
       }
     } catch (err: any) {
       toast.error(err.message || 'Failed to classify vibe');
@@ -92,7 +93,7 @@ export function VibeStatePanel() {
                     animate={{ scale: [1, 1.15, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    <ConceptIcon name={displayVibe.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                    <ConceptVisual name={displayVibe.emoji} size="sm" />
                   </motion.span>
                   <div className="flex-1">
                     <p className={`text-sm font-bold ${displayConf.color}`}>{displayConf.label}</p>
@@ -168,7 +169,7 @@ export function VibeStateBadge({ vibeState, vibeEmoji }: { vibeState?: string | 
   const conf = VIBE_STATES[vibeState] || VIBE_STATES.unknown;
   return (
     <span className={`inline-flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.5 rounded-full border ${conf.bg}`}>
-      <ConceptIcon name={vibeEmoji || conf.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+      <ConceptVisual name={vibeEmoji || conf.emoji} size="sm" />
       <span className={conf.color}>{conf.label}</span>
     </span>
   );

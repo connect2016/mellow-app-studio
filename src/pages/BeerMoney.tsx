@@ -39,6 +39,7 @@ import { SendToNonUserPanel } from '@/components/beer/SendToNonUserPanel';
 import { LiveBeerProof, BeerFomoToast } from '@/components/beer/LiveBeerProof';
 import { useLiveBeerFeed } from '@/hooks/useLiveBeerFeed';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 /* ─── Constants ─── */
 const AMOUNTS = [
@@ -470,7 +471,7 @@ export default function BeerMoney() {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-foreground truncate">{entry.name}</p>
                 </div>
-                <span className="text-sm"><ConceptIcon name={entry.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                <span className="text-sm"><ConceptVisual name={entry.emoji} size="sm" /></span>
                 <div className="text-right">
                   <p className="text-sm font-bold text-primary">{entry.rounds}</p>
                   <p className="text-[9px] text-muted-foreground">rounds</p>
@@ -822,7 +823,7 @@ export default function BeerMoney() {
                           {a.tag}
                         </span>
                       )}
-                      <span className="text-lg"><ConceptIcon name={a.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                      <span className="text-lg"><ConceptVisual name={a.emoji} size="sm" /></span>
                       <span className={`text-sm font-bold ${amount === a.value ? 'text-amber-300' : 'text-destructive-foreground'}`}>{a.label}</span>
                       <span className="text-[9px] text-muted-foreground">{a.desc}</span>
                     </motion.button>

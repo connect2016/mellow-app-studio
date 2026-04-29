@@ -18,6 +18,7 @@ import { useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { useToast } from '@/hooks/use-toast';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const TOTAL_STEPS = 5;
 
@@ -307,7 +308,7 @@ export default function Onboarding() {
               {/* Step header */}
               <div className="flex items-center gap-3 mb-6">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-3xl">
-                  <ConceptIcon name={currentMeta.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
+                  <ConceptVisual name={currentMeta.emoji} size="sm" />
                 </div>
                 <div>
                   <h2
@@ -444,7 +445,7 @@ export default function Onboarding() {
                                 : 'border-border bg-card text-foreground hover:border-primary/40'
                             }`}
                           >
-                            <span className="text-base leading-none"><ConceptIcon name={chip.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                            <span className="text-base leading-none"><ConceptVisual name={chip.emoji} size="sm" /></span>
                             <span>{chip.label}</span>
                           </button>
                         );
@@ -476,7 +477,7 @@ export default function Onboarding() {
                                 <span className="text-primary-foreground text-[9px] font-bold"></span>
                               </div>
                             )}
-                            <span className="text-2xl"><ConceptIcon name={card.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                            <span className="text-2xl"><ConceptVisual name={card.emoji} size="sm" /></span>
                             <div>
                               <span className="block text-sm font-semibold text-foreground">{card.label}</span>
                             </div>
@@ -531,7 +532,7 @@ export default function Onboarding() {
                                 <span className="text-secondary-foreground text-[9px] font-bold"></span>
                               </div>
                             )}
-                            <span className="text-2xl"><ConceptIcon name={card.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                            <span className="text-2xl"><ConceptVisual name={card.emoji} size="sm" /></span>
                             <span className="text-sm font-semibold text-foreground">{card.label}</span>
                           </button>
                         );
@@ -624,7 +625,7 @@ export default function Onboarding() {
                                 : 'border-border bg-card text-foreground hover:border-accent/40'
                             }`}
                           >
-                            <span className="text-xl"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                            <span className="text-xl"><ConceptVisual name={opt.emoji} size="sm" /></span>
                             <span className="text-sm font-semibold">{opt.label}</span>
                           </button>
                         );
@@ -753,7 +754,7 @@ export default function Onboarding() {
                               <span className="text-white text-xs font-bold"></span>
                             </motion.div>
                           )}
-                          <span className="text-4xl"><ConceptIcon name={p.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                          <span className="text-4xl"><ConceptVisual name={p.emoji} size="sm" /></span>
                           <div>
                             <span className={`block text-lg font-bold ${isSelected ? 'text-white' : 'text-foreground'}`}>{p.label}</span>
                             <span className={`block text-sm leading-snug ${isSelected ? 'text-white/80' : 'text-muted-foreground'}`}>{p.desc}</span>

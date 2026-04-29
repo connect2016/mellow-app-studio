@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useBarCheckins } from '@/hooks/useBarCheckins';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const STATUS_OPTIONS = [
   { key: 'looking_for_buddy', emoji: '', label: 'Looking for a Buddy', quickMsg: 'Looking for someone to hang with!' },
@@ -96,7 +97,7 @@ export function EatsCheckInButton({ spotName }: Props) {
                     onClick={() => { setSelectedStatus(opt.key); setCustomMessage(''); setStep('message'); }}
                     className="flex-1 flex items-center gap-2 rounded-xl border border-border bg-card hover:border-primary/50 hover:bg-primary/5 p-2.5 text-left transition-all"
                   >
-                    <span className="text-lg"><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                    <span className="text-lg"><ConceptVisual name={opt.emoji} size="sm" /></span>
                     <span className="text-xs font-semibold text-foreground">{opt.label}</span>
                   </button>
                   <Button
@@ -120,7 +121,7 @@ export function EatsCheckInButton({ spotName }: Props) {
         {step === 'message' && (
           <>
             <p className="text-xs font-semibold text-foreground text-center">
-              <ConceptIcon name={STATUS_OPTIONS.find(o => o.key === selectedStatus)?.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Add a quick status (optional)
+              <ConceptVisual name={STATUS_OPTIONS.find(o => o.key === selectedStatus)?.emoji} size="sm" /> Add a quick status (optional)
             </p>
             <Input
               placeholder="e.g. Who wants to split nachos?"

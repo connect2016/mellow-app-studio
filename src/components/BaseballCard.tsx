@@ -5,6 +5,7 @@ import { ShieldCheck, MapPin } from 'lucide-react';
 import { GamedayPersona, PERSONA_CONFIG } from '@/components/PersonaBadge';
 import logoTransparent from '@/assets/logo-transparent.png';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 // "Position" labels based on fan style / persona
 const POSITION_LABELS: Record<string, string> = {
@@ -327,7 +328,7 @@ export function BaseballCard({
 
               {persona && persona in PERSONA_CONFIG && (
                 <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="text-xs"><ConceptIcon name={PERSONA_CONFIG[persona as GamedayPersona].emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                  <span className="text-xs"><ConceptVisual name={PERSONA_CONFIG[persona as GamedayPersona].emoji} size="sm" /></span>
                   <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
                     {PERSONA_CONFIG[persona as GamedayPersona].label}
                   </span>

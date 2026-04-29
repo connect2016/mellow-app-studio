@@ -7,6 +7,7 @@ import { StatusBadge } from './StatusBadge';
 import { VibeStateBadge } from './VibeStatePanel';
 import { FanTierBadge } from './FanIdentityPanel';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const HIFIVE_TOOLTIP_KEY = 'cb_hifive_tooltip_views';
 const HIFIVE_STREAK_KEY = 'cb_hifive_streak';
@@ -309,7 +310,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
                             : 'bg-white/10 text-white/80 border-white/20'
                         }`}
                       >
-                        <span><ConceptIcon name={opt.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                        <span><ConceptVisual name={opt.emoji} size="sm" /></span>
                         <span>{opt.label}</span>
                       </span>
                     );
@@ -357,7 +358,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
         <div className="border-t border-border px-4 py-3 space-y-2">
           {prompts.map((p) => (
             <div key={p.label} className="rounded-xl bg-muted/50 px-3 py-2.5">
-              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-0.5"><ConceptIcon name={p.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {p.label}</p>
+              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-0.5"><ConceptVisual name={p.emoji} size="sm" /> {p.label}</p>
               <p className="text-sm font-medium text-foreground leading-snug">{p.value}</p>
             </div>
           ))}
@@ -387,7 +388,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
                     onClick={() => sendHiFiveWithMessage(ib.text)}
                     className="w-full flex items-center gap-2.5 rounded-xl border border-border bg-card px-3 py-2.5 text-left transition-all hover:border-primary/40 hover:bg-primary/5 active:scale-[0.98]"
                   >
-                    <span className="text-base shrink-0"><ConceptIcon name={ib.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
+                    <span className="text-base shrink-0"><ConceptVisual name={ib.emoji} size="sm" /></span>
                     <span className="text-sm font-medium text-foreground">{ib.text}</span>
                   </motion.button>
                 ))}

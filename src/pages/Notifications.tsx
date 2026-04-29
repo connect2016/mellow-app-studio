@@ -139,18 +139,63 @@ export default function Notifications() {
           </div>
         </div>
 
+        {/* Category filter chips */}
+        <div
+          className="flex gap-2 overflow-x-auto pb-3 -mx-1 px-1 [&::-webkit-scrollbar]:hidden"
+          style={{ scrollbarWidth: 'none' }}
+        >
+          {FILTERS.map(({ key, label, icon: Icon }) => {
+            const active = filter === key;
+            const count = counts[key];
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setFilter(key)}
+                className={cn(
+                  'shrink-0 inline-flex items-center gap-1.5 rounded-full px-3.5 min-h-[36px] text-[12px] font-bold whitespace-nowrap transition-all duration-150 active:scale-95',
+                  active
+                    ? 'bg-primary text-primary-foreground shadow-md'
+                    : 'bg-card/80 text-foreground border border-border hover:bg-card',
+                )}
+              >
+                <Icon className="h-3.5 w-3.5" strokeWidth={2.5} />
+                {label}
+                {count > 0 && (
+                  <span
+                    className={cn(
+                      'ml-0.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-extrabold',
+                      active
+                        ? 'bg-primary-foreground text-primary'
+                        : 'bg-primary text-primary-foreground',
+                    )}
+                  >
+                    {count > 99 ? '99+' : count}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
         {isLoading ? (
           <div className="py-16 text-center">
             <p className="text-4xl animate-pulse">🔔</p>
             <p className="mt-2 text-sm font-medium text-muted-foreground">Loading notifications...</p>
           </div>
-        ) : notifications.length === 0 ? (
+        ) : filtered.length === 0 ? (
           <div className="py-16 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
               <Bell className="h-8 w-8 text-muted-foreground" />
             </div>
-            <p className="font-semibold text-foreground">All caught up!</p>
-            <p className="text-sm text-muted-foreground mt-1">We'll notify you when something happens</p>
+            <p className="font-semibold text-foreground">
+              {filter === 'all' ? 'All caught up!' : 'Nothing here yet'}
+            </p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {filter === 'all'
+                ? "We'll notify you when something happens"
+                : 'Try another category or check back later.'}
+            </p>
           </div>
         ) : (
           <div className="space-y-5">

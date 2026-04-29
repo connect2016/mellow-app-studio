@@ -1,10 +1,12 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useRef } from 'react';
-import { X, Navigation, Clock, MapPin, Star, Users } from 'lucide-react';
+import { useMemo, useRef, useState } from 'react';
+import { X, Navigation, Clock, MapPin, Star, Users, Utensils, CalendarPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BarCheckInButton } from '@/components/map/BarCheckInButton';
 import { WhosHereNow } from '@/components/map/WhosHereNow';
 import { useBarCheckins } from '@/hooks/useBarCheckins';
+import { FOOD_SPOTS } from '@/lib/wrigleyville-eats';
+import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
 
 interface BarInfo {
   name: string;

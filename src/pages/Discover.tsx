@@ -340,33 +340,88 @@ export default function Discover() {
           </p>
         </div>
 
-        {/* Game Day banner — only renders on game days */}
-        <GameDayBanner />
-
-        {/* Friend-finding hero banner */}
-        <FindFansBanner />
-
-        {/* Personalized carousel: New Fans · Meetups · Bars · Crew Picks */}
-        <HomeQuickCarousel />
-
-        {/* Suggested fans strip */}
-        <div className="mb-2">
-          <div className="px-4 mb-1 flex items-baseline justify-between">
-            <h2
-              className="text-[15px] font-extrabold uppercase tracking-wide text-white"
-              style={{ fontFamily: 'Norwester, sans-serif', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}
-            >
-              Suggested Fans Nearby
-            </h2>
-            <Link to="/discover" className="text-[11px] font-bold text-white/90 underline-offset-2 hover:underline">
-              See all
-            </Link>
+        {/* Today / Tonight Mode toggle */}
+        <div
+          className={cn(
+            'rounded-xl border px-3 py-2 mb-4 flex items-center justify-between gap-2 bg-card/80 backdrop-blur-sm',
+            tonight.active ? 'border-yellow-300/70 tonight-mode-glow' : 'border-border'
+          )}
+        >
+          <div className="flex items-center gap-2 min-w-0">
+            <span className={cn(
+              'flex h-7 w-7 items-center justify-center rounded-full',
+              tonight.active ? 'bg-yellow-300 text-[#0E3386]' : 'bg-muted text-muted-foreground'
+            )}>
+              {tonight.active ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+            </span>
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-foreground leading-tight">
+                {tonight.active ? 'Tonight Mode' : 'Today'}
+              </p>
+              <p className="text-[11px] text-muted-foreground truncate">
+                {tonight.active
+                  ? (tonight.nearWrigley ? 'Live near Wrigley · fans, meetups, bars only' : 'Game-night focus · fans, meetups, bars only')
+                  : 'Full home feed'}
+              </p>
+            </div>
           </div>
-          <WhosNearbyCarousel />
+          <div className="flex items-center gap-1 rounded-full bg-muted p-0.5">
+            <button
+              type="button"
+              onClick={() => tonight.setActive(false)}
+              className={cn(
+                'px-3 h-8 rounded-full text-[11px] font-bold transition-colors',
+                !tonight.active ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
+              )}
+            >
+              Today
+            </button>
+            <button
+              type="button"
+              onClick={() => tonight.setActive(true)}
+              className={cn(
+                'px-3 h-8 rounded-full text-[11px] font-bold transition-colors flex items-center gap-1',
+                tonight.active ? 'bg-[#0E3386] text-white shadow-sm' : 'text-muted-foreground'
+              )}
+            >
+              <Moon className="h-3 w-3" /> Tonight
+            </button>
+          </div>
         </div>
 
-        {/* Personalized feed: meetups, vibes, map, specials, photos, carb-up */}
-        <HomeDashboard />
+        {tonight.active ? (
+          <TonightModeView className="mb-4" />
+        ) : (
+          <>
+            {/* Game Day banner — only renders on game days */}
+            <GameDayBanner />
+
+            {/* Friend-finding hero banner */}
+            <FindFansBanner />
+
+            {/* Personalized carousel: New Fans · Meetups · Bars · Crew Picks */}
+            <HomeQuickCarousel />
+
+            {/* Suggested fans strip */}
+            <div className="mb-2">
+              <div className="px-4 mb-1 flex items-baseline justify-between">
+                <h2
+                  className="text-[15px] font-extrabold uppercase tracking-wide text-white"
+                  style={{ fontFamily: 'Norwester, sans-serif', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}
+                >
+                  Suggested Fans Nearby
+                </h2>
+                <Link to="/discover" className="text-[11px] font-bold text-white/90 underline-offset-2 hover:underline">
+                  See all
+                </Link>
+              </div>
+              <WhosNearbyCarousel />
+            </div>
+
+            {/* Personalized feed: meetups, vibes, map, specials, photos, carb-up */}
+            <HomeDashboard />
+          </>
+        )}
 
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />

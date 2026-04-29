@@ -68,6 +68,7 @@ export function AppHeader() {
   const location = useLocation();
   const { data: badges } = useNotificationCounts();
   const unreadNotifs = useUnreadCount();
+  const { gamedayMode, toggleGamedayMode } = useGamedayMode();
 
   const getBadge = (path: string): number => {
     if (!badges) return 0;

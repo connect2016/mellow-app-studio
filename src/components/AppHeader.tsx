@@ -10,9 +10,8 @@ import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
   { to: '/discover', icon: Home, label: 'Home' },
+  { to: '/bar-map', icon: MapPin, label: 'Map' },
   { to: '/meetups', icon: Users, label: 'Meetups' },
-  { to: '/bar-map', icon: MapPin, label: 'Bars' },
-  { to: '/game-day', icon: Trophy, label: 'Game Day' },
   { to: '/profile', icon: User, label: 'Profile' },
 ];
 

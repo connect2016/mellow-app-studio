@@ -55,6 +55,31 @@ export function deriveVibeTags(meetup: { description?: string | null; meeting_ti
   return tags.slice(0, 3);
 }
 
+import type { MeetupCategory } from '@/components/meetups/MeetupCategoryBadge';
+
+/**
+ * Derive a single meetup category from title/description/location heuristics.
+ * Returns null when nothing matches confidently — caller can hide the badge.
+ */
+export function deriveMeetupCategory(meetup: {
+  description?: string | null;
+  location_name?: string | null;
+  meeting_time?: string;
+}): MeetupCategory | null {
+  const desc = (meetup.description || '').toLowerCase();
+  const loc = (meetup.location_name || '').toLowerCase();
+  const blob = `${desc} ${loc}`;
+
+  if (/flash|right now|asap|going now/.test(blob)) return 'flash';
+  if (/pre.?game|warm.?up|tailgate|first.?pitch/.test(blob)) return 'pregame';
+  if (/post.?game|after.?party|nightcap|after the game/.test(blob)) return 'postgame';
+  if (/watch.?party|catch the game|game watch/.test(blob)) return 'game_watch';
+  if (/dinner|lunch|brunch|tacos?|pizza|food|eats|sandwich|burger/.test(blob)) return 'food';
+  if (/beer|brews|cocktail|drinks?|happy hour|round/.test(blob)) return 'drinks';
+  if (/bar|pub|tavern|sluggers|murphy|cubby bear|hvac|casey/.test(blob)) return 'bar_hang';
+  return null;
+}
+
 export function useMeetupDetail(meetupId: string | undefined) {
   const { user } = useAuth();
 

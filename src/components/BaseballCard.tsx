@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { IntentType, INTENT_LABELS, INTENT_EMOJI, GameStatus, GAME_STATUS_LABELS, GAME_STATUS_EMOJI } from '@/types';
 import { ShieldCheck, MapPin } from 'lucide-react';
 import { GamedayPersona, PERSONA_CONFIG } from '@/components/PersonaBadge';
+import { PersonaIcon } from '@/components/icons/PersonaIcons';
 import logoTransparent from '@/assets/logo-transparent.png';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
@@ -327,9 +328,9 @@ export function BaseballCard({
               )}
 
               {persona && persona in PERSONA_CONFIG && (
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="text-xs"><ConceptVisual name={PERSONA_CONFIG[persona as GamedayPersona].emoji} size="sm" /></span>
-                  <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
+                <div className="flex items-center gap-1.5 mt-0.5" style={{ color: '#CC3433' }}>
+                  <PersonaIcon name={persona} size={12} strokeWidth={2} />
+                  <span className="text-[9px] font-bold uppercase tracking-wider">
                     {PERSONA_CONFIG[persona as GamedayPersona].label}
                   </span>
                 </div>

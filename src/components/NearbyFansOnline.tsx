@@ -47,14 +47,19 @@ export function NearbyFansOnline() {
       className="w-full rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-4 text-left transition-all hover:border-primary/30"
     >
       <div className="flex items-center gap-2 mb-2">
-        <div className="relative">
-          <Users className="h-4 w-4 text-primary" />
-          <span className="absolute -top-1 -right-1 flex h-2 w-2">
+        <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <Users className="h-4 w-4" strokeWidth={2.4} />
+          <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
           </span>
-        </div>
-        <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Fans Nearby</span>
+        </span>
+        <span
+          className="text-xs font-extrabold uppercase tracking-wide text-foreground"
+          style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.5px' }}
+        >
+          Fans Nearby
+        </span>
       </div>
 
       <p className="text-lg font-bold text-foreground">
@@ -64,12 +69,12 @@ export function NearbyFansOnline() {
       <div className="flex flex-wrap gap-2 mt-2">
         {data.atWrigley > 0 && (
           <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
-             {data.atWrigley} at Wrigley
+            <Users className="h-3 w-3" /> {data.atWrigley} at Wrigley
           </span>
         )}
         {data.atBars > 0 && (
           <span className="inline-flex items-center gap-1 rounded-full bg-secondary/10 px-2.5 py-1 text-[11px] font-medium text-secondary">
-             {data.atBars} at bars
+            <Users className="h-3 w-3" /> {data.atBars} at bars
           </span>
         )}
         {data.topBar && (

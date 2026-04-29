@@ -19,6 +19,7 @@ import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { useToast } from '@/hooks/use-toast';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { PersonaIcon } from '@/components/icons/PersonaIcons';
 
 const TOTAL_STEPS = 5;
 
@@ -729,9 +730,13 @@ export default function Onboarding() {
                   </p>
                   <div className="space-y-3">
                     {([
-                      { value: 'die_hard', emoji: '', label: 'The Die-Hard', desc: 'You live and breathe the score. Every pitch matters.', gradient: 'from-red-600 to-red-800', border: 'border-red-500' },
-                      { value: 'social_butterfly', emoji: '', label: 'The Social Butterfly', desc: "You're here for the vibes, the beers, and the new friends.", gradient: 'from-amber-500 to-orange-600', border: 'border-amber-400' },
-                      { value: 'tourist', emoji: '', label: 'The Tourist', desc: "First time at Wrigley? We'll make it unforgettable.", gradient: 'from-sky-500 to-blue-600', border: 'border-sky-400' },
+                      { value: 'die_hard', label: 'The Die-Hard', desc: 'You live and breathe the score. Every pitch matters.', gradient: 'from-red-600 to-red-800', border: 'border-red-500' },
+                      { value: 'social_butterfly', label: 'The Social Butterfly', desc: "You're here for the vibes, the beers, and the new friends.", gradient: 'from-amber-500 to-orange-600', border: 'border-amber-400' },
+                      { value: 'bleacher_creature', label: 'Bleacher Creature', desc: "Sun, suds, and section 309. You ARE the bleachers.", gradient: 'from-emerald-600 to-green-700', border: 'border-emerald-400' },
+                      { value: 'stats_nerd', label: 'Stats Nerd', desc: 'OPS, WAR, exit velo — you keep score with a pencil.', gradient: 'from-indigo-600 to-blue-700', border: 'border-indigo-400' },
+                      { value: 'foodie_fan', label: 'Foodie Fan', desc: 'You map your day around tacos and a cold one.', gradient: 'from-rose-500 to-pink-600', border: 'border-rose-400' },
+                      { value: 'first_timer', label: 'First-Timer', desc: "Your first Wrigley game. We'll show you the ropes.", gradient: 'from-teal-500 to-cyan-600', border: 'border-teal-400' },
+                      { value: 'tourist', label: 'The Tourist', desc: "Visiting Chicago? Let's make Wrigley unforgettable.", gradient: 'from-sky-500 to-blue-600', border: 'border-sky-400' },
                     ] as const).map((p) => {
                       const isSelected = gamedayPersona === p.value;
                       return (
@@ -754,7 +759,13 @@ export default function Onboarding() {
                               <span className="text-white text-xs font-bold"></span>
                             </motion.div>
                           )}
-                          <span className="text-4xl"><ConceptVisual name={p.emoji} size="sm" /></span>
+                          <span
+                            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${
+                              isSelected ? 'bg-white/15 text-white' : 'bg-primary/10 text-primary'
+                            }`}
+                          >
+                            <PersonaIcon name={p.value} size={28} strokeWidth={1.8} />
+                          </span>
                           <div>
                             <span className={`block text-lg font-bold ${isSelected ? 'text-white' : 'text-foreground'}`}>{p.label}</span>
                             <span className={`block text-sm leading-snug ${isSelected ? 'text-white/80' : 'text-muted-foreground'}`}>{p.desc}</span>

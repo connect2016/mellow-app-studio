@@ -87,6 +87,9 @@ export default function Discover() {
   useGeoUpdater();
   const tracker = useMissionTracker();
   const compatMap = useCompatibility(profiles);
+  const { data: cubsGame } = useMlbCubsGame();
+  const isGameDay = !!cubsGame && cubsGame.status !== 'no-game';
+  const tonight = useTonightMode({ isGameDay });
 
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);

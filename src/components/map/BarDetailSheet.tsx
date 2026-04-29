@@ -1,10 +1,12 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useRef } from 'react';
-import { X, Navigation, Clock, MapPin, Star, Users } from 'lucide-react';
+import { useMemo, useRef, useState } from 'react';
+import { X, Navigation, Clock, MapPin, Star, Users, Utensils, CalendarPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BarCheckInButton } from '@/components/map/BarCheckInButton';
 import { WhosHereNow } from '@/components/map/WhosHereNow';
 import { useBarCheckins } from '@/hooks/useBarCheckins';
+import { FOOD_SPOTS } from '@/lib/wrigleyville-eats';
+import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
 
 interface BarInfo {
   name: string;
@@ -35,6 +37,27 @@ export function BarDetailSheet({ bar, onClose }: Props) {
   const info = bar ? BAR_VIBES[bar.name] : null;
   const { visibleCheckins } = useBarCheckins(bar?.name);
   const fansListRef = useRef<HTMLDivElement | null>(null);
+  const [showCreateMeetup, setShowCreateMeetup] = useState(false);
+
+  // Find up to 3 nearest food spots within ~600m for recommendations
+  const foodRecs = useMemo(() => {
+    if (!bar) return [];
+    const distKm = (a: { lat: number; lng: number }, b: { lat: number; lng: number }) => {
+      const R = 6371;
+      const toRad = (n: number) => (n * Math.PI) / 180;
+      const dLat = toRad(b.lat - a.lat);
+      const dLng = toRad(b.lng - a.lng);
+      const x =
+        Math.sin(dLat / 2) ** 2 +
+        Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
+      return 2 * R * Math.asin(Math.sqrt(x));
+    };
+    return [...FOOD_SPOTS]
+      .filter((s) => s.name !== bar.name)
+      .map((s) => ({ ...s, _d: distKm(bar, s) }))
+      .sort((a, b) => a._d - b._d)
+      .slice(0, 3);
+  }, [bar]);
 
   const scrollToFans = () => {
     fansListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -74,6 +97,10 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                   <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                     <MapPin className="h-3.5 w-3.5 shrink-0" />
                     <span>{bar.address}</span>
+                  </div>
+                  <div className="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-bold">
+                    <Users className="h-3 w-3" />
+                    {visibleCheckins.length} {visibleCheckins.length === 1 ? 'Buddy' : 'Buddies'} here now
                   </div>
                 </div>
                 <button
@@ -137,8 +164,41 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                 )}
               </div>
 
+              {/* Food recommendations */}
+              {foodRecs.length > 0 && (
+                <div className="mb-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Utensils className="h-4 w-4 text-primary" />
+                    <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Eat Nearby</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {foodRecs.map((spot) => (
+                      <div
+                        key={spot.id}
+                        className="flex items-center gap-3 rounded-xl border border-border bg-muted/30 p-3"
+                      >
+                        <span className="text-xl shrink-0">{spot.emoji}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-bold text-foreground truncate">{spot.name}</p>
+                          <p className="text-[11px] text-muted-foreground truncate">
+                            {spot.vibe} · {spot.walkMinutes} min walk
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Actions */}
               <div className="space-y-3">
+                <Button
+                  onClick={() => setShowCreateMeetup(true)}
+                  className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 text-secondary-foreground shadow-lg"
+                >
+                  <CalendarPlus className="h-4 w-4" />
+                  Start a Meetup Here
+                </Button>
                 {bar.type !== 'landmark' && (
                   <BarCheckInButton barName={bar.name} />
                 )}
@@ -159,6 +219,11 @@ export function BarDetailSheet({ bar, onClose }: Props) {
               </div>
             </div>
           </motion.div>
+          <CreateMeetupModal
+            open={showCreateMeetup}
+            onClose={() => setShowCreateMeetup(false)}
+            defaultLocation={bar.name}
+          />
         </>
       )}
     </AnimatePresence>

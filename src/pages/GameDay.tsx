@@ -82,9 +82,18 @@ export default function GameDay() {
             </div>
             {fanCounts && (
               <div className="flex items-center gap-3 text-[11px] text-white/85 drop-shadow">
-                <span><strong className="text-white tabular-nums">{fanCounts.wrigley}</strong> </span>
-                <span><strong className="text-white tabular-nums">{fanCounts.bars}</strong> </span>
-                <span><strong className="text-white tabular-nums">{fanCounts.total}</strong> live</span>
+                <span className="inline-flex items-center gap-1">
+                  <ConceptIcon name="baseball" className="h-3 w-3" />
+                  <strong className="text-white tabular-nums">{fanCounts.wrigley}</strong>
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <ConceptIcon name="beer" className="h-3 w-3" />
+                  <strong className="text-white tabular-nums">{fanCounts.bars}</strong>
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <ConceptIcon name="people" className="h-3 w-3" />
+                  <strong className="text-white tabular-nums">{fanCounts.total}</strong> live
+                </span>
               </div>
             )}
           </div>
@@ -99,8 +108,9 @@ export default function GameDay() {
             animate={{ opacity: 1, y: 0 }}
             className="pt-1"
           >
-            <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-amber-300 drop-shadow-md">
-              {isLive ? ' Live · The Friendly Confines' : isOffDay ? ' Off-day' : ' Game Day'}
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-amber-300 drop-shadow-md">
+              <ConceptIcon name={isLive ? 'fire' : isOffDay ? 'moon' : 'baseball'} className="h-3 w-3" />
+              {isLive ? 'Live · The Friendly Confines' : isOffDay ? 'Off-day' : 'Game Day'}
             </div>
             <h1 className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-white drop-shadow-lg">
               Game Day Mode

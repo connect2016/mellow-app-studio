@@ -8,6 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { useUnreadCount } from '@/hooks/useNotifications';
+import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
 
 const navItems = [
   { to: '/discover', icon: Home, label: 'Home' },
@@ -70,6 +71,7 @@ export function AppHeader() {
   const { data: badges } = useNotificationCounts();
   const unreadNotifs = useUnreadCount();
   const { gamedayMode, toggleGamedayMode } = useGamedayMode();
+  useSwipeNavigation();
 
   const getBadge = (path: string): number => {
     if (!badges) return 0;

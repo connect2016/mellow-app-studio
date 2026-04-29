@@ -110,6 +110,8 @@ const App = () => (
              <Route path="/dugout" element={<Dugout />} />
              <Route path="*" element={<NotFound />} />
           </Routes>
+          <CreateMeetupFab />
+          </CreateMeetupProvider>
           </GamedayModeProvider>
           </GuestModeProvider>
         </AuthProvider>

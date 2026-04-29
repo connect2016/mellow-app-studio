@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Flame, Users, ChevronRight, MapPin } from 'lucide-react';
+import { Users, ChevronRight, MapPin } from 'lucide-react';
 import { useVenueActivity } from '@/hooks/useVenueActivity';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { SectionHeader } from '@/components/SectionHeader';
 

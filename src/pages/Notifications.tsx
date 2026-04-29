@@ -1,12 +1,42 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications, useMarkRead, useMarkAllRead, useClearNotifications } from '@/hooks/useNotifications';
 import { Button } from '@/components/ui/button';
-import { Bell, Check, CheckCheck, Trash2 } from 'lucide-react';
+import { Bell, Check, CheckCheck, Trash2, Users, MapPin, Trophy, Utensils, Hand } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
+
+type FilterKey = 'all' | 'meetups' | 'fans' | 'gameday' | 'food' | 'hifives';
+
+const FILTERS: { key: FilterKey; label: string; icon: typeof Bell }[] = [
+  { key: 'all', label: 'All', icon: Bell },
+  { key: 'meetups', label: 'Meetups', icon: Users },
+  { key: 'fans', label: 'Fans Nearby', icon: MapPin },
+  { key: 'gameday', label: 'Game Day', icon: Trophy },
+  { key: 'food', label: 'Food', icon: Utensils },
+  { key: 'hifives', label: 'Hi-Fives', icon: Hand },
+];
+
+function categorize(type: string): FilterKey {
+  if (type.startsWith('meetup')) return 'meetups';
+  if (type.startsWith('game') || type === 'weather') return 'gameday';
+  if (type === 'hi_five' || type.includes('streak')) return 'hifives';
+  if (type === 'food' || type.includes('food') || type === 'eats') return 'food';
+  if (
+    type === 'match' ||
+    type === 'message' ||
+    type === 'friend_checkin' ||
+    type === 'friend_meetup' ||
+    type === 'fans_nearby' ||
+    type === 'teammate_request' ||
+    type === 'teammate_accepted'
+  )
+    return 'fans';
+  return 'all';
+}
 
 export default function Notifications() {
   const navigate = useNavigate();

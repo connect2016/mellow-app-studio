@@ -120,45 +120,203 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Floating action button — soft bounce when nearby activity detected */
-@keyframes fab-bounce-soft {
-  0%, 100% { transform: translate(-50%, 0); }
-  50%      { transform: translate(-50%, -6px); }
-}
-.animate-bounce-soft {
-  animation: fab-bounce-soft 1.6s ease-in-out infinite;
+/* =========================================================
+   MOTION SYSTEM — FAB · Swipe Nav · Tonight Mode
+   Tokens
+   --------------------------------------------------------- */
+:root {
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-route:     cubic-bezier(0.25, 0.8, 0.25, 1);
+  --ease-elastic:   cubic-bezier(0.15, 0.85, 0.35, 1.2);
+  --ease-out-soft:  cubic-bezier(0.16, 1, 0.3, 1);
+  --cubs-blue:      210 100% 35%;   /* warm Cubs blue for glow */
 }
 
-/* Swipe-nav edge feedback */
-@keyframes swipe-edge-in-left {
-  0%   { opacity: 0; transform: translateX(-12px); }
-  60%  { opacity: 1; transform: translateX(0); }
-  100% { opacity: 0; transform: translateX(0); }
+/* ---------- Floating Action Button ---------- */
+
+/* Entrance: fade + slide-up 12px (240ms, ease-out-quint) */
+@keyframes fab-enter {
+  0%   { opacity: 0; transform: translate(-50%, 12px); }
+  100% { opacity: 1; transform: translate(-50%, 0);    }
 }
-@keyframes swipe-edge-in-right {
-  0%   { opacity: 0; transform: translateX(12px); }
-  60%  { opacity: 1; transform: translateX(0); }
-  100% { opacity: 0; transform: translateX(0); }
+.fab-enter {
+  animation: fab-enter 240ms var(--ease-out-quint) both;
+}
+
+/* Idle attention pulse: friendly, 1.4s loop, 100→106→100, opacity 100→85→100 */
+@keyframes fab-attention-pulse {
+  0%, 100% { transform: translate(-50%, 0)         scale(1);    opacity: 1;    }
+  50%      { transform: translate(-50%, 0)         scale(1.06); opacity: 0.85; }
+}
+.fab-attention {
+  animation: fab-attention-pulse 1.4s ease-in-out infinite;
+}
+
+/* Tap spring: down to 94% then overshoot 103% then settle */
+@keyframes fab-tap-spring {
+  0%   { transform: translate(-50%, 0) scale(1);    }
+  20%  { transform: translate(-50%, 0) scale(0.94); }
+  60%  { transform: translate(-50%, 0) scale(1.03); }
+  100% { transform: translate(-50%, 0) scale(1);    }
+}
+.fab-tap {
+  animation: fab-tap-spring 320ms var(--ease-out-soft) both;
+}
+
+/* Hide / reveal on scroll (180ms ease-out) */
+.fab-hidden {
+  transform: translate(-50%, 20px) !important;
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: transform 180ms ease-out, opacity 180ms ease-out;
+}
+.fab-revealed {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  transition: transform 180ms ease-out, opacity 180ms ease-out;
+}
+
+/* Active-touch micro-scale */
+.fab-base {
+  transition: transform 120ms ease-out, box-shadow 200ms ease-out;
+}
+.fab-base:hover  { transform: translate(-50%, 0) scale(1.025); }
+.fab-base:active { transform: translate(-50%, 0) scale(0.94);  }
+
+/* ---------- Swipe Nav ---------- */
+
+/* Edge-resistance feedback when user swipes but doesn't cross threshold */
+@keyframes swipe-edge-elastic-left {
+  0%   { transform: translateX(0); }
+  45%  { transform: translateX(-12px); }
+  100% { transform: translateX(0); }
+}
+@keyframes swipe-edge-elastic-right {
+  0%   { transform: translateX(0); }
+  45%  { transform: translateX(12px); }
+  100% { transform: translateX(0); }
+}
+.swipe-elastic-left  { animation: swipe-edge-elastic-left  180ms var(--ease-elastic) both; }
+.swipe-elastic-right { animation: swipe-edge-elastic-right 180ms var(--ease-elastic) both; }
+
+/* Route transition — outgoing slides 100%, incoming slides in from 20% */
+@keyframes route-out-left   { to { transform: translateX(-100%); opacity: 0.6; } }
+@keyframes route-out-right  { to { transform: translateX(100%);  opacity: 0.6; } }
+@keyframes route-in-left    { from { transform: translateX(20%);  opacity: 0.6; } to { transform: translateX(0); opacity: 1; } }
+@keyframes route-in-right   { from { transform: translateX(-20%); opacity: 0.6; } to { transform: translateX(0); opacity: 1; } }
+
+.route-anim-out-left  { animation: route-out-left  260ms var(--ease-route) both; }
+.route-anim-out-right { animation: route-out-right 260ms var(--ease-route) both; }
+.route-anim-in-left   { animation: route-in-left   260ms var(--ease-route) both; }
+.route-anim-in-right  { animation: route-in-right  260ms var(--ease-route) both; }
+
+/* Parallax: backgrounds drift slower than foreground */
+.route-parallax-bg-left  { animation: route-out-left  260ms var(--ease-route) both; animation-duration: 260ms; transform-origin: center; }
+.route-parallax-bg-right { animation: route-out-right 260ms var(--ease-route) both; }
+[data-route-parallax="bg"] { will-change: transform; }
+[data-route-parallax="fg"] { will-change: transform; }
+
+/* Live-drag transform helper class — JS sets --drag-x */
+.swipe-drag {
+  transform: translateX(var(--drag-x, 0px));
+  transition: transform 0ms linear;
+  will-change: transform;
+}
+.swipe-drag-bg {
+  transform: translateX(calc(var(--drag-x, 0px) * 0.4));
+  transition: transform 0ms linear;
+  will-change: transform;
+}
+
+/* Edge flash (kept; lighter) */
+@keyframes swipe-edge-flash-in {
+  0%   { opacity: 0; }
+  40%  { opacity: 1; }
+  100% { opacity: 0; }
 }
 .swipe-edge-flash {
   position: fixed;
   top: 0;
   bottom: 0;
-  width: 4px;
+  width: 6px;
   z-index: 9999;
   pointer-events: none;
-  background: linear-gradient(to right, hsla(355, 78%, 42%, 0.6), transparent);
 }
-.swipe-edge-flash--left  { left: 0;  animation: swipe-edge-in-left  0.32s ease-out forwards; }
-.swipe-edge-flash--right { right: 0; animation: swipe-edge-in-right 0.32s ease-out forwards; background: linear-gradient(to left, hsla(355, 78%, 42%, 0.6), transparent); }
+.swipe-edge-flash--left  { left: 0;  background: linear-gradient(to right, hsla(355, 78%, 42%, 0.55), transparent); animation: swipe-edge-flash-in 320ms ease-out forwards; }
+.swipe-edge-flash--right { right: 0; background: linear-gradient(to left,  hsla(355, 78%, 42%, 0.55), transparent); animation: swipe-edge-flash-in 320ms ease-out forwards; }
 
-/* Tonight Mode glow */
+/* ---------- Tonight Mode ---------- */
+
+/* Activation lift — content slides up 24px + fade in (320ms) */
+@keyframes tonight-activate {
+  0%   { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0);    }
+}
+.tonight-activate {
+  animation: tonight-activate 320ms var(--ease-out-quint) both;
+}
+
+/* Exit — fade + slide-down 16px (260ms) */
+@keyframes tonight-exit {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(16px); }
+}
+.tonight-exit {
+  animation: tonight-exit 260ms var(--ease-route) both;
+}
+
+/* Background dim wrapper */
+.tonight-dim::before {
+  content: "";
+  position: fixed; inset: 0;
+  background: rgba(5, 10, 22, 0.55);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  animation: tonight-dim-in 320ms var(--ease-out-quint) forwards;
+}
+@keyframes tonight-dim-in { to { opacity: 1; } }
+
+/* Header badge brief glow flash on activation */
+@keyframes tonight-badge-flash {
+  0%   { box-shadow: 0 0 0 0 hsla(var(--cubs-blue), 0); }
+  50%  { box-shadow: 0 0 0 8px hsla(var(--cubs-blue), 0.45), 0 0 24px hsla(var(--cubs-blue), 0.55); }
+  100% { box-shadow: 0 0 0 0 hsla(var(--cubs-blue), 0); }
+}
+.tonight-badge-flash {
+  animation: tonight-badge-flash 1.2s ease-in-out 1;
+}
+
+/* Continuous warm-blue badge glow loop (subtle) */
 @keyframes tonight-glow {
-  0%, 100% { box-shadow: 0 0 0 0 hsla(45, 100%, 60%, 0.4), 0 0 18px hsla(45, 100%, 60%, 0.25) inset; }
-  50%      { box-shadow: 0 0 12px 4px hsla(45, 100%, 60%, 0.5), 0 0 28px hsla(45, 100%, 60%, 0.4) inset; }
+  0%, 100% { box-shadow: 0 0 0 0 hsla(var(--cubs-blue), 0.0), 0 0 14px hsla(var(--cubs-blue), 0.25) inset; }
+  50%      { box-shadow: 0 0 14px 3px hsla(var(--cubs-blue), 0.45), 0 0 24px hsla(var(--cubs-blue), 0.35) inset; }
 }
 .tonight-mode-glow {
   animation: tonight-glow 2.4s ease-in-out infinite;
+}
+
+/* Staggered list-item entrance: slide-up 8px + fade, 40ms per index */
+@keyframes tonight-item-in {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0);   }
+}
+.tonight-item {
+  animation: tonight-item-in 280ms ease-out both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+
+/* Reduce motion: respect user setting */
+@media (prefers-reduced-motion: reduce) {
+  .fab-enter, .fab-attention, .fab-tap,
+  .swipe-elastic-left, .swipe-elastic-right,
+  .route-anim-out-left, .route-anim-out-right,
+  .route-anim-in-left,  .route-anim-in-right,
+  .tonight-activate, .tonight-exit, .tonight-item,
+  .tonight-mode-glow, .tonight-badge-flash {
+    animation: none !important;
+  }
+  .swipe-drag, .swipe-drag-bg { transition: none !important; transform: none !important; }
 }
 .leaflet-popup-content-wrapper {
   border-radius: 12px !important;

@@ -166,6 +166,41 @@ export function BarDetailSheet({ bar, onClose }: Props) {
 
               {/* Actions */}
               <div className="space-y-3">
+              {/* Food recommendations */}
+              {foodRecs.length > 0 && (
+                <div className="mb-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Utensils className="h-4 w-4 text-primary" />
+                    <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">Eat Nearby</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {foodRecs.map((spot) => (
+                      <div
+                        key={spot.id}
+                        className="flex items-center gap-3 rounded-xl border border-border bg-muted/30 p-3"
+                      >
+                        <span className="text-xl shrink-0">{spot.emoji}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-bold text-foreground truncate">{spot.name}</p>
+                          <p className="text-[11px] text-muted-foreground truncate">
+                            {spot.vibe} · {spot.walkMinutes} min walk
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="space-y-3">
+                <Button
+                  onClick={() => setShowCreateMeetup(true)}
+                  className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 text-secondary-foreground shadow-lg"
+                >
+                  <CalendarPlus className="h-4 w-4" />
+                  Start a Meetup Here
+                </Button>
                 {bar.type !== 'landmark' && (
                   <BarCheckInButton barName={bar.name} />
                 )}
@@ -186,6 +221,11 @@ export function BarDetailSheet({ bar, onClose }: Props) {
               </div>
             </div>
           </motion.div>
+          <CreateMeetupModal
+            open={showCreateMeetup}
+            onClose={() => setShowCreateMeetup(false)}
+            defaultLocation={bar.name}
+          />
         </>
       )}
     </AnimatePresence>

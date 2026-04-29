@@ -22,6 +22,9 @@ import pizzaThumb from '@/assets/thumbs/pizza.jpg';
 import burgerThumb from '@/assets/thumbs/burger.jpg';
 import coffeeThumb from '@/assets/thumbs/coffee.jpg';
 import wflagThumb from '@/assets/thumbs/wflag.jpg';
+import tacosThumb from '@/assets/thumbs/tacos.jpg';
+import sandwichThumb from '@/assets/thumbs/sandwich.jpg';
+import friesThumb from '@/assets/thumbs/fries.jpg';
 
 /**
  * Map of concept keys → photo thumbnail src. Keys cover both
@@ -55,6 +58,15 @@ export const THUMB_MAP: Record<string, string> = {
   '🍔': burgerThumb,
   coffee: coffeeThumb,
   '☕': coffeeThumb,
+  tacos: tacosThumb,
+  taco: tacosThumb,
+  '🌮': tacosThumb,
+  sandwich: sandwichThumb,
+  sandwiches: sandwichThumb,
+  sub: sandwichThumb,
+  '🥪': sandwichThumb,
+  fries: friesThumb,
+  '🍟': friesThumb,
 
   // Baseball
   baseball: baseballThumb,

@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Flame, Users, ChevronRight } from 'lucide-react';
+import { Flame, Users, ChevronRight, MapPin } from 'lucide-react';
 import { useVenueActivity } from '@/hooks/useVenueActivity';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { SectionHeader } from '@/components/SectionHeader';
 
 const CROWD_META: Record<string, { emoji: string; label: string; color: string }> = {
   packed: { emoji: '', label: 'Packed', color: 'text-red-600 bg-red-500/10' },
@@ -20,17 +21,20 @@ export function BestVibesTonight() {
 
   return (
     <section aria-labelledby="best-vibes-heading" className="mb-5">
-      <div className="flex items-baseline justify-between mb-2.5 px-1">
-        <h2 id="best-vibes-heading" className="text-lg font-bold text-destructive-foreground flex items-center gap-1.5 text-on-image">
-          <Flame className="h-4 w-4 text-orange-400" /> Best Vibes Tonight
-        </h2>
-        <Link
-          to="/bar-map"
-          className="text-xs font-semibold text-on-image hover:underline flex items-center gap-0.5"
-        >
-          See all <ChevronRight className="h-3 w-3" />
-        </Link>
-      </div>
+      <SectionHeader
+        id="best-vibes-heading"
+        icon={<MapPin className="h-4 w-4" strokeWidth={2.4} />}
+        title="Bars With the Most Buddies"
+        onImage
+        trailing={
+          <Link
+            to="/bar-map"
+            className="text-xs font-semibold text-white/90 hover:text-white flex items-center gap-0.5"
+          >
+            See all <ChevronRight className="h-3 w-3" />
+          </Link>
+        }
+      />
 
       {isLoading ? (
         <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-6 text-center text-sm text-destructive-foreground">

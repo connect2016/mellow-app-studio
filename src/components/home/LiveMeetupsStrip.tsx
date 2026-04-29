@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Clock, Users, ChevronRight, Plus } from 'lucide-react';
+import { Clock, Users, ChevronRight, Plus, Calendar } from 'lucide-react';
 import { useLineupMeetups } from '@/hooks/useLineup';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { SectionHeader } from '@/components/SectionHeader';
 
 function formatTime(iso: string) {
   const d = new Date(iso);
@@ -19,17 +19,20 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
 
   return (
     <section aria-labelledby="live-meetups-heading" className="mb-5">
-      <div className="flex items-baseline justify-between mb-2.5 px-1">
-        <h2 id="live-meetups-heading" className="text-lg font-bold text-destructive-foreground text-on-image">
-           Live Meetups
-        </h2>
-        <button
-          onClick={onCreate}
-          className="text-xs font-semibold text-on-image hover:underline flex items-center gap-0.5"
-        >
-          <Plus className="h-3 w-3" /> Post one
-        </button>
-      </div>
+      <SectionHeader
+        id="live-meetups-heading"
+        icon={<Calendar className="h-4 w-4" strokeWidth={2.4} />}
+        title="Meetups Happening Soon"
+        onImage
+        trailing={
+          <button
+            onClick={onCreate}
+            className="text-xs font-semibold text-white/90 hover:text-white flex items-center gap-0.5"
+          >
+            <Plus className="h-3 w-3" /> Post one
+          </button>
+        }
+      />
 
       {isLoading ? (
         <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-6 text-center text-sm text-destructive-foreground">

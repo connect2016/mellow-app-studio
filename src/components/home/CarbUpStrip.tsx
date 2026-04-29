@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Pizza, ChevronRight, MapPin } from 'lucide-react';
+import { UtensilsCrossed, ChevronRight, MapPin } from 'lucide-react';
 import { FOOD_SPOTS } from '@/lib/wrigleyville-eats';
+import { SectionHeader } from '@/components/SectionHeader';
+import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const SUBCOPY = [
   'Hydration is important. So is pizza.',
@@ -11,10 +13,10 @@ const SUBCOPY = [
 ];
 
 // Each card pins a humorous label to a spot id (with a fallback tag-based pick).
-const PICKS: { label: string; emoji: string; matchId: string; fallbackTag: string; gradient: string }[] = [
-  { label: 'Elite pre-beer fuel', emoji: '', matchId: 'crisp-wrigleyville', fallbackTag: 'pizza', gradient: 'from-amber-500/20 to-orange-500/10' },
-  { label: 'Top recovery tacos', emoji: '', matchId: 'big-star', fallbackTag: 'tacos', gradient: 'from-rose-500/20 to-red-500/10' },
-  { label: 'Postgame sandwich heaven', emoji: '', matchId: 'small-cheval', fallbackTag: 'burgers', gradient: 'from-emerald-500/20 to-lime-500/10' },
+const PICKS: { label: string; thumb: string; matchId: string; fallbackTag: string; gradient: string }[] = [
+  { label: 'Elite pre-beer fuel', thumb: 'pizza', matchId: 'crisp-wrigleyville', fallbackTag: 'pizza', gradient: 'from-amber-500/20 to-orange-500/10' },
+  { label: 'Top recovery tacos', thumb: 'tacos', matchId: 'big-star', fallbackTag: 'tacos', gradient: 'from-rose-500/20 to-red-500/10' },
+  { label: 'Postgame sandwich heaven', thumb: 'sandwich', matchId: 'small-cheval', fallbackTag: 'burgers', gradient: 'from-emerald-500/20 to-lime-500/10' },
 ];
 
 export function CarbUpStrip() {
@@ -32,22 +34,21 @@ export function CarbUpStrip() {
 
   return (
     <section className="px-4 py-4">
-      <div className="flex items-end justify-between mb-1 text-destructive-foreground">
-        <div>
-          <h2 className="flex items-center gap-2 text-lg font-extrabold text-primary-foreground" style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.5px' }}>
-            <Pizza className="h-5 w-5 text-orange-500" />
-            CARB UP BEFORE FIRST PITCH
-          </h2>
-          <p className="text-xs italic mt-0.5 text-destructive-foreground">{subcopy}</p>
-        </div>
-        <Link to="/wrigleyville-eats" className="flex items-center text-xs font-semibold text-primary hover:underline shrink-0 ml-2">
-          See all <ChevronRight className="h-3 w-3" />
-        </Link>
-      </div>
+      <SectionHeader
+        icon={<UtensilsCrossed className="h-4 w-4" strokeWidth={2.4} />}
+        title="Carb Up Before First Pitch"
+        subtitle={subcopy}
+        onImage
+        trailing={
+          <Link to="/wrigleyville-eats" className="flex items-center text-xs font-semibold text-white/90 hover:text-white">
+            See all <ChevronRight className="h-3 w-3" />
+          </Link>
+        }
+      />
 
       <div className="-mx-4 px-4 overflow-x-auto">
         <div className="flex gap-3 pb-2 snap-x snap-mandatory">
-          {cards.map(({ label, emoji, gradient, spot }) => (
+          {cards.map(({ label, thumb, gradient, spot }) => (
             <Link
               key={label}
               to="/wrigleyville-eats"
@@ -55,7 +56,7 @@ export function CarbUpStrip() {
             >
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-2xl leading-none">{emoji}</span>
+                  <ConceptVisual name={thumb} size="md" />
                   <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/70 bg-card/70 backdrop-blur px-2 py-0.5 rounded-full">
                     {label}
                   </span>

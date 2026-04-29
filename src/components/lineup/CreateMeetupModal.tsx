@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 interface CreateMeetupModalProps {
   open: boolean;
   onClose: () => void;
+  defaultLocation?: string;
 }
 
 const TIME_OPTIONS = (() => {
@@ -31,9 +32,10 @@ function formatTime(iso: string) {
   return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
-export function CreateMeetupModal({ open, onClose }: CreateMeetupModalProps) {
-  const [location, setLocation] = useState('');
-  const [customLocation, setCustomLocation] = useState('');
+export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeetupModalProps) {
+  const isPresetBar = defaultLocation && (WRIGLEYVILLE_BARS as readonly string[]).includes(defaultLocation);
+  const [location, setLocation] = useState(isPresetBar ? defaultLocation! : (defaultLocation ? '__custom__' : ''));
+  const [customLocation, setCustomLocation] = useState(isPresetBar ? '' : (defaultLocation ?? ''));
   const [time, setTime] = useState('');
   const [description, setDescription] = useState('');
   const [maxMembers, setMaxMembers] = useState('10');

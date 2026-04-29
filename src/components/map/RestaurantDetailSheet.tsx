@@ -112,7 +112,7 @@ export function RestaurantDetailSheet({ restaurant, onClose }: Props) {
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-2xl">{spot?.emoji || restaurant.emoji || ''}</span>
+                    <ConceptIcon name={spot?.emoji || restaurant.emoji || ''} className="h-6 w-6" />
                     <h2 className="text-lg font-bold text-foreground leading-tight">
                       {restaurant.name}
                     </h2>

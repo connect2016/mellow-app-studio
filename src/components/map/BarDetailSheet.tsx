@@ -92,7 +92,7 @@ export function BarDetailSheet({ bar, onClose }: Props) {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-2xl">{info?.emoji || (bar.type === 'landmark' ? '' : '')}</span>
+                    <ConceptIcon name={info?.emoji || ''} className="h-6 w-6" />
                     <h2 className="text-lg font-bold text-foreground leading-tight">{bar.name}</h2>
                   </div>
                   <div className="flex items-center gap-1.5 text-sm text-muted-foreground">

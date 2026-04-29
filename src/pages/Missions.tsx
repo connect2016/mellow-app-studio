@@ -245,7 +245,7 @@ export default function Missions() {
                     <div className={`flex h-11 w-11 items-center justify-center rounded-xl text-xl shrink-0 ${
                       isComplete ? 'bg-primary/10' : 'bg-muted'
                     }`}>
-                      {isClaimed ? '' : m.emoji}
+                      <ConceptIcon name={isClaimed ? '' : m.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                     </div>
 
                     <div className="flex-1 min-w-0">

@@ -190,7 +190,7 @@ export function FanTierBadge({ tier, title, emoji }: { tier?: string | null; tit
   const conf = FAN_TIERS[tier] || FAN_TIERS.rookie;
   return (
     <span className={`inline-flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.5 rounded-full border ${conf.bg}`}>
-      <span>{emoji || conf.emoji}</span>
+      <ConceptIcon name={emoji || conf.emoji} className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
       <span className={conf.color}>{title || conf.label}</span>
     </span>
   );

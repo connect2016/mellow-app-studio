@@ -130,7 +130,7 @@ export function useBarPlans(crewId: string | undefined) {
         bar_name: opt.bar_name,
         bar_slug: opt.bar_slug ?? null,
         address: opt.address ?? null,
-        emoji: opt.emoji ?? '🍻',
+        emoji: opt.emoji ?? '',
       });
       if (error) throw error;
     },

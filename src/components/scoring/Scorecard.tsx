@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Plus } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface ScoringEntry {
   id: string;
@@ -58,7 +59,7 @@ export function Scorecard({ homeTeam, awayTeam, entries, onAddEntry, onConfirm, 
     <div className="rounded-2xl border-2 border-[hsl(var(--ivy-green)/0.3)] overflow-hidden shadow-sm" style={{ backgroundColor: '#F9F8F4' }}>
       {/* Header pennant */}
       <div className="px-4 py-2.5 border-b border-[hsl(var(--ivy-green)/0.2)] flex items-center gap-2" style={{ backgroundColor: '#F4F1E8' }}>
-        <span className="text-sm">📋</span>
+        <span className="text-sm"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
         <span className="font-['Share_Tech_Mono'] text-xs font-bold tracking-wider uppercase" style={{ color: 'hsl(var(--ivy-green))' }}>
           Official Scorecard
         </span>
@@ -145,7 +146,7 @@ export function Scorecard({ homeTeam, awayTeam, entries, onAddEntry, onConfirm, 
             {/* Home team (bottom) */}
             <tr>
               <td className="px-3 py-2 text-xs font-black sticky left-0 z-10" style={{ backgroundColor: '#F9F8F4', color: 'hsl(var(--accent))' }}>
-                🐻 {homeTeam}
+                <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {homeTeam}
               </td>
               {INNINGS.map(i => {
                 const entry = getEntry(i, 'bottom');

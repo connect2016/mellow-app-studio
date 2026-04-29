@@ -7,15 +7,16 @@ import { Button } from '@/components/ui/button';
 import { Camera, MapPin, Users, Trash2, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const LOCATION_TAGS = [
-  '🏟️ Wrigley Field',
-  '🍺 Murphy\'s Bleachers',
-  '🎵 Cubby Bear',
-  '🌭 Tailgate Lot',
-  '🍻 Sluggers',
-  '🏠 Watch Party',
-  '📍 Wrigleyville',
+  'Wrigley Field',
+  'Murphy\'s Bleachers',
+  'Cubby Bear',
+  'Tailgate Lot',
+  'Sluggers',
+  'Watch Party',
+  'Wrigleyville',
 ];
 
 export default function MemoriesContent() {
@@ -111,7 +112,7 @@ export default function MemoriesContent() {
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success('📸 Memory saved!');
+      toast.success('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Memory saved!');
       setShowUpload(false);
       setSelectedFile(null);
       setPreviewUrl(null);
@@ -174,7 +175,7 @@ export default function MemoriesContent() {
       {/* Day Stats */}
       {dayStats && (dayStats.newFans > 0 || dayStats.hiFives > 0 || dayStats.memories > 0) && (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-4 rounded-2xl border border-accent/30 bg-gradient-to-br from-accent/10 via-card to-primary/5 p-4 relative overflow-hidden">
-          <div className="absolute top-2 right-2 opacity-10 text-6xl pointer-events-none">📖</div>
+          <div className="absolute top-2 right-2 opacity-10 text-6xl pointer-events-none"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
           <div className="flex items-center gap-2 mb-3">
             <div className="flex items-center justify-center h-7 w-7 rounded-full bg-accent/20">
               <Sparkles className="h-4 w-4 text-accent" />
@@ -212,9 +213,9 @@ export default function MemoriesContent() {
               <img src={previewUrl} alt="Preview" className="h-full w-full object-cover" />
             </div>
             <div className="p-4 space-y-3">
-              <input type="text" placeholder="Add a caption... ✍️" value={caption} onChange={e => setCaption(e.target.value)} className="w-full rounded-xl border border-border bg-muted/50 px-3 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <input type="text" placeholder="Add a caption..." value={caption} onChange={e => setCaption(e.target.value)} className="w-full rounded-xl border border-border bg-muted/50 px-3 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
               <div>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5">📍 Location</p>
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Location</p>
                 <div className="flex gap-1.5 flex-wrap">
                   {LOCATION_TAGS.map(tag => (
                     <button key={tag} onClick={() => setLocationTag(tag)} className={`rounded-full px-2.5 py-1 text-xs font-medium border transition-all ${locationTag === tag ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-foreground hover:border-primary/40'}`}>
@@ -224,7 +225,7 @@ export default function MemoriesContent() {
                 </div>
               </div>
               <div>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5">👥 Tag People</p>
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Tag People</p>
                 {taggedUsers.length > 0 && (
                   <div className="flex gap-1.5 flex-wrap mb-2">
                     {taggedUsers.map(tu => (
@@ -252,7 +253,7 @@ export default function MemoriesContent() {
               </div>
               <div className="flex gap-2 pt-1">
                 <Button className="flex-1 rounded-full bg-primary text-primary-foreground font-semibold" disabled={uploading} onClick={() => uploadMemory.mutate()}>
-                  {uploading ? 'Saving...' : '📸 Save Memory'}
+                  {uploading ? 'Saving...' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Save Memory'}
                 </Button>
                 <Button variant="outline" className="rounded-full" onClick={() => { setShowUpload(false); setSelectedFile(null); setPreviewUrl(null); }}>Cancel</Button>
               </div>
@@ -264,7 +265,7 @@ export default function MemoriesContent() {
       {/* Feed */}
       {isLoading ? (
         <div className="py-16 text-center">
-          <p className="text-4xl animate-pulse">📸</p>
+          <p className="text-4xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
           <p className="mt-2 text-sm font-medium text-muted-foreground">Loading memories...</p>
         </div>
       ) : memories.length === 0 ? (

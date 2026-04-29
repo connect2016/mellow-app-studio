@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Check, Copy, Share2, Send } from 'lucide-react';
 import { useInvitableConnections, useSendMeetupInvites } from '@/hooks/useMeetups';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface ShareInviteSheetProps {
   open: boolean;
@@ -39,7 +40,7 @@ export function ShareInviteSheet({ open, onClose, meetupId, meetupTitle }: Share
   };
 
   const handleNativeShare = async () => {
-    const text = `Join me at "${meetupTitle}" on Cubbies Buddies ⚾`;
+    const text = `Join me at "${meetupTitle}" on Cubbies Buddies <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />`;
     if (navigator.share) {
       try {
         await navigator.share({ title: meetupTitle, text, url: shareUrl });
@@ -71,7 +72,7 @@ export function ShareInviteSheet({ open, onClose, meetupId, meetupTitle }: Share
         meetupTitle,
         userIds: Array.from(selected),
       });
-      toast.success(`⚾ Sent ${selected.size} invite${selected.size === 1 ? '' : 's'}!`);
+      toast.success(`<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Sent ${selected.size} invite${selected.size === 1 ? '' : 's'}!`);
       setSelected(new Set());
       onClose();
     } catch {

@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const TRIGGER_PATTERNS: { pattern: RegExp; emoji: string; label: string; type: 'hr' | 'strikeout' | 'flag' }[] = [
-  { pattern: /\b(HR|home\s*run|homer|bomb|gone|moonshot)\b/i, emoji: '⚾', label: 'HOME RUN!', type: 'hr' },
-  { pattern: /\b(K|strikeout|struck\s*out|punchout)\b/i, emoji: '🔥', label: 'STRIKE THREE!', type: 'strikeout' },
-  { pattern: /\b(W|win|cubs\s*win|go\s*cubs|fly\s*the\s*w)\b/i, emoji: '🏳️', label: 'FLY THE W!', type: 'flag' },
+  { pattern: /\b(HR|home\s*run|homer|bomb|gone|moonshot)\b/i, emoji: '', label: 'HOME RUN!', type: 'hr' },
+  { pattern: /\b(K|strikeout|struck\s*out|punchout)\b/i, emoji: '', label: 'STRIKE THREE!', type: 'strikeout' },
+  { pattern: /\b(W|win|cubs\s*win|go\s*cubs|fly\s*the\s*w)\b/i, emoji: '', label: 'FLY THE W!', type: 'flag' },
 ];
 
 export function detectGameTrigger(text: string): typeof TRIGGER_PATTERNS[number] | null {
@@ -63,7 +64,7 @@ export function GameTriggerAnimation({ trigger, onComplete }: GameTriggerAnimati
                     ease: 'easeOut',
                   }}
                 >
-                  ⚾
+                  <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                 </motion.span>
               ))}
             </>
@@ -77,7 +78,7 @@ export function GameTriggerAnimation({ trigger, onComplete }: GameTriggerAnimati
               transition={{ duration: 0.8, ease: 'easeOut' }}
               className="text-8xl"
             >
-              🏳️
+              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
             </motion.div>
           )}
 

@@ -20,12 +20,12 @@ export interface LiveMoment {
 }
 
 const MOMENT_PRESETS = [
-  { type: 'chant', title: 'Go Cubs Go! 🎶', emoji: '🎶', duration: 60 },
-  { type: 'wave', title: 'Start the Wave! 🌊', emoji: '🌊', duration: 45 },
-  { type: 'celebration', title: 'Home Run Celebration! 💥', emoji: '💥', duration: 30 },
-  { type: 'rally', title: 'Rally Time! 📣', emoji: '📣', duration: 90 },
-  { type: 'standing_o', title: 'Standing Ovation! 👏', emoji: '👏', duration: 30 },
-  { type: 'seventh_stretch', title: '7th Inning Stretch 🎤', emoji: '🎤', duration: 120 },
+  { type: 'chant', title: 'Go Cubs Go!', emoji: '', duration: 60 },
+  { type: 'wave', title: 'Start the Wave!', emoji: '', duration: 45 },
+  { type: 'celebration', title: 'Home Run Celebration!', emoji: '', duration: 30 },
+  { type: 'rally', title: 'Rally Time!', emoji: '', duration: 90 },
+  { type: 'standing_o', title: 'Standing Ovation!', emoji: '', duration: 30 },
+  { type: 'seventh_stretch', title: '7th Inning Stretch', emoji: '', duration: 120 },
 ] as const;
 
 export { MOMENT_PRESETS };

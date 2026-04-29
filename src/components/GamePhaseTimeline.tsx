@@ -10,6 +10,7 @@ import {
   PartyPopper, MessageCircle, ArrowRight, Flame
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 // ────────────────────── Types ──────────────────────
 
@@ -29,10 +30,10 @@ interface TimelineEvent {
 // ────────────────── Phase Config ──────────────────
 
 const PHASE_CONFIG: Record<GamePhase, { label: string; emoji: string; color: string; bgClass: string }> = {
-  'no-game': { label: 'Off Day', emoji: '☀️', color: 'hsl(var(--muted-foreground))', bgClass: 'bg-muted/50' },
-  'pre-game': { label: 'Pre-Game', emoji: '🎯', color: 'hsl(var(--accent))', bgClass: 'bg-accent/5' },
-  'mid-game': { label: 'Game On', emoji: '⚾', color: 'hsl(var(--secondary))', bgClass: 'bg-secondary/5' },
-  'post-game': { label: 'Post-Game', emoji: '🎉', color: 'hsl(var(--lineup-teal))', bgClass: 'bg-primary/5' },
+  'no-game': { label: 'Off Day', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', color: 'hsl(var(--muted-foreground))', bgClass: 'bg-muted/50' },
+  'pre-game': { label: 'Pre-Game', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', color: 'hsl(var(--accent))', bgClass: 'bg-accent/5' },
+  'mid-game': { label: 'Game On', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', color: 'hsl(var(--secondary))', bgClass: 'bg-secondary/5' },
+  'post-game': { label: 'Post-Game', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', color: 'hsl(var(--lineup-teal))', bgClass: 'bg-primary/5' },
 };
 
 // ────────────────── Component ──────────────────
@@ -132,7 +133,7 @@ export function GamePhaseTimeline() {
           type: 'social-cta',
           phase,
           priority: 10,
-          emoji: '🔥',
+          emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
           headline: `${topBar} is heating up`,
           subtext: `${topCount} fan${topCount !== 1 ? 's' : ''} already there — grab a pre-game drink`,
           action: { label: 'Check In', route: '/checkin' },
@@ -146,7 +147,7 @@ export function GamePhaseTimeline() {
           type: 'social-cta',
           phase,
           priority: 15,
-          emoji: '⚡',
+          emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
           headline: `${signals.meetups.length} pre-game meetup${signals.meetups.length !== 1 ? 's' : ''} open`,
           subtext: signals.meetups[0]?.location_name ? `Including one at ${signals.meetups[0].location_name}` : 'Find fans to meet up with',
           action: { label: 'Browse Lineup', route: '/discover' },
@@ -159,7 +160,7 @@ export function GamePhaseTimeline() {
         type: 'social-cta',
         phase,
         priority: 20,
-        emoji: '📍',
+        emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
         headline: 'Set your status',
         subtext: 'Let fans know where you are so they can find you',
         action: { label: 'Check In', route: '/checkin' },
@@ -175,7 +176,7 @@ export function GamePhaseTimeline() {
           type: 'social-cta',
           phase,
           priority: 10,
-          emoji: '💬',
+          emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
           headline: `${signals.wrigleyCount} fans live at Wrigley`,
           subtext: 'Jump into your Section Chat',
           action: { label: 'Open Chat', route: '/section-chat' },
@@ -189,7 +190,7 @@ export function GamePhaseTimeline() {
           type: 'social-cta',
           phase,
           priority: 12,
-          emoji: '📊',
+          emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
           headline: `${signals.sessions.length} live scoring session${signals.sessions.length !== 1 ? 's' : ''}`,
           subtext: signals.sessions[0]?.title ?? 'Score along with the crowd',
           action: { label: 'Join Session', route: '/score-lobby' },
@@ -204,7 +205,7 @@ export function GamePhaseTimeline() {
           type: 'social-cta',
           phase,
           priority: 18,
-          emoji: '🍻',
+          emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
           headline: `${signals.barCount} fans watching at bars`,
           subtext: signals.topBars.length > 0 ? `${signals.topBars[0][0]} is the hottest spot` : 'Join the Wrigleyville crowd',
           action: { label: 'See Map', route: '/bar-map' },
@@ -221,7 +222,7 @@ export function GamePhaseTimeline() {
           type: 'social-cta',
           phase,
           priority: 10,
-          emoji: '🍻',
+          emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
           headline: 'Where is everyone going?',
           subtext: signals.topBars.map(([bar, count]) => `${bar} (${count})`).join(' · '),
           action: { label: 'See Bars', route: '/bar-map' },
@@ -235,7 +236,7 @@ export function GamePhaseTimeline() {
           type: 'social-cta',
           phase,
           priority: 15,
-          emoji: '📸',
+          emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
           headline: 'Post your game moment',
           subtext: `${totalFans} fans still active — share while the vibe is hot`,
           action: { label: 'Vibe Feed', route: '/vibe-feed' },
@@ -248,7 +249,7 @@ export function GamePhaseTimeline() {
         type: 'social-cta',
         phase,
         priority: 20,
-        emoji: '🎞️',
+        emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
         headline: 'Save today to Memories',
         subtext: 'Tag friends and add a caption before the moment fades',
         action: { label: 'Add Memory', route: '/memories' },
@@ -259,17 +260,17 @@ export function GamePhaseTimeline() {
     // ── ACTIVITY items (all phases)
     signals.recentCheckins.slice(0, 4).forEach((c, i) => {
       const statusMeta: Record<string, string> = {
-        AtWrigley: 'checked in at Wrigley 🏟️',
-        AtBar: c.wrigleyville_bar ? `is at ${c.wrigleyville_bar} 🍻` : 'is at a bar 🍻',
-        WatchingRemote: 'is watching from home 📺',
-        Tailgating: 'is tailgating 🌭',
+        AtWrigley: 'checked in at Wrigley <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+        AtBar: c.wrigleyville_bar ? `is at ${c.wrigleyville_bar} <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />` : 'is at a bar <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+        WatchingRemote: 'is watching from home <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+        Tailgating: 'is tailgating <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
       };
       items.push({
         id: `activity-${c.user_id}`,
         type: 'activity',
         phase,
         priority: 50 + i,
-        emoji: c.game_status === 'AtWrigley' ? '🏟️' : c.game_status === 'AtBar' ? '🍻' : '📺',
+        emoji: c.game_status === 'AtWrigley' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : c.game_status === 'AtBar' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
         headline: `${c.display_name} ${statusMeta[c.game_status as string] ?? 'is active'}`,
         timestamp: c.location_last_set_at ?? undefined,
       });
@@ -282,7 +283,7 @@ export function GamePhaseTimeline() {
         type: 'milestone',
         phase,
         priority: 5,
-        emoji: '🎉',
+        emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
         headline: `${totalFans} fans are live right now!`,
         subtext: 'The community is buzzing',
         accent: 'secondary',

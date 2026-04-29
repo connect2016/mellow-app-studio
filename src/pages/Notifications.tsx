@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Bell, Check, CheckCheck, Trash2, Users, MapPin, Trophy, Utensils, Hand } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 type FilterKey = 'all' | 'meetups' | 'fans' | 'gameday' | 'food' | 'hifives';
 
@@ -180,7 +181,7 @@ export default function Notifications() {
 
         {isLoading ? (
           <div className="py-16 text-center">
-            <p className="text-4xl animate-pulse">🔔</p>
+            <p className="text-4xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
             <p className="mt-2 text-sm font-medium text-muted-foreground">Loading notifications...</p>
           </div>
         ) : filtered.length === 0 ? (

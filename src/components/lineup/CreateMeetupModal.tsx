@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useCreateMeetup } from '@/hooks/useLineup';
 import { WRIGLEYVILLE_BARS } from '@/types';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface CreateMeetupModalProps {
   open: boolean;
@@ -54,7 +55,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
         description,
         max_members: parseInt(maxMembers) || 10,
       });
-      toast.success('⚾ Your meetup is in The Lineup!');
+      toast.success('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Your meetup is in The Lineup!');
       onClose();
       setLocation('');
       setCustomLocation('');
@@ -89,7 +90,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
 
             <div className="flex items-center justify-between px-6 pb-3">
               <h3 className="text-lg font-bold text-destructive-foreground" style={{ fontFamily: 'Rye, serif' }}>
-                📋 Post to The Lineup
+                <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Post to The Lineup
               </h3>
               <button onClick={onClose} className="rounded-full p-1.5 transition-colors hover:bg-muted">
                 <X className="h-5 w-5 text-muted-foreground" />
@@ -109,13 +110,13 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
                   <SelectContent className="max-h-60">
                     {WRIGLEYVILLE_BARS.map((bar) => (
                       <SelectItem key={bar.id} value={bar.name}>
-                        🍺 {bar.name}
+                        <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {bar.name}
                       </SelectItem>
                     ))}
-                    <SelectItem value="Wrigley Field - Bleachers">⚾ Bleachers</SelectItem>
-                    <SelectItem value="Wrigley Field - Upper Deck">🏟️ Upper Deck</SelectItem>
-                    <SelectItem value="Wrigley Field - Rooftop">🏠 Rooftop</SelectItem>
-                    <SelectItem value="__custom__">📍 Custom location...</SelectItem>
+                    <SelectItem value="Wrigley Field - Bleachers"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Bleachers</SelectItem>
+                    <SelectItem value="Wrigley Field - Upper Deck"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Upper Deck</SelectItem>
+                    <SelectItem value="Wrigley Field - Rooftop"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Rooftop</SelectItem>
+                    <SelectItem value="__custom__"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Custom location...</SelectItem>
                   </SelectContent>
                 </Select>
                 {location === '__custom__' && (
@@ -207,7 +208,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
                       <button
                         key={i}
                         type="button"
-                        onClick={() => toast.info('Coming up next pitch ⚾')}
+                        onClick={() => toast.info('Coming up next pitch <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />')}
                         className={`snap-start shrink-0 w-[220px] min-h-[96px] rounded-2xl border border-border bg-gradient-to-br ${s.from} ${s.to} p-3 text-left hover:border-primary/40 transition-colors`}
                       >
                         <div className={`inline-flex items-center justify-center h-8 w-8 rounded-full bg-card ${s.accent} mb-2`}>
@@ -227,7 +228,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
                 disabled={createMeetup.isPending}
                 className="w-full rounded-full font-semibold bg-lineup text-lineup-foreground hover:bg-lineup/90 h-12 text-base"
               >
-                {createMeetup.isPending ? 'Posting...' : '⚾ Post to The Lineup'}
+                {createMeetup.isPending ? 'Posting...' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Post to The Lineup'}
               </Button>
             </div>
           </motion.div>

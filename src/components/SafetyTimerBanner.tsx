@@ -4,6 +4,7 @@ import { Shield, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useActiveSafetyTimer, useResolveSafetyTimer } from '@/hooks/useSafetyTimer';
 import { useToast } from '@/hooks/use-toast';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function SafetyTimerBanner() {
   const { data: timer } = useActiveSafetyTimer();
@@ -38,7 +39,7 @@ export function SafetyTimerBanner() {
     if (!timer) return;
     try {
       await resolveTimer.mutateAsync(timer.id);
-      toast({ title: '✅ Marked Safe!', description: 'Your emergency contact will NOT be notified. Stay safe!' });
+      toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Marked Safe!', description: 'Your emergency contact will NOT be notified. Stay safe!' });
     } catch {
       toast({ title: 'Error', description: 'Could not resolve timer.', variant: 'destructive' });
     }
@@ -71,7 +72,7 @@ export function SafetyTimerBanner() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2">
               <p className="text-sm font-bold text-foreground">
-                🛡️ Safety Timer Active
+                <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Safety Timer Active
               </p>
               <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                 isUrgent
@@ -82,7 +83,7 @@ export function SafetyTimerBanner() {
               </span>
             </div>
             <p className="text-xs text-muted-foreground mt-0.5">
-              📍 {timer.location_description} · Contact: {timer.emergency_contact_name || 'Emergency'}
+              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {timer.location_description} · Contact: {timer.emergency_contact_name || 'Emergency'}
             </p>
             <Button
               onClick={handleSafe}
@@ -95,7 +96,7 @@ export function SafetyTimerBanner() {
               }`}
             >
               <CheckCircle2 className="h-3.5 w-3.5" />
-              {resolveTimer.isPending ? 'Marking…' : "I'm Safe ✅"}
+              {resolveTimer.isPending ? 'Marking…' : "I'm Safe <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />"}
             </Button>
           </div>
         </div>

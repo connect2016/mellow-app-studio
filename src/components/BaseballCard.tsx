@@ -283,22 +283,22 @@ export function BaseballCard({
             {/* Detail sections */}
             <div className="px-3 space-y-1.5 pb-3 flex-1 overflow-y-auto">
               {favoritePlayer && (
-                <DetailRow label="FAVORITE ALL-TIME CUB" value={favoritePlayer} emoji="⚾" />
+                <DetailRow label="FAVORITE ALL-TIME CUB" value={favoritePlayer} emoji="" />
               )}
               {bestBar && (
-                <DetailRow label="HOME BAR" value={bestBar} emoji="🍻" />
+                <DetailRow label="HOME BAR" value={bestBar} emoji="" />
               )}
               {superstition && (
-                <DetailRow label="GAME DAY SUPERSTITION" value={superstition} emoji="🧢" />
+                <DetailRow label="GAME DAY SUPERSTITION" value={superstition} emoji="" />
               )}
               {stretchSong && (
-                <DetailRow label="7TH INNING STRETCH SONG" value={stretchSong} emoji="🎵" />
+                <DetailRow label="7TH INNING STRETCH SONG" value={stretchSong} emoji="" />
               )}
               {favoriteMoment && (
-                <DetailRow label="BEST BALLPARK STORY" value={favoriteMoment} emoji="🎉" />
+                <DetailRow label="BEST BALLPARK STORY" value={favoriteMoment} emoji="" />
               )}
               {bio && (
-                <DetailRow label="SCOUTING REPORT" value={bio} emoji="📋" />
+                <DetailRow label="SCOUTING REPORT" value={bio} emoji="" />
               )}
 
               {intent.length > 0 && (

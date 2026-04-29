@@ -143,7 +143,7 @@ export function useCrowdEnergy() {
         const hiFivesPerVenue = Math.round(hiFiveCount / Math.max(Object.keys(barData).length, 1));
         const { energy, intensity } = classifyEnergy(data.fans.length, interactionsPerVenue + data.meetupCount * 2, data.vibes, hiFivesPerVenue);
 
-        const emojiMap: Record<EnergyType, string> = { celebration: '🎉', hype: '🔥', chill: '😎' };
+        const emojiMap: Record<EnergyType, string> = { celebration: '', hype: '', chill: '' };
 
         zones.push({
           id: `bar-${idx++}`,
@@ -176,7 +176,7 @@ export function useCrowdEnergy() {
           intensity,
           fanCount: wrigleyFans!.length,
           recentInteractions: wrigleyInteractions,
-          topEmoji: '🏟️',
+          topEmoji: '',
           fans: wrigleyFans!.slice(0, 5).map(f => ({
             user_id: f.user_id,
             display_name: f.display_name,

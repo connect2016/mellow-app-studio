@@ -7,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { ChevronDown, ChevronUp, RefreshCw, MessageCircle, Hand, Clock, Sparkles } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function DaysAgoLabel({ days }: { days: number }) {
   if (days <= 1) return <span className="text-[10px] text-muted-foreground">Yesterday</span>;
@@ -66,10 +67,10 @@ function ReconnectCard({ suggestion, onAction }: {
         <div className="flex items-center gap-2 mt-1">
           <DaysAgoLabel days={suggestion.days_since_interaction} />
           {suggestion.is_active_now && suggestion.wrigleyville_bar && (
-            <span className="text-[10px] text-primary font-medium">📍 {suggestion.wrigleyville_bar}</span>
+            <span className="text-[10px] text-primary font-medium"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {suggestion.wrigleyville_bar}</span>
           )}
           {suggestion.is_active_now && suggestion.game_status === 'AtWrigley' && (
-            <span className="text-[10px] text-primary font-medium">🏟️ At Wrigley</span>
+            <span className="text-[10px] text-primary font-medium"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> At Wrigley</span>
           )}
         </div>
       </div>
@@ -137,10 +138,10 @@ export function ReconnectionsPanel() {
           from_user: user.id,
           to_user: targetUserId,
           is_hi_five: true,
-          message: "Hey! Long time no see 🖐️",
+          message: "Hey! Long time no see",
         });
       if (!error) {
-        toast.success("🖐️ Hi-Five sent — vibes delivered.");
+        toast.success("Hi-Five sent — vibes delivered.");
       }
     }
   };

@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { MapPin } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface NearbyFan {
   user_id: string;
@@ -16,11 +17,11 @@ interface NearbyFan {
 }
 
 const STATUS_EMOJI: Record<string, string> = {
-  AtWrigley: '🏟️',
-  AtBar: '🍺',
-  Tailgating: '🌭',
-  BeerSnake: '🐍',
-  WatchingRemote: '🏠',
+  AtWrigley: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  AtBar: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  Tailgating: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  BeerSnake: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  WatchingRemote: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
 };
 
 export function WhosNearbyCarousel() {
@@ -87,7 +88,7 @@ export function WhosNearbyCarousel() {
               </Avatar>
               {/* Status badge */}
               <span className="absolute -bottom-0.5 -right-0.5 text-sm">
-                {fan.vibe_emoji || STATUS_EMOJI[fan.game_status ?? ''] || '⚾'}
+                {fan.vibe_emoji || STATUS_EMOJI[fan.game_status ?? ''] || '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}
               </span>
             </div>
             <div className="text-center min-w-0 w-full">

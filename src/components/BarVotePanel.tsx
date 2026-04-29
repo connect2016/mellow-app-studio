@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useBarVotes, type WaitTime, type VibeType, WAIT_LABELS, VIBE_LABELS } from '@/hooks/useBarVotes';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const WAIT_OPTIONS: WaitTime[] = ['no_line', '15_min', '30_plus'];
 const VIBE_OPTIONS: VibeType[] = ['chill', 'rowdy', 'packed'];
@@ -52,7 +53,7 @@ export function BarVotePanel({ barName, onClose }: { barName: string; onClose: (
 
         <div>
           <p className="text-xs font-semibold text-muted-foreground mb-1.5">
-            🎶 Vibe
+            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Vibe
           </p>
           <div className="flex gap-1.5">
             {VIBE_OPTIONS.map((v) => (

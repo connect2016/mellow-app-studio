@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Flame, Trophy } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function MissionStreak() {
   const { user } = useAuth();
@@ -76,7 +77,7 @@ export function MissionStreak() {
           </div>
           {data.streak > 0 ? (
             <p className="text-lg font-bold text-foreground">
-              {data.streak} day{data.streak !== 1 ? 's' : ''} 🔥
+              {data.streak} day{data.streak !== 1 ? 's' : ''} <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
             </p>
           ) : (
             <p className="text-sm text-muted-foreground">Complete a mission today to start your streak!</p>

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useMilestones, type MilestoneWithProgress } from '@/hooks/useMilestones';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Lock } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const ROMAN = ['', 'I', 'II', 'III', 'IV', 'V'];
 
@@ -79,7 +80,7 @@ function MilestoneRow({ m }: { m: MilestoneWithProgress }) {
           )}
           {!m.nextTier && earned && (
             <p className="mt-1 text-[10px] font-semibold text-[hsl(222,82%,29%)]">
-              ✦ Max tier reached
+              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Max tier reached
             </p>
           )}
         </div>

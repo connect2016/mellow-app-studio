@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { MapPin, Navigation, Users } from 'lucide-react';
 import { PubCrawlStop } from '@/hooks/usePubCrawls';
 import barIconImg from '@/assets/map/bar-icon.png';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 
@@ -59,7 +60,7 @@ function createStopIcon(order: number, arrived: boolean, isCurrent: boolean) {
 function createAvatarIcon(profilePhoto?: string) {
   const img = profilePhoto
     ? `<img src="${profilePhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`
-    : `<div style="width:100%;height:100%;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;">🍺</div>`;
+    : `<div style="width:100%;height:100%;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>`;
   return L.divIcon({
     html: `<div style="width:44px;height:44px;border-radius:50%;border:3px solid #3b82f6;overflow:hidden;box-shadow:0 0 20px 6px rgba(59,130,246,0.5);animation:pulse 2s infinite;">
       ${img}
@@ -211,8 +212,8 @@ export function LiveCrawlMap({
                 <Tooltip direction="top" offset={[0, -20]}>
                   <span className="font-semibold text-xs">
                     {stop.stop_order}. {stop.bar_name}
-                    {stop.arrived_at ? ' ✓' : ''}
-                    {isCurrent ? ' 📍 NOW' : ''}
+                    {stop.arrived_at ? ' <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : ''}
+                    {isCurrent ? ' <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> NOW' : ''}
                   </span>
                 </Tooltip>
               </Marker>
@@ -249,7 +250,7 @@ export function LiveCrawlMap({
             >
               <MapPin className="h-3 w-3" />
               {stop.bar_name.length > 14 ? stop.bar_name.slice(0, 14) + '…' : stop.bar_name}
-              {stop.arrived_at && <span>✓</span>}
+              {stop.arrived_at && <span><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>}
             </div>
             {i < sortedStops.length - 1 && (
               <span className="text-muted-foreground/30 mx-0.5">→</span>
@@ -286,7 +287,7 @@ export function LiveCrawlMap({
               className="w-full rounded-xl font-bold gap-2 bg-primary"
               onClick={onJoin}
             >
-              🍻 The Pack is at {currentBarName.length > 15 ? currentBarName.slice(0, 15) + '…' : currentBarName} — Join Them!
+              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> The Pack is at {currentBarName.length > 15 ? currentBarName.slice(0, 15) + '…' : currentBarName} — Join Them!
             </Button>
           )}
 

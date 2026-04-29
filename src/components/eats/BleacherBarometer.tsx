@@ -8,13 +8,14 @@ import { MessageSquare, Users, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const STATUS_DISPLAY: Record<string, { emoji: string; label: string }> = {
-  looking_for_buddy: { emoji: '🤝', label: 'Looking for a Buddy' },
-  splitting_app: { emoji: '🥨', label: 'Appetizer Wingman' },
-  carbing_up: { emoji: '🍺', label: 'Carb Load' },
-  victory_round: { emoji: '🏆', label: 'Victory Round' },
-  checkin: { emoji: '📍', label: 'Checked in' },
+  looking_for_buddy: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Looking for a Buddy' },
+  splitting_app: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Appetizer Wingman' },
+  carbing_up: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Carb Load' },
+  victory_round: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Victory Round' },
+  checkin: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', label: 'Checked in' },
 };
 
 /** Returns today's 4:00 AM CST cutoff. If it's before 4 AM, use yesterday's. */
@@ -186,7 +187,7 @@ export function BleacherBarometer() {
       {/* CTA Banner */}
       {activeCount === 0 && (
         <div className="rounded-xl border border-dashed border-primary/30 bg-primary/5 p-4 text-center">
-          <p className="text-2xl mb-1">🏟️</p>
+          <p className="text-2xl mb-1"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
           <p className="text-xs font-bold text-foreground mb-0.5">Where are you rallying?</p>
           <p className="text-[11px] text-muted-foreground">Check in at a spot above to be the first on the board.</p>
         </div>
@@ -218,7 +219,7 @@ export function BleacherBarometer() {
                         {item.profile_photo ? (
                           <img src={item.profile_photo} alt="" className="h-full w-full object-cover" />
                         ) : (
-                          <span className="text-sm">⚾</span>
+                          <span className="text-sm"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                         )}
                       </div>
                       {live && (
@@ -281,7 +282,7 @@ export function BleacherBarometer() {
       {/* Contextual CTAs */}
       {activeCount > 0 && activeCount < 5 && (
         <div className="rounded-xl bg-primary/5 border border-primary/20 p-3 text-center">
-          <p className="text-xs font-bold text-foreground">Don't fly solo. Find a Buddy at the bar. 🤝</p>
+          <p className="text-xs font-bold text-foreground">Don't fly solo. Find a Buddy at the bar. <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
           <p className="text-[10px] text-muted-foreground mt-0.5">Check in above to join the Barometer.</p>
         </div>
       )}

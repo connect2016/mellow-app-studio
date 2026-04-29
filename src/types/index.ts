@@ -14,21 +14,21 @@ export const GAMEDAY_INTENT_LABELS: Record<GamedayIntentType, string> = {
 };
 
 export const GAMEDAY_INTENT_EMOJI: Record<GamedayIntentType, string> = {
-  BleacherRegular: '🎫',
-  FamilyFriendly: '👨‍👩‍👧‍👦',
-  PreGameDrinks: '🍻',
-  ScoringTheGame: '📊',
-  PostGameCelebration: '🎉',
-  WrigleyvilleLocal: '🏘️',
+  BleacherRegular: '',
+  FamilyFriendly: '',
+  PreGameDrinks: '',
+  ScoringTheGame: '',
+  PostGameCelebration: '',
+  WrigleyvilleLocal: '',
 };
 export type FanStyleType = 'OldStyleDrinker' | 'MustardHotdog' | 'StayUntil9th' | 'EarlyBPArrival' | 'ScorecardKeeper';
 
 export const FAN_STYLE_OPTIONS: { value: FanStyleType; label: string; emoji: string }[] = [
-  { value: 'OldStyleDrinker', label: 'Old Style Only', emoji: '🍺' },
-  { value: 'MustardHotdog', label: 'Mustard Gang', emoji: '🌭' },
+  { value: 'OldStyleDrinker', label: 'Old Style Only', emoji: '' },
+  { value: 'MustardHotdog', label: 'Mustard Gang', emoji: '' },
   { value: 'StayUntil9th', label: 'Til the Last Out', emoji: '⏰' },
-  { value: 'EarlyBPArrival', label: 'Gates-Open Guy', emoji: '🏟️' },
-  { value: 'ScorecardKeeper', label: 'Keeps Score', emoji: '📝' },
+  { value: 'EarlyBPArrival', label: 'Gates-Open Guy', emoji: '' },
+  { value: 'ScorecardKeeper', label: 'Keeps Score', emoji: '' },
 ];
 
 export type PrivacyLevel = 'Public' | 'MatchesOnly' | 'Hidden';
@@ -42,10 +42,10 @@ export const INTENT_LABELS: Record<IntentType, string> = {
 };
 
 export const INTENT_EMOJI: Record<IntentType, string> = {
-  FriendToWatch: '⚾',
-  ShareABeer: '🍺',
-  PostGameMeetup: '🎉',
-  Dating: '❤️',
+  FriendToWatch: '',
+  ShareABeer: '',
+  PostGameMeetup: '',
+  Dating: '',
 };
 
 export const GAME_STATUS_LABELS: Record<GameStatus, string> = {
@@ -58,11 +58,11 @@ export const GAME_STATUS_LABELS: Record<GameStatus, string> = {
 };
 
 export const GAME_STATUS_EMOJI: Record<GameStatus, string> = {
-  AtWrigley: '⚾️',
-  AtBar: '🍺',
-  Tailgating: '🌭',
-  BeerSnake: '🐍',
-  WatchingRemote: '🏠',
+  AtWrigley: '',
+  AtBar: '',
+  Tailgating: '',
+  BeerSnake: '',
+  WatchingRemote: '',
   NotSet: '',
 };
 

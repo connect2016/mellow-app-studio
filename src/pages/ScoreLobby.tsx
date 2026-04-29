@@ -8,6 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useScoringSessions } from '@/hooks/useScoringSession';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Users, Radio, ArrowRight } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export default function ScoreLobby() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function ScoreLobby() {
       { title: title.trim(), away_team: awayTeam.trim() },
       {
         onSuccess: (data) => {
-          toast({ title: '⚾ Session created!' });
+          toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Session created!' });
           navigate(`/score/${data.id}`);
         },
       }
@@ -49,7 +50,7 @@ export default function ScoreLobby() {
 
       <div className="mx-auto max-w-lg px-4 pt-6">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground">⚾ Score Together</h1>
+          <h1 className="text-2xl font-bold text-foreground"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Score Together</h1>
           <p className="text-sm text-muted-foreground mt-1">
             Track the game with other Cubs fans in real time
           </p>
@@ -91,7 +92,7 @@ export default function ScoreLobby() {
               className="rounded-xl"
             />
             <Button onClick={handleCreate} disabled={!title.trim() || createSession.isPending} className="w-full rounded-xl">
-              {createSession.isPending ? 'Creating...' : '🎬 Create & Start'}
+              {createSession.isPending ? 'Creating...' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Create & Start'}
             </Button>
           </motion.div>
         )}
@@ -132,7 +133,7 @@ export default function ScoreLobby() {
                   onClick={() => navigate(`/score/${s.id}`)}
                   className="w-full flex items-center gap-3 rounded-2xl border border-border bg-card p-4 text-left hover:border-primary/30 transition-all shadow-sm"
                 >
-                  <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-lg">⚾</div>
+                  <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-lg"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-foreground truncate">{s.title}</p>
                     <p className="text-xs text-muted-foreground flex items-center gap-2">

@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Crown, RefreshCw, TrendingUp, Users, Sparkles, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function FanIdentityPanel() {
   const { currentIdentity, isLoading, classify } = useFanIdentity();
@@ -26,7 +27,7 @@ export function FanIdentityPanel() {
   const tierConf = FAN_TIERS[tier] || FAN_TIERS.rookie;
   const xp = result?.xp ?? currentIdentity?.fan_xp ?? 0;
   const title = result?.title || currentIdentity?.fan_title || 'Rookie Fan';
-  const emoji = result?.emoji || currentIdentity?.fan_tier_emoji || '🌱';
+  const emoji = result?.emoji || currentIdentity?.fan_tier_emoji || '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />';
   const hasIdentity = currentIdentity?.fan_tier && currentIdentity.fan_tier !== 'rookie' || result;
 
   // XP progress to next tier
@@ -164,7 +165,7 @@ export function FanIdentityPanel() {
           </AnimatePresence>
         ) : (
           <div className="text-center py-5">
-            <span className="text-3xl">👑</span>
+            <span className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
             <p className="text-sm text-muted-foreground mt-2">Discover your fan identity</p>
             <p className="text-xs text-muted-foreground mt-0.5">AI analyzes your full engagement history</p>
             <Button

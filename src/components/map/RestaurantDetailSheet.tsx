@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { X, Navigation, MapPin, Clock, Users, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FOOD_SPOTS, type FoodSpot, type GameDayPhase } from '@/lib/wrigleyville-eats';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface RestaurantInfo {
   /** Either pass a full FoodSpot id from the directory, or the raw fields below. */
@@ -29,17 +30,17 @@ function getDirectionsUrl(lat: number, lng: number) {
 const PHASE_LABEL: Record<GameDayPhase, { tag: string; emoji: string; gradient: string }> = {
   before: {
     tag: 'Fan Favorite for Pregame',
-    emoji: '☀️',
+    emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
     gradient: 'from-amber-500/20 to-orange-500/5',
   },
   during: {
     tag: 'Top Carb-Up Spot',
-    emoji: '🍕',
+    emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
     gradient: 'from-red-500/20 to-orange-500/5',
   },
   after: {
     tag: 'Best Postgame Meal',
-    emoji: '🎉',
+    emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
     gradient: 'from-emerald-500/20 to-lime-500/5',
   },
 };
@@ -111,7 +112,7 @@ export function RestaurantDetailSheet({ restaurant, onClose }: Props) {
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-2xl">{spot?.emoji || restaurant.emoji || '🍽️'}</span>
+                    <span className="text-2xl">{spot?.emoji || restaurant.emoji || '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}</span>
                     <h2 className="text-lg font-bold text-foreground leading-tight">
                       {restaurant.name}
                     </h2>

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Compass, RefreshCw, MapPin, Users, ArrowRight, Clock, TrendingUp, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Recommendation {
   rank: number;
@@ -93,7 +94,7 @@ export function NextMovePanel() {
           user_id: user!.id,
         });
         if (error) throw error;
-        toast.success(`Joined meetup at ${rec.location}! 🎉`);
+        toast.success(`Joined meetup at ${rec.location}! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />`);
       } catch (err: any) {
         toast.error(err.message || 'Failed to join');
       }
@@ -147,7 +148,7 @@ export function NextMovePanel() {
           </div>
         ) : recs.length === 0 ? (
           <div className="text-center py-6">
-            <span className="text-3xl">🧭</span>
+            <span className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
             <p className="text-sm text-muted-foreground mt-2">No recommendations yet</p>
             <p className="text-xs text-muted-foreground mt-1">Check in first to get personalized suggestions</p>
           </div>
@@ -250,7 +251,7 @@ export function NextMovePanel() {
             })}
 
             <p className="text-center text-[10px] text-muted-foreground mt-1">
-              Updated based on live crowd data 🧭
+              Updated based on live crowd data <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
             </p>
           </div>
         )}

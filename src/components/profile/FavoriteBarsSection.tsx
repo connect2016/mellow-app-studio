@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { CURATED_BARS } from '@/lib/wrigleyville-bar-guide';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Props {
   bars: string[];
@@ -90,7 +91,7 @@ export function FavoriteBarsSection({ bars, isOwner, onChange }: Props) {
                 variant="secondary"
                 className="gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium"
               >
-                <span>{bar?.emoji ?? '🍺'}</span>
+                <span>{bar?.emoji ?? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}</span>
                 {name}
                 {isOwner && (
                   <button

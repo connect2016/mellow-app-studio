@@ -29,11 +29,11 @@ const BARS = [
 ];
 
 const MESSAGES = [
-  'Go Cubs!', 'Great game!', "First round's on me!", 'Cheers! 🍻',
-  'Nice meeting you!', '⚾ Cubs win!', '', '', '', '',
+  'Go Cubs!', 'Great game!', "First round's on me!", 'Cheers!',
+  'Nice meeting you!', 'Cubs win!', '', '', '', '',
 ];
 
-const EMOJIS = ['🍺', '🍻', '🥃', '🎉', '🍕'];
+const EMOJIS = ['', '', '', '', ''];
 
 let nextId = 1;
 
@@ -56,11 +56,11 @@ function randomActivity(): BeerActivity {
 
 // Generate initial seed
 const SEED: BeerActivity[] = [
-  { id: 'seed-1', from: 'Jake M.', to: 'Mike R.', bar: "Murphy's Bleachers", amount: 8, emoji: '🍻', time: '45s ago', message: 'Go Cubs!' },
-  { id: 'seed-2', from: 'Sarah K.', to: 'Chris P.', bar: 'Sluggers', amount: 12, emoji: '🥃', time: '2m ago', message: 'Great catch!' },
-  { id: 'seed-3', from: 'Alex T.', to: 'Devon L.', bar: 'Cubby Bear', amount: 5, emoji: '🍺', time: '5m ago' },
-  { id: 'seed-4', from: 'Mia J.', to: 'Round', bar: 'Old Crow Smokehouse', amount: 25, emoji: '🎉', time: '8m ago', message: "Let's gooo!" },
-  { id: 'seed-5', from: 'Tyler B.', to: 'Sam W.', bar: "Casey Moran's", amount: 8, emoji: '🍻', time: '12m ago' },
+  { id: 'seed-1', from: 'Jake M.', to: 'Mike R.', bar: "Murphy's Bleachers", amount: 8, emoji: '', time: '45s ago', message: 'Go Cubs!' },
+  { id: 'seed-2', from: 'Sarah K.', to: 'Chris P.', bar: 'Sluggers', amount: 12, emoji: '', time: '2m ago', message: 'Great catch!' },
+  { id: 'seed-3', from: 'Alex T.', to: 'Devon L.', bar: 'Cubby Bear', amount: 5, emoji: '', time: '5m ago' },
+  { id: 'seed-4', from: 'Mia J.', to: 'Round', bar: 'Old Crow Smokehouse', amount: 25, emoji: '', time: '8m ago', message: "Let's gooo!" },
+  { id: 'seed-5', from: 'Tyler B.', to: 'Sam W.', bar: "Casey Moran's", amount: 8, emoji: '', time: '12m ago' },
 ];
 
 export function useLiveBeerFeed(maxItems = 10) {

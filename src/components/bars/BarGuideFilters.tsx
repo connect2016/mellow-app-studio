@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { VIBE_LABELS, GROUP_LABELS, TIMING_LABELS, DISTANCE_BUCKETS, type BarVibe, type BarGroupFit, type BarGameTiming, type DistanceBucket } from '@/lib/wrigleyville-bar-guide';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Props {
   vibes: BarVibe[];
@@ -58,7 +59,7 @@ export function BarGuideFilters({
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {DISTANCE_BUCKETS.map((d) => (
             <Chip key={d.key} active={distance === d.key} onClick={() => onSetDistance(d.key)}>
-              📍 {d.label}
+              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {d.label}
             </Chip>
           ))}
         </div>

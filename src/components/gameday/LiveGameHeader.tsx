@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Radio, Calendar } from 'lucide-react';
 import { useMlbCubsGame, type CubsLiveGame } from '@/hooks/useMlbCubsGame';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function useCountdown(target?: string) {
   const [diffMs, setDiffMs] = useState<number | null>(null);
@@ -149,7 +150,7 @@ function CountdownCard({ game }: { game: CubsLiveGame }) {
       {(game.probablePitcherCubs || game.probablePitcherOpponent) && (
         <div className="flex items-center justify-center gap-3 text-[10px] text-muted-foreground">
           {game.probablePitcherCubs && (
-            <span>🐻 {game.probablePitcherCubs}</span>
+            <span><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {game.probablePitcherCubs}</span>
           )}
           <span className="text-muted-foreground/40">vs</span>
           {game.probablePitcherOpponent && (

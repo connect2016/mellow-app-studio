@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import { useHostTrust } from '@/hooks/useHostTrust';
 import { ReportMeetupSheet } from './ReportMeetupSheet';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Props {
   meetupId: string;
@@ -48,7 +49,7 @@ export function MeetupTrustPanel({
     },
     onSuccess: (_, next) => {
       qc.invalidateQueries({ queryKey: ['meetup-detail', meetupId] });
-      toast.success(next ? '👀 Visible to everyone' : '🕶️ Only RSVPs see you');
+      toast.success(next ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Visible to everyone' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Only RSVPs see you');
     },
     onError: () => toast.error("Couldn't update visibility"),
   });

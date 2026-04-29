@@ -4,12 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useBarCheckins } from '@/hooks/useBarCheckins';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const STATUS_OPTIONS = [
-  { key: 'looking_for_buddy', emoji: '🤝', label: 'Looking for a Buddy', quickMsg: 'Looking for someone to hang with!' },
-  { key: 'splitting_app', emoji: '🥨', label: 'Appetizer Wingman', quickMsg: 'Looking for someone to split an appetizer!' },
-  { key: 'carbing_up', emoji: '🍺', label: 'Carb Load', quickMsg: 'Time to carb up before the first pitch!' },
-  { key: 'victory_round', emoji: '🏆', label: 'Victory Round', quickMsg: 'Cubs Win! Who is grabbing a round nearby?' },
+  { key: 'looking_for_buddy', emoji: '', label: 'Looking for a Buddy', quickMsg: 'Looking for someone to hang with!' },
+  { key: 'splitting_app', emoji: '', label: 'Appetizer Wingman', quickMsg: 'Looking for someone to split an appetizer!' },
+  { key: 'carbing_up', emoji: '', label: 'Carb Load', quickMsg: 'Time to carb up before the first pitch!' },
+  { key: 'victory_round', emoji: '', label: 'Victory Round', quickMsg: 'Cubs Win! Who is grabbing a round nearby?' },
 ] as const;
 
 interface Props {
@@ -105,7 +106,7 @@ export function EatsCheckInButton({ spotName }: Props) {
                     onClick={() => handleQuickPost(opt)}
                     disabled={checkIn.isPending}
                   >
-                    ⚡ Post
+                    <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Post
                   </Button>
                 </div>
               ))}

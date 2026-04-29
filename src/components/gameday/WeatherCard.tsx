@@ -1,5 +1,6 @@
 import { useWrigleyWeather } from '@/hooks/useWrigleyWeather';
 import { Wind, Droplets } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function WeatherCard() {
   const { data: w, isLoading } = useWrigleyWeather();
@@ -10,9 +11,9 @@ export function WeatherCard() {
   if (!w) return null;
 
   const windCallout = w.windRelativeToField.startsWith('out')
-    ? { label: 'Wind blowing out', color: 'text-emerald-600 dark:text-emerald-400', emoji: '💣' }
+    ? { label: 'Wind blowing out', color: 'text-emerald-600 dark:text-emerald-400', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' }
     : w.windRelativeToField.startsWith('in')
-    ? { label: 'Wind blowing in', color: 'text-blue-600 dark:text-blue-400', emoji: '🥶' }
+    ? { label: 'Wind blowing in', color: 'text-blue-600 dark:text-blue-400', emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' }
     : { label: 'Cross-wind', color: 'text-muted-foreground', emoji: '〰️' };
 
   return (

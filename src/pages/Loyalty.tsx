@@ -13,6 +13,7 @@ import {
 import { Progress } from '@/components/ui/progress';
 import { Card } from '@/components/ui/card';
 import { Trophy, Lock, Sparkles } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function BadgeCard({
   badge,
@@ -208,7 +209,7 @@ export default function Loyalty() {
                 {celebration.emoji}
               </motion.div>
               <h2 className="text-2xl font-bold text-foreground mb-2">
-                Pennant Unlocked! 🎉
+                Pennant Unlocked! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
               </h2>
               <p className="text-lg font-semibold text-accent mb-1">{celebration.name}</p>
               <p className="text-sm text-muted-foreground mb-5">{celebration.description}</p>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Flame, Users, ChevronRight } from 'lucide-react';
 import { useVenueActivity } from '@/hooks/useVenueActivity';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function TrendingBarsLive() {
   const { data: venues, isLoading } = useVenueActivity();
@@ -36,7 +37,7 @@ export function TrendingBarsLive() {
 
       {trending.length === 0 ? (
         <div className="px-4 py-6 text-center">
-          <div className="text-2xl mb-1">🍺</div>
+          <div className="text-2xl mb-1"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
           <p className="text-[12px] text-muted-foreground">
             Quiet right now. Be the first to check in.
           </p>
@@ -74,7 +75,7 @@ export function TrendingBarsLive() {
                       </span>
                       {v.meetups.length > 0 && (
                         <span className="inline-flex items-center gap-1 text-primary font-semibold">
-                          ⚡ {v.meetups.length} meetup{v.meetups.length !== 1 ? 's' : ''}
+                          <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {v.meetups.length} meetup{v.meetups.length !== 1 ? 's' : ''}
                         </span>
                       )}
                     </div>

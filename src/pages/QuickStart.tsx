@@ -15,17 +15,17 @@ type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere';
 type GroupSize = 'solo' | 'small' | 'big';
 
 const INTENTS: { id: Intent; emoji: string; label: string; sub: string }[] = [
-  { id: 'watch_game', emoji: '⚾', label: 'Watch the game', sub: 'Live scores, section chats, predictions' },
-  { id: 'meet_fans', emoji: '🤝', label: 'Meet fellow fans', sub: 'Hi-fives, meetups, ballpark buddies' },
-  { id: 'bar_hop', emoji: '🍻', label: 'Bar hop the neighborhood', sub: 'Vibe map, specials, pub crawls' },
-  { id: 'date', emoji: '💘', label: 'Find a date who loves the Cubs', sub: 'Matches, conversations, low-key meetups' },
-  { id: 'all', emoji: '🌟', label: 'All of the above', sub: "Give me the full Wrigleyville experience" },
+  { id: 'watch_game', emoji: '', label: 'Watch the game', sub: 'Live scores, section chats, predictions' },
+  { id: 'meet_fans', emoji: '', label: 'Meet fellow fans', sub: 'Hi-fives, meetups, ballpark buddies' },
+  { id: 'bar_hop', emoji: '', label: 'Bar hop the neighborhood', sub: 'Vibe map, specials, pub crawls' },
+  { id: 'date', emoji: '', label: 'Find a date who loves the Cubs', sub: 'Matches, conversations, low-key meetups' },
+  { id: 'all', emoji: '', label: 'All of the above', sub: "Give me the full Wrigleyville experience" },
 ];
 
 const BEHAVIORS: { id: Behavior; emoji: string; label: string }[] = [
-  { id: 'at_park', emoji: '🏟️', label: 'At the park' },
-  { id: 'at_bar', emoji: '🍺', label: 'At a bar' },
-  { id: 'at_home', emoji: '🛋️', label: 'At home' },
+  { id: 'at_park', emoji: '', label: 'At the park' },
+  { id: 'at_bar', emoji: '', label: 'At a bar' },
+  { id: 'at_home', emoji: '', label: 'At home' },
 ];
 
 const ZONES: { id: Zone; label: string }[] = [
@@ -36,9 +36,9 @@ const ZONES: { id: Zone; label: string }[] = [
 ];
 
 const GROUPS: { id: GroupSize; emoji: string; label: string }[] = [
-  { id: 'solo', emoji: '👤', label: 'Solo' },
-  { id: 'small', emoji: '👥', label: 'Small (2–4)' },
-  { id: 'big', emoji: '🎉', label: 'Big crew (5+)' },
+  { id: 'solo', emoji: '', label: 'Solo' },
+  { id: 'small', emoji: '', label: 'Small (2–4)' },
+  { id: 'big', emoji: '', label: 'Big crew (5+)' },
 ];
 
 export default function QuickStart() {

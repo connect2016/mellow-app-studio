@@ -7,6 +7,7 @@ import { useBarPlanComments, type BarPlan } from '@/hooks/useBarPlans';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { formatDistanceToNowStrict } from 'date-fns';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Props {
   plan: BarPlan;
@@ -61,7 +62,7 @@ export function BarPlanCommentsSheet({ plan, onClose }: Props) {
           )}
           {!isLoading && comments.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-2xl">💬</p>
+              <p className="text-2xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
               <p className="mt-2 text-xs text-muted-foreground">No comments yet — start the conversation.</p>
             </div>
           )}

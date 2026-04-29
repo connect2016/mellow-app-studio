@@ -54,7 +54,7 @@ export function useBucketList() {
     onSuccess: (_, taskKey) => {
       queryClient.invalidateQueries({ queryKey: ['bucket-list', user?.id] });
       const task = BUCKET_LIST_TASKS.find(t => t.key === taskKey);
-      toast.success(`${task?.emoji ?? '✅'} ${task?.title ?? 'Task'} complete!`);
+      toast.success(`${task?.emoji ?? ''} ${task?.title ?? 'Task'} complete!`);
     },
     onError: () => toast.error('Failed to save progress'),
   });

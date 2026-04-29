@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Users, UserPlus, ArrowLeft, X, Check } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export default function Dugout() {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ export default function Dugout() {
                     {r?.profile_photo ? (
                       <img src={r.profile_photo} alt="" className="h-10 w-10 rounded-full object-cover" />
                     ) : (
-                      <div className="h-10 w-10 rounded-full bg-[#002F6C]/20 flex items-center justify-center text-lg">⚾</div>
+                      <div className="h-10 w-10 rounded-full bg-[#002F6C]/20 flex items-center justify-center text-lg"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
                     )}
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm text-[#002F6C] truncate">{r?.display_name ?? 'A fan'}</p>
@@ -125,7 +126,7 @@ export default function Dugout() {
 
         {/* Deck */}
         {isLoading ? (
-          <div className="py-16 text-center text-white/80">⚾ Loading your roster…</div>
+          <div className="py-16 text-center text-white/80"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Loading your roster…</div>
         ) : (teammates?.length ?? 0) === 0 ? (
           <div className="rounded-2xl bg-white/95 p-8 text-center shadow-xl">
             <Users className="h-12 w-12 mx-auto text-[#002F6C] mb-3" />

@@ -11,6 +11,7 @@ import {
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import wrigleyHero from '@/assets/wrigley-hero.jpg';
 import HeroVideo from '@/components/landing/HeroVideo';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const stats = [
   { label: 'Cubs Fans', value: '1,200+' },
@@ -127,8 +128,8 @@ function ProfileMock() {
         </div>
         <p className="text-[9px] font-semibold uppercase tracking-wide text-muted-foreground pt-1">Intent</p>
         <div className="flex flex-wrap gap-1">
-          <span className="rounded-full bg-card border px-2 py-0.5 text-[10px] text-foreground">🍺 Grab beers</span>
-          <span className="rounded-full bg-card border px-2 py-0.5 text-[10px] text-foreground">⚾ Watch game</span>
+          <span className="rounded-full bg-card border px-2 py-0.5 text-[10px] text-foreground"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Grab beers</span>
+          <span className="rounded-full bg-card border px-2 py-0.5 text-[10px] text-foreground"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Watch game</span>
         </div>
         <div className="rounded-lg bg-card border p-2 mt-2">
           <p className="text-[9px] text-muted-foreground">Go-to bar</p>
@@ -248,7 +249,7 @@ function FeaturePreview({ kind }: { kind: 'map' | 'meetup' | 'hifive' }) {
   }
   return (
     <div className="rounded-xl border bg-card p-3 flex items-center gap-3">
-      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-2xl">✋</div>
+      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-2xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
       <div className="flex-1">
         <p className="text-xs font-bold text-destructive-foreground">Jake sent you a Hi-Five</p>
         <p className="text-[10px] text-muted-foreground">Suggested: Murphy's, 5:30 PM</p>
@@ -552,8 +553,8 @@ export default function Landing() {
                 <span className="text-xs font-semibold text-foreground">Works in your browser — no download needed</span>
               </div>
               <div className="mt-3 flex gap-2">
-                <div className="rounded-lg border bg-card px-3 py-1.5 text-[10px] text-muted-foreground">📱 App Store · soon</div>
-                <div className="rounded-lg border bg-card px-3 py-1.5 text-[10px] text-muted-foreground">🤖 Google Play · soon</div>
+                <div className="rounded-lg border bg-card px-3 py-1.5 text-[10px] text-muted-foreground"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> App Store · soon</div>
+                <div className="rounded-lg border bg-card px-3 py-1.5 text-[10px] text-muted-foreground"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Google Play · soon</div>
               </div>
             </div>
 
@@ -585,14 +586,14 @@ export default function Landing() {
                   <Instagram className="h-4 w-4 text-primary" /> Instagram
                 </a>
                 <a href="#" aria-label="TikTok" className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted">
-                  <span className="text-sm">🎵</span> TikTok
+                  <span className="text-sm"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span> TikTok
                 </a>
               </div>
             </div>
           </div>
 
           <div className="mt-10 border-t pt-6 text-center text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} Cubbies Buddies · Made with ❤️ in Wrigleyville</p>
+            <p>© {new Date().getFullYear()} Cubbies Buddies · Made with <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> in Wrigleyville</p>
             <p className="mt-1 text-[11px]">Not affiliated with the Chicago Cubs or Major League Baseball.</p>
           </div>
         </div>

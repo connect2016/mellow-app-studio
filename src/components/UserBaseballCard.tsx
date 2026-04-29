@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { StatPreference, StatKey, DEFAULT_STAT_PREFS, StatVisibility } from '@/hooks/useStatPreferences';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface CardStats {
   beersToday?: number;
@@ -99,10 +100,10 @@ export function UserBaseballCard({
     }
   };
 
-  const statusLabel = gameStatus === 'AtWrigley' ? `🏟️ At Wrigley${wrigleySection ? ` · Sec ${wrigleySection}` : ''}`
-    : gameStatus === 'AtBar' ? `🍺 ${wrigleyvilleBar || 'At the bar'}`
-    : gameStatus === 'Tailgating' ? '🌭 Tailgating'
-    : gameStatus === 'WatchingRemote' ? '📺 Watching from home'
+  const statusLabel = gameStatus === 'AtWrigley' ? `<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> At Wrigley${wrigleySection ? ` · Sec ${wrigleySection}` : ''}`
+    : gameStatus === 'AtBar' ? `<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${wrigleyvilleBar || 'At the bar'}`
+    : gameStatus === 'Tailgating' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Tailgating'
+    : gameStatus === 'WatchingRemote' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Watching from home'
     : null;
 
   const cardStats: CardStats = stats || {

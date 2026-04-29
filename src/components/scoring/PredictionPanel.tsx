@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, CheckCircle2, XCircle, Clock } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Prediction {
   id: string;
@@ -20,14 +21,14 @@ interface MemberProfile {
 }
 
 const PREDICTION_OPTIONS = [
-  { value: 'hr', label: 'Home Run', emoji: '💣', points: 25 },
-  { value: 'strikeout', label: 'Strikeout', emoji: '🔥', points: 10 },
-  { value: 'double_play', label: 'Double Play', emoji: '👏', points: 20 },
-  { value: 'hit', label: 'Base Hit', emoji: '💥', points: 8 },
-  { value: 'walk', label: 'Walk', emoji: '🚶', points: 5 },
-  { value: 'flyout', label: 'Fly Out', emoji: '🪰', points: 5 },
+  { value: 'hr', label: 'Home Run', emoji: '', points: 25 },
+  { value: 'strikeout', label: 'Strikeout', emoji: '', points: 10 },
+  { value: 'double_play', label: 'Double Play', emoji: '', points: 20 },
+  { value: 'hit', label: 'Base Hit', emoji: '', points: 8 },
+  { value: 'walk', label: 'Walk', emoji: '', points: 5 },
+  { value: 'flyout', label: 'Fly Out', emoji: '', points: 5 },
   { value: 'groundout', label: 'Ground Out', emoji: '⬇️', points: 5 },
-  { value: 'steal', label: 'Stolen Base', emoji: '⚡', points: 15 },
+  { value: 'steal', label: 'Stolen Base', emoji: '', points: 15 },
 ];
 
 interface PredictionPanelProps {
@@ -87,7 +88,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
             <p className="text-[10px] text-muted-foreground">Correct</p>
           </div>
           <div className="text-center rounded-xl bg-muted/50 px-2 py-3">
-            <p className="text-lg font-bold text-secondary">{streak}🔥</p>
+            <p className="text-lg font-bold text-secondary">{streak}<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
             <p className="text-[10px] text-muted-foreground">Streak</p>
           </div>
         </div>
@@ -138,7 +139,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
               disabled={!selectedPlay}
               className="w-full rounded-xl bg-secondary text-secondary-foreground py-2.5 text-sm font-semibold disabled:opacity-40 transition-opacity"
             >
-              ⚡ Lock In Prediction
+              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Lock In Prediction
             </button>
           </>
         )}
@@ -203,7 +204,7 @@ export function PredictionPanel({ predictions, profiles, userId, currentInning, 
               return (
                 <div key={p.id} className="flex items-center gap-2 text-xs">
                   <span className={p.is_correct ? 'text-accent' : 'text-destructive'}>
-                    {p.is_correct ? '✅' : '❌'}
+                    {p.is_correct ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}
                   </span>
                   <span className="text-foreground font-medium">{profile?.display_name ?? 'Fan'}</span>
                   <span className="text-muted-foreground">{opt?.emoji} {opt?.label}</span>

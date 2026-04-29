@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { GuestGateModal } from '@/components/GuestGateModal';
 import { GuestBanner } from '@/components/GuestBanner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 type SortMode = 'crowd' | 'meetups' | 'vibe';
 
@@ -118,7 +119,7 @@ export default function Venues() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-16">
-            <span className="text-4xl">🏙️</span>
+            <span className="text-4xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
             <p className="text-sm text-muted-foreground mt-3">No active venues right now</p>
             <p className="text-xs text-muted-foreground mt-1">Check back closer to game time!</p>
           </div>
@@ -133,7 +134,7 @@ export default function Venues() {
                   if (isGuest) {
                     setGuestGateOpen(true);
                   } else {
-                    toast.success('Joining meetup! 🎉');
+                    toast.success('Joining meetup! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />');
                   }
                 }}
               />

@@ -14,6 +14,7 @@ import { StatusBubbleMarker } from './map/StatusBubbleMarker';
 import { MiniProfileSheet } from './map/MiniProfileSheet';
 import { TapFanHintPill } from './map/TapFanHintPill';
 import { useSendLike } from '@/hooks/useInteractions';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 
@@ -109,7 +110,7 @@ export function GameDayMap() {
 
   const handleHiFive = (fan: MapFan) => {
     sendLike.mutate(
-      { toUser: fan.id, isHiFive: true, message: '🖐️ High-Five from the map!' },
+      { toUser: fan.id, isHiFive: true, message: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> High-Five from the map!' },
       { onSuccess: () => setSelectedFan(null) }
     );
   };
@@ -215,7 +216,7 @@ export function GameDayMap() {
             selectedCluster={selectedCluster}
             onNavigate={() => toast.success('Opening directions...')}
             onChat={() => toast.success('Opening section chat...')}
-            onJoin={() => toast.success("You're heading over! 🎉")}
+            onJoin={() => toast.success("You're heading over! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />")}
           />
         </AnimatePresence>
 

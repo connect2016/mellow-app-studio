@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { formatDistanceToNowStrict } from 'date-fns';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface ActivityItem {
   id: string;
@@ -13,11 +14,11 @@ interface ActivityItem {
 }
 
 const STATUS_LABELS: Record<string, { emoji: string; action: string }> = {
-  AtWrigley: { emoji: '🏟️', action: 'checked in at Wrigley' },
-  AtBar: { emoji: '🍻', action: 'is at a bar in Wrigleyville' },
-  Tailgating: { emoji: '🌭', action: 'is tailgating' },
-  BeerSnake: { emoji: '🐍', action: 'joined a beer snake' },
-  WatchingRemote: { emoji: '📺', action: 'is watching from home' },
+  AtWrigley: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', action: 'checked in at Wrigley' },
+  AtBar: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', action: 'is at a bar in Wrigleyville' },
+  Tailgating: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', action: 'is tailgating' },
+  BeerSnake: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', action: 'joined a beer snake' },
+  WatchingRemote: { emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />', action: 'is watching from home' },
 };
 
 export function LiveActivityFeed({ maxItems = 5 }: { maxItems?: number }) {
@@ -80,7 +81,7 @@ export function LiveActivityFeed({ maxItems = 5 }: { maxItems?: number }) {
           text: info.count === 1
             ? `A fan just arrived at ${bar}`
             : `${info.count} fans are at ${bar}`,
-          emoji: '🍻',
+          emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
           timestamp: info.latest,
         });
       });
@@ -90,7 +91,7 @@ export function LiveActivityFeed({ maxItems = 5 }: { maxItems?: number }) {
         items.push({
           id: `meetup-${m.id}`,
           text: `New meetup at ${m.meeting_spot}`,
-          emoji: '⚡',
+          emoji: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
           timestamp: m.created_at,
         });
       });

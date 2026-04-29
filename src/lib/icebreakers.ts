@@ -5,43 +5,43 @@
 
 export const ICEBREAKER_PROMPTS = [
   {
-    emoji: '⚾',
+    emoji: '',
     text: "The Clubhouse says: Ask the person next to you who they think the MVP is today.",
   },
   {
-    emoji: '🏟️',
+    emoji: '',
     text: "Trivia Challenge: Did you know Wrigley is the 2nd oldest park in MLB? Mention that to a fellow fan!",
   },
   {
-    emoji: '⚡',
+    emoji: '',
     text: "The Vibe is Electric! Ask a nearby Buddy where they're heading after the game.",
   },
   {
-    emoji: '🌭',
+    emoji: '',
     text: "Hot Take Time: Ask someone nearby — ketchup on a Chicago dog: yes or no?",
   },
   {
-    emoji: '🎵',
+    emoji: '',
     text: "7th Inning Stretch Quiz: Ask a Buddy if they know who sang the stretch today!",
   },
   {
-    emoji: '🍺',
+    emoji: '',
     text: "Round Table: Ask the nearest Buddy what their go-to Wrigleyville bar order is.",
   },
   {
-    emoji: '🏆',
+    emoji: '',
     text: "Championship Chat: Ask a fellow fan — what's your all-time favorite Cubs moment?",
   },
   {
-    emoji: '📣',
+    emoji: '',
     text: "Rally Time! Start a 'Let's Go Cubbies!' chant with the Buddies around you.",
   },
   {
-    emoji: '🧢',
+    emoji: '',
     text: "Hat Check: Ask a nearby fan about their favorite Cubs hat or jersey.",
   },
   {
-    emoji: '🌿',
+    emoji: '',
     text: "Ivy League: Ask a Buddy if they've ever caught a ball stuck in the ivy!",
   },
 ];

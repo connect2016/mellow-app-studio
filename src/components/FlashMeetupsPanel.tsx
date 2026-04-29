@@ -11,12 +11,13 @@ import {
   Flame, Coffee, PartyPopper, Timer,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const VIBE_OPTIONS = [
-  { value: 'hype', label: 'Hype', emoji: '⚡', color: 'text-amber-500', bg: 'bg-amber-500/10 border-amber-500/20' },
-  { value: 'chill', label: 'Chill', emoji: '😎', color: 'text-sky-500', bg: 'bg-sky-500/10 border-sky-500/20' },
-  { value: 'party', label: 'Party', emoji: '🎉', color: 'text-pink-500', bg: 'bg-pink-500/10 border-pink-500/20' },
-  { value: 'rally', label: 'Rally', emoji: '🚀', color: 'text-violet-500', bg: 'bg-violet-500/10 border-violet-500/20' },
+  { value: 'hype', label: 'Hype', emoji: '', color: 'text-amber-500', bg: 'bg-amber-500/10 border-amber-500/20' },
+  { value: 'chill', label: 'Chill', emoji: '', color: 'text-sky-500', bg: 'bg-sky-500/10 border-sky-500/20' },
+  { value: 'party', label: 'Party', emoji: '', color: 'text-pink-500', bg: 'bg-pink-500/10 border-pink-500/20' },
+  { value: 'rally', label: 'Rally', emoji: '', color: 'text-violet-500', bg: 'bg-violet-500/10 border-violet-500/20' },
 ];
 
 const QUICK_SPOTS = [
@@ -179,7 +180,7 @@ export function FlashMeetupsPanel() {
   const [location, setLocation] = useState('');
   const [vibe, setVibe] = useState('hype');
   const [duration, setDuration] = useState(30);
-  const [emoji, setEmoji] = useState('⚡');
+  const [emoji, setEmoji] = useState('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />');
 
   const handleCreate = async () => {
     if (!title.trim() || !location.trim()) {
@@ -194,7 +195,7 @@ export function FlashMeetupsPanel() {
         vibe,
         duration_minutes: duration,
       });
-      toast.success('⚡ Flash meetup is live!');
+      toast.success('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Flash meetup is live!');
       setShowCreate(false);
       setTitle('');
       setLocation('');
@@ -253,7 +254,7 @@ export function FlashMeetupsPanel() {
                 <div>
                   <Label className="text-xs text-muted-foreground mb-1 block">What's happening?</Label>
                   <Input
-                    placeholder="e.g. Post-game beers 🍻"
+                    placeholder="e.g. Post-game beers"
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     className="rounded-lg h-9 text-sm"
@@ -385,7 +386,7 @@ export function FlashMeetupsPanel() {
                   meetup={meetup}
                   onJoin={() => {
                     joinMeetup.mutate(meetup.id, {
-                      onSuccess: () => toast.success("You're in! We'll notify you when others join. ⚡"),
+                      onSuccess: () => toast.success("You're in! We'll notify you when others join. <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />"),
                       onError: (err: any) => toast.error(err.message || 'Failed to join'),
                     });
                   }}
@@ -414,7 +415,7 @@ export function FlashMeetupsPanel() {
             )}
 
             <p className="text-center text-[10px] text-muted-foreground">
-              Flash meetups auto-expire — jump in before they're gone ⚡
+              Flash meetups auto-expire — jump in before they're gone <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
             </p>
           </div>
         )}

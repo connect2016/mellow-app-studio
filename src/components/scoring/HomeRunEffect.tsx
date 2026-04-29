@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface Particle {
   id: number;
@@ -11,7 +12,7 @@ interface Particle {
   velocity: number;
 }
 
-const HR_EMOJIS = ['💣', '🔥', '💥', '⚾', '🎆', '🏠', '🐻'];
+const HR_EMOJIS = ['', '', '', '', '', '', ''];
 
 function createParticles(count: number): Particle[] {
   return Array.from({ length: count }, (_, i) => ({
@@ -56,10 +57,10 @@ export function HomeRunEffect({ trigger, playType }: HomeRunEffectProps) {
     if (trigger > 0) triggerEffect();
   }, [trigger, triggerEffect]);
 
-  const label = playType === 'hr' ? '💣 HOME RUN!' :
-    playType === 'double_play' ? '👏 DOUBLE PLAY!' :
-    playType === 'strikeout' ? '🔥 STRIKEOUT!' :
-    playType === 'steal' ? '⚡ STOLEN BASE!' : '💥 BIG PLAY!';
+  const label = playType === 'hr' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> HOME RUN!' :
+    playType === 'double_play' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> DOUBLE PLAY!' :
+    playType === 'strikeout' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> STRIKEOUT!' :
+    playType === 'steal' ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> STOLEN BASE!' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> BIG PLAY!';
 
   return (
     <>

@@ -55,27 +55,27 @@ export function useSendLike() {
     },
     onSuccess: (data, variables) => {
       if (data.isMatch) {
-        toast({ title: '🎉 It\'s a Match!', description: 'Nice! You just made a new Buddy.' });
+        toast({ title: 'It\'s a Match!', description: 'Nice! You just made a new Buddy.' });
         tracker.trackMatch();
       } else if (data.isMutualHiFive) {
         toast({
-          title: '🙌 Mutual Hi-Five!',
+          title: 'Mutual Hi-Five!',
           description: 'Nice! You just made a new Buddy — send them a message.',
         });
-      } else if (variables.isHiFive && variables.message?.includes('🌭')) {
+      } else if (variables.isHiFive && variables.message?.includes('')) {
         toast({
-          title: '🌭 Hot Dog sent!',
+          title: 'Hot Dog sent!',
           description: 'You tossed them a dog — classic Wrigley icebreaker!',
         });
         tracker.trackHiFive();
       } else if (variables.isHiFive) {
         toast({
-          title: '🖐️ Hi-Five sent — vibes delivered.',
+          title: 'Hi-Five sent — vibes delivered.',
           description: 'Let\'s see if they Hi-Five back!',
         });
         tracker.trackHiFive();
       } else {
-        toast({ title: '❤️ Liked!' });
+        toast({ title: 'Liked!' });
       }
       queryClient.invalidateQueries({ queryKey: ['discover-profiles'] });
     },

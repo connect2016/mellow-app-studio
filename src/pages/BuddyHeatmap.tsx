@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { snapToPrivacyGrid, isNearHomeOrWork } from '@/lib/location-privacy';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyC3rzW-wAq6Pl2NU_AePqX5VO15Ar9Wx1E';
 
@@ -246,7 +247,7 @@ export default function BuddyHeatmap() {
         try {
           await checkin.mutateAsync({ lat: latitude, lng: longitude });
           setCheckedIn(true);
-          toast({ title: "📍 You're on the map!", description: 'Your presence is shown as a 200m radius — exact location is hidden.' });
+          toast({ title: "<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> You're on the map!", description: 'Your presence is shown as a 200m radius — exact location is hidden.' });
           setTimeout(() => setCheckedIn(false), 5000);
         } catch {
           toast({ title: 'Check-in failed', description: 'Please try again.', variant: 'destructive' });
@@ -326,7 +327,7 @@ export default function BuddyHeatmap() {
         {!isLoading && clusters.length === 0 && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="bg-card/90 backdrop-blur-md rounded-2xl border border-border px-6 py-5 text-center max-w-[280px] pointer-events-auto">
-              <p className="text-3xl mb-2">📍</p>
+              <p className="text-3xl mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
                <p className="text-sm font-semibold text-foreground mb-1">The bases are empty!</p>
                <p className="text-xs text-muted-foreground">Be the first to start a conversation — check in and scout the area!</p>
             </div>

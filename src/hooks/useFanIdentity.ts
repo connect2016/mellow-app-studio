@@ -14,21 +14,21 @@ export interface FanIdentity {
 }
 
 export const FAN_TIERS: Record<string, { label: string; color: string; bg: string; emoji: string; minXp: number; maxXp: number }> = {
-  rookie:       { label: 'Rookie',       color: 'text-emerald-500',  bg: 'bg-emerald-500/10 border-emerald-500/20',  emoji: '🌱', minXp: 0,    maxXp: 99 },
-  regular:      { label: 'Regular',      color: 'text-sky-500',      bg: 'bg-sky-500/10 border-sky-500/20',          emoji: '⚾', minXp: 100,  maxXp: 299 },
-  superfan:     { label: 'Superfan',     color: 'text-amber-500',    bg: 'bg-amber-500/10 border-amber-500/20',      emoji: '🔥', minXp: 300,  maxXp: 599 },
-  legend:       { label: 'Legend',       color: 'text-purple-500',   bg: 'bg-purple-500/10 border-purple-500/20',    emoji: '👑', minXp: 600,  maxXp: 999 },
-  hall_of_fame: { label: 'Hall of Fame', color: 'text-yellow-500',   bg: 'bg-yellow-500/10 border-yellow-500/20',    emoji: '🏆', minXp: 1000, maxXp: 9999 },
+  rookie:       { label: 'Rookie',       color: 'text-emerald-500',  bg: 'bg-emerald-500/10 border-emerald-500/20',  emoji: '', minXp: 0,    maxXp: 99 },
+  regular:      { label: 'Regular',      color: 'text-sky-500',      bg: 'bg-sky-500/10 border-sky-500/20',          emoji: '', minXp: 100,  maxXp: 299 },
+  superfan:     { label: 'Superfan',     color: 'text-amber-500',    bg: 'bg-amber-500/10 border-amber-500/20',      emoji: '', minXp: 300,  maxXp: 599 },
+  legend:       { label: 'Legend',       color: 'text-purple-500',   bg: 'bg-purple-500/10 border-purple-500/20',    emoji: '', minXp: 600,  maxXp: 999 },
+  hall_of_fame: { label: 'Hall of Fame', color: 'text-yellow-500',   bg: 'bg-yellow-500/10 border-yellow-500/20',    emoji: '', minXp: 1000, maxXp: 9999 },
 };
 
 export const ARCHETYPE_LABELS: Record<string, { label: string; emoji: string }> = {
-  connector:   { label: 'Connector',   emoji: '🤝' },
-  hype_beast:  { label: 'Hype Beast',  emoji: '🎉' },
-  analyst:     { label: 'Analyst',     emoji: '📊' },
-  historian:   { label: 'Historian',   emoji: '📚' },
-  explorer:    { label: 'Explorer',    emoji: '🧭' },
-  leader:      { label: 'Leader',      emoji: '🎯' },
-  loyalist:    { label: 'Loyalist',    emoji: '💙' },
+  connector:   { label: 'Connector',   emoji: '' },
+  hype_beast:  { label: 'Hype Beast',  emoji: '' },
+  analyst:     { label: 'Analyst',     emoji: '' },
+  historian:   { label: 'Historian',   emoji: '' },
+  explorer:    { label: 'Explorer',    emoji: '' },
+  leader:      { label: 'Leader',      emoji: '' },
+  loyalist:    { label: 'Loyalist',    emoji: '' },
 };
 
 export function useFanIdentity() {

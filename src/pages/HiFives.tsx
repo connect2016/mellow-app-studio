@@ -11,14 +11,15 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Zap, MessageCircle, ChevronDown } from 'lucide-react';
 import { ErrorState } from '@/components/ErrorState';
 import bgWrigleyvilleStreet from '@/assets/bg-wrigleyville-street.png';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const QUICK_REPLIES = [
-  { emoji: '🏟️', text: 'My first game was unforgettable!' },
-  { emoji: '⚾', text: 'Let\'s grab a beer before the game!' },
-  { emoji: '🎉', text: 'Nothing beats Wrigley on game day!' },
-  { emoji: '🍺', text: 'Sluggers or Murphy\'s? 😄' },
-  { emoji: '🐻', text: 'Go Cubs Go! 🎵' },
-  { emoji: '🙌', text: 'Let\'s meet up!' },
+  { emoji: '', text: 'My first game was unforgettable!' },
+  { emoji: '', text: 'Let\'s grab a beer before the game!' },
+  { emoji: '', text: 'Nothing beats Wrigley on game day!' },
+  { emoji: '', text: 'Sluggers or Murphy\'s? 😄' },
+  { emoji: '', text: 'Go Cubs Go!' },
+  { emoji: '', text: 'Let\'s meet up!' },
 ];
 
 export default function HiFives() {
@@ -101,7 +102,7 @@ export default function HiFives() {
       setReplyingTo(null);
       setTimeout(() => setCelebrateId(null), 1500);
       toast({
-        title: '🙌 Mutual Hi-Five!',
+        title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Mutual Hi-Five!',
         description: `You and ${fan?.displayName ?? 'a fan'} are vibing!`,
       });
       queryClient.invalidateQueries({ queryKey: ['hi-fives'] });
@@ -120,7 +121,7 @@ export default function HiFives() {
       <AppHeader />
       <div className="relative z-10 mx-auto max-w-lg px-4 pt-4">
         <h2 className="mb-1 text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>Hi-Fives</h2>
-        <p className="mb-6 text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Fans who sent you a Hi-Five 🖐️ — tap to reply!</p>
+        <p className="mb-6 text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Fans who sent you a Hi-Five <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> — tap to reply!</p>
 
         {isError ? (
           <ErrorState onRetry={() => refetch()} />
@@ -198,15 +199,15 @@ export default function HiFives() {
                         <span>{hf.time}</span>
                         {hf.gameStatus && hf.gameStatus !== 'NotSet' && (
                           <span className="flex items-center gap-0.5">
-                            {hf.gameStatus === 'AtWrigley' && '🏟️'}
-                            {hf.gameStatus === 'AtBar' && `🍺 ${hf.bar ?? ''}`}
+                            {hf.gameStatus === 'AtWrigley' && '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}
+                            {hf.gameStatus === 'AtBar' && `<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> ${hf.bar ?? ''}`}
                           </span>
                         )}
                       </div>
                     </div>
                     <div>
                       {hf.responded ? (
-                        <span className="text-xs text-primary font-semibold bg-primary/10 px-2.5 py-1 rounded-full">🙌 Mutual</span>
+                        <span className="text-xs text-primary font-semibold bg-primary/10 px-2.5 py-1 rounded-full"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Mutual</span>
                       ) : (
                         <Button
                           size="sm"
@@ -214,7 +215,7 @@ export default function HiFives() {
                           className="rounded-full font-semibold gap-1"
                           onClick={() => setReplyingTo(isReplying ? null : hf.fromUser)}
                         >
-                          🖐️ Reply
+                          <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Reply
                           <ChevronDown className={`h-3 w-3 transition-transform ${isReplying ? 'rotate-180' : ''}`} />
                         </Button>
                       )}
@@ -244,7 +245,7 @@ export default function HiFives() {
                       >
                         <div className="px-4 pb-4 pt-1 space-y-1.5 relative z-10">
                           <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-1">
-                            ⚡ One-tap reply
+                            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> One-tap reply
                           </p>
                           <div className="flex flex-wrap gap-1.5">
                             {QUICK_REPLIES.map((qr, i) => (
@@ -267,7 +268,7 @@ export default function HiFives() {
                             disabled={hiFiveBack.isPending}
                             className="text-xs font-medium text-muted-foreground py-1.5 hover:text-foreground transition-colors"
                           >
-                            Just Hi-Five back 🖐️
+                            Just Hi-Five back <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                           </button>
                         </div>
                       </motion.div>

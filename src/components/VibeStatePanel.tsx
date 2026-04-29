@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sparkles, RefreshCw, Zap, Users } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function VibeStatePanel() {
   const { currentVibe, vibeLoading, classify } = useVibeState();
@@ -143,7 +144,7 @@ export function VibeStatePanel() {
           </AnimatePresence>
         ) : (
           <div className="text-center py-5">
-            <span className="text-3xl">✨</span>
+            <span className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
             <p className="text-sm text-muted-foreground mt-2">What's your vibe right now?</p>
             <Button
               className="mt-3 rounded-xl gap-2 text-sm"

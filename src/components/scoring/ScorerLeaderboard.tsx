@@ -2,13 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { motion } from 'framer-motion';
 import { Trophy, Target, Flame, Award } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const TIER_BADGES = [
-  { min: 0, label: 'Rookie Scorer', emoji: '🌱', color: 'text-muted-foreground' },
-  { min: 5, label: 'Seasoned Scorer', emoji: '⚾', color: 'text-primary' },
-  { min: 15, label: 'Pro Scorer', emoji: '🏆', color: 'text-secondary' },
-  { min: 30, label: 'MVP Scorer', emoji: '👑', color: 'text-accent' },
-  { min: 50, label: 'Hall of Famer', emoji: '🎖️', color: 'text-secondary' },
+  { min: 0, label: 'Rookie Scorer', emoji: '', color: 'text-muted-foreground' },
+  { min: 5, label: 'Seasoned Scorer', emoji: '', color: 'text-primary' },
+  { min: 15, label: 'Pro Scorer', emoji: '', color: 'text-secondary' },
+  { min: 30, label: 'MVP Scorer', emoji: '', color: 'text-accent' },
+  { min: 50, label: 'Hall of Famer', emoji: '', color: 'text-secondary' },
 ];
 
 function getBadge(gamesScored: number) {
@@ -106,7 +107,7 @@ export function ScorerLeaderboard() {
                   <span className="flex items-center gap-0.5"><Award className="h-2.5 w-2.5" /> {scorer.games_scored} games</span>
                   <span className="flex items-center gap-0.5"><Target className="h-2.5 w-2.5" /> {accuracy}%</span>
                   {scorer.best_streak > 0 && (
-                    <span className="flex items-center gap-0.5"><Flame className="h-2.5 w-2.5" /> {scorer.best_streak}🔥</span>
+                    <span className="flex items-center gap-0.5"><Flame className="h-2.5 w-2.5" /> {scorer.best_streak}<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                   )}
                 </div>
               </div>

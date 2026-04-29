@@ -47,13 +47,14 @@ import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
 import { Moon, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { pickCopy, LOADING_FANS, EMPTY_FANS } from '@/lib/fan-copy';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const STATUS_OPTIONS = [
-  { value: 'AtBar', emoji: '🍺', label: 'At the Bar' },
-  { value: 'AtWrigley', emoji: '⚾️', label: 'In my Seat' },
-  { value: 'Tailgating', emoji: '🌭', label: 'Tailgating' },
-  { value: 'BeerSnake', emoji: '🐍', label: 'Beer Snake' },
-  { value: 'WatchingRemote', emoji: '🏠', label: 'Watching from Home' },
+  { value: 'AtBar', emoji: '', label: 'At the Bar' },
+  { value: 'AtWrigley', emoji: '', label: 'In my Seat' },
+  { value: 'Tailgating', emoji: '', label: 'Tailgating' },
+  { value: 'BeerSnake', emoji: '', label: 'Beer Snake' },
+  { value: 'WatchingRemote', emoji: '', label: 'Watching from Home' },
 ] as const;
 
 interface FilterState {
@@ -294,7 +295,7 @@ export default function Discover() {
               transition={{ repeat: Infinity, duration: 1.2 }}
               className="text-7xl mb-4"
             >
-              🎉
+              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
             </motion.div>
             <h2 className="text-3xl font-bold text-primary-foreground mb-2">
               It's a Match!
@@ -342,7 +343,7 @@ export default function Discover() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className={`text-base transition-transform duration-300 ${gamedayMode ? 'scale-110' : ''}`}>
-                {gamedayMode ? '⚾' : '🏟️'}
+                {gamedayMode ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}
               </span>
               <span className={`text-sm font-semibold transition-colors duration-300 ${
                 gamedayMode ? 'text-secondary' : 'text-foreground'
@@ -459,7 +460,7 @@ export default function Discover() {
           onClick={() => navigate('/missions')}
           className="w-full mb-4 flex items-center gap-3 rounded-2xl border border-secondary/20 bg-secondary/5 p-3 text-left transition-all hover:bg-secondary/10"
         >
-          <span className="text-2xl">🎯</span>
+          <span className="text-2xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
           <div className="flex-1">
             <p className="mt-2 font-semibold text-white">Game Day Missions</p>
             <p className="text-sm text-destructive-foreground">Complete challenges, earn points & badges</p>
@@ -513,7 +514,7 @@ export default function Discover() {
             >
               <Camera className="h-5 w-5 text-green-600" />
               <span className="text-amber-300">
-                {uploadingSnake ? 'Uploading...' : '📸 Share your Beer Snake pic!'}
+                {uploadingSnake ? 'Uploading...' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Share your Beer Snake pic!'}
               </span>
               <input
                 type="file"
@@ -541,11 +542,11 @@ export default function Discover() {
                       user_id: user.id,
                       media_url: urlData.publicUrl,
                       media_type: 'image',
-                      location_tag: 'Bleachers – Beer Snake 🐍',
-                      caption: '🐍 Beer snake sighting in the bleachers!',
+                      location_tag: 'Bleachers – Beer Snake <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+                      caption: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Beer snake sighting in the bleachers!',
                     });
 
-                    toast.success('🐍 Beer snake photo shared to the Vibe Feed!');
+                    toast.success('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Beer snake photo shared to the Vibe Feed!');
                     queryClient.invalidateQueries({ queryKey: ['vibe-posts'] });
                   } catch (err: any) {
                     toast.error(err.message || 'Upload failed');
@@ -588,7 +589,7 @@ export default function Discover() {
                     )}
                     {liveCounts.atWrigley > 0 && (
                       <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                        🏟️ {liveCounts.atWrigley} at Wrigley
+                        <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {liveCounts.atWrigley} at Wrigley
                       </span>
                     )}
                   </div>
@@ -612,12 +613,12 @@ export default function Discover() {
 
             {isLoading ? (
               <div className="py-20 text-center">
-                <p className="text-4xl animate-pulse">⚾</p>
+                <p className="text-4xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
                 <p className="mt-2 font-semibold text-muted-foreground">{pickCopy(LOADING_FANS)}</p>
               </div>
             ) : filtered.length === 0 ? (
               <div className="py-20 text-center">
-                <p className="text-4xl">⚾</p>
+                <p className="text-4xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
                 <p className="mt-2 font-semibold">No fans found</p>
                 <p className="text-sm text-muted-foreground">{pickCopy(EMPTY_FANS)}</p>
               </div>
@@ -641,7 +642,7 @@ export default function Discover() {
                       matchScore={compat?.score}
                       onHiFive={(msg) => handleHiFive(profile, msg)}
                       onSendDog={() => {
-                        sendLike.mutate({ toUser: profile.user_id, isHiFive: true, message: '🌭 Sent you a Hot Dog!' });
+                        sendLike.mutate({ toUser: profile.user_id, isHiFive: true, message: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Sent you a Hot Dog!' });
                       }}
                       onLike={() => handleLike(profile)}
                       onSendBeer={() => navigate(`/beer-money?to=${profile.user_id}`)}

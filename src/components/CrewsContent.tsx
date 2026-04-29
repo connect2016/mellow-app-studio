@@ -7,8 +7,9 @@ import { Label } from '@/components/ui/label';
 import { useCrews, useCreateCrew, useJoinCrew, type Crew } from '@/hooks/useCrews';
 import { Users, Plus, Search, Lock, Globe, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
-const BADGE_EMOJIS = ['⚾', '🍺', '🔥', '⭐', '🏟️', '🐻', '🎯', '💪', '🎉', '🌭', '🐍', '🏆'];
+const BADGE_EMOJIS = ['', '', '', '⭐', '', '', '', '', '', '', '', ''];
 
 export default function CrewsContent() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function CrewsContent() {
   const [search, setSearch] = useState('');
   const [newName, setNewName] = useState('');
   const [newDesc, setNewDesc] = useState('');
-  const [newEmoji, setNewEmoji] = useState('⚾');
+  const [newEmoji, setNewEmoji] = useState('');
 
   const myCrews = crews.filter(c => c.is_member);
   const discoverCrews = crews.filter(c => !c.is_member && c.is_public);
@@ -153,12 +154,12 @@ export default function CrewsContent() {
 
         {isLoading ? (
           <div className="py-16 text-center">
-            <p className="text-3xl animate-pulse">⚾</p>
+            <p className="text-3xl animate-pulse"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
             <p className="mt-2 text-sm text-muted-foreground">Finding crews...</p>
           </div>
         ) : filtered.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-3xl">👥</p>
+            <p className="text-3xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
             <p className="mt-2 font-semibold text-foreground">No crews to discover</p>
             <p className="text-sm text-muted-foreground">Be the first — create one above!</p>
           </div>

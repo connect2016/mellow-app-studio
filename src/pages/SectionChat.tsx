@@ -16,6 +16,7 @@ import { VerifiedGate } from '@/components/VerifiedGate';
 import { useGeofence } from '@/hooks/useGeofence';
 import { GameTriggerAnimation, useGameTrigger, detectGameTrigger } from '@/components/GameTriggerAnimation';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export default function SectionChat() {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ export default function SectionChat() {
   useEffect(() => {
     if (nearWrigley === true && section && !hasJoined && user) {
       setHasJoined(true);
-      toast.success(`Welcome to Section ${section} Squad! 🏟️`, {
+      toast.success(`Welcome to Section ${section} Squad! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />`, {
         description: 'You\'re inside Wrigley — your squad chat is live.',
         duration: 5000,
       });
@@ -72,7 +73,7 @@ export default function SectionChat() {
   };
 
   const isSystemMessage = (body: string) => {
-    return body.startsWith('[SYSTEM]') || body.startsWith('🏟️') || body.startsWith('⚾');
+    return body.startsWith('[SYSTEM]') || body.startsWith('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />') || body.startsWith('<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />');
   };
 
   // Verified gate
@@ -91,7 +92,7 @@ export default function SectionChat() {
       <div className="min-h-screen bg-background pb-24">
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
-          <p className="text-5xl mb-4">🏟️</p>
+          <p className="text-5xl mb-4"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
           <h2 className="text-xl font-bold text-destructive-foreground mb-2" style={{ fontFamily: "'Rye', cursive" }}>
             Set Your Section
           </h2>
@@ -112,7 +113,7 @@ export default function SectionChat() {
       <div className="min-h-screen bg-background pb-24">
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
-          <p className="text-5xl mb-4">📍</p>
+          <p className="text-5xl mb-4"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
           <h2 className="text-xl font-bold text-destructive-foreground mb-2" style={{ fontFamily: "'Rye', cursive" }}>
             Get to the Ballpark!
           </h2>
@@ -139,7 +140,7 @@ export default function SectionChat() {
       <div className="min-h-screen bg-background pb-24">
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
-          <p className="text-5xl mb-4">📅</p>
+          <p className="text-5xl mb-4"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
           <h2 className="text-xl font-bold text-destructive-foreground mb-2" style={{ fontFamily: "'Rye', cursive" }}>
             No Game Today
           </h2>
@@ -183,7 +184,7 @@ export default function SectionChat() {
           </button>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-lg">🏟️</span>
+              <span className="text-lg"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
               <h2
                 className="text-base font-bold text-foreground truncate"
                 style={{ fontFamily: "'Rye', cursive" }}
@@ -233,7 +234,7 @@ export default function SectionChat() {
 
       {/* Game trigger hints */}
       <div className="flex items-center gap-2 px-4 py-1.5 bg-muted/30 border-b border-border text-[9px] font-scoreboard text-muted-foreground uppercase tracking-wider overflow-x-auto scrollbar-hide">
-        <span>💡 Try typing:</span>
+        <span><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Try typing:</span>
         {['HR', 'Home Run', 'Fly the W', 'Strikeout'].map((hint) => (
           <span
             key={hint}

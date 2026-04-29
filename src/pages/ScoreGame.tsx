@@ -19,6 +19,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Plus, Share2, Copy, BarChart3, Users, Trophy, ClipboardList, Pencil, Flag } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export default function ScoreGame() {
   const { id } = useParams<{ id: string }>();
@@ -92,7 +93,7 @@ export default function ScoreGame() {
   const copyInvite = () => {
     if (!session.data) return;
     navigator.clipboard.writeText(`${window.location.origin}/score/${id}`);
-    toast({ title: '🔗 Link copied!', description: 'Share with friends to join' });
+    toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Link copied!', description: 'Share with friends to join' });
   };
 
   const dismissPrediction = useCallback(() => setShowPrediction(false), []);
@@ -103,7 +104,7 @@ export default function ScoreGame() {
 
   const handleFinalize = () => {
     finalizeGame.mutate(undefined, {
-      onSuccess: () => toast({ title: '🏁 Game Finalized!', description: 'Your scorecard has been saved.' }),
+      onSuccess: () => toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Game Finalized!', description: 'Your scorecard has been saved.' }),
     });
   };
 
@@ -167,7 +168,7 @@ export default function ScoreGame() {
                 <p className="text-[10px] text-white/60 mt-0.5">vs</p>
               </div>
               <div className="text-center">
-                <p className="text-[10px] opacity-60 uppercase tracking-wider text-white font-['Share_Tech_Mono']">🐻 {session.data.home_team}</p>
+                <p className="text-[10px] opacity-60 uppercase tracking-wider text-white font-['Share_Tech_Mono']"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {session.data.home_team}</p>
                 <motion.p key={homeRuns} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className="text-2xl font-black text-white font-['Share_Tech_Mono']">
                   {homeRuns}
                 </motion.p>
@@ -175,7 +176,7 @@ export default function ScoreGame() {
             </div>
 
             <div className="flex items-center gap-1">
-              <span className="text-[10px] text-white/60 mr-1 font-['Share_Tech_Mono']">{members.data?.length ?? 0} 👥</span>
+              <span className="text-[10px] text-white/60 mr-1 font-['Share_Tech_Mono']">{members.data?.length ?? 0} <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
               <button onClick={copyInvite} className="h-7 w-7 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20">
                 <Share2 className="h-3.5 w-3.5 text-white" />
               </button>
@@ -276,17 +277,17 @@ function ScorecardSheet({
   const { toast } = useToast();
 
   const tabs = [
-    { key: 'score', label: '📊 Score' },
-    { key: 'relay', label: '✏️ Relay' },
-    { key: 'predict', label: '⚡ Predict' },
-    { key: 'timeline', label: '⚾ Plays' },
-    { key: 'ranks', label: '🏆 Ranks' },
-    { key: 'fans', label: '👥 Fans' },
+    { key: 'score', label: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Score' },
+    { key: 'relay', label: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Relay' },
+    { key: 'predict', label: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Predict' },
+    { key: 'timeline', label: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Plays' },
+    { key: 'ranks', label: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Ranks' },
+    { key: 'fans', label: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Fans' },
   ];
 
   const handlePostToClubhouse = () => {
     // Future: post summary to feed
-    toast({ title: '📣 Posted to Clubhouse!', description: 'Your scorecard summary is now in the feed.' });
+    toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Posted to Clubhouse!', description: 'Your scorecard summary is now in the feed.' });
   };
 
   return (
@@ -336,7 +337,7 @@ function ScorecardSheet({
               className="w-full rounded-xl py-4 font-['Graduate'] text-sm"
               style={{ backgroundColor: 'hsl(var(--accent))' }}
             >
-              📣 Post to Clubhouse
+              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Post to Clubhouse
             </Button>
           )}
         </div>

@@ -9,6 +9,7 @@ import { MapPin, Users, Clock, PartyPopper, Beer, ChevronRight, Star, Heart, Tro
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface PostGameSuggestion {
   title: string;
@@ -137,16 +138,16 @@ export function PostGameExperience() {
         meetup_id: meetup.id,
         sender_id: user.id,
         body: data?.outcome === 'win'
-          ? `🏆 CUBS WIN! Let's celebrate at ${suggestion.bar}! Who's in?`
+          ? `<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> CUBS WIN! Let's celebrate at ${suggestion.bar}! Who's in?`
           : data?.outcome === 'loss'
-          ? `💙 Tough game, but we stick together. ${suggestion.bar} for recovery drinks?`
-          : `⚾ Great game! Heading to ${suggestion.bar} — come hang!`,
+          ? `<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Tough game, but we stick together. ${suggestion.bar} for recovery drinks?`
+          : `<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Great game! Heading to ${suggestion.bar} — come hang!`,
       });
 
       return meetup.id;
     },
     onSuccess: () => {
-      toast.success('Meetup created! Others can join now 🎉');
+      toast.success('Meetup created! Others can join now <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />');
       queryClient.invalidateQueries({ queryKey: ['lineup'] });
     },
     onError: (err: any) => {
@@ -164,7 +165,7 @@ export function PostGameExperience() {
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success("You're in! Check the group chat 💬");
+      toast.success("You're in! Check the group chat <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />");
       queryClient.invalidateQueries({ queryKey: ['post-game'] });
     },
   });
@@ -183,7 +184,7 @@ export function PostGameExperience() {
     ? 'from-blue-500/8 via-card to-muted/30 border-blue-500/25'
     : 'from-secondary/5 via-card to-primary/5 border-secondary/30';
 
-  const headerEmoji = isWin ? '🏆' : isLoss ? '💙' : '⚾';
+  const headerEmoji = isWin ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : isLoss ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />';
   const headerTitle = isWin
     ? 'CUBS WIN! Where to celebrate?'
     : isLoss
@@ -241,7 +242,7 @@ export function PostGameExperience() {
             onClick={() => setDismissed(true)}
             className="text-muted-foreground hover:text-foreground text-xs px-2 py-1 rounded-lg hover:bg-muted transition-colors"
           >
-            ✕
+            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
           </button>
         </div>
 
@@ -275,7 +276,7 @@ export function PostGameExperience() {
               key={bar.name}
               className="flex items-center gap-1 shrink-0 rounded-full bg-accent/10 border border-accent/20 px-2.5 py-1.5 text-xs font-medium text-foreground"
             >
-              🍻 {bar.name}
+              <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {bar.name}
               <span className="text-[10px] font-bold text-accent">{bar.count}</span>
             </span>
           ))}
@@ -413,7 +414,7 @@ export function PostGameExperience() {
                             <VibeIcon className="h-2.5 w-2.5" /> {s.vibe}
                           </span>
                           <span className="text-[10px] text-muted-foreground">
-                            👥 {s.group_size} ideal
+                            <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> {s.group_size} ideal
                           </span>
                           {s.mood_tag && (
                             <Badge variant="outline" className="text-[9px] h-4 px-1.5 border-border">
@@ -465,7 +466,7 @@ export function PostGameExperience() {
       {suggestions.length === 0 && popularBars.length > 0 && (
         <div className="px-4 py-3 text-center">
           <p className="text-sm text-muted-foreground">
-            {isWin ? '🏆 Celebrate at ' : isLoss ? '💙 Regroup at ' : '🍻 Head to '}
+            {isWin ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Celebrate at ' : isLoss ? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Regroup at ' : '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Head to '}
             <span className="font-semibold text-foreground">{popularBars[0].name}</span> — {popularBars[0].count} fans already there!
           </p>
         </div>

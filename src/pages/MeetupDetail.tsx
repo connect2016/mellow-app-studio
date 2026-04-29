@@ -16,6 +16,7 @@ import { MeetupTrustPanel } from '@/components/meetups/MeetupTrustPanel';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { toast } from 'sonner';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function formatFull(iso: string) {
   const d = new Date(iso);
@@ -76,7 +77,7 @@ export default function MeetupDetail() {
   const handleJoin = async () => {
     try {
       await joinMeetup.mutateAsync(meetup.id);
-      toast.success("⚾ You're in! Want a safety timer?");
+      toast.success("<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> You're in! Want a safety timer?");
       setShowSafety(true);
     } catch {
       toast.error('Could not join — try again');
@@ -335,7 +336,7 @@ export default function MeetupDetail() {
               disabled={isFull || joinMeetup.isPending}
               className="flex-1 rounded-full h-12 font-bold text-base shadow-md"
             >
-              {isFull ? 'Meetup is full' : joinMeetup.isPending ? 'Joining...' : "⚾ I'm In!"}
+              {isFull ? 'Meetup is full' : joinMeetup.isPending ? 'Joining...' : "<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> I'm In!"}
             </Button>
           )}
         </div>

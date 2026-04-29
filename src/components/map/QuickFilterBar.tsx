@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 export type QuickMapFilter = 'all' | 'in-stadium' | 'bars' | 'looking-for-buddy';
 
 const FILTERS: { value: QuickMapFilter; label: string; emoji: string }[] = [
-  { value: 'all', label: 'All', emoji: '📍' },
-  { value: 'in-stadium', label: 'In-Stadium', emoji: '🏟️' },
-  { value: 'bars', label: 'Wrigleyville Bars', emoji: '🍺' },
-  { value: 'looking-for-buddy', label: 'Looking for Buddy', emoji: '👋' },
+  { value: 'all', label: 'All', emoji: '' },
+  { value: 'in-stadium', label: 'In-Stadium', emoji: '' },
+  { value: 'bars', label: 'Wrigleyville Bars', emoji: '' },
+  { value: 'looking-for-buddy', label: 'Looking for Buddy', emoji: '' },
 ];
 
 interface Props {

@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import { Marker } from 'react-leaflet';
 import type { MapFan } from './useMapClusters';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const PERSONA_COLORS: Record<string, string> = {
   die_hard: '#dc2626',
@@ -9,9 +10,9 @@ const PERSONA_COLORS: Record<string, string> = {
 };
 
 const PERSONA_EMOJI: Record<string, string> = {
-  die_hard: '🔥',
-  social_butterfly: '🦋',
-  tourist: '📸',
+  die_hard: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  social_butterfly: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
+  tourist: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />',
 };
 
 function fanIcon(fan: MapFan) {

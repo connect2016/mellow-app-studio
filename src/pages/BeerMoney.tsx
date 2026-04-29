@@ -38,39 +38,40 @@ import { BarLocationPreview } from '@/components/BarLocationPreview';
 import { SendToNonUserPanel } from '@/components/beer/SendToNonUserPanel';
 import { LiveBeerProof, BeerFomoToast } from '@/components/beer/LiveBeerProof';
 import { useLiveBeerFeed } from '@/hooks/useLiveBeerFeed';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 /* ─── Constants ─── */
 const AMOUNTS = [
-  { value: 5, label: '$5', emoji: '🍺', desc: 'A cold one', tag: '' },
-  { value: 8, label: '$8', emoji: '🍻', desc: 'Craft pint', tag: '' },
-  { value: 12, label: '$12', emoji: '🥃', desc: 'Top shelf', tag: 'Popular' },
-  { value: 15, label: '$15', emoji: '🍕', desc: 'Beer + slice', tag: '' },
-  { value: 25, label: '$25', emoji: '🎉', desc: 'A full round', tag: '🔥' },
+  { value: 5, label: '$5', emoji: '', desc: 'A cold one', tag: '' },
+  { value: 8, label: '$8', emoji: '', desc: 'Craft pint', tag: '' },
+  { value: 12, label: '$12', emoji: '', desc: 'Top shelf', tag: 'Popular' },
+  { value: 15, label: '$15', emoji: '', desc: 'Beer + slice', tag: '' },
+  { value: 25, label: '$25', emoji: '', desc: 'A full round', tag: '' },
 ];
 
 const QUICK_MESSAGES = [
   "🍺 First round's on me!",
-  '⚾ Go Cubs! Cheers!',
-  '🎉 Great game today!',
-  '🤝 Nice meeting you!',
-  '🏟️ Wish I was there!',
-  '🐻 Cubs win! Drinks on me!',
+  'Go Cubs! Cheers!',
+  'Great game today!',
+  'Nice meeting you!',
+  'Wish I was there!',
+  'Cubs win! Drinks on me!',
 ];
 
 const MOCK_FEED = [
-  { from: 'Jake M.', to: 'Mike R.', bar: "Murphy's Bleachers", amount: 8, emoji: '🍻', time: '45s ago', msg: 'Go Cubs!' },
-  { from: 'Sarah K.', to: 'Chris P.', bar: 'Sluggers', amount: 12, emoji: '🥃', time: '2m ago', msg: 'Great catch earlier!' },
-  { from: 'Alex T.', to: 'Devon L.', bar: 'Cubby Bear', amount: 5, emoji: '🍺', time: '5m ago', msg: '' },
-  { from: 'Mia J.', to: 'Round @ Old Crow', bar: 'Old Crow Smokehouse', amount: 25, emoji: '🎉', time: '8m ago', msg: "Let's gooo!" },
-  { from: 'Tyler B.', to: 'Sam W.', bar: "Casey Moran's", amount: 8, emoji: '🍻', time: '12m ago', msg: '' },
+  { from: 'Jake M.', to: 'Mike R.', bar: "Murphy's Bleachers", amount: 8, emoji: '', time: '45s ago', msg: 'Go Cubs!' },
+  { from: 'Sarah K.', to: 'Chris P.', bar: 'Sluggers', amount: 12, emoji: '', time: '2m ago', msg: 'Great catch earlier!' },
+  { from: 'Alex T.', to: 'Devon L.', bar: 'Cubby Bear', amount: 5, emoji: '', time: '5m ago', msg: '' },
+  { from: 'Mia J.', to: 'Round @ Old Crow', bar: 'Old Crow Smokehouse', amount: 25, emoji: '', time: '8m ago', msg: "Let's gooo!" },
+  { from: 'Tyler B.', to: 'Sam W.', bar: "Casey Moran's", amount: 8, emoji: '', time: '12m ago', msg: '' },
 ];
 
 const LEADERBOARD_MOCK = [
-  { name: 'Jake M.', rounds: 14, emoji: '👑' },
-  { name: 'Sarah K.', rounds: 11, emoji: '🔥' },
-  { name: 'Mike R.', rounds: 9, emoji: '⚡' },
-  { name: 'Chris P.', rounds: 7, emoji: '🍺' },
-  { name: 'Mia J.', rounds: 6, emoji: '🍻' },
+  { name: 'Jake M.', rounds: 14, emoji: '' },
+  { name: 'Sarah K.', rounds: 11, emoji: '' },
+  { name: 'Mike R.', rounds: 9, emoji: '' },
+  { name: 'Chris P.', rounds: 7, emoji: '' },
+  { name: 'Mia J.', rounds: 6, emoji: '' },
 ];
 
 function formatActive(iso?: string | null) {
@@ -183,9 +184,9 @@ export default function BeerMoney() {
   const recipientLabel = toUser?.display_name || toMeetup?.location_name || barName || '';
   const firstName = toUser?.display_name?.split(' ')[0] || 'them';
   const contextualCTA = toUser
-    ? `Buy ${firstName} a Beer 🍺`
+    ? `Buy ${firstName} a Beer`
     : toMeetup
-    ? `Send a Round 🍻`
+    ? `Send a Round`
     : barName
     ? `Buy a Beer at ${barName}`
     : 'Pick a Fan';
@@ -199,7 +200,7 @@ export default function BeerMoney() {
 
   const handleShare = useCallback(async () => {
     const shareData = {
-      title: '🍺 Beer Money — Cubbies Buddies',
+      title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Beer Money — Cubbies Buddies',
       text: `I just bought ${recipientLabel || 'a fan'} a beer on Cubbies Buddies! Join the fun in Wrigleyville.`,
       url: shareUrl,
     };
@@ -209,7 +210,7 @@ export default function BeerMoney() {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-      toast({ title: 'Link copied!', description: 'Share it with your crew 🤝' });
+      toast({ title: 'Link copied!', description: 'Share it with your crew <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' });
     }
   }, [recipientLabel, shareUrl, toast]);
 
@@ -271,19 +272,19 @@ export default function BeerMoney() {
                   animate={{ x: 0, rotate: -12, opacity: 1 }}
                   transition={{ delay: 0.15, duration: 0.5, type: 'spring' }}
                   className="text-7xl"
-                >🍺</motion.span>
+                ><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></motion.span>
                 <motion.span
                   initial={{ y: -40, opacity: 0, scale: 0 }}
                   animate={{ y: 0, opacity: 1, scale: 1 }}
                   transition={{ delay: 0.5, duration: 0.4, type: 'spring' }}
                   className="text-4xl mb-4 -mx-2"
-                >💥</motion.span>
+                ><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></motion.span>
                 <motion.span
                   initial={{ x: 60, rotate: 30, opacity: 0 }}
                   animate={{ x: 0, rotate: 12, opacity: 1 }}
                   transition={{ delay: 0.15, duration: 0.5, type: 'spring' }}
                   className="text-7xl"
-                >🍺</motion.span>
+                ><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></motion.span>
               </div>
 
               <motion.h2
@@ -292,7 +293,7 @@ export default function BeerMoney() {
                 transition={{ delay: 0.6 }}
                 className="text-3xl font-bold text-primary-foreground mb-1"
               >
-                Cheers! 🎉
+                Cheers! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -335,7 +336,7 @@ export default function BeerMoney() {
                   transition={{ delay: 1.8 }}
                   className="text-xs text-primary-foreground/60 text-center mb-1"
                 >
-                  🔄 72% of fans send a beer back — keep the streak going!
+                  <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> 72% of fans send a beer back — keep the streak going!
                 </motion.p>
                 <Button
                   onClick={() => { setShowCelebration(false); navigate('/beer-money'); }}
@@ -343,7 +344,7 @@ export default function BeerMoney() {
                   className="rounded-2xl gap-2 text-sm font-semibold w-full"
                 >
                   <Beer className="h-4 w-4" />
-                  Buy Another Round 🍻
+                  Buy Another Round <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                 </Button>
                 <Button
                   onClick={handleShare}
@@ -380,7 +381,7 @@ export default function BeerMoney() {
             <Sparkles className="h-3 w-3" /> Social · Wrigleyville · Live
           </div>
           <h1 className="font-display text-2xl font-bold tracking-tight leading-tight text-destructive-foreground">
-            Beer Money 🍺
+            Beer Money <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
           </h1>
           <p className="mt-1 text-sm text-destructive-foreground">
             Buy a real beer for a real fan at a real Wrigleyville bar. Every round starts a connection.
@@ -434,7 +435,7 @@ export default function BeerMoney() {
 
             {/* CTA at bottom of feed */}
             <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
-              <p className="text-xs font-bold mb-1 text-destructive-foreground">Join the action! 🎯</p>
+              <p className="text-xs font-bold mb-1 text-destructive-foreground">Join the action! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
               <p className="text-[11px] mb-3 text-destructive-foreground">Buy a fan a beer and show up in the feed.</p>
               <Button onClick={() => setActiveTab('send')} className="rounded-2xl gap-2 text-sm">
                 <Beer className="h-4 w-4" /> Send a Beer
@@ -480,7 +481,7 @@ export default function BeerMoney() {
             {/* Gamification CTA */}
             <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
               <p className="text-xs font-bold mb-1 text-destructive-foreground">
-                {user ? 'Climb the ranks! 🏆' : 'Join to compete! 🏆'}
+                {user ? 'Climb the ranks! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' : 'Join to compete! <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}
               </p>
               <p className="text-[11px] mb-3 text-destructive-foreground">
                 Buy 5 more rounds this homestand to crack the Top 3.
@@ -512,7 +513,7 @@ export default function BeerMoney() {
                   {/* Active fans carousel */}
                   {nearbyFans && nearbyFans.length > 0 && (
                     <div className="rounded-xl border border-border bg-card/60 p-3">
-                      <p className="text-[11px] font-bold uppercase tracking-wider mb-2 text-black">🧊 Fans active nearby</p>
+                      <p className="text-[11px] font-bold uppercase tracking-wider mb-2 text-black"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Fans active nearby</p>
                       <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
                         {(nearbyFans as any[]).map((f) => (
                           <button
@@ -578,7 +579,7 @@ export default function BeerMoney() {
 
                   {/* Participating venues */}
                   <div className="rounded-xl border border-border bg-card/60 p-3">
-                    <p className="text-[11px] font-bold uppercase tracking-wider mb-2 text-black">🗺️ Participating venues</p>
+                    <p className="text-[11px] font-bold uppercase tracking-wider mb-2 text-black"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Participating venues</p>
                     <div className="space-y-1">
                       {PARTICIPATING_BARS.map((bar) => (
                         <Link
@@ -586,7 +587,7 @@ export default function BeerMoney() {
                           to={`/beer-money?bar=${encodeURIComponent(bar.name)}`}
                           className="flex items-center gap-2 rounded-lg p-2 hover:bg-muted/60 transition-colors"
                         >
-                          <span className="text-sm">🍺</span>
+                          <span className="text-sm"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                           <div className="min-w-0 flex-1">
                             <p className="text-xs font-semibold text-foreground truncate">{bar.name}</p>
                             <p className="text-[10px] text-muted-foreground truncate">{bar.address}</p>
@@ -621,7 +622,7 @@ export default function BeerMoney() {
                       note={note}
                       onClaimGenerated={(url, name) => {
                         setClaimLinkUrl(url);
-                        toast({ title: `Claim link created for ${name}!`, description: 'Share the link so they can redeem their beer 🍺' });
+                        toast({ title: `Claim link created for ${name}!`, description: 'Share the link so they can redeem their beer <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' });
                       }}
                     />
                   )}
@@ -698,12 +699,12 @@ export default function BeerMoney() {
                   </div>
                   {!isAdult && (
                     <div className="border-t border-destructive/20 bg-destructive/5 px-4 py-2.5">
-                      <p className="text-[11px] font-semibold text-destructive">🚫 Can't send Beer Money to fans under 21.</p>
+                      <p className="text-[11px] font-semibold text-destructive"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Can't send Beer Money to fans under 21.</p>
                     </div>
                   )}
                   {isAdult && redeemBar && (
                     <div className="border-t border-border p-3">
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-2">📍 Redeemable at</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Redeemable at</p>
                       <BarLocationPreview bar={redeemBar} />
                     </div>
                   )}
@@ -715,7 +716,7 @@ export default function BeerMoney() {
                 <div className="rounded-xl border border-border bg-card overflow-hidden shadow-sm">
                   <div className="p-4">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xl">🍻</div>
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-semibold text-foreground">{toMeetup.location_name}</p>
                         <div className="mt-1 flex flex-wrap items-center gap-1.5">
@@ -738,11 +739,11 @@ export default function BeerMoney() {
                     </div>
                   </div>
                   <div className="border-t border-border/50 bg-muted/30 px-4 py-2">
-                    <p className="text-[10px] text-muted-foreground">💡 Split across attendees checked in at the bar.</p>
+                    <p className="text-[10px] text-muted-foreground"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Split across attendees checked in at the bar.</p>
                   </div>
                   {redeemBar && (
                     <div className="border-t border-border p-3">
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-2">📍 Redeemable at</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Redeemable at</p>
                       <BarLocationPreview bar={redeemBar} />
                     </div>
                   )}
@@ -756,7 +757,7 @@ export default function BeerMoney() {
                     <>
                       <div className="p-4">
                         <div className="flex items-start gap-3">
-                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-500/15 text-xl">🍺</div>
+                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-500/15 text-xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
                           <div className="min-w-0 flex-1">
                             <p className="truncate font-semibold text-foreground">{barName}</p>
                             <div className="mt-1 flex flex-wrap items-center gap-1.5">
@@ -781,14 +782,14 @@ export default function BeerMoney() {
                   ) : (
                     <div className="p-4">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-xl">⚠️</div>
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-xl"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></div>
                         <div>
                           <p className="font-semibold text-foreground">{barName}</p>
                           <p className="text-[11px] text-destructive font-medium">Not a participating venue</p>
                         </div>
                       </div>
                       <Button asChild variant="outline" size="sm" className="w-full rounded-xl text-xs">
-                        <Link to="/bar-map">🗺️ Pick from the Beer Map</Link>
+                        <Link to="/bar-map"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> Pick from the Beer Map</Link>
                       </Button>
                     </div>
                   )}
@@ -898,7 +899,7 @@ export default function BeerMoney() {
             {/* ── CREDITS UPSELL ── */}
             <div className="rounded-xl border border-border bg-card/60 p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm">🎟️</span>
+                <span className="text-sm"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></span>
                 <p className="text-xs font-bold text-amber-300">Beer Money Credits</p>
                 <span className="ml-auto text-[9px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full">Save up to 20%</span>
               </div>
@@ -911,7 +912,7 @@ export default function BeerMoney() {
                 ].map((pkg) => (
                   <button
                     key={pkg.price}
-                    onClick={() => toast({ title: 'Coming soon!', description: 'Credit packs launching next homestand 🏟️' })}
+                    onClick={() => toast({ title: 'Coming soon!', description: 'Credit packs launching next homestand <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />' })}
                     className={`relative rounded-xl border p-2.5 text-center hover:border-primary/40 transition-colors ${
                       pkg.best ? 'border-primary/30 bg-primary/5' : 'border-border bg-card'
                     }`}
@@ -931,7 +932,7 @@ export default function BeerMoney() {
             <div className="rounded-xl border border-dashed border-primary/30 bg-gradient-to-br from-primary/5 to-amber-500/5 p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Gift className="h-4 w-4 text-primary" />
-                <p className="text-xs font-bold text-amber-300">Invite & Earn 🍺</p>
+                <p className="text-xs font-bold text-amber-300">Invite & Earn <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
               </div>
               <p className="text-[11px] mb-3 text-destructive-foreground">
                 For every friend who joins and buys their first round, you both get <span className="font-bold text-primary">$5 free credits</span>.
@@ -971,7 +972,7 @@ export default function BeerMoney() {
               </div>
 
               <div className="rounded-xl bg-muted/40 p-4 text-center mb-4">
-                <p className="text-4xl mb-2">🍻</p>
+                <p className="text-4xl mb-2"><ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /></p>
                 <p className="text-foreground">
                   Sending <span className="font-bold text-primary">${amount}</span> to{' '}
                   <span className="font-bold">{recipientLabel}</span>
@@ -994,7 +995,7 @@ export default function BeerMoney() {
               <div className="flex gap-2">
                 <Button variant="outline" className="flex-1 rounded-xl" onClick={() => setShowConfirm(false)}>Cancel</Button>
                 <Button className="flex-1 rounded-xl gap-1 font-semibold" onClick={handleSend}>
-                  <Beer className="h-4 w-4" /> Send 🍺
+                  <Beer className="h-4 w-4" /> Send <ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />
                 </Button>
               </div>
             </motion.div>

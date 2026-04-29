@@ -13,7 +13,7 @@ export function useMissionTracker() {
     try {
       const result = await increment.mutateAsync({ missionKey });
       if (result?.justCompleted) {
-        toast(`🎯 Mission complete: ${result.mission.title}! Tap to claim your reward.`, {
+        toast(`Mission complete: ${result.mission.title}! Tap to claim your reward.`, {
           action: {
             label: 'View Missions',
             onClick: () => window.location.assign('/missions'),

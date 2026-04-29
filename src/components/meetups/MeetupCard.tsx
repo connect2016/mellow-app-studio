@@ -3,6 +3,7 @@ import { Clock, Users, MapPin, Sparkles, ShieldCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { deriveVibeTags } from '@/hooks/useMeetups';
 import type { LineupMeetup } from '@/hooks/useLineup';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface MeetupCardProps {
   meetup: LineupMeetup & { is_verified?: boolean; fan_tier_emoji?: string };
@@ -53,7 +54,7 @@ export function MeetupCard({ meetup }: MeetupCardProps) {
             {meetup.is_verified && (
               <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" aria-label="Verified host" />
             )}
-            <span className="text-xs">{meetup.fan_tier_emoji ?? '🌱'}</span>
+            <span className="text-xs">{meetup.fan_tier_emoji ?? '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" />'}</span>
             <span className="text-[11px] text-muted-foreground">· hosting</span>
           </div>
           <div className="flex items-center gap-1 mt-0.5 text-sm text-foreground/90">

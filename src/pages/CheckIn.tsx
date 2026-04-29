@@ -12,10 +12,11 @@ import { BarVotePanel } from '@/components/BarVotePanel';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { WRIGLEYVILLE_BARS } from '@/types';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const WRIGLEYVILLE_LOCATIONS = [
-  "🏟️ Inside The Ballpark",
-  "🪑 Bleachers",
+  "Inside The Ballpark",
+  "Bleachers",
   ...WRIGLEYVILLE_BARS.map(b => b.name),
 ];
 
@@ -47,7 +48,7 @@ export default function CheckIn() {
     }
 
     setCheckedIn(true);
-    toast({ title: '✅ You\'re checked in!', description: `Checked in at ${selectedBar}${openToBuddies ? ' • Open to new Buddies!' : ''}` });
+    toast({ title: '<ConceptIcon name="" className="inline-block h-[1em] w-[1em] align-[-0.125em]" /> You\'re checked in!', description: `Checked in at ${selectedBar}${openToBuddies ? ' • Open to new Buddies!' : ''}` });
     setTimeout(() => setCheckedIn(false), 3000);
   };
 

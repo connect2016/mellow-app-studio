@@ -9,11 +9,11 @@ interface Special {
 }
 
 const SPECIALS: Special[] = [
-  { bar: "Murphy's Bleachers", deal: '$5 Old Style cans', emoji: '🍺', accent: 'from-amber-400 to-amber-600' },
-  { bar: 'Cubby Bear', deal: '2-for-1 well drinks', emoji: '🥃', accent: 'from-orange-400 to-red-500' },
-  { bar: "Bernie's", deal: '$3 game-day shots', emoji: '🥂', accent: 'from-rose-400 to-pink-600' },
-  { bar: 'Sluggers', deal: '$15 buckets', emoji: '🪣', accent: 'from-blue-500 to-indigo-600' },
-  { bar: 'Gallagher Way', deal: 'Live music + $6 IPAs', emoji: '🎸', accent: 'from-emerald-500 to-teal-600' },
+  { bar: "Murphy's Bleachers", deal: '$5 Old Style cans', emoji: '', accent: 'from-amber-400 to-amber-600' },
+  { bar: 'Cubby Bear', deal: '2-for-1 well drinks', emoji: '', accent: 'from-orange-400 to-red-500' },
+  { bar: "Bernie's", deal: '$3 game-day shots', emoji: '', accent: 'from-rose-400 to-pink-600' },
+  { bar: 'Sluggers', deal: '$15 buckets', emoji: '', accent: 'from-blue-500 to-indigo-600' },
+  { bar: 'Gallagher Way', deal: 'Live music + $6 IPAs', emoji: '', accent: 'from-emerald-500 to-teal-600' },
 ];
 
 export function DrinkSpecialsStrip() {

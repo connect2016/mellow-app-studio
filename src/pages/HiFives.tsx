@@ -17,7 +17,7 @@ const QUICK_REPLIES = [
   { emoji: '', text: 'My first game was unforgettable!' },
   { emoji: '', text: 'Let\'s grab a beer before the game!' },
   { emoji: '', text: 'Nothing beats Wrigley on game day!' },
-  { emoji: '', text: 'Sluggers or Murphy\'s? 😄' },
+  { emoji: '', text: 'Sluggers or Murphy\'s?' },
   { emoji: '', text: 'Go Cubs Go!' },
   { emoji: '', text: 'Let\'s meet up!' },
 ];

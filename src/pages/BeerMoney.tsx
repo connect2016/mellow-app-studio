@@ -50,7 +50,7 @@ const AMOUNTS = [
 ];
 
 const QUICK_MESSAGES = [
-  "🍺 First round's on me!",
+  "First round's on me!",
   'Go Cubs! Cheers!',
   'Great game today!',
   'Nice meeting you!',

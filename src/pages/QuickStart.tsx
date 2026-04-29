@@ -85,7 +85,7 @@ export default function QuickStart() {
       toast.error('Could not save preferences');
       return;
     }
-    toast.success("You're all set — let's go ⚾");
+    toast.success("You're all set — let's go");
     navigate('/discover');
   };
 

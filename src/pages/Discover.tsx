@@ -45,6 +45,7 @@ import { TonightModeView } from '@/components/home/TonightModeView';
 import { useTonightMode } from '@/hooks/useTonightMode';
 import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
 import { Moon, Sun } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { pickCopy, LOADING_FANS, EMPTY_FANS } from '@/lib/fan-copy';
 
 const STATUS_OPTIONS = [

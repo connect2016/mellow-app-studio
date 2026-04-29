@@ -415,6 +415,8 @@ export default function Discover() {
 
         {tonight.active ? (
           <TonightModeView className="mb-4" />
+        ) : exitingTonight ? (
+          <div className="tonight-exit mb-4" aria-hidden />
         ) : (
           <>
             {/* Game Day banner — only renders on game days */}

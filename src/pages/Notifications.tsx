@@ -90,9 +90,9 @@ export default function Notifications() {
   yesterday.setDate(yesterday.getDate() - 1);
 
   const groups = [
-    { label: 'Today', items: notifications.filter(n => new Date(n.created_at) >= today) },
-    { label: 'Yesterday', items: notifications.filter(n => { const d = new Date(n.created_at); return d >= yesterday && d < today; }) },
-    { label: 'Earlier', items: notifications.filter(n => new Date(n.created_at) < yesterday) },
+    { label: 'Today', items: filtered.filter(n => new Date(n.created_at) >= today) },
+    { label: 'Yesterday', items: filtered.filter(n => { const d = new Date(n.created_at); return d >= yesterday && d < today; }) },
+    { label: 'Earlier', items: filtered.filter(n => new Date(n.created_at) < yesterday) },
   ].filter(g => g.items.length > 0);
 
   return (

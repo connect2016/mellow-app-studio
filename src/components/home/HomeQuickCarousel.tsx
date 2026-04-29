@@ -52,6 +52,14 @@ const CARDS: Card[] = [
     gradient: 'linear-gradient(135deg, #1B5E20 0%, #43A047 100%)',
     iconTint: '#FDB827',
   },
+  {
+    to: '/crews',
+    icon: Users,
+    title: 'Crew Picks',
+    copy: 'Hand-picked crews looking for a few more fans tonight.',
+    gradient: 'linear-gradient(135deg, #0E3386 0%, #FDB827 100%)',
+    iconTint: '#FFFFFF',
+  },
 ];
 
 export function HomeQuickCarousel() {

@@ -154,7 +154,7 @@ export function useAchievementNotifications() {
         type: 'achievement_earned',
         title: 'New Trophy Unlocked',
         body: `You earned: ${niceTitle}`,
-        emoji: '🏆',
+        emoji: 'trophy',
         action_url: '/profile',
         metadata: { trophy_key: legacyKey, canonical_key: canonical },
       };
@@ -191,7 +191,7 @@ export function useAchievementNotifications() {
             type: 'rank_first',
             title: `You're now #1 in ${cat.label}!`,
             body: `Top of the league — keep stacking ${cat.label.toLowerCase()}.`,
-            emoji: '🥇',
+            emoji: 'trophy',
             action_url: '/league-leaders',
             metadata: { category: cat.key, rank: me.rank, previous_rank: prev },
           });
@@ -200,7 +200,7 @@ export function useAchievementNotifications() {
             type: 'rank_top10',
             title: `Top 10 — ${cat.label}`,
             body: `You just entered the Top 10 at #${me.rank}.`,
-            emoji: '⭐',
+            emoji: 'star',
             action_url: '/league-leaders',
             metadata: { category: cat.key, rank: me.rank, previous_rank: prev },
           });
@@ -209,7 +209,7 @@ export function useAchievementNotifications() {
             type: 'rank_up',
             title: `Climbed to #${me.rank} in ${cat.label}`,
             body: `Up from #${prev}. Don't slow down.`,
-            emoji: '📈',
+            emoji: 'activity',
             action_url: '/league-leaders',
             metadata: { category: cat.key, rank: me.rank, previous_rank: prev },
           });
@@ -221,7 +221,7 @@ export function useAchievementNotifications() {
           type: 'rank_passed',
           title: `A fan passed you in ${cat.label}`,
           body: `You slipped to #${me.rank}. Time to catch up.`,
-          emoji: '⚾',
+          emoji: 'baseball',
           action_url: '/league-leaders',
           metadata: { category: cat.key, rank: me.rank, previous_rank: prev },
         });
@@ -251,7 +251,7 @@ export function useAchievementNotifications() {
         type: 'weekly_reset',
         title: 'Weekly leaderboard has reset',
         body: 'Fresh week, fresh ranks — climb the board.',
-        emoji: '🔄',
+        emoji: 'sparkles',
         action_url: '/league-leaders',
         metadata: { period: 'week', period_start: week },
       });
@@ -261,7 +261,7 @@ export function useAchievementNotifications() {
         type: 'monthly_reset',
         title: 'New month, new leaderboard',
         body: 'Fresh start — every fan back to zero.',
-        emoji: '🗓️',
+        emoji: 'calendar',
         action_url: '/league-leaders',
         metadata: { period: 'month', period_start: month },
       });

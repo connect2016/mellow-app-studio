@@ -160,6 +160,8 @@ export default function Profile() {
       },
     });
   };
+
+  const handleFoodPromptSave = (key: FoodPromptKey, value: string) => {
     updateProfile.mutate({ [key]: value || null } as any, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['profile-extras'] });

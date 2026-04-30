@@ -221,17 +221,43 @@ export default function VibeFeed() {
     return hrs > 0 ? `${hrs}h ${mins}m left` : `${mins}m left`;
   };
 
+  // Empty-state analytics: view + CTA click for A/B conversion tracking
+  const emptyStateViewedRef = useRef(false);
+  useEffect(() => {
+    if (!posts.length && !emptyStateViewedRef.current) {
+      emptyStateViewedRef.current = true;
+      try {
+        window.dispatchEvent(new CustomEvent('cb:vibe_empty_state_view'));
+        // @ts-ignore
+        if (typeof window.gtag === 'function') window.gtag('event', 'vibe_empty_state_view');
+        // @ts-ignore
+        if (typeof window.plausible === 'function') window.plausible('Vibe Empty State View');
+      } catch {}
+    }
+  }, [posts.length]);
+
+  const trackDropVibeClick = (source: 'empty_state' | 'fab') => {
+    try {
+      window.dispatchEvent(new CustomEvent('cb:drop_vibe_click', { detail: { source } }));
+      // @ts-ignore
+      if (typeof window.gtag === 'function') window.gtag('event', 'drop_vibe_click', { source });
+      // @ts-ignore
+      if (typeof window.plausible === 'function') window.plausible('Drop a Vibe Click', { props: { source } });
+    } catch {}
+  };
+
   return (
     <DynamicBackground>
-      {/* Lightening layer — keeps tint at ~20-25% so stadium photo shows through */}
+      {/* Lightening layer — keeps background tint at ~20-30%; non-blocking so feed stays scrollable */}
       <div
         className="fixed inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, hsla(0,0%,100%,0.28) 0%, hsla(0,0%,100%,0.10) 40%, hsla(0,0%,0%,0.08) 100%)',
+            'linear-gradient(180deg, hsla(0,0%,100%,0.22) 0%, hsla(0,0%,100%,0.08) 45%, hsla(0,0%,0%,0.06) 100%)',
         }}
       />
       <AppHeader />
+
       <GuestGateModal open={guestGateOpen} onClose={() => setGuestGateOpen(false)} action={guestGateAction} />
       {isGuest && <WelcomeTour />}
 

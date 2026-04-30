@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { DynamicBackground } from '@/components/DynamicBackground';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGuestMode } from '@/contexts/GuestModeContext';

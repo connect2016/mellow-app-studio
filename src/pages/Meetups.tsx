@@ -76,19 +76,11 @@ export default function Meetups() {
 
       <main className="mx-auto max-w-2xl px-4 pt-4">
         {/* Hero header */}
-        <div className="flex items-start justify-between gap-3 mb-4">
-          <div className="min-w-0">
-            <h1 className="text-2xl font-extrabold tracking-tight text-white drop-shadow-md">Meetups</h1>
-            <p className="text-sm text-white/85 mt-0.5 drop-shadow">
-              Find your crew · Tap any card to RSVP
-            </p>
-          </div>
-          <Button
-            onClick={() => setShowCreate(true)}
-            className="rounded-full gap-1.5 h-10 px-4 font-bold shadow-sm shrink-0"
-          >
-            <Plus className="h-4 w-4" /> Post
-          </Button>
+        <div className="mb-4">
+          <h1 className="text-2xl font-extrabold tracking-tight text-white drop-shadow-md">Meetups</h1>
+          <p className="text-sm text-white/85 mt-0.5 drop-shadow">
+            Find your crew · Tap any card to RSVP
+          </p>
         </div>
 
         {/* Filters */}

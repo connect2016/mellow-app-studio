@@ -37,11 +37,20 @@ const BEHAVIORS: { id: Behavior; emoji: string; label: string }[] = [
   { id: 'at_home', emoji: '', label: 'At home' },
 ];
 
-const ZONES: { id: Zone; label: string }[] = [
-  { id: 'wrigleyville', label: 'Wrigleyville' },
-  { id: 'lakeview', label: 'Lakeview' },
-  { id: 'loop', label: 'The Loop' },
-  { id: 'anywhere', label: 'Anywhere in Chicago' },
+type ZoneOption = {
+  id: Zone;
+  label: string;
+  Icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean }>;
+  example?: string;
+};
+
+const ZONES: ZoneOption[] = [
+  { id: 'wrigleyville', label: 'Wrigleyville', Icon: MapPin },
+  { id: 'lakeview', label: 'Lakeview', Icon: MapPin },
+  { id: 'loop', label: 'The Loop', Icon: MapPin },
+  { id: 'anywhere', label: 'Anywhere in Chicago', Icon: MapPin },
+  { id: 'out_of_state', label: 'Out of State', Icon: MapIcon, example: 'Visiting fan? See traveling-fan meetups.' },
+  { id: 'out_of_country', label: 'Out of Country', Icon: Globe, example: 'Repping the Cubs abroad? Connect globally.' },
 ];
 
 const GROUPS: { id: GroupSize; emoji: string; label: string }[] = [

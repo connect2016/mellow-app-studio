@@ -1,14 +1,13 @@
 import { VisibleStat } from '@/components/UserBaseballCard';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 interface CardBackSideProps {
   displayName: string;
   visibleStats: VisibleStat[];
   isOwner: boolean;
-  onFlipBack: () => void;
+  onFlipBack?: () => void;
 }
 
-export function CardBackSide({ displayName, visibleStats, isOwner, onFlipBack }: CardBackSideProps) {
+export function CardBackSide({ displayName, visibleStats, isOwner }: CardBackSideProps) {
   return (
     <div
       className="absolute inset-0 w-full"

@@ -128,11 +128,20 @@ export function UserBaseballCard({
 
   const visibleStats: VisibleStat[] = prefs
     .filter(p => p.enabled && canViewStat(p.visibility, isOwner, isMatch))
+    .filter(p => {
+      // Hide Favorite Food Spot tile if user hasn't set one
+      if (p.stat_key === 'favoriteFoodSpot') {
+        return !!cardStats.favoriteFoodSpot;
+      }
+      return true;
+    })
     .sort((a, b) => a.sort_order - b.sort_order)
     .map(p => ({
       key: p.stat_key,
       icon: STAT_ICONS[p.stat_key],
-      value: cardStats[p.stat_key] ?? 0,
+      value: p.stat_key === 'favoriteFoodSpot'
+        ? (cardStats.favoriteFoodSpot ?? '')
+        : ((cardStats[p.stat_key] as number | undefined) ?? 0),
       label: CARD_STAT_LABELS[p.stat_key],
       timeRange: p.time_range,
       visibility: p.visibility,

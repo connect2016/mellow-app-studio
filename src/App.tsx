@@ -28,6 +28,7 @@ import Settings from "./pages/Settings";
 import Admin from "./pages/Admin";
 import VibeFeed from "./pages/VibeFeed";
 import Loyalty from "./pages/Loyalty";
+import LeagueLeaders from "./pages/LeagueLeaders";
 import Crews from "./pages/Crews";
 import CrewDetail from "./pages/CrewDetail";
 import Missions from "./pages/Missions";
@@ -108,6 +109,7 @@ const App = () => (
              <Route path="/claim/:code" element={<ClaimBeer />} />
              <Route path="/eats" element={<WrigleyvilleEats />} />
              <Route path="/dugout" element={<Dugout />} />
+             <Route path="/league-leaders" element={<LeagueLeaders />} />
              <Route path="*" element={<NotFound />} />
           </Routes>
           <CreateMeetupFab />

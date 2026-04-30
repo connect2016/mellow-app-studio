@@ -687,30 +687,35 @@ export default function Discover() {
 
       <CreateMeetupModal open={showLineupCreate} onClose={() => setShowLineupCreate(false)} />
 
-      {/* Fixed Quick Actions bar — sits just above the bottom nav */}
+      {/* Fixed Quick Actions bar — sits just above the bottom nav, scrollable with edge fade */}
       <nav
         aria-label="Quick actions"
-        className="fixed inset-x-0 bottom-16 z-30 border-t border-white/10 bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70"
+        className="fixed inset-x-0 z-30 border-t border-white/10 bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70"
+        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 64px)' }}
       >
-        <div className="mx-auto flex max-w-lg gap-2 overflow-x-auto px-3 py-2 scrollbar-none">
-          {[
-            { label: "Hot Spots", icon: 'fire', to: '/bar-map' },
-            { label: 'Nearby Fans', icon: 'people', to: '/buddy-heatmap' },
-            { label: 'Vibes', icon: 'camera', to: '/vibe-feed' },
-            { label: 'Missions', icon: 'trophy', to: '/missions' },
-            { label: 'Hall of Fame', icon: 'trophy', to: '/league-leaders' },
-          ].map((q) => (
-            <button
-              key={q.label}
-              type="button"
-              aria-label={q.label}
-              onClick={() => navigate(q.to)}
-              className="flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-card/80 px-3.5 py-2 text-xs font-semibold text-foreground transition-all hover:bg-card active:scale-95"
-            >
-              <ConceptIcon name={q.icon} className="h-4 w-4 text-secondary" />
-              {q.label}
-            </button>
-          ))}
+        <div className="relative mx-auto max-w-lg">
+          <div className="flex gap-2 overflow-x-auto px-3 py-2 scrollbar-none snap-x snap-mandatory">
+            {[
+              { label: "Hot Spots", icon: 'fire', to: '/bar-map' },
+              { label: 'Nearby Fans', icon: 'people', to: '/buddy-heatmap' },
+              { label: 'Vibes', icon: 'camera', to: '/vibe-feed' },
+              { label: 'Missions', icon: 'trophy', to: '/missions' },
+              { label: 'Hall of Fame', icon: 'trophy', to: '/league-leaders' },
+            ].map((q) => (
+              <button
+                key={q.label}
+                type="button"
+                aria-label={q.label}
+                onClick={() => navigate(q.to)}
+                className="snap-start flex min-h-[48px] shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-card/80 px-3.5 py-2 text-xs font-semibold text-foreground transition-all hover:bg-card active:scale-95"
+              >
+                <ConceptIcon name={q.icon} className="h-4 w-4 text-secondary" />
+                {q.label}
+              </button>
+            ))}
+          </div>
+          {/* Right-edge fade hint so users see the bar is scrollable */}
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-background/95 to-transparent" />
         </div>
       </nav>
       </div>

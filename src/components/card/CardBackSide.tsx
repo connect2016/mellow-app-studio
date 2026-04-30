@@ -57,22 +57,6 @@ export function CardBackSide({ displayName, visibleStats, isOwner, onFlipBack }:
           })}
         </div>
 
-        {/* Back to Profile button */}
-        <div className="pb-6 px-6">
-          <Button
-            variant="outline"
-            size="default"
-            className="w-full rounded-2xl gap-2 font-semibold text-base min-h-[48px] shadow-sm active:scale-[0.97] transition-all"
-            onClick={(e) => {
-              e.stopPropagation();
-              onFlipBack();
-            }}
-            aria-label="Flip back to profile"
-          >
-            <RotateCcw className="h-5 w-5" />
-            Back to Profile
-          </Button>
-        </div>
       </div>
     </div>
   );

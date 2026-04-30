@@ -1,6 +1,7 @@
 import { useBarVotes, VIBE_LABELS, WAIT_LABELS, type BarVoteSummary } from '@/hooks/useBarVotes';
 import { motion } from 'framer-motion';
 import { TrendingUp, Users } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { WRIGLEYVILLE_BARS } from '@/types';
 
 export function TrendingNow() {

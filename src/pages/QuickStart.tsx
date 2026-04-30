@@ -65,19 +65,66 @@ export default function QuickStart() {
   const [step, setStep] = useState(0);
   const [intent, setIntent] = useState<Intent | null>(null);
   const [behavior, setBehavior] = useState<Behavior | null>(null);
-  const [zone, setZone] = useState<Zone | null>(null);
+  const [zones, setZones] = useState<Zone[]>([]);
   const [group, setGroup] = useState<GroupSize | null>(null);
   const [saving, setSaving] = useState(false);
+  const [geoHint, setGeoHint] = useState<string | null>(null);
+  const [showZoneError, setShowZoneError] = useState(false);
 
   useEffect(() => {
     if (!user) navigate('/auth');
   }, [user, navigate]);
 
+  useEffect(() => {
+    track('quickstart_shown');
+  }, []);
+
+  // Opt-in geolocation prefill for nearest local zone
+  useEffect(() => {
+    if (!('geolocation' in navigator)) {
+      setGeoHint('Allow location to get a suggested zone.');
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        // Wrigley Field ~41.948,-87.655. Within ~3mi → wrigleyville.
+        const dLat = latitude - 41.9484;
+        const dLng = longitude - -87.6553;
+        const approxMiles = Math.sqrt(dLat * dLat + dLng * dLng) * 69;
+        let suggested: Zone | null = null;
+        if (approxMiles < 1.5) suggested = 'wrigleyville';
+        else if (approxMiles < 4) suggested = 'lakeview';
+        else if (approxMiles < 10) suggested = 'loop';
+        else if (approxMiles < 200) suggested = 'anywhere';
+        if (suggested) {
+          setZones((prev) => (prev.length ? prev : [suggested!]));
+        }
+      },
+      () => setGeoHint('Allow location to get a suggested zone.'),
+      { enableHighAccuracy: false, timeout: 4000, maximumAge: 600000 },
+    );
+  }, []);
+
   const totalSteps = 3;
   const canAdvance =
-    (step === 0 && intent) ||
-    (step === 1 && behavior) ||
-    (step === 2 && zone && group);
+    (step === 0 && !!intent) ||
+    (step === 1 && !!behavior) ||
+    (step === 2 && zones.length > 0 && !!group);
+
+  const toggleZone = (id: Zone) => {
+    setShowZoneError(false);
+    setZones((prev) => {
+      const next = prev.includes(id) ? prev.filter((z) => z !== id) : [...prev, id];
+      track('chip_toggled', { chip_id: id, new_state: next.includes(id) ? 'selected' : 'deselected' });
+      return next;
+    });
+  };
+
+  const clearZones = () => {
+    setZones([]);
+    track('chip_toggled', { chip_id: 'all', new_state: 'cleared' });
+  };
 
   const handleNext = async () => {
     if (step < totalSteps - 1) {

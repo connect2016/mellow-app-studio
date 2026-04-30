@@ -1,47 +1,79 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Beer, Building2, CheckCircle2, Users, Wine, UtensilsCrossed, Pizza, Trophy, Medal, Award } from 'lucide-react';
+import {
+  ArrowLeft,
+  Beer,
+  Building2,
+  CheckCircle2,
+  Users,
+  Wine,
+  UtensilsCrossed,
+  Pizza,
+  Trophy,
+} from 'lucide-react';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import { useLeagueLeaders, LeaderboardCategory, LeagueLeaderRow } from '@/hooks/useLeagueLeaders';
+import {
+  useLeagueLeaders,
+  useLeaderboardExtras,
+  LeaderboardCategory,
+  LeaderboardPeriod,
+  LeagueLeaderRow,
+  LeaderboardExtraRow,
+} from '@/hooks/useLeagueLeaders';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
 import { useQueryClient } from '@tanstack/react-query';
+import {
+  RankBadge,
+  rankToBadgeKind,
+  type RankBadgeKind,
+} from '@/components/league/RankBadge';
 
 interface CategoryDef {
   key: LeaderboardCategory;
   label: string;
   shortLabel: string;
   Icon: typeof Beer;
-  unit?: string;
 }
 
 const CATEGORIES: CategoryDef[] = [
-  { key: 'beersToday',           label: 'Beers Today',           shortLabel: 'Beers',          Icon: Beer,            unit: '' },
-  { key: 'beersThisWeek',        label: 'Beers This Week',       shortLabel: 'Beers/Wk',       Icon: Beer,            unit: '' },
-  { key: 'barsVisitedToday',     label: 'Bars Today',            shortLabel: 'Bars',           Icon: Building2,       unit: '' },
-  { key: 'barsVisitedThisWeek',  label: 'Bars This Week',        shortLabel: 'Bars/Wk',        Icon: Building2,       unit: '' },
-  { key: 'meetupsFinished',      label: 'Meetups Done',          shortLabel: 'Meetups',        Icon: CheckCircle2,    unit: '' },
-  { key: 'fansConnected',        label: 'Fans Connected',        shortLabel: 'Fans',           Icon: Users,           unit: '' },
-  { key: 'shotsTakenSeason',     label: 'Shots Taken (Season)',  shortLabel: 'Shots',          Icon: Wine,            unit: '' },
-  { key: 'appetizersHadSeason',  label: 'Appetizers (Season)',   shortLabel: 'Appetizers',     Icon: UtensilsCrossed, unit: '' },
+  { key: 'beersToday',          label: 'Beers Today',          shortLabel: 'Beers',      Icon: Beer },
+  { key: 'beersThisWeek',       label: 'Beers This Week',      shortLabel: 'Beers/Wk',   Icon: Beer },
+  { key: 'barsVisitedToday',    label: 'Bars Today',           shortLabel: 'Bars',       Icon: Building2 },
+  { key: 'barsVisitedThisWeek', label: 'Bars This Week',       shortLabel: 'Bars/Wk',    Icon: Building2 },
+  { key: 'meetupsFinished',     label: 'Meetups Done',         shortLabel: 'Meetups',    Icon: CheckCircle2 },
+  { key: 'fansConnected',       label: 'Fans Connected',       shortLabel: 'Fans',       Icon: Users },
+  { key: 'shotsTakenSeason',    label: 'Shots Taken (Season)', shortLabel: 'Shots',      Icon: Wine },
+  { key: 'appetizersHadSeason', label: 'Appetizers (Season)',  shortLabel: 'Appetizers', Icon: UtensilsCrossed },
 ];
 
-function rankBadge(rank: number) {
-  if (rank === 1) return { Icon: Trophy, color: 'text-amber-400', bg: 'bg-amber-400/15 border-amber-400/40', label: 'Gold' };
-  if (rank === 2) return { Icon: Medal, color: 'text-zinc-300', bg: 'bg-zinc-400/15 border-zinc-300/40', label: 'Silver' };
-  if (rank === 3) return { Icon: Award, color: 'text-orange-400', bg: 'bg-orange-400/15 border-orange-400/40', label: 'Bronze' };
-  return null;
-}
+const PERIODS: { key: LeaderboardPeriod; label: string }[] = [
+  { key: 'week',   label: 'Weekly' },
+  { key: 'month',  label: 'Monthly' },
+  { key: 'season', label: 'Season' },
+];
 
 function initials(name: string) {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((n) => n[0]?.toUpperCase() ?? '')
-    .join('') || '?';
+  return (
+    name
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((n) => n[0]?.toUpperCase() ?? '')
+      .join('') || '?'
+  );
+}
+
+interface LeaderRowProps {
+  row: LeagueLeaderRow;
+  isMe: boolean;
+  onClick: () => void;
+  Icon: typeof Beer;
+  extra?: LeaderboardExtraRow;
+  isRisingStar: boolean;
+  isIronFan: boolean;
 }
 
 function LeaderRow({
@@ -49,38 +81,29 @@ function LeaderRow({
   isMe,
   onClick,
   Icon,
-}: {
-  row: LeagueLeaderRow;
-  isMe: boolean;
-  onClick: () => void;
-  Icon: typeof Beer;
-}) {
-  const badge = rankBadge(row.rank);
+  extra,
+  isRisingStar,
+  isIronFan,
+}: LeaderRowProps) {
+  const badgeKind: RankBadgeKind | null = rankToBadgeKind(row.rank);
+
   return (
     <button
       type="button"
       onClick={onClick}
       className={cn(
-        'w-full flex items-center gap-3 px-3 py-3 min-h-[64px] rounded-2xl border text-left transition-colors',
-        'active:scale-[0.99] hover:bg-muted/50',
+        'w-full flex items-center gap-3 px-3 py-3 min-h-[68px] rounded-2xl border text-left transition-colors',
+        'active:scale-[0.99] hover:bg-muted/50 shadow-sm',
         isMe
           ? 'border-primary/60 bg-primary/10'
-          : 'border-border/40 bg-card/80'
+          : 'border-border/40 bg-card/80',
       )}
       aria-label={`Rank ${row.rank}: ${row.display_name}, ${row.stat_value}`}
     >
       {/* Rank cell */}
       <div className="flex flex-col items-center justify-center w-10 shrink-0">
-        {badge ? (
-          <span
-            className={cn(
-              'flex h-9 w-9 items-center justify-center rounded-full border',
-              badge.bg
-            )}
-            aria-label={badge.label}
-          >
-            <badge.Icon className={cn('h-4 w-4', badge.color)} strokeWidth={2.5} />
-          </span>
+        {badgeKind ? (
+          <RankBadge kind={badgeKind} size="md" />
         ) : (
           <span className="text-base font-extrabold text-muted-foreground tabular-nums">
             {row.rank}
@@ -106,7 +129,7 @@ function LeaderRow({
         )}
       </div>
 
-      {/* Name + favorite spot */}
+      {/* Name + favorite spot + extras */}
       <div className="flex-1 min-w-0">
         <p className="text-sm font-bold text-foreground leading-tight truncate">
           {row.display_name || 'Anonymous Fan'}
@@ -116,14 +139,31 @@ function LeaderRow({
             </span>
           )}
         </p>
-        {row.favorite_food_spot ? (
-          <span className="mt-0.5 inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground max-w-full">
-            <Pizza className="h-3 w-3 shrink-0" aria-hidden />
-            <span className="truncate">{row.favorite_food_spot}</span>
-          </span>
-        ) : (
-          <span className="text-[11px] text-muted-foreground/70">No favorite spot yet</span>
-        )}
+
+        <div className="mt-0.5 flex items-center gap-1.5 flex-wrap">
+          {row.favorite_food_spot ? (
+            <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground max-w-[140px]">
+              <Pizza className="h-3 w-3 shrink-0" aria-hidden />
+              <span className="truncate">{row.favorite_food_spot}</span>
+            </span>
+          ) : (
+            <span className="text-[11px] text-muted-foreground/70">No favorite spot</span>
+          )}
+
+          {isRisingStar && <RankBadge kind="rising" size="sm" />}
+          {isIronFan && <RankBadge kind="iron" size="sm" />}
+
+          {extra && extra.rank_delta !== 0 && (
+            <span
+              className={cn(
+                'text-[10px] font-bold tabular-nums',
+                extra.rank_delta > 0 ? 'text-emerald-500' : 'text-rose-500',
+              )}
+            >
+              {extra.rank_delta > 0 ? '▲' : '▼'} {Math.abs(extra.rank_delta)}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Stat value */}
@@ -144,11 +184,13 @@ export default function LeagueLeaders() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const [activeKey, setActiveKey] = useState<LeaderboardCategory>('beersToday');
+  const [period, setPeriod] = useState<LeaderboardPeriod>('season');
 
   const activeCat = CATEGORIES.find((c) => c.key === activeKey)!;
-  const { data, isLoading, isError, refetch } = useLeagueLeaders(activeKey, 100);
+  const { data, isLoading, isError, refetch } = useLeagueLeaders(activeKey, 100, period);
+  const { data: extras } = useLeaderboardExtras(activeKey, period);
 
-  // Real-time invalidation: refetch when relevant tables change
+  // Real-time invalidation
   useEffect(() => {
     const channel = supabase
       .channel('league-leaders-rt')
@@ -173,8 +215,23 @@ export default function LeagueLeaders() {
   const rows = data ?? [];
   const myRow = useMemo(
     () => (user ? rows.find((r) => r.user_id === user.id) : undefined),
-    [rows, user]
+    [rows, user],
   );
+
+  // Derived: Rising Star = max positive rank_delta; Iron Fan = active 4+ of last 6 weeks
+  const extrasMap = useMemo(() => {
+    const m = new Map<string, LeaderboardExtraRow>();
+    (extras ?? []).forEach((e) => m.set(e.user_id, e));
+    return m;
+  }, [extras]);
+
+  const risingStarUserId = useMemo(() => {
+    if (!extras || extras.length === 0) return null;
+    const top = [...extras]
+      .filter((e) => e.rank_delta > 0)
+      .sort((a, b) => b.rank_delta - a.rank_delta)[0];
+    return top?.user_id ?? null;
+  }, [extras]);
 
   return (
     <div className="relative min-h-screen bg-background pb-32">
@@ -197,11 +254,38 @@ export default function LeagueLeaders() {
             League Leaders
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Live rankings across the Cubbies Buddies league. Updates as fans rack up stats.
+            See how you stack up this season.
           </p>
         </header>
 
-        {/* Category selector — horizontal scroll */}
+        {/* Period toggle */}
+        <div
+          className="mb-4 inline-flex w-full items-center rounded-2xl border border-border/50 bg-card/70 p-1"
+          role="tablist"
+          aria-label="Leaderboard period"
+        >
+          {PERIODS.map((p) => {
+            const isActive = period === p.key;
+            return (
+              <button
+                key={p.key}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setPeriod(p.key)}
+                className={cn(
+                  'flex-1 rounded-xl px-3 py-2 text-xs font-extrabold uppercase tracking-wider min-h-[40px] transition-colors',
+                  isActive
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-foreground/70 hover:text-foreground',
+                )}
+              >
+                {p.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Category selector */}
         <div
           className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide"
           role="tablist"
@@ -221,7 +305,7 @@ export default function LeagueLeaders() {
                   'transition-colors active:scale-[0.97]',
                   isActive
                     ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-border/50 bg-card/70 text-foreground/80 hover:bg-muted/60'
+                    : 'border-border/50 bg-card/70 text-foreground/80 hover:bg-muted/60',
                 )}
               >
                 <Icon className="h-3.5 w-3.5" aria-hidden />
@@ -240,6 +324,9 @@ export default function LeagueLeaders() {
           >
             {activeCat.label}
           </h2>
+          <span className="ml-auto text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            {PERIODS.find((p) => p.key === period)?.label}
+          </span>
         </div>
 
         {/* List */}
@@ -248,7 +335,7 @@ export default function LeagueLeaders() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="h-[64px] rounded-2xl bg-muted/40 border border-border/30 animate-pulse"
+                className="h-[68px] rounded-2xl bg-muted/40 border border-border/30 animate-pulse"
               />
             ))}
           </div>
@@ -275,16 +362,24 @@ export default function LeagueLeaders() {
           </div>
         ) : (
           <ol className="space-y-2" aria-label={`${activeCat.label} rankings`}>
-            {rows.map((row) => (
-              <li key={row.user_id}>
-                <LeaderRow
-                  row={row}
-                  isMe={!!user && row.user_id === user.id}
-                  Icon={activeCat.Icon}
-                  onClick={() => navigate(`/profile/${row.user_id}`)}
-                />
-              </li>
-            ))}
+            {rows.map((row) => {
+              const ex = extrasMap.get(row.user_id);
+              const isRisingStar = !!risingStarUserId && row.user_id === risingStarUserId;
+              const isIronFan = (ex?.weeks_active_recent ?? 0) >= 4;
+              return (
+                <li key={row.user_id}>
+                  <LeaderRow
+                    row={row}
+                    isMe={!!user && row.user_id === user.id}
+                    Icon={activeCat.Icon}
+                    onClick={() => navigate(`/profile/${row.user_id}`)}
+                    extra={ex}
+                    isRisingStar={isRisingStar}
+                    isIronFan={isIronFan}
+                  />
+                </li>
+              );
+            })}
           </ol>
         )}
       </div>
@@ -309,7 +404,8 @@ export default function LeagueLeaders() {
                     Your Rank — {activeCat.label}
                   </p>
                   <p className="text-sm font-bold text-foreground truncate">
-                    {myRow.display_name || 'You'} · {myRow.stat_value} {activeCat.shortLabel.toLowerCase()}
+                    {myRow.display_name || 'You'} · {myRow.stat_value}{' '}
+                    {activeCat.shortLabel.toLowerCase()}
                   </p>
                 </div>
                 <Button

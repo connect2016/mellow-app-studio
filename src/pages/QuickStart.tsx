@@ -1,20 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, MapPin, Globe, Map as MapIcon, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import quickstartBg from '@/assets/quickstart-bg.jpg';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
-type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere';
+type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere' | 'out_of_state' | 'out_of_country';
 type GroupSize = 'solo' | 'small' | 'big';
+
+function track(event: string, payload?: Record<string, unknown>) {
+  try {
+    window.dispatchEvent(new CustomEvent(event, { detail: payload }));
+    (window as any).gtag?.('event', event, payload ?? {});
+    (window as any).plausible?.(event, { props: payload });
+  } catch { /* no-op */ }
+}
 
 const INTENTS: { id: Intent; emoji: string; label: string; sub: string }[] = [
   { id: 'watch_game', emoji: '', label: 'Watch the game', sub: 'Live scores, section chats, predictions' },

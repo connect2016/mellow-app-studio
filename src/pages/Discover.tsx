@@ -657,8 +657,8 @@ export default function Discover() {
             ) : filtered.length === 0 ? (
               <div className="py-20 text-center">
                 <p className="text-4xl"></p>
-                <p className="mt-2 font-semibold">No fans found</p>
-                <p className="text-sm text-muted-foreground">{pickCopy(EMPTY_FANS)}</p>
+                <p className="mt-2 font-semibold text-destructive-foreground">No fans found</p>
+                <p className="text-sm text-destructive-foreground">{pickCopy(EMPTY_FANS)}</p>
               </div>
             ) : (
               <div className="space-y-4">

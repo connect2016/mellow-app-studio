@@ -206,10 +206,36 @@ export default function VibeFeed() {
 
   return (
     <DynamicBackground>
+      {/* Lightening layer to counteract heavy global tint on this page */}
+      <div
+        className="fixed inset-0 z-[1] pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(180deg, hsla(0,0%,100%,0.18) 0%, hsla(0,0%,100%,0.05) 40%, hsla(0,0%,0%,0.20) 100%)',
+        }}
+      />
       <AppHeader />
       <GuestGateModal open={guestGateOpen} onClose={() => setGuestGateOpen(false)} action={guestGateAction} />
       {isGuest && <WelcomeTour />}
-      <main className={`mx-auto max-w-lg px-4 pt-4 ${isGuest ? 'pb-32' : 'pb-24'}`} data-tour="vibe-feed">
+
+      {/* Sticky Back / Skip nav — always visible */}
+      <div className="sticky top-0 z-30 mx-auto max-w-lg px-4 pt-2 flex items-center justify-between pointer-events-none">
+        <button
+          onClick={() => (window.history.length > 1 ? navigate(-1) : navigate('/home'))}
+          aria-label="Go back"
+          className="pointer-events-auto inline-flex items-center justify-center h-10 w-10 rounded-full bg-background/70 backdrop-blur-md border border-border/60 shadow-sm text-foreground hover:bg-background/90 transition-colors"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+        <button
+          onClick={() => navigate('/home')}
+          className="pointer-events-auto inline-flex items-center justify-center h-9 px-4 rounded-full bg-background/60 backdrop-blur-md border border-border/50 text-sm font-medium text-foreground/90 hover:bg-background/80 transition-colors"
+        >
+          Skip
+        </button>
+      </div>
+
+      <main className={`mx-auto max-w-lg px-4 pt-3 ${isGuest ? 'pb-32' : 'pb-24'}`} data-tour="vibe-feed">
         <Tabs defaultValue="vibes" className="mb-4">
           <TabsList className="w-full grid grid-cols-2 mb-4" data-tour="check-in">
             <TabsTrigger value="vibes" className="gap-1.5">

@@ -2,7 +2,16 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
-export type StatKey = 'beersToday' | 'beersThisWeek' | 'barsVisitedToday' | 'barsVisitedThisWeek' | 'meetupsFinished' | 'fansConnected';
+export type StatKey =
+  | 'beersToday'
+  | 'beersThisWeek'
+  | 'barsVisitedToday'
+  | 'barsVisitedThisWeek'
+  | 'meetupsFinished'
+  | 'fansConnected'
+  | 'shotsTakenSeason'
+  | 'appetizersHadSeason'
+  | 'favoriteFoodSpot';
 export type TimeRange = 'today' | 'this_week' | 'all_time';
 export type StatVisibility = 'everyone' | 'matches_only' | 'hidden';
 

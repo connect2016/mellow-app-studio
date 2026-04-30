@@ -20,7 +20,7 @@ export interface CoordinationRow {
 
 export const ARRIVAL_META: Record<ArrivalStatus, { label: string; emoji: string; color: string }> = {
   on_my_way:     { label: 'On my way',    emoji: '', color: 'hsl(var(--primary))' },
-  almost_there:  { label: 'Almost there', emoji: '⏱️', color: 'hsl(var(--lineup-teal, 173 80% 40%))' },
+  almost_there:  { label: 'Almost there', emoji: 'timer', color: 'hsl(var(--lineup-teal, 173 80% 40%))' },
   arrived:       { label: 'Arrived',      emoji: '', color: 'hsl(142 71% 45%)' },
   running_late:  { label: 'Running late', emoji: '', color: 'hsl(38 92% 50%)' },
 };

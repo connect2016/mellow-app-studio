@@ -74,7 +74,7 @@ function computeCompatibility(me: ProfileLike, them: ProfileLike): Compatibility
   // 4. Same favorite player
   if (me.favorite_player && them.favorite_player &&
       me.favorite_player.toLowerCase() === them.favorite_player.toLowerCase()) {
-    reasons.push({ emoji: '⭐', text: `Both ${them.favorite_player} fans!`, weight: 12 });
+    reasons.push({ emoji: '', text: `Both ${them.favorite_player} fans!`, weight: 12 });
   }
 
   // 5. Nearby sections (group behavior proxy)

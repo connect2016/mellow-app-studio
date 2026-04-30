@@ -1,5 +1,3 @@
-import { RotateCcw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { VisibleStat } from '@/components/UserBaseballCard';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 

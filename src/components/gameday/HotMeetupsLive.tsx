@@ -85,8 +85,8 @@ export function HotMeetupsLive() {
                         </span>
                       )}
                       {isStartingSoon && !happeningNow && (
-                        <span className="inline-flex items-center rounded-full bg-amber-500/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
-                          ⏱ Starts in {minsAway}m
+                        <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                          <ConceptIcon name="timer" className="h-2.5 w-2.5" /> Starts in {minsAway}m
                         </span>
                       )}
                       <span className="text-[10px] font-semibold text-muted-foreground">

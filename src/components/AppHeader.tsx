@@ -1,7 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, MapPin, Trophy, User, Bell } from 'lucide-react';
-import { useGamedayMode } from '@/contexts/GamedayModeContext';
-import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
+import { Home, Users, Map, User, Bell } from 'lucide-react';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';

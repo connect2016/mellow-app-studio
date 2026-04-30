@@ -1358,6 +1358,8 @@ export type Database = {
           age_min: number | null
           appetizers_had_season: number
           bar_location_privacy: string | null
+          beers_today_count: number
+          beers_week_count: number
           best_bar: string | null
           bio: string | null
           blocked_users: string[] | null
@@ -1419,6 +1421,8 @@ export type Database = {
           age_min?: number | null
           appetizers_had_season?: number
           bar_location_privacy?: string | null
+          beers_today_count?: number
+          beers_week_count?: number
           best_bar?: string | null
           bio?: string | null
           blocked_users?: string[] | null
@@ -1480,6 +1484,8 @@ export type Database = {
           age_min?: number | null
           appetizers_had_season?: number
           bar_location_privacy?: string | null
+          beers_today_count?: number
+          beers_week_count?: number
           best_bar?: string | null
           bio?: string | null
           blocked_users?: string[] | null
@@ -2270,6 +2276,17 @@ export type Database = {
           is_trusted: boolean
           is_verified: boolean
           recent_reports: number
+        }[]
+      }
+      get_league_leaders: {
+        Args: { p_category: string; p_limit?: number }
+        Returns: {
+          display_name: string
+          favorite_food_spot: string
+          profile_photo: string
+          rank: number
+          stat_value: number
+          user_id: string
         }[]
       }
       get_map_fans: {

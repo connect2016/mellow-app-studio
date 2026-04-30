@@ -53,8 +53,8 @@ export function TrendingNow() {
               </p>
               <div className="flex items-center gap-2 mt-0.5">
                 {bar.summary.topWait && (
-                  <span className="text-[10px] text-muted-foreground">
-                    ⏱ {WAIT_LABELS[bar.summary.topWait]}
+                  <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
+                    <ConceptIcon name="timer" className="h-2.5 w-2.5" /> {WAIT_LABELS[bar.summary.topWait]}
                   </span>
                 )}
                 {bar.summary.topVibe && (

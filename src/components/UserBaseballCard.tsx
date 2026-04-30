@@ -48,6 +48,9 @@ export const STAT_ICONS: Record<StatKey, React.ElementType> = {
   barsVisitedThisWeek: Building2,
   meetupsFinished: CheckCircle2,
   fansConnected: Users,
+  shotsTakenSeason: Wine,
+  appetizersHadSeason: UtensilsCrossed,
+  favoriteFoodSpot: Pizza,
 };
 
 export const CARD_STAT_LABELS: Record<StatKey, string> = {
@@ -57,6 +60,9 @@ export const CARD_STAT_LABELS: Record<StatKey, string> = {
   barsVisitedThisWeek: 'Bars This Week',
   meetupsFinished: 'Meetups Done',
   fansConnected: 'Fans Connected',
+  shotsTakenSeason: 'Shots (Season)',
+  appetizersHadSeason: 'Appetizers (Season)',
+  favoriteFoodSpot: 'Favorite Food Spot',
 };
 
 function canViewStat(visibility: StatVisibility, isOwner: boolean, isMatch: boolean): boolean {
@@ -69,7 +75,7 @@ function canViewStat(visibility: StatVisibility, isOwner: boolean, isMatch: bool
 export interface VisibleStat {
   key: StatKey;
   icon: React.ElementType;
-  value: number;
+  value: number | string;
   label: string;
   timeRange: string;
   visibility: StatVisibility;

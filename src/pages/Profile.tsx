@@ -256,10 +256,21 @@ export default function Profile() {
               intents={(profile.intent as IntentType[]) ?? []}
               gamedayIntents={(profile.gameday_intents as GamedayIntentType[]) ?? []}
               statPreferences={statPreferences}
+              stats={{
+                shotsTakenSeason: cardExtras.shots_taken_season ?? 0,
+                appetizersHadSeason: cardExtras.appetizers_had_season ?? 0,
+                favoriteFoodSpot: cardExtras.favorite_food_spot ?? undefined,
+              }}
               isOwner={isOwnProfile}
               className="max-w-full"
             />
 
+            {isOwnProfile && (
+              <SeasonStatsEditor
+                values={seasonStatsValues}
+                onUpdate={handleSeasonStatsUpdate}
+              />
+            )}
             {/* Action buttons */}
             <div className="space-y-3">
               {!isOwnProfile ? (

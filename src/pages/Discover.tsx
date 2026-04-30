@@ -51,11 +51,11 @@ import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const STATUS_OPTIONS = [
-  { value: 'AtBar', emoji: '', label: 'At the Bar' },
-  { value: 'AtWrigley', emoji: '', label: 'In my Seat' },
-  { value: 'Tailgating', emoji: '', label: 'Tailgating' },
-  { value: 'BeerSnake', emoji: '', label: 'Beer Snake' },
-  { value: 'WatchingRemote', emoji: '', label: 'Watching from Home' },
+  { value: 'AtBar', icon: 'beer', label: 'At the Bar' },
+  { value: 'AtWrigley', icon: 'baseball', label: 'In my Seat' },
+  { value: 'Tailgating', icon: 'fire', label: 'Tailgate' },
+  { value: 'BeerSnake', icon: 'trophy', label: 'Beer Snake' },
+  { value: 'WatchingRemote', icon: 'tv', label: 'Home' },
 ] as const;
 
 interface FilterState {

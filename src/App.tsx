@@ -70,6 +70,7 @@ const App = () => (
             <MessageToastListener />
             <BucketListPanel />
             <IcebreakerNotifier />
+            <AchievementNotifier />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />

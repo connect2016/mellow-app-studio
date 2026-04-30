@@ -140,7 +140,7 @@ export default function Discover() {
       queryClient.invalidateQueries({ queryKey: ['live-fan-counts'] });
       if (newStatus !== 'NotSet') {
         const opt = STATUS_OPTIONS.find(s => s.value === newStatus);
-        toast(`$<ConceptVisual name={opt?.emoji} size="sm" /> Status set to "${opt?.label}"`);
+        toast(`Status set to "${opt?.label}"`);
         // Track missions
         if (newStatus === 'AtWrigley') { tracker.trackCheckInWrigley(); tracker.trackAttendGame(); }
         if (newStatus === 'AtBar') tracker.trackCheckInBar();

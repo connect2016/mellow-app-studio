@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3, Wine, UtensilsCrossed, Pizza } from 'lucide-react';
-import cardTemplate from '@/assets/baseball-card-template.png';
+
 import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { GameStatus, IntentType, GamedayIntentType, INTENT_LABELS, INTENT_EMOJI, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { StatPreference, StatKey, DEFAULT_STAT_PREFS, StatVisibility } from '@/hooks/useStatPreferences';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
+
 
 interface CardStats {
   beersToday?: number;
@@ -154,18 +154,19 @@ export function UserBaseballCard({
       role="region"
       aria-label={`${displayName || 'Fan'}'s baseball card`}
     >
-      {/* Flip container — taller aspect ratio fits both the artwork (front) and the stats grid (back) */}
+      {/* Flip container — fixed height so front/back share identical bounding box */}
       <div
-        className="relative w-full"
+        className="relative w-full mx-auto"
         style={{
-          aspectRatio: '4 / 5',
+          height: 420,
+          maxWidth: 360,
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-          transition: 'transform 450ms cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'transform 260ms cubic-bezier(0.25, 0.8, 0.25, 1)',
         }}
       >
         {/* ===== FRONT SIDE ===== */}
-        <div className="absolute inset-0" style={{ backfaceVisibility: 'hidden' }}>
+        <div className="absolute inset-0 w-full h-full" style={{ backfaceVisibility: 'hidden' }}>
           <CardFrontSide
             profileImage={profileImage}
             displayName={displayName}

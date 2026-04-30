@@ -10,7 +10,7 @@ interface CardBackSideProps {
 export function CardBackSide({ displayName, visibleStats, isOwner }: CardBackSideProps) {
   return (
     <div
-      className="absolute inset-0 w-full"
+      className="absolute inset-0 w-full h-full"
       style={{
         backfaceVisibility: 'hidden',
         transform: 'rotateY(180deg)',
@@ -18,52 +18,59 @@ export function CardBackSide({ displayName, visibleStats, isOwner }: CardBackSid
       role="img"
       aria-label={`${displayName || 'Fan'}'s stats — back side`}
     >
-      <div className="w-full h-full rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-card via-card to-muted/30 shadow-md flex flex-col">
+      <div className="w-full h-full rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-card via-card to-muted/30 shadow-md flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="text-center pt-6 pb-4 px-5 border-b border-border/30">
+        <div className="text-center pt-4 pb-3 px-5 shrink-0">
           <h3
-            className="font-extrabold text-xl tracking-wide text-foreground"
+            className="font-extrabold text-lg tracking-wide text-foreground"
             style={{ fontFamily: "'Graduate', 'Inter', serif" }}
           >
             {displayName || 'Fan'}'s Stats
           </h3>
-          <p className="text-sm text-muted-foreground mt-1">Season Performance</p>
+          <p className="text-xs text-muted-foreground mt-0.5">Season Performance</p>
         </div>
 
-        {/* Stats grid */}
-        <div className="flex-1 grid grid-cols-2 gap-4 p-6">
-          {visibleStats.map((stat) => {
-            const Icon = stat.icon;
-            const isText = typeof stat.value === 'string';
-            return (
-              <div
-                key={stat.key}
-                className="flex flex-col items-center justify-center rounded-2xl bg-muted/40 border border-border/30 p-4 gap-1.5 shadow-sm"
-              >
-                <Icon className="h-6 w-6 text-primary/70" aria-hidden="true" />
-                {isText ? (
-                  <span
-                    className="text-base font-extrabold text-foreground leading-tight text-center line-clamp-2"
-                    aria-label={`${stat.label}: ${stat.value}`}
+        {/* Stats grid — internal scroll if needed, no dividing border */}
+        <div className="flex-1 overflow-y-auto px-3 pb-4">
+          {visibleStats.length === 0 ? (
+            <div className="h-full flex items-center justify-center text-sm text-muted-foreground">
+              No stats to show yet.
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-2">
+              {visibleStats.map((stat) => {
+                const Icon = stat.icon;
+                const isText = typeof stat.value === 'string';
+                return (
+                  <div
+                    key={stat.key}
+                    className="flex flex-col items-center justify-center rounded-xl bg-muted/30 p-3 gap-1 min-h-[88px]"
                   >
-                    {stat.value || '—'}
-                  </span>
-                ) : (
-                  <span className="text-3xl font-extrabold text-foreground leading-none" aria-label={`${stat.value} ${stat.label}`}>
-                    {stat.value}
-                  </span>
-                )}
-                <span className="text-xs font-medium text-muted-foreground text-center leading-tight">{stat.label}</span>
-                {isOwner && stat.visibility !== 'everyone' && (
-                  <span className="text-[10px] text-muted-foreground/60" aria-label={stat.visibility === 'matches_only' ? 'Visible to matches only' : 'Hidden'}>
-                    {stat.visibility === 'matches_only' ? '' : ''}
-                  </span>
-                )}
-              </div>
-            );
-          })}
+                    <Icon className="h-5 w-5 text-primary/70" aria-hidden="true" />
+                    {isText ? (
+                      <span
+                        className="text-sm font-semibold text-foreground leading-tight text-center line-clamp-2"
+                        aria-label={`${stat.label}: ${stat.value}`}
+                      >
+                        {stat.value || '—'}
+                      </span>
+                    ) : (
+                      <span
+                        className="text-[18px] font-semibold text-foreground leading-none"
+                        aria-label={`${stat.value} ${stat.label}`}
+                      >
+                        {stat.value}
+                      </span>
+                    )}
+                    <span className="text-[12px] font-normal text-muted-foreground text-center leading-tight">
+                      {stat.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
-
       </div>
     </div>
   );

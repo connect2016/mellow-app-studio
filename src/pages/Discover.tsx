@@ -259,7 +259,7 @@ export default function Discover() {
   };
 
   return (
-    <div className="min-h-screen pb-32 relative overflow-x-hidden">
+    <div className="min-h-screen pb-44 relative overflow-x-hidden">
       {/* Dynamic background image — parallax bg layer (40% drag) */}
       <div className="fixed inset-0 z-0 swipe-drag-bg" data-route-parallax="bg">
         <img
@@ -501,27 +501,6 @@ export default function Discover() {
           </div>
         </div>
 
-        {/* Quick Actions — discovery shortcuts */}
-        <div className="mb-5">
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
-            {[
-              { label: "Tonight's Hot Spots", icon: 'fire', to: '/bar-map' },
-              { label: 'Nearby Fans', icon: 'people', to: '/buddy-heatmap' },
-              { label: 'Meetups Soon', icon: 'calendar', to: '/meetups' },
-            ].map((q) => (
-              <button
-                key={q.label}
-                type="button"
-                onClick={() => navigate(q.to)}
-                className="flex min-h-[44px] shrink-0 items-center gap-2 rounded-full border border-white/15 bg-card/70 px-3.5 py-2 text-xs font-semibold text-foreground backdrop-blur-sm transition-all hover:bg-card active:scale-95"
-              >
-                <ConceptIcon name={q.icon} className="h-4 w-4 text-secondary" />
-                {q.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Beer Snake photo upload */}
         {currentStatus === 'BeerSnake' && (
           <motion.div
@@ -718,6 +697,33 @@ export default function Discover() {
         <Plus className="h-7 w-7" />
       </motion.button>
       <CreateMeetupModal open={showLineupCreate} onClose={() => setShowLineupCreate(false)} />
+
+      {/* Fixed Quick Actions bar — sits just above the bottom nav */}
+      <nav
+        aria-label="Quick actions"
+        className="fixed inset-x-0 bottom-16 z-30 border-t border-white/10 bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70"
+      >
+        <div className="mx-auto flex max-w-lg gap-2 overflow-x-auto px-3 py-2 scrollbar-none">
+          {[
+            { label: "Hot Spots", icon: 'fire', to: '/bar-map' },
+            { label: 'Nearby Fans', icon: 'people', to: '/buddy-heatmap' },
+            { label: 'Meetups', icon: 'calendar', to: '/meetups' },
+            { label: 'Vibes', icon: 'camera', to: '/vibe-feed' },
+            { label: 'Missions', icon: 'trophy', to: '/missions' },
+          ].map((q) => (
+            <button
+              key={q.label}
+              type="button"
+              aria-label={q.label}
+              onClick={() => navigate(q.to)}
+              className="flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-card/80 px-3.5 py-2 text-xs font-semibold text-foreground transition-all hover:bg-card active:scale-95"
+            >
+              <ConceptIcon name={q.icon} className="h-4 w-4 text-secondary" />
+              {q.label}
+            </button>
+          ))}
+        </div>
+      </nav>
       </div>
     </div>
   );

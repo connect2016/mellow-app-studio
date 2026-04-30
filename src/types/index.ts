@@ -26,7 +26,7 @@ export type FanStyleType = 'OldStyleDrinker' | 'MustardHotdog' | 'StayUntil9th' 
 export const FAN_STYLE_OPTIONS: { value: FanStyleType; label: string; emoji: string }[] = [
   { value: 'OldStyleDrinker', label: 'Old Style Only', emoji: '' },
   { value: 'MustardHotdog', label: 'Mustard Gang', emoji: '' },
-  { value: 'StayUntil9th', label: 'Til the Last Out', emoji: '⏰' },
+  { value: 'StayUntil9th', label: 'Til the Last Out', emoji: 'timer' },
   { value: 'EarlyBPArrival', label: 'Gates-Open Guy', emoji: '' },
   { value: 'ScorecardKeeper', label: 'Keeps Score', emoji: '' },
 ];

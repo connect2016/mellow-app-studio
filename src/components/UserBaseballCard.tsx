@@ -136,14 +136,14 @@ export function UserBaseballCard({
       role="region"
       aria-label={`${displayName || 'Fan'}'s baseball card`}
     >
-      {/* Flip container — fixed aspect ratio matching card artwork so front and back share dimensions */}
+      {/* Flip container — taller aspect ratio fits both the artwork (front) and the stats grid (back) */}
       <div
         className="relative w-full"
         style={{
-          aspectRatio: '410 / 399',
+          aspectRatio: '4 / 5',
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-          transition: 'transform 320ms cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'transform 450ms cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         {/* ===== FRONT SIDE ===== */}

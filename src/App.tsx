@@ -10,6 +10,7 @@ import { MessageToastListener } from "@/components/MessageToastListener";
 import { BucketListPanel } from "@/components/BucketListPanel";
 import { IcebreakerNotifier } from "@/components/IcebreakerNotifier";
 import { AchievementNotifier } from "@/components/notifications/AchievementNotifier";
+import { FirstActionMicroflow } from "@/components/onboarding/FirstActionMicroflow";
 import { CreateMeetupProvider } from "@/contexts/CreateMeetupContext";
 import { CreateMeetupFab } from "@/components/CreateMeetupFab";
 import Landing from "./pages/Landing";
@@ -72,6 +73,7 @@ const App = () => (
             <BucketListPanel />
             <IcebreakerNotifier />
             <AchievementNotifier />
+            <FirstActionMicroflow />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />

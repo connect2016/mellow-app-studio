@@ -28,6 +28,7 @@ import Settings from "./pages/Settings";
 import Admin from "./pages/Admin";
 import VibeFeed from "./pages/VibeFeed";
 import Loyalty from "./pages/Loyalty";
+import LeagueLeaders from "./pages/LeagueLeaders";
 import Crews from "./pages/Crews";
 import CrewDetail from "./pages/CrewDetail";
 import Missions from "./pages/Missions";

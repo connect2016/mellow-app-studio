@@ -401,32 +401,55 @@ export default function LeagueLeaders() {
           aria-label="Your current rank"
         >
           <div className="mx-auto max-w-lg px-4 py-3">
-            {myRow ? (
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 border border-primary/30">
-                  <span className="text-sm font-extrabold text-primary tabular-nums">
-                    #{myRow.rank}
-                  </span>
+            {myRow ? (() => {
+              // Find the fan ranked just above me to compute "X to catch #{rank-1}"
+              const nextUp = rows.find((r) => r.rank === myRow.rank - 1);
+              const gap = nextUp ? Math.max(0, nextUp.stat_value - myRow.stat_value) : 0;
+              const denom = nextUp ? Math.max(nextUp.stat_value, 1) : 1;
+              const pct = nextUp
+                ? Math.min(100, Math.round((myRow.stat_value / denom) * 100))
+                : 100;
+
+              return (
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 border border-primary/30">
+                    <span className="text-sm font-extrabold text-primary tabular-nums">
+                      #{myRow.rank}
+                    </span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                      Your Rank — {activeCat.label}
+                    </p>
+                    <p className="text-sm font-bold text-foreground truncate">
+                      {myRow.display_name || 'You'} · {myRow.stat_value}{' '}
+                      {activeCat.shortLabel.toLowerCase()}
+                    </p>
+                    <div className="mt-1.5 flex items-center gap-2">
+                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-primary to-primary/60 transition-[width] duration-500"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground tabular-nums shrink-0">
+                        {nextUp
+                          ? `+${gap} to #${nextUp.rank}`
+                          : 'Top of the board'}
+                      </span>
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="rounded-xl min-h-[40px]"
+                    onClick={() => navigate('/profile')}
+                  >
+                    My Card
+                  </Button>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
-                    Your Rank — {activeCat.label}
-                  </p>
-                  <p className="text-sm font-bold text-foreground truncate">
-                    {myRow.display_name || 'You'} · {myRow.stat_value}{' '}
-                    {activeCat.shortLabel.toLowerCase()}
-                  </p>
-                </div>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="rounded-xl min-h-[40px]"
-                  onClick={() => navigate('/profile')}
-                >
-                  My Card
-                </Button>
-              </div>
-            ) : (
+              );
+            })() : (
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted border border-border">
                   <Trophy className="h-4 w-4 text-muted-foreground" aria-hidden />

@@ -129,7 +129,37 @@ export default function Profile() {
     post_win_meal: (extraFields as any)?.post_win_meal ?? (profile as any)?.post_win_meal ?? '',
   };
 
-  const handleFoodPromptSave = (key: FoodPromptKey, value: string) => {
+  // Combined card-extras: own profile reads from extraFields (full row),
+  // other profiles read from the public RPC.
+  const cardExtras = {
+    shots_taken_season:
+      (extraFields as any)?.shots_taken_season ??
+      (publicCardExtras as any)?.shots_taken_season ??
+      0,
+    appetizers_had_season:
+      (extraFields as any)?.appetizers_had_season ??
+      (publicCardExtras as any)?.appetizers_had_season ??
+      0,
+    favorite_food_spot:
+      (extraFields as any)?.favorite_food_spot ??
+      (publicCardExtras as any)?.favorite_food_spot ??
+      null,
+  };
+
+  const seasonStatsValues: SeasonStatsValues = {
+    shots_taken_season: cardExtras.shots_taken_season ?? 0,
+    appetizers_had_season: cardExtras.appetizers_had_season ?? 0,
+    favorite_food_spot: cardExtras.favorite_food_spot ?? null,
+  };
+
+  const handleSeasonStatsUpdate = (patch: Partial<SeasonStatsValues>) => {
+    updateProfile.mutate(patch as any, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['profile-extras'] });
+        queryClient.invalidateQueries({ queryKey: ['public-card-extras'] });
+      },
+    });
+  };
     updateProfile.mutate({ [key]: value || null } as any, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['profile-extras'] });

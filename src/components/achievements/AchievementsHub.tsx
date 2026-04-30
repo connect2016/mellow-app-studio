@@ -1,6 +1,7 @@
 import { Trophy, Flame, Award } from 'lucide-react';
 import { StreaksSection } from './StreaksSection';
 import { MilestonesSection } from './MilestonesSection';
+import { TrophyShowcase } from './TrophyShowcase';
 
 interface Props {
   /** Compact summary mode for profile page */
@@ -33,6 +34,7 @@ export function AchievementsHub({ compact = false, onSeeAll }: Props) {
           <div className="space-y-3">
             <StreaksSection compact />
             <MilestonesSection compact />
+            <TrophyShowcase compact />
           </div>
         </button>
       </div>
@@ -41,6 +43,23 @@ export function AchievementsHub({ compact = false, onSeeAll }: Props) {
 
   return (
     <div className="space-y-5">
+      {/* Trophies card */}
+      <section className="rounded-2xl border border-border bg-card/95 p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Trophy className="h-4 w-4 text-amber-500" />
+          <h2
+            className="text-sm font-bold uppercase tracking-wider text-foreground"
+            style={{ fontFamily: 'Montserrat, sans-serif' }}
+          >
+            Trophies
+          </h2>
+          <span className="text-[10px] text-muted-foreground ml-auto">
+            Your earned achievements
+          </span>
+        </div>
+        <TrophyShowcase />
+      </section>
+
       {/* Streaks card */}
       <section className="rounded-2xl border border-border bg-card/95 p-4">
         <div className="flex items-center gap-2 mb-3">

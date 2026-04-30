@@ -64,10 +64,25 @@ export default function Profile() {
       if (!targetId) return null;
       const { data } = await supabase
         .from('profiles')
-        .select('favorite_bars, private_mode, pregame_meal, postgame_food, carb_up_strategy, favorite_bar_food, post_win_meal')
+        .select('favorite_bars, private_mode, pregame_meal, postgame_food, carb_up_strategy, favorite_bar_food, post_win_meal, shots_taken_season, appetizers_had_season, favorite_food_spot')
         .eq('user_id', targetId)
         .maybeSingle();
       return data;
+    },
+    enabled: !!(id ?? user?.id),
+  });
+
+  // Public-card extras (shots, appetizers, favorite food spot) for ANY profile —
+  // own profile uses extraFields; this fills in non-own profiles where RLS hides direct reads.
+  const { data: publicCardExtras } = useQuery({
+    queryKey: ['public-card-extras', id ?? user?.id],
+    queryFn: async () => {
+      const targetId = id ?? user?.id;
+      if (!targetId) return null;
+      const { data } = await supabase.rpc('get_public_card_extras' as any, {
+        p_user_ids: [targetId],
+      });
+      return (data && (data as any[]).length > 0) ? (data as any[])[0] : null;
     },
     enabled: !!(id ?? user?.id),
   });

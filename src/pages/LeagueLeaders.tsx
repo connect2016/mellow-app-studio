@@ -27,9 +27,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   RankBadge,
-  rankToBadgeKind,
-  type RankBadgeKind,
 } from '@/components/league/RankBadge';
+import { TrophyIcon, rankToTrophy } from '@/components/trophies/TrophyIcon';
 
 interface CategoryDef {
   key: LeaderboardCategory;
@@ -85,25 +84,35 @@ function LeaderRow({
   isRisingStar,
   isIronFan,
 }: LeaderRowProps) {
-  const badgeKind: RankBadgeKind | null = rankToBadgeKind(row.rank);
+  const placement = rankToTrophy(row.rank);
+  const isPodium = row.rank <= 3;
 
   return (
     <button
       type="button"
       onClick={onClick}
       className={cn(
-        'w-full flex items-center gap-3 px-3 py-3 min-h-[68px] rounded-2xl border text-left transition-colors',
-        'active:scale-[0.99] hover:bg-muted/50 shadow-sm',
+        'w-full flex items-center gap-3 rounded-2xl border text-left transition-colors',
+        'active:scale-[0.99] hover:bg-muted/50',
+        isPodium
+          ? 'px-3.5 py-4 min-h-[80px] shadow-md'
+          : 'px-3 py-3 min-h-[68px] shadow-sm',
         isMe
           ? 'border-primary/60 bg-primary/10'
-          : 'border-border/40 bg-card/80',
+          : isPodium
+            ? row.rank === 1
+              ? 'border-amber-400/60 bg-amber-400/[0.06] shadow-[0_4px_22px_-8px_rgba(255,193,7,0.45)]'
+              : row.rank === 2
+                ? 'border-zinc-300/60 bg-zinc-300/[0.06] shadow-[0_4px_22px_-8px_rgba(180,190,205,0.45)]'
+                : 'border-orange-400/60 bg-orange-400/[0.06] shadow-[0_4px_22px_-8px_rgba(205,127,50,0.45)]'
+            : 'border-border/40 bg-card/80',
       )}
       aria-label={`Rank ${row.rank}: ${row.display_name}, ${row.stat_value}`}
     >
       {/* Rank cell */}
-      <div className="flex flex-col items-center justify-center w-10 shrink-0">
-        {badgeKind ? (
-          <RankBadge kind={badgeKind} size="md" />
+      <div className="flex flex-col items-center justify-center w-12 shrink-0">
+        {placement ? (
+          <TrophyIcon trophy={placement} size={isPodium ? 'md' : 'sm'} />
         ) : (
           <span className="text-base font-extrabold text-muted-foreground tabular-nums">
             {row.rank}
@@ -392,32 +401,55 @@ export default function LeagueLeaders() {
           aria-label="Your current rank"
         >
           <div className="mx-auto max-w-lg px-4 py-3">
-            {myRow ? (
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 border border-primary/30">
-                  <span className="text-sm font-extrabold text-primary tabular-nums">
-                    #{myRow.rank}
-                  </span>
+            {myRow ? (() => {
+              // Find the fan ranked just above me to compute "X to catch #{rank-1}"
+              const nextUp = rows.find((r) => r.rank === myRow.rank - 1);
+              const gap = nextUp ? Math.max(0, nextUp.stat_value - myRow.stat_value) : 0;
+              const denom = nextUp ? Math.max(nextUp.stat_value, 1) : 1;
+              const pct = nextUp
+                ? Math.min(100, Math.round((myRow.stat_value / denom) * 100))
+                : 100;
+
+              return (
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 border border-primary/30">
+                    <span className="text-sm font-extrabold text-primary tabular-nums">
+                      #{myRow.rank}
+                    </span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                      Your Rank — {activeCat.label}
+                    </p>
+                    <p className="text-sm font-bold text-foreground truncate">
+                      {myRow.display_name || 'You'} · {myRow.stat_value}{' '}
+                      {activeCat.shortLabel.toLowerCase()}
+                    </p>
+                    <div className="mt-1.5 flex items-center gap-2">
+                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-primary to-primary/60 transition-[width] duration-500"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground tabular-nums shrink-0">
+                        {nextUp
+                          ? `+${gap} to #${nextUp.rank}`
+                          : 'Top of the board'}
+                      </span>
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="rounded-xl min-h-[40px]"
+                    onClick={() => navigate('/profile')}
+                  >
+                    My Card
+                  </Button>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
-                    Your Rank — {activeCat.label}
-                  </p>
-                  <p className="text-sm font-bold text-foreground truncate">
-                    {myRow.display_name || 'You'} · {myRow.stat_value}{' '}
-                    {activeCat.shortLabel.toLowerCase()}
-                  </p>
-                </div>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="rounded-xl min-h-[40px]"
-                  onClick={() => navigate('/profile')}
-                >
-                  My Card
-                </Button>
-              </div>
-            ) : (
+              );
+            })() : (
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted border border-border">
                   <Trophy className="h-4 w-4 text-muted-foreground" aria-hidden />

@@ -1,38 +1,36 @@
 import { useMemo, useState } from 'react';
 import {
-  Hand,
-  Users,
-  Calendar,
-  Pizza,
-  Beer,
-  Wine,
-  Building2,
-  Star,
-  Moon,
-  Award as TrophyOutline,
-  Lock,
-  type LucideIcon,
-} from 'lucide-react';
-import {
   useTrophies,
-  trophyColors,
   type TrophyCategory,
   type TrophyWithProgress,
 } from '@/hooks/useTrophies';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { TrophyIcon, type TrophyKey } from '@/components/trophies/TrophyIcon';
 
-const ICON_MAP: Record<string, LucideIcon> = {
-  'hi-five': Hand,
-  fans: Users,
-  meetup: Calendar,
-  food: Pizza,
-  beer: Beer,
-  shot: Wine,
-  bar: Building2,
-  star: Star,
-  moon: Moon,
+/** Map our hook's legacy `key` strings to the canonical TrophyKey set. */
+const KEY_MAP: Record<string, TrophyKey> = {
+  first_hi_five: 'first_hi_five',
+  fans_10: 'fans_10',
+  fans_50: 'fans_50',
+  first_meetup: 'first_meetup',
+  hosted_5: 'meetups_hosted_5',
+  joined_10: 'meetups_joined_10',
+  first_carb_up: 'first_appetizer',
+  apps_5: 'appetizers_5',
+  fav_spot: 'first_appetizer',
+  first_beer: 'first_beer',
+  beers_10_week: 'beers_10_week',
+  beers_100: 'beers_100_season',
+  first_shot: 'first_shot',
+  shots_10: 'shots_10_season',
+  bars_5: 'wrigleyville_marathoner',
+  bars_10: 'wrigleyville_marathoner',
+  opening_day: 'opening_day',
+  night_game: 'night_game',
+  marathoner: 'wrigleyville_marathoner',
 };
+
 
 const CATEGORY_LABEL: Record<TrophyCategory, string> = {
   social: 'Social',
@@ -68,8 +66,7 @@ function formatDate(iso: string | null) {
 }
 
 function TrophyTile({ t }: { t: TrophyWithProgress }) {
-  const Icon = ICON_MAP[t.icon] ?? TrophyOutline;
-  const colors = trophyColors(t.category);
+  const trophyKey = KEY_MAP[t.key] ?? 'top10';
   const earnedAt = formatDate(t.earnedAt);
 
   return (
@@ -81,28 +78,8 @@ function TrophyTile({ t }: { t: TrophyWithProgress }) {
           : 'border-dashed border-border/40 bg-muted/30',
       )}
     >
-      <div
-        className={cn(
-          'relative mb-2 inline-flex h-14 w-14 items-center justify-center rounded-2xl ring-1',
-          t.earned ? 'ring-2' : 'opacity-60',
-          colors.ring,
-        )}
-        style={
-          t.earned
-            ? {
-                background: `linear-gradient(135deg, ${colors.from} 0%, ${colors.to} 100%)`,
-              }
-            : { background: 'hsl(var(--muted))' }
-        }
-        aria-hidden
-      >
-        <Icon
-          className={cn('h-7 w-7', t.earned ? 'text-white' : 'text-muted-foreground')}
-          strokeWidth={2.4}
-        />
-        {!t.earned && (
-          <Lock className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full bg-background p-0.5 text-muted-foreground" />
-        )}
+      <div className="mb-2">
+        <TrophyIcon trophy={trophyKey} earned={t.earned} size="lg" />
       </div>
 
       <p

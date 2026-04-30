@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { DynamicBackground } from '@/components/DynamicBackground';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGuestMode } from '@/contexts/GuestModeContext';
@@ -81,7 +81,24 @@ export default function VibeFeed() {
   const [uploading, setUploading] = useState(false);
   const [guestGateOpen, setGuestGateOpen] = useState(false);
   const [guestGateAction, setGuestGateAction] = useState('');
+  const [fabVisible, setFabVisible] = useState(true);
+  const [fabTap, setFabTap] = useState(false);
+  const lastScrollY = useRef(0);
   const { isVerified } = useVerifiedFan();
+
+  // Hide FAB on scroll-down, reveal on scroll-up
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastScrollY.current;
+      if (Math.abs(delta) < 6) return;
+      if (delta > 0 && y > 80) setFabVisible(false);
+      else setFabVisible(true);
+      lastScrollY.current = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const { data: posts = [] } = useVibePosts();
   const userIds = [...new Set(posts.map(p => p.user_id))];
@@ -211,31 +228,46 @@ export default function VibeFeed() {
         className="fixed inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, hsla(0,0%,100%,0.18) 0%, hsla(0,0%,100%,0.05) 40%, hsla(0,0%,0%,0.20) 100%)',
+            'linear-gradient(180deg, hsla(0,0%,100%,0.20) 0%, hsla(0,0%,100%,0.06) 35%, hsla(0,0%,0%,0.18) 100%)',
         }}
       />
       <AppHeader />
       <GuestGateModal open={guestGateOpen} onClose={() => setGuestGateOpen(false)} action={guestGateAction} />
       {isGuest && <WelcomeTour />}
 
-      {/* Sticky Back / Skip nav — always visible */}
-      <div className="sticky top-0 z-30 mx-auto max-w-lg px-4 pt-2 flex items-center justify-between pointer-events-none">
-        <button
-          onClick={() => (window.history.length > 1 ? navigate(-1) : navigate('/home'))}
-          aria-label="Go back"
-          className="pointer-events-auto inline-flex items-center justify-center h-10 w-10 rounded-full bg-background/70 backdrop-blur-md border border-border/60 shadow-sm text-foreground hover:bg-background/90 transition-colors"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </button>
-        <button
-          onClick={() => navigate('/home')}
-          className="pointer-events-auto inline-flex items-center justify-center h-9 px-4 rounded-full bg-background/60 backdrop-blur-md border border-border/50 text-sm font-medium text-foreground/90 hover:bg-background/80 transition-colors"
-        >
-          Skip
-        </button>
+      {/* Sticky top bar — Back / Title / Skip — always visible */}
+      <div className="sticky top-0 z-30 w-full">
+        <div className="mx-auto max-w-lg px-4 pt-2 pb-2 grid grid-cols-[auto_1fr_auto] items-center gap-2">
+          <button
+            onClick={() => (window.history.length > 1 ? navigate(-1) : navigate('/home'))}
+            aria-label="Go back"
+            className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-background/75 backdrop-blur-md border border-border/60 shadow-sm text-foreground hover:bg-background/90 transition-colors"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </button>
+          <h1
+            className="text-center text-lg font-extrabold tracking-wide"
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              color: 'hsl(222, 82%, 29%)',
+              WebkitTextStroke: '1.5px white',
+              paintOrder: 'stroke fill',
+              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))',
+              letterSpacing: '0.04em',
+            }}
+          >
+            Live Vibe Feed
+          </h1>
+          <button
+            onClick={() => navigate('/home')}
+            className="inline-flex items-center justify-center h-9 px-4 rounded-full bg-background/65 backdrop-blur-md border border-border/50 text-sm font-medium text-foreground/90 hover:bg-background/85 transition-colors"
+          >
+            Skip
+          </button>
+        </div>
       </div>
 
-      <main className={`mx-auto max-w-lg px-4 pt-3 ${isGuest ? 'pb-32' : 'pb-24'}`} data-tour="vibe-feed">
+      <main className={`mx-auto max-w-lg px-4 pt-2 ${isGuest ? 'pb-32' : 'pb-28'}`} data-tour="vibe-feed">
         <Tabs defaultValue="vibes" className="mb-4">
           <TabsList className="w-full grid grid-cols-2 mb-4" data-tour="check-in">
             <TabsTrigger value="vibes" className="gap-1.5">
@@ -247,40 +279,18 @@ export default function VibeFeed() {
           </TabsList>
 
           <TabsContent value="vibes">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>Live Vibe Feed</h1>
-            <p className="text-base font-semibold mt-0.5" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>What's happening at Wrigley right now</p>
-          </div>
-          {!isGuest && isVerified ? (
-            <Button
-              onClick={() => setShowCompose(true)}
-              className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full"
-              size="sm"
-            >
-              <Plus className="h-4 w-4 mr-1" /> Post
-            </Button>
-          ) : !isGuest ? (
-            <Button
-              onClick={() => window.location.href = '/verify'}
-              variant="outline"
-              size="sm"
-              className="rounded-full gap-1.5 text-xs"
-            >
-               Get Verified to Post
-            </Button>
-          ) : (
-            <Button
-              onClick={() => triggerGuestGate('post photos and videos')}
-              variant="outline"
-              size="sm"
-              className="rounded-full gap-1.5 text-xs"
-            >
-              <Plus className="h-4 w-4 mr-1" /> Post
-            </Button>
-          )}
-        </div>
+        {/* Subheader */}
+        <p
+          className="text-center text-sm font-semibold mb-3"
+          style={{
+            color: 'white',
+            WebkitTextStroke: '0.4px black',
+            paintOrder: 'stroke fill',
+            filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))',
+          }}
+        >
+          What's happening at Wrigley right now
+        </p>
 
         {/* Live Vibe Check-In */}
         {!isGuest && user && (
@@ -386,13 +396,40 @@ export default function VibeFeed() {
 
         {/* Feed */}
         {posts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="rounded-2xl px-6 py-8 bg-background/55 backdrop-blur-md border border-border/50 shadow-sm max-w-[300px]">
-              <ConceptIcon name="baseball" className="h-10 w-10 mx-auto mb-3 text-accent" />
-              <h3 className="text-lg font-bold mb-1 text-foreground">The bases are empty!</h3>
-              <p className="text-sm text-foreground/80">
-                Be the first to start a conversation. Drop a vibe and get this section going!
+          <div className="flex flex-col items-center justify-center py-12 text-center animate-vibe-in">
+            <div className="rounded-3xl px-7 py-9 bg-background/70 backdrop-blur-md border border-border/50 shadow-elevated max-w-[320px]">
+              {/* Empty diamond illustration */}
+              <div className="mx-auto mb-4 h-20 w-20 relative flex items-center justify-center">
+                <div
+                  className="absolute inset-0 border-2 border-accent/60 rounded-md"
+                  style={{ transform: 'rotate(45deg)' }}
+                />
+                <ConceptIcon name="baseball" className="h-9 w-9 text-accent relative z-10" />
+              </div>
+              <h3 className="text-xl font-extrabold mb-1.5 text-foreground font-heading tracking-wide">
+                No vibes yet — the inning just started.
+              </h3>
+              <p className="text-sm text-foreground/75 mb-5">
+                Someone's gotta spark the energy. Might as well be you.
               </p>
+              <div className="flex flex-col gap-2">
+                <Button
+                  onClick={() => {
+                    if (isGuest) return triggerGuestGate('post photos and videos');
+                    if (!isVerified) return navigate('/verify');
+                    setShowCompose(true);
+                  }}
+                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-semibold gap-1.5 h-11"
+                >
+                  <Plus className="h-4 w-4" /> Drop a Vibe
+                </Button>
+                <button
+                  onClick={() => navigate('/home')}
+                  className="text-xs font-medium text-foreground/60 hover:text-foreground/90 transition-colors py-1"
+                >
+                  Skip for now
+                </button>
+              </div>
             </div>
           </div>
         ) : (
@@ -401,13 +438,12 @@ export default function VibeFeed() {
               const profile = profiles[post.user_id];
               const isOwn = post.user_id === user?.id;
               return (
-                <motion.div
+                <div
                   key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  className="animate-vibe-in"
+                  style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
                 >
-                  <Card className="overflow-hidden border-border/60">
+                  <Card className="overflow-hidden border-border/60 shadow-md">
                     {/* Media */}
                     <div className="relative aspect-[4/3] bg-muted">
                       {post.media_type === 'video' ? (
@@ -476,7 +512,7 @@ export default function VibeFeed() {
                       )}
                     </div>
                   </Card>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -488,6 +524,35 @@ export default function VibeFeed() {
           </TabsContent>
         </Tabs>
       </main>
+
+      {/* Floating Drop-a-Vibe FAB — centered above bottom nav */}
+      <div
+        className="fixed left-1/2 -translate-x-1/2 z-40 pointer-events-none"
+        style={{
+          bottom: 'calc(env(safe-area-inset-bottom, 0px) + 88px)',
+          transition: 'opacity 180ms ease-out, transform 180ms ease-out',
+          opacity: fabVisible ? 1 : 0,
+          transform: `translateX(-50%) translateY(${fabVisible ? 0 : 20}px)`,
+        }}
+      >
+        <button
+          onClick={() => {
+            setFabTap(true);
+            setTimeout(() => setFabTap(false), 340);
+            if (isGuest) return triggerGuestGate('post photos and videos');
+            if (!isVerified) return navigate('/verify');
+            setShowCompose(true);
+          }}
+          aria-label="Drop a Vibe"
+          className={`pointer-events-auto inline-flex items-center gap-2 h-14 px-6 rounded-full bg-accent text-accent-foreground font-bold shadow-elevated border border-accent/40 hover:bg-accent/90 ${
+            fabTap ? 'animate-fab-tap' : 'animate-fab-breath'
+          } animate-fab-enter`}
+        >
+          <Plus className="h-5 w-5" />
+          <span className="text-sm tracking-wide">Drop a Vibe</span>
+        </button>
+      </div>
+
       {isGuest && <GuestBanner />}
     </DynamicBackground>
   );

@@ -97,25 +97,39 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "fab-breath": {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.03)" },
+        },
+        "fab-enter": {
+          "0%": { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "fab-tap": {
+          "0%": { transform: "scale(1)" },
+          "30%": { transform: "scale(0.94)" },
+          "70%": { transform: "scale(1.03)" },
+          "100%": { transform: "scale(1)" },
+        },
+        "vibe-in": {
+          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fab-breath": "fab-breath 1.6s ease-in-out infinite",
+        "fab-enter": "fab-enter 240ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "fab-tap": "fab-tap 320ms cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "vibe-in": "vibe-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both",
       },
       fontFamily: {
         scoreboard: ["'Share Tech Mono'", "'Courier New'", "monospace"],

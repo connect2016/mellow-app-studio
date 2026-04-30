@@ -199,7 +199,7 @@ function MeetupMock() {
         <div className="flex items-center gap-1.5">
           <div className="h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[9px] font-bold">SM</div>
           <p className="text-[10px] font-semibold text-destructive-foreground">Sarah M.</p>
-          <span className="ml-auto text-[9px] text-muted-foreground">⭐ Verified</span>
+          <span className="ml-auto inline-flex items-center gap-0.5 text-[9px] text-muted-foreground"><Star className="h-2.5 w-2.5 fill-current" /> Verified</span>
         </div>
       </div>
       <div className="mt-3">

@@ -27,9 +27,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   RankBadge,
-  rankToBadgeKind,
-  type RankBadgeKind,
 } from '@/components/league/RankBadge';
+import { TrophyIcon, rankToTrophy } from '@/components/trophies/TrophyIcon';
 
 interface CategoryDef {
   key: LeaderboardCategory;

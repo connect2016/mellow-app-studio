@@ -35,29 +35,32 @@ export function CardFrontSide({
 }: CardFrontSideProps) {
   return (
     <div
-      className="relative w-full cursor-pointer"
+      className="relative w-full"
       style={{ backfaceVisibility: 'hidden' }}
-      onClick={onClick}
       role="img"
       aria-label={`${displayName || 'Fan'}'s profile card — front side`}
     >
-      <div className="relative">
+      <div
+        className="relative w-full"
+        style={{ aspectRatio: '410 / 399' }}
+      >
         <img
           src={cardTemplate}
           alt="Wrigleyville 60613 Baseball Card"
-          className="w-full h-auto block rounded-2xl"
+          className="absolute inset-0 w-full h-full block rounded-2xl select-none"
           draggable={false}
+          onClick={onClick}
         />
 
-        {/* Profile photo oval */}
+        {/* Profile photo oval — sized to fit *inside* the inner red border frame */}
         <div
-          className="absolute overflow-hidden"
+          className="absolute overflow-hidden pointer-events-none"
           style={{
-            top: '18%',
+            top: '20%',
             left: '50%',
             transform: 'translateX(-50%)',
-            width: '56%',
-            height: '52%',
+            width: '48%',
+            height: '46%',
             borderRadius: '50%',
           }}
         >

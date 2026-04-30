@@ -51,11 +51,11 @@ import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 const STATUS_OPTIONS = [
-  { value: 'AtBar', emoji: '', label: 'At the Bar' },
-  { value: 'AtWrigley', emoji: '', label: 'In my Seat' },
-  { value: 'Tailgating', emoji: '', label: 'Tailgating' },
-  { value: 'BeerSnake', emoji: '', label: 'Beer Snake' },
-  { value: 'WatchingRemote', emoji: '', label: 'Watching from Home' },
+  { value: 'AtBar', icon: 'beer', label: 'At the Bar' },
+  { value: 'AtWrigley', icon: 'baseball', label: 'In my Seat' },
+  { value: 'Tailgating', icon: 'fire', label: 'Tailgate' },
+  { value: 'BeerSnake', icon: 'trophy', label: 'Beer Snake' },
+  { value: 'WatchingRemote', icon: 'home', label: 'Home' },
 ] as const;
 
 interface FilterState {
@@ -140,7 +140,7 @@ export default function Discover() {
       queryClient.invalidateQueries({ queryKey: ['live-fan-counts'] });
       if (newStatus !== 'NotSet') {
         const opt = STATUS_OPTIONS.find(s => s.value === newStatus);
-        toast(`$<ConceptVisual name={opt?.emoji} size="sm" /> Status set to "${opt?.label}"`);
+        toast(`Status set to "${opt?.label}"`);
         // Track missions
         if (newStatus === 'AtWrigley') { tracker.trackCheckInWrigley(); tracker.trackAttendGame(); }
         if (newStatus === 'AtBar') tracker.trackCheckInBar();
@@ -259,7 +259,7 @@ export default function Discover() {
   };
 
   return (
-    <div className="min-h-screen pb-24 relative overflow-x-hidden">
+    <div className="min-h-screen pb-32 relative overflow-x-hidden">
       {/* Dynamic background image — parallax bg layer (40% drag) */}
       <div className="fixed inset-0 z-0 swipe-drag-bg" data-route-parallax="bg">
         <img
@@ -469,36 +469,56 @@ export default function Discover() {
           <span className="text-xs font-semibold text-yellow-300">View →</span>
         </motion.button>
 
-        {/* Current Status Toggle */}
-        <div className="mb-4">
-          <p className="text-sm text-destructive-foreground">Your Status</p>
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+        {/* Current Status — playful pill selector */}
+        <div className="mb-5">
+          <div className="mb-2 flex items-center gap-2">
+            <ConceptIcon name="pin" className="h-4 w-4 text-secondary" />
+            <p className="text-sm font-bold uppercase tracking-wide text-white" style={{ fontFamily: 'Norwester, sans-serif' }}>
+              Your Status
+            </p>
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1 snap-x">
             {STATUS_OPTIONS.map((opt) => {
               const active = currentStatus === opt.value;
               return (
-                <motion.button
+                <button
                   key={opt.value}
-                  whileTap={{ scale: 0.95 }}
+                  type="button"
                   disabled={settingStatus}
                   onClick={() => handleSetStatus(opt.value)}
-                  className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-medium transition-all ${
+                  className={cn(
+                    'snap-start relative flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-full border-2 px-4 py-2.5 text-sm font-bold transition-all duration-200 active:scale-95',
                     active
-                      ? 'border-primary bg-primary text-primary-foreground shadow-[0_0_12px_hsl(var(--primary)/0.35)]'
-                      : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-primary/5'
-                  }`}
-                >
-                  {active && (
-                    <motion.span
-                      layoutId="status-glow"
-                      className="absolute inset-0 rounded-full ring-2 ring-primary/50"
-                      transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                    />
+                      ? 'border-secondary bg-secondary text-secondary-foreground shadow-[0_0_18px_hsl(var(--secondary)/0.55)] animate-fab-tap'
+                      : 'border-white/20 bg-card/80 text-foreground backdrop-blur-sm hover:border-secondary/50'
                   )}
-                  <span><ConceptVisual name={opt.emoji} size="sm" /></span>
+                >
+                  <ConceptIcon name={opt.icon} className="h-4 w-4" />
                   <span>{opt.label}</span>
-                </motion.button>
+                </button>
               );
             })}
+          </div>
+        </div>
+
+        {/* Quick Actions — discovery shortcuts */}
+        <div className="mb-5">
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
+            {[
+              { label: "Tonight's Hot Spots", icon: 'fire', to: '/bar-map' },
+              { label: 'Nearby Fans', icon: 'people', to: '/buddy-heatmap' },
+              { label: 'Meetups Soon', icon: 'calendar', to: '/meetups' },
+            ].map((q) => (
+              <button
+                key={q.label}
+                type="button"
+                onClick={() => navigate(q.to)}
+                className="flex min-h-[44px] shrink-0 items-center gap-2 rounded-full border border-white/15 bg-card/70 px-3.5 py-2 text-xs font-semibold text-foreground backdrop-blur-sm transition-all hover:bg-card active:scale-95"
+              >
+                <ConceptIcon name={q.icon} className="h-4 w-4 text-secondary" />
+                {q.label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -560,57 +580,74 @@ export default function Discover() {
             </label>
           </motion.div>
         )}
-        {/* Tabbed Discover: Buddies vs Crews */}
-        <Tabs defaultValue="buddies" className="mb-4">
-          <TabsList className="w-full grid grid-cols-2 mb-4">
-            <TabsTrigger value="buddies" className="gap-1.5">
-              <Zap className="h-3.5 w-3.5" /> Discover Buddies
+        {/* Discover header — tagline + sticky Filters */}
+        <div className="sticky top-2 z-20 -mx-1 mb-3 flex items-center justify-between rounded-2xl border border-white/10 bg-card/80 px-3 py-2 backdrop-blur-md">
+          <div className="min-w-0">
+            <h2 className="text-base font-extrabold uppercase tracking-wide text-foreground" style={{ fontFamily: 'Norwester, sans-serif' }}>
+              Discover Fans
+            </h2>
+            <p className="text-[11px] text-muted-foreground truncate">Find your crew. Build your night.</p>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowFilters(true)}
+            className="relative h-10 gap-1.5 rounded-full border-secondary/40"
+          >
+            <SlidersHorizontal className="h-4 w-4" />
+            Filters
+            {activeFilterCount > 0 && (
+              <span className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-secondary-foreground">
+                {activeFilterCount}
+              </span>
+            )}
+          </Button>
+        </div>
+
+        {/* Tabbed Discover: Buddies vs Crews — large playful cards */}
+        <Tabs defaultValue="buddies" className="mb-6">
+          <TabsList className="mb-4 grid h-auto w-full grid-cols-2 gap-2 bg-transparent p-0">
+            <TabsTrigger
+              value="buddies"
+              className="group relative flex h-24 flex-col items-start justify-end overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-primary/80 to-primary/40 p-3 text-left text-primary-foreground shadow-md transition-all data-[state=active]:scale-[1.02] data-[state=active]:shadow-lg data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.98]"
+            >
+              <Zap className="absolute right-2 top-2 h-5 w-5 opacity-70" />
+              <span className="text-sm font-extrabold uppercase tracking-wide" style={{ fontFamily: 'Norwester, sans-serif' }}>
+                Buddies
+              </span>
+              <span className="text-[10px] font-medium opacity-90">Find your people tonight</span>
             </TabsTrigger>
-            <TabsTrigger value="crews" className="gap-1.5">
-              <Users className="h-3.5 w-3.5" /> Discover Crews
+            <TabsTrigger
+              value="crews"
+              className="group relative flex h-24 flex-col items-start justify-end overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-secondary/80 to-secondary/40 p-3 text-left text-secondary-foreground shadow-md transition-all data-[state=active]:scale-[1.02] data-[state=active]:shadow-lg data-[state=active]:ring-2 data-[state=active]:ring-primary active:scale-[0.98]"
+            >
+              <Users className="absolute right-2 top-2 h-5 w-5 opacity-70" />
+              <span className="text-sm font-extrabold uppercase tracking-wide" style={{ fontFamily: 'Norwester, sans-serif' }}>
+                Crews
+              </span>
+              <span className="text-[10px] font-medium opacity-90">Roll with a squad</span>
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="buddies">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <h2 className="text-lg font-bold">
-                  Discover
-                </h2>
-                {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (
-                  <div className="flex items-center gap-3 mt-0.5">
-                    {liveCounts.online > 0 && (
-                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <span className="relative flex h-1.5 w-1.5">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
-                        </span>
-                        {liveCounts.online} fans online
-                      </span>
-                    )}
-                    {liveCounts.atWrigley > 0 && (
-                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                         {liveCounts.atWrigley} at Wrigley
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowFilters(true)}
-                className="relative gap-1.5 rounded-full"
-              >
-                <SlidersHorizontal className="h-4 w-4" />
-                Filters
-                {activeFilterCount > 0 && (
-                  <span className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-secondary-foreground">
-                    {activeFilterCount}
+            {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (
+              <div className="mb-3 flex items-center gap-3">
+                {liveCounts.online > 0 && (
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                    </span>
+                    {liveCounts.online} fans online
                   </span>
                 )}
-              </Button>
-            </div>
+                {liveCounts.atWrigley > 0 && (
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    {liveCounts.atWrigley} at Wrigley
+                  </span>
+                )}
+              </div>
+            )}
 
             {isLoading ? (
               <div className="py-20 text-center">

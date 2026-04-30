@@ -386,12 +386,14 @@ export default function VibeFeed() {
 
         {/* Feed */}
         {posts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="text-5xl mb-4"></div>
-             <h3 className="text-lg font-semibold mb-1 text-yellow-300">The bases are empty!</h3>
-            <p className="text-sm max-w-[240px] text-secondary-foreground">
-              Be the first to start a conversation. Drop a vibe and get this section going!
-            </p>
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="rounded-2xl px-6 py-8 bg-background/55 backdrop-blur-md border border-border/50 shadow-sm max-w-[300px]">
+              <ConceptIcon name="baseball" className="h-10 w-10 mx-auto mb-3 text-accent" />
+              <h3 className="text-lg font-bold mb-1 text-foreground">The bases are empty!</h3>
+              <p className="text-sm text-foreground/80">
+                Be the first to start a conversation. Drop a vibe and get this section going!
+              </p>
+            </div>
           </div>
         ) : (
           <div className="space-y-4">

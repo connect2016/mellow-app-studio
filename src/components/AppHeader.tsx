@@ -10,7 +10,7 @@ import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
 
 const navItems = [
   { to: '/discover', icon: Home, label: 'Home' },
-  { to: '/bar-map', icon: MapPin, label: 'Map' },
+  { to: '/bar-map', icon: Map, label: 'Map' },
   { to: '/meetups', icon: Users, label: 'Meetups' },
   { to: '/profile', icon: User, label: 'Profile' },
 ];

@@ -52,7 +52,7 @@ const vibeChips: { value: string; label: string; emoji: string }[] = [
   { value: 'pregame_hangs', label: 'Pregame hangs', emoji: '' },
   { value: 'postgame_food', label: 'Postgame food', emoji: '' },
   { value: 'open_meeting', label: 'Open to meeting fellow fans', emoji: '' },
-  { value: 'crew_tonight', label: 'Looking for a crew tonight', emoji: '⭐' },
+  { value: 'crew_tonight', label: 'Looking for a crew tonight', emoji: '' },
   { value: 'spontaneous', label: 'Down for spontaneous meetups', emoji: '' },
 ];
 

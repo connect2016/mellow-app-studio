@@ -84,25 +84,35 @@ function LeaderRow({
   isRisingStar,
   isIronFan,
 }: LeaderRowProps) {
-  const badgeKind: RankBadgeKind | null = rankToBadgeKind(row.rank);
+  const placement = rankToTrophy(row.rank);
+  const isPodium = row.rank <= 3;
 
   return (
     <button
       type="button"
       onClick={onClick}
       className={cn(
-        'w-full flex items-center gap-3 px-3 py-3 min-h-[68px] rounded-2xl border text-left transition-colors',
-        'active:scale-[0.99] hover:bg-muted/50 shadow-sm',
+        'w-full flex items-center gap-3 rounded-2xl border text-left transition-colors',
+        'active:scale-[0.99] hover:bg-muted/50',
+        isPodium
+          ? 'px-3.5 py-4 min-h-[80px] shadow-md'
+          : 'px-3 py-3 min-h-[68px] shadow-sm',
         isMe
           ? 'border-primary/60 bg-primary/10'
-          : 'border-border/40 bg-card/80',
+          : isPodium
+            ? row.rank === 1
+              ? 'border-amber-400/60 bg-amber-400/[0.06] shadow-[0_4px_22px_-8px_rgba(255,193,7,0.45)]'
+              : row.rank === 2
+                ? 'border-zinc-300/60 bg-zinc-300/[0.06] shadow-[0_4px_22px_-8px_rgba(180,190,205,0.45)]'
+                : 'border-orange-400/60 bg-orange-400/[0.06] shadow-[0_4px_22px_-8px_rgba(205,127,50,0.45)]'
+            : 'border-border/40 bg-card/80',
       )}
       aria-label={`Rank ${row.rank}: ${row.display_name}, ${row.stat_value}`}
     >
       {/* Rank cell */}
-      <div className="flex flex-col items-center justify-center w-10 shrink-0">
-        {badgeKind ? (
-          <RankBadge kind={badgeKind} size="md" />
+      <div className="flex flex-col items-center justify-center w-12 shrink-0">
+        {placement ? (
+          <TrophyIcon trophy={placement} size={isPodium ? 'md' : 'sm'} />
         ) : (
           <span className="text-base font-extrabold text-muted-foreground tabular-nums">
             {row.rank}

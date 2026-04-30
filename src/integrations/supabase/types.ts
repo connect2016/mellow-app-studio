@@ -776,6 +776,39 @@ export type Database = {
           },
         ]
       }
+      leaderboard_snapshots: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          period: string
+          period_start: string
+          rank: number
+          stat_value: number
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          period: string
+          period_start: string
+          rank: number
+          stat_value: number
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          period?: string
+          period_start?: string
+          rank?: number
+          stat_value?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       likes: {
         Row: {
           created_at: string
@@ -2278,8 +2311,16 @@ export type Database = {
           recent_reports: number
         }[]
       }
+      get_leaderboard_extras: {
+        Args: { p_category: string; p_period?: string }
+        Returns: {
+          rank_delta: number
+          user_id: string
+          weeks_active_recent: number
+        }[]
+      }
       get_league_leaders: {
-        Args: { p_category: string; p_limit?: number }
+        Args: { p_category: string; p_limit?: number; p_period?: string }
         Returns: {
           display_name: string
           favorite_food_spot: string

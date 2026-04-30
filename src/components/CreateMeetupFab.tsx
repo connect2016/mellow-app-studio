@@ -85,7 +85,7 @@ export function CreateMeetupFab() {
       data-no-swipe-nav
       className={cn(
         'fixed left-1/2 -translate-x-1/2 z-[60]',
-        'bottom-[72px]',
+        'bottom-[136px]',
         'h-14 w-14 rounded-full flex items-center justify-center',
         'bg-[#C8102E] text-white',
         'shadow-[0_8px_20px_rgba(200,16,46,0.20),0_4px_8px_rgba(0,0,0,0.18)]',

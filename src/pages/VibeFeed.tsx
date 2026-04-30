@@ -71,6 +71,7 @@ export default function VibeFeed() {
   const { user } = useAuth();
   const { isGuest } = useGuestMode();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const fileRef = useRef<HTMLInputElement>(null);
   const [showCompose, setShowCompose] = useState(false);
   const [file, setFile] = useState<File | null>(null);

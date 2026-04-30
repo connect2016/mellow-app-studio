@@ -566,6 +566,7 @@ export default function VibeFeed() {
           onClick={() => {
             setFabTap(true);
             setTimeout(() => setFabTap(false), 340);
+            trackDropVibeClick('fab');
             if (isGuest) return triggerGuestGate('post photos and videos');
             if (!isVerified) return navigate('/verify');
             setShowCompose(true);

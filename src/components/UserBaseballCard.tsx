@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { StatPreference, StatKey, DEFAULT_STAT_PREFS, StatVisibility } from '@/hooks/useStatPreferences';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
+
 
 interface CardStats {
   beersToday?: number;

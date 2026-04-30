@@ -223,12 +223,12 @@ export default function VibeFeed() {
 
   return (
     <DynamicBackground>
-      {/* Lightening layer to counteract heavy global tint on this page */}
+      {/* Lightening layer — keeps tint at ~20-25% so stadium photo shows through */}
       <div
         className="fixed inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, hsla(0,0%,100%,0.20) 0%, hsla(0,0%,100%,0.06) 35%, hsla(0,0%,0%,0.18) 100%)',
+            'linear-gradient(180deg, hsla(0,0%,100%,0.28) 0%, hsla(0,0%,100%,0.10) 40%, hsla(0,0%,0%,0.08) 100%)',
         }}
       />
       <AppHeader />

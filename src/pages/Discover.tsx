@@ -696,7 +696,6 @@ export default function Discover() {
           {[
             { label: "Hot Spots", icon: 'fire', to: '/bar-map' },
             { label: 'Nearby Fans', icon: 'people', to: '/buddy-heatmap' },
-            { label: 'Meetups', icon: 'calendar', to: '/meetups' },
             { label: 'Vibes', icon: 'camera', to: '/vibe-feed' },
             { label: 'Missions', icon: 'trophy', to: '/missions' },
             { label: 'Hall of Fame', icon: 'trophy', to: '/league-leaders' },

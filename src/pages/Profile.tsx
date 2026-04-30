@@ -22,6 +22,7 @@ import { PrivateModeBanner } from '@/components/profile/PrivateModeBanner';
 import { PrivateModeToggle } from '@/components/profile/PrivateModeToggle';
 import { AchievementsHub } from '@/components/achievements/AchievementsHub';
 import { FoodPromptsSection, type FoodPromptKey } from '@/components/profile/FoodPromptsSection';
+import { SeasonStatsEditor, type SeasonStatsValues } from '@/components/profile/SeasonStatsEditor';
 import { RecruitButton } from '@/components/teammates/RecruitButton';
 import { useTeammates } from '@/hooks/useTeammates';
 import { TeammatesSummary } from '@/components/teammates/TeammatesSummary';
@@ -63,10 +64,25 @@ export default function Profile() {
       if (!targetId) return null;
       const { data } = await supabase
         .from('profiles')
-        .select('favorite_bars, private_mode, pregame_meal, postgame_food, carb_up_strategy, favorite_bar_food, post_win_meal')
+        .select('favorite_bars, private_mode, pregame_meal, postgame_food, carb_up_strategy, favorite_bar_food, post_win_meal, shots_taken_season, appetizers_had_season, favorite_food_spot')
         .eq('user_id', targetId)
         .maybeSingle();
       return data;
+    },
+    enabled: !!(id ?? user?.id),
+  });
+
+  // Public-card extras (shots, appetizers, favorite food spot) for ANY profile —
+  // own profile uses extraFields; this fills in non-own profiles where RLS hides direct reads.
+  const { data: publicCardExtras } = useQuery({
+    queryKey: ['public-card-extras', id ?? user?.id],
+    queryFn: async () => {
+      const targetId = id ?? user?.id;
+      if (!targetId) return null;
+      const { data } = await supabase.rpc('get_public_card_extras' as any, {
+        p_user_ids: [targetId],
+      });
+      return (data && (data as any[]).length > 0) ? (data as any[])[0] : null;
     },
     enabled: !!(id ?? user?.id),
   });
@@ -111,6 +127,38 @@ export default function Profile() {
     carb_up_strategy: (extraFields as any)?.carb_up_strategy ?? (profile as any)?.carb_up_strategy ?? '',
     favorite_bar_food: (extraFields as any)?.favorite_bar_food ?? (profile as any)?.favorite_bar_food ?? '',
     post_win_meal: (extraFields as any)?.post_win_meal ?? (profile as any)?.post_win_meal ?? '',
+  };
+
+  // Combined card-extras: own profile reads from extraFields (full row),
+  // other profiles read from the public RPC.
+  const cardExtras = {
+    shots_taken_season:
+      (extraFields as any)?.shots_taken_season ??
+      (publicCardExtras as any)?.shots_taken_season ??
+      0,
+    appetizers_had_season:
+      (extraFields as any)?.appetizers_had_season ??
+      (publicCardExtras as any)?.appetizers_had_season ??
+      0,
+    favorite_food_spot:
+      (extraFields as any)?.favorite_food_spot ??
+      (publicCardExtras as any)?.favorite_food_spot ??
+      null,
+  };
+
+  const seasonStatsValues: SeasonStatsValues = {
+    shots_taken_season: cardExtras.shots_taken_season ?? 0,
+    appetizers_had_season: cardExtras.appetizers_had_season ?? 0,
+    favorite_food_spot: cardExtras.favorite_food_spot ?? null,
+  };
+
+  const handleSeasonStatsUpdate = (patch: Partial<SeasonStatsValues>) => {
+    updateProfile.mutate(patch as any, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['profile-extras'] });
+        queryClient.invalidateQueries({ queryKey: ['public-card-extras'] });
+      },
+    });
   };
 
   const handleFoodPromptSave = (key: FoodPromptKey, value: string) => {
@@ -208,10 +256,21 @@ export default function Profile() {
               intents={(profile.intent as IntentType[]) ?? []}
               gamedayIntents={(profile.gameday_intents as GamedayIntentType[]) ?? []}
               statPreferences={statPreferences}
+              stats={{
+                shotsTakenSeason: cardExtras.shots_taken_season ?? 0,
+                appetizersHadSeason: cardExtras.appetizers_had_season ?? 0,
+                favoriteFoodSpot: cardExtras.favorite_food_spot ?? undefined,
+              }}
               isOwner={isOwnProfile}
               className="max-w-full"
             />
 
+            {isOwnProfile && (
+              <SeasonStatsEditor
+                values={seasonStatsValues}
+                onUpdate={handleSeasonStatsUpdate}
+              />
+            )}
             {/* Action buttons */}
             <div className="space-y-3">
               {!isOwnProfile ? (

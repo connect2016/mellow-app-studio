@@ -2,7 +2,16 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
-export type StatKey = 'beersToday' | 'beersThisWeek' | 'barsVisitedToday' | 'barsVisitedThisWeek' | 'meetupsFinished' | 'fansConnected';
+export type StatKey =
+  | 'beersToday'
+  | 'beersThisWeek'
+  | 'barsVisitedToday'
+  | 'barsVisitedThisWeek'
+  | 'meetupsFinished'
+  | 'fansConnected'
+  | 'shotsTakenSeason'
+  | 'appetizersHadSeason'
+  | 'favoriteFoodSpot';
 export type TimeRange = 'today' | 'this_week' | 'all_time';
 export type StatVisibility = 'everyone' | 'matches_only' | 'hidden';
 
@@ -21,6 +30,9 @@ export const DEFAULT_STAT_PREFS: StatPreference[] = [
   { stat_key: 'barsVisitedThisWeek', enabled: true, sort_order: 3, time_range: 'this_week', visibility: 'everyone' },
   { stat_key: 'meetupsFinished', enabled: true, sort_order: 4, time_range: 'all_time', visibility: 'everyone' },
   { stat_key: 'fansConnected', enabled: true, sort_order: 5, time_range: 'all_time', visibility: 'everyone' },
+  { stat_key: 'shotsTakenSeason', enabled: true, sort_order: 6, time_range: 'all_time', visibility: 'everyone' },
+  { stat_key: 'appetizersHadSeason', enabled: true, sort_order: 7, time_range: 'all_time', visibility: 'everyone' },
+  { stat_key: 'favoriteFoodSpot', enabled: true, sort_order: 8, time_range: 'all_time', visibility: 'everyone' },
 ];
 
 export const STAT_LABELS: Record<StatKey, string> = {
@@ -30,6 +42,9 @@ export const STAT_LABELS: Record<StatKey, string> = {
   barsVisitedThisWeek: 'Bars Visited This Week',
   meetupsFinished: 'Meetups Finished',
   fansConnected: 'Fans Connected',
+  shotsTakenSeason: 'Shots Taken (Season)',
+  appetizersHadSeason: 'Appetizers Had (Season)',
+  favoriteFoodSpot: 'Favorite Food Spot',
 };
 
 export function useStatPreferences() {

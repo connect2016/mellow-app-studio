@@ -3,7 +3,7 @@ import { useStatPreferences, StatPreference, StatKey, TimeRange, StatVisibility,
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { GripVertical, Save, Beer, Building2, CheckCircle2, Users } from 'lucide-react';
+import { GripVertical, Save, Beer, Building2, CheckCircle2, Users, Wine, UtensilsCrossed, Pizza } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
@@ -15,6 +15,9 @@ const STAT_ICONS: Record<StatKey, React.ElementType> = {
   barsVisitedThisWeek: Building2,
   meetupsFinished: CheckCircle2,
   fansConnected: Users,
+  shotsTakenSeason: Wine,
+  appetizersHadSeason: UtensilsCrossed,
+  favoriteFoodSpot: Pizza,
 };
 
 const TIME_RANGE_LABELS: Record<TimeRange, string> = {

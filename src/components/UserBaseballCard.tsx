@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3 } from 'lucide-react';
+import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3, Wine, UtensilsCrossed, Pizza } from 'lucide-react';
 import cardTemplate from '@/assets/baseball-card-template.png';
 import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
@@ -18,6 +18,9 @@ interface CardStats {
   barsVisitedThisWeek?: number;
   meetupsFinished?: number;
   fansConnected?: number;
+  shotsTakenSeason?: number;
+  appetizersHadSeason?: number;
+  favoriteFoodSpot?: string;
 }
 
 export interface UserBaseballCardProps {
@@ -45,6 +48,9 @@ export const STAT_ICONS: Record<StatKey, React.ElementType> = {
   barsVisitedThisWeek: Building2,
   meetupsFinished: CheckCircle2,
   fansConnected: Users,
+  shotsTakenSeason: Wine,
+  appetizersHadSeason: UtensilsCrossed,
+  favoriteFoodSpot: Pizza,
 };
 
 export const CARD_STAT_LABELS: Record<StatKey, string> = {
@@ -54,6 +60,9 @@ export const CARD_STAT_LABELS: Record<StatKey, string> = {
   barsVisitedThisWeek: 'Bars This Week',
   meetupsFinished: 'Meetups Done',
   fansConnected: 'Fans Connected',
+  shotsTakenSeason: 'Shots (Season)',
+  appetizersHadSeason: 'Appetizers (Season)',
+  favoriteFoodSpot: 'Favorite Food Spot',
 };
 
 function canViewStat(visibility: StatVisibility, isOwner: boolean, isMatch: boolean): boolean {
@@ -66,7 +75,7 @@ function canViewStat(visibility: StatVisibility, isOwner: boolean, isMatch: bool
 export interface VisibleStat {
   key: StatKey;
   icon: React.ElementType;
-  value: number;
+  value: number | string;
   label: string;
   timeRange: string;
   visibility: StatVisibility;
@@ -119,11 +128,20 @@ export function UserBaseballCard({
 
   const visibleStats: VisibleStat[] = prefs
     .filter(p => p.enabled && canViewStat(p.visibility, isOwner, isMatch))
+    .filter(p => {
+      // Hide Favorite Food Spot tile if user hasn't set one
+      if (p.stat_key === 'favoriteFoodSpot') {
+        return !!cardStats.favoriteFoodSpot;
+      }
+      return true;
+    })
     .sort((a, b) => a.sort_order - b.sort_order)
     .map(p => ({
       key: p.stat_key,
       icon: STAT_ICONS[p.stat_key],
-      value: cardStats[p.stat_key] ?? 0,
+      value: p.stat_key === 'favoriteFoodSpot'
+        ? (cardStats.favoriteFoodSpot ?? '')
+        : ((cardStats[p.stat_key] as number | undefined) ?? 0),
       label: CARD_STAT_LABELS[p.stat_key],
       timeRange: p.time_range,
       visibility: p.visibility,

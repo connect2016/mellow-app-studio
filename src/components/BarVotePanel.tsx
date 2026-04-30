@@ -31,8 +31,8 @@ export function BarVotePanel({ barName, onClose }: { barName: string; onClose: (
     >
       <div className="rounded-xl border border-border bg-card p-3 mt-2 space-y-3">
         <div>
-          <p className="text-xs font-semibold text-muted-foreground mb-1.5">
-            ⏱ Wait Time
+          <p className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground mb-1.5">
+            <ConceptIcon name="timer" className="h-3 w-3" /> Wait Time
           </p>
           <div className="flex gap-1.5">
             {WAIT_OPTIONS.map((w) => (

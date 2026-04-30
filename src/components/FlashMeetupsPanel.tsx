@@ -69,9 +69,10 @@ function CountdownTimer({ expiresAt }: { expiresAt: string }) {
         <motion.span
           animate={{ opacity: [1, 0.3, 1] }}
           transition={{ duration: 0.8, repeat: Infinity }}
-          className="ml-0.5 text-[9px]"
+          className="ml-0.5 inline-flex"
+          aria-label="Time critical"
         >
-          ⏰
+          <Timer className="h-3 w-3" />
         </motion.span>
       )}
     </span>

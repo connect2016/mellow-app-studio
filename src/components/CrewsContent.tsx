@@ -9,7 +9,7 @@ import { Users, Plus, Search, Lock, Globe, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
-const BADGE_EMOJIS = ['', '', '', '⭐', '', '', '', '', '', '', '', ''];
+const BADGE_EMOJIS = ['', '', '', '', '', '', '', '', '', '', '', ''];
 
 export default function CrewsContent() {
   const navigate = useNavigate();

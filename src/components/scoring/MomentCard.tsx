@@ -18,7 +18,7 @@ const PLAY_LABELS: Record<string, { emoji: string; label: string }> = {
   walk: { emoji: '', label: 'WALK' },
   steal: { emoji: '', label: 'STOLEN BASE' },
   flyout: { emoji: '', label: 'FLY OUT' },
-  groundout: { emoji: '⬇️', label: 'GROUND OUT' },
+  groundout: { emoji: 'baseball', label: 'GROUND OUT' },
 };
 
 export function MomentCard({ playType, description, inning, half, calledIt }: MomentCardProps) {

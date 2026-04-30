@@ -179,7 +179,7 @@ export function BucketListPanel() {
                     >
                       <Trophy className="h-8 w-8 mx-auto mb-2 text-white" />
                       <p className="text-base font-extrabold text-white" style={{ fontFamily: "'Bungee', cursive" }}>
-                        Gameday Legend! ⭐
+                        Gameday Legend!
                       </p>
                       <p className="text-xs text-white/90 mt-1">
                         Your badge is active for the next 24 hours. +5 Ivy Leaves earned!

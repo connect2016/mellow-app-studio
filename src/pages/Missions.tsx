@@ -56,10 +56,10 @@ export default function Missions() {
   const claimableCount = missions.filter(m => m.progress?.completed && !m.progress?.reward_claimed).length;
 
   // Points tier
-  const tier = totalPoints >= 500 ? { name: 'Legend', emoji: '', color: 'text-yellow-500' }
-    : totalPoints >= 200 ? { name: 'All-Star', emoji: '⭐', color: 'text-primary' }
-    : totalPoints >= 50 ? { name: 'Rookie', emoji: '', color: 'text-accent' }
-    : { name: 'Newcomer', emoji: '', color: 'text-muted-foreground' };
+  const tier = totalPoints >= 500 ? { name: 'Legend', emoji: 'trophy', color: 'text-yellow-500' }
+    : totalPoints >= 200 ? { name: 'All-Star', emoji: 'star', color: 'text-primary' }
+    : totalPoints >= 50 ? { name: 'Rookie', emoji: 'baseball', color: 'text-accent' }
+    : { name: 'Newcomer', emoji: 'baseball', color: 'text-muted-foreground' };
 
   return (
     <div className="min-h-screen bg-background pb-24">

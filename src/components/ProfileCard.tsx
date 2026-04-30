@@ -134,7 +134,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
       picks.unshift({ emoji: '', text: `How's ${user.wrigleyville_bar} right now?` });
     }
     if (user.favorite_player) {
-      picks.unshift({ emoji: '⭐', text: `${user.favorite_player} fan too? What's your best memory of them?` });
+      picks.unshift({ emoji: '', text: `${user.favorite_player} fan too? What's your best memory of them?` });
     }
     // Return first 4 unique
     return picks.slice(0, 4);

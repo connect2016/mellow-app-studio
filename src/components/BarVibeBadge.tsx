@@ -1,4 +1,5 @@
 import { WAIT_LABELS, VIBE_LABELS, type BarVoteSummary } from '@/hooks/useBarVotes';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function BarVibeBadge({ summary }: { summary: BarVoteSummary }) {
   if (summary.totalVotes === 0 && !summary.isDefault) return null;
@@ -7,8 +8,8 @@ export function BarVibeBadge({ summary }: { summary: BarVoteSummary }) {
   return (
     <div className="flex items-center gap-1.5 flex-wrap">
       {summary.topWait && (
-        <span className="inline-flex items-center rounded-full bg-secondary/15 border border-secondary/25 px-2 py-0.5 text-[10px] font-semibold text-secondary-foreground">
-          ⏱ {WAIT_LABELS[summary.topWait]}
+        <span className="inline-flex items-center gap-1 rounded-full bg-secondary/15 border border-secondary/25 px-2 py-0.5 text-[10px] font-semibold text-secondary-foreground">
+          <ConceptIcon name="timer" className="h-3 w-3" /> {WAIT_LABELS[summary.topWait]}
         </span>
       )}
       {summary.topVibe && (

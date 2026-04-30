@@ -107,7 +107,7 @@ export function FlashPrediction({
               </motion.div>
             ) : hasPending ? (
               <p className="text-center text-xs text-muted-foreground py-2">
-                You already have a prediction pending ⏳
+                You already have a prediction pending
               </p>
             ) : (
               <div className="grid grid-cols-6 gap-1.5">

@@ -211,31 +211,46 @@ export default function VibeFeed() {
         className="fixed inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, hsla(0,0%,100%,0.18) 0%, hsla(0,0%,100%,0.05) 40%, hsla(0,0%,0%,0.20) 100%)',
+            'linear-gradient(180deg, hsla(0,0%,100%,0.20) 0%, hsla(0,0%,100%,0.06) 35%, hsla(0,0%,0%,0.18) 100%)',
         }}
       />
       <AppHeader />
       <GuestGateModal open={guestGateOpen} onClose={() => setGuestGateOpen(false)} action={guestGateAction} />
       {isGuest && <WelcomeTour />}
 
-      {/* Sticky Back / Skip nav — always visible */}
-      <div className="sticky top-0 z-30 mx-auto max-w-lg px-4 pt-2 flex items-center justify-between pointer-events-none">
-        <button
-          onClick={() => (window.history.length > 1 ? navigate(-1) : navigate('/home'))}
-          aria-label="Go back"
-          className="pointer-events-auto inline-flex items-center justify-center h-10 w-10 rounded-full bg-background/70 backdrop-blur-md border border-border/60 shadow-sm text-foreground hover:bg-background/90 transition-colors"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </button>
-        <button
-          onClick={() => navigate('/home')}
-          className="pointer-events-auto inline-flex items-center justify-center h-9 px-4 rounded-full bg-background/60 backdrop-blur-md border border-border/50 text-sm font-medium text-foreground/90 hover:bg-background/80 transition-colors"
-        >
-          Skip
-        </button>
+      {/* Sticky top bar — Back / Title / Skip — always visible */}
+      <div className="sticky top-0 z-30 w-full">
+        <div className="mx-auto max-w-lg px-4 pt-2 pb-2 grid grid-cols-[auto_1fr_auto] items-center gap-2">
+          <button
+            onClick={() => (window.history.length > 1 ? navigate(-1) : navigate('/home'))}
+            aria-label="Go back"
+            className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-background/75 backdrop-blur-md border border-border/60 shadow-sm text-foreground hover:bg-background/90 transition-colors"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </button>
+          <h1
+            className="text-center text-lg font-extrabold tracking-wide"
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              color: 'hsl(222, 82%, 29%)',
+              WebkitTextStroke: '1.5px white',
+              paintOrder: 'stroke fill',
+              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))',
+              letterSpacing: '0.04em',
+            }}
+          >
+            Live Vibe Feed
+          </h1>
+          <button
+            onClick={() => navigate('/home')}
+            className="inline-flex items-center justify-center h-9 px-4 rounded-full bg-background/65 backdrop-blur-md border border-border/50 text-sm font-medium text-foreground/90 hover:bg-background/85 transition-colors"
+          >
+            Skip
+          </button>
+        </div>
       </div>
 
-      <main className={`mx-auto max-w-lg px-4 pt-3 ${isGuest ? 'pb-32' : 'pb-24'}`} data-tour="vibe-feed">
+      <main className={`mx-auto max-w-lg px-4 pt-2 ${isGuest ? 'pb-32' : 'pb-28'}`} data-tour="vibe-feed">
         <Tabs defaultValue="vibes" className="mb-4">
           <TabsList className="w-full grid grid-cols-2 mb-4" data-tour="check-in">
             <TabsTrigger value="vibes" className="gap-1.5">
@@ -247,40 +262,18 @@ export default function VibeFeed() {
           </TabsList>
 
           <TabsContent value="vibes">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>Live Vibe Feed</h1>
-            <p className="text-base font-semibold mt-0.5" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>What's happening at Wrigley right now</p>
-          </div>
-          {!isGuest && isVerified ? (
-            <Button
-              onClick={() => setShowCompose(true)}
-              className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full"
-              size="sm"
-            >
-              <Plus className="h-4 w-4 mr-1" /> Post
-            </Button>
-          ) : !isGuest ? (
-            <Button
-              onClick={() => window.location.href = '/verify'}
-              variant="outline"
-              size="sm"
-              className="rounded-full gap-1.5 text-xs"
-            >
-               Get Verified to Post
-            </Button>
-          ) : (
-            <Button
-              onClick={() => triggerGuestGate('post photos and videos')}
-              variant="outline"
-              size="sm"
-              className="rounded-full gap-1.5 text-xs"
-            >
-              <Plus className="h-4 w-4 mr-1" /> Post
-            </Button>
-          )}
-        </div>
+        {/* Subheader */}
+        <p
+          className="text-center text-sm font-semibold mb-3"
+          style={{
+            color: 'white',
+            WebkitTextStroke: '0.4px black',
+            paintOrder: 'stroke fill',
+            filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))',
+          }}
+        >
+          What's happening at Wrigley right now
+        </p>
 
         {/* Live Vibe Check-In */}
         {!isGuest && user && (

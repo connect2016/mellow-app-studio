@@ -441,6 +441,7 @@ export default function VibeFeed() {
               <div className="flex flex-col gap-2">
                 <Button
                   onClick={() => {
+                    trackDropVibeClick('empty_state');
                     if (isGuest) return triggerGuestGate('post photos and videos');
                     if (!isVerified) return navigate('/verify');
                     setShowCompose(true);

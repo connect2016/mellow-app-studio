@@ -396,13 +396,40 @@ export default function VibeFeed() {
 
         {/* Feed */}
         {posts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="rounded-2xl px-6 py-8 bg-background/55 backdrop-blur-md border border-border/50 shadow-sm max-w-[300px]">
-              <ConceptIcon name="baseball" className="h-10 w-10 mx-auto mb-3 text-accent" />
-              <h3 className="text-lg font-bold mb-1 text-foreground">The bases are empty!</h3>
-              <p className="text-sm text-foreground/80">
-                Be the first to start a conversation. Drop a vibe and get this section going!
+          <div className="flex flex-col items-center justify-center py-12 text-center animate-vibe-in">
+            <div className="rounded-3xl px-7 py-9 bg-background/70 backdrop-blur-md border border-border/50 shadow-elevated max-w-[320px]">
+              {/* Empty diamond illustration */}
+              <div className="mx-auto mb-4 h-20 w-20 relative flex items-center justify-center">
+                <div
+                  className="absolute inset-0 border-2 border-accent/60 rounded-md"
+                  style={{ transform: 'rotate(45deg)' }}
+                />
+                <ConceptIcon name="baseball" className="h-9 w-9 text-accent relative z-10" />
+              </div>
+              <h3 className="text-xl font-extrabold mb-1.5 text-foreground font-heading tracking-wide">
+                No vibes yet — the inning just started.
+              </h3>
+              <p className="text-sm text-foreground/75 mb-5">
+                Someone's gotta spark the energy. Might as well be you.
               </p>
+              <div className="flex flex-col gap-2">
+                <Button
+                  onClick={() => {
+                    if (isGuest) return triggerGuestGate('post photos and videos');
+                    if (!isVerified) return navigate('/verify');
+                    setShowCompose(true);
+                  }}
+                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-semibold gap-1.5 h-11"
+                >
+                  <Plus className="h-4 w-4" /> Drop a Vibe
+                </Button>
+                <button
+                  onClick={() => navigate('/home')}
+                  className="text-xs font-medium text-foreground/60 hover:text-foreground/90 transition-colors py-1"
+                >
+                  Skip for now
+                </button>
+              </div>
             </div>
           </div>
         ) : (
@@ -411,13 +438,12 @@ export default function VibeFeed() {
               const profile = profiles[post.user_id];
               const isOwn = post.user_id === user?.id;
               return (
-                <motion.div
+                <div
                   key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  className="animate-vibe-in"
+                  style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
                 >
-                  <Card className="overflow-hidden border-border/60">
+                  <Card className="overflow-hidden border-border/60 shadow-md">
                     {/* Media */}
                     <div className="relative aspect-[4/3] bg-muted">
                       {post.media_type === 'video' ? (
@@ -486,7 +512,7 @@ export default function VibeFeed() {
                       )}
                     </div>
                   </Card>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -498,6 +524,35 @@ export default function VibeFeed() {
           </TabsContent>
         </Tabs>
       </main>
+
+      {/* Floating Drop-a-Vibe FAB — centered above bottom nav */}
+      <div
+        className="fixed left-1/2 -translate-x-1/2 z-40 pointer-events-none"
+        style={{
+          bottom: 'calc(env(safe-area-inset-bottom, 0px) + 88px)',
+          transition: 'opacity 180ms ease-out, transform 180ms ease-out',
+          opacity: fabVisible ? 1 : 0,
+          transform: `translateX(-50%) translateY(${fabVisible ? 0 : 20}px)`,
+        }}
+      >
+        <button
+          onClick={() => {
+            setFabTap(true);
+            setTimeout(() => setFabTap(false), 340);
+            if (isGuest) return triggerGuestGate('post photos and videos');
+            if (!isVerified) return navigate('/verify');
+            setShowCompose(true);
+          }}
+          aria-label="Drop a Vibe"
+          className={`pointer-events-auto inline-flex items-center gap-2 h-14 px-6 rounded-full bg-accent text-accent-foreground font-bold shadow-elevated border border-accent/40 hover:bg-accent/90 ${
+            fabTap ? 'animate-fab-tap' : 'animate-fab-breath'
+          } animate-fab-enter`}
+        >
+          <Plus className="h-5 w-5" />
+          <span className="text-sm tracking-wide">Drop a Vibe</span>
+        </button>
+      </div>
+
       {isGuest && <GuestBanner />}
     </DynamicBackground>
   );

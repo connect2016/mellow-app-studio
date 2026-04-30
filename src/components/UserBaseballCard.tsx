@@ -136,29 +136,30 @@ export function UserBaseballCard({
       role="region"
       aria-label={`${displayName || 'Fan'}'s baseball card`}
     >
-      {/* Flip container */}
+      {/* Flip container — fixed aspect ratio matching card artwork so front and back share dimensions */}
       <div
         className="relative w-full"
         style={{
+          aspectRatio: '410 / 399',
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-          transition: 'transform 240ms cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'transform 320ms cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         {/* ===== FRONT SIDE ===== */}
-        <CardFrontSide
-          profileImage={profileImage}
-          displayName={displayName}
-          statusLabel={statusLabel}
-          intents={intents}
-          gamedayIntents={gamedayIntents}
-          activeReactions={activeReactions}
-          imgLoaded={imgLoaded}
-          onImgLoad={() => setImgLoaded(true)}
-          onClick={onClick}
-          hasStats={visibleStats.length > 0}
-          onFlipToStats={() => setIsFlipped(true)}
-        />
+        <div className="absolute inset-0" style={{ backfaceVisibility: 'hidden' }}>
+          <CardFrontSide
+            profileImage={profileImage}
+            displayName={displayName}
+            statusLabel={statusLabel}
+            intents={intents}
+            gamedayIntents={gamedayIntents}
+            activeReactions={activeReactions}
+            imgLoaded={imgLoaded}
+            onImgLoad={() => setImgLoaded(true)}
+            onClick={onClick}
+          />
+        </div>
 
         {/* ===== BACK SIDE (Stats) ===== */}
         <CardBackSide
@@ -168,6 +169,57 @@ export function UserBaseballCard({
           onFlipBack={() => setIsFlipped(false)}
         />
       </div>
+
+      {/* Intent badges (front-side metadata) */}
+      {intents && intents.length > 0 && !isFlipped && (
+        <div className="mt-3 flex flex-wrap gap-2 px-1" role="list" aria-label="Intents">
+          {intents.map((intent) => (
+            <span
+              key={intent}
+              role="listitem"
+              className="inline-flex items-center gap-1 rounded-2xl border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-medium text-primary"
+            >
+              <span aria-hidden="true">{INTENT_EMOJI[intent]}</span>
+              <span>{INTENT_LABELS[intent]}</span>
+            </span>
+          ))}
+        </div>
+      )}
+
+      {gamedayIntents && gamedayIntents.length > 0 && !isFlipped && (
+        <div className="mt-2 flex flex-wrap gap-2 px-1" role="list" aria-label="Gameday intents">
+          {gamedayIntents.map((gi) => (
+            <span
+              key={gi}
+              role="listitem"
+              className="inline-flex items-center gap-1 rounded-2xl border border-secondary/30 bg-secondary/10 px-3 py-1 text-sm font-medium text-secondary-foreground"
+            >
+              <span aria-hidden="true">{GAMEDAY_INTENT_EMOJI[gi]}</span>
+              <span>{GAMEDAY_INTENT_LABELS[gi]}</span>
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Flip toggle — the ONLY trigger for the 3D flip animation */}
+      {visibleStats.length > 0 && (
+        <div className="mt-4 flex justify-center px-1">
+          <Button
+            variant="outline"
+            size="default"
+            className="rounded-2xl gap-2 font-semibold text-base min-h-[48px] px-6 shadow-sm active:scale-[0.97] transition-all"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsFlipped((v) => !v);
+            }}
+            aria-pressed={isFlipped}
+            aria-label={isFlipped ? 'Flip back to profile' : 'View stats on back of card'}
+          >
+            <BarChart3 className="h-5 w-5" />
+            {isFlipped ? 'Back to Profile' : 'View Stats'}
+          </Button>
+        </div>
+      )}
 
       {/* Quick-react strip below card */}
       {showReactions && !isFlipped && (

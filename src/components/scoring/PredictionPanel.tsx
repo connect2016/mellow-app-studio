@@ -28,7 +28,7 @@ const PREDICTION_OPTIONS = [
   { value: 'hit', label: 'Base Hit', emoji: '', points: 8 },
   { value: 'walk', label: 'Walk', emoji: '', points: 5 },
   { value: 'flyout', label: 'Fly Out', emoji: '', points: 5 },
-  { value: 'groundout', label: 'Ground Out', emoji: '⬇️', points: 5 },
+  { value: 'groundout', label: 'Ground Out', emoji: 'baseball', points: 5 },
   { value: 'steal', label: 'Stolen Base', emoji: '', points: 15 },
 ];
 

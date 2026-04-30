@@ -81,7 +81,24 @@ export default function VibeFeed() {
   const [uploading, setUploading] = useState(false);
   const [guestGateOpen, setGuestGateOpen] = useState(false);
   const [guestGateAction, setGuestGateAction] = useState('');
+  const [fabVisible, setFabVisible] = useState(true);
+  const [fabTap, setFabTap] = useState(false);
+  const lastScrollY = useRef(0);
   const { isVerified } = useVerifiedFan();
+
+  // Hide FAB on scroll-down, reveal on scroll-up
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastScrollY.current;
+      if (Math.abs(delta) < 6) return;
+      if (delta > 0 && y > 80) setFabVisible(false);
+      else setFabVisible(true);
+      lastScrollY.current = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const { data: posts = [] } = useVibePosts();
   const userIds = [...new Set(posts.map(p => p.user_id))];

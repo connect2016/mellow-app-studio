@@ -469,36 +469,56 @@ export default function Discover() {
           <span className="text-xs font-semibold text-yellow-300">View →</span>
         </motion.button>
 
-        {/* Current Status Toggle */}
-        <div className="mb-4">
-          <p className="text-sm text-destructive-foreground">Your Status</p>
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+        {/* Current Status — playful pill selector */}
+        <div className="mb-5">
+          <div className="mb-2 flex items-center gap-2">
+            <ConceptIcon name="pin" className="h-4 w-4 text-secondary" />
+            <p className="text-sm font-bold uppercase tracking-wide text-white" style={{ fontFamily: 'Norwester, sans-serif' }}>
+              Your Status
+            </p>
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1 snap-x">
             {STATUS_OPTIONS.map((opt) => {
               const active = currentStatus === opt.value;
               return (
-                <motion.button
+                <button
                   key={opt.value}
-                  whileTap={{ scale: 0.95 }}
+                  type="button"
                   disabled={settingStatus}
                   onClick={() => handleSetStatus(opt.value)}
-                  className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-medium transition-all ${
+                  className={cn(
+                    'snap-start relative flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-full border-2 px-4 py-2.5 text-sm font-bold transition-all duration-200 active:scale-95',
                     active
-                      ? 'border-primary bg-primary text-primary-foreground shadow-[0_0_12px_hsl(var(--primary)/0.35)]'
-                      : 'border-border bg-card text-foreground hover:border-primary/40 hover:bg-primary/5'
-                  }`}
-                >
-                  {active && (
-                    <motion.span
-                      layoutId="status-glow"
-                      className="absolute inset-0 rounded-full ring-2 ring-primary/50"
-                      transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                    />
+                      ? 'border-secondary bg-secondary text-secondary-foreground shadow-[0_0_18px_hsl(var(--secondary)/0.55)] animate-fab-tap'
+                      : 'border-white/20 bg-card/80 text-foreground backdrop-blur-sm hover:border-secondary/50'
                   )}
-                  <span><ConceptVisual name={opt.emoji} size="sm" /></span>
+                >
+                  <ConceptIcon name={opt.icon} className="h-4 w-4" />
                   <span>{opt.label}</span>
-                </motion.button>
+                </button>
               );
             })}
+          </div>
+        </div>
+
+        {/* Quick Actions — discovery shortcuts */}
+        <div className="mb-5">
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
+            {[
+              { label: "Tonight's Hot Spots", icon: 'fire', to: '/bar-map' },
+              { label: 'Nearby Fans', icon: 'people', to: '/buddy-heatmap' },
+              { label: 'Meetups Soon', icon: 'calendar', to: '/meetups' },
+            ].map((q) => (
+              <button
+                key={q.label}
+                type="button"
+                onClick={() => navigate(q.to)}
+                className="flex min-h-[44px] shrink-0 items-center gap-2 rounded-full border border-white/15 bg-card/70 px-3.5 py-2 text-xs font-semibold text-foreground backdrop-blur-sm transition-all hover:bg-card active:scale-95"
+              >
+                <ConceptIcon name={q.icon} className="h-4 w-4 text-secondary" />
+                {q.label}
+              </button>
+            ))}
           </div>
         </div>
 

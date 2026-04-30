@@ -86,11 +86,11 @@ export default function HeroVideo() {
       ))}
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-foreground/35" />
+      <div className="absolute inset-0 bg-foreground/40" />
 
-      {/* Content overlay — clean three-section hierarchy */}
+      {/* Content overlay — three tight stacked blocks */}
       <div className="relative z-10 mx-auto flex h-full max-w-md flex-col items-center justify-center px-6 text-center">
-        {/* SECTION A — Title block */}
+        {/* BLOCK 1 — Marquee title */}
         <div className="flex flex-col items-center">
           <img
             src={wrigleyvilleLogo}
@@ -98,7 +98,7 @@ export default function HeroVideo() {
             className="w-full max-w-[260px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-[300px]"
           />
           <h1
-            className="mt-3 text-[1.35rem] sm:text-[1.6rem] font-bold uppercase tracking-[0.18em] text-white"
+            className="mt-2 text-[1.25rem] sm:text-[1.5rem] font-bold uppercase tracking-[0.2em] text-white"
             style={{
               fontFamily: 'Norwester, sans-serif',
               textShadow: '0 2px 12px rgba(0,0,0,0.7)',
@@ -108,22 +108,19 @@ export default function HeroVideo() {
           </h1>
         </div>
 
-        {/* Subtle divider */}
-        <div className="my-7 h-px w-16 bg-white/25" />
-
-        {/* SECTION B — Social proof + tagline (unified block) */}
-        <div className="flex flex-col items-center gap-3">
-          <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-4 py-1.5 backdrop-blur-md">
-            <span className="relative flex h-2.5 w-2.5">
+        {/* BLOCK 2 — Unified social proof + tagline */}
+        <div className="mt-8 flex flex-col items-center gap-2.5">
+          <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/40 px-4 py-1.5 backdrop-blur-md">
+            <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
             </span>
-            <span className="text-sm font-medium text-white/95" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <span className="text-[13px] font-medium text-white/95" style={{ fontFamily: 'Inter, sans-serif' }}>
               {liveCount} Buddies active near the Friendly Confines
             </span>
           </div>
           <p
-            className="text-lg sm:text-xl font-bold uppercase tracking-[0.14em] text-white/95"
+            className="text-base sm:text-lg font-bold uppercase tracking-[0.16em] text-white"
             style={{
               fontFamily: 'Norwester, sans-serif',
               textShadow: '0 2px 8px rgba(0,0,0,0.6)',
@@ -133,15 +130,12 @@ export default function HeroVideo() {
           </p>
         </div>
 
-        {/* Subtle divider */}
-        <div className="my-7 h-px w-16 bg-white/25" />
-
-        {/* SECTION C — CTA block */}
-        <div className="flex w-full flex-col items-center gap-3">
+        {/* BLOCK 3 — CTA stack */}
+        <div className="mt-8 flex w-full flex-col items-center gap-2.5">
           <Link to="/quick-start" className="w-full max-w-xs">
             <Button
               size="lg"
-              className="w-full rounded-full bg-secondary px-10 py-4 text-lg font-bold shadow-lg hover:bg-secondary/90"
+              className="w-full rounded-full bg-secondary px-10 text-lg font-bold shadow-lg hover:bg-secondary/90"
               aria-label="Get in the Game — sign up for Cubbies Buddies"
             >
               Get in the Game
@@ -150,9 +144,8 @@ export default function HeroVideo() {
           </Link>
           <Button
             variant="ghost"
-            size="lg"
             onClick={handleBrowseAsGuest}
-            className="w-full max-w-xs rounded-full px-8 font-medium text-white/85 hover:text-white hover:bg-white/10 gap-2"
+            className="w-full max-w-xs rounded-full font-medium text-white/85 hover:text-white hover:bg-white/10 gap-2"
           >
             <Eye className="h-4 w-4" />
             Browse as Guest

@@ -1356,6 +1356,7 @@ export type Database = {
           age: number | null
           age_max: number | null
           age_min: number | null
+          appetizers_had_season: number
           bar_location_privacy: string | null
           best_bar: string | null
           bio: string | null
@@ -1372,6 +1373,7 @@ export type Database = {
           fan_xp: number | null
           favorite_bar_food: string | null
           favorite_bars: string[] | null
+          favorite_food_spot: string | null
           favorite_moment: string | null
           favorite_moment_is_valid: boolean | null
           favorite_player: string | null
@@ -1395,6 +1397,7 @@ export type Database = {
           profile_photo: string | null
           pronouns: string | null
           quick_start: Json | null
+          shots_taken_season: number
           stretch_song: string | null
           superstition: string | null
           updated_at: string
@@ -1414,6 +1417,7 @@ export type Database = {
           age?: number | null
           age_max?: number | null
           age_min?: number | null
+          appetizers_had_season?: number
           bar_location_privacy?: string | null
           best_bar?: string | null
           bio?: string | null
@@ -1430,6 +1434,7 @@ export type Database = {
           fan_xp?: number | null
           favorite_bar_food?: string | null
           favorite_bars?: string[] | null
+          favorite_food_spot?: string | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
@@ -1453,6 +1458,7 @@ export type Database = {
           profile_photo?: string | null
           pronouns?: string | null
           quick_start?: Json | null
+          shots_taken_season?: number
           stretch_song?: string | null
           superstition?: string | null
           updated_at?: string
@@ -1472,6 +1478,7 @@ export type Database = {
           age?: number | null
           age_max?: number | null
           age_min?: number | null
+          appetizers_had_season?: number
           bar_location_privacy?: string | null
           best_bar?: string | null
           bio?: string | null
@@ -1488,6 +1495,7 @@ export type Database = {
           fan_xp?: number | null
           favorite_bar_food?: string | null
           favorite_bars?: string[] | null
+          favorite_food_spot?: string | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
@@ -1511,6 +1519,7 @@ export type Database = {
           profile_photo?: string | null
           pronouns?: string | null
           quick_start?: Json | null
+          shots_taken_season?: number
           stretch_song?: string | null
           superstition?: string | null
           updated_at?: string
@@ -2279,6 +2288,15 @@ export type Database = {
           fan_user_id: string
           fan_wrigley_section: string
           fan_wrigleyville_bar: string
+        }[]
+      }
+      get_public_card_extras: {
+        Args: { p_user_ids: string[] }
+        Returns: {
+          appetizers_had_season: number
+          favorite_food_spot: string
+          shots_taken_season: number
+          user_id: string
         }[]
       }
       get_public_profiles:

@@ -109,6 +109,7 @@ const App = () => (
              <Route path="/claim/:code" element={<ClaimBeer />} />
              <Route path="/eats" element={<WrigleyvilleEats />} />
              <Route path="/dugout" element={<Dugout />} />
+             <Route path="/league-leaders" element={<LeagueLeaders />} />
              <Route path="*" element={<NotFound />} />
           </Routes>
           <CreateMeetupFab />

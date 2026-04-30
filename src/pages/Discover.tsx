@@ -685,18 +685,6 @@ export default function Discover() {
         onApply={setFilters}
       />
 
-      {/* Floating "+" button for Lineup */}
-      <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setShowLineupCreate(true)}
-        aria-label="Create Meetup"
-        className="fixed bottom-40 left-1/2 z-30 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-full bg-lineup text-lineup-foreground shadow-xl shadow-lineup/40 ring-4 ring-background/60"
-      >
-        <Plus className="h-7 w-7" />
-      </motion.button>
       <CreateMeetupModal open={showLineupCreate} onClose={() => setShowLineupCreate(false)} />
 
       {/* Fixed Quick Actions bar — sits just above the bottom nav */}

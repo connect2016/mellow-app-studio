@@ -259,7 +259,7 @@ export default function Discover() {
   };
 
   return (
-    <div className="min-h-screen pb-44 relative overflow-x-hidden">
+    <div className="min-h-screen pb-52 relative overflow-x-hidden">
       {/* Dynamic background image — parallax bg layer (40% drag) */}
       <div className="fixed inset-0 z-0 swipe-drag-bg" data-route-parallax="bg">
         <img

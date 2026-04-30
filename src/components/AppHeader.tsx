@@ -90,26 +90,6 @@ export function AppHeader() {
             />
           </Link>
           <div className="flex shrink-0 items-center gap-2">
-            {isGameDay && (
-              <button
-                type="button"
-                onClick={toggleGamedayMode}
-                aria-label="Toggle Game Day Mode"
-                aria-pressed={gamedayMode}
-                title={gamedayMode ? 'Game Day Mode: ON' : 'Game Day Mode: OFF'}
-                className={cn(
-                  'relative flex h-10 w-10 items-center justify-center rounded-full text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 active:scale-95',
-                  gamedayMode
-                    ? 'bg-[#0E3386] hover:bg-[#0a2766] ring-2 ring-yellow-300'
-                    : 'bg-[#C8102E] hover:bg-[#a30d25]'
-                )}
-              >
-                <Trophy className="h-[18px] w-[18px]" strokeWidth={2.25} />
-                {gamedayMode && (
-                  <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-yellow-300 ring-2 ring-white animate-pulse" />
-                )}
-              </button>
-            )}
             <Link
               to="/notifications"
               aria-label="Notifications"

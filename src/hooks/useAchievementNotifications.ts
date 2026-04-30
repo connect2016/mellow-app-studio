@@ -107,7 +107,7 @@ async function insertNotifications(userId: string, notes: PendingNotification[])
       body: n.body,
       emoji: n.emoji,
       action_url: n.action_url ?? null,
-      metadata: n.metadata ?? {},
+      metadata: (n.metadata ?? {}) as any,
     })),
   );
 }

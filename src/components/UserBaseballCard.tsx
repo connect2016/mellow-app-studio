@@ -18,6 +18,9 @@ interface CardStats {
   barsVisitedThisWeek?: number;
   meetupsFinished?: number;
   fansConnected?: number;
+  shotsTakenSeason?: number;
+  appetizersHadSeason?: number;
+  favoriteFoodSpot?: string;
 }
 
 export interface UserBaseballCardProps {

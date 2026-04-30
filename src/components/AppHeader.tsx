@@ -68,7 +68,6 @@ export function AppHeader() {
   const location = useLocation();
   const { data: badges } = useNotificationCounts();
   const unreadNotifs = useUnreadCount();
-  const { gamedayMode, toggleGamedayMode } = useGamedayMode();
   useSwipeNavigation();
 
   const getBadge = (path: string): number => {
@@ -77,9 +76,6 @@ export function AppHeader() {
     if (path === '/messages') return badges.messages;
     return 0;
   };
-
-  const { data: cubsGame } = useMlbCubsGame();
-  const isGameDay = cubsGame && cubsGame.status !== 'no-game';
 
   return (
     <>

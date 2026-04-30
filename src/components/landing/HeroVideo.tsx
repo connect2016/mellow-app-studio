@@ -88,68 +88,60 @@ export default function HeroVideo() {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-foreground/35" />
 
-      {/* Content overlay — no motion, renders instantly */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 -mt-12 text-center">
-        <img
-          src={wrigleyvilleLogo}
-          alt="Wrigleyville 60613 Logo"
-          className="mb-4 w-full max-w-[280px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-sm"
-        />
-
-        <h1
-          className="mt-4 text-[2rem] sm:text-[2.75rem] md:text-[3.25rem] font-bold uppercase text-center leading-tight"
-          style={{
-            fontFamily: "'Legend M54', serif",
-            color: '#003A86',
-            WebkitTextStroke: '2px #fff',
-            paintOrder: 'stroke fill',
-            letterSpacing: '2px',
-          }}
-        >
-          The Wrigleyville Social App
-        </h1>
-        <p
-          className="mt-2 text-[1.2rem] sm:text-[1.5rem] font-bold uppercase text-center leading-tight"
-          style={{
-            fontFamily: 'Norwester, sans-serif',
-            color: '#FFFFFF',
-            textShadow:
-              '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000',
-            letterSpacing: '2px',
-          }}
-        >
-          Where Fans Find Friends
-        </p>
-
-        <div className="mt-2 flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 backdrop-blur-sm">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
-          </span>
-          <span className="text-sm font-medium text-white/90" style={{ fontFamily: 'Inter, sans-serif' }}>
-            {liveCount} Buddies active near the Friendly Confines
-          </span>
+      {/* Content overlay — clean three-section hierarchy */}
+      <div className="relative z-10 mx-auto flex h-full max-w-md flex-col items-center justify-center px-6 text-center">
+        {/* SECTION A — Title block */}
+        <div className="flex flex-col items-center">
+          <img
+            src={wrigleyvilleLogo}
+            alt="Wrigleyville 60613 Logo"
+            className="w-full max-w-[260px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-[300px]"
+          />
+          <h1
+            className="mt-3 text-[1.35rem] sm:text-[1.6rem] font-bold uppercase tracking-[0.18em] text-white"
+            style={{
+              fontFamily: 'Norwester, sans-serif',
+              textShadow: '0 2px 12px rgba(0,0,0,0.7)',
+            }}
+          >
+            The Wrigleyville Social App
+          </h1>
         </div>
 
-        <p
-          className="mt-3 max-w-md text-xl sm:text-2xl font-bold tracking-wider uppercase"
-          style={{
-            fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-            fontVariant: 'small-caps',
-            color: 'rgba(255,255,255,0.95)',
-            textShadow: '0 2px 8px rgba(0,0,0,0.6)',
-            letterSpacing: '0.08em',
-            paddingBottom: '2rem',
-          }}
-        >
-          Sync. Meet. Celebrate.
-        </p>
+        {/* Subtle divider */}
+        <div className="my-7 h-px w-16 bg-white/25" />
 
+        {/* SECTION B — Social proof + tagline (unified block) */}
         <div className="flex flex-col items-center gap-3">
-          <Link to="/quick-start">
+          <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-4 py-1.5 backdrop-blur-md">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+            </span>
+            <span className="text-sm font-medium text-white/95" style={{ fontFamily: 'Inter, sans-serif' }}>
+              {liveCount} Buddies active near the Friendly Confines
+            </span>
+          </div>
+          <p
+            className="text-lg sm:text-xl font-bold uppercase tracking-[0.14em] text-white/95"
+            style={{
+              fontFamily: 'Norwester, sans-serif',
+              textShadow: '0 2px 8px rgba(0,0,0,0.6)',
+            }}
+          >
+            Where fans find friends
+          </p>
+        </div>
+
+        {/* Subtle divider */}
+        <div className="my-7 h-px w-16 bg-white/25" />
+
+        {/* SECTION C — CTA block */}
+        <div className="flex w-full flex-col items-center gap-3">
+          <Link to="/quick-start" className="w-full max-w-xs">
             <Button
               size="lg"
-              className="rounded-full bg-secondary px-10 py-4 text-lg font-bold shadow-lg hover:bg-secondary/90"
+              className="w-full rounded-full bg-secondary px-10 py-4 text-lg font-bold shadow-lg hover:bg-secondary/90"
               aria-label="Get in the Game — sign up for Cubbies Buddies"
             >
               Get in the Game
@@ -160,7 +152,7 @@ export default function HeroVideo() {
             variant="ghost"
             size="lg"
             onClick={handleBrowseAsGuest}
-            className="rounded-full px-8 font-medium text-white/80 hover:text-white hover:bg-white/10 gap-2"
+            className="w-full max-w-xs rounded-full px-8 font-medium text-white/85 hover:text-white hover:bg-white/10 gap-2"
           >
             <Eye className="h-4 w-4" />
             Browse as Guest

@@ -40,7 +40,7 @@ const BEHAVIORS: { id: Behavior; emoji: string; label: string }[] = [
 type ZoneOption = {
   id: Zone;
   label: string;
-  Icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean }>;
+  Icon: React.ComponentType<any>;
   example?: string;
 };
 

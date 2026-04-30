@@ -580,57 +580,74 @@ export default function Discover() {
             </label>
           </motion.div>
         )}
-        {/* Tabbed Discover: Buddies vs Crews */}
-        <Tabs defaultValue="buddies" className="mb-4">
-          <TabsList className="w-full grid grid-cols-2 mb-4">
-            <TabsTrigger value="buddies" className="gap-1.5">
-              <Zap className="h-3.5 w-3.5" /> Discover Buddies
+        {/* Discover header — tagline + sticky Filters */}
+        <div className="sticky top-2 z-20 -mx-1 mb-3 flex items-center justify-between rounded-2xl border border-white/10 bg-card/80 px-3 py-2 backdrop-blur-md">
+          <div className="min-w-0">
+            <h2 className="text-base font-extrabold uppercase tracking-wide text-foreground" style={{ fontFamily: 'Norwester, sans-serif' }}>
+              Discover Fans
+            </h2>
+            <p className="text-[11px] text-muted-foreground truncate">Find your crew. Build your night.</p>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowFilters(true)}
+            className="relative h-10 gap-1.5 rounded-full border-secondary/40"
+          >
+            <SlidersHorizontal className="h-4 w-4" />
+            Filters
+            {activeFilterCount > 0 && (
+              <span className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-secondary-foreground">
+                {activeFilterCount}
+              </span>
+            )}
+          </Button>
+        </div>
+
+        {/* Tabbed Discover: Buddies vs Crews — large playful cards */}
+        <Tabs defaultValue="buddies" className="mb-6">
+          <TabsList className="mb-4 grid h-auto w-full grid-cols-2 gap-2 bg-transparent p-0">
+            <TabsTrigger
+              value="buddies"
+              className="group relative flex h-24 flex-col items-start justify-end overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-primary/80 to-primary/40 p-3 text-left text-primary-foreground shadow-md transition-all data-[state=active]:scale-[1.02] data-[state=active]:shadow-lg data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.98]"
+            >
+              <Zap className="absolute right-2 top-2 h-5 w-5 opacity-70" />
+              <span className="text-sm font-extrabold uppercase tracking-wide" style={{ fontFamily: 'Norwester, sans-serif' }}>
+                Buddies
+              </span>
+              <span className="text-[10px] font-medium opacity-90">Find your people tonight</span>
             </TabsTrigger>
-            <TabsTrigger value="crews" className="gap-1.5">
-              <Users className="h-3.5 w-3.5" /> Discover Crews
+            <TabsTrigger
+              value="crews"
+              className="group relative flex h-24 flex-col items-start justify-end overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-secondary/80 to-secondary/40 p-3 text-left text-secondary-foreground shadow-md transition-all data-[state=active]:scale-[1.02] data-[state=active]:shadow-lg data-[state=active]:ring-2 data-[state=active]:ring-primary active:scale-[0.98]"
+            >
+              <Users className="absolute right-2 top-2 h-5 w-5 opacity-70" />
+              <span className="text-sm font-extrabold uppercase tracking-wide" style={{ fontFamily: 'Norwester, sans-serif' }}>
+                Crews
+              </span>
+              <span className="text-[10px] font-medium opacity-90">Roll with a squad</span>
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="buddies">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <h2 className="text-lg font-bold">
-                  Discover
-                </h2>
-                {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (
-                  <div className="flex items-center gap-3 mt-0.5">
-                    {liveCounts.online > 0 && (
-                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <span className="relative flex h-1.5 w-1.5">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
-                        </span>
-                        {liveCounts.online} fans online
-                      </span>
-                    )}
-                    {liveCounts.atWrigley > 0 && (
-                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                         {liveCounts.atWrigley} at Wrigley
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowFilters(true)}
-                className="relative gap-1.5 rounded-full"
-              >
-                <SlidersHorizontal className="h-4 w-4" />
-                Filters
-                {activeFilterCount > 0 && (
-                  <span className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-secondary-foreground">
-                    {activeFilterCount}
+            {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (
+              <div className="mb-3 flex items-center gap-3">
+                {liveCounts.online > 0 && (
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                    </span>
+                    {liveCounts.online} fans online
                   </span>
                 )}
-              </Button>
-            </div>
+                {liveCounts.atWrigley > 0 && (
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    {liveCounts.atWrigley} at Wrigley
+                  </span>
+                )}
+              </div>
+            )}
 
             {isLoading ? (
               <div className="py-20 text-center">

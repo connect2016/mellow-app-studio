@@ -55,7 +55,7 @@ const STATUS_OPTIONS = [
   { value: 'AtWrigley', icon: 'baseball', label: 'In my Seat' },
   { value: 'Tailgating', icon: 'fire', label: 'Tailgate' },
   { value: 'BeerSnake', icon: 'trophy', label: 'Beer Snake' },
-  { value: 'WatchingRemote', icon: 'tv', label: 'Home' },
+  { value: 'WatchingRemote', icon: 'home', label: 'Home' },
 ] as const;
 
 interface FilterState {

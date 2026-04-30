@@ -267,13 +267,52 @@ export default function Landing() {
     navigate('/vibe');
   };
 
+  const trackQuickAction = (action: string, to: string) => {
+    try {
+      // Custom event for any analytics listener (GA, Plausible, internal)
+      window.dispatchEvent(new CustomEvent('cb:quick_action', { detail: { action, to } }));
+      // GA4 if present
+      // @ts-ignore
+      if (typeof window.gtag === 'function') window.gtag('event', 'quick_action_click', { action, destination: to });
+      // Plausible if present
+      // @ts-ignore
+      if (typeof window.plausible === 'function') window.plausible('Quick Action', { props: { action, to } });
+    } catch {}
+  };
+
+  const quickActions = [
+    { key: 'live_map', label: 'Live Map', sub: "See who's out", icon: 'map' as const, to: '/bar-map' },
+    { key: 'hot_spots', label: "Tonight's Hot Spots", sub: 'Busiest bars now', icon: 'fire' as const, to: '/venues' },
+    { key: 'flash_meetup', label: 'Join a Flash Meetup', sub: 'Starts within the hour', icon: 'calendar' as const, to: '/meetups' },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* ── Video Hero ── */}
       <HeroVideo />
 
+      {/* ── Quick Discovery Strip (above the fold on mobile) ── */}
+      <section aria-label="Quick discovery" className="relative z-10 -mt-3 px-3 sm:px-4">
+        <div className="mx-auto grid max-w-lg grid-cols-3 gap-2 rounded-2xl border border-border/40 bg-card/95 p-2 shadow-lg backdrop-blur-md sm:gap-3 sm:p-3">
+          {quickActions.map((q) => (
+            <button
+              key={q.key}
+              type="button"
+              onClick={() => { trackQuickAction(q.key, q.to); navigate(q.to); }}
+              data-analytics-id={`quick_action_${q.key}`}
+              aria-label={q.label}
+              className="flex min-h-[72px] flex-col items-center justify-center gap-1 rounded-xl border border-border/40 bg-background px-2 py-2.5 text-center transition-all duration-150 hover:bg-primary/5 hover:border-primary/40 active:scale-95"
+            >
+              <ConceptIcon name={q.icon} className="h-5 w-5 text-primary" />
+              <span className="text-[11px] font-bold leading-tight text-foreground sm:text-xs">{q.label}</span>
+              <span className="hidden text-[9px] font-medium text-muted-foreground sm:block">{q.sub}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
       {/* ── Social proof banner ── */}
-      <section className="relative -mt-1 overflow-hidden bg-primary py-5">
+      <section className="relative mt-4 overflow-hidden bg-primary py-5">
         <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-6 px-6">
           {stats.map((s) => (
             <div key={s.label} className="text-center">

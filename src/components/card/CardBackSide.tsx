@@ -34,15 +34,25 @@ export function CardBackSide({ displayName, visibleStats, isOwner }: CardBackSid
         <div className="flex-1 grid grid-cols-2 gap-4 p-6">
           {visibleStats.map((stat) => {
             const Icon = stat.icon;
+            const isText = typeof stat.value === 'string';
             return (
               <div
                 key={stat.key}
                 className="flex flex-col items-center justify-center rounded-2xl bg-muted/40 border border-border/30 p-4 gap-1.5 shadow-sm"
               >
                 <Icon className="h-6 w-6 text-primary/70" aria-hidden="true" />
-                <span className="text-3xl font-extrabold text-foreground leading-none" aria-label={`${stat.value} ${stat.label}`}>
-                  {stat.value}
-                </span>
+                {isText ? (
+                  <span
+                    className="text-base font-extrabold text-foreground leading-tight text-center line-clamp-2"
+                    aria-label={`${stat.label}: ${stat.value}`}
+                  >
+                    {stat.value || '—'}
+                  </span>
+                ) : (
+                  <span className="text-3xl font-extrabold text-foreground leading-none" aria-label={`${stat.value} ${stat.label}`}>
+                    {stat.value}
+                  </span>
+                )}
                 <span className="text-xs font-medium text-muted-foreground text-center leading-tight">{stat.label}</span>
                 {isOwner && stat.visibility !== 'everyone' && (
                   <span className="text-[10px] text-muted-foreground/60" aria-label={stat.visibility === 'matches_only' ? 'Visible to matches only' : 'Hidden'}>

@@ -312,6 +312,19 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
               </div>
             </SheetHeader>
 
+            {/* Social proof */}
+            <div
+              className="flex items-center gap-2 rounded-xl bg-amber-500/5 border border-amber-500/20 px-3 py-2"
+              role="status"
+              aria-label="Community gifting activity"
+            >
+              <Users className="h-3.5 w-3.5 text-amber-600 shrink-0" />
+              <p className="text-[11px] text-foreground/80">
+                <span className="font-bold text-amber-700 dark:text-amber-400 tabular-nums">{socialProof.fansThisWeek}</span> fans bought{' '}
+                <span className="font-bold text-amber-700 dark:text-amber-400 tabular-nums">{socialProof.roundsThisWeek}</span> rounds this week 🍻
+              </p>
+            </div>
+
             {/* Amount */}
             <section aria-labelledby="amt-label" className="space-y-2.5">
               <h3 id="amt-label" className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
@@ -320,13 +333,13 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
               <div className="grid grid-cols-3 gap-2">
                 <AmountTile
                   selected={amountChoice === 'single'}
-                  onClick={() => { haptic('selection'); setAmountChoice('single'); }}
+                  onClick={() => { haptic('selection'); setAmountChoice('single'); trackBeerEvent('beer_quick_amount_selected', { kind: 'single', amount: SINGLE_BEER }); }}
                   title="Single beer"
                   price={`$${SINGLE_BEER}`}
                 />
                 <AmountTile
                   selected={amountChoice === 'round'}
-                  onClick={() => { haptic('selection'); setAmountChoice('round'); }}
+                  onClick={() => { haptic('selection'); setAmountChoice('round'); trackBeerEvent('beer_quick_amount_selected', { kind: 'round', amount: SINGLE_BEER * defaultRecipients }); }}
                   title={`Round of ${defaultRecipients}`}
                   price={`$${SINGLE_BEER * defaultRecipients}`}
                   disabled={defaultRecipients < 2}
@@ -338,6 +351,36 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                   price="$"
                 />
               </div>
+
+              {/* Quick amounts */}
+              <div className="flex items-center gap-2 pt-0.5" role="group" aria-label="Quick amounts">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Quick</span>
+                {QUICK_AMOUNTS.map((amt) => {
+                  const active = amountChoice === 'custom' && customAmount === String(amt);
+                  return (
+                    <button
+                      key={amt}
+                      type="button"
+                      onClick={() => {
+                        haptic('selection');
+                        setAmountChoice('custom');
+                        setCustomAmount(String(amt));
+                        trackBeerEvent('beer_quick_amount_selected', { kind: 'preset', amount: amt });
+                      }}
+                      aria-pressed={active}
+                      className={cn(
+                        'flex-1 min-h-[40px] rounded-full border-2 text-sm font-bold transition-colors',
+                        active
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border bg-card hover:border-primary/40',
+                      )}
+                    >
+                      ${amt}
+                    </button>
+                  );
+                })}
+              </div>
+
               {amountChoice === 'custom' && (
                 <div className="flex items-center gap-2 pt-1">
                   <span className="text-2xl font-bold text-muted-foreground">$</span>
@@ -347,13 +390,70 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                     min={1}
                     step="1"
                     value={customAmount}
-                    onChange={(e) => setCustomAmount(e.target.value)}
+                    onChange={(e) => {
+                      setCustomAmount(e.target.value);
+                      trackBeerEvent('beer_amount_custom_entered', { amount: e.target.value });
+                    }}
                     aria-label="Custom amount in dollars"
                     className="text-lg font-semibold"
                   />
                 </div>
               )}
             </section>
+
+            {/* Public shoutout message */}
+            {isPublic && (
+              <section className="space-y-2" aria-labelledby="msg-label">
+                <div className="flex items-center justify-between">
+                  <label id="msg-label" htmlFor="shoutout-msg" className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
+                    Add a message <span className="font-normal normal-case text-[10px]">(optional)</span>
+                  </label>
+                  <span className="text-[10px] text-muted-foreground tabular-nums">{shoutoutMessage.length}/120</span>
+                </div>
+                <Textarea
+                  id="shoutout-msg"
+                  value={shoutoutMessage}
+                  onChange={(e) => {
+                    const v = e.target.value.slice(0, 120);
+                    setShoutoutMessage(v);
+                    if (v.length === 1) trackBeerEvent('beer_message_added', {});
+                  }}
+                  placeholder="Cheers from the bleachers 🍻"
+                  className="min-h-[60px] resize-none text-sm"
+                  maxLength={120}
+                />
+                <div className="flex flex-wrap gap-1.5" role="list" aria-label="Suggested messages">
+                  {SUGGESTED_MESSAGES.slice(0, 3).map((msg) => (
+                    <button
+                      key={msg}
+                      type="button"
+                      onClick={() => { haptic('selection'); setShoutoutMessage(msg); }}
+                      className="text-[11px] rounded-full border border-border bg-card px-2.5 py-1 hover:border-primary/40 min-h-[32px]"
+                    >
+                      {msg}
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Partner promo */}
+            {partnerPromo && (
+              <div
+                role="status"
+                className="flex items-start gap-2.5 rounded-2xl border-2 border-emerald-500/30 bg-emerald-500/5 p-3"
+              >
+                <Tag className="h-4 w-4 mt-0.5 text-emerald-600 shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">
+                    Bonus from {partnerPromo.barName}: {partnerPromo.perk}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Promo code <span className="font-mono font-bold">{partnerPromo.code}</span> auto-applied for patrons.
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Split + Tip */}
             {(isMulti || tipPct > 0 || amountChoice === 'round') && (

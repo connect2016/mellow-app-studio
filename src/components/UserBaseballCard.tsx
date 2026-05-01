@@ -98,6 +98,7 @@ export function UserBaseballCard({
   statPreferences,
   isMatch = false,
   isOwner = false,
+  userId,
 }: UserBaseballCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [activeReactions, setActiveReactions] = useState<ReactionDef[]>([]);

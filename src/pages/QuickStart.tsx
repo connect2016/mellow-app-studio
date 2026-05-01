@@ -425,23 +425,28 @@ export default function QuickStart() {
                   aria-hidden
                 />
                 <div
+                  ref={chipsListRef}
+                  tabIndex={-1}
                   role="group"
                   aria-label="Hangout zones"
-                  className="flex gap-2 overflow-x-auto snap-x scrollbar-hide px-1 -mx-1 xs:flex-wrap xs:overflow-visible xs:snap-none sm:grid sm:grid-cols-2"
+                  className="flex gap-2 overflow-x-auto snap-x scrollbar-hide px-1 -mx-1 xs:flex-wrap xs:overflow-visible xs:snap-none sm:grid sm:grid-cols-2 focus:outline-none"
                 >
                 {ZONES.map((opt) => {
                   const selected = zones.includes(opt.id);
+                  const isSuggested = suggestedZone === opt.id;
                   const Icon = opt.Icon;
                   return (
                     <button
                       key={opt.id}
+                      ref={isSuggested ? suggestedChipRef : undefined}
                       type="button"
                       role="checkbox"
                       aria-checked={selected}
-                      aria-label={`${opt.label}${selected ? ', selected' : ''}`}
+                      aria-label={`${opt.label}${isSuggested ? ', suggested by location' : ''}${selected ? ', selected' : ''}`}
+                      data-suggested={isSuggested || undefined}
                       onClick={() => toggleZone(opt.id)}
                       className={cn(
-                        'inline-flex items-center gap-2 rounded-full border-2 transition-all',
+                        'inline-flex items-center gap-2 rounded-full border-2 transition-all relative',
                         'min-h-[44px] px-3 py-2 text-sm font-semibold text-left',
                         'snap-start shrink-0 xs:shrink',
                         'active:scale-[0.96] duration-[120ms]',
@@ -449,10 +454,16 @@ export default function QuickStart() {
                         selected
                           ? 'bg-primary text-primary-foreground border-primary shadow-md'
                           : 'bg-background/70 text-foreground border-primary/50 hover:bg-primary/5',
+                        isSuggested && 'ring-2 ring-accent ring-offset-1',
                       )}
                     >
                       <Icon className="h-4 w-4 shrink-0" aria-hidden />
                       <span className="truncate">{opt.label}</span>
+                      {isSuggested && (
+                        <span className="ml-1 rounded-full bg-accent/90 text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide">
+                          Suggested
+                        </span>
+                      )}
                       {selected && <Check className="h-4 w-4 ml-1 shrink-0" aria-hidden />}
                     </button>
                   );
@@ -466,9 +477,17 @@ export default function QuickStart() {
                 <span className="font-semibold text-foreground">Out of Country</span> to see visiting-fan meetups.
               </p>
 
-              {geoHint && zones.length === 0 && (
-                <p className="mt-1 text-[11px] text-muted-foreground">{geoHint}</p>
-              )}
+              {/* Why we ask for location — opens privacy modal */}
+              <button
+                type="button"
+                onClick={() => setShowPrivacyModal(true)}
+                className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline underline-offset-2 min-h-[32px]"
+                aria-haspopup="dialog"
+                aria-controls="location-privacy-modal"
+              >
+                <Info className="h-3 w-3" aria-hidden />
+                Why we ask for location
+              </button>
 
               {showZoneError && (
                 <p

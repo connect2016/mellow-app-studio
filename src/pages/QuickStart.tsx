@@ -5,16 +5,23 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, MapPin, Globe, Map as MapIcon, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import quickstartBg from '@/assets/quickstart-bg.jpg';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
-type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere';
+type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere' | 'out_of_state' | 'out_of_country';
 type GroupSize = 'solo' | 'small' | 'big';
+
+function track(event: string, payload?: Record<string, unknown>) {
+  try {
+    window.dispatchEvent(new CustomEvent(event, { detail: payload }));
+    (window as any).gtag?.('event', event, payload ?? {});
+    (window as any).plausible?.(event, { props: payload });
+  } catch { /* no-op */ }
+}
 
 const INTENTS: { id: Intent; emoji: string; label: string; sub: string }[] = [
   { id: 'watch_game', emoji: '', label: 'Watch the game', sub: 'Live scores, section chats, predictions' },
@@ -30,11 +37,20 @@ const BEHAVIORS: { id: Behavior; emoji: string; label: string }[] = [
   { id: 'at_home', emoji: '', label: 'At home' },
 ];
 
-const ZONES: { id: Zone; label: string }[] = [
-  { id: 'wrigleyville', label: 'Wrigleyville' },
-  { id: 'lakeview', label: 'Lakeview' },
-  { id: 'loop', label: 'The Loop' },
-  { id: 'anywhere', label: 'Anywhere in Chicago' },
+type ZoneOption = {
+  id: Zone;
+  label: string;
+  Icon: React.ComponentType<any>;
+  example?: string;
+};
+
+const ZONES: ZoneOption[] = [
+  { id: 'wrigleyville', label: 'Wrigleyville', Icon: MapPin },
+  { id: 'lakeview', label: 'Lakeview', Icon: MapPin },
+  { id: 'loop', label: 'The Loop', Icon: MapPin },
+  { id: 'anywhere', label: 'Anywhere in Chicago', Icon: MapPin },
+  { id: 'out_of_state', label: 'Out of State', Icon: MapIcon, example: 'Visiting fan? See traveling-fan meetups.' },
+  { id: 'out_of_country', label: 'Out of Country', Icon: Globe, example: 'Repping the Cubs abroad? Connect globally.' },
 ];
 
 const GROUPS: { id: GroupSize; emoji: string; label: string }[] = [
@@ -49,21 +65,72 @@ export default function QuickStart() {
   const [step, setStep] = useState(0);
   const [intent, setIntent] = useState<Intent | null>(null);
   const [behavior, setBehavior] = useState<Behavior | null>(null);
-  const [zone, setZone] = useState<Zone | null>(null);
+  const [zones, setZones] = useState<Zone[]>([]);
   const [group, setGroup] = useState<GroupSize | null>(null);
   const [saving, setSaving] = useState(false);
+  const [geoHint, setGeoHint] = useState<string | null>(null);
+  const [showZoneError, setShowZoneError] = useState(false);
 
   useEffect(() => {
     if (!user) navigate('/auth');
   }, [user, navigate]);
 
+  useEffect(() => {
+    track('quickstart_shown');
+  }, []);
+
+  // Opt-in geolocation prefill for nearest local zone
+  useEffect(() => {
+    if (!('geolocation' in navigator)) {
+      setGeoHint('Allow location to get a suggested zone.');
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        // Wrigley Field ~41.948,-87.655. Within ~3mi → wrigleyville.
+        const dLat = latitude - 41.9484;
+        const dLng = longitude - -87.6553;
+        const approxMiles = Math.sqrt(dLat * dLat + dLng * dLng) * 69;
+        let suggested: Zone | null = null;
+        if (approxMiles < 1.5) suggested = 'wrigleyville';
+        else if (approxMiles < 4) suggested = 'lakeview';
+        else if (approxMiles < 10) suggested = 'loop';
+        else if (approxMiles < 200) suggested = 'anywhere';
+        if (suggested) {
+          setZones((prev) => (prev.length ? prev : [suggested!]));
+        }
+      },
+      () => setGeoHint('Allow location to get a suggested zone.'),
+      { enableHighAccuracy: false, timeout: 4000, maximumAge: 600000 },
+    );
+  }, []);
+
   const totalSteps = 3;
   const canAdvance =
-    (step === 0 && intent) ||
-    (step === 1 && behavior) ||
-    (step === 2 && zone && group);
+    (step === 0 && !!intent) ||
+    (step === 1 && !!behavior) ||
+    (step === 2 && zones.length > 0 && !!group);
+
+  const toggleZone = (id: Zone) => {
+    setShowZoneError(false);
+    setZones((prev) => {
+      const next = prev.includes(id) ? prev.filter((z) => z !== id) : [...prev, id];
+      track('chip_toggled', { chip_id: id, new_state: next.includes(id) ? 'selected' : 'deselected' });
+      return next;
+    });
+  };
+
+  const clearZones = () => {
+    setZones([]);
+    track('chip_toggled', { chip_id: 'all', new_state: 'cleared' });
+  };
 
   const handleNext = async () => {
+    if (step === 2 && zones.length === 0) {
+      setShowZoneError(true);
+      return;
+    }
     if (step < totalSteps - 1) {
       setStep(step + 1);
       return;
@@ -76,7 +143,8 @@ export default function QuickStart() {
         quick_start: {
           primary_intent: intent,
           gameday_behavior: behavior,
-          hangout_zone: zone,
+          hangout_zones: zones,
+          hangout_zone: zones[0] ?? null,
           group_size: group,
           completed_at: new Date().toISOString(),
         },
@@ -87,7 +155,13 @@ export default function QuickStart() {
       toast.error('Could not save preferences');
       return;
     }
+    track('quickstart_continue', { selected_chips: zones, intent, behavior, group });
     toast.success("You're all set — let's go");
+    navigate('/discover');
+  };
+
+  const handleSkip = () => {
+    track('quickstart_skip', { step });
     navigate('/discover');
   };
 
@@ -155,23 +229,97 @@ export default function QuickStart() {
         )}
 
         {step === 2 && (
-          <Section title="A couple last things" sub="So we can tune your home feed.">
+          <Section title="A couple last things" sub="Pick where you hang so we can tune your feed.">
             <div>
-              <p className="eyebrow mb-2">Favorite hangout zone</p>
-              <div className="grid grid-cols-2 gap-2">
-                {ZONES.map((opt) => (
-                  <button
-                    key={opt.id}
-                    onClick={() => setZone(opt.id)}
-                    className={cn(
-                      'rounded-xl px-3 py-3 text-sm font-semibold transition-all surface-card text-left',
-                      zone === opt.id && 'ring-2 ring-primary bg-primary/5',
-                    )}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
+              <div className="flex items-baseline justify-between mb-2">
+                <p className="eyebrow">Favorite hangout zones</p>
+                <span className="text-[11px] text-muted-foreground">Multi-select</span>
               </div>
+
+              {/* Selection summary bar */}
+              <div
+                className={cn(
+                  'flex items-center gap-2 rounded-xl border px-3 py-2 mb-3 text-xs transition-colors',
+                  zones.length > 0
+                    ? 'border-primary/40 bg-primary/5 text-foreground'
+                    : 'border-border/60 bg-muted/40 text-muted-foreground',
+                )}
+                aria-live="polite"
+              >
+                <span className="font-semibold shrink-0">Selected:</span>
+                <span className="flex-1 truncate">
+                  {zones.length === 0
+                    ? 'None yet'
+                    : `${zones
+                        .map((z) => ZONES.find((o) => o.id === z)?.label)
+                        .filter(Boolean)
+                        .join(', ')} (${zones.length})`}
+                </span>
+                {zones.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={clearZones}
+                    aria-label="Clear all selected zones"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-background/60"
+                  >
+                    <X className="h-3.5 w-3.5" aria-hidden />
+                  </button>
+                )}
+              </div>
+
+              {/* Chip grid */}
+              <div
+                role="group"
+                aria-label="Hangout zones"
+                className="flex flex-wrap gap-2 sm:grid sm:grid-cols-2"
+              >
+                {ZONES.map((opt) => {
+                  const selected = zones.includes(opt.id);
+                  const Icon = opt.Icon;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      role="checkbox"
+                      aria-checked={selected}
+                      aria-label={`${opt.label}${selected ? ', selected' : ''}`}
+                      onClick={() => toggleZone(opt.id)}
+                      className={cn(
+                        'inline-flex items-center gap-2 rounded-full border-2 transition-all',
+                        'min-h-[44px] px-3 py-2 text-sm font-semibold text-left',
+                        'active:scale-[0.96] duration-[120ms]',
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+                        selected
+                          ? 'bg-primary text-primary-foreground border-primary shadow-md'
+                          : 'bg-background/70 text-foreground border-primary/50 hover:bg-primary/5',
+                      )}
+                    >
+                      <Icon className="h-4 w-4 shrink-0" aria-hidden />
+                      <span className="truncate">{opt.label}</span>
+                      {selected && <Check className="h-4 w-4 ml-1 shrink-0" aria-hidden />}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Examples for travel options */}
+              <p className="mt-2 text-[11px] text-muted-foreground leading-snug">
+                Traveling? Choose <span className="font-semibold text-foreground">Out of State</span> or{' '}
+                <span className="font-semibold text-foreground">Out of Country</span> to see visiting-fan meetups.
+              </p>
+
+              {geoHint && zones.length === 0 && (
+                <p className="mt-1 text-[11px] text-muted-foreground">{geoHint}</p>
+              )}
+
+              {showZoneError && (
+                <p
+                  role="alert"
+                  className="mt-2 text-xs font-semibold text-destructive"
+                >
+                  Pick at least one zone to tune your feed or tap Skip for now.
+                </p>
+              )}
             </div>
 
             <div>
@@ -209,10 +357,22 @@ export default function QuickStart() {
               className="flex-1"
               disabled={!canAdvance || saving}
               onClick={handleNext}
+              aria-label={
+                step === 2 && zones.length === 0
+                  ? 'Select at least one zone'
+                  : step === totalSteps - 1
+                  ? "Let's go"
+                  : 'Continue'
+              }
             >
               {step === totalSteps - 1 ? (
                 <>
-                  {saving ? 'Saving…' : "Let's go"} <Check className="size-4" />
+                  {saving
+                    ? 'Saving…'
+                    : zones.length === 0
+                    ? 'Select at least one'
+                    : "Let's go"}{' '}
+                  <Check className="size-4" />
                 </>
               ) : (
                 <>
@@ -222,8 +382,8 @@ export default function QuickStart() {
             </Button>
           </div>
           <button
-            onClick={() => navigate('/discover')}
-            className="block mx-auto mt-3 text-sm text-destructive-foreground hover:text-foreground underline-offset-4 hover:underline"
+            onClick={handleSkip}
+            className="block mx-auto mt-3 text-sm text-destructive-foreground hover:text-foreground underline-offset-4 hover:underline min-h-[44px]"
           >
             Skip for now
           </button>

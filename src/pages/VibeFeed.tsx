@@ -633,4 +633,3 @@ function BeerShoutoutsStrip() {
   );
 }
 
-function _UnusedClosingTag() { return null;

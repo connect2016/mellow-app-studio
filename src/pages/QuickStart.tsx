@@ -357,10 +357,22 @@ export default function QuickStart() {
               className="flex-1"
               disabled={!canAdvance || saving}
               onClick={handleNext}
+              aria-label={
+                step === 2 && zones.length === 0
+                  ? 'Select at least one zone'
+                  : step === totalSteps - 1
+                  ? "Let's go"
+                  : 'Continue'
+              }
             >
               {step === totalSteps - 1 ? (
                 <>
-                  {saving ? 'Saving…' : "Let's go"} <Check className="size-4" />
+                  {saving
+                    ? 'Saving…'
+                    : zones.length === 0
+                    ? 'Select at least one'
+                    : "Let's go"}{' '}
+                  <Check className="size-4" />
                 </>
               ) : (
                 <>
@@ -370,8 +382,8 @@ export default function QuickStart() {
             </Button>
           </div>
           <button
-            onClick={() => navigate('/discover')}
-            className="block mx-auto mt-3 text-sm text-destructive-foreground hover:text-foreground underline-offset-4 hover:underline"
+            onClick={handleSkip}
+            className="block mx-auto mt-3 text-sm text-destructive-foreground hover:text-foreground underline-offset-4 hover:underline min-h-[44px]"
           >
             Skip for now
           </button>

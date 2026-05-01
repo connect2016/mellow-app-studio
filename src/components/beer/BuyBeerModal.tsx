@@ -357,6 +357,26 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
               </label>
             </section>
 
+            {/* Trust & Safety banners */}
+            {eligibilityBlocked && eligibility.data && !eligibility.data.eligible && (
+              <div role="alert" className="flex gap-2.5 rounded-2xl border-2 border-destructive/40 bg-destructive/5 p-3">
+                <ShieldAlert className="h-4 w-4 mt-0.5 text-destructive shrink-0" />
+                <div className="space-y-0.5">
+                  <p className="text-sm font-semibold text-destructive">Gifting unavailable</p>
+                  <p className="text-xs text-muted-foreground">{eligibility.data.message}</p>
+                </div>
+              </div>
+            )}
+            {!eligibilityBlocked && capsBlocked && (
+              <div role="alert" className="flex gap-2.5 rounded-2xl border-2 border-amber-500/40 bg-amber-500/5 p-3">
+                <AlertTriangle className="h-4 w-4 mt-0.5 text-amber-600 shrink-0" />
+                <div className="space-y-0.5">
+                  <p className="text-sm font-semibold">Limit reached</p>
+                  <p className="text-xs text-muted-foreground">{caps.message}</p>
+                </div>
+              </div>
+            )}
+
             {/* Summary */}
             <section
               aria-label="Charge summary"
@@ -374,18 +394,32 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
               <p className="pt-1.5 text-[11px] leading-snug text-muted-foreground">
                 {recipientNotice}
               </p>
+              <p className="text-[10px] text-muted-foreground/80 flex items-center gap-1 pt-0.5">
+                <Lock className="h-2.5 w-2.5" />
+                Card details handled by our payment processor — never stored on Cubbies Buddies.
+              </p>
+              {caps.remainingToday < caps.dailyCap && (
+                <p className="text-[10px] text-muted-foreground/80">
+                  Daily gifting remaining: <span className="tabular-nums font-semibold">${caps.remainingToday.toFixed(2)}</span> of ${caps.dailyCap}
+                  {caps.isNewAccount && ' · New-account limits apply'}
+                </p>
+              )}
             </section>
 
             {/* Actions */}
             <div className="space-y-2 pt-1">
               <Button
                 onClick={handleConfirm}
-                disabled={!valid || submitting}
+                disabled={!canSubmit || submitting}
                 className="w-full h-14 text-base"
                 size="lg"
               >
                 {submitting ? (
                   <>Processing…</>
+                ) : eligibilityBlocked ? (
+                  <>Gifting unavailable</>
+                ) : capsBlocked ? (
+                  <>Limit reached</>
                 ) : (
                   <>
                     <Beer className="h-5 w-5" />
@@ -393,9 +427,10 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                   </>
                 )}
               </Button>
-              <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground">
-                <ShieldCheck className="h-3 w-3" />
-                Secure payment · Refundable within 24h
+              <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground text-center px-2">
+                <ShieldCheck className="h-3 w-3 shrink-0" />
+                Secure payment · Refundable within {GIFT_LIMITS.REFUND_WINDOW_HOURS}h ·{' '}
+                <Link to="/profile?tab=transactions" className="underline">View transactions</Link>
               </p>
               {!user && (
                 <p className="text-center text-[11px] text-destructive">

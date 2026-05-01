@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Beer } from 'lucide-react';
 import { Button, ButtonProps } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { haptic } from '@/lib/haptics';
+import { trackBeerEvent } from '@/lib/gift-social';
 import { BuyBeerModal, type BeerModalContext } from './BuyBeerModal';
 
 // Re-export for back-compat with existing imports
@@ -51,6 +52,14 @@ export function BuyBeerButton({
 }: Props) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
+  const viewedRef = useRef(false);
+
+  useEffect(() => {
+    if (!viewedRef.current && user) {
+      viewedRef.current = true;
+      trackBeerEvent('beer_button_viewed', { context: context.kind });
+    }
+  }, [user, context.kind]);
 
   if (loggedInOnly && !user) return null;
 

@@ -27,6 +27,10 @@ import { WelcomeTour } from '@/components/WelcomeTour';
 import { LiveVibeCheckIn } from '@/components/LiveVibeCheckIn';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
+import { BuyBeerOnboardingTooltip } from '@/components/beer/BuyBeerOnboardingTooltip';
+import { ReturnTheFavorBanner } from '@/components/beer/ReturnTheFavorBanner';
+import { BeerShoutoutCard } from '@/components/beer/BeerShoutoutCard';
+import { getShoutouts, type BeerShoutout } from '@/lib/gift-social';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),
@@ -306,6 +310,12 @@ export default function VibeFeed() {
           </TabsList>
 
           <TabsContent value="vibes">
+        {/* Reciprocity nudges from recent gifts to this user */}
+        <ReturnTheFavorBanner className="mb-3" />
+
+        {/* Recent public beer shoutouts */}
+        <BeerShoutoutsStrip />
+
         {/* Subheader */}
         <p
           className="text-center text-sm font-semibold mb-3"
@@ -601,6 +611,25 @@ export default function VibeFeed() {
       </div>
 
       {isGuest && <GuestBanner />}
+      <BuyBeerOnboardingTooltip />
     </DynamicBackground>
   );
 }
+
+function BeerShoutoutsStrip() {
+  const [items, setItems] = useState<BeerShoutout[]>(() => getShoutouts(3));
+  useEffect(() => {
+    const refresh = () => setItems(getShoutouts(3));
+    window.addEventListener('cb:beer-shoutouts:changed', refresh);
+    return () => window.removeEventListener('cb:beer-shoutouts:changed', refresh);
+  }, []);
+  if (items.length === 0) return null;
+  return (
+    <div className="space-y-2 mb-3">
+      {items.map((s) => (
+        <BeerShoutoutCard key={s.id} shoutout={s} />
+      ))}
+    </div>
+  );
+}
+

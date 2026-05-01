@@ -9,7 +9,7 @@ import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2, AlertTriangle, ShieldAlert, Lock } from 'lucide-react';
+import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2, AlertTriangle, ShieldAlert, Lock, Share2, Tag, Users, Trophy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { haptic } from '@/lib/haptics';
 import { useToast } from '@/hooks/use-toast';
@@ -21,6 +21,20 @@ import {
   recordTransaction,
   GIFT_LIMITS,
 } from '@/lib/gift-trust-safety';
+import {
+  QUICK_AMOUNTS,
+  SUGGESTED_MESSAGES,
+  addReciprocityNudge,
+  getPartnerPromo,
+  getSocialProof,
+  postShoutout,
+  processGiftReward,
+  shareShoutout,
+  trackBeerEvent,
+  type RoundGiverBadge,
+} from '@/lib/gift-social';
+import { BeerConfetti } from './BeerConfetti';
+import { Textarea } from '@/components/ui/textarea';
 import { Link } from 'react-router-dom';
 
 export type BeerModalContext =
@@ -75,9 +89,13 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
   const [savePayment, setSavePayment] = useState<boolean>(true);
   const [isPublic, setIsPublic] = useState<boolean>(true);
   const [emailReceipt, setEmailReceipt] = useState<boolean>(false);
+  const [shoutoutMessage, setShoutoutMessage] = useState<string>('');
   const [step, setStep] = useState<'compose' | 'success'>('compose');
   const [undoSeconds, setUndoSeconds] = useState<number>(10);
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [awardedBadges, setAwardedBadges] = useState<RoundGiverBadge[]>([]);
+
+  const socialProof = useMemo(() => getSocialProof(), [open]);
 
   // Reset when opened
   useEffect(() => {
@@ -89,10 +107,13 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       setPayment('saved');
       setIsPublic(true);
       setEmailReceipt(false);
+      setShoutoutMessage('');
       setStep('compose');
       setUndoSeconds(10);
+      setAwardedBadges([]);
+      trackBeerEvent('beer_modal_opened', { context: context.kind });
     }
-  }, [open, isMulti]);
+  }, [open, isMulti, context.kind]);
 
   // Undo countdown
   useEffect(() => {
@@ -150,15 +171,33 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
   const canQuickPay = payment !== 'new'; // saved/apple/google = 1-tap
   const canSubmit = valid && !eligibilityBlocked && !capsBlocked && !!user;
 
+  const partnerPromo = useMemo(() => {
+    const barName = context.kind === 'bar' ? context.barName : undefined;
+    return getPartnerPromo(barName, subtotal);
+  }, [context, subtotal]);
+
+  const senderName =
+    (user?.user_metadata?.full_name as string | undefined) ??
+    (user?.email?.split('@')[0]) ??
+    'A fan';
+  const senderAvatar = user?.user_metadata?.avatar_url as string | undefined;
+
   const handleConfirm = async () => {
     if (!canSubmit || submitting) return;
     setSubmitting(true);
     haptic('selection');
+    trackBeerEvent('beer_purchase_attempted', {
+      amount: total,
+      context: context.kind,
+      isPublic,
+      hasMessage: shoutoutMessage.trim().length > 0,
+      promoCode: partnerPromo?.code,
+    });
     // Simulated processing — payment integration not yet wired
     await new Promise((r) => setTimeout(r, 600));
 
     const fraud = detectFraudPattern(recipientUserId);
-    recordTransaction({
+    const tx = recordTransaction({
       amount: total,
       recipientLabel: recipientLabel(context),
       recipientUserId,
@@ -177,12 +216,52 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       onOpenChange(false);
       return;
     }
+
+    // Post public shoutout to feed
+    if (isPublic) {
+      const shoutout = postShoutout({
+        txId: tx.id,
+        senderId: user?.id,
+        senderName,
+        senderAvatar,
+        recipientId: recipientUserId,
+        recipientLabel: recipientLabel(context),
+        context: context.kind,
+        amount: total,
+        message: shoutoutMessage.trim() || undefined,
+        promoCode: partnerPromo?.code,
+      });
+      trackBeerEvent('beer_shoutout_posted', { shoutoutId: shoutout.id });
+    }
+
+    // Reciprocity nudge for the recipient (fan-to-fan only)
+    if (context.kind === 'fan' && recipientUserId) {
+      addReciprocityNudge({
+        fromUserId: user?.id,
+        fromName: senderName,
+        fromAvatar: senderAvatar,
+        amount: total,
+        shoutoutId: tx.id,
+      });
+    }
+
+    // Rewards: badges + leaderboard points
+    const newBadges = processGiftReward({
+      amount: total,
+      tipped: tipPct > 0,
+      isPublic,
+    });
+    setAwardedBadges(newBadges);
+    newBadges.forEach((b) => trackBeerEvent('beer_badge_awarded', { badgeId: b.id }));
+
+    trackBeerEvent('beer_purchase_completed', { amount: total, txId: tx.id });
     setStep('success');
     haptic('heavy');
   };
 
   const handleUndo = () => {
     haptic('medium');
+    trackBeerEvent('beer_purchase_undone', {});
     toast({
       title: 'Purchase cancelled',
       description: 'No charge was made. Your card was not billed.',
@@ -233,6 +312,19 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
               </div>
             </SheetHeader>
 
+            {/* Social proof */}
+            <div
+              className="flex items-center gap-2 rounded-xl bg-amber-500/5 border border-amber-500/20 px-3 py-2"
+              role="status"
+              aria-label="Community gifting activity"
+            >
+              <Users className="h-3.5 w-3.5 text-amber-600 shrink-0" />
+              <p className="text-[11px] text-foreground/80">
+                <span className="font-bold text-amber-700 dark:text-amber-400 tabular-nums">{socialProof.fansThisWeek}</span> fans bought{' '}
+                <span className="font-bold text-amber-700 dark:text-amber-400 tabular-nums">{socialProof.roundsThisWeek}</span> rounds this week 🍻
+              </p>
+            </div>
+
             {/* Amount */}
             <section aria-labelledby="amt-label" className="space-y-2.5">
               <h3 id="amt-label" className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
@@ -241,13 +333,13 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
               <div className="grid grid-cols-3 gap-2">
                 <AmountTile
                   selected={amountChoice === 'single'}
-                  onClick={() => { haptic('selection'); setAmountChoice('single'); }}
+                  onClick={() => { haptic('selection'); setAmountChoice('single'); trackBeerEvent('beer_quick_amount_selected', { kind: 'single', amount: SINGLE_BEER }); }}
                   title="Single beer"
                   price={`$${SINGLE_BEER}`}
                 />
                 <AmountTile
                   selected={amountChoice === 'round'}
-                  onClick={() => { haptic('selection'); setAmountChoice('round'); }}
+                  onClick={() => { haptic('selection'); setAmountChoice('round'); trackBeerEvent('beer_quick_amount_selected', { kind: 'round', amount: SINGLE_BEER * defaultRecipients }); }}
                   title={`Round of ${defaultRecipients}`}
                   price={`$${SINGLE_BEER * defaultRecipients}`}
                   disabled={defaultRecipients < 2}
@@ -259,6 +351,36 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                   price="$"
                 />
               </div>
+
+              {/* Quick amounts */}
+              <div className="flex items-center gap-2 pt-0.5" role="group" aria-label="Quick amounts">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Quick</span>
+                {QUICK_AMOUNTS.map((amt) => {
+                  const active = amountChoice === 'custom' && customAmount === String(amt);
+                  return (
+                    <button
+                      key={amt}
+                      type="button"
+                      onClick={() => {
+                        haptic('selection');
+                        setAmountChoice('custom');
+                        setCustomAmount(String(amt));
+                        trackBeerEvent('beer_quick_amount_selected', { kind: 'preset', amount: amt });
+                      }}
+                      aria-pressed={active}
+                      className={cn(
+                        'flex-1 min-h-[40px] rounded-full border-2 text-sm font-bold transition-colors',
+                        active
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border bg-card hover:border-primary/40',
+                      )}
+                    >
+                      ${amt}
+                    </button>
+                  );
+                })}
+              </div>
+
               {amountChoice === 'custom' && (
                 <div className="flex items-center gap-2 pt-1">
                   <span className="text-2xl font-bold text-muted-foreground">$</span>
@@ -268,13 +390,70 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                     min={1}
                     step="1"
                     value={customAmount}
-                    onChange={(e) => setCustomAmount(e.target.value)}
+                    onChange={(e) => {
+                      setCustomAmount(e.target.value);
+                      trackBeerEvent('beer_amount_custom_entered', { amount: e.target.value });
+                    }}
                     aria-label="Custom amount in dollars"
                     className="text-lg font-semibold"
                   />
                 </div>
               )}
             </section>
+
+            {/* Public shoutout message */}
+            {isPublic && (
+              <section className="space-y-2" aria-labelledby="msg-label">
+                <div className="flex items-center justify-between">
+                  <label id="msg-label" htmlFor="shoutout-msg" className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
+                    Add a message <span className="font-normal normal-case text-[10px]">(optional)</span>
+                  </label>
+                  <span className="text-[10px] text-muted-foreground tabular-nums">{shoutoutMessage.length}/120</span>
+                </div>
+                <Textarea
+                  id="shoutout-msg"
+                  value={shoutoutMessage}
+                  onChange={(e) => {
+                    const v = e.target.value.slice(0, 120);
+                    setShoutoutMessage(v);
+                    if (v.length === 1) trackBeerEvent('beer_message_added', {});
+                  }}
+                  placeholder="Cheers from the bleachers 🍻"
+                  className="min-h-[60px] resize-none text-sm"
+                  maxLength={120}
+                />
+                <div className="flex flex-wrap gap-1.5" role="list" aria-label="Suggested messages">
+                  {SUGGESTED_MESSAGES.slice(0, 3).map((msg) => (
+                    <button
+                      key={msg}
+                      type="button"
+                      onClick={() => { haptic('selection'); setShoutoutMessage(msg); }}
+                      className="text-[11px] rounded-full border border-border bg-card px-2.5 py-1 hover:border-primary/40 min-h-[32px]"
+                    >
+                      {msg}
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Partner promo */}
+            {partnerPromo && (
+              <div
+                role="status"
+                className="flex items-start gap-2.5 rounded-2xl border-2 border-emerald-500/30 bg-emerald-500/5 p-3"
+              >
+                <Tag className="h-4 w-4 mt-0.5 text-emerald-600 shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">
+                    Bonus from {partnerPromo.barName}: {partnerPromo.perk}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Promo code <span className="font-mono font-bold">{partnerPromo.code}</span> auto-applied for patrons.
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Split + Tip */}
             {(isMulti || tipPct > 0 || amountChoice === 'round') && (
@@ -332,7 +511,12 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
             <section className="space-y-2">
               <button
                 type="button"
-                onClick={() => setIsPublic((p) => !p)}
+                onClick={() => {
+                  setIsPublic((p) => {
+                    trackBeerEvent('beer_public_toggled', { isPublic: !p });
+                    return !p;
+                  });
+                }}
                 className="w-full flex items-center justify-between gap-3 rounded-xl border bg-card p-3 text-left"
                 aria-pressed={isPublic}
               >
@@ -428,7 +612,13 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                 ) : (
                   <>
                     <Beer className="h-5 w-5" />
-                    {canQuickPay ? `Pay $${total.toFixed(2)}` : `Confirm $${total.toFixed(2)}`}
+                    {context.kind === 'fan'
+                      ? `Buy ${context.firstName ?? 'a fan'} a Beer · $${total.toFixed(2)}`
+                      : context.kind === 'meetup'
+                      ? `Buy the Round · $${total.toFixed(2)}`
+                      : context.kind === 'bar'
+                      ? `Buy a Round at ${context.barName} · $${total.toFixed(2)}`
+                      : `Send · $${total.toFixed(2)}`}
                   </>
                 )}
               </Button>
@@ -452,6 +642,10 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
             undoSeconds={undoSeconds}
             onUndo={handleUndo}
             onClose={handleClose}
+            senderName={senderName}
+            message={shoutoutMessage.trim() || undefined}
+            awardedBadges={awardedBadges}
+            partnerPromoCode={partnerPromo?.code}
           />
         )}
       </SheetContent>
@@ -519,6 +713,7 @@ function SummaryRow({
 
 function SuccessView({
   context, total, isPublic, undoSeconds, onUndo, onClose,
+  senderName, message, awardedBadges, partnerPromoCode,
 }: {
   context: BeerModalContext;
   total: number;
@@ -526,12 +721,31 @@ function SuccessView({
   undoSeconds: number;
   onUndo: () => void;
   onClose: () => void;
+  senderName: string;
+  message?: string;
+  awardedBadges: RoundGiverBadge[];
+  partnerPromoCode?: string;
 }) {
+  const { toast } = useToast();
   const who = recipientLabel(context);
   const txId = useMemo(() => `BB-${Date.now().toString(36).toUpperCase()}`, []);
+
+  const handleShare = async () => {
+    haptic('light');
+    const result = await shareShoutout({
+      senderName,
+      recipientLabel: who,
+      amount: total,
+      message,
+    });
+    if (result === 'copied') toast({ title: 'Receipt link copied' });
+    else if (result === 'failed') toast({ title: "Couldn't share", description: 'Try again or copy manually.' });
+  };
+
   return (
     <div className="px-5 pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-center space-y-5">
       <div className="relative mx-auto h-24 w-24">
+        <BeerConfetti active />
         <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
         <div className="absolute inset-0 rounded-full bg-primary grid place-items-center shadow-lg">
           <Check className="h-12 w-12 text-primary-foreground" strokeWidth={3} aria-hidden="true" />
@@ -549,6 +763,26 @@ function SuccessView({
         </p>
       </div>
 
+      {/* Newly awarded badges */}
+      {awardedBadges.length > 0 && (
+        <div className="rounded-2xl border-2 border-amber-500/30 bg-amber-500/5 p-3 text-left">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 mb-2 flex items-center gap-1">
+            <Trophy className="h-3 w-3" /> New badge unlocked
+          </p>
+          <div className="space-y-1.5">
+            {awardedBadges.map((b) => (
+              <div key={b.id} className="flex items-center gap-2">
+                <span className="text-2xl">{b.emoji}</span>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold leading-tight">{b.label}</p>
+                  <p className="text-[11px] text-muted-foreground leading-tight">{b.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="rounded-2xl border bg-card p-4 text-left space-y-2">
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">Total charged</span>
@@ -558,21 +792,35 @@ function SuccessView({
           <span className="text-muted-foreground">Receipt #</span>
           <span className="font-mono">{txId}</span>
         </div>
+        {partnerPromoCode && (
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-muted-foreground">Promo applied</span>
+            <span className="font-mono font-bold text-emerald-600">{partnerPromoCode}</span>
+          </div>
+        )}
         <Separator />
         <p className="text-[11px] text-muted-foreground">
           Need help? You can request a refund within 24 hours from your{' '}
-          <span className="underline">Beer Money receipts</span>.
+          <Link to="/profile?tab=transactions" className="underline">Beer Money receipts</Link>.
         </p>
       </div>
 
-      {undoSeconds > 0 ? (
-        <Button variant="outline" onClick={onUndo} className="w-full">
-          <Undo2 className="h-4 w-4" />
-          Undo ({undoSeconds}s)
+      <div className="grid grid-cols-2 gap-2">
+        {undoSeconds > 0 ? (
+          <Button variant="outline" onClick={onUndo} className="col-span-1">
+            <Undo2 className="h-4 w-4" />
+            Undo ({undoSeconds}s)
+          </Button>
+        ) : (
+          <Button variant="outline" disabled className="col-span-1">
+            Undo closed
+          </Button>
+        )}
+        <Button variant="outline" onClick={handleShare} className="col-span-1">
+          <Share2 className="h-4 w-4" />
+          Share
         </Button>
-      ) : (
-        <p className="text-[11px] text-muted-foreground">Undo window closed.</p>
-      )}
+      </div>
 
       <Button onClick={onClose} className="w-full" size="lg">
         Done

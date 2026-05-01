@@ -176,9 +176,13 @@ export default function QuickStart() {
 
   const toggleZone = (id: Zone) => {
     setShowZoneError(false);
+    setUserEditedZones(true);
     setZones((prev) => {
       const next = prev.includes(id) ? prev.filter((z) => z !== id) : [...prev, id];
       track('chip_toggled', { chip_id: id, new_state: next.includes(id) ? 'selected' : 'deselected' });
+      if (suggestedZone === id && prev.includes(id)) {
+        track('quickstart_suggested_zone_rejected', { suggested_zone_id: id });
+      }
       return next;
     });
   };

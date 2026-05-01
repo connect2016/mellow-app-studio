@@ -9,6 +9,7 @@ import { FOOD_SPOTS } from '@/lib/wrigleyville-eats';
 import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 
 interface BarInfo {
   name: string;

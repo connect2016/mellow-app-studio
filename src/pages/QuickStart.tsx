@@ -566,6 +566,34 @@ export default function QuickStart() {
           </button>
         </div>
       </main>
+
+      {/* Privacy modal — explains location use */}
+      <Dialog open={showPrivacyModal} onOpenChange={setShowPrivacyModal}>
+        <DialogContent id="location-privacy-modal" aria-labelledby="location-privacy-title" className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle id="location-privacy-title">Location is optional</DialogTitle>
+            <DialogDescription className="text-sm leading-relaxed">
+              We use your location only to suggest a nearby zone for a better feed. We don't store
+              precise coordinates long-term — we store only the selected zone name. You can change
+              or remove this any time in Settings.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setShowPrivacyModal(false);
+                navigate('/settings');
+              }}
+            >
+              Manage Settings
+            </Button>
+            <Button variant="premium" onClick={() => setShowPrivacyModal(false)}>
+              Got it
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       </div>
     </div>
   );

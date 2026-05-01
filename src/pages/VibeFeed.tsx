@@ -27,6 +27,10 @@ import { WelcomeTour } from '@/components/WelcomeTour';
 import { LiveVibeCheckIn } from '@/components/LiveVibeCheckIn';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
+import { BuyBeerOnboardingTooltip } from '@/components/beer/BuyBeerOnboardingTooltip';
+import { ReturnTheFavorBanner } from '@/components/beer/ReturnTheFavorBanner';
+import { BeerShoutoutCard } from '@/components/beer/BeerShoutoutCard';
+import { getShoutouts, type BeerShoutout } from '@/lib/gift-social';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),

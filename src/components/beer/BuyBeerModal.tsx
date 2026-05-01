@@ -360,13 +360,14 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
             {/* Trust & Safety banners */}
             {(() => {
               const e = eligibility.data;
-              if (!e || e.eligible) return null;
+              if (!e || e.eligible === true) return null;
+              const msg = e.eligible === false ? e.message : '';
               return (
                 <div role="alert" className="flex gap-2.5 rounded-2xl border-2 border-destructive/40 bg-destructive/5 p-3">
                   <ShieldAlert className="h-4 w-4 mt-0.5 text-destructive shrink-0" />
                   <div className="space-y-0.5">
                     <p className="text-sm font-semibold text-destructive">Gifting unavailable</p>
-                    <p className="text-xs text-muted-foreground">{e.message}</p>
+                    <p className="text-xs text-muted-foreground">{msg}</p>
                   </div>
                 </div>
               );

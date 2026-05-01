@@ -358,15 +358,19 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
             </section>
 
             {/* Trust & Safety banners */}
-            {eligibilityBlocked && eligibility.data && !eligibility.data.eligible && (
-              <div role="alert" className="flex gap-2.5 rounded-2xl border-2 border-destructive/40 bg-destructive/5 p-3">
-                <ShieldAlert className="h-4 w-4 mt-0.5 text-destructive shrink-0" />
-                <div className="space-y-0.5">
-                  <p className="text-sm font-semibold text-destructive">Gifting unavailable</p>
-                  <p className="text-xs text-muted-foreground">{eligibility.data.message}</p>
+            {(() => {
+              const e = eligibility.data;
+              if (!eligibilityBlocked || !e || e.eligible) return null;
+              return (
+                <div role="alert" className="flex gap-2.5 rounded-2xl border-2 border-destructive/40 bg-destructive/5 p-3">
+                  <ShieldAlert className="h-4 w-4 mt-0.5 text-destructive shrink-0" />
+                  <div className="space-y-0.5">
+                    <p className="text-sm font-semibold text-destructive">Gifting unavailable</p>
+                    <p className="text-xs text-muted-foreground">{e.message}</p>
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
             {!eligibilityBlocked && capsBlocked && (
               <div role="alert" className="flex gap-2.5 rounded-2xl border-2 border-amber-500/40 bg-amber-500/5 p-3">
                 <AlertTriangle className="h-4 w-4 mt-0.5 text-amber-600 shrink-0" />

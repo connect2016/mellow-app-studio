@@ -195,6 +195,14 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       hasMessage: shoutoutMessage.trim().length > 0,
       promoCode: partnerPromo?.code,
     });
+    trackBuyBeer('buy_beer_payment_attempt', {
+      amount: total,
+      recipients: defaultRecipients,
+      context: context.kind,
+      isPublic,
+      paymentMethod: payment,
+      tipPct,
+    });
     // Simulated processing — payment integration not yet wired
     await new Promise((r) => setTimeout(r, 600));
 

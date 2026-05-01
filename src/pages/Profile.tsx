@@ -262,6 +262,7 @@ export default function Profile() {
                 favoriteFoodSpot: cardExtras.favorite_food_spot ?? undefined,
               }}
               isOwner={isOwnProfile}
+              userId={!isOwnProfile ? id : undefined}
               className="max-w-full"
             />
 

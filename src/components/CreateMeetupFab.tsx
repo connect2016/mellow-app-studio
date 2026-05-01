@@ -8,6 +8,7 @@ import { useCreateMeetup } from '@/contexts/CreateMeetupContext';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 import { haptic } from '@/lib/haptics';
 import { cn } from '@/lib/utils';
+import { beerExperiments, trackBuyBeer } from '@/lib/beer-experiments';
 
 // Routes where the FAB should be hidden
 const HIDDEN_ROUTES = ['/', '/auth', '/onboarding', '/quick-start', '/verify'];

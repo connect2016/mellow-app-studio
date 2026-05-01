@@ -80,32 +80,93 @@ export default function QuickStart() {
     track('quickstart_shown');
   }, []);
 
-  // Opt-in geolocation prefill for nearest local zone
+  // Opt-in geolocation state
+  const [geoConsent, setGeoConsent] = useState<'pending' | 'granted' | 'denied' | 'ignored'>('pending');
+  const [geoLoading, setGeoLoading] = useState(false);
+  const [geoError, setGeoError] = useState<string | null>(null);
+  const [suggestedZone, setSuggestedZone] = useState<Zone | null>(null);
+  const [userEditedZones, setUserEditedZones] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const suggestedChipRef = useRef<HTMLButtonElement | null>(null);
+  const chipsListRef = useRef<HTMLDivElement | null>(null);
+  const promptShownRef = useRef(false);
+
   useEffect(() => {
+    if (step === 2 && !promptShownRef.current) {
+      promptShownRef.current = true;
+      track('quickstart_location_prompt_shown');
+    }
+  }, [step]);
+
+  const coordsToZone = (latitude: number, longitude: number): Zone => {
+    const dLat = latitude - 41.9484;
+    const dLng = longitude - -87.6553;
+    const approxMiles = Math.sqrt(dLat * dLat + dLng * dLng) * 69;
+    if (approxMiles < 1.5) return 'wrigleyville';
+    if (approxMiles < 4) return 'lakeview';
+    if (approxMiles < 10) return 'loop';
+    if (approxMiles < 200) return 'anywhere';
+    return 'out_of_state';
+  };
+
+  const applySuggestion = (zone: Zone) => {
+    setSuggestedZone(zone);
+    track('quickstart_suggested_zone_shown', { suggested_zone_id: zone });
+    if (!userEditedZones) {
+      setZones((prev) => (prev.includes(zone) ? prev : [...prev, zone]));
+      track('quickstart_suggested_zone_accepted', { suggested_zone_id: zone });
+      const label = ZONES.find((z) => z.id === zone)?.label ?? zone;
+      toast.success(`Suggested: ${label} — you can change this.`);
+      requestAnimationFrame(() => suggestedChipRef.current?.focus());
+    }
+  };
+
+  const requestGeolocation = () => {
+    setGeoError(null);
     if (!('geolocation' in navigator)) {
-      setGeoHint('Allow location to get a suggested zone.');
+      setGeoConsent('denied');
+      setGeoError('Location not available. Pick a zone below or try again.');
+      track('quickstart_location_consent', { value: 'denied', reason: 'unsupported' });
+      requestAnimationFrame(() => chipsListRef.current?.focus());
       return;
     }
+    setGeoLoading(true);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        const { latitude, longitude } = pos.coords;
-        // Wrigley Field ~41.948,-87.655. Within ~3mi → wrigleyville.
-        const dLat = latitude - 41.9484;
-        const dLng = longitude - -87.6553;
-        const approxMiles = Math.sqrt(dLat * dLat + dLng * dLng) * 69;
-        let suggested: Zone | null = null;
-        if (approxMiles < 1.5) suggested = 'wrigleyville';
-        else if (approxMiles < 4) suggested = 'lakeview';
-        else if (approxMiles < 10) suggested = 'loop';
-        else if (approxMiles < 200) suggested = 'anywhere';
-        if (suggested) {
-          setZones((prev) => (prev.length ? prev : [suggested!]));
-        }
+        setGeoLoading(false);
+        setGeoConsent('granted');
+        track('quickstart_location_consent', { value: 'granted' });
+        const zone = coordsToZone(pos.coords.latitude, pos.coords.longitude);
+        applySuggestion(zone);
       },
-      () => setGeoHint('Allow location to get a suggested zone.'),
-      { enableHighAccuracy: false, timeout: 4000, maximumAge: 600000 },
+      () => {
+        setGeoLoading(false);
+        setGeoConsent('denied');
+        setGeoError('Location not available. Pick a zone below or try again.');
+        track('quickstart_location_consent', { value: 'denied' });
+        requestAnimationFrame(() => chipsListRef.current?.focus());
+      },
+      { enableHighAccuracy: false, timeout: 6000, maximumAge: 600000 },
     );
-  }, []);
+  };
+
+  const declineGeolocation = () => {
+    setGeoConsent('ignored');
+    track('quickstart_location_consent', { value: 'ignored' });
+  };
+
+  // Coarse timezone-based fallback — no raw coords
+  const coarseFallback = () => {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      const isChicago = /Chicago/i.test(tz);
+      const isUS = /America\//i.test(tz);
+      const zone: Zone = isChicago ? 'anywhere' : isUS ? 'out_of_state' : 'out_of_country';
+      applySuggestion(zone);
+    } catch {
+      setGeoError('Could not suggest a zone. Please pick one below.');
+    }
+  };
 
   const totalSteps = 3;
   const canAdvance =

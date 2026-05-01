@@ -360,7 +360,7 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
             {/* Trust & Safety banners */}
             {(() => {
               const e = eligibility.data;
-              if (!eligibilityBlocked || !e || e.eligible) return null;
+              if (!e || e.eligible) return null;
               return (
                 <div role="alert" className="flex gap-2.5 rounded-2xl border-2 border-destructive/40 bg-destructive/5 p-3">
                   <ShieldAlert className="h-4 w-4 mt-0.5 text-destructive shrink-0" />

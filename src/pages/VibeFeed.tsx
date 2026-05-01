@@ -310,6 +310,12 @@ export default function VibeFeed() {
           </TabsList>
 
           <TabsContent value="vibes">
+        {/* Reciprocity nudges from recent gifts to this user */}
+        <ReturnTheFavorBanner className="mb-3" />
+
+        {/* Recent public beer shoutouts */}
+        <BeerShoutoutsStrip />
+
         {/* Subheader */}
         <p
           className="text-center text-sm font-semibold mb-3"

@@ -106,13 +106,14 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       setSplitEvenly(isMulti);
       setTipPct(0);
       setPayment('saved');
-      setIsPublic(true);
+      setIsPublic(beerExperiments.defaultPublic());
       setEmailReceipt(false);
       setShoutoutMessage('');
       setStep('compose');
       setUndoSeconds(10);
       setAwardedBadges([]);
       trackBeerEvent('beer_modal_opened', { context: context.kind });
+      trackBuyBeer('buy_beer_modal_opened', { context: context.kind });
     }
   }, [open, isMulti, context.kind]);
 

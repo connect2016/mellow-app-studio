@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { haptic } from '@/lib/haptics';
 import { trackBeerEvent } from '@/lib/gift-social';
+import { beerExperiments, trackBuyBeer } from '@/lib/beer-experiments';
 import { BuyBeerModal, type BeerModalContext } from './BuyBeerModal';
 
 // Re-export for back-compat with existing imports
@@ -12,6 +13,8 @@ export type BeerContext = BeerModalContext;
 
 interface Props extends Omit<ButtonProps, 'onClick' | 'children'> {
   context: BeerModalContext;
+  /** Where this CTA renders, drives A/B placement test + analytics slicing. */
+  surface?: 'profile_card' | 'fab' | 'vibe_post' | 'bar_pin' | 'meetup_detail' | 'other';
   /** Override the auto-generated label (e.g. "Buy Jake a Beer") */
   label?: string;
   /** Show a one-line microcopy below the button explaining who gets it */

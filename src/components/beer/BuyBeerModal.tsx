@@ -89,9 +89,13 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
   const [savePayment, setSavePayment] = useState<boolean>(true);
   const [isPublic, setIsPublic] = useState<boolean>(true);
   const [emailReceipt, setEmailReceipt] = useState<boolean>(false);
+  const [shoutoutMessage, setShoutoutMessage] = useState<string>('');
   const [step, setStep] = useState<'compose' | 'success'>('compose');
   const [undoSeconds, setUndoSeconds] = useState<number>(10);
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [awardedBadges, setAwardedBadges] = useState<RoundGiverBadge[]>([]);
+
+  const socialProof = useMemo(() => getSocialProof(), [open]);
 
   // Reset when opened
   useEffect(() => {
@@ -103,10 +107,13 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       setPayment('saved');
       setIsPublic(true);
       setEmailReceipt(false);
+      setShoutoutMessage('');
       setStep('compose');
       setUndoSeconds(10);
+      setAwardedBadges([]);
+      trackBeerEvent('beer_modal_opened', { context: context.kind });
     }
-  }, [open, isMulti]);
+  }, [open, isMulti, context.kind]);
 
   // Undo countdown
   useEffect(() => {

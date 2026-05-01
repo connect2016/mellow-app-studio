@@ -26,6 +26,7 @@ import { GuestBanner } from '@/components/GuestBanner';
 import { WelcomeTour } from '@/components/WelcomeTour';
 import { LiveVibeCheckIn } from '@/components/LiveVibeCheckIn';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),
@@ -536,6 +537,24 @@ export default function VibeFeed() {
 
                       {post.caption && (
                         <p className="text-sm text-foreground mt-2.5">{post.caption}</p>
+                      )}
+
+                      {/* Buy a Round for this post — targets the poster */}
+                      {!isOwn && (
+                        <div className="mt-3 pt-3 border-t border-border/50">
+                          <BuyBeerButton
+                            context={{
+                              kind: 'fan',
+                              userId: post.user_id,
+                              firstName: profile?.display_name?.split(' ')[0],
+                            }}
+                            label={`Buy a Round for ${profile?.display_name?.split(' ')[0] || 'this fan'}`}
+                            variant="outline"
+                            size="sm"
+                            showMicrocopy
+                            className="w-full rounded-xl"
+                          />
+                        </div>
                       )}
                     </div>
                   </Card>

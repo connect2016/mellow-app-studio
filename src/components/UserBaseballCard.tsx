@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { StatPreference, StatKey, DEFAULT_STAT_PREFS, StatVisibility } from '@/hooks/useStatPreferences';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 
 
 interface CardStats {
@@ -39,6 +40,7 @@ export interface UserBaseballCardProps {
   statPreferences?: StatPreference[];
   isMatch?: boolean;
   isOwner?: boolean;
+  userId?: string;
 }
 
 export const STAT_ICONS: Record<StatKey, React.ElementType> = {
@@ -96,6 +98,7 @@ export function UserBaseballCard({
   statPreferences,
   isMatch = false,
   isOwner = false,
+  userId,
 }: UserBaseballCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [activeReactions, setActiveReactions] = useState<ReactionDef[]>([]);
@@ -217,6 +220,19 @@ export function UserBaseballCard({
               <span>{GAMEDAY_INTENT_LABELS[gi]}</span>
             </span>
           ))}
+        </div>
+      )}
+
+      {/* Buy a Beer — primary social CTA on public profile cards */}
+      {!isOwner && userId && !isFlipped && (
+        <div className="mt-4 px-1">
+          <BuyBeerButton
+            context={{ kind: 'fan', userId, firstName: displayName?.split(' ')[0] }}
+            variant="default"
+            size="default"
+            showMicrocopy
+            className="w-full rounded-2xl min-h-[48px] shadow-sm"
+          />
         </div>
       )}
 

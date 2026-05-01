@@ -9,6 +9,7 @@ import { FOOD_SPOTS } from '@/lib/wrigleyville-eats';
 import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 
 interface BarInfo {
   name: string;
@@ -194,6 +195,13 @@ export function BarDetailSheet({ bar, onClose }: Props) {
 
               {/* Actions */}
               <div className="space-y-3">
+                <BuyBeerButton
+                  context={{ kind: 'bar', barName: bar.name }}
+                  label={`Buy a Round at ${bar.name}`}
+                  variant="default"
+                  showMicrocopy
+                  className="w-full rounded-xl min-h-[52px] text-sm"
+                />
                 <Button
                   onClick={() => setShowCreateMeetup(true)}
                   className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 text-secondary-foreground shadow-lg"

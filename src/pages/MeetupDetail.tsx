@@ -17,6 +17,7 @@ import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 
 function formatFull(iso: string) {
   const d = new Date(iso);
@@ -123,15 +124,24 @@ export default function MeetupDetail() {
               </div>
               <p className="text-xs text-muted-foreground mt-0.5">{formatRelative(meetup.meeting_time)}</p>
             </div>
-            <Button
-              onClick={() => setShowShare(true)}
-              variant="outline"
-              size="icon"
-              className="rounded-full shrink-0"
-              aria-label="Share meetup"
-            >
-              <Share2 className="h-4 w-4" />
-            </Button>
+            <div className="flex items-center gap-1.5 shrink-0">
+              <BuyBeerButton
+                context={{ kind: 'meetup', meetupId: meetup.id, locationName: meetup.location_name }}
+                label="Buy Round"
+                variant="default"
+                size="sm"
+                className="rounded-full text-xs px-3 min-h-[40px]"
+              />
+              <Button
+                onClick={() => setShowShare(true)}
+                variant="outline"
+                size="icon"
+                className="rounded-full"
+                aria-label="Share meetup"
+              >
+                <Share2 className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
 
           {/* Vibe tags */}

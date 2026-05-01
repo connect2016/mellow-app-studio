@@ -127,6 +127,10 @@ export default function QuickStart() {
   };
 
   const handleNext = async () => {
+    if (step === 2 && zones.length === 0) {
+      setShowZoneError(true);
+      return;
+    }
     if (step < totalSteps - 1) {
       setStep(step + 1);
       return;
@@ -139,7 +143,8 @@ export default function QuickStart() {
         quick_start: {
           primary_intent: intent,
           gameday_behavior: behavior,
-          hangout_zone: zone,
+          hangout_zones: zones,
+          hangout_zone: zones[0] ?? null,
           group_size: group,
           completed_at: new Date().toISOString(),
         },
@@ -150,7 +155,13 @@ export default function QuickStart() {
       toast.error('Could not save preferences');
       return;
     }
+    track('quickstart_continue', { selected_chips: zones, intent, behavior, group });
     toast.success("You're all set — let's go");
+    navigate('/discover');
+  };
+
+  const handleSkip = () => {
+    track('quickstart_skip', { step });
     navigate('/discover');
   };
 

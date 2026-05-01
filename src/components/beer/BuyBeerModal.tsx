@@ -9,7 +9,7 @@ import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2, AlertTriangle, ShieldAlert, Lock, Share2, Tag, Users, Zap, Trophy } from 'lucide-react';
+import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2, AlertTriangle, ShieldAlert, Lock, Share2, Tag, Users, Trophy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { haptic } from '@/lib/haptics';
 import { useToast } from '@/hooks/use-toast';

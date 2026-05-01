@@ -51,20 +51,29 @@ export function BuyBeerButton({
   variant = 'outline',
   size,
   iconOnly = false,
+  surface = 'other',
   ...rest
 }: Props) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const viewedRef = useRef(false);
 
+  // A/B test: hide CTA on surfaces excluded by the placement experiment.
+  const placementAllows =
+    surface === 'profile_card' || surface === 'fab'
+      ? beerExperiments.shouldShowAt(surface)
+      : true;
+
   useEffect(() => {
-    if (!viewedRef.current && user) {
+    if (!viewedRef.current && user && placementAllows) {
       viewedRef.current = true;
-      trackBeerEvent('beer_button_viewed', { context: context.kind });
+      trackBeerEvent('beer_button_viewed', { context: context.kind, surface });
+      trackBuyBeer('buy_beer_cta_viewed', { context: context.kind, surface });
     }
-  }, [user, context.kind]);
+  }, [user, context.kind, surface, placementAllows]);
 
   if (loggedInOnly && !user) return null;
+  if (!placementAllows) return null;
 
   const text = label ?? defaultLabel(context);
 
@@ -72,6 +81,7 @@ export function BuyBeerButton({
     e.stopPropagation();
     e.preventDefault();
     haptic('selection');
+    trackBuyBeer('buy_beer_cta_clicked', { context: context.kind, surface });
     setOpen(true);
   };
 

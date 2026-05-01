@@ -371,34 +371,36 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                 />
               </div>
 
-              {/* Quick amounts */}
-              <div className="flex items-center gap-2 pt-0.5" role="group" aria-label="Quick amounts">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Quick</span>
-                {QUICK_AMOUNTS.map((amt) => {
-                  const active = amountChoice === 'custom' && customAmount === String(amt);
-                  return (
-                    <button
-                      key={amt}
-                      type="button"
-                      onClick={() => {
-                        haptic('selection');
-                        setAmountChoice('custom');
-                        setCustomAmount(String(amt));
-                        trackBeerEvent('beer_quick_amount_selected', { kind: 'preset', amount: amt });
-                      }}
-                      aria-pressed={active}
-                      className={cn(
-                        'flex-1 min-h-[40px] rounded-full border-2 text-sm font-bold transition-colors',
-                        active
-                          ? 'border-primary bg-primary/10 text-primary'
-                          : 'border-border bg-card hover:border-primary/40',
-                      )}
-                    >
-                      ${amt}
-                    </button>
-                  );
-                })}
-              </div>
+              {/* Quick amounts (A/B test: quick_amounts on/off) */}
+              {beerExperiments.showQuickAmounts() && (
+                <div className="flex items-center gap-2 pt-0.5" role="group" aria-label="Quick amounts">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Quick</span>
+                  {QUICK_AMOUNTS.map((amt) => {
+                    const active = amountChoice === 'custom' && customAmount === String(amt);
+                    return (
+                      <button
+                        key={amt}
+                        type="button"
+                        onClick={() => {
+                          haptic('selection');
+                          setAmountChoice('custom');
+                          setCustomAmount(String(amt));
+                          trackBeerEvent('beer_quick_amount_selected', { kind: 'preset', amount: amt });
+                        }}
+                        aria-pressed={active}
+                        className={cn(
+                          'flex-1 min-h-[40px] rounded-full border-2 text-sm font-bold transition-colors',
+                          active
+                            ? 'border-primary bg-primary/10 text-primary'
+                            : 'border-border bg-card hover:border-primary/40',
+                        )}
+                      >
+                        ${amt}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
 
               {amountChoice === 'custom' && (
                 <div className="flex items-center gap-2 pt-1">

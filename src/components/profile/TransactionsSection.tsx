@@ -21,6 +21,7 @@ import {
   updateTransactionStatus,
   type LedgerEntry,
 } from '@/lib/gift-trust-safety';
+import { trackBuyBeer } from '@/lib/beer-experiments';
 import { cn } from '@/lib/utils';
 
 const REFUND_WINDOW_MS = GIFT_LIMITS.REFUND_WINDOW_HOURS * 60 * 60 * 1000;

@@ -69,7 +69,7 @@ export default function QuickStart() {
   const [zones, setZones] = useState<Zone[]>([]);
   const [group, setGroup] = useState<GroupSize | null>(null);
   const [saving, setSaving] = useState(false);
-  const [geoHint, setGeoHint] = useState<string | null>(null);
+  
   const [showZoneError, setShowZoneError] = useState(false);
 
   useEffect(() => {

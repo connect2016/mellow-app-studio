@@ -269,10 +269,9 @@ export async function shareShoutout(payload: {
   const text = `${payload.senderName} bought ${payload.recipientLabel} a round 🍻${payload.message ? ` "${payload.message}"` : ''} — Cubbies Buddies`;
   const url = payload.url ?? (typeof window !== 'undefined' ? window.location.origin : 'https://cubbiesbuddies.com');
   try {
-    // @ts-expect-error navigator.share has narrow TS types
-    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
-      // @ts-expect-error
-      await navigator.share({ title: 'Round on the house 🍻', text, url });
+    const nav = typeof navigator !== 'undefined' ? (navigator as Navigator & { share?: (d: ShareData) => Promise<void> }) : null;
+    if (nav && typeof nav.share === 'function') {
+      await nav.share({ title: 'Round on the house 🍻', text, url });
       trackBeerEvent('beer_shoutout_shared', { method: 'native' });
       return 'shared';
     }

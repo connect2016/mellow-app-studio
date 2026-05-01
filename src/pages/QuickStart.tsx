@@ -229,23 +229,97 @@ export default function QuickStart() {
         )}
 
         {step === 2 && (
-          <Section title="A couple last things" sub="So we can tune your home feed.">
+          <Section title="A couple last things" sub="Pick where you hang so we can tune your feed.">
             <div>
-              <p className="eyebrow mb-2">Favorite hangout zone</p>
-              <div className="grid grid-cols-2 gap-2">
-                {ZONES.map((opt) => (
-                  <button
-                    key={opt.id}
-                    onClick={() => setZone(opt.id)}
-                    className={cn(
-                      'rounded-xl px-3 py-3 text-sm font-semibold transition-all surface-card text-left',
-                      zone === opt.id && 'ring-2 ring-primary bg-primary/5',
-                    )}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
+              <div className="flex items-baseline justify-between mb-2">
+                <p className="eyebrow">Favorite hangout zones</p>
+                <span className="text-[11px] text-muted-foreground">Multi-select</span>
               </div>
+
+              {/* Selection summary bar */}
+              <div
+                className={cn(
+                  'flex items-center gap-2 rounded-xl border px-3 py-2 mb-3 text-xs transition-colors',
+                  zones.length > 0
+                    ? 'border-primary/40 bg-primary/5 text-foreground'
+                    : 'border-border/60 bg-muted/40 text-muted-foreground',
+                )}
+                aria-live="polite"
+              >
+                <span className="font-semibold shrink-0">Selected:</span>
+                <span className="flex-1 truncate">
+                  {zones.length === 0
+                    ? 'None yet'
+                    : `${zones
+                        .map((z) => ZONES.find((o) => o.id === z)?.label)
+                        .filter(Boolean)
+                        .join(', ')} (${zones.length})`}
+                </span>
+                {zones.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={clearZones}
+                    aria-label="Clear all selected zones"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-background/60"
+                  >
+                    <X className="h-3.5 w-3.5" aria-hidden />
+                  </button>
+                )}
+              </div>
+
+              {/* Chip grid */}
+              <div
+                role="group"
+                aria-label="Hangout zones"
+                className="flex flex-wrap gap-2 sm:grid sm:grid-cols-2"
+              >
+                {ZONES.map((opt) => {
+                  const selected = zones.includes(opt.id);
+                  const Icon = opt.Icon;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      role="checkbox"
+                      aria-checked={selected}
+                      aria-label={`${opt.label}${selected ? ', selected' : ''}`}
+                      onClick={() => toggleZone(opt.id)}
+                      className={cn(
+                        'inline-flex items-center gap-2 rounded-full border-2 transition-all',
+                        'min-h-[44px] px-3 py-2 text-sm font-semibold text-left',
+                        'active:scale-[0.96] duration-[120ms]',
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+                        selected
+                          ? 'bg-primary text-primary-foreground border-primary shadow-md'
+                          : 'bg-background/70 text-foreground border-primary/50 hover:bg-primary/5',
+                      )}
+                    >
+                      <Icon className="h-4 w-4 shrink-0" aria-hidden />
+                      <span className="truncate">{opt.label}</span>
+                      {selected && <Check className="h-4 w-4 ml-1 shrink-0" aria-hidden />}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Examples for travel options */}
+              <p className="mt-2 text-[11px] text-muted-foreground leading-snug">
+                Traveling? Choose <span className="font-semibold text-foreground">Out of State</span> or{' '}
+                <span className="font-semibold text-foreground">Out of Country</span> to see visiting-fan meetups.
+              </p>
+
+              {geoHint && zones.length === 0 && (
+                <p className="mt-1 text-[11px] text-muted-foreground">{geoHint}</p>
+              )}
+
+              {showZoneError && (
+                <p
+                  role="alert"
+                  className="mt-2 text-xs font-semibold text-destructive"
+                >
+                  Pick at least one zone to tune your feed or tap Skip for now.
+                </p>
+              )}
             </div>
 
             <div>

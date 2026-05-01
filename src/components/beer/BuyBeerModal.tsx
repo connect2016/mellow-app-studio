@@ -9,11 +9,19 @@ import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2 } from 'lucide-react';
+import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2, AlertTriangle, ShieldAlert, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { haptic } from '@/lib/haptics';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { useGiftEligibility } from '@/hooks/useGiftEligibility';
+import {
+  checkSenderCaps,
+  detectFraudPattern,
+  recordTransaction,
+  GIFT_LIMITS,
+} from '@/lib/gift-trust-safety';
+import { Link } from 'react-router-dom';
 
 export type BeerModalContext =
   | { kind: 'fan'; userId: string; firstName?: string; avatarUrl?: string }
@@ -126,16 +134,49 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       : `Patrons at ${who} get ${amt} each — sent anonymously.`;
   }, [context, perRecipient, isPublic]);
 
+  /* ── Trust & safety ── */
+  const recipientUserId = context.kind === 'fan' ? context.userId : undefined;
+  const eligibility = useGiftEligibility(recipientUserId);
+  const eligibilityBlocked =
+    !!recipientUserId && eligibility.data && !eligibility.data.eligible;
+
+  const caps = useMemo(
+    () => checkSenderCaps(total, { accountCreatedAt: user?.created_at }),
+    [total, user?.created_at],
+  );
+  const capsBlocked = !caps.allowed;
+
   const valid = subtotal > 0 && total > 0;
   const canQuickPay = payment !== 'new'; // saved/apple/google = 1-tap
+  const canSubmit = valid && !eligibilityBlocked && !capsBlocked && !!user;
 
   const handleConfirm = async () => {
-    if (!valid || submitting) return;
+    if (!canSubmit || submitting) return;
     setSubmitting(true);
     haptic('selection');
     // Simulated processing — payment integration not yet wired
     await new Promise((r) => setTimeout(r, 600));
+
+    const fraud = detectFraudPattern(recipientUserId);
+    recordTransaction({
+      amount: total,
+      recipientLabel: recipientLabel(context),
+      recipientUserId,
+      context: context.kind,
+      isPublic,
+      status: fraud.flagged ? 'flagged_hold' : 'completed',
+      flagReason: fraud.reason,
+    });
+
     setSubmitting(false);
+    if (fraud.flagged) {
+      toast({
+        title: 'Hold for review',
+        description: `${fraud.reason} You'll get an update within 24h. No funds released yet.`,
+      });
+      onOpenChange(false);
+      return;
+    }
     setStep('success');
     haptic('heavy');
   };
@@ -316,6 +357,31 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
               </label>
             </section>
 
+            {/* Trust & Safety banners */}
+            {(() => {
+              const e = eligibility.data;
+              if (!e || e.eligible === true) return null;
+              const msg = e.eligible === false ? e.message : '';
+              return (
+                <div role="alert" className="flex gap-2.5 rounded-2xl border-2 border-destructive/40 bg-destructive/5 p-3">
+                  <ShieldAlert className="h-4 w-4 mt-0.5 text-destructive shrink-0" />
+                  <div className="space-y-0.5">
+                    <p className="text-sm font-semibold text-destructive">Gifting unavailable</p>
+                    <p className="text-xs text-muted-foreground">{msg}</p>
+                  </div>
+                </div>
+              );
+            })()}
+            {!eligibilityBlocked && capsBlocked && (
+              <div role="alert" className="flex gap-2.5 rounded-2xl border-2 border-amber-500/40 bg-amber-500/5 p-3">
+                <AlertTriangle className="h-4 w-4 mt-0.5 text-amber-600 shrink-0" />
+                <div className="space-y-0.5">
+                  <p className="text-sm font-semibold">Limit reached</p>
+                  <p className="text-xs text-muted-foreground">{caps.message}</p>
+                </div>
+              </div>
+            )}
+
             {/* Summary */}
             <section
               aria-label="Charge summary"
@@ -333,18 +399,32 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
               <p className="pt-1.5 text-[11px] leading-snug text-muted-foreground">
                 {recipientNotice}
               </p>
+              <p className="text-[10px] text-muted-foreground/80 flex items-center gap-1 pt-0.5">
+                <Lock className="h-2.5 w-2.5" />
+                Card details handled by our payment processor — never stored on Cubbies Buddies.
+              </p>
+              {caps.remainingToday < caps.dailyCap && (
+                <p className="text-[10px] text-muted-foreground/80">
+                  Daily gifting remaining: <span className="tabular-nums font-semibold">${caps.remainingToday.toFixed(2)}</span> of ${caps.dailyCap}
+                  {caps.isNewAccount && ' · New-account limits apply'}
+                </p>
+              )}
             </section>
 
             {/* Actions */}
             <div className="space-y-2 pt-1">
               <Button
                 onClick={handleConfirm}
-                disabled={!valid || submitting}
+                disabled={!canSubmit || submitting}
                 className="w-full h-14 text-base"
                 size="lg"
               >
                 {submitting ? (
                   <>Processing…</>
+                ) : eligibilityBlocked ? (
+                  <>Gifting unavailable</>
+                ) : capsBlocked ? (
+                  <>Limit reached</>
                 ) : (
                   <>
                     <Beer className="h-5 w-5" />
@@ -352,9 +432,10 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                   </>
                 )}
               </Button>
-              <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground">
-                <ShieldCheck className="h-3 w-3" />
-                Secure payment · Refundable within 24h
+              <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground text-center px-2">
+                <ShieldCheck className="h-3 w-3 shrink-0" />
+                Secure payment · Refundable within {GIFT_LIMITS.REFUND_WINDOW_HOURS}h ·{' '}
+                <Link to="/profile?tab=transactions" className="underline">View transactions</Link>
               </p>
               {!user && (
                 <p className="text-center text-[11px] text-destructive">

@@ -17,6 +17,7 @@ import { useStatPreferences } from '@/hooks/useStatPreferences';
 import { FavoriteBarsSection } from '@/components/profile/FavoriteBarsSection';
 import { BadgesSection } from '@/components/profile/BadgesSection';
 import { MeetupHistorySection } from '@/components/profile/MeetupHistorySection';
+import { TransactionsSection } from '@/components/profile/TransactionsSection';
 import { SavedPlansSection } from '@/components/profile/SavedPlansSection';
 import { PrivateModeBanner } from '@/components/profile/PrivateModeBanner';
 import { PrivateModeToggle } from '@/components/profile/PrivateModeToggle';
@@ -364,6 +365,11 @@ export default function Profile() {
                 <BadgesSection userId={targetUserId} isOwner={isOwnProfile} />
                 <MeetupHistorySection userId={targetUserId} />
                 <SavedPlansSection userId={targetUserId} />
+                {isOwnProfile && (
+                  <div id="transactions" className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm shadow-sm p-4">
+                    <TransactionsSection />
+                  </div>
+                )}
 
                 {isOwnProfile && (
                   <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm overflow-hidden shadow-sm">

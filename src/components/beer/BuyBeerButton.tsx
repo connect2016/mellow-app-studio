@@ -52,6 +52,14 @@ export function BuyBeerButton({
 }: Props) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
+  const viewedRef = useRef(false);
+
+  useEffect(() => {
+    if (!viewedRef.current && user) {
+      viewedRef.current = true;
+      trackBeerEvent('beer_button_viewed', { context: context.kind });
+    }
+  }, [user, context.kind]);
 
   if (loggedInOnly && !user) return null;
 

@@ -43,6 +43,10 @@ export function BeerShoutoutCard({ shoutout, className }: Props) {
 
   const handleShare = async () => {
     haptic('light');
+    trackBuyBeer('buy_beer_share_clicked', {
+      shoutoutId: shoutout.id,
+      amount: shoutout.amount,
+    });
     const result = await shareShoutout({
       senderName: shoutout.senderName,
       recipientLabel: shoutout.recipientLabel,

@@ -304,6 +304,85 @@ export default function QuickStart() {
                 <span className="text-[11px] text-muted-foreground">Multi-select</span>
               </div>
 
+              {/* Opt-in geolocation prompt — appears above the chips */}
+              {geoConsent === 'pending' && (
+                <div
+                  role="region"
+                  aria-labelledby="geo-opt-in-title"
+                  className="rounded-2xl border border-primary/30 bg-primary/5 p-3 mb-3"
+                >
+                  <div className="flex items-start gap-2">
+                    <Navigation className="h-4 w-4 mt-0.5 text-primary shrink-0" aria-hidden />
+                    <div className="flex-1 min-w-0">
+                      <p id="geo-opt-in-title" className="text-sm font-semibold text-foreground">
+                        Use your location to suggest a zone?
+                      </p>
+                      <p className="text-[12px] text-muted-foreground leading-snug mt-0.5">
+                        We can suggest the nearest neighborhood to tune your feed. Optional and editable anytime.
+                      </p>
+                      <div className="flex items-center gap-3 mt-2">
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="premium"
+                          onClick={requestGeolocation}
+                          disabled={geoLoading}
+                          aria-label="Use my location to suggest a nearby zone"
+                        >
+                          {geoLoading ? (
+                            <>
+                              <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
+                              Finding nearby zones…
+                            </>
+                          ) : (
+                            <>
+                              <Navigation className="h-3.5 w-3.5" aria-hidden />
+                              Use My Location
+                            </>
+                          )}
+                        </Button>
+                        <button
+                          type="button"
+                          onClick={declineGeolocation}
+                          className="text-xs font-semibold text-muted-foreground hover:text-foreground underline-offset-4 hover:underline min-h-[44px]"
+                          aria-label="No thanks, do not use my location"
+                        >
+                          No thanks
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {geoLoading && geoConsent !== 'pending' && (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="flex items-center gap-2 rounded-xl border border-border/60 bg-muted/40 px-3 py-2 mb-3 text-xs text-muted-foreground"
+                >
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
+                  Finding nearby zones…
+                </div>
+              )}
+
+              {geoError && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-destructive/40 bg-destructive/10 px-3 py-2 mb-3 text-xs text-foreground flex items-center justify-between gap-2"
+                >
+                  <span>{geoError}</span>
+                  <button
+                    type="button"
+                    onClick={coarseFallback}
+                    className="font-semibold underline underline-offset-2"
+                    aria-label="Suggest me a zone using coarse location"
+                  >
+                    Suggest me
+                  </button>
+                </div>
+              )}
+
               {/* Selection summary bar */}
               <div
                 className={cn(

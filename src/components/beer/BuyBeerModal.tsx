@@ -607,7 +607,13 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                 ) : (
                   <>
                     <Beer className="h-5 w-5" />
-                    {canQuickPay ? `Pay $${total.toFixed(2)}` : `Confirm $${total.toFixed(2)}`}
+                    {context.kind === 'fan'
+                      ? `Buy ${context.firstName ?? 'a fan'} a Beer · $${total.toFixed(2)}`
+                      : context.kind === 'meetup'
+                      ? `Buy the Round · $${total.toFixed(2)}`
+                      : context.kind === 'bar'
+                      ? `Buy a Round at ${context.barName} · $${total.toFixed(2)}`
+                      : `Send · $${total.toFixed(2)}`}
                   </>
                 )}
               </Button>

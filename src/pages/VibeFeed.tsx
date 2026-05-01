@@ -611,6 +611,26 @@ export default function VibeFeed() {
       </div>
 
       {isGuest && <GuestBanner />}
+      <BuyBeerOnboardingTooltip />
     </DynamicBackground>
   );
 }
+
+function BeerShoutoutsStrip() {
+  const [items, setItems] = useState<BeerShoutout[]>(() => getShoutouts(3));
+  useEffect(() => {
+    const refresh = () => setItems(getShoutouts(3));
+    window.addEventListener('cb:beer-shoutouts:changed', refresh);
+    return () => window.removeEventListener('cb:beer-shoutouts:changed', refresh);
+  }, []);
+  if (items.length === 0) return null;
+  return (
+    <div className="space-y-2 mb-3">
+      {items.map((s) => (
+        <BeerShoutoutCard key={s.id} shoutout={s} />
+      ))}
+    </div>
+  );
+}
+
+function _UnusedClosingTag() { return null;

@@ -9,11 +9,19 @@ import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2 } from 'lucide-react';
+import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2, AlertTriangle, ShieldAlert, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { haptic } from '@/lib/haptics';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { useGiftEligibility } from '@/hooks/useGiftEligibility';
+import {
+  checkSenderCaps,
+  detectFraudPattern,
+  recordTransaction,
+  GIFT_LIMITS,
+} from '@/lib/gift-trust-safety';
+import { Link } from 'react-router-dom';
 
 export type BeerModalContext =
   | { kind: 'fan'; userId: string; firstName?: string; avatarUrl?: string }

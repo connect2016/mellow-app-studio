@@ -40,6 +40,7 @@ export interface UserBaseballCardProps {
   statPreferences?: StatPreference[];
   isMatch?: boolean;
   isOwner?: boolean;
+  userId?: string;
 }
 
 export const STAT_ICONS: Record<StatKey, React.ElementType> = {

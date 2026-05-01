@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { haptic } from '@/lib/haptics';
 import { trackBeerEvent } from '@/lib/gift-social';
+import { beerExperiments, trackBuyBeer } from '@/lib/beer-experiments';
 import { BuyBeerModal, type BeerModalContext } from './BuyBeerModal';
 
 // Re-export for back-compat with existing imports
@@ -12,6 +13,8 @@ export type BeerContext = BeerModalContext;
 
 interface Props extends Omit<ButtonProps, 'onClick' | 'children'> {
   context: BeerModalContext;
+  /** Where this CTA renders, drives A/B placement test + analytics slicing. */
+  surface?: 'profile_card' | 'fab' | 'vibe_post' | 'bar_pin' | 'meetup_detail' | 'other';
   /** Override the auto-generated label (e.g. "Buy Jake a Beer") */
   label?: string;
   /** Show a one-line microcopy below the button explaining who gets it */
@@ -48,20 +51,29 @@ export function BuyBeerButton({
   variant = 'outline',
   size,
   iconOnly = false,
+  surface = 'other',
   ...rest
 }: Props) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const viewedRef = useRef(false);
 
+  // A/B test: hide CTA on surfaces excluded by the placement experiment.
+  const placementAllows =
+    surface === 'profile_card' || surface === 'fab'
+      ? beerExperiments.shouldShowAt(surface)
+      : true;
+
   useEffect(() => {
-    if (!viewedRef.current && user) {
+    if (!viewedRef.current && user && placementAllows) {
       viewedRef.current = true;
-      trackBeerEvent('beer_button_viewed', { context: context.kind });
+      trackBeerEvent('beer_button_viewed', { context: context.kind, surface });
+      trackBuyBeer('buy_beer_cta_viewed', { context: context.kind, surface });
     }
-  }, [user, context.kind]);
+  }, [user, context.kind, surface, placementAllows]);
 
   if (loggedInOnly && !user) return null;
+  if (!placementAllows) return null;
 
   const text = label ?? defaultLabel(context);
 
@@ -69,6 +81,7 @@ export function BuyBeerButton({
     e.stopPropagation();
     e.preventDefault();
     haptic('selection');
+    trackBuyBeer('buy_beer_cta_clicked', { context: context.kind, surface });
     setOpen(true);
   };
 

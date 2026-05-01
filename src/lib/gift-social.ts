@@ -317,7 +317,15 @@ export type BeerAnalyticsEvent =
   | 'beer_badge_awarded'
   | 'beer_tooltip_shown'
   | 'beer_tooltip_dismissed'
-  | 'beer_tooltip_cta_clicked';
+  | 'beer_tooltip_cta_clicked'
+  // Canonical product spec events (mirrored via beer-experiments.trackBuyBeer)
+  | 'buy_beer_cta_viewed'
+  | 'buy_beer_cta_clicked'
+  | 'buy_beer_modal_opened'
+  | 'buy_beer_payment_attempt'
+  | 'buy_beer_success'
+  | 'buy_beer_refund_requested'
+  | 'buy_beer_share_clicked';
 
 export function trackBeerEvent(event: BeerAnalyticsEvent, props: Record<string, unknown> = {}) {
   const entry = { event, props, ts: Date.now() };

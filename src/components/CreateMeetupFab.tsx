@@ -8,6 +8,7 @@ import { useCreateMeetup } from '@/contexts/CreateMeetupContext';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 import { haptic } from '@/lib/haptics';
 import { cn } from '@/lib/utils';
+import { beerExperiments, trackBuyBeer } from '@/lib/beer-experiments';
 
 // Routes where the FAB should be hidden
 const HIDDEN_ROUTES = ['/', '/auth', '/onboarding', '/quick-start', '/verify'];
@@ -106,9 +107,12 @@ export function CreateMeetupFab() {
     open();
   };
 
+  const showFabBeer = beerExperiments.shouldShowAt('fab');
+
   const handleBuyBeer = () => {
     haptic('selection');
     setMenuOpen(false);
+    trackBuyBeer('buy_beer_cta_clicked', { context: 'general', surface: 'fab' });
     navigate('/beer-money');
   };
 
@@ -137,20 +141,22 @@ export function CreateMeetupFab() {
               bottom: 'calc(env(safe-area-inset-bottom, 0px) + 210px)',
             }}
           >
-            <button
-              type="button"
-              role="menuitem"
-              onClick={handleBuyBeer}
-              className="flex items-center gap-3 rounded-full bg-card border-2 border-border shadow-xl px-5 py-3 min-h-[52px] active:scale-[0.97] transition-transform"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Beer className="h-5 w-5" />
-              </span>
-              <div className="text-left">
-                <p className="text-sm font-bold text-foreground leading-tight">Buy a Beer</p>
-                <p className="text-[10px] text-muted-foreground leading-tight">Send a fan or bar a round</p>
-              </div>
-            </button>
+            {showFabBeer && (
+              <button
+                type="button"
+                role="menuitem"
+                onClick={handleBuyBeer}
+                className="flex items-center gap-3 rounded-full bg-card border-2 border-border shadow-xl px-5 py-3 min-h-[52px] active:scale-[0.97] transition-transform"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <Beer className="h-5 w-5" />
+                </span>
+                <div className="text-left">
+                  <p className="text-sm font-bold text-foreground leading-tight">Buy a Beer</p>
+                  <p className="text-[10px] text-muted-foreground leading-tight">Send a fan or bar a round</p>
+                </div>
+              </button>
+            )}
             <button
               type="button"
               role="menuitem"

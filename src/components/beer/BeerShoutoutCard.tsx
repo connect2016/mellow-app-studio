@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { reactToShoutout, shareShoutout, trackBeerEvent, type BeerShoutout } from '@/lib/gift-social';
+import { trackBuyBeer } from '@/lib/beer-experiments';
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
 import { haptic } from '@/lib/haptics';
@@ -42,6 +43,10 @@ export function BeerShoutoutCard({ shoutout, className }: Props) {
 
   const handleShare = async () => {
     haptic('light');
+    trackBuyBeer('buy_beer_share_clicked', {
+      shoutoutId: shoutout.id,
+      amount: shoutout.amount,
+    });
     const result = await shareShoutout({
       senderName: shoutout.senderName,
       recipientLabel: shoutout.recipientLabel,

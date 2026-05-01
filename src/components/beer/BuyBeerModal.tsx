@@ -34,6 +34,7 @@ import {
   type RoundGiverBadge,
 } from '@/lib/gift-social';
 import { BeerConfetti } from './BeerConfetti';
+import { beerExperiments, trackBuyBeer } from '@/lib/beer-experiments';
 import { Textarea } from '@/components/ui/textarea';
 import { Link } from 'react-router-dom';
 
@@ -87,7 +88,7 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
   const [tipPct, setTipPct] = useState<number>(0);
   const [payment, setPayment] = useState<PaymentMethod>('saved');
   const [savePayment, setSavePayment] = useState<boolean>(true);
-  const [isPublic, setIsPublic] = useState<boolean>(true);
+  const [isPublic, setIsPublic] = useState<boolean>(beerExperiments.defaultPublic());
   const [emailReceipt, setEmailReceipt] = useState<boolean>(false);
   const [shoutoutMessage, setShoutoutMessage] = useState<string>('');
   const [step, setStep] = useState<'compose' | 'success'>('compose');
@@ -105,13 +106,14 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       setSplitEvenly(isMulti);
       setTipPct(0);
       setPayment('saved');
-      setIsPublic(true);
+      setIsPublic(beerExperiments.defaultPublic());
       setEmailReceipt(false);
       setShoutoutMessage('');
       setStep('compose');
       setUndoSeconds(10);
       setAwardedBadges([]);
       trackBeerEvent('beer_modal_opened', { context: context.kind });
+      trackBuyBeer('buy_beer_modal_opened', { context: context.kind });
     }
   }, [open, isMulti, context.kind]);
 
@@ -193,6 +195,14 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       hasMessage: shoutoutMessage.trim().length > 0,
       promoCode: partnerPromo?.code,
     });
+    trackBuyBeer('buy_beer_payment_attempt', {
+      amount: total,
+      recipients: defaultRecipients,
+      context: context.kind,
+      isPublic,
+      paymentMethod: payment,
+      tipPct,
+    });
     // Simulated processing — payment integration not yet wired
     await new Promise((r) => setTimeout(r, 600));
 
@@ -255,6 +265,15 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
     newBadges.forEach((b) => trackBeerEvent('beer_badge_awarded', { badgeId: b.id }));
 
     trackBeerEvent('beer_purchase_completed', { amount: total, txId: tx.id });
+    trackBuyBeer('buy_beer_success', {
+      amount: total,
+      recipients: defaultRecipients,
+      visibility: isPublic ? 'public' : 'private',
+      context: context.kind,
+      txId: tx.id,
+      tipPct,
+      promoCode: partnerPromo?.code,
+    });
     setStep('success');
     haptic('heavy');
   };
@@ -352,34 +371,36 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                 />
               </div>
 
-              {/* Quick amounts */}
-              <div className="flex items-center gap-2 pt-0.5" role="group" aria-label="Quick amounts">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Quick</span>
-                {QUICK_AMOUNTS.map((amt) => {
-                  const active = amountChoice === 'custom' && customAmount === String(amt);
-                  return (
-                    <button
-                      key={amt}
-                      type="button"
-                      onClick={() => {
-                        haptic('selection');
-                        setAmountChoice('custom');
-                        setCustomAmount(String(amt));
-                        trackBeerEvent('beer_quick_amount_selected', { kind: 'preset', amount: amt });
-                      }}
-                      aria-pressed={active}
-                      className={cn(
-                        'flex-1 min-h-[40px] rounded-full border-2 text-sm font-bold transition-colors',
-                        active
-                          ? 'border-primary bg-primary/10 text-primary'
-                          : 'border-border bg-card hover:border-primary/40',
-                      )}
-                    >
-                      ${amt}
-                    </button>
-                  );
-                })}
-              </div>
+              {/* Quick amounts (A/B test: quick_amounts on/off) */}
+              {beerExperiments.showQuickAmounts() && (
+                <div className="flex items-center gap-2 pt-0.5" role="group" aria-label="Quick amounts">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Quick</span>
+                  {QUICK_AMOUNTS.map((amt) => {
+                    const active = amountChoice === 'custom' && customAmount === String(amt);
+                    return (
+                      <button
+                        key={amt}
+                        type="button"
+                        onClick={() => {
+                          haptic('selection');
+                          setAmountChoice('custom');
+                          setCustomAmount(String(amt));
+                          trackBeerEvent('beer_quick_amount_selected', { kind: 'preset', amount: amt });
+                        }}
+                        aria-pressed={active}
+                        className={cn(
+                          'flex-1 min-h-[40px] rounded-full border-2 text-sm font-bold transition-colors',
+                          active
+                            ? 'border-primary bg-primary/10 text-primary'
+                            : 'border-border bg-card hover:border-primary/40',
+                        )}
+                      >
+                        ${amt}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
 
               {amountChoice === 'custom' && (
                 <div className="flex items-center gap-2 pt-1">

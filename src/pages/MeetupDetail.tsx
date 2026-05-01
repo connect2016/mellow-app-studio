@@ -17,6 +17,7 @@ import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 
 function formatFull(iso: string) {
   const d = new Date(iso);

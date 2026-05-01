@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { Check, ArrowRight, MapPin, Globe, Map as MapIcon, X } from 'lucide-react';
+import { Check, ArrowRight, MapPin, Globe, Map as MapIcon, X, Loader2, Navigation, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import quickstartBg from '@/assets/quickstart-bg.jpg';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
@@ -68,7 +69,7 @@ export default function QuickStart() {
   const [zones, setZones] = useState<Zone[]>([]);
   const [group, setGroup] = useState<GroupSize | null>(null);
   const [saving, setSaving] = useState(false);
-  const [geoHint, setGeoHint] = useState<string | null>(null);
+  
   const [showZoneError, setShowZoneError] = useState(false);
 
   useEffect(() => {
@@ -79,32 +80,93 @@ export default function QuickStart() {
     track('quickstart_shown');
   }, []);
 
-  // Opt-in geolocation prefill for nearest local zone
+  // Opt-in geolocation state
+  const [geoConsent, setGeoConsent] = useState<'pending' | 'granted' | 'denied' | 'ignored'>('pending');
+  const [geoLoading, setGeoLoading] = useState(false);
+  const [geoError, setGeoError] = useState<string | null>(null);
+  const [suggestedZone, setSuggestedZone] = useState<Zone | null>(null);
+  const [userEditedZones, setUserEditedZones] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const suggestedChipRef = useRef<HTMLButtonElement | null>(null);
+  const chipsListRef = useRef<HTMLDivElement | null>(null);
+  const promptShownRef = useRef(false);
+
   useEffect(() => {
+    if (step === 2 && !promptShownRef.current) {
+      promptShownRef.current = true;
+      track('quickstart_location_prompt_shown');
+    }
+  }, [step]);
+
+  const coordsToZone = (latitude: number, longitude: number): Zone => {
+    const dLat = latitude - 41.9484;
+    const dLng = longitude - -87.6553;
+    const approxMiles = Math.sqrt(dLat * dLat + dLng * dLng) * 69;
+    if (approxMiles < 1.5) return 'wrigleyville';
+    if (approxMiles < 4) return 'lakeview';
+    if (approxMiles < 10) return 'loop';
+    if (approxMiles < 200) return 'anywhere';
+    return 'out_of_state';
+  };
+
+  const applySuggestion = (zone: Zone) => {
+    setSuggestedZone(zone);
+    track('quickstart_suggested_zone_shown', { suggested_zone_id: zone });
+    if (!userEditedZones) {
+      setZones((prev) => (prev.includes(zone) ? prev : [...prev, zone]));
+      track('quickstart_suggested_zone_accepted', { suggested_zone_id: zone });
+      const label = ZONES.find((z) => z.id === zone)?.label ?? zone;
+      toast.success(`Suggested: ${label} — you can change this.`);
+      requestAnimationFrame(() => suggestedChipRef.current?.focus());
+    }
+  };
+
+  const requestGeolocation = () => {
+    setGeoError(null);
     if (!('geolocation' in navigator)) {
-      setGeoHint('Allow location to get a suggested zone.');
+      setGeoConsent('denied');
+      setGeoError('Location not available. Pick a zone below or try again.');
+      track('quickstart_location_consent', { value: 'denied', reason: 'unsupported' });
+      requestAnimationFrame(() => chipsListRef.current?.focus());
       return;
     }
+    setGeoLoading(true);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        const { latitude, longitude } = pos.coords;
-        // Wrigley Field ~41.948,-87.655. Within ~3mi → wrigleyville.
-        const dLat = latitude - 41.9484;
-        const dLng = longitude - -87.6553;
-        const approxMiles = Math.sqrt(dLat * dLat + dLng * dLng) * 69;
-        let suggested: Zone | null = null;
-        if (approxMiles < 1.5) suggested = 'wrigleyville';
-        else if (approxMiles < 4) suggested = 'lakeview';
-        else if (approxMiles < 10) suggested = 'loop';
-        else if (approxMiles < 200) suggested = 'anywhere';
-        if (suggested) {
-          setZones((prev) => (prev.length ? prev : [suggested!]));
-        }
+        setGeoLoading(false);
+        setGeoConsent('granted');
+        track('quickstart_location_consent', { value: 'granted' });
+        const zone = coordsToZone(pos.coords.latitude, pos.coords.longitude);
+        applySuggestion(zone);
       },
-      () => setGeoHint('Allow location to get a suggested zone.'),
-      { enableHighAccuracy: false, timeout: 4000, maximumAge: 600000 },
+      () => {
+        setGeoLoading(false);
+        setGeoConsent('denied');
+        setGeoError('Location not available. Pick a zone below or try again.');
+        track('quickstart_location_consent', { value: 'denied' });
+        requestAnimationFrame(() => chipsListRef.current?.focus());
+      },
+      { enableHighAccuracy: false, timeout: 6000, maximumAge: 600000 },
     );
-  }, []);
+  };
+
+  const declineGeolocation = () => {
+    setGeoConsent('ignored');
+    track('quickstart_location_consent', { value: 'ignored' });
+  };
+
+  // Coarse timezone-based fallback — no raw coords
+  const coarseFallback = () => {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      const isChicago = /Chicago/i.test(tz);
+      const isUS = /America\//i.test(tz);
+      const zone: Zone = isChicago ? 'anywhere' : isUS ? 'out_of_state' : 'out_of_country';
+      applySuggestion(zone);
+    } catch {
+      setGeoError('Could not suggest a zone. Please pick one below.');
+    }
+  };
 
   const totalSteps = 3;
   const canAdvance =
@@ -114,9 +176,13 @@ export default function QuickStart() {
 
   const toggleZone = (id: Zone) => {
     setShowZoneError(false);
+    setUserEditedZones(true);
     setZones((prev) => {
       const next = prev.includes(id) ? prev.filter((z) => z !== id) : [...prev, id];
       track('chip_toggled', { chip_id: id, new_state: next.includes(id) ? 'selected' : 'deselected' });
+      if (suggestedZone === id && prev.includes(id)) {
+        track('quickstart_suggested_zone_rejected', { suggested_zone_id: id });
+      }
       return next;
     });
   };
@@ -146,6 +212,8 @@ export default function QuickStart() {
           hangout_zones: zones,
           hangout_zone: zones[0] ?? null,
           group_size: group,
+          location_consent: geoConsent,
+          suggested_zone: suggestedZone,
           completed_at: new Date().toISOString(),
         },
       })
@@ -155,7 +223,7 @@ export default function QuickStart() {
       toast.error('Could not save preferences');
       return;
     }
-    track('quickstart_continue', { selected_chips: zones, intent, behavior, group });
+    track('quickstart_continue', { selected_zones: zones, intent, behavior, group, location_consent: geoConsent });
     toast.success("You're all set — let's go");
     navigate('/discover');
   };
@@ -236,6 +304,85 @@ export default function QuickStart() {
                 <span className="text-[11px] text-muted-foreground">Multi-select</span>
               </div>
 
+              {/* Opt-in geolocation prompt — appears above the chips */}
+              {geoConsent === 'pending' && (
+                <div
+                  role="region"
+                  aria-labelledby="geo-opt-in-title"
+                  className="rounded-2xl border border-primary/30 bg-primary/5 p-3 mb-3"
+                >
+                  <div className="flex items-start gap-2">
+                    <Navigation className="h-4 w-4 mt-0.5 text-primary shrink-0" aria-hidden />
+                    <div className="flex-1 min-w-0">
+                      <p id="geo-opt-in-title" className="text-sm font-semibold text-foreground">
+                        Use your location to suggest a zone?
+                      </p>
+                      <p className="text-[12px] text-muted-foreground leading-snug mt-0.5">
+                        We can suggest the nearest neighborhood to tune your feed. Optional and editable anytime.
+                      </p>
+                      <div className="flex items-center gap-3 mt-2">
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="premium"
+                          onClick={requestGeolocation}
+                          disabled={geoLoading}
+                          aria-label="Use my location to suggest a nearby zone"
+                        >
+                          {geoLoading ? (
+                            <>
+                              <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
+                              Finding nearby zones…
+                            </>
+                          ) : (
+                            <>
+                              <Navigation className="h-3.5 w-3.5" aria-hidden />
+                              Use My Location
+                            </>
+                          )}
+                        </Button>
+                        <button
+                          type="button"
+                          onClick={declineGeolocation}
+                          className="text-xs font-semibold text-muted-foreground hover:text-foreground underline-offset-4 hover:underline min-h-[44px]"
+                          aria-label="No thanks, do not use my location"
+                        >
+                          No thanks
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {geoLoading && geoConsent !== 'pending' && (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="flex items-center gap-2 rounded-xl border border-border/60 bg-muted/40 px-3 py-2 mb-3 text-xs text-muted-foreground"
+                >
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
+                  Finding nearby zones…
+                </div>
+              )}
+
+              {geoError && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-destructive/40 bg-destructive/10 px-3 py-2 mb-3 text-xs text-foreground flex items-center justify-between gap-2"
+                >
+                  <span>{geoError}</span>
+                  <button
+                    type="button"
+                    onClick={coarseFallback}
+                    className="font-semibold underline underline-offset-2"
+                    aria-label="Suggest me a zone using coarse location"
+                  >
+                    Suggest me
+                  </button>
+                </div>
+              )}
+
               {/* Selection summary bar */}
               <div
                 className={cn(
@@ -278,23 +425,28 @@ export default function QuickStart() {
                   aria-hidden
                 />
                 <div
+                  ref={chipsListRef}
+                  tabIndex={-1}
                   role="group"
                   aria-label="Hangout zones"
-                  className="flex gap-2 overflow-x-auto snap-x scrollbar-hide px-1 -mx-1 xs:flex-wrap xs:overflow-visible xs:snap-none sm:grid sm:grid-cols-2"
+                  className="flex gap-2 overflow-x-auto snap-x scrollbar-hide px-1 -mx-1 xs:flex-wrap xs:overflow-visible xs:snap-none sm:grid sm:grid-cols-2 focus:outline-none"
                 >
                 {ZONES.map((opt) => {
                   const selected = zones.includes(opt.id);
+                  const isSuggested = suggestedZone === opt.id;
                   const Icon = opt.Icon;
                   return (
                     <button
                       key={opt.id}
+                      ref={isSuggested ? suggestedChipRef : undefined}
                       type="button"
                       role="checkbox"
                       aria-checked={selected}
-                      aria-label={`${opt.label}${selected ? ', selected' : ''}`}
+                      aria-label={`${opt.label}${isSuggested ? ', suggested by location' : ''}${selected ? ', selected' : ''}`}
+                      data-suggested={isSuggested || undefined}
                       onClick={() => toggleZone(opt.id)}
                       className={cn(
-                        'inline-flex items-center gap-2 rounded-full border-2 transition-all',
+                        'inline-flex items-center gap-2 rounded-full border-2 transition-all relative',
                         'min-h-[44px] px-3 py-2 text-sm font-semibold text-left',
                         'snap-start shrink-0 xs:shrink',
                         'active:scale-[0.96] duration-[120ms]',
@@ -302,10 +454,16 @@ export default function QuickStart() {
                         selected
                           ? 'bg-primary text-primary-foreground border-primary shadow-md'
                           : 'bg-background/70 text-foreground border-primary/50 hover:bg-primary/5',
+                        isSuggested && 'ring-2 ring-accent ring-offset-1',
                       )}
                     >
                       <Icon className="h-4 w-4 shrink-0" aria-hidden />
                       <span className="truncate">{opt.label}</span>
+                      {isSuggested && (
+                        <span className="ml-1 rounded-full bg-accent/90 text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide">
+                          Suggested
+                        </span>
+                      )}
                       {selected && <Check className="h-4 w-4 ml-1 shrink-0" aria-hidden />}
                     </button>
                   );
@@ -319,9 +477,17 @@ export default function QuickStart() {
                 <span className="font-semibold text-foreground">Out of Country</span> to see visiting-fan meetups.
               </p>
 
-              {geoHint && zones.length === 0 && (
-                <p className="mt-1 text-[11px] text-muted-foreground">{geoHint}</p>
-              )}
+              {/* Why we ask for location — opens privacy modal */}
+              <button
+                type="button"
+                onClick={() => setShowPrivacyModal(true)}
+                className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline underline-offset-2 min-h-[32px]"
+                aria-haspopup="dialog"
+                aria-controls="location-privacy-modal"
+              >
+                <Info className="h-3 w-3" aria-hidden />
+                Why we ask for location
+              </button>
 
               {showZoneError && (
                 <p
@@ -400,6 +566,34 @@ export default function QuickStart() {
           </button>
         </div>
       </main>
+
+      {/* Privacy modal — explains location use */}
+      <Dialog open={showPrivacyModal} onOpenChange={setShowPrivacyModal}>
+        <DialogContent id="location-privacy-modal" aria-labelledby="location-privacy-title" className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle id="location-privacy-title">Location is optional</DialogTitle>
+            <DialogDescription className="text-sm leading-relaxed">
+              We use your location only to suggest a nearby zone for a better feed. We don't store
+              precise coordinates long-term — we store only the selected zone name. You can change
+              or remove this any time in Settings.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setShowPrivacyModal(false);
+                navigate('/settings');
+              }}
+            >
+              Manage Settings
+            </Button>
+            <Button variant="premium" onClick={() => setShowPrivacyModal(false)}>
+              Got it
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       </div>
     </div>
   );

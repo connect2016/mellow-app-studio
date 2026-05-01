@@ -171,15 +171,33 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
   const canQuickPay = payment !== 'new'; // saved/apple/google = 1-tap
   const canSubmit = valid && !eligibilityBlocked && !capsBlocked && !!user;
 
+  const partnerPromo = useMemo(() => {
+    const barName = context.kind === 'bar' ? context.barName : undefined;
+    return getPartnerPromo(barName, subtotal);
+  }, [context, subtotal]);
+
+  const senderName =
+    (user?.user_metadata?.full_name as string | undefined) ??
+    (user?.email?.split('@')[0]) ??
+    'A fan';
+  const senderAvatar = user?.user_metadata?.avatar_url as string | undefined;
+
   const handleConfirm = async () => {
     if (!canSubmit || submitting) return;
     setSubmitting(true);
     haptic('selection');
+    trackBeerEvent('beer_purchase_attempted', {
+      amount: total,
+      context: context.kind,
+      isPublic,
+      hasMessage: shoutoutMessage.trim().length > 0,
+      promoCode: partnerPromo?.code,
+    });
     // Simulated processing — payment integration not yet wired
     await new Promise((r) => setTimeout(r, 600));
 
     const fraud = detectFraudPattern(recipientUserId);
-    recordTransaction({
+    const tx = recordTransaction({
       amount: total,
       recipientLabel: recipientLabel(context),
       recipientUserId,
@@ -198,12 +216,52 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       onOpenChange(false);
       return;
     }
+
+    // Post public shoutout to feed
+    if (isPublic) {
+      const shoutout = postShoutout({
+        txId: tx.id,
+        senderId: user?.id,
+        senderName,
+        senderAvatar,
+        recipientId: recipientUserId,
+        recipientLabel: recipientLabel(context),
+        context: context.kind,
+        amount: total,
+        message: shoutoutMessage.trim() || undefined,
+        promoCode: partnerPromo?.code,
+      });
+      trackBeerEvent('beer_shoutout_posted', { shoutoutId: shoutout.id });
+    }
+
+    // Reciprocity nudge for the recipient (fan-to-fan only)
+    if (context.kind === 'fan' && recipientUserId) {
+      addReciprocityNudge({
+        fromUserId: user?.id,
+        fromName: senderName,
+        fromAvatar: senderAvatar,
+        amount: total,
+        shoutoutId: tx.id,
+      });
+    }
+
+    // Rewards: badges + leaderboard points
+    const newBadges = processGiftReward({
+      amount: total,
+      tipped: tipPct > 0,
+      isPublic,
+    });
+    setAwardedBadges(newBadges);
+    newBadges.forEach((b) => trackBeerEvent('beer_badge_awarded', { badgeId: b.id }));
+
+    trackBeerEvent('beer_purchase_completed', { amount: total, txId: tx.id });
     setStep('success');
     haptic('heavy');
   };
 
   const handleUndo = () => {
     haptic('medium');
+    trackBeerEvent('beer_purchase_undone', {});
     toast({
       title: 'Purchase cancelled',
       description: 'No charge was made. Your card was not billed.',

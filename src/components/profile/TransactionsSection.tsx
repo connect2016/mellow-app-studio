@@ -70,6 +70,11 @@ export function TransactionsSection() {
     if (!refundTarget) return;
     updateTransactionStatus(refundTarget.id, 'refunded');
     setEntries(getTransactions());
+    trackBuyBeer('buy_beer_refund_requested', {
+      txId: refundTarget.id,
+      amount: refundTarget.amount,
+      reason: 'user_initiated',
+    });
     toast({
       title: 'Refund issued',
       description: `$${refundTarget.amount.toFixed(2)} returned to your original payment method within 3-5 business days.`,

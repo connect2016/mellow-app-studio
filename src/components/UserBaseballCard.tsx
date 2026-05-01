@@ -228,6 +228,7 @@ export function UserBaseballCard({
         <div className="mt-4 px-1">
           <BuyBeerButton
             context={{ kind: 'fan', userId, firstName: displayName?.split(' ')[0] }}
+            surface="profile_card"
             variant="default"
             size="default"
             showMicrocopy

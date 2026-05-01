@@ -265,6 +265,15 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
     newBadges.forEach((b) => trackBeerEvent('beer_badge_awarded', { badgeId: b.id }));
 
     trackBeerEvent('beer_purchase_completed', { amount: total, txId: tx.id });
+    trackBuyBeer('buy_beer_success', {
+      amount: total,
+      recipients: defaultRecipients,
+      visibility: isPublic ? 'public' : 'private',
+      context: context.kind,
+      txId: tx.id,
+      tipPct,
+      promoCode: partnerPromo?.code,
+    });
     setStep('success');
     haptic('heavy');
   };

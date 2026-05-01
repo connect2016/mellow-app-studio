@@ -212,6 +212,8 @@ export default function QuickStart() {
           hangout_zones: zones,
           hangout_zone: zones[0] ?? null,
           group_size: group,
+          location_consent: geoConsent,
+          suggested_zone: suggestedZone,
           completed_at: new Date().toISOString(),
         },
       })
@@ -221,7 +223,7 @@ export default function QuickStart() {
       toast.error('Could not save preferences');
       return;
     }
-    track('quickstart_continue', { selected_chips: zones, intent, behavior, group });
+    track('quickstart_continue', { selected_zones: zones, intent, behavior, group, location_consent: geoConsent });
     toast.success("You're all set — let's go");
     navigate('/discover');
   };

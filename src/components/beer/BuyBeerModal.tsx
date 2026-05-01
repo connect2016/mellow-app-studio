@@ -713,6 +713,7 @@ function SummaryRow({
 
 function SuccessView({
   context, total, isPublic, undoSeconds, onUndo, onClose,
+  senderName, message, awardedBadges, partnerPromoCode,
 }: {
   context: BeerModalContext;
   total: number;
@@ -720,12 +721,31 @@ function SuccessView({
   undoSeconds: number;
   onUndo: () => void;
   onClose: () => void;
+  senderName: string;
+  message?: string;
+  awardedBadges: RoundGiverBadge[];
+  partnerPromoCode?: string;
 }) {
+  const { toast } = useToast();
   const who = recipientLabel(context);
   const txId = useMemo(() => `BB-${Date.now().toString(36).toUpperCase()}`, []);
+
+  const handleShare = async () => {
+    haptic('light');
+    const result = await shareShoutout({
+      senderName,
+      recipientLabel: who,
+      amount: total,
+      message,
+    });
+    if (result === 'copied') toast({ title: 'Receipt link copied' });
+    else if (result === 'failed') toast({ title: "Couldn't share", description: 'Try again or copy manually.' });
+  };
+
   return (
     <div className="px-5 pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-center space-y-5">
       <div className="relative mx-auto h-24 w-24">
+        <BeerConfetti active />
         <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
         <div className="absolute inset-0 rounded-full bg-primary grid place-items-center shadow-lg">
           <Check className="h-12 w-12 text-primary-foreground" strokeWidth={3} aria-hidden="true" />
@@ -743,6 +763,26 @@ function SuccessView({
         </p>
       </div>
 
+      {/* Newly awarded badges */}
+      {awardedBadges.length > 0 && (
+        <div className="rounded-2xl border-2 border-amber-500/30 bg-amber-500/5 p-3 text-left">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 mb-2 flex items-center gap-1">
+            <Trophy className="h-3 w-3" /> New badge unlocked
+          </p>
+          <div className="space-y-1.5">
+            {awardedBadges.map((b) => (
+              <div key={b.id} className="flex items-center gap-2">
+                <span className="text-2xl">{b.emoji}</span>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold leading-tight">{b.label}</p>
+                  <p className="text-[11px] text-muted-foreground leading-tight">{b.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="rounded-2xl border bg-card p-4 text-left space-y-2">
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">Total charged</span>
@@ -752,21 +792,35 @@ function SuccessView({
           <span className="text-muted-foreground">Receipt #</span>
           <span className="font-mono">{txId}</span>
         </div>
+        {partnerPromoCode && (
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-muted-foreground">Promo applied</span>
+            <span className="font-mono font-bold text-emerald-600">{partnerPromoCode}</span>
+          </div>
+        )}
         <Separator />
         <p className="text-[11px] text-muted-foreground">
           Need help? You can request a refund within 24 hours from your{' '}
-          <span className="underline">Beer Money receipts</span>.
+          <Link to="/profile?tab=transactions" className="underline">Beer Money receipts</Link>.
         </p>
       </div>
 
-      {undoSeconds > 0 ? (
-        <Button variant="outline" onClick={onUndo} className="w-full">
-          <Undo2 className="h-4 w-4" />
-          Undo ({undoSeconds}s)
+      <div className="grid grid-cols-2 gap-2">
+        {undoSeconds > 0 ? (
+          <Button variant="outline" onClick={onUndo} className="col-span-1">
+            <Undo2 className="h-4 w-4" />
+            Undo ({undoSeconds}s)
+          </Button>
+        ) : (
+          <Button variant="outline" disabled className="col-span-1">
+            Undo closed
+          </Button>
+        )}
+        <Button variant="outline" onClick={handleShare} className="col-span-1">
+          <Share2 className="h-4 w-4" />
+          Share
         </Button>
-      ) : (
-        <p className="text-[11px] text-muted-foreground">Undo window closed.</p>
-      )}
+      </div>
 
       <Button onClick={onClose} className="w-full" size="lg">
         Done

@@ -134,16 +134,49 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       : `Patrons at ${who} get ${amt} each — sent anonymously.`;
   }, [context, perRecipient, isPublic]);
 
+  /* ── Trust & safety ── */
+  const recipientUserId = context.kind === 'fan' ? context.userId : undefined;
+  const eligibility = useGiftEligibility(recipientUserId);
+  const eligibilityBlocked =
+    !!recipientUserId && eligibility.data && !eligibility.data.eligible;
+
+  const caps = useMemo(
+    () => checkSenderCaps(total, { accountCreatedAt: user?.created_at }),
+    [total, user?.created_at],
+  );
+  const capsBlocked = !caps.allowed;
+
   const valid = subtotal > 0 && total > 0;
   const canQuickPay = payment !== 'new'; // saved/apple/google = 1-tap
+  const canSubmit = valid && !eligibilityBlocked && !capsBlocked && !!user;
 
   const handleConfirm = async () => {
-    if (!valid || submitting) return;
+    if (!canSubmit || submitting) return;
     setSubmitting(true);
     haptic('selection');
     // Simulated processing — payment integration not yet wired
     await new Promise((r) => setTimeout(r, 600));
+
+    const fraud = detectFraudPattern(recipientUserId);
+    recordTransaction({
+      amount: total,
+      recipientLabel: recipientLabel(context),
+      recipientUserId,
+      context: context.kind,
+      isPublic,
+      status: fraud.flagged ? 'flagged_hold' : 'completed',
+      flagReason: fraud.reason,
+    });
+
     setSubmitting(false);
+    if (fraud.flagged) {
+      toast({
+        title: 'Hold for review',
+        description: `${fraud.reason} You'll get an update within 24h. No funds released yet.`,
+      });
+      onOpenChange(false);
+      return;
+    }
     setStep('success');
     haptic('heavy');
   };

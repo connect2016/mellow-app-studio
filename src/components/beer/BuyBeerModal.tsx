@@ -511,7 +511,12 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
             <section className="space-y-2">
               <button
                 type="button"
-                onClick={() => setIsPublic((p) => !p)}
+                onClick={() => {
+                  setIsPublic((p) => {
+                    trackBeerEvent('beer_public_toggled', { isPublic: !p });
+                    return !p;
+                  });
+                }}
                 className="w-full flex items-center justify-between gap-3 rounded-xl border bg-card p-3 text-left"
                 aria-pressed={isPublic}
               >

@@ -26,6 +26,7 @@ import { GuestBanner } from '@/components/GuestBanner';
 import { WelcomeTour } from '@/components/WelcomeTour';
 import { LiveVibeCheckIn } from '@/components/LiveVibeCheckIn';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),

@@ -107,9 +107,12 @@ export function CreateMeetupFab() {
     open();
   };
 
+  const showFabBeer = beerExperiments.shouldShowAt('fab');
+
   const handleBuyBeer = () => {
     haptic('selection');
     setMenuOpen(false);
+    trackBuyBeer('buy_beer_cta_clicked', { context: 'general', surface: 'fab' });
     navigate('/beer-money');
   };
 

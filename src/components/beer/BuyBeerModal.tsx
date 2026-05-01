@@ -137,11 +137,11 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
     await new Promise((r) => setTimeout(r, 600));
     setSubmitting(false);
     setStep('success');
-    haptic('success');
+    haptic('heavy');
   };
 
   const handleUndo = () => {
-    haptic('warning');
+    haptic('medium');
     toast({
       title: 'Purchase cancelled',
       description: 'No charge was made. Your card was not billed.',

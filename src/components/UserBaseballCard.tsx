@@ -223,6 +223,19 @@ export function UserBaseballCard({
         </div>
       )}
 
+      {/* Buy a Beer — primary social CTA on public profile cards */}
+      {!isOwner && userId && !isFlipped && (
+        <div className="mt-4 px-1">
+          <BuyBeerButton
+            context={{ kind: 'fan', userId, firstName: displayName?.split(' ')[0] }}
+            variant="default"
+            size="default"
+            showMicrocopy
+            className="w-full rounded-2xl min-h-[48px] shadow-sm"
+          />
+        </div>
+      )}
+
       {/* Flip toggle — the ONLY trigger for the 3D flip animation */}
       {visibleStats.length > 0 && (
         <div className="mt-4 flex justify-center px-1">

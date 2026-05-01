@@ -88,7 +88,7 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
   const [tipPct, setTipPct] = useState<number>(0);
   const [payment, setPayment] = useState<PaymentMethod>('saved');
   const [savePayment, setSavePayment] = useState<boolean>(true);
-  const [isPublic, setIsPublic] = useState<boolean>(true);
+  const [isPublic, setIsPublic] = useState<boolean>(beerExperiments.defaultPublic());
   const [emailReceipt, setEmailReceipt] = useState<boolean>(false);
   const [shoutoutMessage, setShoutoutMessage] = useState<string>('');
   const [step, setStep] = useState<'compose' | 'success'>('compose');

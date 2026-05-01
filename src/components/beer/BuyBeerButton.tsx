@@ -1,18 +1,16 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Beer } from 'lucide-react';
 import { Button, ButtonProps } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { haptic } from '@/lib/haptics';
+import { BuyBeerModal, type BeerModalContext } from './BuyBeerModal';
 
-type BeerContext =
-  | { kind: 'fan'; userId: string; firstName?: string }
-  | { kind: 'meetup'; meetupId: string; locationName?: string }
-  | { kind: 'bar'; barName: string }
-  | { kind: 'general' };
+// Re-export for back-compat with existing imports
+export type BeerContext = BeerModalContext;
 
 interface Props extends Omit<ButtonProps, 'onClick' | 'children'> {
-  context: BeerContext;
+  context: BeerModalContext;
   /** Override the auto-generated label (e.g. "Buy Jake a Beer") */
   label?: string;
   /** Show a one-line microcopy below the button explaining who gets it */
@@ -22,16 +20,7 @@ interface Props extends Omit<ButtonProps, 'onClick' | 'children'> {
   iconOnly?: boolean;
 }
 
-function buildHref(ctx: BeerContext): string {
-  switch (ctx.kind) {
-    case 'fan': return `/beer-money?to=${encodeURIComponent(ctx.userId)}`;
-    case 'meetup': return `/beer-money?meetup=${encodeURIComponent(ctx.meetupId)}`;
-    case 'bar': return `/beer-money?bar=${encodeURIComponent(ctx.barName)}`;
-    case 'general': return `/beer-money`;
-  }
-}
-
-function defaultLabel(ctx: BeerContext): string {
+function defaultLabel(ctx: BeerModalContext): string {
   switch (ctx.kind) {
     case 'fan': return ctx.firstName ? `Buy ${ctx.firstName} a Beer` : 'Buy a Beer';
     case 'meetup': return 'Buy a Round';
@@ -40,7 +29,7 @@ function defaultLabel(ctx: BeerContext): string {
   }
 }
 
-function microcopy(ctx: BeerContext): string {
+function microcopy(ctx: BeerModalContext): string {
   switch (ctx.kind) {
     case 'fan': return `${ctx.firstName ?? 'They'}’ll get a beer voucher to redeem at a participating bar.`;
     case 'meetup': return `Everyone going to ${ctx.locationName ?? 'this meetup'} gets a voucher.`;
@@ -60,39 +49,43 @@ export function BuyBeerButton({
   iconOnly = false,
   ...rest
 }: Props) {
-  const navigate = useNavigate();
   const { user } = useAuth();
+  const [open, setOpen] = useState(false);
 
   if (loggedInOnly && !user) return null;
 
   const text = label ?? defaultLabel(context);
-  const href = buildHref(context);
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
     haptic('selection');
-    navigate(href);
+    setOpen(true);
   };
 
   return (
-    <div className={cn(showMicrocopy && 'space-y-1.5')}>
-      <Button
-        type="button"
-        onClick={handleClick}
-        variant={variant}
-        size={size}
-        aria-label={text}
-        className={cn('gap-2 font-semibold', className)}
-        {...rest}
-      >
-        <Beer className="h-4 w-4 shrink-0" aria-hidden="true" />
-        {!iconOnly && <span className="truncate">{text}</span>}
-      </Button>
-      {showMicrocopy && (
-        <p className="text-[11px] leading-snug text-muted-foreground px-0.5">
-          {microcopy(context)}
-        </p>
-      )}
-    </div>
+    <>
+      <div className={cn(showMicrocopy && 'space-y-1.5')}>
+        <Button
+          type="button"
+          onClick={handleClick}
+          variant={variant}
+          size={size}
+          aria-label={text}
+          aria-haspopup="dialog"
+          className={cn('gap-2 font-semibold', className)}
+          {...rest}
+        >
+          <Beer className="h-4 w-4 shrink-0" aria-hidden="true" />
+          {!iconOnly && <span className="truncate">{text}</span>}
+        </Button>
+        {showMicrocopy && (
+          <p className="text-[11px] leading-snug text-muted-foreground px-0.5">
+            {microcopy(context)}
+          </p>
+        )}
+      </div>
+      <BuyBeerModal open={open} onOpenChange={setOpen} context={context} />
+    </>
   );
 }

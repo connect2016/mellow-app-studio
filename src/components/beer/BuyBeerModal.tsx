@@ -9,7 +9,7 @@ import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2, AlertTriangle, ShieldAlert, Lock } from 'lucide-react';
+import { Beer, ShieldCheck, Apple, CreditCard, Plus, Sparkles, Check, Mail, Eye, EyeOff, Undo2, AlertTriangle, ShieldAlert, Lock, Share2, Tag, Users, Zap, Trophy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { haptic } from '@/lib/haptics';
 import { useToast } from '@/hooks/use-toast';
@@ -21,6 +21,20 @@ import {
   recordTransaction,
   GIFT_LIMITS,
 } from '@/lib/gift-trust-safety';
+import {
+  QUICK_AMOUNTS,
+  SUGGESTED_MESSAGES,
+  addReciprocityNudge,
+  getPartnerPromo,
+  getSocialProof,
+  postShoutout,
+  processGiftReward,
+  shareShoutout,
+  trackBeerEvent,
+  type RoundGiverBadge,
+} from '@/lib/gift-social';
+import { BeerConfetti } from './BeerConfetti';
+import { Textarea } from '@/components/ui/textarea';
 import { Link } from 'react-router-dom';
 
 export type BeerModalContext =

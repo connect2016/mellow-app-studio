@@ -34,6 +34,7 @@ import {
   type RoundGiverBadge,
 } from '@/lib/gift-social';
 import { BeerConfetti } from './BeerConfetti';
+import { beerExperiments, trackBuyBeer } from '@/lib/beer-experiments';
 import { Textarea } from '@/components/ui/textarea';
 import { Link } from 'react-router-dom';
 

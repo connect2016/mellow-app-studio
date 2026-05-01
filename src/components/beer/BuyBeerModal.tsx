@@ -642,6 +642,10 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
             undoSeconds={undoSeconds}
             onUndo={handleUndo}
             onClose={handleClose}
+            senderName={senderName}
+            message={shoutoutMessage.trim() || undefined}
+            awardedBadges={awardedBadges}
+            partnerPromoCode={partnerPromo?.code}
           />
         )}
       </SheetContent>

@@ -267,12 +267,21 @@ export default function QuickStart() {
                 )}
               </div>
 
-              {/* Chip grid */}
-              <div
-                role="group"
-                aria-label="Hangout zones"
-                className="flex flex-wrap gap-2 sm:grid sm:grid-cols-2"
-              >
+              {/* Chip grid — wraps on normal screens, horizontal scroll w/ fade on very small */}
+              <div className="relative">
+                <div
+                  className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-background to-transparent z-10 xs:hidden"
+                  aria-hidden
+                />
+                <div
+                  className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-background to-transparent z-10 xs:hidden"
+                  aria-hidden
+                />
+                <div
+                  role="group"
+                  aria-label="Hangout zones"
+                  className="flex gap-2 overflow-x-auto snap-x scrollbar-hide px-1 -mx-1 xs:flex-wrap xs:overflow-visible xs:snap-none sm:grid sm:grid-cols-2"
+                >
                 {ZONES.map((opt) => {
                   const selected = zones.includes(opt.id);
                   const Icon = opt.Icon;
@@ -287,6 +296,7 @@ export default function QuickStart() {
                       className={cn(
                         'inline-flex items-center gap-2 rounded-full border-2 transition-all',
                         'min-h-[44px] px-3 py-2 text-sm font-semibold text-left',
+                        'snap-start shrink-0 xs:shrink',
                         'active:scale-[0.96] duration-[120ms]',
                         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
                         selected
@@ -300,6 +310,7 @@ export default function QuickStart() {
                     </button>
                   );
                 })}
+                </div>
               </div>
 
               {/* Examples for travel options */}

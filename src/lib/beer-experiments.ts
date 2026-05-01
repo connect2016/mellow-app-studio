@@ -190,3 +190,68 @@ export function trackBuyBeer(
   // Cast: the underlying logger accepts arbitrary event names in practice.
   trackBeerEvent(event as unknown as Parameters<typeof trackBeerEvent>[0], enriched);
 }
+
+/* ───── KPI dashboard helpers (read local analytics buffer) ───── */
+
+interface LoggedEvent {
+  event: string;
+  props: Record<string, unknown>;
+  ts: number;
+}
+
+function readLog(): LoggedEvent[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem('cb.beer.analytics.v1');
+    return raw ? (JSON.parse(raw) as LoggedEvent[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+export interface ExperimentKpiRow {
+  variant: string;
+  exposures: number;
+  ctaClicks: number;
+  successes: number;
+  refunds: number;
+  shares: number;
+  conversionRate: number; // success / cta_click
+  aov: number; // avg order value
+  refundRate: number; // refund / success
+  viralLift: number; // share / success
+  ready: boolean; // hit minSamplePerArm
+}
+
+export function readExperimentKpis(id: ExperimentId): ExperimentKpiRow[] {
+  const def = EXPERIMENTS[id];
+  const log = readLog();
+  const get = (e: LoggedEvent) =>
+    (e.props?.experiments as AssignmentMap | undefined)?.[id];
+
+  return def.variants.map((variant) => {
+    const arm = log.filter((e) => get(e) === variant);
+    const exposures = arm.filter((e) => e.event === 'buy_beer_cta_viewed').length;
+    const ctaClicks = arm.filter((e) => e.event === 'buy_beer_cta_clicked').length;
+    const successes = arm.filter((e) => e.event === 'buy_beer_success');
+    const refunds = arm.filter((e) => e.event === 'buy_beer_refund_requested').length;
+    const shares = arm.filter((e) => e.event === 'buy_beer_share_clicked').length;
+    const totalRevenue = successes.reduce(
+      (acc, e) => acc + (typeof e.props?.amount === 'number' ? (e.props.amount as number) : 0),
+      0,
+    );
+    return {
+      variant,
+      exposures,
+      ctaClicks,
+      successes: successes.length,
+      refunds,
+      shares,
+      conversionRate: ctaClicks > 0 ? successes.length / ctaClicks : 0,
+      aov: successes.length > 0 ? totalRevenue / successes.length : 0,
+      refundRate: successes.length > 0 ? refunds / successes.length : 0,
+      viralLift: successes.length > 0 ? shares / successes.length : 0,
+      ready: exposures >= def.minSamplePerArm,
+    };
+  });
+}

@@ -296,6 +296,7 @@ export default function QuickStart() {
                       className={cn(
                         'inline-flex items-center gap-2 rounded-full border-2 transition-all',
                         'min-h-[44px] px-3 py-2 text-sm font-semibold text-left',
+                        'snap-start shrink-0 xs:shrink',
                         'active:scale-[0.96] duration-[120ms]',
                         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
                         selected
@@ -309,6 +310,7 @@ export default function QuickStart() {
                     </button>
                   );
                 })}
+                </div>
               </div>
 
               {/* Examples for travel options */}

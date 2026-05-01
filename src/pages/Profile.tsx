@@ -364,6 +364,11 @@ export default function Profile() {
                 <BadgesSection userId={targetUserId} isOwner={isOwnProfile} />
                 <MeetupHistorySection userId={targetUserId} />
                 <SavedPlansSection userId={targetUserId} />
+                {isOwnProfile && (
+                  <div id="transactions" className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm shadow-sm p-4">
+                    <TransactionsSection />
+                  </div>
+                )}
 
                 {isOwnProfile && (
                   <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm overflow-hidden shadow-sm">

@@ -111,11 +111,12 @@ export function CardFrontSide({
 
       {/* Username — white nameplate strip at bottom of card */}
       <div
-        className="absolute"
+        className="absolute flex items-center justify-center"
         style={{
-          left: '12%',
-          right: '12%',
-          bottom: '13.5%',
+          left: '14%',
+          right: '14%',
+          bottom: '5.5%',
+          height: '8%',
           overflow: 'hidden',
           boxSizing: 'border-box',
         }}

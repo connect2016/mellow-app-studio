@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
-import wrigleyBg from '@/assets/wrigley-seats.jpg';
+import cardFrontArt from '@/assets/baseball-card-front.png';
 
 interface CardFrontSideProps {
   profileImage?: string | null;
@@ -35,32 +35,29 @@ export function CardFrontSide({
 
   return (
     <div
-      className="relative w-full h-full rounded-2xl overflow-hidden border-2 border-primary/30 shadow-md bg-gradient-to-br from-card via-card to-muted/30"
+      className="relative w-full h-full rounded-xl overflow-hidden shadow-md"
       onClick={onClick}
       role="img"
       aria-label={`${displayName || 'Fan'}'s profile card — front side`}
+      style={{
+        backgroundImage: `url(${cardFrontArt})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
     >
-      {/* Decorative stadium background — non-avatar, low opacity */}
+      {/* Subtle gradient for pennant text contrast */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `url(${wrigleyBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.18,
+          background:
+            'linear-gradient(180deg, transparent 0%, transparent 55%, rgba(0,0,0,0.04) 100%)',
         }}
         aria-hidden="true"
       />
-      <div
-        className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-card/40 to-card/85"
-        aria-hidden="true"
-      />
 
-      {/* Status badge */}
+      {/* Status badge — top */}
       {statusLabel && (
-        <div
-          className="absolute top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 rounded-full bg-foreground/85 backdrop-blur-sm px-3 py-1.5 border border-background/15"
-        >
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 rounded-full bg-foreground/85 backdrop-blur-sm px-3 py-1.5 border border-background/15">
           <span className="relative flex h-2 w-2" aria-hidden="true">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
@@ -71,54 +68,75 @@ export function CardFrontSide({
         </div>
       )}
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-start h-full pt-12 pb-6 px-5">
-        {/* Single avatar */}
+      {/* Centered avatar — top two-thirds */}
+      <div className="absolute inset-x-0 top-0 h-2/3 flex items-center justify-center px-[14%]">
         <div
-          className="relative rounded-full overflow-hidden ring-4 ring-background shadow-xl"
-          style={{ width: 88, height: 88 }}
+          tabIndex={0}
+          role="img"
+          aria-label={`Profile photo of ${displayName || 'Fan'}`}
+          className="relative rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CC3433]"
+          style={{
+            width: 88,
+            height: 88,
+            boxShadow: '0 0 0 4px #FFFFFF, 0 6px 18px rgba(0,0,0,0.35)',
+            background: '#0A2A66',
+          }}
         >
+          {!imgLoaded && profileImage && (
+            <div className="absolute inset-0 animate-pulse" style={{ background: '#cbd5e1' }} aria-hidden="true" />
+          )}
           {profileImage ? (
             <img
               src={profileImage}
-              alt={`${displayName || 'Fan'}'s avatar`}
+              alt=""
               loading="lazy"
               decoding="async"
               onLoad={onImgLoad}
+              onError={onImgLoad}
               className={cn(
                 'w-full h-full object-cover transition-opacity duration-300',
                 imgLoaded ? 'opacity-100' : 'opacity-0'
               )}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-primary/20 text-primary font-bold text-2xl">
+            <div
+              className="w-full h-full flex items-center justify-center text-white font-black text-2xl"
+              style={{ fontFamily: "'Graduate', serif" }}
+            >
               {initials || 'CB'}
             </div>
           )}
         </div>
+      </div>
 
-        {/* Name */}
-        <h3
-          className="mt-4 text-xl font-extrabold tracking-wide text-foreground text-center line-clamp-1"
-          style={{ fontFamily: "'Graduate', 'Inter', serif" }}
+      {/* Username — lower-right pennant area */}
+      <div
+        className="absolute"
+        style={{ left: '14%', right: '8%', bottom: '11%', paddingLeft: 12, paddingRight: 12 }}
+      >
+        <p
+          className="font-semibold text-[16px] leading-tight truncate text-right"
+          style={{
+            color: '#0A2A66',
+            fontFamily: "'Graduate', 'Norwester', serif",
+            textShadow: '0 1px 0 rgba(255,255,255,0.6)',
+          }}
+          title={displayName}
         >
           {displayName || 'Fan'}
-        </h3>
-        <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
-          Bleacher Bum · Wrigleyville
         </p>
-
-        {/* Active reactions */}
-        {activeReactions.length > 0 && (
-          <div className="absolute bottom-4 right-4 flex gap-1 items-end z-20">
-            {activeReactions.map((r) => (
-              <div key={r.key} className="animate-scale-in">
-                <RealisticEmoji name={r.icon} alt={r.label} size="md" />
-              </div>
-            ))}
-          </div>
-        )}
       </div>
+
+      {/* Active reactions */}
+      {activeReactions.length > 0 && (
+        <div className="absolute bottom-3 right-3 flex gap-1 items-end z-20">
+          {activeReactions.map((r) => (
+            <div key={r.key} className="animate-scale-in">
+              <RealisticEmoji name={r.icon} alt={r.label} size="md" />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

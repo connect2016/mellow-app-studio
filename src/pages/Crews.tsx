@@ -199,9 +199,10 @@ export default function Crews() {
           </div>
 
           {isLoading ? (
-            <div className="py-16 text-center">
-              <p className="text-3xl animate-pulse"></p>
-              <p className="mt-2 text-sm text-muted-foreground">Finding crews...</p>
+            <div className="space-y-2">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <BuddyListItemSkeleton key={i} />
+              ))}
             </div>
           ) : filtered.length === 0 ? (
             <div className="py-16 text-center">

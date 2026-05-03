@@ -115,12 +115,28 @@ export function useSendTeammateRequest() {
       if (error) throw error;
       return data as TeammateRequestRow;
     },
+    onMutate: async (recipientId) => {
+      const key = ['teammate-state', user?.id, recipientId];
+      await qc.cancelQueries({ queryKey: key });
+      const previous = qc.getQueryData<TeammateRequestRow | null>(key);
+      const optimistic: TeammateRequestRow = {
+        id: `optimistic-${Date.now()}`,
+        requester_id: user?.id ?? '',
+        recipient_id: recipientId,
+        status: 'pending',
+        created_at: new Date().toISOString(),
+        responded_at: null,
+      };
+      qc.setQueryData(key, optimistic);
+      return { previous, key };
+    },
     onSuccess: (_data, recipientId) => {
       qc.invalidateQueries({ queryKey: ['teammate-state', user?.id, recipientId] });
       toast({ title: 'Request sent', description: 'They\'ll see your invite to join your team.' });
     },
-    onError: (e: any) => {
-      toast({ title: 'Could not send request', description: e?.message ?? 'Try again', variant: 'destructive' });
+    onError: (e: any, _recipientId, context) => {
+      if (context) qc.setQueryData(context.key, context.previous);
+      toast({ title: "Couldn't recruit — tap to retry", description: e?.message ?? 'Try again', variant: 'destructive' });
     },
   });
 }
@@ -138,6 +154,28 @@ export function useRespondToRequest() {
       if (error) throw error;
       return accept;
     },
+    onMutate: async ({ id, accept }) => {
+      // Find the matching state query (we don't know the otherUserId from args alone)
+      const matches = qc.getQueriesData<TeammateRequestRow | null>({ queryKey: ['teammate-state', user?.id] });
+      const snapshots: Array<{ key: readonly unknown[]; data: TeammateRequestRow | null | undefined }> = [];
+      for (const [key, data] of matches) {
+        if (data && data.id === id) {
+          snapshots.push({ key, data });
+          qc.setQueryData(key, {
+            ...data,
+            status: accept ? 'accepted' : 'declined',
+            responded_at: new Date().toISOString(),
+          });
+        }
+      }
+      // Optimistically remove from incoming list
+      const incomingKey = ['teammate-incoming', user?.id];
+      const prevIncoming = qc.getQueryData<TeammateRequestRow[]>(incomingKey);
+      if (prevIncoming) {
+        qc.setQueryData(incomingKey, prevIncoming.filter((r) => r.id !== id));
+      }
+      return { snapshots, prevIncoming, incomingKey };
+    },
     onSuccess: (accepted) => {
       qc.invalidateQueries({ queryKey: ['teammates', user?.id] });
       qc.invalidateQueries({ queryKey: ['teammate-incoming', user?.id] });
@@ -146,6 +184,13 @@ export function useRespondToRequest() {
         title: accepted ? 'New Teammate added' : 'Request declined',
         description: accepted ? 'They\'re now in your Dugout.' : '',
       });
+    },
+    onError: (e: any, _vars, context) => {
+      if (context) {
+        for (const s of context.snapshots) qc.setQueryData(s.key, s.data);
+        if (context.prevIncoming !== undefined) qc.setQueryData(context.incomingKey, context.prevIncoming);
+      }
+      toast({ title: "Couldn't update — tap to retry", description: e?.message ?? 'Try again', variant: 'destructive' });
     },
   });
 }
@@ -165,10 +210,22 @@ export function useRemoveTeammate() {
         );
       if (error) throw error;
     },
+    onMutate: async (otherUserId) => {
+      const stateKey = ['teammate-state', user?.id, otherUserId];
+      await qc.cancelQueries({ queryKey: stateKey });
+      const prevState = qc.getQueryData<TeammateRequestRow | null>(stateKey);
+      qc.setQueryData(stateKey, null);
+      return { stateKey, prevState };
+    },
     onSuccess: (_d, otherUserId) => {
       qc.invalidateQueries({ queryKey: ['teammates', user?.id] });
       qc.invalidateQueries({ queryKey: ['teammate-state', user?.id, otherUserId] });
       toast({ title: 'Removed from your team' });
     },
+    onError: (e: any, _otherUserId, context) => {
+      if (context) qc.setQueryData(context.stateKey, context.prevState);
+      toast({ title: "Couldn't remove — tap to retry", description: e?.message ?? 'Try again', variant: 'destructive' });
+    },
   });
 }
+

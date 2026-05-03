@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { IntentType, INTENT_LABELS, INTENT_EMOJI, GameStatus, GAME_STATUS_LABELS, GAME_STATUS_EMOJI } from '@/types';
-import { ShieldCheck, MapPin } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { GamedayPersona, PERSONA_CONFIG } from '@/components/PersonaBadge';
 import { PersonaIcon } from '@/components/icons/PersonaIcons';
 import logoTransparent from '@/assets/logo-transparent.png';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
-import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import cardFrontArt from '@/assets/baseball-card-front.png';
 
 // "Position" labels based on fan style / persona
 const POSITION_LABELS: Record<string, string> = {
@@ -88,10 +87,12 @@ export function BaseballCard({
       style={{ perspective: '1200px' }}
     >
       <div
-        className="baseball-card-inner relative w-full transition-transform duration-700"
+        className="baseball-card-inner relative w-full"
         style={{
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          transition: 'transform 260ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+          transformOrigin: 'center',
           aspectRatio: '2.5 / 3.5',
         }}
       >
@@ -100,129 +101,67 @@ export function BaseballCard({
           className="baseball-card-face absolute inset-0"
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <div className="relative h-full rounded-lg overflow-hidden border-[6px] border-[#C4A661] shadow-xl flex flex-col"
+          <div
+            className="relative h-full w-full rounded-lg overflow-hidden shadow-xl"
             style={{
-              background: 'linear-gradient(135deg, #1E3A5F 0%, #14284B 100%)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+              backgroundImage: `url(${cardFrontArt})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
             }}
           >
-            {/* Logo overlay */}
-            <div className="absolute top-2 left-2 z-20">
-              <img
-                src={logoTransparent}
-                alt="Cubbies Buddies"
-                className="h-8 w-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
-              />
+            {/* Subtle gradient for text contrast on pennant area */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  'linear-gradient(180deg, transparent 0%, transparent 60%, rgba(0,0,0,0.05) 100%)',
+              }}
+              aria-hidden="true"
+            />
+
+            {/* Centered avatar (top two-thirds) */}
+            <div className="absolute inset-x-0 top-0 h-2/3 flex items-center justify-center px-[12%]">
+              <Avatar88 src={profilePhoto} name={displayName} verified={!!isVerified} />
             </div>
 
-            {/* Photo area */}
-            <div className="flex-1 flex items-center justify-center px-4 pt-12 pb-2">
-              <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-[#C4A661] shadow-lg"
+            {/* Username in lower-right pennant area */}
+            <div
+              className="absolute"
+              style={{
+                left: '14%',
+                right: '8%',
+                bottom: '11%',
+                paddingLeft: '12px',
+                paddingRight: '12px',
+              }}
+            >
+              <p
+                className="font-semibold text-[16px] leading-tight truncate text-right"
                 style={{
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.1)',
+                  color: '#0A2A66',
+                  fontFamily: "'Graduate', 'Barlow Condensed', serif",
+                  textShadow: '0 1px 0 rgba(255,255,255,0.6)',
                 }}
+                title={displayName}
               >
-                <img
-                  src={profilePhoto || '/placeholder.svg'}
-                  alt={displayName}
-                  className="w-full h-full object-cover"
-                  style={{ filter: 'sepia(15%) contrast(1.05) saturate(0.9)' }}
-                />
-                <div className="absolute inset-0 rounded-full"
-                  style={{
-                    background: 'radial-gradient(circle, transparent 60%, rgba(0,0,0,0.3) 100%)',
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Name plate */}
-            <div className="px-3 pb-1.5 text-center">
-              <div
-                className="mx-auto rounded-md py-1.5 px-3"
-                style={{
-                  background: 'linear-gradient(180deg, #F5E6C8 0%, #E8D5A8 100%)',
-                  border: '2px solid #C4A661',
-                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.5)',
-                }}
-              >
-                <h2
-                  className="text-base font-black uppercase tracking-wide"
-                  style={{
-                    fontFamily: "'Graduate', 'Barlow Condensed', serif",
-                    color: '#1E3A5F',
-                    textShadow: '1px 1px 0 rgba(255,255,255,0.3)',
-                  }}
-                >
-                  {displayName}{age ? `, ${age}` : ''}
-                </h2>
-                <div className="flex items-center justify-center gap-2 mt-0.5">
-                  <span
-                    className="text-[9px] font-bold uppercase tracking-widest"
-                    style={{ color: '#CC3433', fontFamily: "'Barlow Condensed', sans-serif" }}
-                  >
-                    {position}
-                  </span>
-                  {isVerified && (
-                    <span className="inline-flex items-center gap-0.5">
-                      <ShieldCheck className="h-3 w-3" style={{ color: '#2D7D46' }} />
-                      <span className="text-[8px] font-bold" style={{ color: '#2D7D46' }}>VERIFIED</span>
+                {displayName}{age ? `, ${age}` : ''}
+              </p>
+              {(gameStatus && gameStatus !== 'NotSet') || primaryIntent ? (
+                <div className="flex items-center justify-end gap-2 mt-0.5">
+                  {gameStatus && gameStatus !== 'NotSet' && (
+                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#0A2A66' }}>
+                      {GAME_STATUS_EMOJI[gameStatus]} {GAME_STATUS_LABELS[gameStatus]}
+                    </span>
+                  )}
+                  {primaryIntent && (
+                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
+                      {INTENT_EMOJI[primaryIntent]} {INTENT_LABELS[primaryIntent]}
                     </span>
                   )}
                 </div>
-              </div>
+              ) : null}
             </div>
-
-            {/* Location bar */}
-            <div
-              className="mx-3 mb-1.5 rounded-md px-2 py-1 flex items-center justify-center gap-1.5"
-              style={{
-                background: 'rgba(255,255,255,0.08)',
-                border: '1px solid rgba(196,166,97,0.3)',
-              }}
-            >
-              <MapPin className="h-3 w-3" style={{ color: '#C4A661' }} />
-              <span
-                className="text-[9px] font-bold uppercase tracking-wider"
-                style={{ color: '#F5E6C8' }}
-              >
-                {location}
-              </span>
-            </div>
-
-            {/* Status + Intent row */}
-            <div className="px-3 pb-2 flex items-center justify-between">
-              {gameStatus && gameStatus !== 'NotSet' && (
-                <span
-                  className="text-[9px] font-semibold uppercase tracking-wide"
-                  style={{ color: '#8CC63F' }}
-                >
-                  {GAME_STATUS_EMOJI[gameStatus]} {GAME_STATUS_LABELS[gameStatus]}
-                </span>
-              )}
-              <div className="flex-1" />
-              {primaryIntent && (
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center border-2"
-                  style={{
-                    background: 'linear-gradient(135deg, #CC3433, #A02020)',
-                    borderColor: '#C4A661',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-                  }}
-                  title={INTENT_LABELS[primaryIntent]}
-                >
-                  <span className="text-sm">{INTENT_EMOJI[primaryIntent]}</span>
-                </div>
-              )}
-            </div>
-
-            {/* Footer stripe */}
-            <div
-              className="h-1.5"
-              style={{
-                background: 'linear-gradient(90deg, #CC3433 0%, #1E3A5F 33%, #2D7D46 66%, #C4A661 100%)',
-              }}
-            />
           </div>
 
           {interactive && (
@@ -356,6 +295,64 @@ export function BaseballCard({
     </div>
   );
 }
+
+function Avatar88({ src, name, verified }: { src?: string | null; name: string; verified: boolean }) {
+  const [loaded, setLoaded] = useState(false);
+  const [errored, setErrored] = useState(false);
+  const initials = (name || 'Fan')
+    .split(/\s+/)
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+  const showImage = !!src && !errored;
+  return (
+    <div
+      role="img"
+      aria-label={`Profile photo of ${name || 'Fan'}`}
+      tabIndex={0}
+      className="relative rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CC3433]"
+      style={{
+        width: 88,
+        height: 88,
+        boxShadow: '0 0 0 4px #FFFFFF, 0 6px 18px rgba(0,0,0,0.35)',
+        background: '#0A2A66',
+      }}
+    >
+      {!loaded && showImage && (
+        <div className="absolute inset-0 animate-pulse" style={{ background: '#cbd5e1' }} aria-hidden="true" />
+      )}
+      {showImage ? (
+        <img
+          src={src!}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          onError={() => setErrored(true)}
+          className={cn('w-full h-full object-cover transition-opacity duration-300', loaded ? 'opacity-100' : 'opacity-0')}
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-white font-black text-2xl"
+          style={{ fontFamily: "'Graduate', serif" }}
+        >
+          {initials || 'CB'}
+        </div>
+      )}
+      {verified && (
+        <span
+          className="absolute -bottom-0.5 -right-0.5 inline-flex items-center justify-center rounded-full"
+          style={{ background: '#FFFFFF', padding: 2 }}
+          aria-label="Verified fan"
+        >
+          <ShieldCheck className="h-4 w-4" style={{ color: '#0A2A66' }} />
+        </span>
+      )}
+    </div>
+  );
+}
+
 
 function StatBox({ label, sublabel, value }: { label: string; sublabel: string; value: number }) {
   return (

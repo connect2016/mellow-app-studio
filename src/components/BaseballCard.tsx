@@ -99,129 +99,67 @@ export function BaseballCard({
           className="baseball-card-face absolute inset-0"
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <div className="relative h-full rounded-lg overflow-hidden border-[6px] border-[#C4A661] shadow-xl flex flex-col"
+          <div
+            className="relative h-full w-full rounded-lg overflow-hidden shadow-xl"
             style={{
-              background: 'linear-gradient(135deg, #1E3A5F 0%, #14284B 100%)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+              backgroundImage: `url(${cardFrontArt})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
             }}
           >
-            {/* Logo overlay */}
-            <div className="absolute top-2 left-2 z-20">
-              <img
-                src={logoTransparent}
-                alt="Cubbies Buddies"
-                className="h-8 w-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
-              />
+            {/* Subtle gradient for text contrast on pennant area */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  'linear-gradient(180deg, transparent 0%, transparent 60%, rgba(0,0,0,0.05) 100%)',
+              }}
+              aria-hidden="true"
+            />
+
+            {/* Centered avatar (top two-thirds) */}
+            <div className="absolute inset-x-0 top-0 h-2/3 flex items-center justify-center px-[12%]">
+              <Avatar88 src={profilePhoto} name={displayName} verified={!!isVerified} />
             </div>
 
-            {/* Photo area */}
-            <div className="flex-1 flex items-center justify-center px-4 pt-12 pb-2">
-              <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-[#C4A661] shadow-lg"
+            {/* Username in lower-right pennant area */}
+            <div
+              className="absolute"
+              style={{
+                left: '14%',
+                right: '8%',
+                bottom: '11%',
+                paddingLeft: '12px',
+                paddingRight: '12px',
+              }}
+            >
+              <p
+                className="font-semibold text-[16px] leading-tight truncate text-right"
                 style={{
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.1)',
+                  color: '#0A2A66',
+                  fontFamily: "'Graduate', 'Barlow Condensed', serif",
+                  textShadow: '0 1px 0 rgba(255,255,255,0.6)',
                 }}
+                title={displayName}
               >
-                <img
-                  src={profilePhoto || '/placeholder.svg'}
-                  alt={displayName}
-                  className="w-full h-full object-cover"
-                  style={{ filter: 'sepia(15%) contrast(1.05) saturate(0.9)' }}
-                />
-                <div className="absolute inset-0 rounded-full"
-                  style={{
-                    background: 'radial-gradient(circle, transparent 60%, rgba(0,0,0,0.3) 100%)',
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Name plate */}
-            <div className="px-3 pb-1.5 text-center">
-              <div
-                className="mx-auto rounded-md py-1.5 px-3"
-                style={{
-                  background: 'linear-gradient(180deg, #F5E6C8 0%, #E8D5A8 100%)',
-                  border: '2px solid #C4A661',
-                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.5)',
-                }}
-              >
-                <h2
-                  className="text-base font-black uppercase tracking-wide"
-                  style={{
-                    fontFamily: "'Graduate', 'Barlow Condensed', serif",
-                    color: '#1E3A5F',
-                    textShadow: '1px 1px 0 rgba(255,255,255,0.3)',
-                  }}
-                >
-                  {displayName}{age ? `, ${age}` : ''}
-                </h2>
-                <div className="flex items-center justify-center gap-2 mt-0.5">
-                  <span
-                    className="text-[9px] font-bold uppercase tracking-widest"
-                    style={{ color: '#CC3433', fontFamily: "'Barlow Condensed', sans-serif" }}
-                  >
-                    {position}
-                  </span>
-                  {isVerified && (
-                    <span className="inline-flex items-center gap-0.5">
-                      <ShieldCheck className="h-3 w-3" style={{ color: '#2D7D46' }} />
-                      <span className="text-[8px] font-bold" style={{ color: '#2D7D46' }}>VERIFIED</span>
+                {displayName}{age ? `, ${age}` : ''}
+              </p>
+              {(gameStatus && gameStatus !== 'NotSet') || primaryIntent ? (
+                <div className="flex items-center justify-end gap-2 mt-0.5">
+                  {gameStatus && gameStatus !== 'NotSet' && (
+                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#0A2A66' }}>
+                      {GAME_STATUS_EMOJI[gameStatus]} {GAME_STATUS_LABELS[gameStatus]}
+                    </span>
+                  )}
+                  {primaryIntent && (
+                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
+                      {INTENT_EMOJI[primaryIntent]} {INTENT_LABELS[primaryIntent]}
                     </span>
                   )}
                 </div>
-              </div>
+              ) : null}
             </div>
-
-            {/* Location bar */}
-            <div
-              className="mx-3 mb-1.5 rounded-md px-2 py-1 flex items-center justify-center gap-1.5"
-              style={{
-                background: 'rgba(255,255,255,0.08)',
-                border: '1px solid rgba(196,166,97,0.3)',
-              }}
-            >
-              <MapPin className="h-3 w-3" style={{ color: '#C4A661' }} />
-              <span
-                className="text-[9px] font-bold uppercase tracking-wider"
-                style={{ color: '#F5E6C8' }}
-              >
-                {location}
-              </span>
-            </div>
-
-            {/* Status + Intent row */}
-            <div className="px-3 pb-2 flex items-center justify-between">
-              {gameStatus && gameStatus !== 'NotSet' && (
-                <span
-                  className="text-[9px] font-semibold uppercase tracking-wide"
-                  style={{ color: '#8CC63F' }}
-                >
-                  {GAME_STATUS_EMOJI[gameStatus]} {GAME_STATUS_LABELS[gameStatus]}
-                </span>
-              )}
-              <div className="flex-1" />
-              {primaryIntent && (
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center border-2"
-                  style={{
-                    background: 'linear-gradient(135deg, #CC3433, #A02020)',
-                    borderColor: '#C4A661',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-                  }}
-                  title={INTENT_LABELS[primaryIntent]}
-                >
-                  <span className="text-sm">{INTENT_EMOJI[primaryIntent]}</span>
-                </div>
-              )}
-            </div>
-
-            {/* Footer stripe */}
-            <div
-              className="h-1.5"
-              style={{
-                background: 'linear-gradient(90deg, #CC3433 0%, #1E3A5F 33%, #2D7D46 66%, #C4A661 100%)',
-              }}
-            />
           </div>
 
           {interactive && (

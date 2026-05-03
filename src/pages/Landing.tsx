@@ -288,6 +288,10 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOMeta
+        title="Cubbies Buddies — Find Your Crew"
+        description="Find your Cubs crew at Wrigleyville. Connect with fellow fans, plan game-day meetups, and build your baseball squad."
+      />
       {/* ── Video Hero ── */}
       <HeroVideo />
 

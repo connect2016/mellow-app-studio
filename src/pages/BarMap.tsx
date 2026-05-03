@@ -88,6 +88,10 @@ export default function BarMap() {
 
   return (
     <div className={`relative min-h-screen overflow-x-hidden ${isGuest ? 'pb-20' : 'pb-24'}`}>
+      <SEOMeta
+        title="Bar Map — Wrigleyville Cubs Bars"
+        description="Live map of the best Wrigleyville bars to watch the Cubs. See who's there, vibes, and check in with fellow fans."
+      />
       <div
         className="fixed inset-0 z-0 swipe-drag-bg"
         data-route-parallax="bg"

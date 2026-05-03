@@ -66,6 +66,10 @@ export default function Crews() {
 
   return (
     <div className="min-h-screen bg-background pb-24">
+      <SEOMeta
+        title="Crews — Find Your Cubs Squad"
+        description="Join or create a Cubs fan crew. Plan game-day meetups, share inside jokes, and build your baseball squad on Cubbies Buddies."
+      />
       <AppHeader />
 
       <div className="mx-auto max-w-lg px-4 pt-4">

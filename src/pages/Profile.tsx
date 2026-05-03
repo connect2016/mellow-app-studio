@@ -228,6 +228,10 @@ export default function Profile() {
 
   return (
     <div className="relative min-h-screen bg-background pb-24">
+      <SEOMeta
+        title="Your Profile — Cubbies Buddies"
+        description="View and customize your Cubbies Buddies profile, season stats, badges, and meetup history."
+      />
       <AppHeader />
 
       <div className="mx-auto max-w-lg px-4 pt-4">

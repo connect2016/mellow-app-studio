@@ -221,8 +221,10 @@ export default function Profile() {
     return (
       <div className="min-h-screen bg-background pb-24">
         <AppHeader />
-        <div className="flex items-center justify-center pt-20">
-          <p className="text-4xl animate-pulse"></p>
+        <div className="px-4 pt-6 space-y-4 max-w-2xl mx-auto">
+          <ProfileCardSkeleton />
+          <ProfileCardSkeleton />
+          <ProfileCardSkeleton />
         </div>
       </div>
     );

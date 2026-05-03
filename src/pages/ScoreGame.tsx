@@ -177,14 +177,19 @@ export default function ScoreGame() {
 
             <div className="flex items-center gap-1">
               <span className="text-[10px] text-white/60 mr-1 font-['Share_Tech_Mono']">{members.data?.length ?? 0} </span>
-              <button onClick={copyInvite} className="h-7 w-7 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20">
-                <Share2 className="h-3.5 w-3.5 text-white" />
-              </button>
+              <IconButton
+                onClick={copyInvite}
+                aria-label="Copy invite link"
+                className="rounded-lg bg-white/10 hover:bg-white/20"
+                icon={<Share2 className="h-3.5 w-3.5 text-white" />}
+              />
               <Sheet open={showScorecard} onOpenChange={setShowScorecard}>
                 <SheetTrigger asChild>
-                  <button className="h-7 w-7 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20">
-                    <ClipboardList className="h-3.5 w-3.5 text-white" />
-                  </button>
+                  <IconButton
+                    aria-label="Open scorecard"
+                    className="rounded-lg bg-white/10 hover:bg-white/20"
+                    icon={<ClipboardList className="h-3.5 w-3.5 text-white" />}
+                  />
                 </SheetTrigger>
                 <SheetContent side="bottom" className="rounded-t-2xl max-h-[85vh] overflow-y-auto" style={{ backgroundColor: '#F9F8F4' }}>
                   <ScorecardSheet

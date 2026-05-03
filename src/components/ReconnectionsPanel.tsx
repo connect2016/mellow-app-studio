@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BuddyListItemSkeleton } from '@/components/ui/skeleton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useReconnections, ReconnectionSuggestion } from '@/hooks/useReconnections';

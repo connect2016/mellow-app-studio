@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { LiveChatFeed } from '@/components/scoring/LiveChatFeed';
@@ -273,7 +273,16 @@ function ScorecardSheet({
   userId, currentInning, onAddEntry, onConfirm, onPredict, onResolve,
   onPassPencil, onFinalize, memberCount, isFinalized,
 }: any) {
-  const [tab, setTab] = useState<'score' | 'relay' | 'predict' | 'timeline' | 'ranks' | 'fans'>('score');
+  const [tabParams, setTabParams] = useSearchParams();
+  const VALID_TABS = ['score', 'relay', 'predict', 'timeline', 'ranks', 'fans'] as const;
+  type TabKey = typeof VALID_TABS[number];
+  const tabRaw = tabParams.get('tab');
+  const tab: TabKey = (VALID_TABS as readonly string[]).includes(tabRaw ?? '') ? (tabRaw as TabKey) : 'score';
+  const setTab = (next: TabKey) => {
+    const p = new URLSearchParams(tabParams);
+    if (next === 'score') p.delete('tab'); else p.set('tab', next);
+    setTabParams(p, { replace: false });
+  };
   const { toast } = useToast();
 
   const tabs = [

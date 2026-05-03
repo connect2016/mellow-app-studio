@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { SEOMeta } from '@/components/SEOMeta';
 import { DynamicBackground } from '@/components/DynamicBackground';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGuestMode } from '@/contexts/GuestModeContext';
@@ -253,6 +254,10 @@ export default function VibeFeed() {
 
   return (
     <DynamicBackground>
+      <SEOMeta
+        title="Live Vibe Feed — Wrigleyville Right Now"
+        description="See what's happening at Wrigley Field and Wrigleyville bars right now. Live photos, vibes, and shoutouts from Cubs fans."
+      />
       {/* Lightening layer — keeps background tint at ~20-30%; non-blocking so feed stays scrollable */}
       <div
         className="fixed inset-0 z-[1] pointer-events-none"

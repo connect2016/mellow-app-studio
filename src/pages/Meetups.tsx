@@ -1,3 +1,4 @@
+import { SEOMeta } from '@/components/SEOMeta';
 import { useMemo, useState } from 'react';
 import { Plus, CalendarDays } from 'lucide-react';
 import { AppHeader } from '@/components/AppHeader';
@@ -60,6 +61,10 @@ export default function Meetups() {
 
   return (
     <div className={`min-h-screen relative overflow-x-hidden ${isGuest ? 'pb-20' : 'pb-24'}`}>
+      <SEOMeta
+        title="Meetups — Cubs Fan Game-Day Plans"
+        description="Browse and join Cubs fan meetups around Wrigleyville. Find your group for tonight's game, pre-game beers, or the after-party."
+      />
       <div
         className="fixed inset-0 z-0 swipe-drag-bg"
         data-route-parallax="bg"

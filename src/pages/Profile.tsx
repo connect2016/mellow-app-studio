@@ -1,3 +1,4 @@
+import { SEOMeta } from '@/components/SEOMeta';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { DynamicBackground } from '@/components/DynamicBackground';
@@ -228,6 +229,10 @@ export default function Profile() {
 
   return (
     <div className="relative min-h-screen bg-background pb-24">
+      <SEOMeta
+        title="Your Profile — Cubbies Buddies"
+        description="View and customize your Cubbies Buddies profile, season stats, badges, and meetup history."
+      />
       <AppHeader />
 
       <div className="mx-auto max-w-lg px-4 pt-4">

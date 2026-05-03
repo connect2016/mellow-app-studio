@@ -1,3 +1,4 @@
+import { SEOMeta } from '@/components/SEOMeta';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -260,6 +261,10 @@ export default function Discover() {
 
   return (
     <div className="min-h-screen pb-52 relative overflow-x-hidden">
+      <SEOMeta
+        title="Discover Fans — Cubbies Buddies"
+        description="Discover Cubs fans near Wrigleyville. Match with buddies, find your section, and plan game-day meetups."
+      />
       {/* Dynamic background image — parallax bg layer (40% drag) */}
       <div className="fixed inset-0 z-0 swipe-drag-bg" data-route-parallax="bg">
         <img

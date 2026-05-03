@@ -1,5 +1,6 @@
 // @ts-ignore
 import '@fontsource/norwester';
+import { SEOMeta } from '@/components/SEOMeta';
 import { Link, useNavigate } from 'react-router-dom';
 import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.jpg';
 import { Button } from '@/components/ui/button';
@@ -288,6 +289,10 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOMeta
+        title="Cubbies Buddies — Find Your Crew"
+        description="Find your Cubs crew at Wrigleyville. Connect with fellow fans, plan game-day meetups, and build your baseball squad."
+      />
       {/* ── Video Hero ── */}
       <HeroVideo />
 

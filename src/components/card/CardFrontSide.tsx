@@ -109,21 +109,37 @@ export function CardFrontSide({
         </div>
       </div>
 
-      {/* Username — lower-right pennant area */}
+      {/* Username — white nameplate strip at bottom of card */}
       <div
-        className="absolute"
-        style={{ left: '8%', right: '8%', bottom: '4%', paddingLeft: 8, paddingRight: 8, overflow: 'hidden' }}
+        className="absolute left-0 right-0"
+        style={{
+          bottom: '3%',
+          width: '100%',
+          overflow: 'hidden',
+          boxSizing: 'border-box',
+        }}
       >
         <p
-          className="font-semibold text-[14px] leading-tight text-center"
+          className="font-semibold leading-tight"
           style={{
+            display: 'block',
+            width: '100%',
+            textAlign: 'center',
+            paddingLeft: 12,
+            paddingRight: 12,
+            fontSize: 'clamp(12px, 3vw, 18px)',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            boxSizing: 'border-box',
+            position: 'static',
+            transform: 'none',
+            left: 'unset',
+            right: 'unset',
+            bottom: 'unset',
             color: '#0A2A66',
             fontFamily: "'Graduate', 'Norwester', serif",
             textShadow: '0 1px 0 rgba(255,255,255,0.6)',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            maxWidth: '100%',
           }}
           title={displayName}
         >

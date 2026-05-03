@@ -161,8 +161,8 @@ export function UserBaseballCard({
       <div
         className="relative w-full mx-auto"
         style={{
-          height: 420,
           maxWidth: 360,
+          aspectRatio: '834 / 1218',
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
           transition: 'transform 260ms cubic-bezier(0.25, 0.8, 0.25, 1)',

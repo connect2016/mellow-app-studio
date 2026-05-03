@@ -14,6 +14,7 @@ import { AchievementNotifier } from "@/components/notifications/AchievementNotif
 import { FirstActionMicroflow } from "@/components/onboarding/FirstActionMicroflow";
 import { CreateMeetupProvider } from "@/contexts/CreateMeetupContext";
 import { CreateMeetupFab } from "@/components/CreateMeetupFab";
+import { BottomNav } from "@/components/layout/BottomNav";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 
@@ -80,6 +81,7 @@ const App = () => (
             <IcebreakerNotifier />
             <AchievementNotifier />
             <FirstActionMicroflow />
+            <div className="md:hidden"><BottomNav /></div>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />

@@ -634,9 +634,10 @@ export default function Discover() {
             )}
 
             {isLoading ? (
-              <div className="py-20 text-center">
-                <p className="text-4xl animate-pulse"></p>
-                <p className="mt-2 font-semibold text-muted-foreground">{pickCopy(LOADING_FANS)}</p>
+              <div className="space-y-4">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <ProfileCardSkeleton key={i} />
+                ))}
               </div>
             ) : filtered.length === 0 ? (
               <div className="py-20 text-center">

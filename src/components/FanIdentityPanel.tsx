@@ -1,3 +1,4 @@
+import { IconButton } from '@/components/ui/IconButton';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useFanIdentity, FAN_TIERS, ARCHETYPE_LABELS, FanIdentity } from '@/hooks/useFanIdentity';

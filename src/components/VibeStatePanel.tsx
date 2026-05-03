@@ -1,3 +1,4 @@
+import { IconButton } from '@/components/ui/IconButton';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useVibeState, VIBE_STATES } from '@/hooks/useVibeState';

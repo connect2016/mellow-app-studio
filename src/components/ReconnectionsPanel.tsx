@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BuddyListItemSkeleton } from '@/components/ui/skeleton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useReconnections, ReconnectionSuggestion } from '@/hooks/useReconnections';
@@ -189,15 +190,10 @@ export function ReconnectionsPanel() {
           >
             <div className="px-4 pb-4 space-y-2">
               {isLoading ? (
-                <div className="text-center py-6">
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                    className="inline-block"
-                  >
-                    <RefreshCw className="h-5 w-5 text-muted-foreground" />
-                  </motion.div>
-                  <p className="text-sm text-muted-foreground mt-2">Scanning your connections…</p>
+                <div className="space-y-2">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <BuddyListItemSkeleton key={i} />
+                  ))}
                 </div>
               ) : (
                 <>

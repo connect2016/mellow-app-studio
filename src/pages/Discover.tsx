@@ -1,4 +1,5 @@
 import { SEOMeta } from '@/components/SEOMeta';
+import { ProfileCardSkeleton } from '@/components/ui/skeleton';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';

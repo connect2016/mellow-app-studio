@@ -1,3 +1,4 @@
+import { IconButton } from '@/components/ui/IconButton';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useVibeState, VIBE_STATES } from '@/hooks/useVibeState';
@@ -56,13 +57,13 @@ export function VibeStatePanel() {
             AI-Classified
           </Badge>
         </div>
-        <button
+        <IconButton
           onClick={handleClassify}
           disabled={classify.isPending}
-          className="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <RefreshCw className={`h-3.5 w-3.5 ${classify.isPending ? 'animate-spin' : ''}`} />
-        </button>
+          aria-label="Refresh vibe"
+          className="text-muted-foreground hover:text-foreground"
+          icon={<RefreshCw className={`h-3.5 w-3.5 ${classify.isPending ? 'animate-spin' : ''}`} />}
+        />
       </div>
 
       <div className="px-4 py-3">

@@ -1,3 +1,4 @@
+import { IconButton } from '@/components/ui/IconButton';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
@@ -63,9 +64,11 @@ export function MeetupTrustPanel({
           </p>
           <Tooltip>
             <TooltipTrigger asChild>
-              <button className="text-muted-foreground hover:text-foreground" aria-label="How trust works">
-                <Info className="h-3.5 w-3.5" />
-              </button>
+              <IconButton
+                aria-label="How trust works"
+                className="text-muted-foreground hover:text-foreground"
+                icon={<Info className="h-3.5 w-3.5" />}
+              />
             </TooltipTrigger>
             <TooltipContent side="left" className="max-w-[240px] text-xs">
               We surface signals — verification, host history, mutual connections — so you can decide for yourself.

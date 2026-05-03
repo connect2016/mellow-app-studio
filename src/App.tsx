@@ -52,6 +52,7 @@ import MeetupDetail from "./pages/MeetupDetail";
 import NotFound from "./pages/NotFound";
 import NotFoundPage from "./pages/NotFoundPage";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import ProtectedRoute from "./components/ProtectedRoute";
 import ClaimBeer from "./pages/ClaimBeer";
 import WrigleyvilleEats from "./pages/WrigleyvilleEats";
 import Dugout from "./pages/Dugout";
@@ -83,43 +84,45 @@ const App = () => (
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />
             
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/quick-start" element={<QuickStart />} />
-            <Route path="/discover" element={<Discover />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/:id" element={<Profile />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/game-day" element={<GameDay />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/quick-start" element={<QuickStart />} />
+              <Route path="/discover" element={<Discover />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/messages" element={<Messages />} />
+              <Route path="/game-day" element={<GameDay />} />
+              <Route path="/check-in" element={<CheckIn />} />
+              <Route path="/hi-fives" element={<HiFives />} />
+              <Route path="/beer-money" element={<BeerMoney />} />
+              <Route path="/vibe" element={<VibeFeed />} />
+              <Route path="/loyalty" element={<Loyalty />} />
+              <Route path="/crews" element={<Crews />} />
+              <Route path="/crews/:id" element={<CrewDetail />} />
+              <Route path="/missions" element={<Missions />} />
+              <Route path="/memories" element={<Memories />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/score" element={<ScoreLobby />} />
+              <Route path="/score/:id" element={<ScoreGame />} />
+              <Route path="/venues" element={<Venues />} />
+              <Route path="/claim/:code" element={<ClaimBeer />} />
+              <Route path="/dugout" element={<Dugout />} />
+            </Route>
             <Route path="/share-seat" element={<ShareSeat />} />
-            <Route path="/check-in" element={<CheckIn />} />
-            <Route path="/hi-fives" element={<HiFives />} />
-            <Route path="/beer-money" element={<BeerMoney />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/vibe" element={<VibeFeed />} />
-            <Route path="/loyalty" element={<Loyalty />} />
-            <Route path="/crews" element={<Crews />} />
-            <Route path="/crews/:id" element={<CrewDetail />} />
-            <Route path="/missions" element={<Missions />} />
-            <Route path="/memories" element={<Memories />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/score" element={<ScoreLobby />} />
-            <Route path="/score/:id" element={<ScoreGame />} />
             <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />
             <Route path="/bar-map" element={<BarMap />} />
             <Route path="/buddy-heatmap" element={<BuddyHeatmap />} />
             <Route path="/section-chat" element={<SectionChat />} />
             <Route path="/verify" element={<VerifyFan />} />
-            <Route path="/venues" element={<Venues />} />
             <Route path="/pub-crawl" element={<PubCrawl />} />
             <Route path="/meetups" element={<Meetups />} />
-             <Route path="/meetups/:id" element={<MeetupDetail />} />
-             <Route path="/claim/:code" element={<ClaimBeer />} />
-             <Route path="/eats" element={<WrigleyvilleEats />} />
-             <Route path="/dugout" element={<Dugout />} />
-             <Route path="/league-leaders" element={<LeagueLeaders />} />
-             <Route path="*" element={<NotFoundPage />} />
+            <Route path="/meetups/:id" element={<MeetupDetail />} />
+            <Route path="/eats" element={<WrigleyvilleEats />} />
+            <Route path="/league-leaders" element={<LeagueLeaders />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <CreateMeetupFab />
           </CreateMeetupProvider>

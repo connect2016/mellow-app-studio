@@ -87,10 +87,12 @@ export function BaseballCard({
       style={{ perspective: '1200px' }}
     >
       <div
-        className="baseball-card-inner relative w-full transition-transform duration-700"
+        className="baseball-card-inner relative w-full"
         style={{
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          transition: 'transform 260ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+          transformOrigin: 'center',
           aspectRatio: '2.5 / 3.5',
         }}
       >

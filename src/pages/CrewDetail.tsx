@@ -35,7 +35,15 @@ export default function CrewDetail() {
   const vote = useVoteCrewEvent();
   const leaveCrew = useLeaveCrew();
 
-  const [tab, setTab] = useState<Tab>('chat');
+  const [tabParams, setTabParams] = useSearchParams();
+  const VALID_TABS: readonly Tab[] = ['chat', 'plans', 'events', 'members'];
+  const tabRaw = tabParams.get('tab');
+  const tab: Tab = (VALID_TABS as readonly string[]).includes(tabRaw ?? '') ? (tabRaw as Tab) : 'chat';
+  const setTab = (next: Tab) => {
+    const p = new URLSearchParams(tabParams);
+    if (next === 'chat') p.delete('tab'); else p.set('tab', next);
+    setTabParams(p, { replace: false });
+  };
   const [msgInput, setMsgInput] = useState('');
   const [showNewEvent, setShowNewEvent] = useState(false);
   const [eventTitle, setEventTitle] = useState('');

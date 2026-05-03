@@ -294,6 +294,64 @@ export function BaseballCard({
   );
 }
 
+function Avatar88({ src, name, verified }: { src?: string | null; name: string; verified: boolean }) {
+  const [loaded, setLoaded] = useState(false);
+  const [errored, setErrored] = useState(false);
+  const initials = (name || 'Fan')
+    .split(/\s+/)
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+  const showImage = !!src && !errored;
+  return (
+    <div
+      role="img"
+      aria-label={`Profile photo of ${name || 'Fan'}`}
+      tabIndex={0}
+      className="relative rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CC3433]"
+      style={{
+        width: 88,
+        height: 88,
+        boxShadow: '0 0 0 4px #FFFFFF, 0 6px 18px rgba(0,0,0,0.35)',
+        background: '#0A2A66',
+      }}
+    >
+      {!loaded && showImage && (
+        <div className="absolute inset-0 animate-pulse" style={{ background: '#cbd5e1' }} aria-hidden="true" />
+      )}
+      {showImage ? (
+        <img
+          src={src!}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          onError={() => setErrored(true)}
+          className={cn('w-full h-full object-cover transition-opacity duration-300', loaded ? 'opacity-100' : 'opacity-0')}
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-white font-black text-2xl"
+          style={{ fontFamily: "'Graduate', serif" }}
+        >
+          {initials || 'CB'}
+        </div>
+      )}
+      {verified && (
+        <span
+          className="absolute -bottom-0.5 -right-0.5 inline-flex items-center justify-center rounded-full"
+          style={{ background: '#FFFFFF', padding: 2 }}
+          aria-label="Verified fan"
+        >
+          <ShieldCheck className="h-4 w-4" style={{ color: '#0A2A66' }} />
+        </span>
+      )}
+    </div>
+  );
+}
+
+
 function StatBox({ label, sublabel, value }: { label: string; sublabel: string; value: number }) {
   return (
     <div>

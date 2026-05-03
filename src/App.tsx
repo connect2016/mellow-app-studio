@@ -50,6 +50,8 @@ import PubCrawl from "./pages/PubCrawl";
 import Meetups from "./pages/Meetups";
 import MeetupDetail from "./pages/MeetupDetail";
 import NotFound from "./pages/NotFound";
+import NotFoundPage from "./pages/NotFoundPage";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import ClaimBeer from "./pages/ClaimBeer";
 import WrigleyvilleEats from "./pages/WrigleyvilleEats";
 import Dugout from "./pages/Dugout";
@@ -66,6 +68,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <ErrorBoundary>
       <BrowserRouter>
         <AuthProvider>
           <GuestModeProvider>
@@ -116,7 +119,7 @@ const App = () => (
              <Route path="/eats" element={<WrigleyvilleEats />} />
              <Route path="/dugout" element={<Dugout />} />
              <Route path="/league-leaders" element={<LeagueLeaders />} />
-             <Route path="*" element={<NotFound />} />
+             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <CreateMeetupFab />
           </CreateMeetupProvider>
@@ -124,6 +127,7 @@ const App = () => (
           </GuestModeProvider>
         </AuthProvider>
       </BrowserRouter>
+      </ErrorBoundary>
     </TooltipProvider>
   </QueryClientProvider>
   </HelmetProvider>

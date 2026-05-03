@@ -1,3 +1,4 @@
+import { IconButton } from '@/components/ui/IconButton';
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';

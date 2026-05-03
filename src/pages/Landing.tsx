@@ -1,4 +1,5 @@
 // @ts-ignore
+import { SEOMeta } from '@/components/SEOMeta';
 import '@fontsource/norwester';
 import { Link, useNavigate } from 'react-router-dom';
 import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.jpg';

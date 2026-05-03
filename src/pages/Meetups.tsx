@@ -1,3 +1,4 @@
+import { SEOMeta } from '@/components/SEOMeta';
 import { useMemo, useState } from 'react';
 import { Plus, CalendarDays } from 'lucide-react';
 import { AppHeader } from '@/components/AppHeader';

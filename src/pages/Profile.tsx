@@ -1,3 +1,4 @@
+import { SEOMeta } from '@/components/SEOMeta';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { DynamicBackground } from '@/components/DynamicBackground';

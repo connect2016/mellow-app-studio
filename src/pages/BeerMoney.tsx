@@ -107,7 +107,14 @@ export default function BeerMoney() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<'send' | 'feed' | 'leaderboard'>('send');
+  const tabParam = params.get('tab');
+  const activeTab: 'send' | 'feed' | 'leaderboard' =
+    tabParam === 'feed' || tabParam === 'leaderboard' ? tabParam : 'send';
+  const setActiveTab = (next: 'send' | 'feed' | 'leaderboard') => {
+    const p = new URLSearchParams(params);
+    if (next === 'send') p.delete('tab'); else p.set('tab', next);
+    setParams(p, { replace: false });
+  };
   const [showNonUserSend, setShowNonUserSend] = useState(false);
   const [claimLinkUrl, setClaimLinkUrl] = useState('');
   const { activities: liveActivities, stats: liveStats } = useLiveBeerFeed();

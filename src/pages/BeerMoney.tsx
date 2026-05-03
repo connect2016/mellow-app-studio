@@ -90,7 +90,7 @@ export default function BeerMoney() {
   const { toast } = useToast();
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const toUserId = params.get('to');
   const meetupId = params.get('meetup');
   const barName = params.get('bar');

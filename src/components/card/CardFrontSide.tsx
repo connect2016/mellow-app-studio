@@ -111,10 +111,11 @@ export function CardFrontSide({
 
       {/* Username — white nameplate strip at bottom of card */}
       <div
-        className="absolute left-0 right-0"
+        className="absolute"
         style={{
-          bottom: '3%',
-          width: '100%',
+          left: '12%',
+          right: '12%',
+          bottom: '9.5%',
           overflow: 'hidden',
           boxSizing: 'border-box',
         }}

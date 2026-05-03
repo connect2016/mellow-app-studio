@@ -112,8 +112,19 @@ export function CardFrontSide({
       {/* Username — lower-right pennant area */}
       <div
         className="absolute"
-        style={{ left: '14%', right: '8%', bottom: '11%', paddingLeft: 12, paddingRight: 12 }}
+        style={{ left: '14%', right: '12%', bottom: '11%', paddingLeft: 12, paddingRight: 8, overflow: 'hidden' }}
       >
+        <p
+          className="font-semibold text-[16px] leading-tight truncate text-right"
+          style={{
+            color: '#0A2A66',
+            fontFamily: "'Graduate', 'Norwester', serif",
+            textShadow: '0 1px 0 rgba(255,255,255,0.6)',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            maxWidth: '100%',
+          }}
         <p
           className="font-semibold text-[16px] leading-tight truncate text-right"
           style={{

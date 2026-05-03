@@ -292,17 +292,17 @@ export default function CrewDetail() {
                         <div>
                           <Label className="text-xs text-muted-foreground mb-2 block">Options to vote on</Label>
                           {eventOptions.map((opt, i) => (
-                            <div key={i} className="flex gap-2 mb-2">
+                            <div key={i} className="flex flex-wrap gap-2 mb-2">
                               <Input placeholder={`Option ${i + 1} (e.g. "Murphy's at 5pm")`} value={opt.label} onChange={e => {
                                 const updated = [...eventOptions];
                                 updated[i].label = e.target.value;
                                 setEventOptions(updated);
-                              }} className="rounded-xl flex-1" />
+                              }} className="rounded-xl flex-1 min-w-[180px]" />
                               <Input type="datetime-local" value={opt.date_time} onChange={e => {
                                 const updated = [...eventOptions];
                                 updated[i].date_time = e.target.value;
                                 setEventOptions(updated);
-                              }} className="rounded-xl w-[180px]" />
+                              }} className="rounded-xl w-full sm:w-[180px] max-w-full" />
                               {eventOptions.length > 1 && (
                                 <Button variant="ghost" size="icon" onClick={() => setEventOptions(eventOptions.filter((_, j) => j !== i))} className="shrink-0">
                                   <X className="h-4 w-4" />

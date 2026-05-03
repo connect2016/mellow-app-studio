@@ -122,24 +122,22 @@ export function CardFrontSide({
         }}
       >
         <p
-          className="font-semibold leading-tight"
+          className="leading-tight"
           style={{
             display: 'block',
             width: '100%',
             textAlign: 'center',
             paddingLeft: 12,
             paddingRight: 12,
-            fontSize: 'clamp(12px, 3vw, 18px)',
+            fontSize: 22,
+            fontWeight: 700,
+            letterSpacing: '0.05em',
+            textTransform: 'uppercase',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             boxSizing: 'border-box',
-            position: 'static',
-            transform: 'none',
-            left: 'unset',
-            right: 'unset',
-            bottom: 'unset',
-            color: '#0A2A66',
+            color: '#0E3386',
             fontFamily: "'Graduate', 'Norwester', serif",
             textShadow: '0 1px 0 rgba(255,255,255,0.6)',
           }}

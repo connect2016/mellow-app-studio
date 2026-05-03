@@ -11,6 +11,7 @@ import { useCrews, useCreateCrew, useJoinCrew, type Crew } from '@/hooks/useCrew
 import { Users, Plus, Search, Lock, Globe, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { PageTitle, SectionHeading, BodyText, CardHeading } from '@/components/ui/Typography';
 
 const BADGE_EMOJIS = ['', '', '', '', '', '', '', '', '', '', '', ''];
 
@@ -77,8 +78,8 @@ export default function Crews() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl font-bold">Crews</h1>
-            <p className="text-sm text-muted-foreground">Your game-day squads</p>
+            <PageTitle className="text-xl font-bold">Crews</PageTitle>
+            <BodyText className="text-sm text-muted-foreground">Your game-day squads</BodyText>
           </div>
           <Button onClick={() => setShowCreate(true)} size="sm" className="rounded-full gap-1.5">
             <Plus className="h-4 w-4" />
@@ -96,7 +97,7 @@ export default function Crews() {
               className="overflow-hidden mb-6"
             >
               <div className="rounded-2xl border border-primary/20 bg-card p-5 space-y-4 shadow-sm">
-                <h3 className="font-bold text-foreground">Create a Crew</h3>
+                <CardHeading className="font-bold text-foreground">Create a Crew</CardHeading>
 
                 <div>
                   <Label className="text-xs text-muted-foreground mb-1 block">Crew Badge</Label>
@@ -155,7 +156,7 @@ export default function Crews() {
         {/* My Crews */}
         {myCrews.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Your Crews</h2>
+            <SectionHeading className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Your Crews</SectionHeading>
             <div className="space-y-2">
               {myCrews.map((crew, i) => (
                 <motion.button
@@ -170,7 +171,7 @@ export default function Crews() {
                     {crew.badge_emoji}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-foreground truncate">{crew.name}</p>
+                    <CardHeading as="p" className="font-semibold text-foreground truncate">{crew.name}</CardHeading>
                     <p className="text-xs text-muted-foreground flex items-center gap-1">
                       <Users className="h-3 w-3" />
                       {crew.member_count}/{crew.max_members} members
@@ -185,7 +186,7 @@ export default function Crews() {
 
         {/* Discover Crews */}
         <div>
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Discover Crews</h2>
+          <SectionHeading className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Discover Crews</SectionHeading>
 
           <div className="relative mb-3">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -222,7 +223,7 @@ export default function Crews() {
                     {crew.badge_emoji}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-foreground truncate">{crew.name}</p>
+                    <CardHeading as="p" className="font-semibold text-foreground truncate">{crew.name}</CardHeading>
                     {crew.description && (
                       <p className="text-xs text-muted-foreground truncate">{crew.description}</p>
                     )}

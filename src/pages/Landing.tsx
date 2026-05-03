@@ -10,6 +10,7 @@ import {
   Instagram, Smartphone, Check
 } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
+import { PageTitle } from '@/components/ui/Typography';
 import wrigleyHero from '@/assets/wrigley-hero.jpg';
 import HeroVideo from '@/components/landing/HeroVideo';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
@@ -333,10 +334,10 @@ export default function Landing() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary">How it works</p>
-            <h2 className="mb-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <PageTitle as="h2" className="mb-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Three Steps to Your Next{' '}
               <span className="text-primary">Wrigleyville Friend</span>
-            </h2>
+            </PageTitle>
             <p className="text-muted-foreground">Takes under 30 seconds. No awkward DMs — Hi-Fives only.</p>
           </div>
 
@@ -408,10 +409,10 @@ export default function Landing() {
         <div className="relative mx-auto max-w-6xl px-6">
           <div className="mb-12 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary">What you get</p>
-            <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <PageTitle as="h2" className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Everything You Need on{' '}
               <span className="text-primary">Game Day</span>
-            </h2>
+            </PageTitle>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Built for the way Wrigleyville actually works — bars, bleachers, and friendships made between innings.
             </p>
@@ -466,9 +467,9 @@ export default function Landing() {
         <div className="mx-auto max-w-5xl px-6">
           <div className="mb-4 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary">Stories from the stands</p>
-            <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <PageTitle as="h2" className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Real Fans. Real Crews.
-            </h2>
+            </PageTitle>
           </div>
 
           <div className="mb-10 text-center">

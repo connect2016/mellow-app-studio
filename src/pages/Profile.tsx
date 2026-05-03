@@ -10,6 +10,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ArrowLeft, Flag, Ban, EyeOff, MessageCircle, IdCard, Sparkles, Settings as SettingsIcon, ShieldCheck, HelpCircle, LifeBuoy, Info, ChevronRight, Target, UserCog, Trophy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { SectionHeading, BodyText, CardHeading, Caption } from '@/components/ui/Typography';
 import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -208,8 +209,8 @@ export default function Profile() {
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
           <p className="text-4xl mb-4"></p>
-          <p className="font-semibold text-destructive-foreground">Fan not found</p>
-          <p className="text-sm mt-1 text-destructive-foreground">They may have stepped away from the ballpark.</p>
+          <SectionHeading className="font-semibold text-destructive-foreground">Fan not found</SectionHeading>
+          <BodyText className="text-sm mt-1 text-destructive-foreground">They may have stepped away from the ballpark.</BodyText>
           <Button variant="outline" className="mt-4 rounded-xl" onClick={() => navigate('/discover')}>Back to Discover</Button>
         </div>
       </div>
@@ -379,15 +380,16 @@ export default function Profile() {
                 {isOwnProfile && (
                   <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm overflow-hidden shadow-sm">
                     <div className="px-4 py-3 border-b border-border">
-                      <h3
+                      <CardHeading
+                        as="h3"
                         className="text-[13px] font-extrabold uppercase tracking-wide text-foreground"
                         style={{ fontFamily: 'Norwester, sans-serif' }}
                       >
                         Account & Support
-                      </h3>
-                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                      </CardHeading>
+                      <Caption as="p" className="text-[11px] text-muted-foreground mt-0.5">
                         Manage your profile, preferences, and get help.
-                      </p>
+                      </Caption>
                     </div>
                     <ul className="divide-y divide-border">
                       {[

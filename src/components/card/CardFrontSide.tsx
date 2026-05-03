@@ -68,17 +68,17 @@ export function CardFrontSide({
         </div>
       )}
 
-      {/* Centered avatar — top two-thirds */}
-      <div className="absolute inset-x-0 top-0 h-2/3 flex items-center justify-center px-[14%]">
+      {/* Centered avatar — fills the artwork's circular frame */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2"
+        style={{ top: '17%', width: '54%', aspectRatio: '1 / 1' }}
+      >
         <div
           tabIndex={0}
           role="img"
           aria-label={`Profile photo of ${displayName || 'Fan'}`}
-          className="relative rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CC3433]"
+          className="relative w-full h-full rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CC3433]"
           style={{
-            width: 88,
-            height: 88,
-            boxShadow: '0 0 0 4px #FFFFFF, 0 6px 18px rgba(0,0,0,0.35)',
             background: '#0A2A66',
           }}
         >

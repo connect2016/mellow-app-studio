@@ -130,7 +130,7 @@ export function TonightModeView({ className }: Props) {
                   </Button>
                   <Button
                     size="sm"
-                    className="h-9 text-xs font-bold bg-[#0E3386] hover:bg-[#0a2766] text-white"
+                    className="h-9 text-xs font-bold bg-brand-blue hover:bg-[#0a2766] text-white"
                     onClick={() => openCreate()}
                   >
                     Invite
@@ -181,7 +181,7 @@ export function TonightModeView({ className }: Props) {
                       {m.creator_name} · {m.description || 'Join the meetup'}
                     </p>
                   </div>
-                  <Button size="sm" className="h-9 px-3 text-xs font-bold bg-[#0E3386] hover:bg-[#0a2766] text-white">
+                  <Button size="sm" className="h-9 px-3 text-xs font-bold bg-brand-blue hover:bg-[#0a2766] text-white">
                     Join Now
                   </Button>
                 </button>
@@ -208,7 +208,7 @@ export function TonightModeView({ className }: Props) {
                 className="tonight-item flex items-center gap-3 rounded-2xl bg-card/95 backdrop-blur-sm border border-border/40 p-3 shadow-sm"
                 style={{ ['--i' as any]: i }}
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-300 text-[#0E3386] font-extrabold text-base">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-300 text-brand-blue font-extrabold text-base">
                   {i + 1}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -244,7 +244,7 @@ function SectionHeader({ icon, title, subtitle }: { icon: React.ReactNode; title
   return (
     <div className="mb-2 px-1 flex items-end justify-between">
       <div className="flex items-center gap-2 text-white">
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-yellow-300 text-[#0E3386]">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-yellow-300 text-brand-blue">
           {icon}
         </span>
         <h2

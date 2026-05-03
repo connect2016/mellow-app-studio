@@ -85,7 +85,7 @@ export function VibeMeter({ level, size = 'md' }: VibeMeterProps) {
       </div>
 
       {/* Scale bars */}
-      <div className="flex gap-[2px]">
+      <div className="flex gap-0.5">
         {Array.from({ length: 10 }).map((_, i) => (
           <motion.div
             key={i}

@@ -156,13 +156,12 @@ export function BleacherBarometer() {
               {activeCount} active
             </div>
           )}
-          <button
+          <IconButton
             onClick={handleRefresh}
-            className="p-1 rounded-full hover:bg-muted/60 transition-colors"
             aria-label="Refresh feed"
-          >
-            <RefreshCw className={`h-3.5 w-3.5 text-muted-foreground ${isRefreshing ? 'animate-spin' : ''}`} />
-          </button>
+            className="rounded-full hover:bg-muted/60"
+            icon={<RefreshCw className={`h-3.5 w-3.5 text-muted-foreground ${isRefreshing ? 'animate-spin' : ''}`} />}
+          />
         </div>
       </div>
 

@@ -61,7 +61,7 @@ export function GameDayBanner() {
         {/* Header strip */}
         <div className="flex items-center justify-between gap-2 px-4 pt-3">
           <div className="flex items-center gap-2">
-            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-yellow-300 text-[#0E3386]">
+            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-yellow-300 text-brand-blue">
               <Trophy className="h-3.5 w-3.5" strokeWidth={2.75} />
             </span>
             <span
@@ -152,7 +152,7 @@ export function GameDayBanner() {
         <div className="grid grid-cols-2 gap-2 px-3 pb-3">
           <Button
             asChild
-            className="min-h-[48px] gap-1.5 rounded-xl bg-white text-[#0E3386] hover:bg-white/90 font-bold text-[13px] shadow"
+            className="min-h-[48px] gap-1.5 rounded-xl bg-white text-brand-blue hover:bg-white/90 font-bold text-[13px] shadow"
           >
             <Link to="/score">
               <Users className="h-4 w-4" />
@@ -161,7 +161,7 @@ export function GameDayBanner() {
           </Button>
           <Button
             onClick={() => setShowCreate(true)}
-            className="min-h-[48px] gap-1.5 rounded-xl bg-yellow-300 text-[#0E3386] hover:bg-yellow-200 font-bold text-[13px] shadow"
+            className="min-h-[48px] gap-1.5 rounded-xl bg-yellow-300 text-brand-blue hover:bg-yellow-200 font-bold text-[13px] shadow"
           >
             <Plus className="h-4 w-4" />
             Create a Meetup

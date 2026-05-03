@@ -78,6 +78,30 @@ export default {
           elevated: "hsl(var(--surface-elevated))",
           sunken: "hsl(var(--surface-sunken))",
         },
+        // Cubs brand palette (raw hex per design-token spec).
+        // NOTE: Project standard is HSL CSS variables; these literals do not
+        // participate in dark-mode theming. Prefer existing semantic tokens
+        // (ivy, brick, day-blue, ticket.cream) for new components.
+        brand: {
+          blue: "#0E3386",
+          red: "#CC3433",
+          cream: "#F5F0E8",
+          "blue-light": "#1A4FA8",
+          "blue-dark": "#0A2460",
+        },
+        neutral: {
+          50: "#f8fafc",
+          100: "#f1f5f9",
+          200: "#e2e8f0",
+          300: "#cbd5e1",
+          400: "#94a3b8",
+          500: "#64748b",
+          600: "#475569",
+          700: "#334155",
+          800: "#1e293b",
+          900: "#0f172a",
+          950: "#020617",
+        },
       },
       backgroundImage: {
         "gradient-ivy": "var(--gradient-ivy)",
@@ -94,6 +118,9 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        // Additive design-token rounding (do not override existing sm).
+        card: "12px",
+        pill: "9999px",
       },
       keyframes: {
         "accordion-down": {

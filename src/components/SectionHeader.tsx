@@ -40,7 +40,7 @@ export function SectionHeader({
         <span
           className={cn(
             'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
-            onImage ? 'bg-yellow-300 text-[#0E3386]' : 'bg-primary/10 text-primary'
+            onImage ? 'bg-yellow-300 text-brand-blue' : 'bg-primary/10 text-primary'
           )}
           aria-hidden="true"
         >

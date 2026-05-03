@@ -71,7 +71,7 @@ export function CardFrontSide({
       {/* Centered avatar — fills the artwork's circular frame */}
       <div
         className="absolute left-1/2 -translate-x-1/2"
-        style={{ top: '5%', width: '54%', aspectRatio: '1 / 1' }}
+        style={{ top: '22%', width: '48%', aspectRatio: '1 / 1' }}
       >
         <div
           tabIndex={0}

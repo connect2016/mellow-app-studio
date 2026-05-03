@@ -115,7 +115,7 @@ export function CardFrontSide({
         style={{
           left: '12%',
           right: '12%',
-          bottom: '9.5%',
+          bottom: '13.5%',
           overflow: 'hidden',
           boxSizing: 'border-box',
         }}

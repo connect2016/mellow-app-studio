@@ -1,14 +1,21 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import {
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
+} from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility } from 'lucide-react';
+import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility, AlertTriangle, Loader2 } from 'lucide-react';
 import { StatsCustomizer } from '@/components/StatsCustomizer';
 import { NotificationPreferencesPanel } from '@/components/NotificationPreferencesPanel';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 import bgSettings from '@/assets/bg-settings-cubs-hallway.jpg';
 
 export default function Settings() {

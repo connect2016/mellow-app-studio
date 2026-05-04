@@ -110,7 +110,13 @@ export default function Meetups() {
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <EmptyState onCreate={() => setShowCreate(true)} hasFilters={!!search || when !== 'all' || where !== 'all'} />
+          <SharedEmptyState
+            icon={MapPin}
+            title="No meetups scheduled"
+            description="Plan your pregame with your crew."
+            actionLabel="Create a meetup"
+            onAction={() => setShowCreate(true)}
+          />
         ) : (
           <div className="space-y-6">
             {happeningSoon.length > 0 && (

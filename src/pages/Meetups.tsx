@@ -10,6 +10,8 @@ import { MeetupFilters, type WhenFilter, type WhereFilter } from '@/components/m
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import meetupsBg from '@/assets/meetups-bg.jpg';
+import { EmptyState as SharedEmptyState } from '@/components/ui/EmptyState';
+import { MapPin } from 'lucide-react';
 
 function isToday(iso: string) {
   const d = new Date(iso);

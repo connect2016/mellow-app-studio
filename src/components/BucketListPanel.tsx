@@ -44,14 +44,32 @@ export function BucketListPanel() {
       {/* Floating trigger button */}
       <Button
         onClick={() => setOpen(true)}
-        className="fixed bottom-24 right-4 z-50 rounded-full shadow-xl gap-2 min-h-[56px] px-5"
+        aria-label={`Open Field Guide — ${completedCount} of ${totalCount} gameday tasks complete`}
+        title={`Field Guide: ${completedCount} of ${totalCount} gameday tasks complete`}
+        className="fixed bottom-24 right-4 z-50 rounded-2xl shadow-xl flex flex-col items-stretch justify-center gap-1 min-h-[60px] px-4 py-2"
         style={{
           background: 'linear-gradient(135deg, hsl(120,40%,35%), hsl(210,60%,30%))',
           fontFamily: "'Bungee', cursive",
         }}
       >
-        <ClipboardList className="h-5 w-5" />
-        <span className="text-sm">{completedCount}/{totalCount}</span>
+        <span className="flex items-center gap-2 leading-none">
+          <ClipboardList className="h-4 w-4" />
+          <span className="text-[11px] uppercase tracking-wide">Field Guide</span>
+          <span className="text-sm font-bold tabular-nums">{completedCount}/{totalCount}</span>
+        </span>
+        <span
+          className="h-1 rounded-full overflow-hidden"
+          style={{ background: 'rgba(255,255,255,0.25)' }}
+          aria-hidden="true"
+        >
+          <span
+            className="block h-full rounded-full transition-all duration-500"
+            style={{
+              width: `${totalCount > 0 ? (completedCount / totalCount) * 100 : 0}%`,
+              background: 'linear-gradient(90deg, hsl(45,90%,60%), #ffffff)',
+            }}
+          />
+        </span>
       </Button>
 
       {/* Panel */}

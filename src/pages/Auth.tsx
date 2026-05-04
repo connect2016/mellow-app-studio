@@ -14,10 +14,14 @@ export default function Auth() {
 
   useEffect(() => {
     if (!loading && user) {
-      if (profile?.onboarding_completed) {
-        navigate('/discover');
-      } else {
+      const incomplete =
+        !profile?.onboarding_completed ||
+        !profile?.display_name?.trim() ||
+        !profile?.profile_photo?.trim();
+      if (incomplete) {
         navigate('/onboarding');
+      } else {
+        navigate('/discover');
       }
     }
   }, [user, loading, profile, navigate]);

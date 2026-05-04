@@ -1409,6 +1409,7 @@ export type Database = {
           favorite_bar_food: string | null
           favorite_bars: string[] | null
           favorite_food_spot: string | null
+          favorite_gate: string | null
           favorite_moment: string | null
           favorite_moment_is_valid: boolean | null
           favorite_player: string | null
@@ -1447,6 +1448,7 @@ export type Database = {
           wrigley_seat: string | null
           wrigley_section: string | null
           wrigleyville_bar: string | null
+          zip_code: string | null
         }
         Insert: {
           age?: number | null
@@ -1472,6 +1474,7 @@ export type Database = {
           favorite_bar_food?: string | null
           favorite_bars?: string[] | null
           favorite_food_spot?: string | null
+          favorite_gate?: string | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
@@ -1510,6 +1513,7 @@ export type Database = {
           wrigley_seat?: string | null
           wrigley_section?: string | null
           wrigleyville_bar?: string | null
+          zip_code?: string | null
         }
         Update: {
           age?: number | null
@@ -1535,6 +1539,7 @@ export type Database = {
           favorite_bar_food?: string | null
           favorite_bars?: string[] | null
           favorite_food_spot?: string | null
+          favorite_gate?: string | null
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
@@ -1573,6 +1578,7 @@ export type Database = {
           wrigley_seat?: string | null
           wrigley_section?: string | null
           wrigleyville_bar?: string | null
+          zip_code?: string | null
         }
         Relationships: []
       }

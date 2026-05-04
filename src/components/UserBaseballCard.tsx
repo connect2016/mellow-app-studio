@@ -310,6 +310,26 @@ export function UserBaseballCard({
         </div>
       )}
 
+      {/* Share my card */}
+      {isOwner && !isFlipped && (
+        <div className="mt-3 px-1">
+          <Button
+            variant="outline"
+            size="default"
+            className="w-full rounded-2xl gap-2 font-semibold text-base min-h-[48px] shadow-sm active:scale-[0.97] transition-all"
+            onClick={(e) => {
+              e.stopPropagation();
+              shareCard();
+            }}
+            disabled={isSharing}
+            aria-label="Share my fan card"
+          >
+            {isSharing ? <Loader2 className="h-5 w-5 animate-spin" /> : <Share2 className="h-5 w-5" />}
+            {isSharing ? 'Preparing…' : 'Share my card'}
+          </Button>
+        </div>
+      )}
+
       {/* Quick-react strip below card */}
       {showReactions && !isFlipped && (
         <div className="mt-3 flex gap-2 overflow-x-auto pb-1 px-1 scrollbar-hide" role="toolbar" aria-label="Reactions">

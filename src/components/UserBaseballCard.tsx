@@ -211,6 +211,7 @@ export function UserBaseballCard({
     >
       {/* Flip container — fixed height so front/back share identical bounding box */}
       <div
+        ref={cardRef}
         className="relative w-full mx-auto"
         style={{
           maxWidth: 360,

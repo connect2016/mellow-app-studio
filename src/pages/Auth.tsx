@@ -72,7 +72,10 @@ export default function Auth() {
         </p>
 
         <p className="mt-4 text-center text-xs text-muted-foreground">
-          By continuing, you agree to our Terms of Service and Privacy Policy.
+          By signing up you agree to our{' '}
+          <a href="/terms" className="text-primary underline underline-offset-2 hover:no-underline">Terms of Service</a>
+          {' '}and{' '}
+          <a href="/privacy" className="text-primary underline underline-offset-2 hover:no-underline">Privacy Policy</a>.
         </p>
       </motion.div>
     </div>

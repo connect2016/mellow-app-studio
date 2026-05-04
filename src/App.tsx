@@ -52,6 +52,8 @@ import Meetups from "./pages/Meetups";
 import MeetupDetail from "./pages/MeetupDetail";
 import NotFound from "./pages/NotFound";
 import NotFoundPage from "./pages/NotFoundPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ClaimBeer from "./pages/ClaimBeer";
@@ -85,6 +87,8 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms" element={<TermsOfServicePage />} />
             
             <Route element={<ProtectedRoute />}>
               <Route path="/onboarding" element={<Onboarding />} />

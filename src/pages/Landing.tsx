@@ -638,7 +638,12 @@ export default function Landing() {
           </div>
 
           <div className="mt-10 border-t pt-6 text-center text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} Cubbies Buddies · Made with  in Wrigleyville</p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a href="/privacy" className="hover:text-foreground">Privacy Policy</a>
+              <span aria-hidden>·</span>
+              <a href="/terms" className="hover:text-foreground">Terms of Service</a>
+            </div>
+            <p className="mt-2">© {new Date().getFullYear()} Cubbies Buddies · Made with  in Wrigleyville</p>
             <p className="mt-1 text-[11px]">Not affiliated with the Chicago Cubs or Major League Baseball.</p>
           </div>
         </div>

@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import html2canvas from 'html2canvas';
 import { cn } from '@/lib/utils';
-import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3, Wine, UtensilsCrossed, Pizza } from 'lucide-react';
+import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3, Wine, UtensilsCrossed, Pizza, Share2, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
@@ -103,6 +105,56 @@ export function UserBaseballCard({
   const [imgLoaded, setImgLoaded] = useState(false);
   const [activeReactions, setActiveReactions] = useState<ReactionDef[]>([]);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  async function shareCard() {
+    if (!cardRef.current || isSharing) return;
+    setIsSharing(true);
+    try {
+      const canvas = await html2canvas(cardRef.current, {
+        useCORS: true,
+        scale: 2,
+        backgroundColor: null,
+      });
+      canvas.toBlob(async (blob) => {
+        if (!blob) {
+          setIsSharing(false);
+          return;
+        }
+        const file = new File([blob], 'my-cubs-card.png', { type: 'image/png' });
+        try {
+          if (
+            typeof navigator !== 'undefined' &&
+            navigator.share &&
+            navigator.canShare &&
+            navigator.canShare({ files: [file] })
+          ) {
+            await navigator.share({
+              title: 'My Cubbies Buddies Fan Card',
+              text: 'Find your Cubs crew at cubbiesbuddies.com',
+              files: [file],
+            });
+          } else {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'my-cubs-card.png';
+            a.click();
+            URL.revokeObjectURL(url);
+            toast.success('Card downloaded');
+          }
+        } catch (err) {
+          // user cancelled share or other error
+        } finally {
+          setIsSharing(false);
+        }
+      }, 'image/png');
+    } catch (err) {
+      toast.error('Could not generate card image');
+      setIsSharing(false);
+    }
+  }
 
   const handleReact = (reaction: ReactionDef) => {
     if (activeReactions.find(r => r.key === reaction.key)) {
@@ -159,6 +211,7 @@ export function UserBaseballCard({
     >
       {/* Flip container — fixed height so front/back share identical bounding box */}
       <div
+        ref={cardRef}
         className="relative w-full mx-auto"
         style={{
           maxWidth: 360,
@@ -253,6 +306,26 @@ export function UserBaseballCard({
           >
             <BarChart3 className="h-5 w-5" />
             {isFlipped ? 'Back to Profile' : 'View Stats'}
+          </Button>
+        </div>
+      )}
+
+      {/* Share my card */}
+      {isOwner && !isFlipped && (
+        <div className="mt-3 px-1">
+          <Button
+            variant="outline"
+            size="default"
+            className="w-full rounded-2xl gap-2 font-semibold text-base min-h-[48px] shadow-sm active:scale-[0.97] transition-all"
+            onClick={(e) => {
+              e.stopPropagation();
+              shareCard();
+            }}
+            disabled={isSharing}
+            aria-label="Share my fan card"
+          >
+            {isSharing ? <Loader2 className="h-5 w-5 animate-spin" /> : <Share2 className="h-5 w-5" />}
+            {isSharing ? 'Preparing…' : 'Share my card'}
           </Button>
         </div>
       )}

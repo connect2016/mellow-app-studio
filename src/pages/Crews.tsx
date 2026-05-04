@@ -207,11 +207,13 @@ export default function Crews() {
               ))}
             </div>
           ) : filtered.length === 0 ? (
-            <div className="py-16 text-center">
-              <p className="text-3xl"></p>
-              <p className="mt-2 font-semibold text-foreground">No crews to discover</p>
-              <p className="text-sm text-muted-foreground">Be the first — create one above!</p>
-            </div>
+            <EmptyState
+              icon={Users2}
+              title="You're not in any squads yet"
+              description="Join a game-day squad or create your own."
+              actionLabel="Find a squad"
+              onAction={() => document.querySelector<HTMLInputElement>('input[placeholder="Search crews..."]')?.focus()}
+            />
           ) : (
             <div className="space-y-2">
               {filtered.map((crew, i) => (

@@ -10,6 +10,8 @@ import { MeetupFilters, type WhenFilter, type WhereFilter } from '@/components/m
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import meetupsBg from '@/assets/meetups-bg.jpg';
+import { EmptyState as SharedEmptyState } from '@/components/ui/EmptyState';
+import { MapPin } from 'lucide-react';
 
 function isToday(iso: string) {
   const d = new Date(iso);
@@ -108,7 +110,13 @@ export default function Meetups() {
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <EmptyState onCreate={() => setShowCreate(true)} hasFilters={!!search || when !== 'all' || where !== 'all'} />
+          <SharedEmptyState
+            icon={MapPin}
+            title="No meetups scheduled"
+            description="Plan your pregame with your crew."
+            actionLabel="Create a meetup"
+            onAction={() => setShowCreate(true)}
+          />
         ) : (
           <div className="space-y-6">
             {happeningSoon.length > 0 && (

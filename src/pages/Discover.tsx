@@ -51,6 +51,7 @@ import { cn } from '@/lib/utils';
 import { pickCopy, LOADING_FANS, EMPTY_FANS } from '@/lib/fan-copy';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', icon: 'beer', label: 'At the Bar' },
@@ -641,11 +642,13 @@ export default function Discover() {
                 ))}
               </div>
             ) : filtered.length === 0 ? (
-              <div className="py-20 text-center">
-                <p className="text-4xl"></p>
-                <p className="mt-2 font-semibold text-destructive-foreground">No fans found</p>
-                <p className="text-sm text-destructive-foreground">{pickCopy(EMPTY_FANS)}</p>
-              </div>
+              <EmptyState
+                icon={Users}
+                title="No buddies found yet"
+                description="Be the first fan in your section. Update your tailgate spot and we'll match you with nearby fans."
+                actionLabel="Update my spot"
+                onAction={() => navigate('/profile')}
+              />
             ) : (
               <div className="space-y-4">
                 {[...filtered]

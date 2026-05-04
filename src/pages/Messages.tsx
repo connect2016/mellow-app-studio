@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Send, MessageCircle, ArrowLeft } from 'lucide-react';
 import { ErrorState } from '@/components/ErrorState';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
+import { EmptyState } from '@/components/ui/EmptyState';
 import bgWrigleyRooftops from '@/assets/bg-wrigley-rooftops.webp';
 import { useAuth } from '@/contexts/AuthContext';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
@@ -150,22 +151,13 @@ export default function Messages() {
             ))}
           </div>
         ) : conversations.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="py-16 text-center"
-          >
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
-              <MessageCircle className="h-7 w-7 text-muted-foreground" />
-            </div>
-            <p className="font-semibold text-foreground">The bases are empty!</p>
-            <p className="text-sm text-muted-foreground mt-1 max-w-[260px] mx-auto">
-              Be the first to start a conversation. Scout the area and toss a Hi-Five!
-            </p>
-            <Button variant="outline" className="mt-5 rounded-xl" onClick={() => navigate('/discover')}>
-              Discover Fans
-            </Button>
-          </motion.div>
+          <EmptyState
+            icon={MessageCircle}
+            title="No messages yet"
+            description="Connect with a buddy to start chatting."
+            actionLabel="Discover Fans"
+            onAction={() => navigate('/discover')}
+          />
         ) : (
           <div className="space-y-1">
             {conversations.map((convo) => {

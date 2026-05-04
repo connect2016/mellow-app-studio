@@ -51,6 +51,7 @@ import { cn } from '@/lib/utils';
 import { pickCopy, LOADING_FANS, EMPTY_FANS } from '@/lib/fan-copy';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', icon: 'beer', label: 'At the Bar' },

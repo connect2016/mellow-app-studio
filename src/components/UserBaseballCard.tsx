@@ -332,7 +332,7 @@ export function UserBaseballCard({
 
       {/* Quick-react strip below card */}
       {showReactions && !isFlipped && (
-        <div className="mt-3 flex gap-2 overflow-x-auto pb-1 px-1 scrollbar-hide" role="toolbar" aria-label="Reactions">
+        <div className="mt-3 py-2 flex gap-2 overflow-x-auto pb-1 px-1 scrollbar-hide" role="toolbar" aria-label="Reactions">
           {REACTIONS.slice(0, 8).map((r) => (
             <button
               key={r.key}
@@ -343,7 +343,7 @@ export function UserBaseballCard({
               aria-label={`React with ${r.label}`}
               aria-pressed={!!activeReactions.find(a => a.key === r.key)}
               className={cn(
-                'flex-shrink-0 p-2.5 rounded-2xl border min-h-[48px] min-w-[48px] flex items-center justify-center',
+                'flex-shrink-0 px-2 py-1.5 rounded-2xl border min-h-[56px] min-w-[56px] flex flex-col items-center justify-center gap-1',
                 'active:scale-[0.97] transition-all duration-150',
                 activeReactions.find(a => a.key === r.key)
                   ? 'border-primary bg-primary/10 shadow-sm'
@@ -351,6 +351,9 @@ export function UserBaseballCard({
               )}
             >
               <RealisticEmoji name={r.icon} alt={r.label} size="xs" />
+              <span className="text-[10px] font-medium text-muted-foreground leading-none whitespace-nowrap">
+                {r.label}
+              </span>
             </button>
           ))}
         </div>

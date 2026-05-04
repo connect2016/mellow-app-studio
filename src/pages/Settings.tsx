@@ -20,12 +20,36 @@ import bgSettings from '@/assets/bg-settings-cubs-hallway.jpg';
 
 export default function Settings() {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [hideFromDiscover, setHideFromDiscover] = useState(false);
   const [seatPrivacy, setSeatPrivacy] = useState('MatchesOnly');
   const [barPrivacy, setBarPrivacy] = useState('MatchesOnly');
   const [reducedMotion, setReducedMotion] = useState(() => {
     return localStorage.getItem('reduce-motion') === 'true';
   });
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteText, setDeleteText] = useState('');
+  const [deleting, setDeleting] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    try {
+      const { error } = await supabase.functions.invoke('delete-account');
+      if (error) throw error;
+      await supabase.auth.signOut();
+      toast({ title: 'Your account has been deleted.' });
+      navigate('/', { replace: true });
+    } catch (e: any) {
+      console.error(e);
+      toast({
+        title: "Couldn't delete account",
+        description: e?.message ?? 'Please try again or contact support.',
+        variant: 'destructive',
+      });
+      setDeleting(false);
+    }
+  };
 
   useEffect(() => {
     if (reducedMotion) {

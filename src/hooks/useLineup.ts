@@ -105,7 +105,11 @@ export function useCreateMeetup() {
         });
       if (error) throw error;
     },
-    onSuccess: () => {
+    onSuccess: (_, vars) => {
+      track('meetup_created', {
+        max_members: vars.max_members ?? 10,
+        has_description: !!vars.description,
+      });
       queryClient.invalidateQueries({ queryKey: ['lineup-meetups'] });
     },
   });

@@ -7,6 +7,7 @@ import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { Camera, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { track } from '@/lib/analytics';
 
 const GATES = ['Addison', 'Waveland', 'Clark', 'Sheffield'];
 

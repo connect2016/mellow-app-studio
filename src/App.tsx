@@ -60,6 +60,7 @@ import TermsOfServicePage from "./pages/TermsOfServicePage";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ClaimBeer from "./pages/ClaimBeer";
+import CheckoutReturn from "./pages/CheckoutReturn";
 import WrigleyvilleEats from "./pages/WrigleyvilleEats";
 import Dugout from "./pages/Dugout";
 import { preloadReactionImages } from "@/lib/reaction-cache";
@@ -94,6 +95,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
             <Route path="/terms" element={<TermsOfServicePage />} />
+            <Route path="/checkout/return" element={<CheckoutReturn />} />
             
             <Route element={<ProtectedRoute />}>
               <Route path="/onboarding" element={<Onboarding />} />

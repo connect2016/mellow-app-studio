@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUpdateProfile } from '@/hooks/useProfile';
 import { track } from '@/lib/analytics';
+import { toast } from 'sonner';
 
 export function usePhotoUpload() {
   const { user } = useAuth();
@@ -32,11 +33,15 @@ export function usePhotoUpload() {
       // Save to profile
       await updateProfile.mutateAsync({ profile_photo: publicUrl });
 
+      // Replace the generic profile-update toast with a photo-specific one (same id de-dupes).
+      toast.success('Photo saved!', { id: 'profile-update' });
+
       track('photo_uploaded', { surface: 'avatar', size_kb: Math.round(file.size / 1024) });
 
       return publicUrl;
     } catch (err) {
       console.error('Photo upload failed:', err);
+      toast.error('Upload failed — check connection', { id: 'photo-upload-error' });
       throw err;
     } finally {
       setUploading(false);

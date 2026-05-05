@@ -1390,6 +1390,7 @@ export type Database = {
           age_max: number | null
           age_min: number | null
           appetizers_had_season: number
+          arrival_time: string | null
           bar_location_privacy: string | null
           beers_today_count: number
           beers_week_count: number
@@ -1441,6 +1442,8 @@ export type Database = {
           vibe_emoji: string | null
           vibe_state: string | null
           vibe_state_updated_at: string | null
+          vibe_tags: string[]
+          watch_locations: string[]
           work_lat: number | null
           work_lng: number | null
           wrigley_location_privacy: string | null
@@ -1455,6 +1458,7 @@ export type Database = {
           age_max?: number | null
           age_min?: number | null
           appetizers_had_season?: number
+          arrival_time?: string | null
           bar_location_privacy?: string | null
           beers_today_count?: number
           beers_week_count?: number
@@ -1506,6 +1510,8 @@ export type Database = {
           vibe_emoji?: string | null
           vibe_state?: string | null
           vibe_state_updated_at?: string | null
+          vibe_tags?: string[]
+          watch_locations?: string[]
           work_lat?: number | null
           work_lng?: number | null
           wrigley_location_privacy?: string | null
@@ -1520,6 +1526,7 @@ export type Database = {
           age_max?: number | null
           age_min?: number | null
           appetizers_had_season?: number
+          arrival_time?: string | null
           bar_location_privacy?: string | null
           beers_today_count?: number
           beers_week_count?: number
@@ -1571,6 +1578,8 @@ export type Database = {
           vibe_emoji?: string | null
           vibe_state?: string | null
           vibe_state_updated_at?: string | null
+          vibe_tags?: string[]
+          watch_locations?: string[]
           work_lat?: number | null
           work_lng?: number | null
           wrigley_location_privacy?: string | null

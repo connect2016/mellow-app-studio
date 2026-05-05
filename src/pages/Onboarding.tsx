@@ -5,11 +5,42 @@ import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
-import { Camera, Loader2 } from 'lucide-react';
+import { useGeolocation } from '@/hooks/useGeolocation';
+import { GeolocationModal } from '@/components/GeolocationModal';
+import { Camera, Loader2, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
 import { track } from '@/lib/analytics';
 
 const GATES = ['Addison', 'Waveland', 'Clark', 'Sheffield'];
+
+const WATCH_OPTIONS = ['Bleachers', 'Lower Bowl', 'Upper Deck', 'Rooftop Bar', 'Bar/Restaurant', 'Home'];
+const ARRIVAL_OPTIONS = ['Gates open (3hr early)', '1–2hrs before', 'Right at first pitch', 'Whenever'];
+const VIBE_OPTIONS = ['Hardcore stats fan', 'Party section', 'Family friendly', 'Meet new people', 'Quiet & focused'];
+
+const TOTAL_STEPS = 5;
+
+type ChipProps = {
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+};
+
+function Chip({ label, selected, onClick }: ChipProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-full border px-4 py-2 text-sm transition-colors duration-150 ease-out ${
+        selected
+          ? 'border-[#0E3386] bg-[#0E3386] text-white'
+          : 'border-neutral-300 bg-transparent text-neutral-600 hover:border-neutral-400'
+      }`}
+      aria-pressed={selected}
+    >
+      {label}
+    </button>
+  );
+}
 
 export default function Onboarding() {
   const navigate = useNavigate();
@@ -17,22 +48,30 @@ export default function Onboarding() {
   const { data: profile } = useProfile();
   const updateProfile = useUpdateProfile();
   const { uploadPhoto, uploading } = usePhotoUpload();
+  const geo = useGeolocation();
 
   const [step, setStep] = useState(1);
   const [displayName, setDisplayName] = useState('');
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [zip, setZip] = useState('');
   const [gate, setGate] = useState('');
+  const [watchLocations, setWatchLocations] = useState<string[]>([]);
+  const [arrivalTime, setArrivalTime] = useState<string>('');
+  const [vibeTags, setVibeTags] = useState<string[]>([]);
+  const [manualZip, setManualZip] = useState('');
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // Prefill from existing profile (e.g. Google name/photo)
+  // Prefill from existing profile
   useEffect(() => {
     if (profile) {
       if (profile.display_name) setDisplayName(profile.display_name);
       if (profile.profile_photo) setPhotoUrl(profile.profile_photo);
       if ((profile as any).zip_code) setZip((profile as any).zip_code);
       if ((profile as any).favorite_gate) setGate((profile as any).favorite_gate);
+      if ((profile as any).watch_locations) setWatchLocations((profile as any).watch_locations);
+      if ((profile as any).arrival_time) setArrivalTime((profile as any).arrival_time);
+      if ((profile as any).vibe_tags) setVibeTags((profile as any).vibe_tags);
     }
   }, [profile]);
 
@@ -40,6 +79,13 @@ export default function Onboarding() {
   useEffect(() => {
     if (profile?.onboarding_completed) navigate('/profile', { replace: true });
   }, [profile, navigate]);
+
+  // When geo grants and returns a zip, capture it for step 5
+  useEffect(() => {
+    if (geo.permission === 'granted' && geo.zip) {
+      setManualZip(geo.zip);
+    }
+  }, [geo.permission, geo.zip]);
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -52,21 +98,37 @@ export default function Onboarding() {
     }
   };
 
-  const handleFinish = async () => {
+  const toggleMulti = (arr: string[], setArr: (a: string[]) => void, value: string) => {
+    setArr(arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value]);
+  };
+
+  const step3Valid = watchLocations.length >= 1 && arrivalTime !== '' && vibeTags.length >= 1;
+  const nameValid = displayName.trim().length >= 2 && displayName.trim().length <= 30;
+  const zipValid = /^\d{5}$/.test(zip);
+  const finalZip = manualZip || zip;
+  const finalZipValid = /^\d{5}$/.test(finalZip);
+
+  const handleFinish = async (method: 'location' | 'zip') => {
     if (!user) return;
     setSaving(true);
     try {
       await updateProfile.mutateAsync({
         display_name: displayName.trim(),
         profile_photo: photoUrl ?? '',
-        zip_code: zip || null,
+        zip_code: finalZip || null,
         favorite_gate: gate || null,
+        watch_locations: watchLocations,
+        arrival_time: arrivalTime || null,
+        vibe_tags: vibeTags,
         onboarding_completed: true,
-      });
+      } as any);
+      track('onboarding_step_completed', { step: 5, method });
       track('onboarding_completed', {
-        zip_provided: !!zip,
+        zip_provided: !!finalZip,
         gate_provided: !!gate,
         photo_provided: !!photoUrl,
+        watch_count: watchLocations.length,
+        vibe_count: vibeTags.length,
       });
       toast.success("You're in the bleachers!");
       navigate('/profile', { replace: true });
@@ -78,15 +140,12 @@ export default function Onboarding() {
     }
   };
 
-  const nameValid = displayName.trim().length >= 2 && displayName.trim().length <= 30;
-  const zipValid = /^\d{5}$/.test(zip);
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6 py-10">
       <div className="w-full max-w-sm">
         {/* Step indicator */}
         <div className="mb-8 flex items-center justify-center gap-2">
-          {[1, 2, 3].map((n) => (
+          {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((n) => (
             <div
               key={n}
               className={`h-2 rounded-full transition-all ${
@@ -109,7 +168,14 @@ export default function Onboarding() {
               maxLength={30}
               autoFocus
             />
-            <Button className="w-full" disabled={!nameValid} onClick={() => setStep(2)}>
+            <Button
+              className="w-full"
+              disabled={!nameValid}
+              onClick={() => {
+                track('onboarding_step_completed', { step: 1 });
+                setStep(2);
+              }}
+            >
               Next
             </Button>
           </div>
@@ -154,7 +220,14 @@ export default function Onboarding() {
             </div>
 
             <div className="space-y-3">
-              <Button className="w-full" onClick={() => setStep(3)} disabled={uploading}>
+              <Button
+                className="w-full"
+                onClick={() => {
+                  track('onboarding_step_completed', { step: 2, photo: !!photoUrl });
+                  setStep(3);
+                }}
+                disabled={uploading}
+              >
                 Next
               </Button>
               <button
@@ -162,6 +235,7 @@ export default function Onboarding() {
                 className="w-full text-center text-sm text-muted-foreground underline-offset-4 hover:underline"
                 onClick={() => {
                   setPhotoUrl(null);
+                  track('onboarding_step_completed', { step: 2, photo: false });
                   setStep(3);
                 }}
               >
@@ -172,6 +246,73 @@ export default function Onboarding() {
         )}
 
         {step === 3 && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="mb-2 text-3xl font-bold tracking-tight">How do you Cubs?</h1>
+              <p className="text-sm text-muted-foreground">We'll find fans who match your game-day style.</p>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-sm font-medium">Where do you watch?</p>
+              <div className="flex flex-wrap gap-2">
+                {WATCH_OPTIONS.map((opt) => (
+                  <Chip
+                    key={opt}
+                    label={opt}
+                    selected={watchLocations.includes(opt)}
+                    onClick={() => toggleMulti(watchLocations, setWatchLocations, opt)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-sm font-medium">When do you show up?</p>
+              <div className="flex flex-wrap gap-2">
+                {ARRIVAL_OPTIONS.map((opt) => (
+                  <Chip
+                    key={opt}
+                    label={opt}
+                    selected={arrivalTime === opt}
+                    onClick={() => setArrivalTime(arrivalTime === opt ? '' : opt)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-sm font-medium">Your game-day vibe?</p>
+              <div className="flex flex-wrap gap-2">
+                {VIBE_OPTIONS.map((opt) => (
+                  <Chip
+                    key={opt}
+                    label={opt}
+                    selected={vibeTags.includes(opt)}
+                    onClick={() => toggleMulti(vibeTags, setVibeTags, opt)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <Button
+              className="w-full"
+              disabled={!step3Valid}
+              onClick={() => {
+                track('onboarding_step_completed', {
+                  step: 3,
+                  watch_count: watchLocations.length,
+                  vibe_count: vibeTags.length,
+                  arrival: arrivalTime,
+                });
+                setStep(4);
+              }}
+            >
+              Next
+            </Button>
+          </div>
+        )}
+
+        {step === 4 && (
           <div className="space-y-6">
             <div className="text-center">
               <h1 className="mb-2 text-3xl font-bold tracking-tight">Where do you tailgate?</h1>
@@ -208,14 +349,66 @@ export default function Onboarding() {
 
             <Button
               className="w-full"
+              disabled={!zipValid || !gate}
+              onClick={() => {
+                track('onboarding_step_completed', { step: 4 });
+                setStep(5);
+              }}
+            >
+              Next
+            </Button>
+          </div>
+        )}
+
+        {step === 5 && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="mb-2 text-3xl font-bold tracking-tight">Find your section crew</h1>
+              <p className="text-sm text-muted-foreground">We show nearby fans during game days only.</p>
+            </div>
+
+            <Button
+              className="w-full gap-2"
               variant="premium"
-              disabled={!zipValid || !gate || saving}
-              onClick={handleFinish}
+              onClick={() => geo.requestPosition()}
+              disabled={saving}
+            >
+              <MapPin className="h-4 w-4" />
+              {geo.permission === 'granted' && geo.zip
+                ? `Location on · ZIP ${geo.zip}`
+                : 'Use my location'}
+            </Button>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Or enter zip code manually</label>
+              <Input
+                inputMode="numeric"
+                pattern="\d{5}"
+                maxLength={5}
+                value={manualZip}
+                onChange={(e) => setManualZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                placeholder="60613"
+              />
+            </div>
+
+            <Button
+              className="w-full"
+              variant="premium"
+              disabled={!finalZipValid || saving}
+              onClick={() =>
+                handleFinish(geo.permission === 'granted' && geo.zip === manualZip ? 'location' : 'zip')
+              }
             >
               {saving ? <Loader2 className="h-5 w-5 animate-spin" /> : "Let's go!"}
             </Button>
           </div>
         )}
+
+        <GeolocationModal
+          open={geo.showModal}
+          onOpenChange={geo.setShowModal}
+          controller={geo}
+        />
       </div>
     </div>
   );

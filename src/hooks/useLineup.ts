@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
 import { track } from '@/lib/analytics';
+import { toast } from 'sonner';
 
 export interface LineupMeetup {
   id: string;
@@ -112,6 +113,11 @@ export function useCreateMeetup() {
         has_description: !!vars.description,
       });
       queryClient.invalidateQueries({ queryKey: ['lineup-meetups'] });
+      toast.success('Meetup created!', { id: 'meetup-create' });
+    },
+    onError: (err) => {
+      console.error('Create meetup failed:', err);
+      toast.error('Could not create meetup — try again', { id: 'meetup-create-error' });
     },
   });
 }
@@ -131,6 +137,11 @@ export function useJoinMeetup() {
     onSuccess: (_, meetupId) => {
       track('meetup_joined', { meetup_id: meetupId, source: 'lineup' });
       queryClient.invalidateQueries({ queryKey: ['lineup-meetups'] });
+      toast.success("You're in!", { id: 'meetup-join' });
+    },
+    onError: (err) => {
+      console.error('Join meetup failed:', err);
+      toast.error('Could not join — try again', { id: 'meetup-join-error' });
     },
   });
 }

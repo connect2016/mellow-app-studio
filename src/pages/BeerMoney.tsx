@@ -40,6 +40,8 @@ import { LiveBeerProof, BeerFomoToast } from '@/components/beer/LiveBeerProof';
 import { useLiveBeerFeed } from '@/hooks/useLiveBeerFeed';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { useBeerMoneyBalance, useSendBeerTip } from '@/hooks/useBeerMoney';
+import { TopUpModal } from '@/components/payments/TopUpModal';
 
 /* ─── Constants ─── */
 const AMOUNTS = [
@@ -118,6 +120,9 @@ export default function BeerMoney() {
   const [showNonUserSend, setShowNonUserSend] = useState(false);
   const [claimLinkUrl, setClaimLinkUrl] = useState('');
   const { activities: liveActivities, stats: liveStats } = useLiveBeerFeed();
+  const [topUpOpen, setTopUpOpen] = useState(false);
+  const { data: balance = 0 } = useBeerMoneyBalance();
+  const sendTip = useSendBeerTip();
 
   // Nearby fans
   const { data: nearbyFans } = useQuery({
@@ -222,8 +227,33 @@ export default function BeerMoney() {
     }
   }, [recipientLabel, shareUrl, toast]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     setShowConfirm(false);
+    // Real Beer Money for fan-to-fan
+    if (recipientType === 'fan' && toUserId) {
+      const credits = Math.max(500, Math.min(2500, amount * 100));
+      if (balance < credits) {
+        toast({
+          title: 'Not enough Beer Money',
+          description: `You have ${balance.toLocaleString()} credits — top up to send ${credits.toLocaleString()}.`,
+        });
+        setTopUpOpen(true);
+        return;
+      }
+      try {
+        await sendTip.mutateAsync({
+          recipientId: toUserId,
+          credits,
+          message: note.trim() || undefined,
+        });
+        setShowCelebration(true);
+        setTimeout(() => setShowCelebration(false), 3500);
+      } catch {
+        // toast shown by hook
+      }
+      return;
+    }
+    // Meetup / bar: keep simulated celebration until multi-recipient ships
     setShowCelebration(true);
     setTimeout(() => {
       setShowCelebration(false);

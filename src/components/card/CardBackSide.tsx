@@ -1,13 +1,15 @@
 import { VisibleStat } from '@/components/UserBaseballCard';
+import { BeerBuyerBadge } from '@/components/beer/BeerBuyerBadge';
 
 interface CardBackSideProps {
   displayName: string;
   visibleStats: VisibleStat[];
   isOwner: boolean;
+  userId?: string;
   onFlipBack?: () => void;
 }
 
-export function CardBackSide({ displayName, visibleStats, isOwner }: CardBackSideProps) {
+export function CardBackSide({ displayName, visibleStats, isOwner, userId }: CardBackSideProps) {
   return (
     <div
       className="absolute inset-0 w-full h-full"
@@ -29,6 +31,13 @@ export function CardBackSide({ displayName, visibleStats, isOwner }: CardBackSid
           </h3>
           <p className="text-xs text-muted-foreground mt-0.5">Season Performance</p>
         </div>
+
+        {/* Buyer badge — only shown if user has bought at least 1 beer */}
+        {userId && (
+          <div className="px-3 pb-2 shrink-0">
+            <BeerBuyerBadge userId={userId} variant="tile" />
+          </div>
+        )}
 
         {/* Stats grid — internal scroll if needed, no dividing border */}
         <div className="flex-1 overflow-y-auto px-3 pb-4">

@@ -274,6 +274,42 @@ export type Database = {
         }
         Relationships: []
       }
+      beer_shoutouts: {
+        Row: {
+          created_at: string
+          credits: number
+          expires_at: string
+          id: string
+          is_auto_generated: boolean
+          message: string | null
+          recipient_id: string
+          sender_id: string
+          tip_id: string
+        }
+        Insert: {
+          created_at?: string
+          credits: number
+          expires_at?: string
+          id?: string
+          is_auto_generated?: boolean
+          message?: string | null
+          recipient_id: string
+          sender_id: string
+          tip_id: string
+        }
+        Update: {
+          created_at?: string
+          credits?: number
+          expires_at?: string
+          id?: string
+          is_auto_generated?: boolean
+          message?: string | null
+          recipient_id?: string
+          sender_id?: string
+          tip_id?: string
+        }
+        Relationships: []
+      }
       beer_tips: {
         Row: {
           created_at: string
@@ -2443,6 +2479,7 @@ export type Database = {
         Args: { _points?: number; _source: string; _source_id?: string }
         Returns: undefined
       }
+      get_beer_buyer_count: { Args: { p_user_id: string }; Returns: number }
       get_host_trust: {
         Args: { _host_id: string }
         Returns: {

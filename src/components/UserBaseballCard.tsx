@@ -243,6 +243,7 @@ export function UserBaseballCard({
           displayName={displayName}
           visibleStats={visibleStats}
           isOwner={isOwner}
+          userId={userId}
           onFlipBack={() => setIsFlipped(false)}
         />
       </div>

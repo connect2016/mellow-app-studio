@@ -32,8 +32,9 @@ import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 import { BuyBeerOnboardingTooltip } from '@/components/beer/BuyBeerOnboardingTooltip';
 import { ReturnTheFavorBanner } from '@/components/beer/ReturnTheFavorBanner';
-import { BeerShoutoutCard } from '@/components/beer/BeerShoutoutCard';
-import { getShoutouts, type BeerShoutout } from '@/lib/gift-social';
+import { BeerShoutoutFeedCard } from '@/components/beer/BeerShoutoutFeedCard';
+import { useBeerShoutouts } from '@/hooks/useBeerShoutouts';
+import { useSearchParams } from 'react-router-dom';
 
 const LOCATION_OPTIONS = [
   ...WRIGLEYVILLE_BARS.map(b => b.name),
@@ -619,17 +620,28 @@ export default function VibeFeed() {
 }
 
 function BeerShoutoutsStrip() {
-  const [items, setItems] = useState<BeerShoutout[]>(() => getShoutouts(3));
+  const { data: items = [] } = useBeerShoutouts(8);
+  const [searchParams] = useSearchParams();
+  const highlightId = searchParams.get('shoutout');
+
+  // Auto-scroll to a deep-linked shoutout
   useEffect(() => {
-    const refresh = () => setItems(getShoutouts(3));
-    window.addEventListener('cb:beer-shoutouts:changed', refresh);
-    return () => window.removeEventListener('cb:beer-shoutouts:changed', refresh);
-  }, []);
+    if (!highlightId) return;
+    const el = document.getElementById(`shoutout-${highlightId}`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [highlightId, items.length]);
+
   if (items.length === 0) return null;
   return (
     <div className="space-y-2 mb-3">
       {items.map((s) => (
-        <BeerShoutoutCard key={s.id} shoutout={s} />
+        <BeerShoutoutFeedCard
+          key={s.id}
+          shoutout={s}
+          highlighted={highlightId === s.id}
+        />
       ))}
     </div>
   );

@@ -5,11 +5,13 @@ import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications, useMarkRead, useMarkAllRead, useClearNotifications } from '@/hooks/useNotifications';
 import { Button } from '@/components/ui/button';
-import { Bell, Check, CheckCheck, Trash2, Users, MapPin, Trophy, Utensils, Hand, SlidersHorizontal, Sparkles, Calendar } from 'lucide-react';
+import { Bell, Check, CheckCheck, Trash2, Users, MapPin, Trophy, Utensils, Hand, SlidersHorizontal, Sparkles, Calendar, Beer, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
+import { track as analyticsTrack } from '@/lib/analytics';
 
 type FilterKey = 'all' | 'meetups' | 'fans' | 'gameday' | 'food' | 'hifives';
 
@@ -56,6 +58,7 @@ export default function Notifications() {
   const markAllRead = useMarkAllRead();
   const clearRead = useClearNotifications();
   const [filter, setFilter] = useState<FilterKey>('all');
+  const [reciprocate, setReciprocate] = useState<{ senderId: string; senderName?: string } | null>(null);
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
@@ -377,6 +380,51 @@ export default function Notifications() {
                             >
                               {timeAgo(notif.created_at)}
                             </p>
+
+                            {notif.type === 'beer_received' && (notif.metadata as any)?.sender_id && (
+                              <div
+                                role="button"
+                                tabIndex={0}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  const meta = notif.metadata as any;
+                                  analyticsTrack('beer_reciprocated', {
+                                    original_tip_id: meta?.tip_id,
+                                    original_shoutout_id: meta?.shoutout_id,
+                                    source: 'notification',
+                                  });
+                                  setReciprocate({
+                                    senderId: meta.sender_id,
+                                    senderName: notif.title?.replace(/ bought you a beer!?$/, '').trim(),
+                                  });
+                                }}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    const meta = notif.metadata as any;
+                                    analyticsTrack('beer_reciprocated', {
+                                      original_tip_id: meta?.tip_id,
+                                      original_shoutout_id: meta?.shoutout_id,
+                                      source: 'notification',
+                                    });
+                                    setReciprocate({
+                                      senderId: meta.sender_id,
+                                      senderName: notif.title?.replace(/ bought you a beer!?$/, '').trim(),
+                                    });
+                                  }
+                                }}
+                                aria-label="Send one back"
+                                className={cn(
+                                  'mt-2 inline-flex items-center gap-1.5 rounded-full px-3 min-h-[36px] text-xs font-bold cursor-pointer transition-colors',
+                                  'bg-amber-500 text-white hover:bg-amber-600 active:scale-[0.98]',
+                                )}
+                              >
+                                <Beer className="h-3.5 w-3.5" aria-hidden="true" />
+                                Send one back
+                                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                              </div>
+                            )}
                           </div>
 
                           {!notif.is_read && (
@@ -398,6 +446,18 @@ export default function Notifications() {
           )}
         </div>
       </div>
+
+      {reciprocate && (
+        <BuyBeerModal
+          open={!!reciprocate}
+          onOpenChange={(o) => { if (!o) setReciprocate(null); }}
+          context={{
+            kind: 'fan',
+            userId: reciprocate.senderId,
+            firstName: reciprocate.senderName?.split(' ')[0] || 'Fan',
+          }}
+        />
+      )}
     </div>
   );
 }

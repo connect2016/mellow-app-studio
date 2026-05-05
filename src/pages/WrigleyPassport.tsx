@@ -12,6 +12,8 @@ import { cn } from '@/lib/utils';
 import { MapPin, CheckCircle2, Loader2, Navigation, Trophy, Lock } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { useGeolocation } from '@/hooks/useGeolocation';
+import { GeolocationModal } from '@/components/GeolocationModal';
 
 const PASSPORT_THRESHOLD = 5;
 const GEO_RADIUS_METERS = 200; // must be within 200m

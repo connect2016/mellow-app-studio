@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { track } from '@/lib/analytics';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -154,6 +155,11 @@ export default function VibeFeed() {
       });
       if (error) throw error;
 
+      track('vibe_post_created', {
+        media_type: mediaType,
+        has_caption: !!caption,
+        has_location: !!locationTag,
+      });
       toast.success('Vibe posted! ');
       setShowCompose(false);
       setFile(null);

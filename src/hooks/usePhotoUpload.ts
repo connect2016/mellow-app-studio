@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUpdateProfile } from '@/hooks/useProfile';
+import { track } from '@/lib/analytics';
 
 export function usePhotoUpload() {
   const { user } = useAuth();
@@ -30,6 +31,8 @@ export function usePhotoUpload() {
 
       // Save to profile
       await updateProfile.mutateAsync({ profile_photo: publicUrl });
+
+      track('photo_uploaded', { surface: 'avatar', size_kb: Math.round(file.size / 1024) });
 
       return publicUrl;
     } catch (err) {

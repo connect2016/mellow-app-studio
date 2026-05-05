@@ -9,6 +9,7 @@ import { Bell, Check, CheckCheck, Trash2, Users, MapPin, Trophy, Utensils, Hand,
 import { cn } from '@/lib/utils';
 import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 type FilterKey = 'all' | 'meetups' | 'fans' | 'gameday' | 'food' | 'hifives';
 

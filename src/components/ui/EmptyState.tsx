@@ -20,6 +20,8 @@ export function EmptyState({
   description,
   actionLabel,
   onAction,
+  secondaryLabel,
+  onSecondary,
   className,
 }: EmptyStateProps) {
   return (

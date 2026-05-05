@@ -6,6 +6,7 @@ import { lovable } from '@/integrations/lovable/index';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import logo from '@/assets/logo.png';
+import { track } from '@/lib/analytics';
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function Auth() {
   }, [user, loading, profile, navigate]);
 
   const handleGoogleSignIn = async () => {
+    track('user_signed_up', { method: 'google' });
     const { error } = await lovable.auth.signInWithOAuth('google', {
       redirect_uri: window.location.origin,
     });

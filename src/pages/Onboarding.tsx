@@ -62,6 +62,11 @@ export default function Onboarding() {
         favorite_gate: gate || null,
         onboarding_completed: true,
       });
+      track('onboarding_completed', {
+        zip_provided: !!zip,
+        gate_provided: !!gate,
+        photo_provided: !!photoUrl,
+      });
       toast.success("You're in the bleachers!");
       navigate('/profile', { replace: true });
     } catch (err) {

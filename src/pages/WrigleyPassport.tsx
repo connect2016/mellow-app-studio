@@ -56,6 +56,7 @@ export default function WrigleyPassport() {
   const { toast } = useToast();
   const qc = useQueryClient();
   const incrementBadge = useIncrementBadge();
+  const geo = useGeolocation();
   const [checkingLocation, setCheckingLocation] = useState<string | null>(null);
 
   const { data: checkins = [] } = useQuery({
@@ -80,17 +81,15 @@ export default function WrigleyPassport() {
     mutationFn: async (location: PassportLocation) => {
       if (!user) throw new Error('Not logged in');
 
-      // Get user position
-      const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, {
-          enableHighAccuracy: true,
-          timeout: 10000,
-        });
+      // Get user position via gated hook
+      const pos = await geo.requestPosition({
+        enableHighAccuracy: true,
+        timeout: 10000,
       });
 
       const distance = haversineDistance(
-        pos.coords.latitude,
-        pos.coords.longitude,
+        pos.lat,
+        pos.lng,
         location.lat,
         location.lng
       );

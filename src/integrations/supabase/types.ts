@@ -358,6 +358,36 @@ export type Database = {
         }
         Relationships: []
       }
+      buddy_requests: {
+        Row: {
+          created_at: string
+          id: string
+          recipient_id: string
+          requester_id: string
+          responded_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          recipient_id: string
+          requester_id: string
+          responded_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          recipient_id?: string
+          requester_id?: string
+          responded_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string
@@ -2660,6 +2690,7 @@ export type Database = {
         }[]
       }
       notification_category: { Args: { _type: string }; Returns: string }
+      say_hi_to_buddy: { Args: { p_recipient_id: string }; Returns: Json }
       send_beer_tip: {
         Args: { p_credits: number; p_message?: string; p_recipient_id: string }
         Returns: string

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useGeolocation } from '@/hooks/useGeolocation';
 
 // Wrigley Field coordinates
 const WRIGLEY_LAT = 41.9484;
@@ -16,32 +17,33 @@ function getDistanceMiles(lat1: number, lng1: number, lat2: number, lng2: number
 }
 
 export function useGeofence() {
+  const geo = useGeolocation();
   const [nearWrigley, setNearWrigley] = useState<boolean | null>(null);
   const [checking, setChecking] = useState(false);
 
-  const checkLocation = () => {
-    if (!navigator.geolocation) {
-      setNearWrigley(false);
-      return;
-    }
+  const checkLocation = async () => {
     setChecking(true);
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const dist = getDistanceMiles(pos.coords.latitude, pos.coords.longitude, WRIGLEY_LAT, WRIGLEY_LNG);
-        setNearWrigley(dist <= MAX_DISTANCE_MILES);
-        setChecking(false);
-      },
-      () => {
-        setNearWrigley(false);
-        setChecking(false);
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
+    try {
+      const pos = await geo.requestPosition({ enableHighAccuracy: true, timeout: 10000 });
+      const dist = getDistanceMiles(pos.lat, pos.lng, WRIGLEY_LAT, WRIGLEY_LNG);
+      setNearWrigley(dist <= MAX_DISTANCE_MILES);
+    } catch {
+      setNearWrigley(false);
+    } finally {
+      setChecking(false);
+    }
   };
 
   useEffect(() => {
-    checkLocation();
-  }, []);
+    // Only auto-check if user has already granted; otherwise wait for modal.
+    if (geo.permission === 'granted') {
+      checkLocation();
+    } else if (geo.permission === 'declined') {
+      setNearWrigley(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [geo.permission]);
 
   return { nearWrigley, checking, recheckLocation: checkLocation };
 }
+

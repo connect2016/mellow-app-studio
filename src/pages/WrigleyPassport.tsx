@@ -12,6 +12,8 @@ import { cn } from '@/lib/utils';
 import { MapPin, CheckCircle2, Loader2, Navigation, Trophy, Lock } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { useGeolocation } from '@/hooks/useGeolocation';
+import { GeolocationModal } from '@/components/GeolocationModal';
 
 const PASSPORT_THRESHOLD = 5;
 const GEO_RADIUS_METERS = 200; // must be within 200m
@@ -54,6 +56,7 @@ export default function WrigleyPassport() {
   const { toast } = useToast();
   const qc = useQueryClient();
   const incrementBadge = useIncrementBadge();
+  const geo = useGeolocation();
   const [checkingLocation, setCheckingLocation] = useState<string | null>(null);
 
   const { data: checkins = [] } = useQuery({
@@ -78,17 +81,15 @@ export default function WrigleyPassport() {
     mutationFn: async (location: PassportLocation) => {
       if (!user) throw new Error('Not logged in');
 
-      // Get user position
-      const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, {
-          enableHighAccuracy: true,
-          timeout: 10000,
-        });
+      // Get user position via gated hook
+      const pos = await geo.requestPosition({
+        enableHighAccuracy: true,
+        timeout: 10000,
       });
 
       const distance = haversineDistance(
-        pos.coords.latitude,
-        pos.coords.longitude,
+        pos.lat,
+        pos.lng,
         location.lat,
         location.lng
       );
@@ -129,8 +130,13 @@ export default function WrigleyPassport() {
   });
 
   const handleCheckIn = (location: PassportLocation) => {
-    if (!navigator.geolocation) {
+    if (!('geolocation' in navigator)) {
       toast({ title: 'Geolocation not supported', description: 'Your browser doesn\'t support location services.', variant: 'destructive' });
+      return;
+    }
+    if (geo.permission !== 'granted') {
+      // Open the privacy modal — check-in continues after user grants.
+      geo.setShowModal(true);
       return;
     }
     setCheckingLocation(location.key);
@@ -261,6 +267,7 @@ export default function WrigleyPassport() {
           )}
         </div>
       </div>
+      <GeolocationModal open={geo.showModal} onOpenChange={geo.setShowModal} controller={geo} />
     </div>
   );
 }

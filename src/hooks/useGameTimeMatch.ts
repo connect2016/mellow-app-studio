@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect, useCallback } from 'react';
+import { useGeolocation, getGeoPermission } from '@/hooks/useGeolocation';
 
 // Wrigley Field coordinates
 const WRIGLEY_LAT = 41.9484;
@@ -51,26 +52,25 @@ export function useActiveGame() {
 /** Push the user's geolocation to user_locations table */
 export function useGeoUpdater() {
   const { user } = useAuth();
+  const geo = useGeolocation();
 
   const updateLocation = useCallback(async () => {
-    if (!user || !navigator.geolocation) return;
-
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const { latitude, longitude } = pos.coords;
-        // Upsert
-        const { error } = await supabase
-          .from('user_locations')
-          .upsert(
-            { user_id: user.id, latitude, longitude, updated_at: new Date().toISOString() },
-            { onConflict: 'user_id' }
-          );
-        if (error) console.error('Geo update failed:', error);
-      },
-      (err) => console.warn('Geolocation error:', err.message),
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
-  }, [user]);
+    if (!user) return;
+    // Gate: never trigger the native prompt — only run if already granted.
+    if (getGeoPermission(user.id) !== 'granted') return;
+    try {
+      const pos = await geo.requestPosition({ enableHighAccuracy: true, timeout: 10000 });
+      const { error } = await supabase
+        .from('user_locations')
+        .upsert(
+          { user_id: user.id, latitude: pos.lat, longitude: pos.lng, updated_at: new Date().toISOString() },
+          { onConflict: 'user_id' },
+        );
+      if (error) console.error('Geo update failed:', error);
+    } catch (err) {
+      console.warn('Geolocation error:', (err as Error).message);
+    }
+  }, [user, geo]);
 
   // Update every 2 minutes when on Discover
   useEffect(() => {

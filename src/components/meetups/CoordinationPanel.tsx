@@ -17,6 +17,8 @@ import {
   type ArrivalStatus,
   type CoordinationRow,
 } from '@/hooks/useMeetupCoordination';
+import { useGeolocation } from '@/hooks/useGeolocation';
+import { GeolocationModal } from '@/components/GeolocationModal';
 
 interface Attendee {
   user_id: string;
@@ -42,6 +44,7 @@ function timeAgo(iso: string) {
 }
 
 export function CoordinationPanel({ meetupId, locationName, attendees, isMember }: Props) {
+  const geo = useGeolocation();
   const { rows, myRow, isLoading, upsert, clear } = useMeetupCoordination(meetupId);
   const ping = usePingMeetup(meetupId);
   const [reactingTo, setReactingTo] = useState<string | null>(null);
@@ -105,25 +108,25 @@ export function CoordinationPanel({ meetupId, locationName, attendees, isMember 
       return;
     }
     toast(' Grabbing your spot...');
-    navigator.geolocation.getCurrentPosition(
-      async pos => {
-        try {
-          await upsert.mutateAsync({
-            shared_lat: pos.coords.latitude,
-            shared_lng: pos.coords.longitude,
-            shared_label: 'My current spot',
-          });
-          await ping.mutateAsync(
-            ` Shared my spot — https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`,
-          );
-          toast.success('Pin shared with the group');
-        } catch {
-          toast.error("Couldn't share pin");
-        }
-      },
-      () => toast.error('Location permission denied'),
-      { enableHighAccuracy: true, timeout: 8000 },
-    );
+    try {
+      const pos = await geo.requestPosition({ enableHighAccuracy: true, timeout: 8000 });
+      try {
+        await upsert.mutateAsync({
+          shared_lat: pos.lat,
+          shared_lng: pos.lng,
+          shared_label: 'My current spot',
+        });
+        await ping.mutateAsync(
+          ` Shared my spot — https://maps.google.com/?q=${pos.lat},${pos.lng}`,
+        );
+        toast.success('Pin shared with the group');
+      } catch {
+        toast.error("Couldn't share pin");
+      }
+    } catch (err: any) {
+      if (err?.message === 'Location permission not yet granted') return; // modal opened
+      toast.error('Location permission denied');
+    }
   };
 
   const handleReact = async (emoji: string, label: string) => {

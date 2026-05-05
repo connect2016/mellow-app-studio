@@ -10,6 +10,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { snapToPrivacyGrid, isNearHomeOrWork } from '@/lib/location-privacy';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { useGeolocation } from '@/hooks/useGeolocation';
+import { GeolocationModal } from '@/components/GeolocationModal';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyC3rzW-wAq6Pl2NU_AePqX5VO15Ar9Wx1E';
 
@@ -202,6 +204,7 @@ function PulseOverlay({ map, clusters }: { map: google.maps.Map | null; clusters
 export default function BuddyHeatmap() {
   const { user } = useAuth();
   const { toast } = useToast();
+  const geo = useGeolocation();
   const { data: clusters = [], isLoading } = useBuddyClusters();
   const checkin = useCheckinMutation();
   const [map, setMap] = useState<google.maps.Map | null>(null);
@@ -219,7 +222,7 @@ export default function BuddyHeatmap() {
 
   const totalBuddies = clusters.reduce((sum, c) => sum + c.count, 0);
 
-  const handleCheckIn = () => {
+  const handleCheckIn = async () => {
     if (!user) {
       toast({ title: 'Sign in first', description: 'You need to be logged in to check in.', variant: 'destructive' });
       return;
@@ -228,43 +231,38 @@ export default function BuddyHeatmap() {
     setCheckingIn(true);
     setGeoError(null);
 
-    if (!navigator.geolocation) {
+    if (!('geolocation' in navigator)) {
       setGeoError('Geolocation is not supported by your browser.');
       setCheckingIn(false);
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
-
-        if (!isInWrigleyville(latitude, longitude)) {
-          setGeoError("You're not in Wrigleyville! Head to the neighborhood and try again.");
-          setCheckingIn(false);
-          return;
-        }
-
-        try {
-          await checkin.mutateAsync({ lat: latitude, lng: longitude });
-          setCheckedIn(true);
-          toast({ title: " You're on the map!", description: 'Your presence is shown as a 200m radius — exact location is hidden.' });
-          setTimeout(() => setCheckedIn(false), 5000);
-        } catch {
-          toast({ title: 'Check-in failed', description: 'Please try again.', variant: 'destructive' });
-        } finally {
-          setCheckingIn(false);
-        }
-      },
-      (err) => {
-        setGeoError(
-          err.code === 1
-            ? 'Location access denied. Please enable location in your browser settings.'
-            : 'Could not determine your location. Please try again.'
-        );
+    try {
+      const pos = await geo.requestPosition({ enableHighAccuracy: true, timeout: 10000 });
+      if (!isInWrigleyville(pos.lat, pos.lng)) {
+        setGeoError("You're not in Wrigleyville! Head to the neighborhood and try again.");
         setCheckingIn(false);
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
+        return;
+      }
+      try {
+        await checkin.mutateAsync({ lat: pos.lat, lng: pos.lng });
+        setCheckedIn(true);
+        toast({ title: " You're on the map!", description: 'Your presence is shown as a 200m radius — exact location is hidden.' });
+        setTimeout(() => setCheckedIn(false), 5000);
+      } catch {
+        toast({ title: 'Check-in failed', description: 'Please try again.', variant: 'destructive' });
+      } finally {
+        setCheckingIn(false);
+      }
+    } catch (err: any) {
+      setCheckingIn(false);
+      if (err?.message === 'Location permission not yet granted') return; // modal opened
+      setGeoError(
+        err?.code === 1
+          ? 'Location access denied. Please enable location in your browser settings.'
+          : 'Could not determine your location. Please try again.',
+      );
+    }
   };
 
   if (!isLoaded) {
@@ -424,6 +422,7 @@ export default function BuddyHeatmap() {
           50% { transform: scale(1.6); opacity: 0.3; }
         }
       `}</style>
+      <GeolocationModal open={geo.showModal} onOpenChange={geo.setShowModal} controller={geo} />
     </div>
   );
 }

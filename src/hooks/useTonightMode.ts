@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useGeolocation } from '@/hooks/useGeolocation';
 
 const WRIGLEY_LAT = 41.9484;
 const WRIGLEY_LNG = -87.6553;
@@ -35,21 +36,24 @@ export function useTonightMode({ isGameDay = false }: Options = {}) {
   });
 
   const [nearWrigley, setNearWrigley] = useState(false);
+  const geo = useGeolocation();
 
   useEffect(() => {
-    if (!('geolocation' in navigator)) return;
+    if (geo.permission !== 'granted') return;
     let cancelled = false;
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
+    geo
+      .requestPosition({ maximumAge: 5 * 60 * 1000, timeout: 8000 })
+      .then((pos) => {
         if (cancelled) return;
-        const km = haversineKm(pos.coords.latitude, pos.coords.longitude, WRIGLEY_LAT, WRIGLEY_LNG);
+        const km = haversineKm(pos.lat, pos.lng, WRIGLEY_LAT, WRIGLEY_LNG);
         setNearWrigley(km <= RADIUS_KM);
-      },
-      () => {},
-      { maximumAge: 5 * 60 * 1000, timeout: 8000 }
-    );
+      })
+      .catch(() => {
+        // permission missing or error — leave nearWrigley=false
+      });
     return () => { cancelled = true; };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [geo.permission]);
 
   const afterFourGameDay = isGameDay && new Date().getHours() >= 16;
   const autoActive = afterFourGameDay || nearWrigley;

@@ -10,6 +10,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { snapToPrivacyGrid, isNearHomeOrWork } from '@/lib/location-privacy';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { useGeolocation } from '@/hooks/useGeolocation';
+import { GeolocationModal } from '@/components/GeolocationModal';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyC3rzW-wAq6Pl2NU_AePqX5VO15Ar9Wx1E';
 

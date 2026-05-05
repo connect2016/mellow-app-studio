@@ -92,7 +92,8 @@ export function useBarCheckins(barName?: string) {
 
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (_, vars) => {
+      track('bar_check_in', { bar_name: vars.barName, visibility: vars.visibility });
       queryClient.invalidateQueries({ queryKey: ['bar-checkins'] });
       queryClient.invalidateQueries({ queryKey: ['my-bar-checkin'] });
       toast.success('Checked in! +1 Ivy Leaf earned');

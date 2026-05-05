@@ -256,6 +256,51 @@ export type Database = {
         }
         Relationships: []
       }
+      beer_money_balances: {
+        Row: {
+          credits: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          credits?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          credits?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      beer_tips: {
+        Row: {
+          created_at: string
+          credits: number
+          id: string
+          message: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Insert: {
+          created_at?: string
+          credits: number
+          id?: string
+          message?: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Update: {
+          created_at?: string
+          credits?: number
+          id?: string
+          message?: string | null
+          recipient_id?: string
+          sender_id?: string
+        }
+        Relationships: []
+      }
       bucket_list_progress: {
         Row: {
           completed_at: string
@@ -301,6 +346,42 @@ export type Database = {
           last_message_preview?: string | null
           participant_a?: string
           participant_b?: string
+        }
+        Relationships: []
+      }
+      credit_purchases: {
+        Row: {
+          amount_cents: number
+          completed_at: string | null
+          created_at: string
+          credits: number
+          id: string
+          price_id: string
+          status: string
+          stripe_session_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount_cents: number
+          completed_at?: string | null
+          created_at?: string
+          credits: number
+          id?: string
+          price_id: string
+          status?: string
+          stripe_session_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          completed_at?: string | null
+          created_at?: string
+          credits?: number
+          id?: string
+          price_id?: string
+          status?: string
+          stripe_session_id?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -1428,6 +1509,7 @@ export type Database = {
           location: unknown
           location_last_set_at: string | null
           onboarding_completed: boolean | null
+          phone_verified: boolean
           post_win_meal: string | null
           postgame_food: string | null
           pregame_meal: string | null
@@ -1497,6 +1579,7 @@ export type Database = {
           location?: unknown
           location_last_set_at?: string | null
           onboarding_completed?: boolean | null
+          phone_verified?: boolean
           post_win_meal?: string | null
           postgame_food?: string | null
           pregame_meal?: string | null
@@ -1566,6 +1649,7 @@ export type Database = {
           location?: unknown
           location_last_set_at?: string | null
           onboarding_completed?: boolean | null
+          phone_verified?: boolean
           post_win_meal?: string | null
           postgame_food?: string | null
           pregame_meal?: string | null
@@ -2336,6 +2420,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_beer_credits: {
+        Args: {
+          p_amount_cents: number
+          p_credits: number
+          p_price_id: string
+          p_session_id: string
+          p_user_id: string
+        }
+        Returns: undefined
+      }
       award_ivy_leaf: {
         Args: {
           _amount?: number
@@ -2529,6 +2623,10 @@ export type Database = {
         }[]
       }
       notification_category: { Args: { _type: string }; Returns: string }
+      send_beer_tip: {
+        Args: { p_credits: number; p_message?: string; p_recipient_id: string }
+        Returns: string
+      }
       set_profile_location: {
         Args: { p_lat: number; p_lng: number }
         Returns: undefined

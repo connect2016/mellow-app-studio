@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { geocodeZip } from '@/lib/geocode';
+import { toast } from 'sonner';
 
 export function useProfile() {
   const { user } = useAuth();

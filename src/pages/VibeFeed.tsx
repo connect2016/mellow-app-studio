@@ -107,7 +107,7 @@ export default function VibeFeed() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const { data: posts = [] } = useVibePosts();
+  const { data: posts = [], isLoading: postsLoading } = useVibePosts();
   const userIds = [...new Set(posts.map(p => p.user_id))];
   const { data: profiles = {} } = useVibeProfiles(userIds);
 

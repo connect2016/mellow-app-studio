@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils';
 import quickstartBg from '@/assets/quickstart-bg.jpg';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { useGeolocation } from '@/hooks/useGeolocation';
+import { GeolocationModal } from '@/components/GeolocationModal';
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';

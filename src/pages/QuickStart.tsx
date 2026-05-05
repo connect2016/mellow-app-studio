@@ -65,6 +65,7 @@ const GROUPS: { id: GroupSize; emoji: string; label: string }[] = [
 export default function QuickStart() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const geo = useGeolocation();
   const [step, setStep] = useState(0);
   const [intent, setIntent] = useState<Intent | null>(null);
   const [behavior, setBehavior] = useState<Behavior | null>(null);
@@ -123,7 +124,7 @@ export default function QuickStart() {
     }
   };
 
-  const requestGeolocation = () => {
+  const requestGeolocation = async () => {
     setGeoError(null);
     if (!('geolocation' in navigator)) {
       setGeoConsent('denied');
@@ -133,23 +134,22 @@ export default function QuickStart() {
       return;
     }
     setGeoLoading(true);
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setGeoLoading(false);
-        setGeoConsent('granted');
-        track('quickstart_location_consent', { value: 'granted' });
-        const zone = coordsToZone(pos.coords.latitude, pos.coords.longitude);
-        applySuggestion(zone);
-      },
-      () => {
-        setGeoLoading(false);
-        setGeoConsent('denied');
-        setGeoError('Location not available. Pick a zone below or try again.');
-        track('quickstart_location_consent', { value: 'denied' });
-        requestAnimationFrame(() => chipsListRef.current?.focus());
-      },
-      { enableHighAccuracy: false, timeout: 6000, maximumAge: 600000 },
-    );
+    try {
+      const pos = await geo.requestPosition({ enableHighAccuracy: false, timeout: 6000, maximumAge: 600000 });
+      setGeoLoading(false);
+      setGeoConsent('granted');
+      track('quickstart_location_consent', { value: 'granted' });
+      const zone = coordsToZone(pos.lat, pos.lng);
+      applySuggestion(zone);
+    } catch (err: any) {
+      setGeoLoading(false);
+      // Modal was opened (permission was null) — do not flip to denied.
+      if (err?.message === 'Location permission not yet granted') return;
+      setGeoConsent('denied');
+      setGeoError('Location not available. Pick a zone below or try again.');
+      track('quickstart_location_consent', { value: 'denied' });
+      requestAnimationFrame(() => chipsListRef.current?.focus());
+    }
   };
 
   const declineGeolocation = () => {

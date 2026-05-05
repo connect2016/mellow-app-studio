@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { track } from '@/lib/analytics';
 
 // ─── Types ───
 export interface Crew {
@@ -246,7 +247,10 @@ export function useCreateCrew() {
       await supabase.from('crew_members').insert({ crew_id: data.id, user_id: user.id, role: 'captain' });
       return data;
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['crews'] }),
+    onSuccess: (data) => {
+      track('crew_created', { crew_id: (data as any)?.id });
+      qc.invalidateQueries({ queryKey: ['crews'] });
+    },
   });
 }
 
@@ -261,7 +265,8 @@ export function useJoinCrew() {
         .insert({ crew_id: crewId, user_id: user.id, role: 'member' });
       if (error) throw error;
     },
-    onSuccess: () => {
+    onSuccess: (_, crewId) => {
+      track('crew_joined', { crew_id: crewId });
       qc.invalidateQueries({ queryKey: ['crews'] });
       qc.invalidateQueries({ queryKey: ['crew-members'] });
     },

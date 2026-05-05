@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
+import { track } from '@/lib/analytics';
 
 export interface LineupMeetup {
   id: string;
@@ -127,7 +128,8 @@ export function useJoinMeetup() {
         .insert({ meetup_id: meetupId, user_id: user.id });
       if (error) throw error;
     },
-    onSuccess: () => {
+    onSuccess: (_, meetupId) => {
+      track('meetup_joined', { meetup_id: meetupId, source: 'lineup' });
       queryClient.invalidateQueries({ queryKey: ['lineup-meetups'] });
     },
   });

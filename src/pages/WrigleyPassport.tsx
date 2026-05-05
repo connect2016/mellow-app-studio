@@ -267,6 +267,7 @@ export default function WrigleyPassport() {
           )}
         </div>
       </div>
+      <GeolocationModal open={geo.showModal} onOpenChange={geo.setShowModal} controller={geo} />
     </div>
   );
 }

@@ -11,17 +11,20 @@ import {
   Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility, AlertTriangle, Loader2 } from 'lucide-react';
+import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility, AlertTriangle, Loader2, MapPin } from 'lucide-react';
 import { StatsCustomizer } from '@/components/StatsCustomizer';
 import { NotificationPreferencesPanel } from '@/components/NotificationPreferencesPanel';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useGeolocation } from '@/hooks/useGeolocation';
+import { GeolocationModal } from '@/components/GeolocationModal';
 import bgSettings from '@/assets/bg-settings-cubs-hallway.jpg';
 
 export default function Settings() {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { signOut } = useAuth();
+  const geo = useGeolocation();
   const [hideFromDiscover, setHideFromDiscover] = useState(false);
   const [seatPrivacy, setSeatPrivacy] = useState('MatchesOnly');
   const [barPrivacy, setBarPrivacy] = useState('MatchesOnly');
@@ -109,7 +112,41 @@ export default function Settings() {
               </SelectContent>
             </Select>
           </div>
+
+          <Separator className="bg-white/20" />
+
+          <div className="flex items-center justify-between">
+            <div className="pr-3">
+              <p className="text-sm font-medium text-white flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5 text-primary" /> Location services
+              </p>
+              <p className="text-xs text-white/70">
+                {geo.permission === 'granted'
+                  ? `On${geo.zip ? ` · ZIP ${geo.zip}` : ''}`
+                  : geo.permission === 'declined'
+                  ? 'Off — using ZIP only'
+                  : 'Not set'}
+              </p>
+            </div>
+            <Switch
+              checked={geo.permission === 'granted'}
+              onCheckedChange={(checked) => {
+                if (checked) {
+                  geo.reopenModal();
+                } else {
+                  geo.stop();
+                  geo.decline();
+                }
+              }}
+            />
+          </div>
         </div>
+
+        <GeolocationModal
+          open={geo.showModal}
+          onOpenChange={geo.setShowModal}
+          controller={geo}
+        />
 
         {/* Safety */}
         <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-md p-4 space-y-3">

@@ -309,6 +309,12 @@ export function CoordinationPanel({ meetupId, locationName, attendees, isMember 
       {isLoading && rows.length === 0 && (
         <p className="mt-2 text-[11px] text-muted-foreground text-center">Loading coordination...</p>
       )}
+
+      <GeolocationModal
+        open={geo.showModal}
+        onOpenChange={geo.setShowModal}
+        controller={geo}
+      />
     </section>
   );
 }

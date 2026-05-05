@@ -17,6 +17,7 @@ import { CreateMeetupProvider } from "@/contexts/CreateMeetupContext";
 import { CreateMeetupFab } from "@/components/CreateMeetupFab";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { OfflineMonitor } from "@/components/system/OfflineMonitor";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 
@@ -74,6 +75,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <OfflineMonitor />
       <ErrorBoundary>
       <BrowserRouter>
         <AuthProvider>

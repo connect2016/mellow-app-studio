@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { geocodeZip } from '@/lib/geocode';
+import { toast } from 'sonner';
 
 export function useProfile() {
   const { user } = useAuth();
@@ -58,6 +59,11 @@ export function useUpdateProfile() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['profile', user?.id] });
+      toast.success('Profile updated!', { id: 'profile-update' });
+    },
+    onError: (err) => {
+      console.error('Profile update failed:', err);
+      toast.error('Could not save profile — try again', { id: 'profile-update-error' });
     },
   });
 }

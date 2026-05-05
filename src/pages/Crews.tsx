@@ -210,9 +210,11 @@ export default function Crews() {
             <EmptyState
               icon={Users2}
               title="You're not in any squads yet"
-              description="Join a game-day squad or create your own."
+              description="Join a game-day squad or start your own crew."
               actionLabel="Find a squad"
               onAction={() => document.querySelector<HTMLInputElement>('input[placeholder="Search crews..."]')?.focus()}
+              secondaryLabel="Create new squad"
+              onSecondary={() => setShowCreate(true)}
             />
           ) : (
             <div className="space-y-2">

@@ -644,8 +644,8 @@ export default function Discover() {
             ) : filtered.length === 0 ? (
               <EmptyState
                 icon={Users}
-                title="No buddies found yet"
-                description="Be the first fan in your section. Update your tailgate spot and we'll match you with nearby fans."
+                title="No fans found nearby"
+                description="Be the first in your section. Update your tailgate spot and we'll show you to nearby fans."
                 actionLabel="Update my spot"
                 onAction={() => navigate('/profile')}
               />

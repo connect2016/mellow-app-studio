@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
-import { Users, Users2, MessageCircle, User, type LucideIcon } from 'lucide-react';
+import { Compass, Map, CalendarDays, User, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Tab = { to: string; label: string; icon: LucideIcon };
 
 const TABS: Tab[] = [
-  { to: '/buddies', label: 'Find Buddies', icon: Users },
-  { to: '/groups', label: 'My Groups', icon: Users2 },
-  { to: '/messages', label: 'Messages', icon: MessageCircle },
+  { to: '/discover-fans', label: 'Discover', icon: Compass },
+  { to: '/bar-map', label: 'Map', icon: Map },
+  { to: '/meetups', label: 'Meetups', icon: CalendarDays },
   { to: '/profile', label: 'Profile', icon: User },
 ];
 

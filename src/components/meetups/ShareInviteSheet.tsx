@@ -5,6 +5,7 @@ import { Check, Copy, Share2, Send } from 'lucide-react';
 import { useInvitableConnections, useSendMeetupInvites } from '@/hooks/useMeetups';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { track } from '@/lib/analytics';
 
 interface ShareInviteSheetProps {
   open: boolean;
@@ -55,6 +56,7 @@ export function ShareInviteSheet({ open, onClose, meetupId, meetupTitle }: Share
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
+      track('invite_link_copied', { source: 'meetup_share_sheet' });
       toast.success('Link copied!');
     } catch {
       toast.error('Could not copy link');

@@ -950,7 +950,7 @@ export default function BeerMoney() {
                 ].map((pkg) => (
                   <button
                     key={pkg.price}
-                    onClick={() => toast({ title: 'Coming soon!', description: 'Credit packs launching next homestand ' })}
+                    onClick={() => setTopUpOpen(true)}
                     className={`relative rounded-xl border p-2.5 text-center hover:border-primary/40 transition-colors ${
                       pkg.best ? 'border-primary/30 bg-primary/5' : 'border-border bg-card'
                     }`}
@@ -1043,6 +1043,7 @@ export default function BeerMoney() {
 
       {/* FOMO toast for new beer activity */}
       <BeerFomoToast activities={liveActivities} />
+      <TopUpModal open={topUpOpen} onOpenChange={setTopUpOpen} />
     </DynamicBackground>
   );
 }

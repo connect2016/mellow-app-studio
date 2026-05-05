@@ -276,48 +276,31 @@ export default function Notifications() {
             </div>
           ) : filtered.length === 0 ? (
             <div
-              className="rounded-2xl p-8 text-center border border-white/10"
+              className="rounded-2xl border border-white/10 overflow-hidden"
               style={{
                 backgroundColor: 'hsla(222, 47%, 8%, 0.55)',
                 backdropFilter: 'blur(8px)',
                 WebkitBackdropFilter: 'blur(8px)',
               }}
             >
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 border border-primary/30">
-                <Sparkles className="h-8 w-8 text-primary" strokeWidth={2.25} />
-              </div>
-              <h2
-                className="text-xl font-bold text-white"
-                style={{ textShadow: '0 1px 2px hsla(222, 47%, 4%, 0.5)' }}
-              >
-                {filter === 'all' ? 'All caught up!' : 'Nothing here yet'}
-              </h2>
-              <p className="text-sm text-white/85 mt-2 max-w-xs mx-auto leading-relaxed">
-                {filter === 'all'
-                  ? "We'll notify you when something happens. Want to get the party started? Drop a vibe or join a flash meetup."
-                  : 'Try another category or check back later.'}
-              </p>
-              {filter === 'all' && (
-                <div className="flex flex-col sm:flex-row gap-2 mt-5 justify-center">
-                  <Button
-                    variant="default"
-                    size="default"
-                    className="gap-2 rounded-full"
-                    onClick={() => { track('empty_cta', { cta: 'drop_vibe' }); navigate('/vibe'); }}
-                  >
-                    <Sparkles className="h-4 w-4" />
-                    Drop a Vibe
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="default"
-                    className="gap-2 rounded-full bg-white/5 text-white border-white/30 hover:bg-white/15"
-                    onClick={() => { track('empty_cta', { cta: 'browse_meetups' }); navigate('/meetups'); }}
-                  >
-                    <Calendar className="h-4 w-4" />
-                    Browse Meetups
-                  </Button>
-                </div>
+              {filter === 'all' ? (
+                <EmptyState
+                  icon={Bell}
+                  title="You're all caught up"
+                  description="We'll notify you when buddies connect, send beers, or create meetups."
+                  actionLabel="Drop a Vibe"
+                  onAction={() => { track('empty_cta', { cta: 'drop_vibe' }); navigate('/vibe'); }}
+                  secondaryLabel="Browse Meetups"
+                  onSecondary={() => { track('empty_cta', { cta: 'browse_meetups' }); navigate('/meetups'); }}
+                  className="text-white [&_p]:!text-white/85 [&_p.text-foreground]:!text-white"
+                />
+              ) : (
+                <EmptyState
+                  icon={Sparkles}
+                  title="Nothing here yet"
+                  description="Try another category or check back later."
+                  className="text-white [&_p]:!text-white/85 [&_p.text-foreground]:!text-white"
+                />
               )}
             </div>
           ) : (

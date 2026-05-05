@@ -127,7 +127,8 @@ export default function DiscoverFans() {
           <EmptyState
             title="No fans match this filter yet"
             description="Try 'All Fans' or check back closer to game time."
-            action={filter !== 'all' ? { label: 'Show all fans', onClick: () => setFilter('all') } : undefined}
+            actionLabel={filter !== 'all' ? 'Show all fans' : undefined}
+            onAction={filter !== 'all' ? () => setFilter('all') : undefined}
           />
         ) : (
           <ul className="space-y-3">

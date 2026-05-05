@@ -446,6 +446,18 @@ export default function Notifications() {
           )}
         </div>
       </div>
+
+      {reciprocate && (
+        <BuyBeerModal
+          open={!!reciprocate}
+          onOpenChange={(o) => { if (!o) setReciprocate(null); }}
+          context={{
+            kind: 'fan',
+            userId: reciprocate.senderId,
+            firstName: reciprocate.senderName?.split(' ')[0] || 'Fan',
+          }}
+        />
+      )}
     </div>
   );
 }

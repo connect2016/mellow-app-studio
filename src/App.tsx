@@ -24,6 +24,7 @@ import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import QuickStart from "./pages/QuickStart";
 import Discover from "./pages/Discover";
+import DiscoverFans from "./pages/DiscoverFans";
 import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
 import GameDay from "./pages/GameDay";
@@ -101,6 +102,7 @@ const App = () => (
               <Route path="/onboarding" element={<Onboarding />} />
               <Route path="/quick-start" element={<QuickStart />} />
               <Route path="/discover" element={<Discover />} />
+              <Route path="/discover-fans" element={<DiscoverFans />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:id" element={<Profile />} />
               <Route path="/messages" element={<Messages />} />

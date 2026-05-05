@@ -209,8 +209,36 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
       paymentMethod: payment,
       tipPct,
     });
-    // Simulated processing — payment integration not yet wired
-    await new Promise((r) => setTimeout(r, 600));
+
+    // ── Real Beer Money for fan-to-fan tips ──
+    if (context.kind === 'fan' && context.userId) {
+      // Convert dollar subtotal → credits (1¢ = 1 credit). Clamp to 500..2500.
+      const rawCredits = Math.round(subtotal * 100);
+      const credits = Math.max(500, Math.min(2500, rawCredits));
+      if (balance < credits) {
+        setSubmitting(false);
+        toast({
+          title: 'Not enough Beer Money',
+          description: `You have ${balance.toLocaleString()} credits — top up to send ${credits.toLocaleString()}.`,
+        });
+        setTopUpOpen(true);
+        return;
+      }
+      try {
+        await sendTip.mutateAsync({
+          recipientId: context.userId,
+          credits,
+          message: shoutoutMessage.trim() || undefined,
+        });
+      } catch (err) {
+        // toast already shown by hook
+        setSubmitting(false);
+        return;
+      }
+    } else {
+      // Meetup / bar / general: legacy simulated path until multi-recipient RPC ships
+      await new Promise((r) => setTimeout(r, 600));
+    }
 
     const fraud = detectFraudPattern(recipientUserId);
     const tx = recordTransaction({

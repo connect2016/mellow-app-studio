@@ -130,8 +130,13 @@ export default function WrigleyPassport() {
   });
 
   const handleCheckIn = (location: PassportLocation) => {
-    if (!navigator.geolocation) {
+    if (!('geolocation' in navigator)) {
       toast({ title: 'Geolocation not supported', description: 'Your browser doesn\'t support location services.', variant: 'destructive' });
+      return;
+    }
+    if (geo.permission !== 'granted') {
+      // Open the privacy modal — check-in continues after user grants.
+      geo.setShowModal(true);
       return;
     }
     setCheckingLocation(location.key);

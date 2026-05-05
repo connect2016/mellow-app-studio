@@ -1,13 +1,15 @@
 import { VisibleStat } from '@/components/UserBaseballCard';
+import { BeerBuyerBadge } from '@/components/beer/BeerBuyerBadge';
 
 interface CardBackSideProps {
   displayName: string;
   visibleStats: VisibleStat[];
   isOwner: boolean;
+  userId?: string;
   onFlipBack?: () => void;
 }
 
-export function CardBackSide({ displayName, visibleStats, isOwner }: CardBackSideProps) {
+export function CardBackSide({ displayName, visibleStats, isOwner, userId }: CardBackSideProps) {
   return (
     <div
       className="absolute inset-0 w-full h-full"

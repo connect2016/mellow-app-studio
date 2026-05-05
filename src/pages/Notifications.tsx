@@ -5,11 +5,13 @@ import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications, useMarkRead, useMarkAllRead, useClearNotifications } from '@/hooks/useNotifications';
 import { Button } from '@/components/ui/button';
-import { Bell, Check, CheckCheck, Trash2, Users, MapPin, Trophy, Utensils, Hand, SlidersHorizontal, Sparkles, Calendar } from 'lucide-react';
+import { Bell, Check, CheckCheck, Trash2, Users, MapPin, Trophy, Utensils, Hand, SlidersHorizontal, Sparkles, Calendar, Beer, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
+import { track as analyticsTrack } from '@/lib/analytics';
 
 type FilterKey = 'all' | 'meetups' | 'fans' | 'gameday' | 'food' | 'hifives';
 

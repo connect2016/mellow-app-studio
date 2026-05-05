@@ -112,6 +112,7 @@ export function UserBaseballCard({
   async function shareCard() {
     if (!cardRef.current || isSharing) return;
     setIsSharing(true);
+    track('card_shared');
     try {
       const canvas = await html2canvas(cardRef.current, {
         useCORS: true,

@@ -424,6 +424,15 @@ export default function BeerMoney() {
           <p className="mt-1 text-sm text-destructive-foreground">
             Buy a real beer for a real fan at a real Wrigleyville bar. Every round starts a connection.
           </p>
+          {user && (
+            <button
+              onClick={() => setTopUpOpen(true)}
+              className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-3 py-1.5 text-xs font-semibold text-primary hover:bg-primary/20 transition-colors"
+            >
+              <Beer className="h-3.5 w-3.5" />
+              {balance.toLocaleString()} Beer Money · Top up
+            </button>
+          )}
         </div>
 
         {/* ===== STATS BAR ===== */}

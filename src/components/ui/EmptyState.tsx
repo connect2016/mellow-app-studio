@@ -49,6 +49,15 @@ export function EmptyState({
           {actionLabel}
         </Button>
       )}
+      {secondaryLabel && onSecondary && (
+        <button
+          type="button"
+          onClick={onSecondary}
+          className="mt-2 text-sm text-muted-foreground underline cursor-pointer hover:text-foreground transition-colors"
+        >
+          {secondaryLabel}
+        </button>
+      )}
     </div>
   );
 }

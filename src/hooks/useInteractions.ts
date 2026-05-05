@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { useMissionTracker } from '@/hooks/useMissionTracker';
+import { track } from '@/lib/analytics';
 
 export function useSendLike() {
   const { user } = useAuth();
@@ -54,6 +55,16 @@ export function useSendLike() {
       return { ...data, isMatch: false, isMutualHiFive: false };
     },
     onSuccess: (data, variables) => {
+      // Analytics: like vs hi-five
+      if (variables.isHiFive) {
+        track('hi_five_sent', { has_message: !!variables.message });
+      } else {
+        track('like_sent');
+      }
+      if (data.isMatch || data.isMutualHiFive) {
+        track('match_made', { kind: data.isMatch ? 'like' : 'hi_five' });
+      }
+
       if (data.isMatch) {
         toast({ title: 'It\'s a Match!', description: 'Nice! You just made a new Buddy.' });
         tracker.trackMatch();
@@ -100,6 +111,7 @@ export function usePass() {
       if (error) throw error;
     },
     onSuccess: () => {
+      track('pass_sent');
       queryClient.invalidateQueries({ queryKey: ['discover-profiles'] });
     },
   });

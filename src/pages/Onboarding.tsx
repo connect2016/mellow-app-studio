@@ -7,6 +7,7 @@ import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { Camera, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { track } from '@/lib/analytics';
 
 const GATES = ['Addison', 'Waveland', 'Clark', 'Sheffield'];
 
@@ -61,6 +62,11 @@ export default function Onboarding() {
         zip_code: zip || null,
         favorite_gate: gate || null,
         onboarding_completed: true,
+      });
+      track('onboarding_completed', {
+        zip_provided: !!zip,
+        gate_provided: !!gate,
+        photo_provided: !!photoUrl,
       });
       toast.success("You're in the bleachers!");
       navigate('/profile', { replace: true });

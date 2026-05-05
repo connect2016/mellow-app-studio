@@ -336,6 +336,20 @@ export function trackBeerEvent(event: BeerAnalyticsEvent, props: Record<string, 
   } catch {
     // ignore
   }
+  // Bridge select beer events into PostHog (fire-and-forget).
+  try {
+    if (event === 'beer_purchase_completed' || event === 'buy_beer_success') {
+      // Lazy import to avoid circular dep risk
+      import('@/lib/analytics').then(({ track }) => {
+        track('beer_purchase_completed', {
+          amount: typeof props.amount === 'number' ? props.amount : undefined,
+          method: (props as any).method ?? 'unknown',
+        });
+      }).catch(() => {});
+    }
+  } catch {
+    // ignore
+  }
   // Surface in console for QA visibility.
   // eslint-disable-next-line no-console
   if (typeof console !== 'undefined') console.debug('[beer-analytics]', event, props);

@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { track } from '@/lib/analytics';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
@@ -91,7 +92,8 @@ export function useBarCheckins(barName?: string) {
 
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (_, vars) => {
+      track('bar_check_in', { bar_name: vars.barName, visibility: vars.visibility });
       queryClient.invalidateQueries({ queryKey: ['bar-checkins'] });
       queryClient.invalidateQueries({ queryKey: ['my-bar-checkin'] });
       toast.success('Checked in! +1 Ivy Leaf earned');

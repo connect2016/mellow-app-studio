@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
+import { track } from '@/lib/analytics';
 
 export function useConversations() {
   const { user } = useAuth();
@@ -104,6 +105,7 @@ export function useSendMessage() {
       }).eq('id', conversationId);
     },
     onSuccess: (_, vars) => {
+      track('message_sent', { length: vars.body.length, surface: 'dm' });
       queryClient.invalidateQueries({ queryKey: ['messages', vars.conversationId] });
       queryClient.invalidateQueries({ queryKey: ['conversations'] });
     },

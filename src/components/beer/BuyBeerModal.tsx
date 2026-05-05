@@ -37,6 +37,8 @@ import { BeerConfetti } from './BeerConfetti';
 import { beerExperiments, trackBuyBeer } from '@/lib/beer-experiments';
 import { Textarea } from '@/components/ui/textarea';
 import { Link } from 'react-router-dom';
+import { useBeerMoneyBalance, useSendBeerTip } from '@/hooks/useBeerMoney';
+import { TopUpModal } from '@/components/payments/TopUpModal';
 
 export type BeerModalContext =
   | { kind: 'fan'; userId: string; firstName?: string; avatarUrl?: string }
@@ -95,6 +97,10 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
   const [undoSeconds, setUndoSeconds] = useState<number>(10);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [awardedBadges, setAwardedBadges] = useState<RoundGiverBadge[]>([]);
+  const [topUpOpen, setTopUpOpen] = useState<boolean>(false);
+
+  const { data: balance = 0 } = useBeerMoneyBalance();
+  const sendTip = useSendBeerTip();
 
   const socialProof = useMemo(() => getSocialProof(), [open]);
 

@@ -13,10 +13,17 @@ export default function TermsOfServicePage() {
         friendly, keep it real, and we'll all have a great season.
       </p>
 
+      <h2>Acceptance of terms</h2>
+      <p>
+        By creating an account or using Cubbies Buddies, you agree to these Terms of Service
+        and our Privacy Policy. If you don't agree, please don't use the app.
+      </p>
+
       <h2>Who can use the app</h2>
       <ul>
-        <li>You must be at least 21 years old.</li>
-        <li>You're a real person creating one real profile — no bots, no impersonation.</li>
+        <li>You must be at least <strong>18 years old</strong> to use Cubbies Buddies.</li>
+        <li>You must be at least <strong>21 years old</strong> to use beer-purchase features (Send a Round, Buy a Beer, Beer Money tips).</li>
+        <li>You're a real Cubs fan creating one real profile — no bots, no impersonation, no fake accounts.</li>
         <li>You're responsible for what happens on your account; keep your login safe.</li>
       </ul>
 
@@ -40,6 +47,18 @@ export default function TermsOfServicePage() {
         license to display them inside the app so other fans can see them. You can delete
         your content any time.
       </p>
+
+      <h2>Beer purchase terms</h2>
+      <p>
+        Some features let you buy a beer or send Beer Money to another fan. By using these features
+        you confirm you're 21 or older and agree to the following:
+      </p>
+      <ul>
+        <li>All beer purchases and Beer Money tips are <strong>final once delivered</strong> — no refunds after the recipient has received or claimed the beer.</li>
+        <li>You have a <strong>24-hour dispute window</strong> from the time of purchase to report a problem (wrong recipient, non-delivery, technical error). Email <a href="mailto:legal@cubbiesbuddies.com">legal@cubbiesbuddies.com</a> within 24 hours.</li>
+        <li>Disputes opened after the 24-hour window will not be eligible for refund.</li>
+        <li>Cubbies Buddies is not responsible for the consumption choices of any recipient.</li>
+      </ul>
 
       <h2>Meetups happen in the real world</h2>
       <p>
@@ -76,7 +95,11 @@ export default function TermsOfServicePage() {
 
       <h2>Contact</h2>
       <p>
-        Questions? Email <a href="mailto:hello@cubbiesbuddies.com">hello@cubbiesbuddies.com</a>.
+        Legal questions, beer-purchase disputes, or terms inquiries:
+        <a href="mailto:legal@cubbiesbuddies.com"> legal@cubbiesbuddies.com</a>.
+      </p>
+      <p>
+        General questions: <a href="mailto:hello@cubbiesbuddies.com">hello@cubbiesbuddies.com</a>.
       </p>
     </LegalPageLayout>
   );

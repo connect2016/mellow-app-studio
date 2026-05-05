@@ -16,6 +16,7 @@ import { FirstActionMicroflow } from "@/components/onboarding/FirstActionMicrofl
 import { CreateMeetupProvider } from "@/contexts/CreateMeetupContext";
 import { CreateMeetupFab } from "@/components/CreateMeetupFab";
 import { BottomNav } from "@/components/layout/BottomNav";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 
@@ -133,6 +134,7 @@ const App = () => (
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <CreateMeetupFab />
+          <SiteFooter />
           </CreateMeetupProvider>
           </GamedayModeProvider>
           </GuestModeProvider>

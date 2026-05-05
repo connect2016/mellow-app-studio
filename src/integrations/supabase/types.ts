@@ -1425,6 +1425,7 @@ export type Database = {
           intent: string[] | null
           is_banned: boolean | null
           is_verified: boolean | null
+          location: unknown
           location_last_set_at: string | null
           onboarding_completed: boolean | null
           post_win_meal: string | null
@@ -1493,6 +1494,7 @@ export type Database = {
           intent?: string[] | null
           is_banned?: boolean | null
           is_verified?: boolean | null
+          location?: unknown
           location_last_set_at?: string | null
           onboarding_completed?: boolean | null
           post_win_meal?: string | null
@@ -1561,6 +1563,7 @@ export type Database = {
           intent?: string[] | null
           is_banned?: boolean | null
           is_verified?: boolean | null
+          location?: unknown
           location_last_set_at?: string | null
           onboarding_completed?: boolean | null
           post_win_meal?: string | null
@@ -2513,7 +2516,23 @@ export type Database = {
         Args: { _meetup_id: string; _user_id: string }
         Returns: boolean
       }
+      nearby_fans: {
+        Args: { radius_miles?: number; user_lat: number; user_lng: number }
+        Returns: {
+          avatar_url: string
+          display_name: string
+          distance_meters: number
+          id: string
+          vibe_tags: string[]
+          watch_locations: string[]
+          zip_code: string
+        }[]
+      }
       notification_category: { Args: { _type: string }; Returns: string }
+      set_profile_location: {
+        Args: { p_lat: number; p_lng: number }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

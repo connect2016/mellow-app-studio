@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { geocodeZip } from '@/lib/geocode';
 
 export function useProfile() {
   const { user } = useAuth();
@@ -35,6 +36,24 @@ export function useUpdateProfile() {
         .select()
         .single();
       if (error) throw error;
+
+      // Best-effort: when zip_code changes, forward-geocode and persist a
+      // PostGIS point so proximity discovery (nearby_fans) works. Failures
+      // never block the profile save.
+      if (typeof updates.zip_code === 'string' && /^\d{5}$/.test(updates.zip_code)) {
+        try {
+          const point = await geocodeZip(updates.zip_code);
+          if (point) {
+            await supabase.rpc('set_profile_location', {
+              p_lat: point.lat,
+              p_lng: point.lng,
+            });
+          }
+        } catch (e) {
+          console.warn('Forward-geocode failed:', e);
+        }
+      }
+
       return data;
     },
     onSuccess: () => {
@@ -42,6 +61,7 @@ export function useUpdateProfile() {
     },
   });
 }
+
 
 export function useDiscoverProfiles() {
   const { user } = useAuth();

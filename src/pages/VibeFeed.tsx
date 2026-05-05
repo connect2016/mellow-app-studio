@@ -444,44 +444,34 @@ export default function VibeFeed() {
         </AnimatePresence>
 
         {/* Feed */}
-        {posts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-12 text-center animate-vibe-in">
-            <div className="rounded-3xl px-7 py-9 bg-background/70 backdrop-blur-md border border-border/50 shadow-elevated max-w-[320px]">
-              {/* Empty diamond illustration */}
-              <div className="mx-auto mb-4 h-20 w-20 relative flex items-center justify-center">
-                <div
-                  className="absolute inset-0 border-2 border-accent/60 rounded-md"
-                  style={{ transform: 'rotate(45deg)' }}
-                />
-                <ConceptIcon name="baseball" className="h-9 w-9 text-accent relative z-10" />
+        {postsLoading ? (
+          <div className="space-y-4" aria-label="Loading vibes">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-sm overflow-hidden">
+                <div className="aspect-[4/3] bg-muted animate-pulse" />
+                <div className="p-4 flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-3 w-24 bg-muted rounded animate-pulse" />
+                    <div className="h-2.5 w-16 bg-muted rounded animate-pulse" />
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-extrabold mb-1.5 text-foreground font-heading tracking-wide">
-                No vibes yet — the inning just started.
-              </h3>
-              <p className="text-sm text-foreground/75 mb-5">
-                Someone's gotta spark the energy. Might as well be you.
-              </p>
-              <div className="flex flex-col gap-2">
-                <Button
-                  onClick={() => {
-                    trackDropVibeClick('empty_state');
-                    if (isGuest) return triggerGuestGate('post photos and videos');
-                    if (!isVerified) return navigate('/verify');
-                    setShowCompose(true);
-                  }}
-                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-semibold gap-1.5 h-11"
-                >
-                  <Plus className="h-4 w-4" /> Drop a Vibe
-                </Button>
-                <button
-                  onClick={() => navigate('/home')}
-                  className="text-xs font-medium text-foreground/60 hover:text-foreground/90 transition-colors py-1"
-                >
-                  Skip for now
-                </button>
-              </div>
-            </div>
+            ))}
           </div>
+        ) : posts.length === 0 ? (
+          <EmptyState
+            icon={Zap}
+            title="No vibes yet today"
+            description="Be the first to post — what's the energy like at Wrigley right now?"
+            actionLabel="Post a Vibe"
+            onAction={() => {
+              trackDropVibeClick('empty_state');
+              if (isGuest) return triggerGuestGate('post photos and videos');
+              if (!isVerified) return navigate('/verify');
+              setShowCompose(true);
+            }}
+          />
         ) : (
           <div className="space-y-4">
             {posts.map((post, i) => {

@@ -2529,6 +2529,10 @@ export type Database = {
         }[]
       }
       notification_category: { Args: { _type: string }; Returns: string }
+      set_profile_location: {
+        Args: { p_lat: number; p_lng: number }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

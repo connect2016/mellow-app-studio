@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -163,22 +164,25 @@ export function useCrewMessages(crewId: string | undefined) {
     enabled: !!crewId,
   });
 
-  // Realtime subscription
-  useQuery({
-    queryKey: ['crew-messages-realtime', crewId],
-    queryFn: () => {
-      if (!crewId) return null;
-      const channel = supabase
-        .channel(`crew-chat-${crewId}`)
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'crew_messages', filter: `crew_id=eq.${crewId}` }, () => {
+  // Realtime subscription — must be a useEffect so the channel is torn down on unmount.
+  // Previously this lived inside a useQuery with staleTime: Infinity, which leaked channels.
+  useEffect(() => {
+    if (!crewId) return;
+    const channel = supabase
+      .channel(`crew-chat-${crewId}-${Math.random().toString(36).slice(2, 8)}`)
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'crew_messages', filter: `crew_id=eq.${crewId}` },
+        () => {
           queryClient.invalidateQueries({ queryKey: ['crew-messages', crewId] });
-        })
-        .subscribe();
-      return { channel };
-    },
-    enabled: !!crewId,
-    staleTime: Infinity,
-  });
+        },
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [crewId, queryClient]);
 
   return query;
 }

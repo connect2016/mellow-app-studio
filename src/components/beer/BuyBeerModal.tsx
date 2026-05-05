@@ -704,6 +704,7 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
           />
         )}
       </SheetContent>
+      <TopUpModal open={topUpOpen} onOpenChange={setTopUpOpen} />
     </Sheet>
   );
 }

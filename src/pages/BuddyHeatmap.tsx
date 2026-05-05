@@ -422,6 +422,7 @@ export default function BuddyHeatmap() {
           50% { transform: scale(1.6); opacity: 0.3; }
         }
       `}</style>
+      <GeolocationModal open={geo.showModal} onOpenChange={geo.setShowModal} controller={geo} />
     </div>
   );
 }

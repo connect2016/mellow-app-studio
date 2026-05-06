@@ -167,6 +167,11 @@ export function GameDayBanner() {
                   <span className="text-2xl font-bold">—</span>
                 )}
               </div>
+              {firstPitchCT && (
+                <div className="mt-1 text-[11px] font-semibold text-white/80">
+                  {opponentLabel} · {firstPitchCT}
+                </div>
+              )}
             </div>
           )}
         </div>

@@ -36,12 +36,12 @@ export function useFanMapPins() {
   const { coords } = useGeolocation();
 
   const query = useQuery({
-    queryKey: ['fan-map-pins', user?.id, coords?.latitude, coords?.longitude],
+    queryKey: ['fan-map-pins', user?.id, coords?.lat, coords?.lng],
     enabled: !!user,
     refetchInterval: 60_000,
     queryFn: async (): Promise<MapFan[]> => {
-      const lat = coords?.latitude ?? null;
-      const lng = coords?.longitude ?? null;
+      const lat = coords?.lat ?? null;
+      const lng = coords?.lng ?? null;
 
       // Real users (radius 2mi) when GPS is available
       if (lat !== null && lng !== null) {

@@ -12,6 +12,7 @@ import { BucketListPanel } from "@/components/BucketListPanel";
 import { IcebreakerNotifier } from "@/components/IcebreakerNotifier";
 import { AchievementNotifier } from "@/components/notifications/AchievementNotifier";
 import { PushPermissionPrompt } from "@/components/PushPermissionPrompt";
+import { InstallPrompt } from "@/components/InstallPrompt";
 import { FirstActionMicroflow } from "@/components/onboarding/FirstActionMicroflow";
 import { CreateMeetupProvider } from "@/contexts/CreateMeetupContext";
 import { CreateMeetupFab } from "@/components/CreateMeetupFab";
@@ -92,6 +93,7 @@ const App = () => (
             <IcebreakerNotifier />
             <AchievementNotifier />
             <PushPermissionPrompt />
+            <InstallPrompt />
             <FirstActionMicroflow />
             <div className="md:hidden"><BottomNav /></div>
           <Routes>

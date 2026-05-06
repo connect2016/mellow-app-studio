@@ -1,0 +1,26 @@
+{
+  "name": "Cubbies Buddies",
+  "short_name": "Cubbies",
+  "description": "Find your Cubs crew at Wrigleyville",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0E3386",
+  "theme_color": "#0E3386",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["sports", "social"]
+}

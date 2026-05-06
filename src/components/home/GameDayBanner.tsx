@@ -83,13 +83,23 @@ export function GameDayBanner() {
     <>
       <section
         aria-label="Game Day"
-        className="mx-3 mt-3 mb-2 overflow-hidden rounded-2xl border border-yellow-300/40 shadow-lg"
+        className="sticky top-[60px] z-40 mx-3 mt-3 mb-2 overflow-hidden rounded-2xl border border-yellow-300/40 shadow-lg"
         style={{
           background:
             'linear-gradient(135deg, hsl(220, 75%, 18%) 0%, hsl(220, 80%, 28%) 60%, hsl(0, 70%, 35%) 100%)',
         }}
       >
+        {/* Dismiss (session only) */}
+        <button
+          type="button"
+          onClick={handleDismiss}
+          aria-label="Dismiss game day banner"
+          className="absolute right-2 top-2 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/30 text-white/90 hover:bg-black/50 transition-colors"
+        >
+          <X className="h-4 w-4" strokeWidth={2.5} />
+        </button>
         {/* Header strip */}
+
         <div className="flex items-center justify-between gap-2 px-4 pt-3">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-yellow-300 text-brand-blue">

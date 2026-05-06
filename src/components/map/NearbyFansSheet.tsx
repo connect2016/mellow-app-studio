@@ -87,7 +87,7 @@ export function NearbyFansSheet({
     left: 0,
     right: 0,
     bottom: 'env(safe-area-inset-bottom)',
-    zIndex: 40,
+    zIndex: 45,
     height: `${Math.max(60, liveHeightPx)}px`,
     transition: dragOffset === 0 ? 'height 220ms cubic-bezier(0.32, 0.72, 0, 1)' : 'none',
     background: 'hsl(var(--background))',

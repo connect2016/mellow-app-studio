@@ -217,7 +217,7 @@ export function CreateMeetupFab() {
 
       <button
         type="button"
-        aria-label={menuOpen ? 'Close quick actions' : 'Open quick actions'}
+        aria-label={menuOpen ? 'Close actions menu' : 'Open actions menu'}
         aria-haspopup="menu"
         aria-expanded={menuOpen}
         onClick={handleFabClick}

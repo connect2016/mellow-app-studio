@@ -1,12 +1,27 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Wind, Trophy, Users, Plus } from 'lucide-react';
+import { Wind, Trophy, Users, Plus, X, MapPin, Search, Flame } from 'lucide-react';
 import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
 import { useWrigleyWeather } from '@/hooks/useWrigleyWeather';
 import { Button } from '@/components/ui/button';
 import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+
+const DISMISS_KEY = 'gameday_banner_dismissed';
+
+function formatCentralTime(iso?: string): string {
+  if (!iso) return '';
+  try {
+    return new Date(iso).toLocaleTimeString('en-US', {
+      timeZone: 'America/Chicago',
+      hour: 'numeric',
+      minute: '2-digit',
+    }) + ' CT';
+  } catch {
+    return '';
+  }
+}
 
 function useCountdown(targetIso?: string) {
   const target = useMemo(() => (targetIso ? new Date(targetIso).getTime() : 0), [targetIso]);

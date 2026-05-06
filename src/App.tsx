@@ -66,6 +66,7 @@ import ClaimBeer from "./pages/ClaimBeer";
 import CheckoutReturn from "./pages/CheckoutReturn";
 import WrigleyvilleEats from "./pages/WrigleyvilleEats";
 import Dugout from "./pages/Dugout";
+import Join from "./pages/Join";
 import { preloadReactionImages } from "@/lib/reaction-cache";
 
 // Preload reaction images on app boot for instant rendering
@@ -99,6 +100,7 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
             <Route path="/terms" element={<TermsOfServicePage />} />
             <Route path="/checkout/return" element={<CheckoutReturn />} />
+            <Route path="/join" element={<Join />} />
             
             <Route element={<ProtectedRoute />}>
               <Route path="/onboarding" element={<Onboarding />} />

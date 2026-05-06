@@ -33,15 +33,15 @@ export type GateFilter = typeof GATE_OPTIONS[number];
  */
 export function useFanMapPins() {
   const { user } = useAuth();
-  const { position } = useGeolocation();
+  const { coords } = useGeolocation();
 
   const query = useQuery({
-    queryKey: ['fan-map-pins', user?.id, position?.coords.latitude, position?.coords.longitude],
+    queryKey: ['fan-map-pins', user?.id, coords?.latitude, coords?.longitude],
     enabled: !!user,
     refetchInterval: 60_000,
     queryFn: async (): Promise<MapFan[]> => {
-      const lat = position?.coords.latitude ?? null;
-      const lng = position?.coords.longitude ?? null;
+      const lat = coords?.latitude ?? null;
+      const lng = coords?.longitude ?? null;
 
       // Real users (radius 2mi) when GPS is available
       if (lat !== null && lng !== null) {

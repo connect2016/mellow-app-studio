@@ -47,8 +47,24 @@ export function GameDayBanner() {
   const { data: weather } = useWrigleyWeather();
   const countdown = useCountdown(game?.gameDate);
   const [showCreate, setShowCreate] = useState(false);
+  const [dismissed, setDismissed] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return window.sessionStorage.getItem(DISMISS_KEY) === '1';
+  });
 
+  if (dismissed) return null;
   if (!game || game.status === 'no-game' || game.status === 'postponed') return null;
+  // Spec: hide entirely once game ends
+  if (game.status === 'final') return null;
+
+  const hoursUntil = game.gameDate
+    ? (new Date(game.gameDate).getTime() - Date.now()) / 3_600_000
+    : 0;
+
+  const handleDismiss = () => {
+    try { window.sessionStorage.setItem(DISMISS_KEY, '1'); } catch { /* ignore */ }
+    setDismissed(true);
+  };
 
   const isLive = game.status === 'live' || game.status === 'pre-game';
   const isFinal = game.status === 'final';

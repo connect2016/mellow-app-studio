@@ -192,7 +192,7 @@ export default function Notifications() {
               </div>
               <button
                 type="button"
-                onClick={() => { track('filter_open'); navigate('/settings'); }}
+                onClick={() => { track('filter_open'); navigate('/settings/notifications'); }}
                 aria-label="Open notification preferences"
                 className="flex-shrink-0 inline-flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-all duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >

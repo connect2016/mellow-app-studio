@@ -193,7 +193,6 @@ export function CreateMeetupFab() {
                   transition: exiting
                     ? 'opacity 120ms ease-in, transform 120ms ease-in'
                     : `opacity 180ms ${SPRING} ${enterDelay}ms, transform 180ms ${SPRING} ${enterDelay}ms`,
-                  animation: exiting ? undefined : `fab-dial-in 180ms ${SPRING} ${enterDelay}ms both`,
                 }}
               >
                 <span

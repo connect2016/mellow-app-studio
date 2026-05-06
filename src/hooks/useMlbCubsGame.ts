@@ -53,12 +53,32 @@ function todayDateStr(): string {
   return `${m}/${d}/${y}`;
 }
 
+const SCHEDULE_TTL_MS = 30 * 60 * 1000; // 30 min
+
 async function fetchScheduleToday(): Promise<any> {
   const date = todayDateStr();
+  const cacheKey = `mlb_schedule_${date}`;
+  // Try localStorage cache first (TTL 30m)
+  try {
+    const raw = typeof window !== 'undefined' ? window.localStorage.getItem(cacheKey) : null;
+    if (raw) {
+      const parsed = JSON.parse(raw) as { ts: number; data: any };
+      if (Date.now() - parsed.ts < SCHEDULE_TTL_MS) {
+        return parsed.data;
+      }
+    }
+  } catch { /* ignore */ }
+
   const url = `https://statsapi.mlb.com/api/v1/schedule?sportId=1&teamId=${CUBS_TEAM_ID}&date=${encodeURIComponent(date)}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`MLB schedule failed: ${res.status}`);
-  return res.json();
+  const json = await res.json();
+  try {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), data: json }));
+    }
+  } catch { /* ignore quota */ }
+  return json;
 }
 
 async function fetchLinescore(gamePk: number): Promise<any> {

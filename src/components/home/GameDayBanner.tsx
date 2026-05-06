@@ -1,12 +1,27 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Wind, Trophy, Users, Plus } from 'lucide-react';
+import { Wind, Trophy, Plus, X, MapPin, Search, Flame } from 'lucide-react';
 import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
 import { useWrigleyWeather } from '@/hooks/useWrigleyWeather';
 import { Button } from '@/components/ui/button';
 import { CreateMeetupModal } from '@/components/lineup/CreateMeetupModal';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+
+const DISMISS_KEY = 'gameday_banner_dismissed';
+
+function formatCentralTime(iso?: string): string {
+  if (!iso) return '';
+  try {
+    return new Date(iso).toLocaleTimeString('en-US', {
+      timeZone: 'America/Chicago',
+      hour: 'numeric',
+      minute: '2-digit',
+    }) + ' CT';
+  } catch {
+    return '';
+  }
+}
 
 function useCountdown(targetIso?: string) {
   const target = useMemo(() => (targetIso ? new Date(targetIso).getTime() : 0), [targetIso]);
@@ -32,33 +47,66 @@ export function GameDayBanner() {
   const { data: weather } = useWrigleyWeather();
   const countdown = useCountdown(game?.gameDate);
   const [showCreate, setShowCreate] = useState(false);
+  const [dismissed, setDismissed] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return window.sessionStorage.getItem(DISMISS_KEY) === '1';
+  });
 
+  if (dismissed) return null;
   if (!game || game.status === 'no-game' || game.status === 'postponed') return null;
+  // Spec: hide entirely once game ends
+  if (game.status === 'final') return null;
+
+  const hoursUntil = game.gameDate
+    ? (new Date(game.gameDate).getTime() - Date.now()) / 3_600_000
+    : 0;
+
+  const handleDismiss = () => {
+    try { window.sessionStorage.setItem(DISMISS_KEY, '1'); } catch { /* ignore */ }
+    setDismissed(true);
+  };
 
   const isLive = game.status === 'live' || game.status === 'pre-game';
-  const isFinal = game.status === 'final';
+
+  // Spec contextual primary CTA
+  const cta = isLive
+    ? { label: "See who's nearby", to: '/map', icon: MapPin }
+    : hoursUntil <= 2 && hoursUntil > 0
+      ? { label: 'Set your tailgate status', to: '/profile', icon: Flame }
+      : { label: 'Find buddies now', to: '/discover', icon: Search };
 
   const headline = isLive
     ? `Live · ${game.inningHalf ?? ''} ${game.inning ?? ''}`.trim()
-    : isFinal
-      ? 'Final'
-      : 'First pitch in';
+    : 'First pitch in';
 
   const opponentLabel = game.opponent
     ? `${game.homeAway === 'home' ? 'vs' : '@'} ${game.opponent}`
     : 'Cubs game today';
 
+  const firstPitchCT = formatCentralTime(game.gameDate);
+
+
   return (
     <>
       <section
         aria-label="Game Day"
-        className="mx-3 mt-3 mb-2 overflow-hidden rounded-2xl border border-yellow-300/40 shadow-lg"
+        className="sticky top-[60px] z-40 mx-3 mt-3 mb-2 overflow-hidden rounded-2xl border border-yellow-300/40 shadow-lg"
         style={{
           background:
             'linear-gradient(135deg, hsl(220, 75%, 18%) 0%, hsl(220, 80%, 28%) 60%, hsl(0, 70%, 35%) 100%)',
         }}
       >
+        {/* Dismiss (session only) */}
+        <button
+          type="button"
+          onClick={handleDismiss}
+          aria-label="Dismiss game day banner"
+          className="absolute right-2 top-2 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/30 text-white/90 hover:bg-black/50 transition-colors"
+        >
+          <X className="h-4 w-4" strokeWidth={2.5} />
+        </button>
         {/* Header strip */}
+
         <div className="flex items-center justify-between gap-2 px-4 pt-3">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-yellow-300 text-brand-blue">
@@ -82,7 +130,7 @@ export function GameDayBanner() {
 
         {/* Countdown / Score row */}
         <div className="px-4 pt-2 pb-3">
-          {isLive || isFinal ? (
+          {isLive ? (
             <div className="flex items-baseline gap-3">
               <div
                 className="text-3xl font-extrabold leading-none text-white"
@@ -119,6 +167,11 @@ export function GameDayBanner() {
                   <span className="text-2xl font-bold">—</span>
                 )}
               </div>
+              {firstPitchCT && (
+                <div className="mt-1 text-[11px] font-semibold text-white/80">
+                  {opponentLabel} · {firstPitchCT}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -154,9 +207,9 @@ export function GameDayBanner() {
             asChild
             className="min-h-[48px] gap-1.5 rounded-xl bg-white text-brand-blue hover:bg-white/90 font-bold text-[13px] shadow"
           >
-            <Link to="/score">
-              <Users className="h-4 w-4" />
-              Score with a Friend
+            <Link to={cta.to}>
+              <cta.icon className="h-4 w-4" />
+              {cta.label}
             </Link>
           </Button>
           <Button
@@ -167,6 +220,7 @@ export function GameDayBanner() {
             Create a Meetup
           </Button>
         </div>
+
       </section>
       <CreateMeetupModal open={showCreate} onClose={() => setShowCreate(false)} />
     </>

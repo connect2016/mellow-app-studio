@@ -1574,6 +1574,7 @@ export type Database = {
           is_verified: boolean | null
           location: unknown
           location_last_set_at: string | null
+          notification_preferences: Json
           onboarding_completed: boolean | null
           phone_verified: boolean
           post_win_meal: string | null
@@ -1644,6 +1645,7 @@ export type Database = {
           is_verified?: boolean | null
           location?: unknown
           location_last_set_at?: string | null
+          notification_preferences?: Json
           onboarding_completed?: boolean | null
           phone_verified?: boolean
           post_win_meal?: string | null
@@ -1714,6 +1716,7 @@ export type Database = {
           is_verified?: boolean | null
           location?: unknown
           location_last_set_at?: string | null
+          notification_preferences?: Json
           onboarding_completed?: boolean | null
           phone_verified?: boolean
           post_win_meal?: string | null
@@ -2689,7 +2692,11 @@ export type Database = {
           zip_code: string
         }[]
       }
-      notification_category: { Args: { _type: string }; Returns: string }
+      notification_allowed: {
+        Args: { p_type: string; p_user_id: string }
+        Returns: boolean
+      }
+      notification_category: { Args: { p_type: string }; Returns: string }
       say_hi_to_buddy: { Args: { p_recipient_id: string }; Returns: Json }
       send_beer_tip: {
         Args: { p_credits: number; p_message?: string; p_recipient_id: string }

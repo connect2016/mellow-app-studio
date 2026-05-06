@@ -5,7 +5,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications, useMarkRead, useMarkAllRead, useClearNotifications } from '@/hooks/useNotifications';
 import { Button } from '@/components/ui/button';
-import { Bell, Check, CheckCheck, Trash2, Users, MapPin, Trophy, Utensils, Hand, SlidersHorizontal, Sparkles, Calendar, Beer, ArrowRight } from 'lucide-react';
+import { Bell, Check, CheckCheck, Trash2, Users, SlidersHorizontal, Sparkles, CalendarDays, Beer, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
@@ -13,33 +13,56 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
 import { track as analyticsTrack } from '@/lib/analytics';
 
-type FilterKey = 'all' | 'meetups' | 'fans' | 'gameday' | 'food' | 'hifives';
+type FilterKey = 'all' | 'buddies' | 'beers' | 'meetups' | 'vibes';
 
 const FILTERS: { key: FilterKey; label: string; icon: typeof Bell }[] = [
-  { key: 'all', label: 'All', icon: Bell },
-  { key: 'meetups', label: 'Meetups', icon: Users },
-  { key: 'fans', label: 'Fans Nearby', icon: MapPin },
-  { key: 'gameday', label: 'Game Day', icon: Trophy },
-  { key: 'food', label: 'Food', icon: Utensils },
-  { key: 'hifives', label: 'Hi-Fives', icon: Hand },
+  { key: 'all',     label: 'All',     icon: Bell },
+  { key: 'buddies', label: 'Buddies', icon: Users },
+  { key: 'beers',   label: 'Beers',   icon: Beer },
+  { key: 'meetups', label: 'Meetups', icon: CalendarDays },
+  { key: 'vibes',   label: 'Vibes',   icon: Sparkles },
 ];
 
 function categorize(type: string): FilterKey {
-  if (type.startsWith('meetup')) return 'meetups';
-  if (type.startsWith('game') || type === 'weather') return 'gameday';
-  if (type === 'hi_five' || type.includes('streak')) return 'hifives';
-  if (type === 'food' || type.includes('food') || type === 'eats') return 'food';
   if (
-    type === 'match' ||
-    type === 'message' ||
-    type === 'friend_checkin' ||
-    type === 'friend_meetup' ||
-    type === 'fans_nearby' ||
-    type === 'teammate_request' ||
-    type === 'teammate_accepted'
-  )
-    return 'fans';
+    type === 'buddy_request' || type === 'buddy_accepted' ||
+    type === 'teammate_request' || type === 'teammate_accepted' ||
+    type === 'match' || type.startsWith('match_')
+  ) return 'buddies';
+  if (type === 'beer_received') return 'beers';
+  if (type.startsWith('meetup')) return 'meetups';
+  if (type === 'vibe_mention' || type === 'vibe_reaction') return 'vibes';
   return 'all';
+}
+
+/** Type → action_url fallback for legacy rows that have a null action_url. */
+function fallbackActionUrl(type: string, metadata: Record<string, unknown> | null | undefined): string | null {
+  const meta = (metadata ?? {}) as Record<string, unknown>;
+  const meetupId = typeof meta.meetup_id === 'string' ? meta.meetup_id : null;
+  const postId   = typeof meta.post_id === 'string' ? meta.post_id : null;
+  switch (type) {
+    case 'buddy_request':
+    case 'teammate_request':
+      return '/discover-fans';
+    case 'buddy_accepted':
+    case 'teammate_accepted':
+    case 'message':
+    case 'match':
+      return '/messages';
+    case 'meetup':
+    case 'meetup_created':
+    case 'meetup_joined':
+      return meetupId ? `/meetups/${meetupId}` : '/meetups';
+    case 'meetup_nearby':
+      return '/meetups';
+    case 'beer_received':
+      return '/beer-money';
+    case 'vibe_mention':
+    case 'vibe_reaction':
+      return postId ? `/vibe?highlight=${postId}` : '/vibe';
+    default:
+      return null;
+  }
 }
 
 function track(event: string, payload?: Record<string, unknown>) {
@@ -70,7 +93,7 @@ export default function Notifications() {
   );
 
   const counts = useMemo(() => {
-    const c: Record<FilterKey, number> = { all: 0, meetups: 0, fans: 0, gameday: 0, food: 0, hifives: 0 };
+    const c: Record<FilterKey, number> = { all: 0, buddies: 0, beers: 0, meetups: 0, vibes: 0 };
     notifications.forEach((n) => {
       if (n.is_read) return;
       c.all += 1;
@@ -84,7 +107,8 @@ export default function Notifications() {
 
   const handleTap = (notif: typeof notifications[0]) => {
     if (!notif.is_read) markRead.mutate(notif.id);
-    if (notif.action_url) navigate(notif.action_url);
+    const target = notif.action_url || fallbackActionUrl(notif.type, notif.metadata as Record<string, unknown> | null);
+    if (target) navigate(target);
   };
 
   const timeAgo = (date: string) => {
@@ -168,7 +192,7 @@ export default function Notifications() {
               </div>
               <button
                 type="button"
-                onClick={() => { track('filter_open'); navigate('/settings'); }}
+                onClick={() => { track('filter_open'); navigate('/settings/notifications'); }}
                 aria-label="Open notification preferences"
                 className="flex-shrink-0 inline-flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-all duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >

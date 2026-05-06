@@ -2,84 +2,59 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
-export type NotifFrequency = 'instant' | 'hourly' | 'daily' | 'off';
+export type NotificationCategory = 'buddies' | 'beers' | 'meetups' | 'vibes' | 'gameday';
 
-export interface NotificationPreferences {
-  id?: string;
-  user_id?: string;
-  meetup_freq: NotifFrequency;
-  bar_freq: NotifFrequency;
-  friend_freq: NotifFrequency;
-  gameday_freq: NotifFrequency;
-  quiet_hours_enabled: boolean;
-  quiet_start: string; // 'HH:MM'
-  quiet_end: string;
-  timezone: string;
-}
+export type NotificationPreferences = Record<NotificationCategory, boolean>;
 
-const DEFAULTS: NotificationPreferences = {
-  meetup_freq: 'instant',
-  bar_freq: 'instant',
-  friend_freq: 'instant',
-  gameday_freq: 'instant',
-  quiet_hours_enabled: false,
-  quiet_start: '22:00',
-  quiet_end: '08:00',
-  timezone: 'America/Chicago',
+export const DEFAULT_PREFERENCES: NotificationPreferences = {
+  buddies: true,
+  beers: true,
+  meetups: true,
+  vibes: true,
+  gameday: true,
 };
-
-function normalizeTime(t: string | null | undefined, fallback: string) {
-  if (!t) return fallback;
-  // Postgres returns 'HH:MM:SS'; we want 'HH:MM'
-  return t.length >= 5 ? t.substring(0, 5) : t;
-}
 
 export function useNotificationPreferences() {
   const { user } = useAuth();
-
-  return useQuery({
-    queryKey: ['notification-preferences', user?.id],
-    queryFn: async (): Promise<NotificationPreferences> => {
-      if (!user) return DEFAULTS;
-      const { data, error } = await supabase
-        .from('notification_preferences')
-        .select('*')
-        .eq('user_id', user.id)
-        .maybeSingle();
-      if (error) throw error;
-      if (!data) return DEFAULTS;
-      return {
-        ...DEFAULTS,
-        ...data,
-        quiet_start: normalizeTime((data as any).quiet_start, DEFAULTS.quiet_start),
-        quiet_end: normalizeTime((data as any).quiet_end, DEFAULTS.quiet_end),
-      } as NotificationPreferences;
-    },
-    enabled: !!user,
-  });
-}
-
-export function useUpdateNotificationPreferences() {
-  const { user } = useAuth();
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (updates: Partial<NotificationPreferences>) => {
-      if (!user) throw new Error('Not authenticated');
-      const tz =
-        updates.timezone ||
-        Intl.DateTimeFormat().resolvedOptions().timeZone ||
-        'America/Chicago';
-      const { error } = await supabase
-        .from('notification_preferences')
-        .upsert(
-          { user_id: user.id, timezone: tz, ...updates },
-          { onConflict: 'user_id' },
-        );
+  const query = useQuery({
+    queryKey: ['notification-preferences', user?.id],
+    enabled: !!user,
+    staleTime: 60_000,
+    queryFn: async (): Promise<NotificationPreferences> => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('notification_preferences')
+        .eq('user_id', user!.id)
+        .maybeSingle();
       if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notification-preferences', user?.id] });
+      const stored = (data?.notification_preferences ?? {}) as Partial<NotificationPreferences>;
+      return { ...DEFAULT_PREFERENCES, ...stored };
     },
   });
+
+  const update = useMutation({
+    mutationFn: async (next: Partial<NotificationPreferences>) => {
+      if (!user) throw new Error('Not signed in');
+      const merged = { ...DEFAULT_PREFERENCES, ...(query.data ?? {}), ...next };
+      const { error } = await supabase
+        .from('profiles')
+        .update({ notification_preferences: merged })
+        .eq('user_id', user.id);
+      if (error) throw error;
+      return merged;
+    },
+    onSuccess: (merged) => {
+      queryClient.setQueryData(['notification-preferences', user?.id], merged);
+    },
+  });
+
+  return {
+    preferences: query.data ?? DEFAULT_PREFERENCES,
+    isLoading: query.isLoading,
+    setPreference: (key: NotificationCategory, value: boolean) =>
+      update.mutate({ [key]: value } as Partial<NotificationPreferences>),
+    isSaving: update.isPending,
+  };
 }

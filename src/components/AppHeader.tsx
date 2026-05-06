@@ -95,7 +95,7 @@ export function AppHeader() {
           <div className="flex shrink-0 items-center gap-2">
             <Link
               to="/notifications"
-              aria-label="Notifications"
+              aria-label={unreadNotifs > 0 ? `View notifications (${unreadNotifs} unread)` : 'View notifications'}
               className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
             >
               <Bell className="h-[18px] w-[18px]" strokeWidth={2.25} />

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
@@ -44,6 +44,9 @@ function Chip({ label, selected, onClick }: ChipProps) {
 
 export default function Onboarding() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const focusField = searchParams.get('focus');
+  const editMode = searchParams.get('edit') === '1';
   const { user } = useAuth();
   const { data: profile } = useProfile();
   const updateProfile = useUpdateProfile();
@@ -75,10 +78,28 @@ export default function Onboarding() {
     }
   }, [profile]);
 
-  // Already completed → bounce out
+  // Already completed → bounce out (unless explicitly editing via ?edit=1)
   useEffect(() => {
-    if (profile?.onboarding_completed) navigate('/profile', { replace: true });
-  }, [profile, navigate]);
+    if (profile?.onboarding_completed && !editMode) navigate('/profile', { replace: true });
+  }, [profile, navigate, editMode]);
+
+  // Jump to the step that owns the focused field, then focus the input
+  useEffect(() => {
+    if (!focusField) return;
+    const stepFor: Record<string, number> = {
+      display_name: 1,
+      profile_photo: 2,
+      vibe_tags: 3,
+      favorite_gate: 4,
+      zip_code: 4,
+    };
+    const targetStep = stepFor[focusField];
+    if (targetStep) setStep(targetStep);
+    const t = setTimeout(() => {
+      document.getElementById(focusField)?.focus();
+    }, 150);
+    return () => clearTimeout(t);
+  }, [focusField]);
 
   // When geo grants and returns a zip, capture it for step 5
   useEffect(() => {

@@ -2,14 +2,16 @@ import { NavLink } from 'react-router-dom';
 import { Compass, Map, CalendarDays, User, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFanMapPins } from '@/hooks/useFanMapPins';
+import { useProfileCompletion } from '@/hooks/useProfileCompletion';
+import { ProfileCompletionRing } from './ProfileCompletionRing';
 
-type Tab = { to: string; label: string; icon: LucideIcon; showBadge?: boolean };
+type Tab = { to: string; label: string; icon: LucideIcon; showBadge?: boolean; showProgress?: boolean };
 
 const TABS: Tab[] = [
   { to: '/discover-fans', label: 'Discover', icon: Compass },
   { to: '/bar-map', label: 'Map', icon: Map, showBadge: true },
   { to: '/meetups', label: 'Meetups', icon: CalendarDays },
-  { to: '/profile', label: 'Profile', icon: User },
+  { to: '/profile', label: 'Profile', icon: User, showProgress: true },
 ];
 
 export function BottomNav() {

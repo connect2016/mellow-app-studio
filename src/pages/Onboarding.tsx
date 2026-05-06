@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
@@ -44,6 +44,9 @@ function Chip({ label, selected, onClick }: ChipProps) {
 
 export default function Onboarding() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const focusField = searchParams.get('focus');
+  const editMode = searchParams.get('edit') === '1';
   const { user } = useAuth();
   const { data: profile } = useProfile();
   const updateProfile = useUpdateProfile();
@@ -75,10 +78,28 @@ export default function Onboarding() {
     }
   }, [profile]);
 
-  // Already completed → bounce out
+  // Already completed → bounce out (unless explicitly editing via ?edit=1)
   useEffect(() => {
-    if (profile?.onboarding_completed) navigate('/profile', { replace: true });
-  }, [profile, navigate]);
+    if (profile?.onboarding_completed && !editMode) navigate('/profile', { replace: true });
+  }, [profile, navigate, editMode]);
+
+  // Jump to the step that owns the focused field, then focus the input
+  useEffect(() => {
+    if (!focusField) return;
+    const stepFor: Record<string, number> = {
+      display_name: 1,
+      profile_photo: 2,
+      vibe_tags: 3,
+      favorite_gate: 4,
+      zip_code: 4,
+    };
+    const targetStep = stepFor[focusField];
+    if (targetStep) setStep(targetStep);
+    const t = setTimeout(() => {
+      document.getElementById(focusField)?.focus();
+    }, 150);
+    return () => clearTimeout(t);
+  }, [focusField]);
 
   // When geo grants and returns a zip, capture it for step 5
   useEffect(() => {
@@ -162,6 +183,7 @@ export default function Onboarding() {
               <p className="text-sm text-muted-foreground">This is how other Cubbies fans will see you.</p>
             </div>
             <Input
+              id="display_name"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value.slice(0, 30))}
               placeholder="Your fan name (e.g. Cubbie Mike)"
@@ -190,6 +212,7 @@ export default function Onboarding() {
 
             <div className="flex justify-center">
               <button
+                id="profile_photo"
                 type="button"
                 onClick={() => fileRef.current?.click()}
                 className="relative h-40 w-40 overflow-hidden rounded-full border-4 border-primary bg-muted shadow-md transition hover:opacity-90"
@@ -280,7 +303,7 @@ export default function Onboarding() {
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3" id="vibe_tags" tabIndex={-1}>
               <p className="text-sm font-medium">Your game-day vibe?</p>
               <div className="flex flex-wrap gap-2">
                 {VIBE_OPTIONS.map((opt) => (
@@ -322,6 +345,7 @@ export default function Onboarding() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Zip code</label>
               <Input
+                id="zip_code"
                 inputMode="numeric"
                 pattern="\d{5}"
                 maxLength={5}
@@ -334,6 +358,7 @@ export default function Onboarding() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Favorite gate</label>
               <select
+                id="favorite_gate"
                 value={gate}
                 onChange={(e) => setGate(e.target.value)}
                 className="flex h-12 w-full rounded-xl border border-input bg-background px-4 py-2.5 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"

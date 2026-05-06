@@ -32,6 +32,7 @@ import { useTeammates } from '@/hooks/useTeammates';
 import { TeammatesSummary } from '@/components/teammates/TeammatesSummary';
 import { Users } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { ProfileCompletion, FullFanBadge, getProfileCompletion } from '@/components/profile/ProfileCompletion';
 
 export default function Profile() {
   const { id } = useParams();
@@ -257,24 +258,28 @@ export default function Profile() {
           </TabsList>
 
           <TabsContent value="card" className="space-y-6 pt-4">
-            <UserBaseballCard
-              profileImage={profile.profile_photo}
-              displayName={profile.display_name}
-              gameStatus={profile.game_status as GameStatus}
-              wrigleySection={profile.wrigley_section}
-              wrigleyvilleBar={(profile as any).wrigleyville_bar}
-              intents={(profile.intent as IntentType[]) ?? []}
-              gamedayIntents={(profile.gameday_intents as GamedayIntentType[]) ?? []}
-              statPreferences={statPreferences}
-              stats={{
-                shotsTakenSeason: cardExtras.shots_taken_season ?? 0,
-                appetizersHadSeason: cardExtras.appetizers_had_season ?? 0,
-                favoriteFoodSpot: cardExtras.favorite_food_spot ?? undefined,
-              }}
-              isOwner={isOwnProfile}
-              userId={!isOwnProfile ? id : undefined}
-              className="max-w-full"
-            />
+            {isOwnProfile && <ProfileCompletion profile={profile as any} />}
+            <div className="relative">
+              {isOwnProfile && getProfileCompletion(profile as any).pct >= 100 && <FullFanBadge />}
+              <UserBaseballCard
+                profileImage={profile.profile_photo}
+                displayName={profile.display_name}
+                gameStatus={profile.game_status as GameStatus}
+                wrigleySection={profile.wrigley_section}
+                wrigleyvilleBar={(profile as any).wrigleyville_bar}
+                intents={(profile.intent as IntentType[]) ?? []}
+                gamedayIntents={(profile.gameday_intents as GamedayIntentType[]) ?? []}
+                statPreferences={statPreferences}
+                stats={{
+                  shotsTakenSeason: cardExtras.shots_taken_season ?? 0,
+                  appetizersHadSeason: cardExtras.appetizers_had_season ?? 0,
+                  favoriteFoodSpot: cardExtras.favorite_food_spot ?? undefined,
+                }}
+                isOwner={isOwnProfile}
+                userId={!isOwnProfile ? id : undefined}
+                className="max-w-full"
+              />
+            </div>
 
             {isOwnProfile && (
               <SeasonStatsEditor

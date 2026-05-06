@@ -27,10 +27,13 @@ export function useProfileCompletion() {
         .eq('user_id', user!.id)
         .maybeSingle();
 
-      if (!profile) return { filled: 0, total: FIELDS.length, percent: 0 };
+      if (!profile || (profile as { error?: boolean }).error) {
+        return { filled: 0, total: FIELDS.length, percent: 0 };
+      }
+      const p = profile as unknown as Record<string, unknown>;
 
       const filled = FIELDS.reduce((acc, field) => {
-        const v = (profile as Record<string, unknown>)[field];
+        const v = p[field];
         if (v === null || v === undefined) return acc;
         if (typeof v === 'string' && v.trim() === '') return acc;
         if (Array.isArray(v) && v.length === 0) return acc;

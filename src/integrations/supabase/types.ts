@@ -1272,6 +1272,107 @@ export type Database = {
           },
         ]
       }
+      merchant_promos: {
+        Row: {
+          created_at: string
+          current_redemptions: number
+          description: string | null
+          discount_type: string | null
+          discount_value: number | null
+          id: string
+          is_active: boolean
+          max_redemptions: number | null
+          merchant_id: string
+          min_purchase_cents: number
+          title: string
+          updated_at: string
+          valid_from: string | null
+          valid_until: string | null
+        }
+        Insert: {
+          created_at?: string
+          current_redemptions?: number
+          description?: string | null
+          discount_type?: string | null
+          discount_value?: number | null
+          id?: string
+          is_active?: boolean
+          max_redemptions?: number | null
+          merchant_id: string
+          min_purchase_cents?: number
+          title: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Update: {
+          created_at?: string
+          current_redemptions?: number
+          description?: string | null
+          discount_type?: string | null
+          discount_value?: number | null
+          id?: string
+          is_active?: boolean
+          max_redemptions?: number | null
+          merchant_id?: string
+          min_purchase_cents?: number
+          title?: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "merchant_promos_merchant_id_fkey"
+            columns: ["merchant_id"]
+            isOneToOne: false
+            referencedRelation: "merchants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      merchants: {
+        Row: {
+          address: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          lat: number | null
+          lng: number | null
+          logo_url: string | null
+          merchant_secret: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          lat?: number | null
+          lng?: number | null
+          logo_url?: string | null
+          merchant_secret?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          lat?: number | null
+          lng?: number | null
+          logo_url?: string | null
+          merchant_secret?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           body: string
@@ -1746,6 +1847,41 @@ export type Database = {
           zip_code?: string | null
         }
         Relationships: []
+      }
+      promo_redemptions: {
+        Row: {
+          confirmed_at: string | null
+          id: string
+          promo_id: string
+          qr_code_token: string
+          redeemed_at: string
+          user_id: string
+        }
+        Insert: {
+          confirmed_at?: string | null
+          id?: string
+          promo_id: string
+          qr_code_token: string
+          redeemed_at?: string
+          user_id: string
+        }
+        Update: {
+          confirmed_at?: string | null
+          id?: string
+          promo_id?: string
+          qr_code_token?: string
+          redeemed_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "promo_redemptions_promo_id_fkey"
+            columns: ["promo_id"]
+            isOneToOne: false
+            referencedRelation: "merchant_promos"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       pub_crawl_members: {
         Row: {
@@ -2512,6 +2648,11 @@ export type Database = {
         Args: { _points?: number; _source: string; _source_id?: string }
         Returns: undefined
       }
+      claim_promo: { Args: { p_promo_id: string }; Returns: string }
+      confirm_promo_redemption: {
+        Args: { p_secret: string; p_token: string }
+        Returns: Json
+      }
       get_beer_buyer_count: { Args: { p_user_id: string }; Returns: number }
       get_host_trust: {
         Args: { _host_id: string }
@@ -2697,6 +2838,10 @@ export type Database = {
         Returns: boolean
       }
       notification_category: { Args: { p_type: string }; Returns: string }
+      preview_promo_redemption: {
+        Args: { p_secret: string; p_token: string }
+        Returns: Json
+      }
       say_hi_to_buddy: { Args: { p_recipient_id: string }; Returns: Json }
       send_beer_tip: {
         Args: { p_credits: number; p_message?: string; p_recipient_id: string }

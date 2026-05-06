@@ -248,7 +248,7 @@ export default function Profile() {
         )}
 
         <Tabs defaultValue="card" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 rounded-xl bg-card/80 backdrop-blur">
+          <TabsList aria-label="Profile sections" className="grid w-full grid-cols-2 rounded-xl bg-card/80 backdrop-blur">
             <TabsTrigger value="card" className="gap-1.5 rounded-lg">
               <IdCard className="h-4 w-4" /> Card
             </TabsTrigger>

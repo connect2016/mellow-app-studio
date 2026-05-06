@@ -10,6 +10,7 @@ import { GeolocationModal } from '@/components/GeolocationModal';
 import { Camera, Loader2, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
 import { track } from '@/lib/analytics';
+import { InviteBuddyButton } from '@/components/invite/InviteBuddyButton';
 
 const GATES = ['Addison', 'Waveland', 'Clark', 'Sheffield'];
 

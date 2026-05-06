@@ -67,17 +67,24 @@ export function GameDayBanner() {
   };
 
   const isLive = game.status === 'live' || game.status === 'pre-game';
-  const isFinal = game.status === 'final';
+
+  // Spec contextual primary CTA
+  const cta = isLive
+    ? { label: "See who's nearby", to: '/map', icon: MapPin }
+    : hoursUntil <= 2 && hoursUntil > 0
+      ? { label: 'Set your tailgate status', to: '/profile', icon: Flame }
+      : { label: 'Find buddies now', to: '/discover', icon: Search };
 
   const headline = isLive
     ? `Live · ${game.inningHalf ?? ''} ${game.inning ?? ''}`.trim()
-    : isFinal
-      ? 'Final'
-      : 'First pitch in';
+    : 'First pitch in';
 
   const opponentLabel = game.opponent
     ? `${game.homeAway === 'home' ? 'vs' : '@'} ${game.opponent}`
     : 'Cubs game today';
+
+  const firstPitchCT = formatCentralTime(game.gameDate);
+
 
   return (
     <>

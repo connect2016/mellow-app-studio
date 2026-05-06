@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Map, User, Bell } from 'lucide-react';
+import { Compass, Map, CalendarDays, User, Bell } from 'lucide-react';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -7,11 +7,12 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { useUnreadCount } from '@/hooks/useNotifications';
 import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
+import { useFanMapPins } from '@/hooks/useFanMapPins';
 
 const navItems = [
-  { to: '/discover', icon: Home, label: 'Home' },
+  { to: '/discover-fans', icon: Compass, label: 'Discover' },
   { to: '/bar-map', icon: Map, label: 'Map' },
-  { to: '/meetups', icon: Users, label: 'Meetups' },
+  { to: '/meetups', icon: CalendarDays, label: 'Meetups' },
   { to: '/profile', icon: User, label: 'Profile' },
 ];
 
@@ -68,9 +69,11 @@ export function AppHeader() {
   const location = useLocation();
   const { data: badges } = useNotificationCounts();
   const unreadNotifs = useUnreadCount();
+  const { count: nearbyFanCount } = useFanMapPins();
   useSwipeNavigation();
 
   const getBadge = (path: string): number => {
+    if (path === '/bar-map') return nearbyFanCount;
     if (!badges) return 0;
     if (path === '/hi-fives') return badges.hiFives;
     if (path === '/messages') return badges.messages;

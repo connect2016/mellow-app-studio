@@ -303,7 +303,7 @@ export default function Onboarding() {
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3" id="vibe_tags" tabIndex={-1}>
               <p className="text-sm font-medium">Your game-day vibe?</p>
               <div className="flex flex-wrap gap-2">
                 {VIBE_OPTIONS.map((opt) => (
@@ -345,6 +345,7 @@ export default function Onboarding() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Zip code</label>
               <Input
+                id="zip_code"
                 inputMode="numeric"
                 pattern="\d{5}"
                 maxLength={5}
@@ -357,6 +358,7 @@ export default function Onboarding() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Favorite gate</label>
               <select
+                id="favorite_gate"
                 value={gate}
                 onChange={(e) => setGate(e.target.value)}
                 className="flex h-12 w-full rounded-xl border border-input bg-background px-4 py-2.5 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"

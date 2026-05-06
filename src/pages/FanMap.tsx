@@ -195,7 +195,7 @@ export default function FanMap() {
           onOpenChange={(o) => !o && setBeerFor(null)}
           context={{
             kind: 'fan',
-            recipientId: beerFor.id,
+            userId: beerFor.id,
             firstName: beerFor.name?.split(' ')[0] ?? 'Fan',
             avatarUrl: beerFor.photo ?? undefined,
           }}

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Wind, Trophy, Users, Plus, X, MapPin, Search, Flame } from 'lucide-react';
+import { Wind, Trophy, Plus, X, MapPin, Search, Flame } from 'lucide-react';
 import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
 import { useWrigleyWeather } from '@/hooks/useWrigleyWeather';
 import { Button } from '@/components/ui/button';

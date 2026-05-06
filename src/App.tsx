@@ -33,6 +33,7 @@ import CheckIn from "./pages/CheckIn";
 import HiFives from "./pages/HiFives";
 import BeerMoney from "./pages/BeerMoney";
 import Settings from "./pages/Settings";
+import NotificationPreferences from "./pages/NotificationPreferences";
 import Admin from "./pages/Admin";
 import VibeFeed from "./pages/VibeFeed";
 import Loyalty from "./pages/Loyalty";
@@ -126,6 +127,7 @@ const App = () => (
             </Route>
             <Route path="/share-seat" element={<ShareSeat />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/settings/notifications" element={<NotificationPreferences />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />

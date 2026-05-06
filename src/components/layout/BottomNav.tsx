@@ -2,18 +2,21 @@ import { NavLink } from 'react-router-dom';
 import { Compass, Map, CalendarDays, User, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFanMapPins } from '@/hooks/useFanMapPins';
+import { useProfileCompletion } from '@/hooks/useProfileCompletion';
+import { ProfileCompletionRing } from './ProfileCompletionRing';
 
-type Tab = { to: string; label: string; icon: LucideIcon; showBadge?: boolean };
+type Tab = { to: string; label: string; icon: LucideIcon; showBadge?: boolean; showProgress?: boolean };
 
 const TABS: Tab[] = [
   { to: '/discover-fans', label: 'Discover', icon: Compass },
   { to: '/bar-map', label: 'Map', icon: Map, showBadge: true },
   { to: '/meetups', label: 'Meetups', icon: CalendarDays },
-  { to: '/profile', label: 'Profile', icon: User },
+  { to: '/profile', label: 'Profile', icon: User, showProgress: true },
 ];
 
 export function BottomNav() {
   const { count } = useFanMapPins();
+  const { percent } = useProfileCompletion();
 
   return (
     <nav
@@ -26,7 +29,7 @@ export function BottomNav() {
       )}
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
-      {TABS.map(({ to, label, icon: Icon, showBadge }) => (
+      {TABS.map(({ to, label, icon: Icon, showBadge, showProgress }) => (
         <NavLink
           key={to}
           to={to}
@@ -37,7 +40,7 @@ export function BottomNav() {
             )
           }
         >
-          <span className="relative">
+          <span className="relative inline-flex items-center justify-center">
             <Icon className="h-5 w-5" aria-hidden="true" />
             {showBadge && count > 0 && (
               <span
@@ -47,6 +50,7 @@ export function BottomNav() {
                 {count > 99 ? '99+' : count}
               </span>
             )}
+            {showProgress && <ProfileCompletionRing percent={percent} />}
           </span>
           <span className="text-[11px] font-medium">{label}</span>
         </NavLink>

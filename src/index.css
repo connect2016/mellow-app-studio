@@ -183,6 +183,16 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 .fab-base:hover  { transform: translate(-50%, 0) scale(1.025); }
 .fab-base:active { transform: translate(-50%, 0) scale(0.94);  }
 
+/* Speed-dial item entrance / exit */
+@keyframes fab-dial-in {
+  0%   { opacity: 0; transform: scale(0.8) translateY(8px); }
+  100% { opacity: 1; transform: scale(1)   translateY(0);   }
+}
+@keyframes fab-dial-out {
+  0%   { opacity: 1; transform: scale(1)   translateY(0);   }
+  100% { opacity: 0; transform: scale(0.8) translateY(8px); }
+}
+
 /* ---------- Swipe Nav ---------- */
 
 /* Edge-resistance feedback when user swipes but doesn't cross threshold */

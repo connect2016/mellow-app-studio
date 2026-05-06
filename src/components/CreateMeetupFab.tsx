@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Plus, Beer, CalendarPlus, X } from 'lucide-react';
+import { Plus, Beer, CalendarPlus, Edit3, UserPlus } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -8,11 +8,20 @@ import { useCreateMeetup } from '@/contexts/CreateMeetupContext';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 import { haptic } from '@/lib/haptics';
 import { cn } from '@/lib/utils';
-import { beerExperiments, trackBuyBeer } from '@/lib/beer-experiments';
+import { trackBuyBeer } from '@/lib/beer-experiments';
 
 // Routes where the FAB should be hidden
 const HIDDEN_ROUTES = ['/', '/auth', '/onboarding', '/quick-start', '/verify'];
-const LONG_PRESS_MS = 450;
+
+const SPRING = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+
+type DialItem = {
+  key: string;
+  label: string;
+  icon: typeof Plus;
+  bg: string;            // background color class for icon button
+  onSelect: () => void;
+};
 
 export function CreateMeetupFab() {
   const location = useLocation();
@@ -20,13 +29,11 @@ export function CreateMeetupFab() {
   const { user } = useAuth();
   const { open, isOpen } = useCreateMeetup();
   const scrollDir = useScrollDirection();
-  const [tapping, setTapping] = useState(false);
   const [routeTransitioning, setRouteTransitioning] = useState(false);
   const [entered, setEntered] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const longPressTimer = useRef<number | null>(null);
-  const longPressFired = useRef(false);
+  const [exiting, setExiting] = useState(false);
+  const exitTimer = useRef<number | null>(null);
 
   // Re-trigger entrance on route change
   useEffect(() => {
@@ -48,7 +55,7 @@ export function CreateMeetupFab() {
   }, []);
 
   // Close menu on route change
-  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+  useEffect(() => { setMenuOpen(false); setExiting(false); }, [location.pathname]);
 
   // Detect nearby activity → adds attention pulse
   const { data: activity } = useQuery({
@@ -68,125 +75,152 @@ export function CreateMeetupFab() {
     },
   });
 
-  const hidden =
-    HIDDEN_ROUTES.includes(location.pathname) ||
-    isOpen ||
-    !user;
-
+  const hidden = HIDDEN_ROUTES.includes(location.pathname) || isOpen || !user;
   if (hidden) return null;
 
   const isHot = (activity?.active ?? 0) >= 3;
   const isHidden = scrollDir === 'down' || routeTransitioning;
 
-  const clearLongPress = () => {
-    if (longPressTimer.current) {
-      window.clearTimeout(longPressTimer.current);
-      longPressTimer.current = null;
+  const closeMenu = () => {
+    if (!menuOpen) return;
+    setExiting(true);
+    if (exitTimer.current) window.clearTimeout(exitTimer.current);
+    exitTimer.current = window.setTimeout(() => {
+      setMenuOpen(false);
+      setExiting(false);
+    }, 130);
+  };
+
+  const openMenu = () => {
+    haptic('light');
+    try { navigator.vibrate?.(10); } catch { /* noop */ }
+    setExiting(false);
+    setMenuOpen(true);
+  };
+
+  const handleFabClick = () => {
+    if (menuOpen) {
+      closeMenu();
+    } else {
+      openMenu();
     }
   };
 
-  const startLongPress = () => {
-    longPressFired.current = false;
-    clearLongPress();
-    longPressTimer.current = window.setTimeout(() => {
-      longPressFired.current = true;
-      haptic('medium');
-      setMenuOpen(true);
-    }, LONG_PRESS_MS);
-  };
+  // Bottom-to-top order in spec: Post Vibe (bottom) → Invite Buddy (top).
+  // We render top→bottom in DOM, so reverse for stagger index.
+  const items: DialItem[] = [
+    {
+      key: 'invite-buddy',
+      label: 'Invite Buddy',
+      icon: UserPlus,
+      bg: 'bg-emerald-600',
+      onSelect: () => { haptic('selection'); closeMenu(); navigate('/dugout'); },
+    },
+    {
+      key: 'buy-beer',
+      label: 'Buy a Beer',
+      icon: Beer,
+      bg: 'bg-amber-500',
+      onSelect: () => {
+        haptic('selection');
+        closeMenu();
+        trackBuyBeer('buy_beer_cta_clicked', { context: 'general', surface: 'fab' });
+        navigate('/beer-money');
+      },
+    },
+    {
+      key: 'meetup',
+      label: 'Meetup',
+      icon: CalendarPlus,
+      bg: 'bg-teal-600',
+      onSelect: () => { haptic('selection'); closeMenu(); open(); },
+    },
+    {
+      key: 'post-vibe',
+      label: 'Post Vibe',
+      icon: Edit3,
+      bg: 'bg-[#0E3386]', // Cubs blue
+      onSelect: () => { haptic('selection'); closeMenu(); navigate('/vibe'); },
+    },
+  ];
 
-  const handleClick = () => {
-    if (longPressFired.current) {
-      // Long-press already opened the menu — swallow the click
-      longPressFired.current = false;
-      return;
-    }
-    haptic('selection');
-    setTapping(true);
-    setTimeout(() => setTapping(false), 320);
-    open();
-  };
-
-  const showFabBeer = beerExperiments.shouldShowAt('fab');
-
-  const handleBuyBeer = () => {
-    haptic('selection');
-    setMenuOpen(false);
-    trackBuyBeer('buy_beer_cta_clicked', { context: 'general', surface: 'fab' });
-    navigate('/beer-money');
-  };
-
-  const handleCreateMeetup = () => {
-    haptic('selection');
-    setMenuOpen(false);
-    open();
-  };
+  // Stagger from bottom (Post Vibe) → top (Invite Buddy). DOM order is top→bottom.
+  const lastIdx = items.length - 1;
 
   return (
     <>
-      {/* Action menu overlay */}
+      {/* Backdrop */}
       {menuOpen && (
-        <>
-          <button
-            type="button"
-            aria-label="Close menu"
-            className="fixed inset-0 z-[59] bg-black/30 backdrop-blur-sm animate-in fade-in duration-150"
-            onClick={() => setMenuOpen(false)}
-          />
-          <div
-            role="menu"
-            aria-label="Quick actions"
-            className="fixed left-1/2 -translate-x-1/2 z-[61] flex flex-col items-center gap-2.5 animate-in fade-in slide-in-from-bottom-4 duration-200"
-            style={{
-              bottom: 'calc(env(safe-area-inset-bottom, 0px) + 210px)',
-            }}
-          >
-            {showFabBeer && (
-              <button
-                type="button"
-                role="menuitem"
-                onClick={handleBuyBeer}
-                className="flex items-center gap-3 rounded-full bg-card border-2 border-border shadow-xl px-5 py-3 min-h-[52px] active:scale-[0.97] transition-transform"
+        <button
+          type="button"
+          aria-label="Close quick actions"
+          onClick={closeMenu}
+          className={cn(
+            'fixed inset-0 z-[39]',
+            'bg-black/40 backdrop-blur-[2px]',
+            'transition-opacity duration-150',
+            exiting ? 'opacity-0' : 'opacity-100',
+          )}
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        />
+      )}
+
+      {/* Speed-dial items */}
+      {menuOpen && (
+        <div
+          role="menu"
+          aria-label="Quick actions"
+          className="fixed left-1/2 -translate-x-1/2 z-[61] flex flex-col items-end gap-3 pointer-events-none"
+          style={{
+            bottom: 'calc(env(safe-area-inset-bottom, 0px) + 210px)',
+          }}
+        >
+          {items.map((item, domIdx) => {
+            // bottom item (last in DOM) is index 0 of stagger
+            const staggerIdx = lastIdx - domIdx;
+            const enterDelay = exiting ? 0 : staggerIdx * 30;
+            return (
+              <div
+                key={item.key}
+                className="flex items-center gap-3 pointer-events-auto"
+                style={{
+                  animation: exiting
+                    ? 'fab-dial-out 120ms ease-in both'
+                    : `fab-dial-in 180ms ${SPRING} ${enterDelay}ms both`,
+                }}
               >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                  <Beer className="h-5 w-5" />
+                <span
+                  className="text-[13px] font-medium text-white select-none"
+                  style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
+                >
+                  {item.label}
                 </span>
-                <div className="text-left">
-                  <p className="text-sm font-bold text-foreground leading-tight">Buy a Beer</p>
-                  <p className="text-[10px] text-muted-foreground leading-tight">Send a fan or bar a round</p>
-                </div>
-              </button>
-            )}
-            <button
-              type="button"
-              role="menuitem"
-              onClick={handleCreateMeetup}
-              className="flex items-center gap-3 rounded-full bg-card border-2 border-border shadow-xl px-5 py-3 min-h-[52px] active:scale-[0.97] transition-transform"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
-                <CalendarPlus className="h-5 w-5" />
-              </span>
-              <div className="text-left">
-                <p className="text-sm font-bold text-foreground leading-tight">Create a Meetup</p>
-                <p className="text-[10px] text-muted-foreground leading-tight">Plan a hangout for fans</p>
+                <button
+                  type="button"
+                  role="menuitem"
+                  onClick={item.onSelect}
+                  aria-label={item.label}
+                  className={cn(
+                    'h-12 w-12 rounded-full flex items-center justify-center',
+                    'shadow-lg text-white',
+                    'active:scale-95 transition-transform',
+                    item.bg,
+                  )}
+                >
+                  <item.icon className="h-5 w-5" strokeWidth={2.5} />
+                </button>
               </div>
-            </button>
-          </div>
-        </>
+            );
+          })}
+        </div>
       )}
 
       <button
-        ref={buttonRef}
         type="button"
-        aria-label={menuOpen ? 'Close quick actions' : 'Quick actions: tap to create a meetup, long-press for more'}
+        aria-label={menuOpen ? 'Close quick actions' : 'Open quick actions'}
         aria-haspopup="menu"
         aria-expanded={menuOpen}
-        onClick={menuOpen ? () => setMenuOpen(false) : handleClick}
-        onPointerDown={startLongPress}
-        onPointerUp={clearLongPress}
-        onPointerLeave={clearLongPress}
-        onPointerCancel={clearLongPress}
-        onContextMenu={(e) => { e.preventDefault(); setMenuOpen(true); }}
+        onClick={handleFabClick}
         data-no-swipe-nav
         className={cn(
           'fixed left-1/2 -translate-x-1/2 z-[60]',
@@ -196,19 +230,20 @@ export function CreateMeetupFab() {
           'shadow-[0_8px_20px_rgba(200,16,46,0.20),0_4px_8px_rgba(0,0,0,0.18)]',
           'ring-4 ring-background',
           'fab-base',
-          entered && !tapping && 'fab-enter',
-          // Attention pulse only when not tapping and not hidden, and there's nearby activity
-          isHot && !tapping && !isHidden && !menuOpen && 'fab-attention',
-          tapping && 'fab-tap',
+          entered && 'fab-enter',
+          isHot && !isHidden && !menuOpen && 'fab-attention',
           isHidden && !menuOpen ? 'fab-hidden' : 'fab-revealed'
         )}
         style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
       >
-        {menuOpen ? (
-          <X className="h-7 w-7" strokeWidth={3} />
-        ) : (
-          <Plus className="h-7 w-7" strokeWidth={3} />
-        )}
+        <Plus
+          className="h-7 w-7"
+          strokeWidth={3}
+          style={{
+            transform: menuOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+            transition: `transform 200ms ${SPRING}`,
+          }}
+        />
         {isHot && !isHidden && !menuOpen && (
           <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#C8102E]/55 animate-ping" />
         )}

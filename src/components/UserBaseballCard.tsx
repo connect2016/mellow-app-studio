@@ -112,12 +112,12 @@ export function UserBaseballCard({
   async function shareCard() {
     if (!cardRef.current || isSharing) return;
     setIsSharing(true);
-    track('card_shared');
     try {
       const canvas = await html2canvas(cardRef.current, {
         useCORS: true,
         scale: 2,
         backgroundColor: null,
+        logging: false,
       });
       canvas.toBlob(async (blob) => {
         if (!blob) {
@@ -134,9 +134,10 @@ export function UserBaseballCard({
           ) {
             await navigator.share({
               title: 'My Cubbies Buddies Fan Card',
-              text: 'Find your Cubs crew at cubbiesbuddies.com',
+              text: 'Find your Cubs crew → cubbiesbuddies.com',
               files: [file],
             });
+            track('card_shared', { method: 'native' });
           } else {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -145,14 +146,15 @@ export function UserBaseballCard({
             a.click();
             URL.revokeObjectURL(url);
             toast.success('Card downloaded');
+            track('card_shared', { method: 'download' });
           }
-        } catch (err) {
-          // user cancelled share or other error
+        } catch {
+          // user cancelled share
         } finally {
           setIsSharing(false);
         }
       }, 'image/png');
-    } catch (err) {
+    } catch {
       toast.error('Could not generate card image');
       setIsSharing(false);
     }

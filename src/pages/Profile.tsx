@@ -6,6 +6,7 @@ import { DynamicBackground } from '@/components/DynamicBackground';
 import { AppHeader } from '@/components/AppHeader';
 
 import { UserBaseballCard } from '@/components/UserBaseballCard';
+import { InviteBuddyButton } from '@/components/invite/InviteBuddyButton';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ArrowLeft, Flag, Ban, EyeOff, MessageCircle, IdCard, Sparkles, Settings as SettingsIcon, ShieldCheck, HelpCircle, LifeBuoy, Info, ChevronRight, Target, UserCog, Trophy } from 'lucide-react';
@@ -346,9 +347,12 @@ export default function Profile() {
                   </div>
                 </>
               ) : (
-                <Button className="w-full rounded-xl h-12 font-semibold" onClick={() => navigate('/settings')}>
-                  Edit Profile
-                </Button>
+                <>
+                  <Button className="w-full rounded-xl h-12 font-semibold" onClick={() => navigate('/settings')}>
+                    Edit Profile
+                  </Button>
+                  <InviteBuddyButton source="profile" variant="outline" />
+                </>
               )}
             </div>
           </TabsContent>

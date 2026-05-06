@@ -2,6 +2,7 @@ import { ComponentType } from 'react';
 import { LucideProps } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { InviteBuddyButton } from '@/components/invite/InviteBuddyButton';
 
 interface EmptyStateProps {
   icon?: ComponentType<LucideProps> | string;
@@ -11,6 +12,8 @@ interface EmptyStateProps {
   onAction?: () => void;
   secondaryLabel?: string;
   onSecondary?: () => void;
+  /** Hide the default "Invite a Buddy" CTA. Defaults to false (CTA shown). */
+  hideInviteCta?: boolean;
   className?: string;
 }
 
@@ -22,6 +25,7 @@ export function EmptyState({
   onAction,
   secondaryLabel,
   onSecondary,
+  hideInviteCta,
   className,
 }: EmptyStateProps) {
   return (
@@ -57,6 +61,9 @@ export function EmptyState({
         >
           {secondaryLabel}
         </button>
+      )}
+      {!hideInviteCta && (
+        <InviteBuddyButton source="empty-state" variant="empty-state" />
       )}
     </div>
   );

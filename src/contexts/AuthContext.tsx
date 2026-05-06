@@ -3,6 +3,7 @@ import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { identify, resetAnalytics, track } from '@/lib/analytics';
+import { consumeInviteRefIfPresent } from '@/lib/invite-ref';
 
 interface AuthContextType {
   session: Session | null;
@@ -54,6 +55,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (session?.user) {
         if (event === 'SIGNED_IN') {
           track('user_signed_in', { method: (session.user.app_metadata?.provider as string) || 'unknown' });
+          // Defer to avoid blocking auth state callback
+          setTimeout(() => {
+            consumeInviteRefIfPresent(session.user.id).then((res) => {
+              if (res.consumed) track('invite_ref_consumed', { ref: res.ref });
+            });
+          }, 0);
         }
         handleIdentify(session.user);
       } else if (event === 'SIGNED_OUT') {

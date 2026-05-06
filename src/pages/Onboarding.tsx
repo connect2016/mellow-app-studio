@@ -10,6 +10,7 @@ import { GeolocationModal } from '@/components/GeolocationModal';
 import { Camera, Loader2, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
 import { track } from '@/lib/analytics';
+import { InviteBuddyButton } from '@/components/invite/InviteBuddyButton';
 
 const GATES = ['Addison', 'Waveland', 'Clark', 'Sheffield'];
 
@@ -426,6 +427,11 @@ export default function Onboarding() {
             >
               {saving ? <Loader2 className="h-5 w-5 animate-spin" /> : "Let's go!"}
             </Button>
+
+            <div className="pt-2 border-t border-border/40">
+              <p className="text-center text-xs text-muted-foreground mb-2">Bring a friend along</p>
+              <InviteBuddyButton source="onboarding-final" variant="outline" label="Invite your first buddy →" />
+            </div>
           </div>
         )}
 

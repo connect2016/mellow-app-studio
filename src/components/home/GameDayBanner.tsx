@@ -207,9 +207,9 @@ export function GameDayBanner() {
             asChild
             className="min-h-[48px] gap-1.5 rounded-xl bg-white text-brand-blue hover:bg-white/90 font-bold text-[13px] shadow"
           >
-            <Link to="/score">
-              <Users className="h-4 w-4" />
-              Score with a Friend
+            <Link to={cta.to}>
+              <cta.icon className="h-4 w-4" />
+              {cta.label}
             </Link>
           </Button>
           <Button
@@ -220,6 +220,7 @@ export function GameDayBanner() {
             Create a Meetup
           </Button>
         </div>
+
       </section>
       <CreateMeetupModal open={showCreate} onClose={() => setShowCreate(false)} />
     </>

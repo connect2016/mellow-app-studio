@@ -130,7 +130,7 @@ export function GameDayBanner() {
 
         {/* Countdown / Score row */}
         <div className="px-4 pt-2 pb-3">
-          {isLive || isFinal ? (
+          {isLive ? (
             <div className="flex items-baseline gap-3">
               <div
                 className="text-3xl font-extrabold leading-none text-white"

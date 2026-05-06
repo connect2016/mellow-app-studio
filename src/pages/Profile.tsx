@@ -346,9 +346,12 @@ export default function Profile() {
                   </div>
                 </>
               ) : (
-                <Button className="w-full rounded-xl h-12 font-semibold" onClick={() => navigate('/settings')}>
-                  Edit Profile
-                </Button>
+                <>
+                  <Button className="w-full rounded-xl h-12 font-semibold" onClick={() => navigate('/settings')}>
+                    Edit Profile
+                  </Button>
+                  <InviteBuddyButton source="profile" variant="outline" />
+                </>
               )}
             </div>
           </TabsContent>

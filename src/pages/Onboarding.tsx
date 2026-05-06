@@ -183,6 +183,7 @@ export default function Onboarding() {
               <p className="text-sm text-muted-foreground">This is how other Cubbies fans will see you.</p>
             </div>
             <Input
+              id="display_name"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value.slice(0, 30))}
               placeholder="Your fan name (e.g. Cubbie Mike)"
@@ -211,6 +212,7 @@ export default function Onboarding() {
 
             <div className="flex justify-center">
               <button
+                id="profile_photo"
                 type="button"
                 onClick={() => fileRef.current?.click()}
                 className="relative h-40 w-40 overflow-hidden rounded-full border-4 border-primary bg-muted shadow-md transition hover:opacity-90"

@@ -5,7 +5,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotifications, useMarkRead, useMarkAllRead, useClearNotifications } from '@/hooks/useNotifications';
 import { Button } from '@/components/ui/button';
-import { Bell, CheckCheck, Trash2, Users, SlidersHorizontal, Sparkles, CalendarDays, Beer, Trophy } from 'lucide-react';
+import { Bell, Check, CheckCheck, Trash2, Users, SlidersHorizontal, Sparkles, CalendarDays, Beer, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import bgFansBleachers from '@/assets/bg-fans-bleachers.jpg';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
@@ -93,7 +93,7 @@ export default function Notifications() {
   );
 
   const counts = useMemo(() => {
-    const c: Record<FilterKey, number> = { all: 0, meetups: 0, fans: 0, gameday: 0, food: 0, hifives: 0 };
+    const c: Record<FilterKey, number> = { all: 0, buddies: 0, beers: 0, meetups: 0, vibes: 0 };
     notifications.forEach((n) => {
       if (n.is_read) return;
       c.all += 1;
@@ -107,7 +107,8 @@ export default function Notifications() {
 
   const handleTap = (notif: typeof notifications[0]) => {
     if (!notif.is_read) markRead.mutate(notif.id);
-    if (notif.action_url) navigate(notif.action_url);
+    const target = notif.action_url || fallbackActionUrl(notif.type, notif.metadata as Record<string, unknown> | null);
+    if (target) navigate(target);
   };
 
   const timeAgo = (date: string) => {

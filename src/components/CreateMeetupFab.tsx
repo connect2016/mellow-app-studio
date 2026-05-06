@@ -184,15 +184,9 @@ export function CreateMeetupFab() {
                 key={item.key}
                 className="flex items-center gap-3 pointer-events-auto"
                 style={{
-                  opacity: exiting ? 0 : 1,
-                  transform: exiting
-                    ? 'scale(0.8) translateY(8px)'
-                    : entered
-                      ? 'scale(1) translateY(0)'
-                      : 'scale(0.8) translateY(8px)',
-                  transition: exiting
-                    ? 'opacity 120ms ease-in, transform 120ms ease-in'
-                    : `opacity 180ms ${SPRING} ${enterDelay}ms, transform 180ms ${SPRING} ${enterDelay}ms`,
+                  animation: exiting
+                    ? 'fab-dial-out 120ms ease-in both'
+                    : `fab-dial-in 180ms ${SPRING} ${enterDelay}ms both`,
                 }}
               >
                 <span

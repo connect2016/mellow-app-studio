@@ -47,6 +47,7 @@ import ScoreGame from "./pages/ScoreGame";
 import BallparkBuddy from "./pages/BallparkBuddy";
 import WrigleyPassport from "./pages/WrigleyPassport";
 import BarMap from "./pages/BarMap";
+import FanMap from "./pages/FanMap";
 import BuddyHeatmap from "./pages/BuddyHeatmap";
 import SectionChat from "./pages/SectionChat";
 import VerifyFan from "./pages/VerifyFan";
@@ -128,7 +129,8 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />
-            <Route path="/bar-map" element={<BarMap />} />
+            <Route path="/bar-map" element={<FanMap />} />
+            <Route path="/bars" element={<BarMap />} />
             <Route path="/buddy-heatmap" element={<BuddyHeatmap />} />
             <Route path="/section-chat" element={<SectionChat />} />
             <Route path="/verify" element={<VerifyFan />} />

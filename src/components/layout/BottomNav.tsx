@@ -1,17 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import { Compass, Map, CalendarDays, User, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useFanMapPins } from '@/hooks/useFanMapPins';
 
-type Tab = { to: string; label: string; icon: LucideIcon };
+type Tab = { to: string; label: string; icon: LucideIcon; showBadge?: boolean };
 
 const TABS: Tab[] = [
   { to: '/discover-fans', label: 'Discover', icon: Compass },
-  { to: '/bar-map', label: 'Map', icon: Map },
+  { to: '/bar-map', label: 'Map', icon: Map, showBadge: true },
   { to: '/meetups', label: 'Meetups', icon: CalendarDays },
   { to: '/profile', label: 'Profile', icon: User },
 ];
 
 export function BottomNav() {
+  const { count } = useFanMapPins();
+
   return (
     <nav
       aria-label="Primary"
@@ -23,7 +26,7 @@ export function BottomNav() {
       )}
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
-      {TABS.map(({ to, label, icon: Icon }) => (
+      {TABS.map(({ to, label, icon: Icon, showBadge }) => (
         <NavLink
           key={to}
           to={to}
@@ -34,7 +37,17 @@ export function BottomNav() {
             )
           }
         >
-          <Icon className="h-5 w-5" aria-hidden="true" />
+          <span className="relative">
+            <Icon className="h-5 w-5" aria-hidden="true" />
+            {showBadge && count > 0 && (
+              <span
+                aria-label={`${count} fans nearby`}
+                className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-[#0E3386] text-white text-[10px] font-bold flex items-center justify-center tabular-nums"
+              >
+                {count > 99 ? '99+' : count}
+              </span>
+            )}
+          </span>
           <span className="text-[11px] font-medium">{label}</span>
         </NavLink>
       ))}

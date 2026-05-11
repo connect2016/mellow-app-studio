@@ -24,7 +24,7 @@ const RESTAURANTS: RestaurantCard[] = [
     mustTry: 'Seoul Sassy Wings',
     rating: 4.8,
     address: '2940 N Broadway, Chicago, IL',
-    thumb: 'utensils',
+    thumb: 'food',
     accent: 'from-amber-500/40 via-orange-600/30 to-[#C8102E]/40',
   },
   {
@@ -35,7 +35,7 @@ const RESTAURANTS: RestaurantCard[] = [
     mustTry: 'Al Pastor Tacos',
     rating: 4.7,
     address: '3640 N Clark St, Chicago, IL',
-    thumb: 'utensils',
+    thumb: 'food',
     accent: 'from-rose-500/40 via-red-600/30 to-amber-500/30',
   },
   {
@@ -46,7 +46,7 @@ const RESTAURANTS: RestaurantCard[] = [
     mustTry: 'Pulled Pork Sandwich',
     rating: 4.6,
     address: '3636 N Clark St, Chicago, IL',
-    thumb: 'utensils',
+    thumb: 'food',
     accent: 'from-orange-700/40 via-amber-600/30 to-yellow-500/30',
   },
   {

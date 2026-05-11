@@ -462,20 +462,75 @@ export default function Discover() {
         {/* Game-Time Match Banner */}
         <GameTimeMatchBanner />
 
-        {/* Missions Banner */}
-        <motion.button
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          onClick={() => navigate('/missions')}
-          className="w-full mb-4 flex items-center gap-3 rounded-2xl border border-secondary/20 bg-secondary/5 p-3 text-left transition-all hover:bg-secondary/10"
-        >
-          <span className="text-2xl"></span>
-          <div className="flex-1">
-            <p className="mt-2 font-semibold text-white">Game Day Missions</p>
-            <p className="text-sm text-destructive-foreground">Complete challenges, earn points & badges</p>
+        {/* Game Day Missions — gamified preview */}
+        <section className="mb-5">
+          {/* Header with pulsing glow */}
+          <div className="relative mb-2 flex items-center gap-2">
+            <span
+              aria-hidden
+              className="absolute -inset-2 -z-10 rounded-xl bg-secondary/30 blur-xl animate-pulse"
+            />
+            <ConceptIcon name="trophy" className="h-5 w-5 text-secondary" />
+            <h2
+              className="text-sm font-bold uppercase tracking-wide text-white"
+              style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.05em' }}
+            >
+              Game Day Missions
+            </h2>
           </div>
-          <span className="text-xs font-semibold text-yellow-300">View →</span>
-        </motion.button>
+          <p className="mb-3 text-xs font-semibold text-white/80" style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}>
+            Missions unlock on game day — check back when the Cubs play next.
+          </p>
+
+          <div className="space-y-3">
+            {[
+              { icon: 'baseball', title: 'Visit 3 Wrigleyville Bars', desc: 'Hop between iconic bars before first pitch.' },
+              { icon: 'camera', title: 'Share a Photo from the Bleachers', desc: 'Show off your view from the friendly confines.' },
+              { icon: 'beer', title: 'Find Your Crew Before First Pitch', desc: 'Connect with 3 nearby fans pre-game.' },
+            ].map((m, i) => (
+              <div
+                key={i}
+                className="relative overflow-hidden rounded-2xl border border-secondary/30 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-4 opacity-90"
+              >
+                {/* Coming Soon badge */}
+                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 shadow-md">
+                  <ConceptIcon name="lock" className="h-3 w-3 text-secondary-foreground" />
+                  <span
+                    className="text-[10px] font-extrabold uppercase tracking-wider text-secondary-foreground"
+                    style={{ fontFamily: 'Norwester, sans-serif' }}
+                  >
+                    Coming Soon
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3 pr-24">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary/20 ring-1 ring-secondary/40">
+                    <ConceptIcon name={m.icon} className="h-6 w-6 text-secondary" />
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <h3
+                      className="text-base font-extrabold leading-tight text-white"
+                      style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}
+                    >
+                      {m.title}
+                    </h3>
+                    <p className="mt-1 text-xs text-white/75 leading-snug">{m.desc}</p>
+                  </div>
+                </div>
+
+                {/* Progress bar */}
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
+                    <div className="h-full w-0 bg-white/30" />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-white/50" style={{ fontFamily: 'Norwester, sans-serif' }}>
+                    0%
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* Current Status — playful pill selector */}
         <div className="mb-5">

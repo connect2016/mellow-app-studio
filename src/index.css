@@ -747,3 +747,19 @@ body::before {
   text-transform: uppercase;
   color: hsl(var(--muted-foreground));
 }
+
+.home-heading {
+  font-family: 'Montserrat', sans-serif;
+  color: hsl(222, 82%, 29%);
+  -webkit-text-stroke: 2px white;
+  paint-order: stroke fill;
+  filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.5));
+  letter-spacing: 0.03em;
+}
+
+.home-subheading {
+  color: white;
+  -webkit-text-stroke: 0.5px black;
+  paint-order: stroke fill;
+  filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.7));
+}

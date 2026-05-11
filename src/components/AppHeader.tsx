@@ -8,6 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
 import { useFanMapPins } from '@/hooks/useFanMapPins';
+import { useBarCheckins } from '@/hooks/useBarCheckins';
 import { NotificationDrawer } from '@/components/notifications/NotificationDrawer';
 
 const navItems = [

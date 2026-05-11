@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
-import { MapPin, ChevronRight } from 'lucide-react';
+import { MapPin, ChevronRight, ArrowRight } from 'lucide-react';
 import { useVenueActivity } from '@/hooks/useVenueActivity';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+
+const PREVIEW_BARS = [
+  { name: "Murphy's Bleachers", top: '22%', left: '24%', delay: '0s' },
+  { name: 'Cubby Bear', top: '58%', left: '52%', delay: '0.4s' },
+  { name: "Bernie's", top: '34%', left: '76%', delay: '0.8s' },
+];
 
 export function MapPreviewCard() {
   const { data: venues = [] } = useVenueActivity();
@@ -9,71 +15,99 @@ export function MapPreviewCard() {
   const totalFans = venues.reduce((s, v) => s + v.totalUsers, 0);
 
   return (
-    <Link
-      to="/bar-map"
-      aria-label="Open Wrigleyville bar map"
-      className="block mb-5 rounded-2xl overflow-hidden border border-border bg-card shadow-sm transition active:scale-[0.99] hover:shadow-md"
+    <section
+      aria-labelledby="bar-map-preview-heading"
+      className="mb-5 overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] shadow-lg"
     >
-      <div className="relative h-32 bg-[linear-gradient(135deg,#0E3386_0%,#1a4cb8_45%,#3b6dd8_100%)]">
-        {/* Stylized Wrigleyville street grid */}
+      {/* Header */}
+      <div className="flex items-start gap-3 px-4 pt-4 pb-3">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary/20 ring-2 ring-secondary/40">
+          <ConceptIcon name="map" className="h-5 w-5 text-secondary" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <h3
+            id="bar-map-preview-heading"
+            className="text-base font-extrabold leading-tight text-white"
+            style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}
+          >
+            See Where the Crew Is Tonight
+          </h3>
+          <p className="mt-1 text-sm font-medium text-white/85">
+            Check in at a bar and appear on the live map.
+          </p>
+        </div>
+      </div>
+
+      {/* Mini map */}
+      <div className="relative mx-4 h-36 overflow-hidden rounded-xl border border-secondary/30 bg-[linear-gradient(135deg,hsl(222,82%,18%)_0%,hsl(222,82%,29%)_55%,hsl(222,72%,38%)_100%)]">
+        {/* Street grid */}
         <svg
-          className="absolute inset-0 w-full h-full opacity-30"
-          viewBox="0 0 320 128"
+          className="absolute inset-0 h-full w-full opacity-25"
+          viewBox="0 0 320 144"
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <line x1="0" y1="40" x2="320" y2="40" stroke="white" strokeWidth="0.5" />
-          <line x1="0" y1="72" x2="320" y2="72" stroke="white" strokeWidth="0.5" />
-          <line x1="0" y1="100" x2="320" y2="100" stroke="white" strokeWidth="0.5" />
-          <line x1="80" y1="0" x2="80" y2="128" stroke="white" strokeWidth="0.5" />
-          <line x1="160" y1="0" x2="160" y2="128" stroke="white" strokeWidth="0.5" />
-          <line x1="240" y1="0" x2="240" y2="128" stroke="white" strokeWidth="0.5" />
+          <line x1="0" y1="40" x2="320" y2="40" stroke="white" strokeWidth="0.6" />
+          <line x1="0" y1="84" x2="320" y2="84" stroke="white" strokeWidth="0.6" />
+          <line x1="0" y1="118" x2="320" y2="118" stroke="white" strokeWidth="0.6" />
+          <line x1="80" y1="0" x2="80" y2="144" stroke="white" strokeWidth="0.6" />
+          <line x1="160" y1="0" x2="160" y2="144" stroke="white" strokeWidth="0.6" />
+          <line x1="240" y1="0" x2="240" y2="144" stroke="white" strokeWidth="0.6" />
         </svg>
 
-        {/* Wrigley Field marker */}
-        <div className="absolute" style={{ top: '38%', left: '46%' }}>
-          <div className="relative">
-            <span className="absolute inset-0 rounded-full bg-red-500 animate-ping opacity-50" />
-            <div className="relative h-7 w-7 rounded-full bg-red-600 border-2 border-white shadow-lg flex items-center justify-center text-sm">
-              
+        {/* Live status chip */}
+        <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full bg-black/40 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-70" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
+          </span>
+          Live · Wrigleyville
+        </div>
+        {totalFans > 0 && (
+          <span className="absolute right-3 top-3 z-10 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold text-primary shadow">
+            {totalFans} fans · {activeCount} bars
+          </span>
+        )}
+
+        {/* Bar pins with labels */}
+        {PREVIEW_BARS.map((bar, i) => (
+          <div
+            key={bar.name}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ top: bar.top, left: bar.left }}
+          >
+            <div className="relative flex flex-col items-center">
+              <span className="relative flex h-4 w-4">
+                <span
+                  className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-70"
+                  style={{ animationDelay: bar.delay }}
+                />
+                <span className="relative inline-flex h-4 w-4 rounded-full border-2 border-white bg-secondary shadow-md" />
+              </span>
+              <span
+                className="mt-1 whitespace-nowrap rounded-md bg-black/55 px-1.5 py-0.5 text-[10px] font-bold text-white shadow backdrop-blur-sm"
+                style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+              >
+                {bar.name}
+              </span>
             </div>
           </div>
-        </div>
-
-        {/* Bar pins */}
-        {[
-          { top: '22%', left: '28%' },
-          { top: '60%', left: '32%' },
-          { top: '28%', left: '68%' },
-          { top: '70%', left: '62%' },
-          { top: '50%', left: '78%' },
-        ].map((p, i) => (
-          <div
-            key={i}
-            className="absolute h-3 w-3 rounded-full bg-amber-400 border border-white shadow"
-            style={p}
-          />
         ))}
-
-        <div className="absolute top-3 left-3 right-3 flex items-center justify-between text-white">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/30 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider">
-            <MapPin className="h-3 w-3" /> Wrigleyville
-          </span>
-          {totalFans > 0 && (
-            <span className="px-2.5 py-1 rounded-full bg-white/95 text-[11px] font-bold text-foreground shadow">
-              {totalFans} fans · {activeCount} bars live
-            </span>
-          )}
-        </div>
       </div>
 
-      <div className="flex items-center justify-between px-4 py-3 bg-card">
-        <div>
-          <p className="text-base font-bold leading-tight mt-2 text-destructive-foreground">Open the live bar map</p>
-          <p className="text-xs line-clamp-2 mt-1 text-destructive-foreground">See who's where, plan your night</p>
-        </div>
-        <ChevronRight className="h-5 w-5 text-primary" />
+      {/* CTA */}
+      <div className="px-4 pb-4 pt-4">
+        <Link
+          to="/bar-map"
+          aria-label="Open the live bar map"
+          className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+          style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+        >
+          <MapPin className="h-5 w-5" strokeWidth={2.6} />
+          Open the Live Bar Map
+          <ArrowRight className="h-5 w-5" strokeWidth={2.6} />
+        </Link>
       </div>
-    </Link>
+    </section>
   );
 }

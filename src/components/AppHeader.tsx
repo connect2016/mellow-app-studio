@@ -73,6 +73,7 @@ export function AppHeader() {
   const [notifOpen, setNotifOpen] = useState(false);
   const [unreadNotifs, setUnreadNotifs] = useState(4);
   const { count: nearbyFanCount } = useFanMapPins();
+  const { myCheckin } = useBarCheckins();
   useSwipeNavigation();
 
   const getBadge = (path: string): number => {

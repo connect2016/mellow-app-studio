@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MapPin, Clock, Users, Sparkles, Flame, UserPlus, Zap } from 'lucide-react';
+import { X, MapPin, Clock, Users, Sparkles, Flame, UserPlus, Zap, Share2, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';

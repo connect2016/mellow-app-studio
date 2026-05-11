@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Clock, Users, ChevronRight, Plus, Calendar } from 'lucide-react';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { useLineupMeetups } from '@/hooks/useLineup';
 import { SectionHeader } from '@/components/SectionHeader';
 

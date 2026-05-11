@@ -491,6 +491,7 @@ export default function Discover() {
               <Popover>
                 <PopoverTrigger asChild>
                   <button
+                    id="status-picker-trigger"
                     type="button"
                     disabled={settingStatus}
                     className="flex w-full min-h-[56px] items-center gap-3 rounded-xl border-2 border-secondary/60 bg-card/80 px-4 py-3 text-left backdrop-blur-sm transition-all duration-150 active:scale-[0.99] hover:border-secondary"

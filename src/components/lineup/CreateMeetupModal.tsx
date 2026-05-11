@@ -300,6 +300,8 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
                 {createMeetup.isPending ? 'Posting...' : ' Post to The Lineup'}
               </Button>
             </div>
+            </>
+            )}
           </motion.div>
         </>
       )}

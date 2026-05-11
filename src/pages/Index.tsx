@@ -27,11 +27,11 @@ const Index = () => {
   return (
     <DynamicBackground>
       <AppHeader />
-      <div className="mx-auto max-w-lg pt-20">
-        <FindFansBanner />
-        <HomeQuickCarousel />
-      </div>
       <main className="mx-auto max-w-lg px-4 pt-20 space-y-4" style={{ paddingBottom: 'calc(6rem + env(safe-area-inset-bottom))' }}>
+        <div className="-mx-4">
+          <FindFansBanner />
+          <HomeQuickCarousel />
+        </div>
         <div>
           <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>
             Welcome back 

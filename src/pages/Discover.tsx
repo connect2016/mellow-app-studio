@@ -691,30 +691,153 @@ export default function Discover() {
           </Button>
         </div>
 
-        {/* Tabbed Discover: Buddies vs Crews — large playful cards */}
+        {/* Tabbed Discover: Buddies vs Crews — full-width stacked rally cards */}
         <Tabs defaultValue="buddies" className="mb-6">
-          <TabsList className="mb-4 grid h-auto w-full grid-cols-2 gap-2 bg-transparent p-0">
-            <TabsTrigger
-              value="buddies"
-              className="group relative flex h-24 flex-col items-start justify-end overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-primary/80 to-primary/40 p-3 text-left text-primary-foreground shadow-md transition-all data-[state=active]:scale-[1.02] data-[state=active]:shadow-lg data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.98]"
-            >
-              <Zap className="absolute right-2 top-2 h-5 w-5 opacity-70" />
-              <span className="text-sm font-extrabold uppercase tracking-wide" style={{ fontFamily: 'Norwester, sans-serif' }}>
-                Buddies
-              </span>
-              <span className="text-[10px] font-medium opacity-90">Find your people tonight</span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="crews"
-              className="group relative flex h-24 flex-col items-start justify-end overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-secondary/80 to-secondary/40 p-3 text-left text-secondary-foreground shadow-md transition-all data-[state=active]:scale-[1.02] data-[state=active]:shadow-lg data-[state=active]:ring-2 data-[state=active]:ring-primary active:scale-[0.98]"
-            >
-              <Users className="absolute right-2 top-2 h-5 w-5 opacity-70" />
-              <span className="text-sm font-extrabold uppercase tracking-wide" style={{ fontFamily: 'Norwester, sans-serif' }}>
-                Crews
-              </span>
-              <span className="text-[10px] font-medium opacity-90">Roll with a squad</span>
-            </TabsTrigger>
-          </TabsList>
+          {(() => {
+            const pinstripe = {
+              backgroundImage:
+                'repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 14px)',
+            } as const;
+            const nearbyCount = filtered.length;
+            const hasFans = nearbyCount > 0;
+            const sampleAvatars = filtered.slice(0, 5);
+            const placeholderCrews = [
+              { name: 'Bleacher Bums', members: 4, location: "Murphy's Bleachers" },
+              { name: 'Ivy Crew', members: 6, location: 'Cubby Bear' },
+            ];
+            return (
+              <TabsList className="mb-4 flex h-auto w-full flex-col gap-3 bg-transparent p-0">
+                {/* BUDDIES rally card */}
+                <TabsTrigger
+                  value="buddies"
+                  className="group relative w-full overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 text-left text-primary-foreground shadow-lg transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
+                >
+                  <div className="absolute inset-0 opacity-60" style={pinstripe} aria-hidden />
+                  <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
+                  <div className="relative">
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary/20 ring-2 ring-secondary/40">
+                        <ConceptIcon name="baseball" className="h-6 w-6 text-secondary" />
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className="text-lg font-extrabold leading-tight text-white"
+                          style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}
+                        >
+                          Find Your People Tonight
+                        </p>
+                        <p className="mt-1 text-sm font-medium text-white/85">
+                          Match with solo fans heading to Wrigley.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 flex items-center gap-3">
+                      <div className="flex -space-x-2">
+                        {Array.from({ length: 5 }).map((_, i) => {
+                          const fan = sampleAvatars[i];
+                          if (hasFans && fan) {
+                            return (
+                              <span
+                                key={i}
+                                className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border-2 border-primary bg-secondary/30 text-[11px] font-bold text-white"
+                              >
+                                {fan.profile_photo ? (
+                                  <img src={fan.profile_photo} alt="" className="h-full w-full object-cover" />
+                                ) : (
+                                  (fan.display_name?.[0] ?? '?').toUpperCase()
+                                )}
+                              </span>
+                            );
+                          }
+                          return (
+                            <span
+                              key={i}
+                              className="inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary bg-white/10 text-white/40"
+                              aria-hidden
+                            >
+                              <ConceptIcon name="people" className="h-4 w-4" />
+                            </span>
+                          );
+                        })}
+                      </div>
+                      <span
+                        className={`text-xs font-bold uppercase tracking-wide ${hasFans ? 'text-secondary' : 'text-white/60'}`}
+                        style={{ fontFamily: 'Norwester, sans-serif' }}
+                      >
+                        {hasFans ? `+${nearbyCount} fans nearby` : 'Be the first in your area'}
+                      </span>
+                    </div>
+
+                    <div className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-xl bg-secondary px-4 py-3 text-sm font-extrabold text-secondary-foreground shadow-md transition-all duration-150 group-active:scale-[0.98] group-hover:bg-secondary/90"
+                      style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+                    >
+                      Browse Buddies
+                    </div>
+                  </div>
+                </TabsTrigger>
+
+                {/* CREWS rally card */}
+                <TabsTrigger
+                  value="crews"
+                  className="group relative w-full overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 text-left text-primary-foreground shadow-lg transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
+                >
+                  <div className="absolute inset-0 opacity-60" style={pinstripe} aria-hidden />
+                  <div className="absolute -left-10 -bottom-10 h-36 w-36 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
+                  <div className="relative">
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary/20 ring-2 ring-secondary/40">
+                        <ConceptIcon name="people" className="h-6 w-6 text-secondary" />
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p
+                          className="text-lg font-extrabold leading-tight text-white"
+                          style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}
+                        >
+                          Roll With a Squad
+                        </p>
+                        <p className="mt-1 text-sm font-medium text-white/85">
+                          Join an open crew or start your own.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-2 gap-2">
+                      {placeholderCrews.map((c) => (
+                        <div
+                          key={c.name}
+                          className={`rounded-xl border border-white/15 bg-white/10 p-3 ${hasFans ? '' : 'opacity-50'}`}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span
+                              className="truncate text-sm font-extrabold text-white"
+                              style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}
+                            >
+                              {hasFans ? c.name : '— — —'}
+                            </span>
+                            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-secondary/30 px-1.5 py-0.5 text-[10px] font-bold text-secondary ring-1 ring-secondary/40">
+                              <ConceptIcon name="people" className="h-3 w-3" />
+                              {hasFans ? c.members : '—'}
+                            </span>
+                          </div>
+                          <div className="mt-1 flex items-center gap-1 text-[11px] text-white/70">
+                            <ConceptIcon name="pin" className="h-3 w-3" />
+                            <span className="truncate">{hasFans ? c.location : 'Be the first in your area'}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-xl bg-secondary px-4 py-3 text-sm font-extrabold text-secondary-foreground shadow-md transition-all duration-150 group-active:scale-[0.98] group-hover:bg-secondary/90"
+                      style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+                    >
+                      Browse Crews
+                    </div>
+                  </div>
+                </TabsTrigger>
+              </TabsList>
+            );
+          })()}
 
           <TabsContent value="buddies">
             {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (

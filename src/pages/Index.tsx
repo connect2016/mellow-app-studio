@@ -12,7 +12,7 @@ import { FindFansBanner } from '@/components/home/FindFansBanner';
 import { HomeQuickCarousel } from '@/components/home/HomeQuickCarousel';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
+
 
 const Index = () => {
   const { user } = useAuth();

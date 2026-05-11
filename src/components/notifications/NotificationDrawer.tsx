@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { Bell, X } from 'lucide-react';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+
 
 interface SampleNotification {
   id: string;

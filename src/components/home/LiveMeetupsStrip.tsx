@@ -40,14 +40,30 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
           Loading meetups…
         </div>
       ) : top.length === 0 ? (
-        <button
-          onClick={onCreate}
-          className="block w-full rounded-2xl border border-dashed border-border bg-card/90 backdrop-blur-sm p-5 text-center transition active:scale-[0.98]"
-        >
-          <p className="text-2xl mb-1"></p>
-          <p className="text-sm font-bold text-destructive-foreground">No active meetups</p>
-          <p className="text-sm text-destructive-foreground mt-0.5">Tap to start one</p>
-        </button>
+        <div className="relative overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 shadow-lg">
+          <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
+          <div className="relative flex items-start gap-3">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary/20 ring-2 ring-secondary/40">
+              <ConceptIcon name="beer" className="h-6 w-6 text-secondary" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-base font-extrabold leading-tight text-white" style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}>
+                Be the first to rally the crew!
+              </p>
+              <p className="mt-1 text-sm font-medium text-white/85">
+                Start a meetup and fans nearby will see it instantly.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onCreate}
+            className="relative mt-4 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+            style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+          >
+            <Plus className="h-5 w-5" strokeWidth={3} />
+            Post a Meetup
+          </button>
+        </div>
       ) : (
         <div className="flex gap-3 overflow-x-auto -mx-4 px-4 pb-2 scrollbar-none snap-x snap-mandatory">
           {top.map((m) => (

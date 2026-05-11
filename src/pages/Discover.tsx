@@ -688,13 +688,59 @@ export default function Discover() {
                 ))}
               </div>
             ) : filtered.length === 0 ? (
-              <EmptyState
-                icon={Users}
-                title="No fans found nearby"
-                description="Be the first in your section. Update your tailgate spot and we'll show you to nearby fans."
-                actionLabel="Update my spot"
-                onAction={() => navigate('/profile')}
-              />
+              <div className="relative overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 shadow-lg">
+                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
+                <div className="relative flex items-start gap-3">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary/20 ring-2 ring-secondary/40">
+                    <ConceptIcon name="baseball" className="h-6 w-6 text-secondary" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className="text-base font-extrabold leading-tight text-white"
+                      style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}
+                    >
+                      No crew spotted yet — be the first!
+                    </p>
+                    <p className="mt-1 text-sm font-medium text-white/85">
+                      Update your status and fans nearby will find you.
+                    </p>
+                  </div>
+                </div>
+                <div className="relative mt-4 grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const trigger = document.getElementById('status-picker-trigger');
+                      if (trigger) {
+                        trigger.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setTimeout(() => trigger.click(), 350);
+                      }
+                    }}
+                    className="flex min-h-[48px] items-center justify-center rounded-xl bg-secondary px-3 py-3 text-sm font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+                    style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+                  >
+                    Update My Status
+                  </button>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const text = "Come watch the Cubs with me tonight at Wrigley! Join me on Cubbies Buddies: cubbiesbuddies.com";
+                      try {
+                        if (typeof navigator !== 'undefined' && (navigator as any).share) {
+                          await (navigator as any).share({ title: 'Cubbies Buddies', text });
+                        } else {
+                          await navigator.clipboard.writeText(text);
+                          toast.success('Invite copied — paste it anywhere!');
+                        }
+                      } catch { /* user cancelled */ }
+                    }}
+                    className="flex min-h-[48px] items-center justify-center rounded-xl border-2 border-white/70 bg-transparent px-3 py-3 text-sm font-extrabold text-white transition-all duration-150 active:scale-[0.98] hover:bg-white/10"
+                    style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+                  >
+                    Invite a Friend
+                  </button>
+                </div>
+              </div>
             ) : (
               <div className="space-y-4">
                 {[...filtered]

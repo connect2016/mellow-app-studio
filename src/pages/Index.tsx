@@ -32,12 +32,18 @@ const Index = () => {
           <FindFansBanner />
           <HomeQuickCarousel />
         </div>
-        <div>
-          <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>
-            Welcome back 
-          </h1>
-          <p className="text-base font-semibold mt-1" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Here's what's happening in Wrigleyville</p>
-        </div>
+        {(() => {
+          const rawName = (user.user_metadata?.full_name as string | undefined) || user.email || '';
+          const firstName = rawName.split(/[\s@]/)[0] || '';
+          return (
+            <div>
+              <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>
+                {firstName ? `Welcome back, ${firstName}` : 'Welcome back'}
+              </h1>
+              <p className="text-base font-semibold mt-1" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Here's what's happening in Wrigleyville</p>
+            </div>
+          );
+        })()}
 
         {/* Retention Hooks */}
         <CubsGameTracker />

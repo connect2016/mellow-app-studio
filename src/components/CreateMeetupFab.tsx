@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Plus, Beer, CalendarPlus, Edit3, UserPlus } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -8,7 +8,7 @@ import { useCreateMeetup } from '@/contexts/CreateMeetupContext';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 import { haptic } from '@/lib/haptics';
 import { cn } from '@/lib/utils';
-import { trackBuyBeer } from '@/lib/beer-experiments';
+import { MoveTonightSheet } from '@/components/MoveTonightSheet';
 
 // Routes where the FAB should be hidden
 const HIDDEN_ROUTES = ['/', '/auth', '/onboarding', '/quick-start', '/verify'];

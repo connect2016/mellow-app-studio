@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Compass, Map, CalendarDays, User, Bell } from 'lucide-react';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
@@ -5,9 +6,9 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
-import { useUnreadCount } from '@/hooks/useNotifications';
 import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
 import { useFanMapPins } from '@/hooks/useFanMapPins';
+import { NotificationDrawer } from '@/components/notifications/NotificationDrawer';
 
 const navItems = [
   { to: '/discover-fans', icon: Compass, label: 'Discover' },

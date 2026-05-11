@@ -13,16 +13,6 @@ import { MoveTonightSheet } from '@/components/MoveTonightSheet';
 // Routes where the FAB should be hidden
 const HIDDEN_ROUTES = ['/', '/auth', '/onboarding', '/quick-start', '/verify'];
 
-const SPRING = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
-
-type DialItem = {
-  key: string;
-  label: string;
-  icon: typeof Plus;
-  bg: string;            // background color class for icon button
-  onSelect: () => void;
-};
-
 export function CreateMeetupFab() {
   const location = useLocation();
   const { user } = useAuth();

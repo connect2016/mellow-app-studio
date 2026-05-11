@@ -52,6 +52,8 @@ export type Database = {
           custom_message: string | null
           expires_at: string
           id: string
+          lat: number | null
+          lng: number | null
           status: string
           user_id: string
           visibility: string
@@ -63,6 +65,8 @@ export type Database = {
           custom_message?: string | null
           expires_at?: string
           id?: string
+          lat?: number | null
+          lng?: number | null
           status?: string
           user_id: string
           visibility?: string
@@ -74,6 +78,8 @@ export type Database = {
           custom_message?: string | null
           expires_at?: string
           id?: string
+          lat?: number | null
+          lng?: number | null
           status?: string
           user_id?: string
           visibility?: string

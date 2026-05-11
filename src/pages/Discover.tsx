@@ -7,7 +7,8 @@ import { AppHeader } from '@/components/AppHeader';
 import { ProfileCard } from '@/components/ProfileCard';
 import { GameTimeMatchBanner } from '@/components/GameTimeMatchBanner';
 import { IntentType, GamedayIntentType, FanStyleType } from '@/types';
-import { SlidersHorizontal, Users, Zap, Camera } from 'lucide-react';
+import { SlidersHorizontal, Users, Zap, Camera, ChevronRight, Check } from 'lucide-react';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import CrewsContent from '@/components/CrewsContent';
 import { Button } from '@/components/ui/button';
@@ -484,28 +485,72 @@ export default function Discover() {
               Your Status
             </p>
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1 snap-x">
-            {STATUS_OPTIONS.map((opt) => {
-              const active = currentStatus === opt.value;
-              return (
-                <button
-                  key={opt.value}
-                  type="button"
-                  disabled={settingStatus}
-                  onClick={() => handleSetStatus(opt.value)}
-                  className={cn(
-                    'snap-start relative flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-full border-2 px-4 py-2.5 text-sm font-bold transition-all duration-200 active:scale-95',
-                    active
-                      ? 'border-secondary bg-secondary text-secondary-foreground shadow-[0_0_18px_hsl(var(--secondary)/0.55)] animate-fab-tap'
-                      : 'border-white/20 bg-card/80 text-foreground backdrop-blur-sm hover:border-secondary/50'
-                  )}
+          {(() => {
+            const selected = STATUS_OPTIONS.find((o) => o.value === currentStatus);
+            return (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    type="button"
+                    disabled={settingStatus}
+                    className="flex w-full min-h-[56px] items-center gap-3 rounded-xl border-2 border-secondary/60 bg-card/80 px-4 py-3 text-left backdrop-blur-sm transition-all duration-150 active:scale-[0.99] hover:border-secondary"
+                  >
+                    {selected ? (
+                      <>
+                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary/15">
+                          <ConceptIcon name={selected.icon} className="h-5 w-5 text-secondary" />
+                        </span>
+                        <span className="flex-1 text-base font-bold text-foreground">{selected.label}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-muted/30">
+                          <ConceptIcon name="pin" className="h-5 w-5 text-muted-foreground" />
+                        </span>
+                        <span className="flex-1 text-base font-semibold text-muted-foreground">Set your status</span>
+                      </>
+                    )}
+                    <ChevronRight className="h-5 w-5 text-secondary" />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent
+                  align="start"
+                  sideOffset={8}
+                  className="w-[calc(100vw-2rem)] max-w-md p-1 border-2 border-secondary/40 bg-card/95 backdrop-blur-md"
                 >
-                  <ConceptIcon name={opt.icon} className="h-4 w-4" />
-                  <span>{opt.label}</span>
-                </button>
-              );
-            })}
-          </div>
+                  <ul className="flex flex-col">
+                    {STATUS_OPTIONS.map((opt) => {
+                      const active = currentStatus === opt.value;
+                      return (
+                        <li key={opt.value}>
+                          <button
+                            type="button"
+                            disabled={settingStatus}
+                            onClick={() => handleSetStatus(opt.value)}
+                            className={cn(
+                              'flex w-full min-h-[52px] items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors active:scale-[0.99]',
+                              active
+                                ? 'bg-secondary/15 text-foreground'
+                                : 'hover:bg-muted/40 text-foreground'
+                            )}
+                          >
+                            <span className={cn(
+                              'flex h-9 w-9 items-center justify-center rounded-full',
+                              active ? 'bg-secondary text-secondary-foreground' : 'bg-muted/30 text-foreground'
+                            )}>
+                              <ConceptIcon name={opt.icon} className="h-5 w-5" />
+                            </span>
+                            <span className="flex-1 text-base font-bold">{opt.label}</span>
+                            {active && <Check className="h-5 w-5 text-secondary" />}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </PopoverContent>
+              </Popover>
+            );
+          })()}
         </div>
 
         {/* Beer Snake photo upload */}

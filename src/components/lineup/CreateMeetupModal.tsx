@@ -40,7 +40,35 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
   const [time, setTime] = useState('');
   const [description, setDescription] = useState('');
   const [maxMembers, setMaxMembers] = useState('10');
+  const [success, setSuccess] = useState<null | { location: string; time: string; max: number }>(null);
   const createMeetup = useCreateMeetup();
+
+  const handleClose = () => {
+    onClose();
+    setTimeout(() => {
+      setSuccess(null);
+      setLocation('');
+      setCustomLocation('');
+      setTime('');
+      setDescription('');
+      setMaxMembers('10');
+    }, 250);
+  };
+
+  const handleShare = async () => {
+    if (!success) return;
+    const text = `Join me at ${success.location} at ${formatTime(success.time)} — posted on Cubbies Buddies!`;
+    try {
+      if (typeof navigator !== 'undefined' && (navigator as any).share) {
+        await (navigator as any).share({ title: 'Meetup at Wrigleyville', text });
+      } else {
+        await navigator.clipboard.writeText(text);
+        toast.success('Copied — paste it anywhere!');
+      }
+    } catch {
+      /* user cancelled */
+    }
+  };
 
   const handleSubmit = async () => {
     const loc = location === '__custom__' ? customLocation : location;
@@ -56,11 +84,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
         max_members: parseInt(maxMembers) || 10,
       });
       toast.success(' Your meetup is in The Lineup!');
-      onClose();
-      setLocation('');
-      setCustomLocation('');
-      setTime('');
-      setDescription('');
+      setSuccess({ location: loc, time, max: parseInt(maxMembers) || 10 });
     } catch {
       toast.error('Failed to create meetup');
     }

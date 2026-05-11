@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MapPin, Clock, Users, Sparkles, Flame, UserPlus, Zap } from 'lucide-react';
+import { X, MapPin, Clock, Users, Sparkles, Flame, UserPlus, Zap, Share2, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -40,7 +40,35 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
   const [time, setTime] = useState('');
   const [description, setDescription] = useState('');
   const [maxMembers, setMaxMembers] = useState('10');
+  const [success, setSuccess] = useState<null | { location: string; time: string; max: number }>(null);
   const createMeetup = useCreateMeetup();
+
+  const handleClose = () => {
+    onClose();
+    setTimeout(() => {
+      setSuccess(null);
+      setLocation('');
+      setCustomLocation('');
+      setTime('');
+      setDescription('');
+      setMaxMembers('10');
+    }, 250);
+  };
+
+  const handleShare = async () => {
+    if (!success) return;
+    const text = `Join me at ${success.location} at ${formatTime(success.time)} — posted on Cubbies Buddies!`;
+    try {
+      if (typeof navigator !== 'undefined' && (navigator as any).share) {
+        await (navigator as any).share({ title: 'Meetup at Wrigleyville', text });
+      } else {
+        await navigator.clipboard.writeText(text);
+        toast.success('Copied — paste it anywhere!');
+      }
+    } catch {
+      /* user cancelled */
+    }
+  };
 
   const handleSubmit = async () => {
     const loc = location === '__custom__' ? customLocation : location;
@@ -56,11 +84,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
         max_members: parseInt(maxMembers) || 10,
       });
       toast.success(' Your meetup is in The Lineup!');
-      onClose();
-      setLocation('');
-      setCustomLocation('');
-      setTime('');
-      setDescription('');
+      setSuccess({ location: loc, time, max: parseInt(maxMembers) || 10 });
     } catch {
       toast.error('Failed to create meetup');
     }
@@ -75,7 +99,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm"
-            onClick={onClose}
+            onClick={handleClose}
           />
           <motion.div
             initial={{ y: '100%' }}
@@ -88,11 +112,56 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
               <div className="h-1 w-10 rounded-full bg-muted-foreground/30" />
             </div>
 
+            {success ? (
+              <div className="px-6 pb-6">
+                <div className="flex items-center justify-between pb-3">
+                  <h3 className="text-lg font-bold text-destructive-foreground" style={{ fontFamily: 'Rye, serif' }}>
+                    You're on the board!
+                  </h3>
+                  <button onClick={handleClose} className="rounded-full p-1.5 transition-colors hover:bg-muted">
+                    <X className="h-5 w-5 text-muted-foreground" />
+                  </button>
+                </div>
+                <div className="rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary to-[hsl(222,82%,22%)] p-5 text-white shadow-lg">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-secondary" />
+                    <p className="text-sm font-bold uppercase tracking-wide text-white/90" style={{ fontFamily: 'Norwester, sans-serif' }}>
+                      Meetup posted
+                    </p>
+                  </div>
+                  <p className="mt-3 text-xl font-extrabold leading-tight" style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}>
+                    {success.location}
+                  </p>
+                  <div className="mt-3 flex flex-wrap items-center gap-3 text-sm font-semibold text-white/90">
+                    <span className="inline-flex items-center gap-1.5">
+                      <Clock className="h-4 w-4 text-secondary" /> {formatTime(success.time)}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Users className="h-4 w-4 text-secondary" /> Up to {success.max} fans
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={handleShare}
+                  className="mt-4 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+                  style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+                >
+                  <Share2 className="h-5 w-5" /> Share this meetup
+                </button>
+                <button
+                  onClick={handleClose}
+                  className="mt-2 w-full rounded-xl px-4 py-3 text-sm font-semibold text-muted-foreground hover:bg-muted/40"
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+            <>
             <div className="flex items-center justify-between px-6 pb-3">
               <h3 className="text-lg font-bold text-destructive-foreground" style={{ fontFamily: 'Rye, serif' }}>
                  Post to The Lineup
               </h3>
-              <button onClick={onClose} className="rounded-full p-1.5 transition-colors hover:bg-muted">
+              <button onClick={handleClose} className="rounded-full p-1.5 transition-colors hover:bg-muted">
                 <X className="h-5 w-5 text-muted-foreground" />
               </button>
             </div>
@@ -231,6 +300,8 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
                 {createMeetup.isPending ? 'Posting...' : ' Post to The Lineup'}
               </Button>
             </div>
+            </>
+            )}
           </motion.div>
         </>
       )}

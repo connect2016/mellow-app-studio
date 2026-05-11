@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Compass, Map, CalendarDays, User, Bell } from 'lucide-react';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
@@ -5,9 +6,9 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
-import { useUnreadCount } from '@/hooks/useNotifications';
 import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
 import { useFanMapPins } from '@/hooks/useFanMapPins';
+import { NotificationDrawer } from '@/components/notifications/NotificationDrawer';
 
 const navItems = [
   { to: '/discover-fans', icon: Compass, label: 'Discover' },
@@ -68,7 +69,8 @@ function useNotificationCounts() {
 export function AppHeader() {
   const location = useLocation();
   const { data: badges } = useNotificationCounts();
-  const unreadNotifs = useUnreadCount();
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [unreadNotifs, setUnreadNotifs] = useState(4);
   const { count: nearbyFanCount } = useFanMapPins();
   useSwipeNavigation();
 
@@ -93,8 +95,9 @@ export function AppHeader() {
             />
           </Link>
           <div className="flex shrink-0 items-center gap-2">
-            <Link
-              to="/notifications"
+            <button
+              type="button"
+              onClick={() => setNotifOpen(true)}
               aria-label={unreadNotifs > 0 ? `View notifications (${unreadNotifs} unread)` : 'View notifications'}
               className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
             >
@@ -104,10 +107,12 @@ export function AppHeader() {
                   {unreadNotifs > 99 ? '99+' : unreadNotifs}
                 </span>
               )}
-            </Link>
+            </button>
           </div>
         </div>
       </header>
+
+      <NotificationDrawer open={notifOpen} onOpenChange={setNotifOpen} onUnreadChange={setUnreadNotifs} />
 
       {/* Bottom nav */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/50 bg-card/95 backdrop-blur-xl safe-area-pb shadow-[0_-2px_10px_rgba(0,0,0,0.06)]">

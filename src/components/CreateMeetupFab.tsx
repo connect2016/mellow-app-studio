@@ -25,15 +25,12 @@ type DialItem = {
 
 export function CreateMeetupFab() {
   const location = useLocation();
-  const navigate = useNavigate();
   const { user } = useAuth();
-  const { open, isOpen } = useCreateMeetup();
+  const { isOpen } = useCreateMeetup();
   const scrollDir = useScrollDirection();
   const [routeTransitioning, setRouteTransitioning] = useState(false);
   const [entered, setEntered] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [exiting, setExiting] = useState(false);
-  const exitTimer = useRef<number | null>(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   // Re-trigger entrance on route change
   useEffect(() => {
@@ -54,8 +51,8 @@ export function CreateMeetupFab() {
     };
   }, []);
 
-  // Close menu on route change
-  useEffect(() => { setMenuOpen(false); setExiting(false); }, [location.pathname]);
+  // Close sheet on route change
+  useEffect(() => { setSheetOpen(false); }, [location.pathname]);
 
   // Detect nearby activity → adds attention pulse
   const { data: activity } = useQuery({
@@ -81,145 +78,19 @@ export function CreateMeetupFab() {
   const isHot = (activity?.active ?? 0) >= 3;
   const isHidden = scrollDir === 'down' || routeTransitioning;
 
-  const closeMenu = () => {
-    if (!menuOpen) return;
-    setExiting(true);
-    if (exitTimer.current) window.clearTimeout(exitTimer.current);
-    exitTimer.current = window.setTimeout(() => {
-      setMenuOpen(false);
-      setExiting(false);
-    }, 130);
-  };
-
-  const openMenu = () => {
+  const handleFabClick = () => {
     haptic('light');
     try { navigator.vibrate?.(10); } catch { /* noop */ }
-    setExiting(false);
-    setMenuOpen(true);
+    setSheetOpen((v) => !v);
   };
-
-  const handleFabClick = () => {
-    if (menuOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  };
-
-  // Bottom-to-top order in spec: Post Vibe (bottom) → Invite Buddy (top).
-  // We render top→bottom in DOM, so reverse for stagger index.
-  const items: DialItem[] = [
-    {
-      key: 'invite-buddy',
-      label: 'Invite Buddy',
-      icon: UserPlus,
-      bg: 'bg-emerald-600',
-      onSelect: () => { haptic('selection'); closeMenu(); navigate('/dugout'); },
-    },
-    {
-      key: 'buy-beer',
-      label: 'Buy a Beer',
-      icon: Beer,
-      bg: 'bg-amber-500',
-      onSelect: () => {
-        haptic('selection');
-        closeMenu();
-        trackBuyBeer('buy_beer_cta_clicked', { context: 'general', surface: 'fab' });
-        navigate('/beer-money');
-      },
-    },
-    {
-      key: 'meetup',
-      label: 'Meetup',
-      icon: CalendarPlus,
-      bg: 'bg-teal-600',
-      onSelect: () => { haptic('selection'); closeMenu(); open(); },
-    },
-    {
-      key: 'post-vibe',
-      label: 'Post Vibe',
-      icon: Edit3,
-      bg: 'bg-[#0E3386]', // Cubs blue
-      onSelect: () => { haptic('selection'); closeMenu(); navigate('/vibe'); },
-    },
-  ];
-
-  // Stagger from bottom (Post Vibe) → top (Invite Buddy). DOM order is top→bottom.
-  const lastIdx = items.length - 1;
 
   return (
     <>
-      {/* Backdrop */}
-      {menuOpen && (
-        <button
-          type="button"
-          aria-label="Close quick actions"
-          onClick={closeMenu}
-          className={cn(
-            'fixed inset-0 z-[39]',
-            'bg-black/40 backdrop-blur-[2px]',
-            'transition-opacity duration-150',
-            exiting ? 'opacity-0' : 'opacity-100',
-          )}
-          style={{ WebkitTapHighlightColor: 'transparent' }}
-        />
-      )}
-
-      {/* Speed-dial items */}
-      {menuOpen && (
-        <div
-          role="menu"
-          aria-label="Quick actions"
-          className="fixed left-1/2 -translate-x-1/2 z-[61] flex flex-col items-end gap-3 pointer-events-none"
-          style={{
-            bottom: 'calc(env(safe-area-inset-bottom, 0px) + 210px)',
-          }}
-        >
-          {items.map((item, domIdx) => {
-            // bottom item (last in DOM) is index 0 of stagger
-            const staggerIdx = lastIdx - domIdx;
-            const enterDelay = exiting ? 0 : staggerIdx * 30;
-            return (
-              <div
-                key={item.key}
-                className="flex items-center gap-3 pointer-events-auto"
-                style={{
-                  animation: exiting
-                    ? 'fab-dial-out 120ms ease-in both'
-                    : `fab-dial-in 180ms ${SPRING} ${enterDelay}ms both`,
-                }}
-              >
-                <span
-                  className="text-[13px] font-medium text-white select-none"
-                  style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
-                >
-                  {item.label}
-                </span>
-                <button
-                  type="button"
-                  role="menuitem"
-                  onClick={item.onSelect}
-                  aria-label={item.label}
-                  className={cn(
-                    'h-12 w-12 rounded-full flex items-center justify-center',
-                    'shadow-lg text-white',
-                    'active:scale-95 transition-transform',
-                    item.bg,
-                  )}
-                >
-                  <item.icon className="h-5 w-5" strokeWidth={2.5} />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
       <button
         type="button"
-        aria-label={menuOpen ? 'Close actions menu' : 'Open actions menu'}
-        aria-haspopup="menu"
-        aria-expanded={menuOpen}
+        aria-label={sheetOpen ? 'Close move menu' : "Open tonight's move menu"}
+        aria-haspopup="dialog"
+        aria-expanded={sheetOpen}
         onClick={handleFabClick}
         data-no-swipe-nav
         className={cn(
@@ -231,8 +102,8 @@ export function CreateMeetupFab() {
           'ring-4 ring-background',
           'fab-base',
           entered && 'fab-enter',
-          isHot && !isHidden && !menuOpen && 'fab-attention',
-          isHidden && !menuOpen ? 'fab-hidden' : 'fab-revealed'
+          isHot && !isHidden && !sheetOpen && 'fab-attention',
+          isHidden && !sheetOpen ? 'fab-hidden' : 'fab-revealed'
         )}
         style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
       >
@@ -240,14 +111,16 @@ export function CreateMeetupFab() {
           className="h-7 w-7"
           strokeWidth={3}
           style={{
-            transform: menuOpen ? 'rotate(45deg)' : 'rotate(0deg)',
-            transition: `transform 200ms ${SPRING}`,
+            transform: sheetOpen ? 'rotate(45deg)' : 'rotate(0deg)',
+            transition: 'transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1)',
           }}
         />
-        {isHot && !isHidden && !menuOpen && (
+        {isHot && !isHidden && !sheetOpen && (
           <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#C8102E]/55 animate-ping" />
         )}
       </button>
+
+      <MoveTonightSheet open={sheetOpen} onOpenChange={setSheetOpen} />
     </>
   );
 }

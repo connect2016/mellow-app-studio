@@ -15,7 +15,7 @@ import { GeolocationModal } from '@/components/GeolocationModal';
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
-type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere' | 'out_of_state' | 'out_of_country';
+type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'chicagoland' | 'anywhere' | 'out_of_state' | 'out_of_country';
 type GroupSize = 'solo' | 'small' | 'big';
 
 function track(event: string, payload?: Record<string, unknown>) {

@@ -781,3 +781,8 @@ body::before {
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite linear;
 }
+
+/* Ensure page content clears the fixed BottomNav across all routes */
+main {
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+}

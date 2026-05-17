@@ -58,7 +58,7 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId }: Car
               No stats to show yet.
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-3 gap-2 w-full">
               {visibleStats.map((stat) => {
                 const Icon = stat.icon;
                 const isText = typeof stat.value === 'string';
@@ -68,29 +68,39 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId }: Car
                 return (
                   <div
                     key={stat.key}
-                    className="flex flex-col items-center justify-center rounded-xl bg-muted/30 p-3 gap-1 min-h-[88px]"
+                    className="flex flex-col items-center justify-center rounded-xl bg-muted/30 p-2 gap-1 min-h-[88px] min-w-0 overflow-hidden"
                   >
                     <Icon className="h-5 w-5 text-primary/70" aria-hidden="true" />
                     {isText ? (
                       <span
-                        className="text-sm font-semibold text-foreground leading-tight text-center line-clamp-2"
+                        className="font-semibold text-foreground leading-tight text-center line-clamp-2"
+                        style={{ fontSize: 'clamp(12px, 3vw, 14px)', whiteSpace: 'nowrap' }}
                         aria-label={`${stat.label}: ${stat.value}`}
                       >
                         {stat.value || '—'}
                       </span>
                     ) : (
                       <span
-                        className="text-[18px] font-semibold text-foreground leading-none"
+                        className="font-bold text-foreground leading-none"
+                        style={{ fontSize: 'clamp(16px, 4vw, 22px)', whiteSpace: 'nowrap' }}
                         aria-label={`${safeValue} ${stat.label}`}
                       >
                         {safeValue}
                       </span>
                     )}
-                    <span className="text-[12px] font-normal text-muted-foreground text-center leading-tight">
+                    <span
+                      className="font-normal text-muted-foreground text-center leading-tight w-full"
+                      style={{
+                        fontSize: 'clamp(9px, 2.5vw, 12px)',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
                       {stat.label}
                     </span>
                     {showZeroHint && (
-                      <span style={{ fontSize: '11px', color: '#6b7280', marginTop: '4px' }}>
+                      <span style={{ fontSize: '10px', color: '#6b7280', marginTop: '2px', whiteSpace: 'nowrap' }}>
                         {ZERO_HINTS[stat.key] || 'Get started!'}
                       </span>
                     )}

@@ -69,6 +69,7 @@ import WrigleyvilleEats from "./pages/WrigleyvilleEats";
 import Dugout from "./pages/Dugout";
 import Join from "./pages/Join";
 import { preloadReactionImages } from "@/lib/reaction-cache";
+import { FanStreakTracker } from "@/hooks/useFanStreak";
 
 // Preload reaction images on app boot for instant rendering
 preloadReactionImages();
@@ -95,6 +96,7 @@ const App = () => (
             <PushPermissionPrompt />
             <InstallPrompt />
             <FirstActionMicroflow />
+            <FanStreakTracker />
             <BottomNav />
           <Routes>
             <Route path="/" element={<Landing />} />

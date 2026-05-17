@@ -1656,6 +1656,7 @@ export type Database = {
           display_name: string
           distance_pref_miles: number | null
           fan_identity_updated_at: string | null
+          fan_streak: number
           fan_style: string[] | null
           fan_tier: string | null
           fan_tier_emoji: string | null
@@ -1668,6 +1669,7 @@ export type Database = {
           favorite_moment: string | null
           favorite_moment_is_valid: boolean | null
           favorite_player: string | null
+          game_day_notifications: boolean
           game_status: string | null
           gameday_intents: string[] | null
           gameday_legend_until: string | null
@@ -1679,6 +1681,7 @@ export type Database = {
           intent: string[] | null
           is_banned: boolean | null
           is_verified: boolean | null
+          last_streak_date: string | null
           location: unknown
           location_last_set_at: string | null
           notification_preferences: Json
@@ -1692,6 +1695,8 @@ export type Database = {
           pronouns: string | null
           quick_start: Json | null
           shots_taken_season: number
+          streak_freezes: number
+          streak_total_game_days: number
           stretch_song: string | null
           superstition: string | null
           updated_at: string
@@ -1727,6 +1732,7 @@ export type Database = {
           display_name?: string
           distance_pref_miles?: number | null
           fan_identity_updated_at?: string | null
+          fan_streak?: number
           fan_style?: string[] | null
           fan_tier?: string | null
           fan_tier_emoji?: string | null
@@ -1739,6 +1745,7 @@ export type Database = {
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
+          game_day_notifications?: boolean
           game_status?: string | null
           gameday_intents?: string[] | null
           gameday_legend_until?: string | null
@@ -1750,6 +1757,7 @@ export type Database = {
           intent?: string[] | null
           is_banned?: boolean | null
           is_verified?: boolean | null
+          last_streak_date?: string | null
           location?: unknown
           location_last_set_at?: string | null
           notification_preferences?: Json
@@ -1763,6 +1771,8 @@ export type Database = {
           pronouns?: string | null
           quick_start?: Json | null
           shots_taken_season?: number
+          streak_freezes?: number
+          streak_total_game_days?: number
           stretch_song?: string | null
           superstition?: string | null
           updated_at?: string
@@ -1798,6 +1808,7 @@ export type Database = {
           display_name?: string
           distance_pref_miles?: number | null
           fan_identity_updated_at?: string | null
+          fan_streak?: number
           fan_style?: string[] | null
           fan_tier?: string | null
           fan_tier_emoji?: string | null
@@ -1810,6 +1821,7 @@ export type Database = {
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
+          game_day_notifications?: boolean
           game_status?: string | null
           gameday_intents?: string[] | null
           gameday_legend_until?: string | null
@@ -1821,6 +1833,7 @@ export type Database = {
           intent?: string[] | null
           is_banned?: boolean | null
           is_verified?: boolean | null
+          last_streak_date?: string | null
           location?: unknown
           location_last_set_at?: string | null
           notification_preferences?: Json
@@ -1834,6 +1847,8 @@ export type Database = {
           pronouns?: string | null
           quick_start?: Json | null
           shots_taken_season?: number
+          streak_freezes?: number
+          streak_total_game_days?: number
           stretch_song?: string | null
           superstition?: string | null
           updated_at?: string
@@ -2872,6 +2887,7 @@ export type Database = {
         Args: { p_secret: string; p_token: string }
         Returns: Json
       }
+      record_fan_streak_open: { Args: { p_game_date: string }; Returns: Json }
       say_hi_to_buddy: { Args: { p_recipient_id: string }; Returns: Json }
       send_beer_tip: {
         Args: { p_credits: number; p_message?: string; p_recipient_id: string }

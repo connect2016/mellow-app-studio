@@ -21,7 +21,7 @@ const ZERO_HINTS: Record<string, string> = {
   favoriteFoodSpot: 'Set your go-to spot',
 };
 
-export function CardBackSide({ displayName, visibleStats, isOwner, userId }: CardBackSideProps) {
+export function CardBackSide({ displayName, visibleStats, isOwner, userId, onFlipBack }: CardBackSideProps) {
   return (
     <div
       className="absolute inset-0 w-full h-full"

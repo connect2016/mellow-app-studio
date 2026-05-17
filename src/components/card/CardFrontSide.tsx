@@ -16,6 +16,7 @@ interface CardFrontSideProps {
   imgLoaded: boolean;
   onImgLoad: () => void;
   onClick?: () => void;
+  fanStreak?: number;
 }
 
 export function CardFrontSide({
@@ -26,6 +27,7 @@ export function CardFrontSide({
   imgLoaded,
   onImgLoad,
   onClick,
+  fanStreak,
 }: CardFrontSideProps) {
   const [hasPulsed, setHasPulsed] = useState(false);
 
@@ -159,6 +161,27 @@ export function CardFrontSide({
           {displayName || 'Fan'}
         </p>
       </div>
+
+      {/* Fan streak — subtle line beneath the nameplate */}
+      {typeof fanStreak === 'number' && fanStreak > 0 && (
+        <div
+          className="absolute left-0 right-0 flex items-center justify-center pointer-events-none"
+          style={{ bottom: '2%', zIndex: 15 }}
+          aria-label={`${fanStreak} game streak`}
+        >
+          <span
+            style={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: '#FFD700',
+              textShadow: '0 1px 2px rgba(0,0,0,0.6)',
+              letterSpacing: '0.02em',
+            }}
+          >
+            🔥 {fanStreak}
+          </span>
+        </div>
+      )}
 
       {/* Active reactions */}
       {activeReactions.length > 0 && (

@@ -5,6 +5,7 @@ import { deriveVibeTags, deriveMeetupCategory } from '@/hooks/useMeetups';
 import type { LineupMeetup } from '@/hooks/useLineup';
 import { MeetupCategoryBadge } from '@/components/meetups/MeetupCategoryBadge';
 import { stripEmoji } from '@/components/icons/ConceptIcon';
+import { PreGameCountdownPill } from '@/components/gameday/PreGameCountdownPill';
 
 interface MeetupCardProps {
   meetup: LineupMeetup & { is_verified?: boolean; fan_tier_emoji?: string };
@@ -42,6 +43,11 @@ export function MeetupCard({ meetup }: MeetupCardProps) {
       className="block rounded-2xl border border-border bg-card p-4 shadow-sm transition active:scale-[0.99] hover:shadow-md hover:border-primary/30"
       aria-label={`Meetup at ${cleanLocation}`}
     >
+      {/* Pre-game countdown — only renders during the 3h pre-game window */}
+      <div className="mb-2 flex">
+        <PreGameCountdownPill />
+      </div>
+
       {/* Top row: host + status pill */}
       <div className="flex items-start gap-3">
         <img

@@ -64,7 +64,36 @@ export default function Onboarding() {
   const [vibeTags, setVibeTags] = useState<string[]>([]);
   const [manualZip, setManualZip] = useState('');
   const [saving, setSaving] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const errorStyle = { color: '#CC3433', fontSize: '12px', marginTop: '4px' } as const;
+
+  const validateStep1 = () => {
+    const next: Record<string, string> = {};
+    if (!displayName.trim()) next.displayName = 'Display name is required';
+    else if (displayName.trim().length < 2) next.displayName = 'Must be at least 2 characters';
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const validateStep4 = () => {
+    const next: Record<string, string> = {};
+    if (!zip.trim()) next.zip = 'Zip code is required';
+    else if (!/^\d{5}$/.test(zip)) next.zip = 'Enter a valid 5-digit zip';
+    if (!gate) next.gate = 'Please pick a favorite gate';
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const validateStep5 = () => {
+    const next: Record<string, string> = {};
+    if (!finalZip.trim()) next.finalZip = 'Zip code is required';
+    else if (!/^\d{5}$/.test(finalZip)) next.finalZip = 'Enter a valid 5-digit zip';
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
 
   // Prefill from existing profile
   useEffect(() => {

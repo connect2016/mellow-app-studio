@@ -209,7 +209,7 @@ export function UserBaseballCard({
       icon: STAT_ICONS[p.stat_key],
       value: p.stat_key === 'favoriteFoodSpot'
         ? (cardStats.favoriteFoodSpot ?? '')
-        : ((cardStats[p.stat_key] as number | undefined) ?? 0),
+        : safeNumber(cardStats[p.stat_key]),
       label: CARD_STAT_LABELS[p.stat_key],
       timeRange: p.time_range,
       visibility: p.visibility,

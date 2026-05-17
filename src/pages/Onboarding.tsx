@@ -436,6 +436,21 @@ export default function Onboarding() {
 
         {step === 5 && (
           <div className="space-y-6">
+            {submitError && (
+              <div
+                role="alert"
+                style={{
+                  background: '#FDECEC',
+                  border: '1px solid #CC3433',
+                  color: '#CC3433',
+                  borderRadius: 8,
+                  padding: '10px 12px',
+                  fontSize: 14,
+                }}
+              >
+                {submitError}
+              </div>
+            )}
             <div className="text-center">
               <h1 className="mb-2 text-3xl font-bold tracking-tight">Find your section crew</h1>
               <p className="text-sm text-muted-foreground">We show nearby fans during game days only.</p>
@@ -460,15 +475,20 @@ export default function Onboarding() {
                 pattern="\d{5}"
                 maxLength={5}
                 value={manualZip}
-                onChange={(e) => setManualZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                onChange={(e) => {
+                  setManualZip(e.target.value.replace(/\D/g, '').slice(0, 5));
+                  if (errors.finalZip) setErrors((p) => ({ ...p, finalZip: '' }));
+                }}
                 placeholder="60613"
+                aria-invalid={!!errors.finalZip}
               />
+              {errors.finalZip && <p style={errorStyle}>{errors.finalZip}</p>}
             </div>
 
             <Button
               className="w-full"
               variant="premium"
-              disabled={!finalZipValid || saving}
+              disabled={saving}
               onClick={() =>
                 handleFinish(geo.permission === 'granted' && geo.zip === manualZip ? 'location' : 'zip')
               }

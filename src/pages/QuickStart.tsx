@@ -109,6 +109,7 @@ export default function QuickStart() {
     if (approxMiles < 1.5) return 'wrigleyville';
     if (approxMiles < 4) return 'lakeview';
     if (approxMiles < 10) return 'loop';
+    if (approxMiles < 60) return 'chicagoland';
     if (approxMiles < 200) return 'anywhere';
     return 'out_of_state';
   };

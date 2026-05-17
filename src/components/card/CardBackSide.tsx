@@ -9,6 +9,18 @@ interface CardBackSideProps {
   onFlipBack?: () => void;
 }
 
+const ZERO_HINTS: Record<string, string> = {
+  beersToday: 'Grab your first beer!',
+  beersThisWeek: 'Start the week strong!',
+  barsVisitedToday: 'Check in at a bar tonight',
+  barsVisitedThisWeek: 'Explore Wrigleyville!',
+  meetupsFinished: 'Join your first meetup',
+  fansConnected: 'Match with a fan tonight',
+  shotsTakenSeason: 'Cheers to the season!',
+  appetizersHadSeason: 'Order something tasty',
+  favoriteFoodSpot: 'Set your go-to spot',
+};
+
 export function CardBackSide({ displayName, visibleStats, isOwner, userId }: CardBackSideProps) {
   return (
     <div
@@ -50,6 +62,9 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId }: Car
               {visibleStats.map((stat) => {
                 const Icon = stat.icon;
                 const isText = typeof stat.value === 'string';
+                const numValue = isText ? NaN : Number(stat.value);
+                const safeValue = Number.isNaN(numValue) ? 0 : numValue;
+                const showZeroHint = !isText && safeValue === 0;
                 return (
                   <div
                     key={stat.key}
@@ -66,14 +81,19 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId }: Car
                     ) : (
                       <span
                         className="text-[18px] font-semibold text-foreground leading-none"
-                        aria-label={`${stat.value} ${stat.label}`}
+                        aria-label={`${safeValue} ${stat.label}`}
                       >
-                        {stat.value}
+                        {safeValue}
                       </span>
                     )}
                     <span className="text-[12px] font-normal text-muted-foreground text-center leading-tight">
                       {stat.label}
                     </span>
+                    {showZeroHint && (
+                      <span style={{ fontSize: '11px', color: '#6b7280', marginTop: '4px' }}>
+                        {ZERO_HINTS[stat.key] || 'Get started!'}
+                      </span>
+                    )}
                   </div>
                 );
               })}

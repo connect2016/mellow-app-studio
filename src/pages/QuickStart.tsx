@@ -15,7 +15,7 @@ import { GeolocationModal } from '@/components/GeolocationModal';
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
-type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'anywhere' | 'out_of_state' | 'out_of_country';
+type Zone = 'wrigleyville' | 'lakeview' | 'loop' | 'chicagoland' | 'anywhere' | 'out_of_state' | 'out_of_country';
 type GroupSize = 'solo' | 'small' | 'big';
 
 function track(event: string, payload?: Record<string, unknown>) {
@@ -51,6 +51,7 @@ const ZONES: ZoneOption[] = [
   { id: 'wrigleyville', label: 'Wrigleyville', Icon: MapPin },
   { id: 'lakeview', label: 'Lakeview', Icon: MapPin },
   { id: 'loop', label: 'The Loop', Icon: MapPin },
+  { id: 'chicagoland', label: 'Chicagoland', Icon: MapPin },
   { id: 'anywhere', label: 'Anywhere in Chicago', Icon: MapPin },
   { id: 'out_of_state', label: 'Out of State', Icon: MapIcon, example: 'Visiting fan? See traveling-fan meetups.' },
   { id: 'out_of_country', label: 'Out of Country', Icon: Globe, example: 'Repping the Cubs abroad? Connect globally.' },
@@ -108,6 +109,7 @@ export default function QuickStart() {
     if (approxMiles < 1.5) return 'wrigleyville';
     if (approxMiles < 4) return 'lakeview';
     if (approxMiles < 10) return 'loop';
+    if (approxMiles < 60) return 'chicagoland';
     if (approxMiles < 200) return 'anywhere';
     return 'out_of_state';
   };
@@ -258,7 +260,7 @@ export default function QuickStart() {
         </div>
 
         {/* Eyebrow */}
-        <p className="eyebrow text-center mb-2">30-second setup</p>
+        <p className="eyebrow text-center mb-2" style={{ color: '#1a1f2e' }}>30-second setup</p>
 
         {step === 0 && (
           <Section
@@ -302,8 +304,13 @@ export default function QuickStart() {
           <Section title="A couple last things" sub="Pick where you hang so we can tune your feed.">
             <div>
               <div className="flex items-baseline justify-between mb-2">
-                <p className="eyebrow">Favorite hangout zones</p>
-                <span className="text-[11px] text-muted-foreground">Multi-select</span>
+                <p className="eyebrow" style={{ color: '#1a1f2e' }}>Favorite hangout zones</p>
+                <span
+                  className="text-[11px] font-semibold rounded-full px-2 py-0.5"
+                  style={{ color: '#1a1f2e', background: 'rgba(255,255,255,0.75)' }}
+                >
+                  Multi-select
+                </span>
               </div>
 
               {/* Opt-in geolocation prompt — appears above the chips */}
@@ -483,7 +490,8 @@ export default function QuickStart() {
               <button
                 type="button"
                 onClick={() => setShowPrivacyModal(true)}
-                className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline underline-offset-2 min-h-[32px]"
+                className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold underline underline-offset-2 min-h-[32px]"
+                style={{ color: '#1a472a' }}
                 aria-haspopup="dialog"
                 aria-controls="location-privacy-modal"
               >
@@ -502,21 +510,31 @@ export default function QuickStart() {
             </div>
 
             <div>
-              <p className="eyebrow mb-2">Usual group size</p>
+              <p className="eyebrow mb-2" style={{ color: '#1a1f2e' }}>Usual group size</p>
               <div className="grid grid-cols-3 gap-2">
-                {GROUPS.map((opt) => (
-                  <button
-                    key={opt.id}
-                    onClick={() => setGroup(opt.id)}
-                    className={cn(
-                      'rounded-xl px-2 py-3 text-center transition-all surface-card',
-                      group === opt.id && 'ring-2 ring-primary bg-primary/5',
-                    )}
-                  >
-                    <div className="text-2xl mb-0.5"><ConceptVisual name={opt.emoji} size="sm" /></div>
-                    <div className="text-xs font-semibold">{opt.label}</div>
-                  </button>
-                ))}
+                {GROUPS.map((opt) => {
+                  const isSelected = group === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setGroup(opt.id)}
+                      aria-pressed={isSelected}
+                      className="rounded-xl px-2 py-3 text-center transition-all"
+                      style={{
+                        background: isSelected ? '#1a472a' : 'rgba(255, 255, 255, 0.85)',
+                        border: `1.5px solid ${isSelected ? '#1a472a' : 'rgba(255, 255, 255, 0.5)'}`,
+                        color: isSelected ? '#ffffff' : '#1a1f2e',
+                      }}
+                    >
+                      <div className="text-2xl mb-0.5"><ConceptVisual name={opt.emoji} size="sm" /></div>
+                      <div className="text-xs font-semibold inline-flex items-center justify-center gap-1">
+                        {opt.label}
+                        {isSelected && <Check className="size-3" />}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </Section>
@@ -559,13 +577,24 @@ export default function QuickStart() {
                 </>
               )}
             </Button>
+            <button
+              type="button"
+              onClick={handleSkip}
+              style={{
+                fontSize: '14px',
+                fontWeight: 500,
+                color: '#1a1f2e',
+                textDecoration: 'underline',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '12px 8px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Skip for now
+            </button>
           </div>
-          <button
-            onClick={handleSkip}
-            className="block mx-auto mt-3 text-sm text-destructive-foreground hover:text-foreground underline-offset-4 hover:underline min-h-[44px]"
-          >
-            Skip for now
-          </button>
         </div>
       </main>
 
@@ -609,7 +638,7 @@ function Section({ title, sub, children }: { title: string; sub: string; childre
         <h1 className="h-display text-foreground" style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)' }}>
           {title}
         </h1>
-        <p className="text-sm text-destructive-foreground mt-2">{sub}</p>
+        <p className="text-sm mt-2" style={{ color: '#1a1f2e' }}>{sub}</p>
       </div>
       <div className="space-y-3 pt-2">{children}</div>
     </div>

@@ -161,6 +161,8 @@ export default function Onboarding() {
 
   const handleFinish = async (method: 'location' | 'zip') => {
     if (!user) return;
+    if (!validateStep5()) return;
+    setSubmitError(null);
     setSaving(true);
     try {
       await updateProfile.mutateAsync({
@@ -181,11 +183,11 @@ export default function Onboarding() {
         watch_count: watchLocations.length,
         vibe_count: vibeTags.length,
       });
-      toast.success("You're in the bleachers!");
+      toast.success("Profile updated!", { duration: 3000 });
       navigate('/profile', { replace: true });
     } catch (err) {
       console.error(err);
-      toast.error('Something went wrong. Try again.');
+      setSubmitError('Something went wrong. Please try again.');
     } finally {
       setSaving(false);
     }

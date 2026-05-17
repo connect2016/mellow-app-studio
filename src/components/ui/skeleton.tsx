@@ -40,6 +40,19 @@ function ProfileCardSkeleton() {
   );
 }
 
+function CrewCardSkeleton() {
+  return (
+    <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 min-h-[72px]">
+      <div className="shimmer rounded-xl" style={{ width: 48, height: 48, flexShrink: 0 }} />
+      <div className="flex-1 min-w-0 space-y-2">
+        <div className="shimmer rounded-md" style={{ height: 14, width: '50%' }} />
+        <div className="shimmer rounded-md" style={{ height: 10, width: '70%' }} />
+      </div>
+      <div className="shimmer rounded-lg" style={{ height: 32, width: 72, flexShrink: 0 }} />
+    </div>
+  );
+}
+
 function BuddyListItemSkeleton() {
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4">

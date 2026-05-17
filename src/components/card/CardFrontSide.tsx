@@ -97,6 +97,10 @@ export function CardFrontSide({
                 'w-full h-full object-cover transition-opacity duration-300',
                 imgLoaded ? 'opacity-100' : 'opacity-0'
               )}
+              style={{
+                display: 'block',
+                objectPosition: 'center top',
+              }}
             />
           ) : (
             <div

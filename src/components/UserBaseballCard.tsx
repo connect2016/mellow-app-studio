@@ -274,6 +274,7 @@ export function UserBaseballCard({
           userId={userId}
           onFlipBack={() => setIsFlipped(false)}
         />
+        </div>
       </div>
 
       {/* Intent badges (front-side metadata) */}

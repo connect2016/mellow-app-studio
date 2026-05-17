@@ -217,15 +217,22 @@ export default function Onboarding() {
             <Input
               id="display_name"
               value={displayName}
-              onChange={(e) => setDisplayName(e.target.value.slice(0, 30))}
+              onChange={(e) => {
+                setDisplayName(e.target.value.slice(0, 30));
+                if (errors.displayName) setErrors((p) => ({ ...p, displayName: '' }));
+              }}
               placeholder="Your fan name (e.g. Cubbie Mike)"
               maxLength={30}
               autoFocus
+              aria-invalid={!!errors.displayName}
             />
+            {errors.displayName && (
+              <p style={errorStyle}>{errors.displayName}</p>
+            )}
             <Button
               className="w-full"
-              disabled={!nameValid}
               onClick={() => {
+                if (!validateStep1()) return;
                 track('onboarding_step_completed', { step: 1 });
                 setStep(2);
               }}

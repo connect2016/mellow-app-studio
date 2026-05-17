@@ -181,7 +181,16 @@ export function UserBaseballCard({
     barsVisitedThisWeek: 0,
     meetupsFinished: 0,
     fansConnected: 0,
+    shotsTakenSeason: 0,
+    appetizersHadSeason: 0,
+    favoriteFoodSpot: '',
   };
+
+  function safeNumber(v: unknown): number {
+    if (v === null || v === undefined) return 0;
+    const n = Number(v);
+    return Number.isNaN(n) ? 0 : n;
+  }
 
   const prefs = statPreferences ?? DEFAULT_STAT_PREFS;
 

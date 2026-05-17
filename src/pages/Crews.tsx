@@ -1,5 +1,5 @@
 import { SEOMeta } from '@/components/SEOMeta';
-import { BuddyListItemSkeleton } from '@/components/ui/skeleton';
+import { CrewCardSkeleton } from '@/components/ui/skeleton';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -202,8 +202,8 @@ export default function Crews() {
 
           {isLoading ? (
             <div className="space-y-2">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <BuddyListItemSkeleton key={i} />
+              {Array.from({ length: 6 }).map((_, i) => (
+                <CrewCardSkeleton key={i} />
               ))}
             </div>
           ) : filtered.length === 0 ? (

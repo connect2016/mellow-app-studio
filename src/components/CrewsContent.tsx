@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { CrewCardSkeleton } from '@/components/ui/skeleton';
 import { useCrews, useCreateCrew, useJoinCrew, type Crew } from '@/hooks/useCrews';
 import { Users, Plus, Search, Lock, Globe, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
@@ -153,9 +154,10 @@ export default function CrewsContent() {
         </div>
 
         {isLoading ? (
-          <div className="py-16 text-center">
-            <p className="text-3xl animate-pulse"></p>
-            <p className="mt-2 text-sm text-muted-foreground">Finding crews...</p>
+          <div className="space-y-2">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <CrewCardSkeleton key={i} />
+            ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="py-16 text-center">

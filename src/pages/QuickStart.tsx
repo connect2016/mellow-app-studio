@@ -304,8 +304,13 @@ export default function QuickStart() {
           <Section title="A couple last things" sub="Pick where you hang so we can tune your feed.">
             <div>
               <div className="flex items-baseline justify-between mb-2">
-                <p className="eyebrow">Favorite hangout zones</p>
-                <span className="text-[11px] text-muted-foreground">Multi-select</span>
+                <p className="eyebrow" style={{ color: '#1a1f2e' }}>Favorite hangout zones</p>
+                <span
+                  className="text-[11px] font-semibold rounded-full px-2 py-0.5"
+                  style={{ color: '#1a1f2e', background: 'rgba(255,255,255,0.75)' }}
+                >
+                  Multi-select
+                </span>
               </div>
 
               {/* Opt-in geolocation prompt — appears above the chips */}

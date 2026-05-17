@@ -510,21 +510,31 @@ export default function QuickStart() {
             </div>
 
             <div>
-              <p className="eyebrow mb-2">Usual group size</p>
+              <p className="eyebrow mb-2" style={{ color: '#1a1f2e' }}>Usual group size</p>
               <div className="grid grid-cols-3 gap-2">
-                {GROUPS.map((opt) => (
-                  <button
-                    key={opt.id}
-                    onClick={() => setGroup(opt.id)}
-                    className={cn(
-                      'rounded-xl px-2 py-3 text-center transition-all surface-card',
-                      group === opt.id && 'ring-2 ring-primary bg-primary/5',
-                    )}
-                  >
-                    <div className="text-2xl mb-0.5"><ConceptVisual name={opt.emoji} size="sm" /></div>
-                    <div className="text-xs font-semibold">{opt.label}</div>
-                  </button>
-                ))}
+                {GROUPS.map((opt) => {
+                  const isSelected = group === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setGroup(opt.id)}
+                      aria-pressed={isSelected}
+                      className="rounded-xl px-2 py-3 text-center transition-all"
+                      style={{
+                        background: isSelected ? '#1a472a' : 'rgba(255, 255, 255, 0.85)',
+                        border: `1.5px solid ${isSelected ? '#1a472a' : 'rgba(255, 255, 255, 0.5)'}`,
+                        color: isSelected ? '#ffffff' : '#1a1f2e',
+                      }}
+                    >
+                      <div className="text-2xl mb-0.5"><ConceptVisual name={opt.emoji} size="sm" /></div>
+                      <div className="text-xs font-semibold inline-flex items-center justify-center gap-1">
+                        {opt.label}
+                        {isSelected && <Check className="size-3" />}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </Section>

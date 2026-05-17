@@ -577,13 +577,24 @@ export default function QuickStart() {
                 </>
               )}
             </Button>
+            <button
+              type="button"
+              onClick={handleSkip}
+              style={{
+                fontSize: '14px',
+                fontWeight: 500,
+                color: '#1a1f2e',
+                textDecoration: 'underline',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '12px 8px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Skip for now
+            </button>
           </div>
-          <button
-            onClick={handleSkip}
-            className="block mx-auto mt-3 text-sm text-destructive-foreground hover:text-foreground underline-offset-4 hover:underline min-h-[44px]"
-          >
-            Skip for now
-          </button>
         </div>
       </main>
 

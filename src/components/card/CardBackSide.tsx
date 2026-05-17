@@ -21,7 +21,7 @@ const ZERO_HINTS: Record<string, string> = {
   favoriteFoodSpot: 'Set your go-to spot',
 };
 
-export function CardBackSide({ displayName, visibleStats, isOwner, userId }: CardBackSideProps) {
+export function CardBackSide({ displayName, visibleStats, isOwner, userId, onFlipBack }: CardBackSideProps) {
   return (
     <div
       className="absolute inset-0 w-full h-full"
@@ -33,6 +33,34 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId }: Car
       aria-label={`${displayName || 'Fan'}'s stats — back side`}
     >
       <div className="w-full h-full rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-card via-card to-muted/30 shadow-md flex flex-col overflow-hidden">
+        {/* Back to Profile button */}
+        {onFlipBack && (
+          <button
+            onClick={onFlipBack}
+            aria-label="Back to profile"
+            style={{
+              position: 'absolute',
+              top: '10px',
+              left: '10px',
+              padding: '8px 14px',
+              minHeight: '44px',
+              background: 'rgba(255,255,255,0.15)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              borderRadius: '20px',
+              color: 'white',
+              fontSize: '12px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              zIndex: 10,
+            }}
+          >
+            ← Profile
+          </button>
+        )}
+
         {/* Header */}
         <div className="text-center pt-4 pb-3 px-5 shrink-0">
           <h3

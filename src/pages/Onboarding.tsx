@@ -389,9 +389,14 @@ export default function Onboarding() {
                 pattern="\d{5}"
                 maxLength={5}
                 value={zip}
-                onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                onChange={(e) => {
+                  setZip(e.target.value.replace(/\D/g, '').slice(0, 5));
+                  if (errors.zip) setErrors((p) => ({ ...p, zip: '' }));
+                }}
                 placeholder="60613"
+                aria-invalid={!!errors.zip}
               />
+              {errors.zip && <p style={errorStyle}>{errors.zip}</p>}
             </div>
 
             <div className="space-y-2">
@@ -399,8 +404,12 @@ export default function Onboarding() {
               <select
                 id="favorite_gate"
                 value={gate}
-                onChange={(e) => setGate(e.target.value)}
+                onChange={(e) => {
+                  setGate(e.target.value);
+                  if (errors.gate) setErrors((p) => ({ ...p, gate: '' }));
+                }}
                 className="flex h-12 w-full rounded-xl border border-input bg-background px-4 py-2.5 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-invalid={!!errors.gate}
               >
                 <option value="">Pick a gate</option>
                 {GATES.map((g) => (
@@ -409,12 +418,13 @@ export default function Onboarding() {
                   </option>
                 ))}
               </select>
+              {errors.gate && <p style={errorStyle}>{errors.gate}</p>}
             </div>
 
             <Button
               className="w-full"
-              disabled={!zipValid || !gate}
               onClick={() => {
+                if (!validateStep4()) return;
                 track('onboarding_step_completed', { step: 4 });
                 setStep(5);
               }}

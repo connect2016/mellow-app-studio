@@ -27,6 +27,13 @@ export function CardFrontSide({
   onImgLoad,
   onClick,
 }: CardFrontSideProps) {
+  const [hasPulsed, setHasPulsed] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setHasPulsed(true), 3000);
+    return () => clearTimeout(t);
+  }, []);
+
   const initials = (displayName || 'Fan')
     .split(/\s+/)
     .map((p) => p[0])

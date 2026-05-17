@@ -51,6 +51,7 @@ const ZONES: ZoneOption[] = [
   { id: 'wrigleyville', label: 'Wrigleyville', Icon: MapPin },
   { id: 'lakeview', label: 'Lakeview', Icon: MapPin },
   { id: 'loop', label: 'The Loop', Icon: MapPin },
+  { id: 'chicagoland', label: 'Chicagoland', Icon: MapPin },
   { id: 'anywhere', label: 'Anywhere in Chicago', Icon: MapPin },
   { id: 'out_of_state', label: 'Out of State', Icon: MapIcon, example: 'Visiting fan? See traveling-fan meetups.' },
   { id: 'out_of_country', label: 'Out of Country', Icon: Globe, example: 'Repping the Cubs abroad? Connect globally.' },

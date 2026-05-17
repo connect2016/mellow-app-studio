@@ -66,4 +66,4 @@ function BuddyListItemSkeleton() {
   );
 }
 
-export { Skeleton, ProfileCardSkeleton, BuddyListItemSkeleton };
+export { Skeleton, ProfileCardSkeleton, BuddyListItemSkeleton, CrewCardSkeleton };

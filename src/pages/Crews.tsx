@@ -1,5 +1,5 @@
 import { SEOMeta } from '@/components/SEOMeta';
-import { BuddyListItemSkeleton } from '@/components/ui/skeleton';
+import { CrewCardSkeleton } from '@/components/ui/skeleton';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';

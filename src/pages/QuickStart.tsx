@@ -490,7 +490,8 @@ export default function QuickStart() {
               <button
                 type="button"
                 onClick={() => setShowPrivacyModal(true)}
-                className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline underline-offset-2 min-h-[32px]"
+                className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold underline underline-offset-2 min-h-[32px]"
+                style={{ color: '#1a472a' }}
                 aria-haspopup="dialog"
                 aria-controls="location-privacy-modal"
               >

@@ -181,7 +181,16 @@ export function UserBaseballCard({
     barsVisitedThisWeek: 0,
     meetupsFinished: 0,
     fansConnected: 0,
+    shotsTakenSeason: 0,
+    appetizersHadSeason: 0,
+    favoriteFoodSpot: '',
   };
+
+  function safeNumber(v: unknown): number {
+    if (v === null || v === undefined) return 0;
+    const n = Number(v);
+    return Number.isNaN(n) ? 0 : n;
+  }
 
   const prefs = statPreferences ?? DEFAULT_STAT_PREFS;
 
@@ -200,7 +209,7 @@ export function UserBaseballCard({
       icon: STAT_ICONS[p.stat_key],
       value: p.stat_key === 'favoriteFoodSpot'
         ? (cardStats.favoriteFoodSpot ?? '')
-        : ((cardStats[p.stat_key] as number | undefined) ?? 0),
+        : safeNumber(cardStats[p.stat_key]),
       label: CARD_STAT_LABELS[p.stat_key],
       timeRange: p.time_range,
       visibility: p.visibility,

@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
 import cardFrontArt from '@/assets/baseball-card-front.png';
+import { BarChart3 } from 'lucide-react';
 
 interface CardFrontSideProps {
   profileImage?: string | null;
@@ -25,6 +27,13 @@ export function CardFrontSide({
   onImgLoad,
   onClick,
 }: CardFrontSideProps) {
+  const [hasPulsed, setHasPulsed] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setHasPulsed(true), 3000);
+    return () => clearTimeout(t);
+  }, []);
+
   const initials = (displayName || 'Fan')
     .split(/\s+/)
     .map((p) => p[0])
@@ -161,6 +170,22 @@ export function CardFrontSide({
           ))}
         </div>
       )}
+
+      {/* Flip hint — bottom-right corner */}
+      <div
+        className={cn(
+          'absolute z-20 flex items-center gap-1 pointer-events-none',
+          activeReactions.length > 0 ? 'bottom-10 right-3' : 'bottom-3 right-3',
+          !hasPulsed && 'pulse-once'
+        )}
+        style={{
+          fontSize: 11,
+          color: 'rgba(255,255,255,0.65)',
+        }}
+      >
+        <BarChart3 className="h-3 w-3" aria-hidden="true" />
+        <span>Stats</span>
+      </div>
     </div>
   );
 }

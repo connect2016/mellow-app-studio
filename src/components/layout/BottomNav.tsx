@@ -27,7 +27,7 @@ export function BottomNav() {
         'border-t border-neutral-200 dark:border-neutral-800',
         'flex',
       )}
-      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 12px)' }}
     >
       {TABS.map(({ to, label, icon: Icon, showBadge, showProgress }) => (
         <NavLink

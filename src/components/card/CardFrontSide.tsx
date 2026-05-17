@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
 import cardFrontArt from '@/assets/baseball-card-front.png';
+import { BarChart3 } from 'lucide-react';
 
 interface CardFrontSideProps {
   profileImage?: string | null;

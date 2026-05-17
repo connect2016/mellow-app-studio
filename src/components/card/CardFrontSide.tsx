@@ -170,6 +170,21 @@ export function CardFrontSide({
           ))}
         </div>
       )}
+
+      {/* Flip hint — bottom-right corner */}
+      <div
+        className={cn(
+          'absolute bottom-3 right-3 z-20 flex items-center gap-1 pointer-events-none',
+          !hasPulsed && 'pulse-once'
+        )}
+        style={{
+          fontSize: 11,
+          color: 'rgba(255,255,255,0.65)',
+        }}
+      >
+        <BarChart3 className="h-3 w-3" aria-hidden="true" />
+        <span>Stats</span>
+      </div>
     </div>
   );
 }

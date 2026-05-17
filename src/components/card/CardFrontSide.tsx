@@ -174,7 +174,8 @@ export function CardFrontSide({
       {/* Flip hint — bottom-right corner */}
       <div
         className={cn(
-          'absolute bottom-3 right-3 z-20 flex items-center gap-1 pointer-events-none',
+          'absolute z-20 flex items-center gap-1 pointer-events-none',
+          activeReactions.length > 0 ? 'bottom-10 right-3' : 'bottom-3 right-3',
           !hasPulsed && 'pulse-once'
         )}
         style={{

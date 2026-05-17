@@ -213,20 +213,46 @@ export function UserBaseballCard({
       role="region"
       aria-label={`${displayName || 'Fan'}'s baseball card`}
     >
-      {/* Flip container — fixed height so front/back share identical bounding box */}
+      {/* Flip container — fixed bounding box (aspect-ratio) drives an identical
+          height on both faces. The container itself never transforms; only the
+          inner wrapper rotates, so the box this card occupies in the parent
+          grid never changes during or after the flip. */}
       <div
         ref={cardRef}
-        className="relative w-full mx-auto"
+        className="card-container relative w-full mx-auto"
         style={{
           maxWidth: 360,
           aspectRatio: '834 / 1218',
-          transformStyle: 'preserve-3d',
-          transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-          transition: 'transform 260ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+          perspective: '1200px',
         }}
       >
+        <div
+          className="card-inner"
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            transformStyle: 'preserve-3d',
+            transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+            transition: 'transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1)',
+            willChange: 'transform',
+          }}
+        >
         {/* ===== FRONT SIDE ===== */}
-        <div className="absolute inset-0 w-full h-full" style={{ backfaceVisibility: 'hidden' }}>
+        <div
+          className="card-front"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            overflow: 'hidden',
+            borderRadius: 'inherit',
+          }}
+        >
           <CardFrontSide
             profileImage={profileImage}
             displayName={displayName}

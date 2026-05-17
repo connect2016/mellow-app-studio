@@ -116,53 +116,6 @@ export function AppHeader() {
 
       <NotificationDrawer open={notifOpen} onOpenChange={setNotifOpen} onUnreadChange={setUnreadNotifs} />
 
-      {/* Bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/50 bg-card/95 backdrop-blur-xl safe-area-pb shadow-[0_-2px_10px_rgba(0,0,0,0.06)]">
-        <div className="mx-auto flex max-w-lg items-center justify-around py-2 px-1">
-          {navItems.map(({ to, icon: Icon, label }) => {
-            const active =
-              location.pathname === to ||
-              (to === '/profile' && location.pathname.startsWith('/profile')) ||
-              (to === '/meetups' && location.pathname.startsWith('/meetups'));
-            const badge = getBadge(to);
-            const tourAttr = to === '/bar-map' ? 'buddy-map' : to === '/meetups' ? 'friends-tab' : undefined;
-            return (
-              <Link
-                key={to}
-                to={to}
-                data-tour={tourAttr}
-                className={cn(
-                  'relative flex flex-col items-center gap-0.5 px-3 py-1.5 text-[11px] transition-all duration-200 rounded-xl min-w-[56px]',
-                  active
-                    ? 'text-primary bg-primary/8'
-                    : 'text-muted-foreground hover:text-foreground'
-                )}
-              >
-                <div className="relative">
-                  <Icon className={cn('h-6 w-6 transition-all duration-200', active && 'stroke-[2.5] scale-110')} />
-                  {to === '/profile' && myCheckin && (
-                    <span className="absolute -bottom-0.5 -right-1 flex h-3 w-3 items-center justify-center" aria-label={`Checked in at ${myCheckin.bar_name}`}>
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-card" />
-                    </span>
-                  )}
-                  {badge > 0 && (
-                    <span className="absolute -top-1.5 -right-2 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-secondary px-1 text-[9px] font-bold text-secondary-foreground animate-pulse">
-                      {badge > 99 ? '99+' : badge}
-                    </span>
-                  )}
-                </div>
-                <span className={cn('font-medium transition-all duration-200', active && 'font-bold')}>
-                  {to === '/profile' && myCheckin ? `@ ${myCheckin.bar_name.split(/\s|'/)[0]}` : label}
-                </span>
-                {active && (
-                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[3px] w-6 rounded-full bg-primary" />
-                )}
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
     </>
   );
 }

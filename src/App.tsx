@@ -95,7 +95,7 @@ const App = () => (
             <PushPermissionPrompt />
             <InstallPrompt />
             <FirstActionMicroflow />
-            <div className="md:hidden"><BottomNav /></div>
+            <BottomNav />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />

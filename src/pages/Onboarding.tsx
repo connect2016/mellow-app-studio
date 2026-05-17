@@ -64,7 +64,36 @@ export default function Onboarding() {
   const [vibeTags, setVibeTags] = useState<string[]>([]);
   const [manualZip, setManualZip] = useState('');
   const [saving, setSaving] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const errorStyle = { color: '#CC3433', fontSize: '12px', marginTop: '4px' } as const;
+
+  const validateStep1 = () => {
+    const next: Record<string, string> = {};
+    if (!displayName.trim()) next.displayName = 'Display name is required';
+    else if (displayName.trim().length < 2) next.displayName = 'Must be at least 2 characters';
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const validateStep4 = () => {
+    const next: Record<string, string> = {};
+    if (!zip.trim()) next.zip = 'Zip code is required';
+    else if (!/^\d{5}$/.test(zip)) next.zip = 'Enter a valid 5-digit zip';
+    if (!gate) next.gate = 'Please pick a favorite gate';
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const validateStep5 = () => {
+    const next: Record<string, string> = {};
+    if (!finalZip.trim()) next.finalZip = 'Zip code is required';
+    else if (!/^\d{5}$/.test(finalZip)) next.finalZip = 'Enter a valid 5-digit zip';
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
 
   // Prefill from existing profile
   useEffect(() => {
@@ -132,6 +161,8 @@ export default function Onboarding() {
 
   const handleFinish = async (method: 'location' | 'zip') => {
     if (!user) return;
+    if (!validateStep5()) return;
+    setSubmitError(null);
     setSaving(true);
     try {
       await updateProfile.mutateAsync({
@@ -152,11 +183,11 @@ export default function Onboarding() {
         watch_count: watchLocations.length,
         vibe_count: vibeTags.length,
       });
-      toast.success("You're in the bleachers!");
+      toast.success("Profile updated!", { duration: 3000 });
       navigate('/profile', { replace: true });
     } catch (err) {
       console.error(err);
-      toast.error('Something went wrong. Try again.');
+      setSubmitError('Something went wrong. Please try again.');
     } finally {
       setSaving(false);
     }
@@ -186,15 +217,22 @@ export default function Onboarding() {
             <Input
               id="display_name"
               value={displayName}
-              onChange={(e) => setDisplayName(e.target.value.slice(0, 30))}
+              onChange={(e) => {
+                setDisplayName(e.target.value.slice(0, 30));
+                if (errors.displayName) setErrors((p) => ({ ...p, displayName: '' }));
+              }}
               placeholder="Your fan name (e.g. Cubbie Mike)"
               maxLength={30}
               autoFocus
+              aria-invalid={!!errors.displayName}
             />
+            {errors.displayName && (
+              <p style={errorStyle}>{errors.displayName}</p>
+            )}
             <Button
               className="w-full"
-              disabled={!nameValid}
               onClick={() => {
+                if (!validateStep1()) return;
                 track('onboarding_step_completed', { step: 1 });
                 setStep(2);
               }}
@@ -351,9 +389,14 @@ export default function Onboarding() {
                 pattern="\d{5}"
                 maxLength={5}
                 value={zip}
-                onChange={(e) => setZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                onChange={(e) => {
+                  setZip(e.target.value.replace(/\D/g, '').slice(0, 5));
+                  if (errors.zip) setErrors((p) => ({ ...p, zip: '' }));
+                }}
                 placeholder="60613"
+                aria-invalid={!!errors.zip}
               />
+              {errors.zip && <p style={errorStyle}>{errors.zip}</p>}
             </div>
 
             <div className="space-y-2">
@@ -361,8 +404,12 @@ export default function Onboarding() {
               <select
                 id="favorite_gate"
                 value={gate}
-                onChange={(e) => setGate(e.target.value)}
+                onChange={(e) => {
+                  setGate(e.target.value);
+                  if (errors.gate) setErrors((p) => ({ ...p, gate: '' }));
+                }}
                 className="flex h-12 w-full rounded-xl border border-input bg-background px-4 py-2.5 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-invalid={!!errors.gate}
               >
                 <option value="">Pick a gate</option>
                 {GATES.map((g) => (
@@ -371,12 +418,13 @@ export default function Onboarding() {
                   </option>
                 ))}
               </select>
+              {errors.gate && <p style={errorStyle}>{errors.gate}</p>}
             </div>
 
             <Button
               className="w-full"
-              disabled={!zipValid || !gate}
               onClick={() => {
+                if (!validateStep4()) return;
                 track('onboarding_step_completed', { step: 4 });
                 setStep(5);
               }}
@@ -388,6 +436,21 @@ export default function Onboarding() {
 
         {step === 5 && (
           <div className="space-y-6">
+            {submitError && (
+              <div
+                role="alert"
+                style={{
+                  background: '#FDECEC',
+                  border: '1px solid #CC3433',
+                  color: '#CC3433',
+                  borderRadius: 8,
+                  padding: '10px 12px',
+                  fontSize: 14,
+                }}
+              >
+                {submitError}
+              </div>
+            )}
             <div className="text-center">
               <h1 className="mb-2 text-3xl font-bold tracking-tight">Find your section crew</h1>
               <p className="text-sm text-muted-foreground">We show nearby fans during game days only.</p>
@@ -412,15 +475,20 @@ export default function Onboarding() {
                 pattern="\d{5}"
                 maxLength={5}
                 value={manualZip}
-                onChange={(e) => setManualZip(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                onChange={(e) => {
+                  setManualZip(e.target.value.replace(/\D/g, '').slice(0, 5));
+                  if (errors.finalZip) setErrors((p) => ({ ...p, finalZip: '' }));
+                }}
                 placeholder="60613"
+                aria-invalid={!!errors.finalZip}
               />
+              {errors.finalZip && <p style={errorStyle}>{errors.finalZip}</p>}
             </div>
 
             <Button
               className="w-full"
               variant="premium"
-              disabled={!finalZipValid || saving}
+              disabled={saving}
               onClick={() =>
                 handleFinish(geo.permission === 'granted' && geo.zip === manualZip ? 'location' : 'zip')
               }

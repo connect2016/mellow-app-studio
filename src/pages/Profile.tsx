@@ -278,6 +278,7 @@ export default function Profile() {
                 }}
                 isOwner={isOwnProfile}
                 userId={!isOwnProfile ? id : undefined}
+                fanStreak={(profile as any).fan_streak ?? 0}
                 className="max-w-full"
               />
             </div>

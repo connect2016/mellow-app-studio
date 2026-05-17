@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Users, Beer, CalendarDays, Sparkles, Trophy } from 'lucide-react';
+import { ArrowLeft, Users, Beer, CalendarDays, Sparkles, Trophy, Bell } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { useNotificationPreferences, type NotificationCategory } from '@/hooks/useNotificationPreferences';
+import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 
 const ROWS: { key: NotificationCategory; label: string; description: string; icon: typeof Users }[] = [
   { key: 'buddies', label: 'Buddy requests',  description: 'When a fan says hi or a request is accepted.', icon: Users },
@@ -14,6 +15,9 @@ const ROWS: { key: NotificationCategory; label: string; description: string; ico
 export default function NotificationPreferences() {
   const navigate = useNavigate();
   const { preferences, isLoading, setPreference, isSaving } = useNotificationPreferences();
+  const { data: profile } = useProfile();
+  const updateProfile = useUpdateProfile();
+  const gameDayOn = (profile as any)?.game_day_notifications ?? true;
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -35,6 +39,23 @@ export default function NotificationPreferences() {
         <p className="text-sm text-muted-foreground mb-4">
           Choose what you want to hear about. Turning a category off stops new alerts of that type.
         </p>
+
+        <div className="rounded-2xl border border-border bg-card p-4 mb-4 flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary shrink-0">
+            <Bell className="h-5 w-5" />
+          </span>
+          <div className="flex-1 min-w-0">
+            <p className="text-[15px] font-semibold leading-tight">Game Day Alerts</p>
+            <p className="text-[13px] text-muted-foreground leading-snug mt-0.5">
+              One push 2 hours before each Cubs home game.
+            </p>
+          </div>
+          <Switch
+            checked={gameDayOn}
+            onCheckedChange={(v) => updateProfile.mutate({ game_day_notifications: v })}
+            aria-label="Toggle Game Day Alerts"
+          />
+        </div>
 
         <ul className="rounded-2xl border border-border bg-card divide-y divide-border overflow-hidden">
           {ROWS.map(({ key, label, description, icon: Icon }) => {

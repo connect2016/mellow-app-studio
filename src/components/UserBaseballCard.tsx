@@ -273,6 +273,7 @@ export function UserBaseballCard({
             imgLoaded={imgLoaded}
             onImgLoad={() => setImgLoaded(true)}
             onClick={onClick}
+            fanStreak={fanStreak}
           />
         </div>
 

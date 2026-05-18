@@ -20,6 +20,8 @@ import { IntentType, GameStatus, GamedayIntentType } from '@/types';
 import { useStatPreferences } from '@/hooks/useStatPreferences';
 import { FavoriteBarsSection } from '@/components/profile/FavoriteBarsSection';
 import { BadgesSection } from '@/components/profile/BadgesSection';
+import { FanFlairSection } from '@/components/profile/FanFlairSection';
+
 import { MeetupHistorySection } from '@/components/profile/MeetupHistorySection';
 import { TransactionsSection } from '@/components/profile/TransactionsSection';
 import { SavedPlansSection } from '@/components/profile/SavedPlansSection';
@@ -381,7 +383,9 @@ export default function Profile() {
                   isOwner={isOwnProfile}
                   onChange={isOwnProfile ? handleFoodPromptSave : undefined}
                 />
+                <FanFlairSection userId={targetUserId} isOwner={isOwnProfile} />
                 <BadgesSection userId={targetUserId} isOwner={isOwnProfile} />
+
                 <MeetupHistorySection userId={targetUserId} />
                 <SavedPlansSection userId={targetUserId} />
                 {isOwnProfile && (

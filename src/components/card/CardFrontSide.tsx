@@ -5,6 +5,8 @@ import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
 import cardFrontArt from '@/assets/baseball-card-front.png';
 import { BarChart3 } from 'lucide-react';
+import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
+
 
 interface CardFrontSideProps {
   profileImage?: string | null;
@@ -17,7 +19,9 @@ interface CardFrontSideProps {
   onImgLoad: () => void;
   onClick?: () => void;
   fanStreak?: number;
+  userId?: string;
 }
+
 
 export function CardFrontSide({
   profileImage,
@@ -28,7 +32,9 @@ export function CardFrontSide({
   onImgLoad,
   onClick,
   fanStreak,
+  userId,
 }: CardFrontSideProps) {
+
   const [hasPulsed, setHasPulsed] = useState(false);
 
   useEffect(() => {
@@ -162,26 +168,30 @@ export function CardFrontSide({
         </p>
       </div>
 
-      {/* Fan streak — subtle line beneath the nameplate */}
-      {typeof fanStreak === 'number' && fanStreak > 0 && (
+      {/* Fan streak + flair — subtle line beneath the nameplate */}
+      {(typeof fanStreak === 'number' && fanStreak > 0) || userId ? (
         <div
-          className="absolute left-0 right-0 flex items-center justify-center pointer-events-none"
+          className="absolute left-0 right-0 flex items-center justify-center gap-2 pointer-events-none"
           style={{ bottom: '2%', zIndex: 15 }}
-          aria-label={`${fanStreak} game streak`}
         >
-          <span
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: '#FFD700',
-              textShadow: '0 1px 2px rgba(0,0,0,0.6)',
-              letterSpacing: '0.02em',
-            }}
-          >
-            🔥 {fanStreak}
-          </span>
+          {typeof fanStreak === 'number' && fanStreak > 0 && (
+            <span
+              aria-label={`${fanStreak} game streak`}
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: '#FFD700',
+                textShadow: '0 1px 2px rgba(0,0,0,0.6)',
+                letterSpacing: '0.02em',
+              }}
+            >
+              🔥 {fanStreak}
+            </span>
+          )}
+          {userId && <FanFlairBadge userId={userId} />}
         </div>
-      )}
+      ) : null}
+
 
       {/* Active reactions */}
       {activeReactions.length > 0 && (

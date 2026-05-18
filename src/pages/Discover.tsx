@@ -54,6 +54,7 @@ import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { FanStreakBanner } from '@/components/FanStreakBanner';
+import { ActivityFeedStrip } from '@/components/ActivityFeedStrip';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', icon: 'beer', label: 'At the Bar' },
@@ -345,6 +346,7 @@ export default function Discover() {
 
       <div className="mx-auto max-w-lg px-4 pt-4">
         <FanStreakBanner />
+        <ActivityFeedStrip />
         {/* Gameday Mode Toggle */}
         <div className={`rounded-xl border px-4 py-3 mb-4 transition-all duration-300 ${
           gamedayMode 

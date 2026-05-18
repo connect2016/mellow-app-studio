@@ -9,6 +9,7 @@ import { MeetupCard } from '@/components/meetups/MeetupCard';
 import { MeetupFilters, type WhenFilter, type WhereFilter } from '@/components/meetups/MeetupFilters';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
+import { usePersonalCrewIds } from '@/hooks/usePersonalCrew';
 import meetupsBg from '@/assets/meetups-bg.jpg';
 import { EmptyState as SharedEmptyState } from '@/components/ui/EmptyState';
 import { MapPin } from 'lucide-react';
@@ -26,6 +27,7 @@ export default function Meetups() {
   const [search, setSearch] = useState('');
   const [when, setWhen] = useState<WhenFilter>('all');
   const [where, setWhere] = useState<WhereFilter>('all');
+  const crewIds = usePersonalCrewIds();
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -48,9 +50,12 @@ export default function Meetups() {
       if (where === 'bars' && (loc.includes('wrigley') || loc.includes('bleacher') || loc.includes('rooftop'))) {
         return false;
       }
+      if (where === 'crew' && !crewIds.has(m.creator_id)) {
+        return false;
+      }
       return true;
     });
-  }, [meetups, search, when, where]);
+  }, [meetups, search, when, where, crewIds]);
 
   const happeningSoon = filtered.filter(m => {
     const mins = (new Date(m.meeting_time).getTime() - Date.now()) / 60000;

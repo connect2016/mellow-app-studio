@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export type WhenFilter = 'all' | 'soon' | 'today' | 'later';
-export type WhereFilter = 'all' | 'wrigley' | 'bars';
+export type WhereFilter = 'all' | 'wrigley' | 'bars' | 'crew';
 
 interface MeetupFiltersProps {
   search: string;
@@ -22,6 +22,7 @@ const WHEN_OPTIONS: { value: WhenFilter; label: string }[] = [
 
 const WHERE_OPTIONS: { value: WhereFilter; label: string }[] = [
   { value: 'all', label: 'Anywhere' },
+  { value: 'crew', label: '⭐ My Crew' },
   { value: 'wrigley', label: ' Wrigley' },
   { value: 'bars', label: ' Bars' },
 ];

@@ -33,6 +33,7 @@ import { SeasonStatsEditor, type SeasonStatsValues } from '@/components/profile/
 import { RecruitButton } from '@/components/teammates/RecruitButton';
 import { useTeammates } from '@/hooks/useTeammates';
 import { TeammatesSummary } from '@/components/teammates/TeammatesSummary';
+import { MyCrewSection } from '@/components/profile/MyCrewSection';
 import { Users } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ProfileCompletion, FullFanBadge, getProfileCompletion } from '@/components/profile/ProfileCompletion';
@@ -370,6 +371,7 @@ export default function Profile() {
             ) : (
               <>
                 {isOwnProfile && <TeammatesSummary />}
+                {isOwnProfile && <MyCrewSection />}
                 {isOwnProfile && (
                   <AchievementsHub compact onSeeAll={() => navigate('/missions')} />
                 )}

@@ -19,7 +19,9 @@ interface CardFrontSideProps {
   onImgLoad: () => void;
   onClick?: () => void;
   fanStreak?: number;
+  userId?: string;
 }
+
 
 export function CardFrontSide({
   profileImage,

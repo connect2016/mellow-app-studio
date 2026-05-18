@@ -5,6 +5,8 @@ import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
 import cardFrontArt from '@/assets/baseball-card-front.png';
 import { BarChart3 } from 'lucide-react';
+import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
+
 
 interface CardFrontSideProps {
   profileImage?: string | null;

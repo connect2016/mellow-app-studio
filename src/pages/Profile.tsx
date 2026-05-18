@@ -383,7 +383,9 @@ export default function Profile() {
                   isOwner={isOwnProfile}
                   onChange={isOwnProfile ? handleFoodPromptSave : undefined}
                 />
+                <FanFlairSection userId={targetUserId} isOwner={isOwnProfile} />
                 <BadgesSection userId={targetUserId} isOwner={isOwnProfile} />
+
                 <MeetupHistorySection userId={targetUserId} />
                 <SavedPlansSection userId={targetUserId} />
                 {isOwnProfile && (

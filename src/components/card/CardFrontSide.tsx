@@ -32,7 +32,9 @@ export function CardFrontSide({
   onImgLoad,
   onClick,
   fanStreak,
+  userId,
 }: CardFrontSideProps) {
+
   const [hasPulsed, setHasPulsed] = useState(false);
 
   useEffect(() => {

@@ -275,7 +275,9 @@ export function UserBaseballCard({
             onImgLoad={() => setImgLoaded(true)}
             onClick={onClick}
             fanStreak={fanStreak}
+            userId={userId}
           />
+
         </div>
 
         {/* ===== BACK SIDE (Stats) ===== */}

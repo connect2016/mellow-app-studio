@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_feed: {
+        Row: {
+          activity_type: string
+          context_text: string | null
+          created_at: string
+          id: string
+          location_zone: string | null
+          user_id: string
+          w_flag_count: number
+        }
+        Insert: {
+          activity_type: string
+          context_text?: string | null
+          created_at?: string
+          id?: string
+          location_zone?: string | null
+          user_id: string
+          w_flag_count?: number
+        }
+        Update: {
+          activity_type?: string
+          context_text?: string | null
+          created_at?: string
+          id?: string
+          location_zone?: string | null
+          user_id?: string
+          w_flag_count?: number
+        }
+        Relationships: []
+      }
       ballpark_buddy_searches: {
         Row: {
           created_at: string
@@ -993,6 +1023,7 @@ export type Database = {
         Row: {
           created_at: string
           creator_id: string
+          crew_first: boolean
           description: string | null
           expires_at: string
           id: string
@@ -1004,6 +1035,7 @@ export type Database = {
         Insert: {
           created_at?: string
           creator_id: string
+          crew_first?: boolean
           description?: string | null
           expires_at?: string
           id?: string
@@ -1015,6 +1047,7 @@ export type Database = {
         Update: {
           created_at?: string
           creator_id?: string
+          crew_first?: boolean
           description?: string | null
           expires_at?: string
           id?: string
@@ -1635,6 +1668,30 @@ export type Database = {
           location_key?: string
           user_id?: string
           verified_at?: string
+        }
+        Relationships: []
+      }
+      personal_crew: {
+        Row: {
+          added_at: string
+          created_at: string
+          crew_member_user_id: string
+          id: string
+          owner_user_id: string
+        }
+        Insert: {
+          added_at?: string
+          created_at?: string
+          crew_member_user_id: string
+          id?: string
+          owner_user_id: string
+        }
+        Update: {
+          added_at?: string
+          created_at?: string
+          crew_member_user_id?: string
+          id?: string
+          owner_user_id?: string
         }
         Relationships: []
       }
@@ -2680,6 +2737,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      add_to_personal_crew: { Args: { p_member_id: string }; Returns: Json }
       award_ivy_leaf: {
         Args: {
           _amount?: number
@@ -2887,6 +2945,7 @@ export type Database = {
         Args: { p_secret: string; p_token: string }
         Returns: Json
       }
+      react_w_flag: { Args: { p_activity_id: string }; Returns: number }
       record_fan_streak_open: { Args: { p_game_date: string }; Returns: Json }
       say_hi_to_buddy: { Args: { p_recipient_id: string }; Returns: Json }
       send_beer_tip: {

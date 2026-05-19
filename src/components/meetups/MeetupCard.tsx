@@ -6,6 +6,7 @@ import type { LineupMeetup } from '@/hooks/useLineup';
 import { MeetupCategoryBadge } from '@/components/meetups/MeetupCategoryBadge';
 import { stripEmoji } from '@/components/icons/ConceptIcon';
 import { PreGameCountdownPill } from '@/components/gameday/PreGameCountdownPill';
+import { ShareMenu } from '@/components/share/ShareMenu';
 
 interface MeetupCardProps {
   meetup: LineupMeetup & { is_verified?: boolean; fan_tier_emoji?: string };
@@ -71,11 +72,20 @@ export function MeetupCard({ meetup }: MeetupCardProps) {
             <span className="font-semibold truncate">{cleanLocation}</span>
           </div>
         </div>
-        {isStartingSoon && !isFull && (
-          <Badge className="bg-secondary text-secondary-foreground text-[10px] px-2 py-0.5 font-bold shrink-0">
-            <Sparkles className="h-3 w-3 mr-0.5" /> Soon
-          </Badge>
-        )}
+        <div className="flex items-center gap-1.5 shrink-0">
+          {isStartingSoon && !isFull && (
+            <Badge className="bg-secondary text-secondary-foreground text-[10px] px-2 py-0.5 font-bold">
+              <Sparkles className="h-3 w-3 mr-0.5" /> Soon
+            </Badge>
+          )}
+          <ShareMenu
+            size="sm"
+            title="Share this meetup"
+            shareTitle={cleanLocation}
+            location={cleanLocation}
+            shareUrl={`${typeof window !== 'undefined' ? window.location.origin : 'https://cubbiesbuddies.com'}/meetups/${meetup.id}`}
+          />
+        </div>
       </div>
 
       {/* Category + Description */}

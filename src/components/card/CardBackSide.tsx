@@ -1,5 +1,6 @@
 import { VisibleStat } from '@/components/UserBaseballCard';
 import { BeerBuyerBadge } from '@/components/beer/BeerBuyerBadge';
+import { ShareMenu } from '@/components/share/ShareMenu';
 
 interface CardBackSideProps {
   displayName: string;

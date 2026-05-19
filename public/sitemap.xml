@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://cubbiesbuddies.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://cubbiesbuddies.com/join</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://cubbiesbuddies.com/meetups</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://cubbiesbuddies.com/eats</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cubbiesbuddies.com/bars</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cubbiesbuddies.com/bar-map</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cubbiesbuddies.com/venues</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cubbiesbuddies.com/pub-crawl</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://cubbiesbuddies.com/ballpark-buddy</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://cubbiesbuddies.com/wrigley-passport</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://cubbiesbuddies.com/league-leaders</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://cubbiesbuddies.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://cubbiesbuddies.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url>
+    <loc>https://cubbiesbuddies.com/</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://cubbiesbuddies.com/discover</loc>
+    <priority>0.9</priority>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://cubbiesbuddies.com/meetups</loc>
+    <priority>0.9</priority>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://cubbiesbuddies.com/map</loc>
+    <priority>0.7</priority>
+  </url>
 </urlset>

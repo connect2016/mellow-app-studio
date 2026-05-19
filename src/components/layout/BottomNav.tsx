@@ -1,5 +1,7 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Compass, Map, CalendarDays, User, type LucideIcon } from 'lucide-react';
+
+const HIDE_NAV_ROUTES = ['/quick-start', '/onboarding', '/auth', '/login', '/signup'];
 import { cn } from '@/lib/utils';
 import { useFanMapPins } from '@/hooks/useFanMapPins';
 import { useProfileCompletion } from '@/hooks/useProfileCompletion';
@@ -15,8 +17,13 @@ const TABS: Tab[] = [
 ];
 
 export function BottomNav() {
+  const location = useLocation();
   const { count } = useFanMapPins();
   const { percent } = useProfileCompletion();
+
+  if (HIDE_NAV_ROUTES.some((r) => location.pathname.startsWith(r))) {
+    return null;
+  }
 
   return (
     <nav

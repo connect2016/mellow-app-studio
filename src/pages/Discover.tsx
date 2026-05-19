@@ -269,6 +269,7 @@ export default function Discover() {
       <SEOMeta
         title="Discover Fans — Cubbies Buddies"
         description="Discover Cubs fans near Wrigleyville. Match with buddies, find your section, and plan game-day meetups."
+        url="/discover"
       />
       {/* Dynamic background image — parallax bg layer (40% drag) */}
       <div className="fixed inset-0 z-0 swipe-drag-bg" data-route-parallax="bg">

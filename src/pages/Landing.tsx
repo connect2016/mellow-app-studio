@@ -291,8 +291,18 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <SEOMeta
-        title="Cubbies Buddies — Find Your Crew"
+        title="Cubbies Buddies — Find Your Crew at Wrigleyville"
         description="Find your Cubs crew at Wrigleyville. Connect with fellow fans, plan game-day meetups, and build your baseball squad."
+        url="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }}
       />
       {/* ── Video Hero ── */}
       <HeroVideo />

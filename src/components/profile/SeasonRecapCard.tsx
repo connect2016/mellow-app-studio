@@ -11,9 +11,9 @@ interface SeasonRecapCardProps {
 
 export function SeasonRecapCard({
   displayName,
-  gamesAttended = 0,
-  meetupsJoined = 0,
-  buddiesMade = 0,
+  gamesAttended,
+  meetupsJoined,
+  buddiesMade,
   isOwner = false,
 }: SeasonRecapCardProps) {
   const name = displayName?.trim() || 'Your';
@@ -21,6 +21,16 @@ export function SeasonRecapCard({
     typeof window !== 'undefined'
       ? window.location.href
       : 'https://cubbiesbuddies.com';
+
+  // Coerce nullish/NaN stat values at the data layer
+  const safeNum = (v: unknown): number => {
+    if (v === null || v === undefined) return 0;
+    const n = Number(v);
+    return Number.isNaN(n) ? 0 : n;
+  };
+  const games = safeNum(gamesAttended);
+  const meetups = safeNum(meetupsJoined);
+  const buddies = safeNum(buddiesMade);
 
   return (
     <section
@@ -46,9 +56,9 @@ export function SeasonRecapCard({
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
-        <RecapStat icon={CalendarCheck} value={gamesAttended} label="Games attended" />
-        <RecapStat icon={Sparkles} value={meetupsJoined} label="Meetups joined" />
-        <RecapStat icon={Users} value={buddiesMade} label="Buddies made" />
+        <RecapStat icon={CalendarCheck} value={games} label="Games attended" zeroHint="Attend your first game!" />
+        <RecapStat icon={Sparkles} value={meetups} label="Meetups joined" zeroHint="Join your first meetup!" />
+        <RecapStat icon={Users} value={buddies} label="Buddies made" zeroHint="Make your first buddy!" />
       </div>
 
       {isOwner && (
@@ -64,10 +74,12 @@ function RecapStat({
   icon: Icon,
   value,
   label,
+  zeroHint,
 }: {
   icon: React.ComponentType<{ className?: string }>;
   value: number;
   label: string;
+  zeroHint?: string;
 }) {
   return (
     <div className="flex flex-col items-center justify-center rounded-xl bg-background/60 backdrop-blur-sm p-3 min-h-[88px]">
@@ -76,6 +88,11 @@ function RecapStat({
       <span className="mt-1 text-[10px] uppercase tracking-wide text-muted-foreground text-center">
         {label}
       </span>
+      {value === 0 && zeroHint && (
+        <span style={{ fontSize: '11px', color: '#6b7280', marginTop: '4px' }} className="text-center">
+          {zeroHint}
+        </span>
+      )}
     </div>
   );
 }

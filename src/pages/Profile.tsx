@@ -34,6 +34,7 @@ import { RecruitButton } from '@/components/teammates/RecruitButton';
 import { useTeammates } from '@/hooks/useTeammates';
 import { TeammatesSummary } from '@/components/teammates/TeammatesSummary';
 import { MyCrewSection } from '@/components/profile/MyCrewSection';
+import { SeasonRecapCard } from '@/components/profile/SeasonRecapCard';
 import { Users } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ProfileCompletion, FullFanBadge, getProfileCompletion } from '@/components/profile/ProfileCompletion';

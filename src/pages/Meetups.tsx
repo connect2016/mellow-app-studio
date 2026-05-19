@@ -11,8 +11,8 @@ import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { usePersonalCrewIds } from '@/hooks/usePersonalCrew';
 import meetupsBg from '@/assets/meetups-bg.jpg';
-import { EmptyState as SharedEmptyState } from '@/components/ui/EmptyState';
-import { MapPin } from 'lucide-react';
+import { SkeletonCard } from '@/components/ui/skeleton';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function isToday(iso: string) {
   const d = new Date(iso);

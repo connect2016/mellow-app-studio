@@ -865,9 +865,9 @@ export default function Discover() {
             )}
 
             {isLoading ? (
-              <div className="space-y-4">
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <ProfileCardSkeleton key={i} />
+              <div className="grid grid-cols-1 gap-3" aria-label="Loading fans">
+                {Array(6).fill(null).map((_, i) => (
+                  <SkeletonCard key={i} />
                 ))}
               </div>
             ) : filtered.length === 0 ? (

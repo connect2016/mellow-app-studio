@@ -183,7 +183,7 @@ export default function Onboarding() {
         watch_count: watchLocations.length,
         vibe_count: vibeTags.length,
       });
-      toast.success("Profile updated!", { duration: 3000 });
+      toast.success("Saved!", { duration: 3000 });
       navigate('/profile', { replace: true });
     } catch (err) {
       console.error(err);

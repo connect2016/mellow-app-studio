@@ -69,6 +69,11 @@ export default function WrigleyvilleEats() {
 
   return (
     <div className={`min-h-screen bg-background ${isGuest ? 'pb-20' : 'pb-24'}`}>
+      <SEOMeta
+        title="Wrigleyville Eats — Cubs Game-Day Food Guide"
+        description="Best restaurants and food spots in Wrigleyville for before, during, and after the Cubs game. Pizza, BBQ, tacos, brunch, and late-night picks."
+        url="/eats"
+      />
       <AppHeader />
 
       {/* Hero */}

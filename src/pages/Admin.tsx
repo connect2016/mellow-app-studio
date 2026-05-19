@@ -35,6 +35,12 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-background pb-24">
+      <SEOMeta
+        title="Admin — Cubbies Buddies"
+        description="Internal moderation dashboard for Cubbies Buddies trust & safety reports."
+        url="/admin"
+        noindex
+      />
       <AppHeader />
       <div className="mx-auto max-w-lg px-4 pt-4">
         <div className="mb-6 flex items-center gap-2">

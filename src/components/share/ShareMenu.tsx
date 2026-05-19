@@ -13,6 +13,8 @@ export interface ShareMenuProps {
   title?: string;
   /** Short description of the thing being shared (e.g. meetup title). */
   shareTitle: string;
+  /** Meetup title for WhatsApp share message. Falls back to shareTitle. */
+  meetupTitle?: string;
   /** Location/venue or context line (e.g. "Murphy's Bleachers"). */
   location?: string;
   /** Canonical URL to share. */

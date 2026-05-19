@@ -6,6 +6,7 @@ import type { LineupMeetup } from '@/hooks/useLineup';
 import { MeetupCategoryBadge } from '@/components/meetups/MeetupCategoryBadge';
 import { stripEmoji } from '@/components/icons/ConceptIcon';
 import { PreGameCountdownPill } from '@/components/gameday/PreGameCountdownPill';
+import { ShareMenu } from '@/components/share/ShareMenu';
 
 interface MeetupCardProps {
   meetup: LineupMeetup & { is_verified?: boolean; fan_tier_emoji?: string };

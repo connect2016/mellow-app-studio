@@ -62,6 +62,21 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId, onFli
           </button>
         )}
 
+        {/* Share — top-right corner */}
+        <div className="absolute top-2.5 right-2.5 z-10">
+          <ShareMenu
+            size="sm"
+            title={`Share ${displayName || 'this fan'}'s card`}
+            shareTitle={`${displayName || 'A Cubs fan'} on Cubbies Buddies`}
+            shareUrl={
+              typeof window !== 'undefined'
+                ? `${window.location.origin}/profile/${userId ?? ''}`
+                : 'https://cubbiesbuddies.com'
+            }
+          />
+        </div>
+
+
         {/* Header */}
         <div className="text-center pt-4 pb-3 px-5 shrink-0">
           <h3

@@ -73,6 +73,7 @@ function RedditIcon({ className = 'h-5 w-5' }: { className?: string }) {
 export function ShareMenu({
   title = 'Share',
   shareTitle,
+  meetupTitle,
   location,
   shareUrl,
   hostName,
@@ -84,14 +85,8 @@ export function ShareMenu({
   const [copied, setCopied] = useState(false);
 
   const dims = size === 'sm' ? 'h-9 w-9' : 'h-11 w-11';
-
-  const whatsAppMsg = location
-    ? `Join me for the Cubs game! ${shareTitle} at ${location} — ${shareUrl}`
-    : `Join me for the Cubs game! ${shareTitle} — ${shareUrl}`;
-
-  const xText = location
-    ? `Watching the Cubs at ${location}! Find your crew at cubbiesbuddies.com ⚾ #CubsTogether #ChicagoCubs`
-    : `${shareTitle} — find your Cubs crew at cubbiesbuddies.com ⚾ #CubsTogether #ChicagoCubs`;
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : shareUrl;
+  const titleForMsg = meetupTitle ?? shareTitle;
 
   const openInNewTab = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -109,14 +104,20 @@ export function ShareMenu({
 
   const handleWhatsApp = (e: MouseEvent) => {
     stop(e);
-    openInNewTab(`https://wa.me/?text=${encodeURIComponent(whatsAppMsg)}`);
+    const msg = location
+      ? `Join me for the Cubs game! ${titleForMsg} at ${location} — ${currentUrl}`
+      : `Join me for the Cubs game! ${titleForMsg} — ${currentUrl}`;
+    openInNewTab(`https://wa.me/?text=${encodeURIComponent(msg)}`);
     setOpen(false);
   };
 
   const handleX = (e: MouseEvent) => {
     stop(e);
+    const text = location
+      ? `Watching the Cubs at ${location}! Find your crew ⚾ #CubsTogether`
+      : `${titleForMsg} — find your Cubs crew ⚾ #CubsTogether`;
     openInNewTab(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}&url=${encodeURIComponent(shareUrl)}`
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(currentUrl)}`
     );
     setOpen(false);
   };
@@ -128,7 +129,7 @@ export function ShareMenu({
     const when = gameDate ? ` on ${gameDate}` : '';
     const redditTitle = `${host} is hosting a Cubs meetup at ${loc}${when} — join at Cubbies Buddies!`;
     openInNewTab(
-      `https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(redditTitle)}&sr=cubs`
+      `https://www.reddit.com/submit?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(redditTitle)}&sr=cubs`
     );
     setOpen(false);
   };
@@ -143,7 +144,7 @@ export function ShareMenu({
         await navigator.share({
           title: 'Cubs Game Day — Cubbies Buddies',
           text: 'Find your Cubs crew at cubbiesbuddies.com',
-          url: shareUrl,
+          url: currentUrl,
         });
         setOpen(false);
         return;
@@ -152,10 +153,10 @@ export function ShareMenu({
       }
     }
     try {
-      await navigator.clipboard.writeText(shareUrl);
+      await navigator.clipboard.writeText(currentUrl);
       setCopied(true);
-      toast.success('Link copied');
-      setTimeout(() => setCopied(false), 1500);
+      toast.success('Link copied!', { duration: 2000 });
+      setTimeout(() => setCopied(false), 2000);
     } catch {
       toast.error('Could not copy link');
     }

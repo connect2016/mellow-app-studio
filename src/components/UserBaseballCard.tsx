@@ -233,12 +233,12 @@ export function UserBaseballCard({
         className="card-container relative w-full mx-auto"
         style={{
           maxWidth: 360,
-          aspectRatio: '834 / 1218',
+          height: 420,
           perspective: '1200px',
         }}
       >
         <div
-          className="card-inner"
+          className={cn('card-inner', isFlipped && 'is-flipped')}
           style={{
             position: 'relative',
             width: '100%',

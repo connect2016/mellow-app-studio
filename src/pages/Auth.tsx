@@ -37,6 +37,16 @@ export default function Auth() {
     }
   };
 
+  const handleAppleSignIn = async () => {
+    track('user_signed_up', { method: 'apple' });
+    const { error } = await lovable.auth.signInWithOAuth('apple', {
+      redirect_uri: window.location.origin,
+    });
+    if (error) {
+      console.error('Apple sign-in error:', error);
+    }
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-6">
       <motion.div
@@ -56,7 +66,7 @@ export default function Auth() {
         <div className="space-y-3">
           <Button
             variant="outline"
-            className="w-full justify-center gap-3 rounded-xl py-6 text-base"
+            className="w-full justify-center gap-3 h-12 rounded-[10px] border-[1.5px] border-[#e2e6ee] bg-white text-[14px] font-medium text-[#1a1f2e] hover:bg-white"
             onClick={handleGoogleSignIn}
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -66,6 +76,16 @@ export default function Auth() {
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
             </svg>
             Continue with Google
+          </Button>
+          <Button
+            variant="outline"
+            className="w-full justify-center gap-3 h-12 rounded-[10px] border-[1.5px] border-[#e2e6ee] bg-white text-[14px] font-medium text-[#1a1f2e] hover:bg-white"
+            onClick={handleAppleSignIn}
+          >
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="#000">
+              <path d="M17.05 12.04c-.03-3.02 2.47-4.47 2.58-4.54-1.41-2.06-3.6-2.34-4.38-2.37-1.86-.19-3.64 1.1-4.59 1.1-.95 0-2.41-1.08-3.97-1.05-2.04.03-3.93 1.19-4.97 3.02-2.13 3.69-.54 9.15 1.52 12.15 1.01 1.47 2.21 3.12 3.78 3.06 1.52-.06 2.1-.98 3.94-.98 1.84 0 2.36.98 3.97.95 1.64-.03 2.68-1.5 3.68-2.97 1.16-1.7 1.64-3.35 1.67-3.44-.04-.02-3.21-1.23-3.23-4.89zM14.04 3.36c.84-1.02 1.41-2.44 1.25-3.85-1.21.05-2.68.81-3.55 1.83-.78.9-1.46 2.34-1.28 3.72 1.35.1 2.73-.69 3.58-1.7z" />
+            </svg>
+            Continue with Apple
           </Button>
         </div>
 

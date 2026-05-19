@@ -17,6 +17,10 @@ export interface ShareMenuProps {
   location?: string;
   /** Canonical URL to share. */
   shareUrl: string;
+  /** Host name for Reddit post title (e.g. "Jake"). */
+  hostName?: string;
+  /** Game date label for Reddit post title (e.g. "Sat 5/24"). */
+  gameDate?: string;
   /** Optional className for the trigger button. */
   className?: string;
   /** Visual size of the trigger icon button. */
@@ -56,11 +60,21 @@ function InstagramIcon({ className = 'h-5 w-5' }: { className?: string }) {
   );
 }
 
+function RedditIcon({ className = 'h-5 w-5' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="#ff4500" aria-hidden="true">
+      <path d="M22 12.14a2.13 2.13 0 0 0-3.61-1.52c-1.38-.95-3.25-1.56-5.32-1.64l.91-4.27 2.97.63a1.52 1.52 0 1 0 .15-.92l-3.31-.7a.46.46 0 0 0-.55.35l-1.02 4.8c-2.1.06-3.99.67-5.39 1.63A2.13 2.13 0 1 0 4.4 13.7a4.2 4.2 0 0 0-.05.62c0 3.16 3.67 5.71 8.2 5.71s8.2-2.55 8.2-5.71c0-.21-.02-.42-.05-.62A2.13 2.13 0 0 0 22 12.14zM7.06 13.66a1.42 1.42 0 1 1 2.84 0 1.42 1.42 0 0 1-2.84 0zm8.04 3.94c-.98.97-2.85 1.05-3.4 1.05s-2.42-.08-3.4-1.05a.37.37 0 0 1 .52-.52c.62.62 1.95.84 2.88.84s2.26-.22 2.88-.84a.37.37 0 0 1 .52.52zm-.18-2.52a1.42 1.42 0 1 1 0-2.84 1.42 1.42 0 0 1 0 2.84z" />
+    </svg>
+  );
+}
+
 export function ShareMenu({
   title = 'Share',
   shareTitle,
   location,
   shareUrl,
+  hostName,
+  gameDate,
   className,
   size = 'md',
 }: ShareMenuProps) {
@@ -101,6 +115,18 @@ export function ShareMenu({
     stop(e);
     openInNewTab(
       `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}&url=${encodeURIComponent(shareUrl)}`
+    );
+    setOpen(false);
+  };
+
+  const handleReddit = (e: MouseEvent) => {
+    stop(e);
+    const host = hostName ?? 'A Cubs fan';
+    const loc = location ?? 'Wrigleyville';
+    const when = gameDate ? ` on ${gameDate}` : '';
+    const redditTitle = `${host} is hosting a Cubs meetup at ${loc}${when} — join at Cubbies Buddies!`;
+    openInNewTab(
+      `https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(redditTitle)}&sr=cubs`
     );
     setOpen(false);
   };
@@ -171,6 +197,15 @@ export function ShareMenu({
             >
               <XIcon />
               <span className="text-sm font-semibold">Share on X</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleReddit}
+              className="h-[52px] flex items-center gap-3 px-2 border-b border-[#f0f0f0] text-left active:bg-[#fafafa]"
+            >
+              <RedditIcon />
+              <span className="text-sm font-semibold">Share to r/Cubs</span>
             </button>
 
             <button

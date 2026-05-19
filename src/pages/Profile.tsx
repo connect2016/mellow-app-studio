@@ -373,6 +373,10 @@ export default function Profile() {
               <>
                 {isOwnProfile && <TeammatesSummary />}
                 {isOwnProfile && <MyCrewSection />}
+                <SeasonRecapCard
+                  displayName={profile?.display_name}
+                  isOwner={isOwnProfile}
+                />
                 {isOwnProfile && (
                   <AchievementsHub compact onSeeAll={() => navigate('/missions')} />
                 )}

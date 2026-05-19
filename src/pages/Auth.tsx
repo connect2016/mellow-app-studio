@@ -37,6 +37,16 @@ export default function Auth() {
     }
   };
 
+  const handleAppleSignIn = async () => {
+    track('user_signed_up', { method: 'apple' });
+    const { error } = await lovable.auth.signInWithOAuth('apple', {
+      redirect_uri: window.location.origin,
+    });
+    if (error) {
+      console.error('Apple sign-in error:', error);
+    }
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-6">
       <motion.div

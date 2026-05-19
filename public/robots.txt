@@ -12,3 +12,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /settings
+Disallow: /checkout/
+
+Sitemap: https://cubbiesbuddies.com/sitemap.xml

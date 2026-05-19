@@ -1,5 +1,5 @@
 import { SEOMeta } from '@/components/SEOMeta';
-import { ProfileCardSkeleton } from '@/components/ui/skeleton';
+import { SkeletonCard } from '@/components/ui/skeleton';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -865,9 +865,9 @@ export default function Discover() {
             )}
 
             {isLoading ? (
-              <div className="space-y-4">
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <ProfileCardSkeleton key={i} />
+              <div className="grid grid-cols-1 gap-3" aria-label="Loading fans">
+                {Array(6).fill(null).map((_, i) => (
+                  <SkeletonCard key={i} />
                 ))}
               </div>
             ) : filtered.length === 0 ? (

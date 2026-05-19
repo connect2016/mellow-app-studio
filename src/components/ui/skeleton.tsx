@@ -40,6 +40,28 @@ function ProfileCardSkeleton() {
   );
 }
 
+function SkeletonCard() {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-4">
+      <div className="flex items-start gap-3">
+        <div className="shimmer rounded-full shrink-0" style={{ width: 44, height: 44 }} />
+        <div className="flex-1 min-w-0 space-y-2">
+          <div className="shimmer rounded-md" style={{ height: 14, width: '55%' }} />
+          <div className="shimmer rounded-md" style={{ height: 10, width: '35%' }} />
+        </div>
+      </div>
+      <div className="mt-3 space-y-2">
+        <div className="shimmer rounded-md" style={{ height: 10, width: '80%' }} />
+        <div className="shimmer rounded-md" style={{ height: 10, width: '60%' }} />
+      </div>
+      <div className="mt-3 flex gap-2">
+        <div className="shimmer rounded-full" style={{ height: 24, width: 64 }} />
+        <div className="shimmer rounded-full" style={{ height: 24, width: 48 }} />
+      </div>
+    </div>
+  );
+}
+
 function CrewCardSkeleton() {
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 min-h-[72px]">
@@ -66,4 +88,4 @@ function BuddyListItemSkeleton() {
   );
 }
 
-export { Skeleton, ProfileCardSkeleton, BuddyListItemSkeleton, CrewCardSkeleton };
+export { Skeleton, ProfileCardSkeleton, BuddyListItemSkeleton, CrewCardSkeleton, SkeletonCard };

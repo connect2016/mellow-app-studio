@@ -11,8 +11,8 @@ import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { usePersonalCrewIds } from '@/hooks/usePersonalCrew';
 import meetupsBg from '@/assets/meetups-bg.jpg';
-import { EmptyState as SharedEmptyState } from '@/components/ui/EmptyState';
-import { MapPin } from 'lucide-react';
+import { SkeletonCard } from '@/components/ui/skeleton';
+import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 function isToday(iso: string) {
   const d = new Date(iso);
@@ -110,19 +110,23 @@ export default function Meetups() {
 
         {/* Results */}
         {isLoading ? (
-          <div className="space-y-3" aria-label="Loading meetups">
-            {[1, 2, 3].map(i => (
-              <div key={i} className="rounded-2xl border border-border bg-card p-4 animate-pulse h-32" />
+          <div className="grid grid-cols-1 gap-3" aria-label="Loading meetups">
+            {Array(6).fill(null).map((_, i) => (
+              <SkeletonCard key={i} />
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <SharedEmptyState
-            icon={MapPin}
-            title="No meetups scheduled"
-            description="Plan your pregame with your crew."
-            actionLabel="Create a meetup"
-            onAction={() => setShowCreate(true)}
-          />
+          <div className="flex flex-col items-center justify-center text-center py-20 px-6 min-h-[40vh]">
+            <ConceptIcon name="baseball" className="h-16 w-16" style={{ color: '#0E3386' }} />
+            <h3 className="mt-4 text-lg font-semibold text-foreground">No meetups yet — be the first!</h3>
+            <p className="mt-1.5 max-w-[300px] text-sm text-muted-foreground">Create a meetup and your crew will find you.</p>
+            <Button
+              onClick={() => setShowCreate(true)}
+              className="mt-5 rounded-full gap-1.5 h-10 px-5 font-bold"
+            >
+              <Plus className="h-4 w-4" /> Create a Meetup
+            </Button>
+          </div>
         ) : (
           <div className="space-y-6">
             {happeningSoon.length > 0 && (

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
+import { SEOMeta } from '@/components/SEOMeta';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MOCK_USERS } from '@/types';

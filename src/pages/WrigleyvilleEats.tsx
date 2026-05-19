@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { AppHeader } from '@/components/AppHeader';
+import { SEOMeta } from '@/components/SEOMeta';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { EatsCheckInButton } from '@/components/eats/EatsCheckInButton';

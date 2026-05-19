@@ -71,6 +71,7 @@ export default function Meetups() {
       <SEOMeta
         title="Meetups — Cubs Fan Game-Day Plans"
         description="Browse and join Cubs fan meetups around Wrigleyville. Find your group for tonight's game, pre-game beers, or the after-party."
+        url="/meetups"
       />
       <div
         className="fixed inset-0 z-0 swipe-drag-bg"

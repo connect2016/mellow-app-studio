@@ -134,9 +134,9 @@ export function CardFrontSide({
       <div
         style={{
           position: 'absolute',
-          right: '18px',
-          bottom: '30px',
-          width: '120px',
+          right: '34px',
+          bottom: '46px',
+          width: '92px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-end',
@@ -149,7 +149,7 @@ export function CardFrontSide({
           style={{
             width: '100%',
             color: '#1a1f2e',
-            fontSize: '14px',
+            fontSize: '13px',
             fontWeight: 800,
             letterSpacing: '0.01em',
             lineHeight: 1.2,
@@ -168,15 +168,15 @@ export function CardFrontSide({
         {((typeof fanStreak === 'number' && fanStreak > 0) || userId) && (
           <div
             style={{
-              marginTop: '6px',
+              marginTop: '4px',
               width: '100%',
-              fontSize: '11px',
+              fontSize: '10px',
               color: '#0E3386',
               fontWeight: 600,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-end',
-              gap: '6px',
+              gap: '4px',
             }}
           >
             {typeof fanStreak === 'number' && fanStreak > 0 && (

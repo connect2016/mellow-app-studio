@@ -14,7 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Camera, Video, MapPin, Clock, MessageCircle, X, Trash2, Plus, Image as ImageIcon, ArrowLeft, Zap } from 'lucide-react';
-import { EmptyState } from '@/components/ui/EmptyState';
+import { InviteBuddyButton } from '@/components/invite/InviteBuddyButton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -293,10 +293,9 @@ export default function VibeFeed() {
             className="text-center text-lg font-extrabold tracking-wide"
             style={{
               fontFamily: 'Montserrat, sans-serif',
-              color: 'hsl(222, 82%, 29%)',
-              WebkitTextStroke: '1.5px white',
-              paintOrder: 'stroke fill',
-              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))',
+              color: '#FFFFFF',
+              fontWeight: 800,
+              textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.9)',
               letterSpacing: '0.04em',
             }}
           >
@@ -333,10 +332,8 @@ export default function VibeFeed() {
         <p
           className="text-center text-sm font-semibold mb-3"
           style={{
-            color: 'white',
-            WebkitTextStroke: '0.4px black',
-            paintOrder: 'stroke fill',
-            filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))',
+            color: '#FFFFFF',
+            textShadow: '0 1px 6px rgba(0,0,0,0.75), 0 2px 4px rgba(0,0,0,0.6)',
           }}
         >
           What's happening at Wrigley right now
@@ -461,18 +458,33 @@ export default function VibeFeed() {
             ))}
           </div>
         ) : posts.length === 0 ? (
-          <EmptyState
-            icon={Zap}
-            title="No vibes yet today"
-            description="Be the first to post — what's the energy like at Wrigley right now?"
-            actionLabel="Post a Vibe"
-            onAction={() => {
-              trackDropVibeClick('empty_state');
-              if (isGuest) return triggerGuestGate('post photos and videos');
-              if (!isVerified) return navigate('/verify');
-              setShowCompose(true);
-            }}
-          />
+          <div className="flex flex-col items-center justify-center text-center py-16 px-6">
+            <div
+              className="mb-4 flex items-center justify-center rounded-full"
+              style={{ background: 'rgba(0, 0, 0, 0.35)', padding: '16px' }}
+            >
+              <Zap size={48} style={{ color: '#FFFFFF' }} strokeWidth={1.75} />
+            </div>
+            <p className="text-[18px] font-medium" style={{ color: '#FFFFFF', fontWeight: 700, textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+              No vibes yet today
+            </p>
+            <p className="mt-1.5 max-w-[300px] text-sm" style={{ color: 'rgba(255, 255, 255, 0.90)', textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}>
+              Be the first to post — what's the energy like at Wrigley right now?
+            </p>
+            <Button
+              onClick={() => {
+                trackDropVibeClick('empty_state');
+                if (isGuest) return triggerGuestGate('post photos and videos');
+                if (!isVerified) return navigate('/verify');
+                setShowCompose(true);
+              }}
+              className="mt-5"
+              variant="default"
+            >
+              Post a Vibe
+            </Button>
+            <InviteBuddyButton source="empty-state" variant="empty-state" />
+          </div>
         ) : (
           <div className="space-y-4">
             {posts.map((post, i) => {

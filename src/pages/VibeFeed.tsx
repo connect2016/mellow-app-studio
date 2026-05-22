@@ -293,10 +293,9 @@ export default function VibeFeed() {
             className="text-center text-lg font-extrabold tracking-wide"
             style={{
               fontFamily: 'Montserrat, sans-serif',
-              color: 'hsl(222, 82%, 29%)',
-              WebkitTextStroke: '1.5px white',
-              paintOrder: 'stroke fill',
-              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.4))',
+              color: '#FFFFFF',
+              fontWeight: 800,
+              textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.9)',
               letterSpacing: '0.04em',
             }}
           >

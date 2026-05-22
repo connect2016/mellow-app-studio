@@ -344,28 +344,28 @@ export default function Landing() {
         className="py-16 sm:py-20"
         style={{
           background: `
-            repeating-linear-gradient(92deg, transparent, transparent 2px, rgba(0,0,1,0.03) 2px, rgba(0,0,0,0.03) 4px),
-            repeating-linear-gradient(180deg, transparent, transparent 40px, rgba(0,0,0,0.02) 40px, rgba(0,0,0,0.02) 41px),
-            linear-gradient(160deg, #c8873a 0%, #b8722a 20%, #c98040 40%, #a8621e 60%, #be7a35 80%, #c8873a 100%)
+            repeating-linear-gradient(92deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px),
+            repeating-linear-gradient(180deg, transparent, transparent 40px, rgba(1,0,0,0.015) 40px, rgba(0,0,0,0.015) 41px),
+            linear-gradient(160deg, #f0d5a0 0%, #e8c878 20%, #f2d898 40%, #e0c070 60%, #eecf88 80%, #f0d5a0 100%)
           `,
         }}
       >
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-10 text-center">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.85)' }}>How it works</p>
-            <PageTitle as="h2" className="mb-3 text-3xl font-bold tracking-tight text-white sm:text-4xl" style={{ textShadow: '0 1px 3px rgba(1,0,0,0.3)' }}>
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: '#6b4c1e' }}>How it works</p>
+            <PageTitle as="h2" className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: '#1a1f2e' }}>
               Three Steps to Your Next{' '}
-              <span className="text-white" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>Wrigleyville Friend</span>
+              <span style={{ color: '#1a1f2e' }}>Wrigleyville Friend</span>
             </PageTitle>
-            <p style={{ color: 'rgba(255,255,255,0.8)' }}>Takes under 30 seconds. No awkward DMs — Hi-Fives only.</p>
+            <p style={{ color: '#5a3e1a' }}>Takes under 30 seconds. No awkward DMs — Hi-Fives only.</p>
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-primary-foreground shadow bg-secondary">1</div>
-              <h3 className="mb-1 text-xl font-bold text-white" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.4)' }}>Create Your Fan Profile</h3>
-              <p className="mb-5 text-sm mt-1 max-w-xs text-white/80">
+              <h3 className="mb-1 text-xl font-bold" style={{ color: '#1a1f2e' }}>Create Your Fan Profile</h3>
+              <p className="mb-5 text-sm mt-1 max-w-xs" style={{ color: '#3d2b0e' }}>
                 Pick your Gameday Persona, set your intent, drop your go-to bar.
               </p>
               <div className="rounded-2xl border bg-card p-4 w-full max-w-xs shadow-sm">
@@ -390,8 +390,8 @@ export default function Landing() {
             {/* Step 2 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-primary-foreground shadow bg-secondary">2</div>
-              <h3 className="mb-1 text-xl font-bold text-white" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.4)' }}>Find Your People</h3>
-              <p className="mb-5 text-sm mt-1 max-w-xs text-white/80">
+              <h3 className="mb-1 text-xl font-bold" style={{ color: '#1a1f2e' }}>Find Your People</h3>
+              <p className="mb-5 text-sm mt-1 max-w-xs" style={{ color: '#3d2b0e' }}>
                 Open the live map. See fans nearby. Tap to send a Hi-Five.
               </p>
               <PhoneFrame className="max-w-[200px]"><MapMock /></PhoneFrame>
@@ -400,8 +400,8 @@ export default function Landing() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-primary-foreground shadow bg-secondary">3</div>
-              <h3 className="mb-1 text-xl font-bold text-white" style={{ textShadow: '0 1px 2px rgba(0,0,0,1.4)' }}>Meet Up IRL</h3>
-              <p className="mb-5 text-sm mt-1 max-w-xs text-white/80">
+              <h3 className="mb-1 text-xl font-bold" style={{ color: '#1a1f2e' }}>Meet Up IRL</h3>
+              <p className="mb-5 text-sm mt-1 max-w-xs" style={{ color: '#3d2b0e' }}>
                 Join a flash meetup at a bar near Wrigley — or host your own.
               </p>
               <PhoneFrame className="max-w-[200px]"><MeetupMock /></PhoneFrame>

@@ -342,7 +342,17 @@ export function UserBaseballCard({
           <Button
             variant="outline"
             size="default"
-            className="rounded-2xl gap-2 font-semibold text-base min-h-[48px] px-6 shadow-sm active:scale-[0.97] transition-all"
+            className="w-full rounded-2xl gap-2 font-semibold min-h-[48px] px-6 shadow-sm active:scale-[0.97] transition-all"
+            style={{
+              background: '#0E3386',
+              color: '#FFFFFF',
+              border: 'none',
+              fontSize: '15px',
+              fontWeight: 700,
+              borderRadius: '12px',
+              padding: '14px 24px',
+              letterSpacing: '0.02em',
+            }}
             onClick={(e) => {
               e.stopPropagation();
               setIsFlipped((v) => !v);
@@ -350,7 +360,7 @@ export function UserBaseballCard({
             aria-pressed={isFlipped}
             aria-label={isFlipped ? 'Flip back to profile' : 'View stats on back of card'}
           >
-            <BarChart3 className="h-5 w-5" />
+            <BarChart3 className="h-5 w-5" style={{ color: '#FFFFFF' }} />
             {isFlipped ? 'Back to Profile' : 'View Stats'}
           </Button>
         </div>
@@ -362,7 +372,17 @@ export function UserBaseballCard({
           <Button
             variant="outline"
             size="default"
-            className="w-full rounded-2xl gap-2 font-semibold text-base min-h-[48px] shadow-sm active:scale-[0.97] transition-all"
+            className="w-full rounded-2xl gap-2 font-semibold min-h-[48px] shadow-sm active:scale-[0.97] transition-all"
+            style={{
+              background: '#FFFFFF',
+              color: '#0E3386',
+              border: '2px solid #0E3386',
+              fontSize: '15px',
+              fontWeight: 600,
+              borderRadius: '12px',
+              padding: '14px 24px',
+              letterSpacing: '0.02em',
+            }}
             onClick={(e) => {
               e.stopPropagation();
               shareCard();
@@ -370,7 +390,7 @@ export function UserBaseballCard({
             disabled={isSharing}
             aria-label="Share my fan card"
           >
-            {isSharing ? <Loader2 className="h-5 w-5 animate-spin" /> : <Share2 className="h-5 w-5" />}
+            {isSharing ? <Loader2 className="h-5 w-5 animate-spin" style={{ color: '#0E3386' }} /> : <Share2 className="h-5 w-5" style={{ color: '#0E3386' }} />}
             {isSharing ? 'Preparing…' : 'Share my card'}
           </Button>
         </div>

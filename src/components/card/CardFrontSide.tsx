@@ -130,67 +130,54 @@ export function CardFrontSide({
         </div>
       </div>
 
-      {/* Username — white nameplate strip at bottom of card */}
+      {/* Name + streak + flair — lower-right white area */}
       <div
-        className="absolute flex items-center justify-center"
+        className="absolute flex flex-col items-end"
         style={{
-          left: '14%',
-          right: '14%',
-          bottom: '5.5%',
-          height: '8%',
-          overflow: 'hidden',
-          boxSizing: 'border-box',
+          bottom: '16px',
+          right: '16px',
+          textAlign: 'right',
+          zIndex: 10,
         }}
       >
         <p
-          className="leading-tight"
           style={{
-            display: 'block',
-            width: '100%',
-            textAlign: 'center',
-            paddingLeft: 12,
-            paddingRight: 12,
-            fontSize: 22,
-            fontWeight: 700,
-            letterSpacing: '0.05em',
-            textTransform: 'uppercase',
-            whiteSpace: 'nowrap',
+            color: '#1a1f2e',
+            fontSize: '16px',
+            fontWeight: 800,
+            letterSpacing: '0.02em',
+            lineHeight: 1.2,
+            textShadow: 'none',
+            background: 'transparent',
+            margin: 0,
+            maxWidth: '140px',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            boxSizing: 'border-box',
-            color: '#0E3386',
-            fontFamily: "'Graduate', 'Norwester', serif",
-            textShadow: '0 1px 0 rgba(255,255,255,0.6)',
+            whiteSpace: 'nowrap',
           }}
           title={displayName}
         >
           {displayName || 'Fan'}
         </p>
+        {(typeof fanStreak === 'number' && fanStreak > 0) || userId ? (
+          <div className="flex items-center justify-end gap-2 mt-0.5">
+            {typeof fanStreak === 'number' && fanStreak > 0 && (
+              <span
+                aria-label={`${fanStreak} game streak`}
+                style={{
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#0E3386',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                🔥 {fanStreak}
+              </span>
+            )}
+            {userId && <FanFlairBadge userId={userId} />}
+          </div>
+        ) : null}
       </div>
-
-      {/* Fan streak + flair — subtle line beneath the nameplate */}
-      {(typeof fanStreak === 'number' && fanStreak > 0) || userId ? (
-        <div
-          className="absolute left-0 right-0 flex items-center justify-center gap-2 pointer-events-none"
-          style={{ bottom: '2%', zIndex: 15 }}
-        >
-          {typeof fanStreak === 'number' && fanStreak > 0 && (
-            <span
-              aria-label={`${fanStreak} game streak`}
-              style={{
-                fontSize: 13,
-                fontWeight: 600,
-                color: '#FFD700',
-                textShadow: '0 1px 2px rgba(0,0,0,0.6)',
-                letterSpacing: '0.02em',
-              }}
-            >
-              🔥 {fanStreak}
-            </span>
-          )}
-          {userId && <FanFlairBadge userId={userId} />}
-        </div>
-      ) : null}
 
 
       {/* Active reactions */}

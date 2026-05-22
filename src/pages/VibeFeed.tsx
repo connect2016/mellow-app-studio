@@ -458,18 +458,33 @@ export default function VibeFeed() {
             ))}
           </div>
         ) : posts.length === 0 ? (
-          <EmptyState
-            icon={Zap}
-            title="No vibes yet today"
-            description="Be the first to post — what's the energy like at Wrigley right now?"
-            actionLabel="Post a Vibe"
-            onAction={() => {
-              trackDropVibeClick('empty_state');
-              if (isGuest) return triggerGuestGate('post photos and videos');
-              if (!isVerified) return navigate('/verify');
-              setShowCompose(true);
-            }}
-          />
+          <div className="flex flex-col items-center justify-center text-center py-16 px-6">
+            <div
+              className="mb-4 flex items-center justify-center rounded-full"
+              style={{ background: 'rgba(0, 0, 0, 0.35)', padding: '16px' }}
+            >
+              <Zap size={48} style={{ color: '#FFFFFF' }} strokeWidth={1.75} />
+            </div>
+            <p className="text-[18px] font-medium" style={{ color: '#FFFFFF', fontWeight: 700, textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+              No vibes yet today
+            </p>
+            <p className="mt-1.5 max-w-[300px] text-sm" style={{ color: 'rgba(255, 255, 255, 0.90)', textShadow: '0 1px 6px rgba(0,0,0,0.8)' }}>
+              Be the first to post — what's the energy like at Wrigley right now?
+            </p>
+            <Button
+              onClick={() => {
+                trackDropVibeClick('empty_state');
+                if (isGuest) return triggerGuestGate('post photos and videos');
+                if (!isVerified) return navigate('/verify');
+                setShowCompose(true);
+              }}
+              className="mt-5"
+              variant="default"
+            >
+              Post a Vibe
+            </Button>
+            <InviteBuddyButton source="empty-state" variant="empty-state" />
+          </div>
         ) : (
           <div className="space-y-4">
             {posts.map((post, i) => {

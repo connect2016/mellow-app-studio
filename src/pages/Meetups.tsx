@@ -118,8 +118,28 @@ export default function Meetups() {
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center py-20 px-6 min-h-[40vh]">
             <ConceptIcon name="baseball" className="h-16 w-16" style={{ color: '#0E3386' }} />
-            <h3 className="mt-4 text-lg font-semibold text-foreground">No meetups yet — be the first!</h3>
-            <p className="mt-1.5 max-w-[300px] text-sm text-muted-foreground">Create a meetup and your crew will find you.</p>
+            <h3
+              className="mt-4 text-center"
+              style={{
+                color: '#FFFFFF',
+                fontSize: '20px',
+                fontWeight: 700,
+                textShadow: '0 2px 8px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9)',
+              }}
+            >
+              No meetups yet — be the first!
+            </h3>
+            <p
+              className="mt-1.5 max-w-[300px] text-center"
+              style={{
+                color: 'rgba(255,255,255,0.92)',
+                fontSize: '14px',
+                fontWeight: 400,
+                textShadow: '0 1px 6px rgba(0,0,0,0.85)',
+              }}
+            >
+              Create a meetup and your crew will find you.
+            </p>
             <Button
               onClick={() => setShowCreate(true)}
               className="mt-5 rounded-full gap-1.5 h-10 px-5 font-bold"

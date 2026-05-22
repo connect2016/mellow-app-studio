@@ -332,10 +332,8 @@ export default function VibeFeed() {
         <p
           className="text-center text-sm font-semibold mb-3"
           style={{
-            color: 'white',
-            WebkitTextStroke: '0.4px black',
-            paintOrder: 'stroke fill',
-            filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.6))',
+            color: '#FFFFFF',
+            textShadow: '0 1px 6px rgba(0,0,0,0.75), 0 2px 4px rgba(0,0,0,0.6)',
           }}
         >
           What's happening at Wrigley right now

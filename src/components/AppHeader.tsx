@@ -92,8 +92,16 @@ export function AppHeader() {
           <Link to="/" aria-label="Cubbies Buddies home" className="flex min-w-0 items-center">
             <img
               alt="Cubbies Buddies"
-              className="h-12 sm:h-14 w-auto shrink-0 object-contain transition-transform duration-200 hover:scale-105"
+              className="shrink-0 transition-transform duration-200 hover:scale-105 w-12 h-12 sm:w-14 sm:h-14"
               src={wrigleyvilleLogo}
+              style={{
+                minWidth: '48px',
+                borderRadius: '50%',
+                objectFit: 'contain',
+                cursor: 'pointer',
+                display: 'block',
+                flexShrink: 0,
+              }}
             />
           </Link>
           <div className="flex shrink-0 items-center gap-2">

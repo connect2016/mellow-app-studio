@@ -12,6 +12,8 @@ import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { GeolocationModal } from '@/components/GeolocationModal';
+import { AppHeader } from '@/components/AppHeader';
+
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';

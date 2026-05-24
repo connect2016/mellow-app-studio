@@ -84,18 +84,49 @@ export function AppHeader() {
     return 0;
   };
 
+  const isQuickStart = location.pathname.startsWith('/quick-start');
+
   return (
     <>
       {/* Top bar */}
-      <header className="sticky top-0 z-50 border-b border-border/30 bg-transparent backdrop-blur-sm">
-        <div className="mx-auto flex max-w-lg items-center justify-between gap-3 px-4 py-2">
-          <Link to="/" aria-label="Cubbies Buddies home" className="flex min-w-0 items-center">
+      <header
+        className="sticky top-0 z-50 border-b border-border/30 bg-transparent backdrop-blur-sm"
+        style={{
+          height: 'var(--app-header-h, 68px)',
+          minHeight: 'var(--app-header-h, 68px)',
+        }}
+      >
+        <style>{`
+          :root { --app-header-h: 68px; --app-header-pad: 16px; }
+          @media (max-width: 640px) {
+            :root { --app-header-h: 60px; --app-header-pad: 12px; }
+          }
+          .app-header-logo { width: 52px; height: 52px; min-width: 52px; min-height: 52px; }
+          @media (max-width: 640px) {
+            .app-header-logo { width: 46px; height: 46px; min-width: 46px; min-height: 46px; }
+          }
+          @media (max-width: 480px) {
+            .app-header-wordmark { display: none !important; }
+          }
+        `}</style>
+        <div
+          className="mx-auto flex max-w-lg items-center justify-between"
+          style={{
+            height: '100%',
+            padding: '0 var(--app-header-pad, 16px)',
+          }}
+        >
+          <Link
+            to="/"
+            aria-label="Cubbies Buddies home"
+            className="flex min-w-0 items-center"
+            style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}
+          >
             <img
               alt="Cubbies Buddies"
-              className="shrink-0 transition-transform duration-200 hover:scale-105 w-12 h-12 sm:w-14 sm:h-14"
+              className="app-header-logo shrink-0 transition-transform duration-200 hover:scale-105"
               src={wrigleyvilleLogo}
               style={{
-                minWidth: '48px',
                 borderRadius: '50%',
                 objectFit: 'contain',
                 cursor: 'pointer',
@@ -103,24 +134,44 @@ export function AppHeader() {
                 flexShrink: 0,
               }}
             />
+            {!isQuickStart && (
+              <span
+                className="app-header-wordmark"
+                style={{
+                  fontSize: '15px',
+                  fontWeight: 800,
+                  color: '#FFFFFF',
+                  letterSpacing: '0.02em',
+                  marginLeft: '8px',
+                  whiteSpace: 'nowrap',
+                  textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                  flexShrink: 0,
+                }}
+              >
+                Cubbies Buddies
+              </span>
+            )}
           </Link>
           <div className="flex shrink-0 items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setNotifOpen(true)}
-              aria-label={unreadNotifs > 0 ? `View notifications (${unreadNotifs} unread)` : 'View notifications'}
-              className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
-            >
-              <Bell className="h-[18px] w-[18px]" strokeWidth={2.25} />
-              {unreadNotifs > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-white px-1 text-[9px] font-bold text-[#C8102E] ring-2 ring-[#C8102E]">
-                  {unreadNotifs > 99 ? '99+' : unreadNotifs}
-                </span>
-              )}
-            </button>
+            {!isQuickStart && (
+              <button
+                type="button"
+                onClick={() => setNotifOpen(true)}
+                aria-label={unreadNotifs > 0 ? `View notifications (${unreadNotifs} unread)` : 'View notifications'}
+                className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
+              >
+                <Bell className="h-[18px] w-[18px]" strokeWidth={2.25} />
+                {unreadNotifs > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-white px-1 text-[9px] font-bold text-[#C8102E] ring-2 ring-[#C8102E]">
+                    {unreadNotifs > 99 ? '99+' : unreadNotifs}
+                  </span>
+                )}
+              </button>
+            )}
           </div>
         </div>
       </header>
+
 
       <NotificationDrawer open={notifOpen} onOpenChange={setNotifOpen} onUnreadChange={setUnreadNotifs} />
 

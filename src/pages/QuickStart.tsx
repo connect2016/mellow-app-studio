@@ -247,7 +247,9 @@ export default function QuickStart() {
       {/* Readability overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background/95 backdrop-blur-[2px]" aria-hidden />
       <div className="relative z-10">
+      <AppHeader />
       <main className="mx-auto max-w-md px-4 pt-10 pb-32">
+
         {/* Progress dots */}
         <div className="flex justify-center gap-2 mb-6" aria-label={`Step ${step + 1} of ${totalSteps}`}>
           {Array.from({ length: totalSteps }).map((_, i) => (

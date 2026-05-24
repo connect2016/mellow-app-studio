@@ -30,6 +30,21 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
   try {
+    // Authenticate the caller: only the DB trigger (or any internal caller that
+    // knows the shared secret stored in private.app_config) may invoke this.
+    const provided = req.headers.get('X-Internal-Secret') ?? '';
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+    );
+    const { data: verified, error: verifyErr } = await supabase.rpc('verify_internal_secret', { _secret: provided });
+    if (verifyErr || verified !== true) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     if (!VAPID_PUBLIC_KEY || !VAPID_PRIVATE_KEY) {
       return new Response(
         JSON.stringify({ error: 'VAPID keys not configured' }),
@@ -44,11 +59,6 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
-
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
-    );
 
     const { data: subs, error } = await supabase
       .from('push_subscriptions')

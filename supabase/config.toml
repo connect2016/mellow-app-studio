@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.gameday-push]
 verify_jwt = false
+
+[functions.send-push]
+verify_jwt = false

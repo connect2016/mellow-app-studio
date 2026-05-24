@@ -63,6 +63,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
 import ClaimBeer from "./pages/ClaimBeer";
 import CheckoutReturn from "./pages/CheckoutReturn";
 import WrigleyvilleEats from "./pages/WrigleyvilleEats";
@@ -134,7 +135,9 @@ const App = () => (
             <Route path="/share-seat" element={<ShareSeat />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/settings/notifications" element={<NotificationPreferences />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route element={<AdminRoute />}>
+              <Route path="/admin" element={<Admin />} />
+            </Route>
             <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />
             <Route path="/bar-map" element={<FanMap />} />

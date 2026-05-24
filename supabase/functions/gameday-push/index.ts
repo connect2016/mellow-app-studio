@@ -31,6 +31,17 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
     );
 
+    // Authenticate the caller: only internal callers (pg_cron) that know the
+    // shared secret stored in private.app_config may invoke this.
+    const provided = req.headers.get('X-Internal-Secret') ?? '';
+    const { data: verified, error: verifyErr } = await supabase.rpc('verify_internal_secret', { _secret: provided });
+    if (verifyErr || verified !== true) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const date = chicagoDateMMDDYYYY();
     const schedRes = await fetch(
       `https://statsapi.mlb.com/api/v1/schedule?sportId=1&teamId=${CUBS_TEAM_ID}&date=${encodeURIComponent(date)}`,

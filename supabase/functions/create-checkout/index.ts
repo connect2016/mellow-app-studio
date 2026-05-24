@@ -1,3 +1,4 @@
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 import { createStripeClient, type StripeEnv } from "../_shared/stripe.ts";
 
 const corsHeaders = {
@@ -7,6 +8,26 @@ const corsHeaders = {
 };
 
 const VALID_PRICE_IDS = new Set(["beer_pack_5", "beer_pack_10", "beer_pack_20", "beer_pack_50"]);
+const ALLOWED_ORIGINS = new Set([
+  "https://cubbiesbuddies.com",
+  "https://www.cubbiesbuddies.com",
+  "https://mellow-app-studio.lovable.app",
+  "https://id-preview--8e027fb1-0110-4d27-9bec-1dea49504f7f.lovable.app",
+  "http://localhost:5173",
+  "http://localhost:3000",
+]);
+
+function isAllowedReturnUrl(url: string): boolean {
+  try {
+    const u = new URL(url);
+    if (ALLOWED_ORIGINS.has(u.origin)) return true;
+    // Allow lovable.app preview subdomains generally
+    if (u.protocol === "https:" && u.hostname.endsWith(".lovable.app")) return true;
+    return false;
+  } catch {
+    return false;
+  }
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -15,17 +36,33 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Authenticate the caller
+    const authHeader = req.headers.get("Authorization") ?? "";
+    if (!authHeader.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+    const token = authHeader.replace("Bearer ", "");
+    const authClient = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+    );
+    const { data: userData, error: userErr } = await authClient.auth.getUser(token);
+    if (userErr || !userData?.user) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+    const authUserId = userData.user.id;
+
     const body = await req.json();
     const { priceId, userId, customerEmail, returnUrl, environment } = body ?? {};
 
     if (!priceId || !VALID_PRICE_IDS.has(priceId)) {
       return new Response(JSON.stringify({ error: "Invalid priceId" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
-    if (!userId || typeof userId !== "string") {
-      return new Response(JSON.stringify({ error: "userId required" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    if (!userId || typeof userId !== "string" || userId !== authUserId) {
+      return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
-    if (!returnUrl || typeof returnUrl !== "string") {
-      return new Response(JSON.stringify({ error: "returnUrl required" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    if (!returnUrl || typeof returnUrl !== "string" || !isAllowedReturnUrl(returnUrl)) {
+      return new Response(JSON.stringify({ error: "Invalid returnUrl" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
     if (environment !== "sandbox" && environment !== "live") {
       return new Response(JSON.stringify({ error: "Invalid environment" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });

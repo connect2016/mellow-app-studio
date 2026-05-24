@@ -26,6 +26,17 @@ Deno.serve(async (req) => {
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, serviceKey);
 
+    // Authenticate the caller: only internal callers (pg_cron) that know the
+    // shared secret stored in private.app_config may invoke this.
+    const provided = req.headers.get("X-Internal-Secret") ?? "";
+    const { data: verified, error: verifyErr } = await supabase.rpc("verify_internal_secret", { _secret: provided });
+    if (verifyErr || verified !== true) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const now = new Date();
     const sixHoursAgo = new Date(now.getTime() - 6 * 60 * 60 * 1000).toISOString();
     const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000).toISOString();

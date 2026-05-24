@@ -92,18 +92,18 @@ export function AppHeader() {
       <header
         className="sticky top-0 z-50 border-b border-border/30 bg-transparent backdrop-blur-sm"
         style={{
-          height: 'var(--app-header-h, 68px)',
-          minHeight: 'var(--app-header-h, 68px)',
+          height: 'var(--app-header-h, 120px)',
+          minHeight: 'var(--app-header-h, 120px)',
         }}
       >
         <style>{`
-          :root { --app-header-h: 68px; --app-header-pad: 16px; }
+          :root { --app-header-h: 120px; --app-header-pad: 16px; }
           @media (max-width: 640px) {
-            :root { --app-header-h: 60px; --app-header-pad: 12px; }
+            :root { --app-header-h: 108px; --app-header-pad: 12px; }
           }
-          .app-header-logo { width: 52px; height: 52px; min-width: 52px; min-height: 52px; }
+          .app-header-logo { width: 104px; height: 104px; min-width: 104px; min-height: 104px; }
           @media (max-width: 640px) {
-            .app-header-logo { width: 46px; height: 46px; min-width: 46px; min-height: 46px; }
+            .app-header-logo { width: 92px; height: 92px; min-width: 92px; min-height: 92px; }
           }
           @media (max-width: 480px) {
             .app-header-wordmark { display: none !important; }

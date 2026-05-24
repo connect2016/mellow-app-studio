@@ -135,7 +135,9 @@ const App = () => (
             <Route path="/share-seat" element={<ShareSeat />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/settings/notifications" element={<NotificationPreferences />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route element={<AdminRoute />}>
+              <Route path="/admin" element={<Admin />} />
+            </Route>
             <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
             <Route path="/wrigley-passport" element={<WrigleyPassport />} />
             <Route path="/bar-map" element={<FanMap />} />

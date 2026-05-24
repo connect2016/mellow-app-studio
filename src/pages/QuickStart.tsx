@@ -12,6 +12,8 @@ import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { GeolocationModal } from '@/components/GeolocationModal';
+import { AppHeader } from '@/components/AppHeader';
+
 
 type Intent = 'watch_game' | 'meet_fans' | 'bar_hop' | 'date' | 'all';
 type Behavior = 'at_park' | 'at_bar' | 'at_home';
@@ -245,7 +247,9 @@ export default function QuickStart() {
       {/* Readability overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background/95 backdrop-blur-[2px]" aria-hidden />
       <div className="relative z-10">
+      <AppHeader />
       <main className="mx-auto max-w-md px-4 pt-10 pb-32">
+
         {/* Progress dots */}
         <div className="flex justify-center gap-2 mb-6" aria-label={`Step ${step + 1} of ${totalSteps}`}>
           {Array.from({ length: totalSteps }).map((_, i) => (

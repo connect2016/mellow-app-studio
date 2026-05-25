@@ -92,11 +92,11 @@ export function CardFrontSide({
       <div
         style={{
           position: 'absolute',
-          top: '28%',
+          top: '31%',
           left: '50%',
-          transform: 'translateX(-50%)',
-          width: '44%',
-          height: '33%',
+          transform: 'translate(-50%, 0)',
+          width: '36%',
+          height: '28%',
           borderRadius: '50%',
           overflow: 'hidden',
           clipPath: 'circle(50% at 50% 50%)',

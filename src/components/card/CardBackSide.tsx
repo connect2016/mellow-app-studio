@@ -33,7 +33,27 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId, onFli
       role="img"
       aria-label={`${displayName || 'Fan'}'s stats — back side`}
     >
-      <div className="w-full h-full rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-card via-card to-muted/30 shadow-md flex flex-col overflow-hidden">
+      <div
+        className="card-back relative w-full h-full rounded-2xl border-2 border-primary/30 shadow-md flex flex-col overflow-hidden"
+        style={{
+          backgroundImage: "url('/wrigley-crowd.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        {/* Dark overlay for readability */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(10, 20, 40, 0.72)',
+            zIndex: 0,
+            borderRadius: 'inherit',
+            pointerEvents: 'none',
+          }}
+        />
         {/* Back to Profile button */}
         {onFlipBack && (
           <button

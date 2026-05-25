@@ -148,23 +148,20 @@ export function CardFrontSide({
         title={displayName}
         style={{
           position: 'absolute',
-          bottom: '19%',
-          left: '6%',
-          right: '40%',
+          bottom: '12%',
+          left: '12%',
+          right: '35%',
           textAlign: 'left',
-          zIndex: 4,
-          color: '#1a1f2e',
-          fontSize: '15px',
+          fontSize: '18px',
           fontWeight: 800,
-          letterSpacing: '0.01em',
-          lineHeight: 1.2,
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
+          color: '#1a1f2e',
+          zIndex: 4,
           textShadow: 'none',
           background: 'transparent',
           pointerEvents: 'none',
-          margin: 0,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         }}
       >
         {displayName || 'Fan'}

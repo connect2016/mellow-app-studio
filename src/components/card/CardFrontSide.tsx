@@ -92,7 +92,7 @@ export function CardFrontSide({
       <div
         style={{
           position: 'absolute',
-          top: '26%',
+          top: '20%',
           left: '50%',
           transform: 'translate(-50%, 0)',
           width: '47%',

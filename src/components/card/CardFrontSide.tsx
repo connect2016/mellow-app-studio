@@ -3,10 +3,10 @@ import { cn } from '@/lib/utils';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
-import cardFrontArt from '@/assets/baseball-card-front.png';
 import { BarChart3 } from 'lucide-react';
 import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
 
+const CARD_TEMPLATE_SRC = '/Revised_CB_Baseball_Card_Template.png';
 
 interface CardFrontSideProps {
   profileImage?: string | null;
@@ -22,7 +22,6 @@ interface CardFrontSideProps {
   userId?: string;
 }
 
-
 export function CardFrontSide({
   profileImage,
   displayName,
@@ -34,7 +33,6 @@ export function CardFrontSide({
   fanStreak,
   userId,
 }: CardFrontSideProps) {
-
   const [hasPulsed, setHasPulsed] = useState(false);
 
   useEffect(() => {
@@ -52,29 +50,34 @@ export function CardFrontSide({
 
   return (
     <div
-      className="relative w-full h-full rounded-xl overflow-hidden shadow-md"
+      className="relative w-full h-full rounded-xl overflow-hidden"
       onClick={onClick}
       role="img"
       aria-label={`${displayName || 'Fan'}'s profile card — front side`}
-      style={{
-        backgroundImage: `url(${cardFrontArt})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
     >
-      {/* Subtle gradient for pennant text contrast */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(180deg, transparent 0%, transparent 55%, rgba(0,0,0,0.04) 100%)',
-        }}
+      {/* Layer 1 — Card template image (bottom) */}
+      <img
+        src={CARD_TEMPLATE_SRC}
+        alt=""
         aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'fill',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }}
       />
 
-      {/* Status badge — top */}
+      {/* Status badge — sits above template */}
       {statusLabel && (
-        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 rounded-full bg-foreground/85 backdrop-blur-sm px-3 py-1.5 border border-background/15">
+        <div
+          className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full bg-foreground/85 backdrop-blur-sm px-3 py-1.5 border border-background/15"
+          style={{ zIndex: 4 }}
+        >
           <span className="relative flex h-2 w-2" aria-hidden="true">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
@@ -85,112 +88,131 @@ export function CardFrontSide({
         </div>
       )}
 
-      {/* Centered avatar — fills the artwork's circular frame */}
-      <div
-        className="absolute left-1/2 -translate-x-1/2"
-        style={{ top: '20%', width: '54%', aspectRatio: '1 / 1' }}
-      >
-        <div
-          tabIndex={0}
-          role="img"
-          aria-label={`Profile photo of ${displayName || 'Fan'}`}
-          className="relative w-full h-full rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CC3433]"
-          style={{
-            background: '#0A2A66',
-          }}
-        >
-          {!imgLoaded && profileImage && (
-            <div className="absolute inset-0 animate-pulse" style={{ background: '#cbd5e1' }} aria-hidden="true" />
-          )}
-          {profileImage ? (
-            <img
-              src={profileImage}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              onLoad={onImgLoad}
-              onError={onImgLoad}
-              className={cn(
-                'w-full h-full object-cover transition-opacity duration-300',
-                imgLoaded ? 'opacity-100' : 'opacity-0'
-              )}
-              style={{
-                display: 'block',
-                objectPosition: 'center top',
-              }}
-            />
-          ) : (
-            <div
-              className="w-full h-full flex items-center justify-center text-white font-black text-2xl"
-              style={{ fontFamily: "'Graduate', serif" }}
-            >
-              {initials || 'CB'}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Name block — pinned inside the lower-right white area */}
+      {/* Layer 2 — User profile photo, sits inside the inner circle */}
       <div
         style={{
           position: 'absolute',
-          right: '34px',
-          bottom: '46px',
-          width: '92px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
-          textAlign: 'right',
-          zIndex: 20,
+          top: '22%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '52%',
+          height: '42%',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          zIndex: 2,
           pointerEvents: 'none',
+          background: '#0A2A66',
         }}
+        aria-label={`Profile photo of ${displayName || 'Fan'}`}
       >
-        <p
-          style={{
-            width: '100%',
-            color: '#1a1f2e',
-            fontSize: '13px',
-            fontWeight: 800,
-            letterSpacing: '0.01em',
-            lineHeight: 1.2,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            background: 'transparent',
-            textShadow: 'none',
-            margin: 0,
-          }}
-          title={displayName}
-        >
-          {displayName || 'Fan'}
-        </p>
-
-        {((typeof fanStreak === 'number' && fanStreak > 0) || userId) && (
+        {!imgLoaded && profileImage && (
           <div
-            style={{
-              marginTop: '4px',
-              width: '100%',
-              fontSize: '10px',
-              color: '#0E3386',
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              gap: '4px',
-            }}
-          >
-            {typeof fanStreak === 'number' && fanStreak > 0 && (
-              <span aria-label={`${fanStreak} game streak`}>🔥 {fanStreak}</span>
+            className="absolute inset-0 animate-pulse"
+            style={{ background: '#cbd5e1' }}
+            aria-hidden="true"
+          />
+        )}
+        {profileImage ? (
+          <img
+            src={profileImage}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            onLoad={onImgLoad}
+            onError={onImgLoad}
+            className={cn(
+              'transition-opacity duration-300',
+              imgLoaded ? 'opacity-100' : 'opacity-0'
             )}
-            {userId && <FanFlairBadge userId={userId} />}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center top',
+              display: 'block',
+            }}
+          />
+        ) : (
+          <div
+            className="w-full h-full flex items-center justify-center text-white font-black text-2xl"
+            style={{ fontFamily: "'Graduate', serif" }}
+          >
+            {initials || 'CB'}
           </div>
         )}
       </div>
 
+      {/* Layer 3 — Profile name in the white bottom area, above the stars */}
+      <p
+        title={displayName}
+        style={{
+          position: 'absolute',
+          bottom: '18%',
+          left: 0,
+          right: 0,
+          textAlign: 'center',
+          zIndex: 3,
+          color: '#1a1f2e',
+          fontSize: '17px',
+          fontWeight: 800,
+          letterSpacing: '0.02em',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          padding: '0 12%',
+          textShadow: 'none',
+          background: 'transparent',
+          pointerEvents: 'none',
+          margin: 0,
+        }}
+      >
+        {displayName || 'Fan'}
+      </p>
+
+      {/* Fan flair badge — directly beneath the name */}
+      {userId && (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '13%',
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+            fontSize: '11px',
+            fontWeight: 600,
+            color: '#0E3386',
+            zIndex: 3,
+            pointerEvents: 'none',
+          }}
+        >
+          <FanFlairBadge userId={userId} />
+        </div>
+      )}
+
+      {/* Streak indicator */}
+      {typeof fanStreak === 'number' && fanStreak > 0 && (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '9%',
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+            fontSize: '11px',
+            fontWeight: 600,
+            color: '#0E3386',
+            zIndex: 3,
+            pointerEvents: 'none',
+          }}
+          aria-label={`${fanStreak} game streak`}
+        >
+          🔥 {fanStreak}
+        </div>
+      )}
 
       {/* Active reactions */}
       {activeReactions.length > 0 && (
-        <div className="absolute bottom-3 right-3 flex gap-1 items-end z-20">
+        <div className="absolute bottom-3 right-3 flex gap-1 items-end" style={{ zIndex: 4 }}>
           {activeReactions.map((r) => (
             <div key={r.key} className="animate-scale-in">
               <RealisticEmoji name={r.icon} alt={r.label} size="md" />
@@ -199,16 +221,17 @@ export function CardFrontSide({
         </div>
       )}
 
-      {/* Flip hint — bottom-right corner */}
+      {/* Flip hint */}
       <div
         className={cn(
-          'absolute z-20 flex items-center gap-1 pointer-events-none',
+          'absolute flex items-center gap-1 pointer-events-none',
           activeReactions.length > 0 ? 'bottom-10 right-3' : 'bottom-3 right-3',
           !hasPulsed && 'pulse-once'
         )}
         style={{
           fontSize: 11,
-          color: 'rgba(255,255,255,0.65)',
+          color: 'rgba(255,255,255,0.75)',
+          zIndex: 4,
         }}
       >
         <BarChart3 className="h-3 w-3" aria-hidden="true" />

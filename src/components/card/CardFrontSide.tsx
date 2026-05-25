@@ -88,18 +88,19 @@ export function CardFrontSide({
         </div>
       )}
 
-      {/* Layer 2 — User profile photo, sits inside the inner circle */}
+      {/* Layer 2 — User profile photo, contained inside the inner ring circle */}
       <div
         style={{
           position: 'absolute',
-          top: '22%',
+          top: '28%',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: '52%',
-          height: '42%',
+          width: '44%',
+          height: '33%',
           borderRadius: '50%',
           overflow: 'hidden',
-          zIndex: 2,
+          clipPath: 'circle(50% at 50% 50%)',
+          zIndex: 3,
           pointerEvents: 'none',
           background: '#0A2A66',
         }}
@@ -142,24 +143,24 @@ export function CardFrontSide({
         )}
       </div>
 
-      {/* Layer 3 — Profile name in the white bottom area, above the stars */}
+      {/* Layer 3 — Profile name in lower-left white area, above the gold stars */}
       <p
         title={displayName}
         style={{
           position: 'absolute',
-          bottom: '18%',
-          left: 0,
-          right: 0,
-          textAlign: 'center',
-          zIndex: 3,
+          bottom: '19%',
+          left: '6%',
+          right: '40%',
+          textAlign: 'left',
+          zIndex: 4,
           color: '#1a1f2e',
-          fontSize: '17px',
+          fontSize: '15px',
           fontWeight: 800,
-          letterSpacing: '0.02em',
+          letterSpacing: '0.01em',
+          lineHeight: 1.2,
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
-          padding: '0 12%',
           textShadow: 'none',
           background: 'transparent',
           pointerEvents: 'none',
@@ -169,19 +170,19 @@ export function CardFrontSide({
         {displayName || 'Fan'}
       </p>
 
-      {/* Fan flair badge — directly beneath the name */}
+      {/* Fan flair badge — directly beneath the name, left-aligned */}
       {userId && (
         <div
           style={{
             position: 'absolute',
-            bottom: '13%',
-            left: 0,
-            right: 0,
-            textAlign: 'center',
-            fontSize: '11px',
+            bottom: '14%',
+            left: '6%',
+            right: '40%',
+            textAlign: 'left',
+            fontSize: '10px',
             fontWeight: 600,
             color: '#0E3386',
-            zIndex: 3,
+            zIndex: 4,
             pointerEvents: 'none',
           }}
         >

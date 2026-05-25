@@ -233,7 +233,7 @@ export function UserBaseballCard({
         className="card-container relative w-full mx-auto"
         style={{
           maxWidth: 360,
-          height: 420,
+          aspectRatio: '3 / 4.2',
           perspective: '1200px',
         }}
       >

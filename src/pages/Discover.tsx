@@ -11,6 +11,7 @@ import { SlidersHorizontal, Users, Zap, Camera, ChevronRight, Check } from 'luci
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import CrewsContent from '@/components/CrewsContent';
+import { YourCrewsSection } from '@/components/YourCrewsSection';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/contexts/AuthContext';
@@ -987,6 +988,8 @@ export default function Discover() {
             <CrewsContent />
           </TabsContent>
         </Tabs>
+
+        <YourCrewsSection />
       </div>
 
       <DiscoverFilterDrawer

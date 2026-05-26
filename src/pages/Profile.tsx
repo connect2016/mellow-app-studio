@@ -238,12 +238,35 @@ export default function Profile() {
   }
 
   return (
-    <div className="relative min-h-screen bg-background pb-24">
+    <div
+      className="profile-page relative pb-24"
+      style={{
+        backgroundImage: "url('/wrigley-seats.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',
+      }}
+    >
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(8, 18, 8, 0.58)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
       <SEOMeta
         title="Your Profile — Cubbies Buddies"
         description="View and customize your Cubbies Buddies profile, season stats, badges, and meetup history."
       />
-      <AppHeader />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <AppHeader />
+      </div>
+
 
       <div className="mx-auto max-w-lg px-4 pt-4">
         {!isOwnProfile && (

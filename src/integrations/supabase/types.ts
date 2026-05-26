@@ -737,6 +737,7 @@ export type Database = {
           description: string | null
           emoji: string
           expires_at: string
+          ground_control: string | null
           id: string
           is_system_generated: boolean
           location_name: string
@@ -751,6 +752,7 @@ export type Database = {
           description?: string | null
           emoji?: string
           expires_at?: string
+          ground_control?: string | null
           id?: string
           is_system_generated?: boolean
           location_name: string
@@ -765,6 +767,7 @@ export type Database = {
           description?: string | null
           emoji?: string
           expires_at?: string
+          ground_control?: string | null
           id?: string
           is_system_generated?: boolean
           location_name?: string
@@ -1026,6 +1029,7 @@ export type Database = {
           crew_first: boolean
           description: string | null
           expires_at: string
+          ground_control: string | null
           id: string
           location_name: string
           max_members: number
@@ -1038,6 +1042,7 @@ export type Database = {
           crew_first?: boolean
           description?: string | null
           expires_at?: string
+          ground_control?: string | null
           id?: string
           location_name: string
           max_members?: number
@@ -1050,6 +1055,7 @@ export type Database = {
           crew_first?: boolean
           description?: string | null
           expires_at?: string
+          ground_control?: string | null
           id?: string
           location_name?: string
           max_members?: number
@@ -1715,6 +1721,7 @@ export type Database = {
           fan_identity_updated_at: string | null
           fan_streak: number
           fan_style: string[] | null
+          fan_tags: string[]
           fan_tier: string | null
           fan_tier_emoji: string | null
           fan_title: string | null
@@ -1726,6 +1733,7 @@ export type Database = {
           favorite_moment: string | null
           favorite_moment_is_valid: boolean | null
           favorite_player: string | null
+          game_day_intent: string | null
           game_day_notifications: boolean
           game_status: string | null
           gameday_intents: string[] | null
@@ -1736,6 +1744,7 @@ export type Database = {
           home_lng: number | null
           id: string
           intent: string[] | null
+          intent_set_at: string | null
           is_banned: boolean | null
           is_verified: boolean | null
           last_streak_date: string | null
@@ -1791,6 +1800,7 @@ export type Database = {
           fan_identity_updated_at?: string | null
           fan_streak?: number
           fan_style?: string[] | null
+          fan_tags?: string[]
           fan_tier?: string | null
           fan_tier_emoji?: string | null
           fan_title?: string | null
@@ -1802,6 +1812,7 @@ export type Database = {
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
+          game_day_intent?: string | null
           game_day_notifications?: boolean
           game_status?: string | null
           gameday_intents?: string[] | null
@@ -1812,6 +1823,7 @@ export type Database = {
           home_lng?: number | null
           id?: string
           intent?: string[] | null
+          intent_set_at?: string | null
           is_banned?: boolean | null
           is_verified?: boolean | null
           last_streak_date?: string | null
@@ -1867,6 +1879,7 @@ export type Database = {
           fan_identity_updated_at?: string | null
           fan_streak?: number
           fan_style?: string[] | null
+          fan_tags?: string[]
           fan_tier?: string | null
           fan_tier_emoji?: string | null
           fan_title?: string | null
@@ -1878,6 +1891,7 @@ export type Database = {
           favorite_moment?: string | null
           favorite_moment_is_valid?: boolean | null
           favorite_player?: string | null
+          game_day_intent?: string | null
           game_day_notifications?: boolean
           game_status?: string | null
           gameday_intents?: string[] | null
@@ -1888,6 +1902,7 @@ export type Database = {
           home_lng?: number | null
           id?: string
           intent?: string[] | null
+          intent_set_at?: string | null
           is_banned?: boolean | null
           is_verified?: boolean | null
           last_streak_date?: string | null

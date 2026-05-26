@@ -268,7 +268,7 @@ export default function Profile() {
       </div>
 
 
-      <div className="mx-auto max-w-lg px-4 pt-4">
+      <div className="mx-auto max-w-lg px-4 pt-4" style={{ position: 'relative', zIndex: 1 }}>
         {!isOwnProfile && (
           <button onClick={() => navigate(-1)} className="flex items-center gap-1 mb-4 text-sm text-muted-foreground hover:text-foreground min-h-[44px] min-w-[44px]">
             <ArrowLeft className="h-4 w-4" /> Back

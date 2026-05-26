@@ -5,6 +5,7 @@ import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
 import { BarChart3 } from 'lucide-react';
 import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
+import { FanTagPills } from '@/components/FanTagsPicker';
 
 const CARD_TEMPLATE_SRC = '/Revised_CB_Baseball_Card_Template.png';
 
@@ -20,6 +21,7 @@ interface CardFrontSideProps {
   onClick?: () => void;
   fanStreak?: number;
   userId?: string;
+  fanTags?: string[];
 }
 
 export function CardFrontSide({
@@ -32,6 +34,7 @@ export function CardFrontSide({
   onClick,
   fanStreak,
   userId,
+  fanTags,
 }: CardFrontSideProps) {
   const [hasPulsed, setHasPulsed] = useState(false);
 

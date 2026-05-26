@@ -45,6 +45,7 @@ export interface UserBaseballCardProps {
   isOwner?: boolean;
   userId?: string;
   fanStreak?: number;
+  fanTags?: string[];
 }
 
 export const STAT_ICONS: Record<StatKey, React.ElementType> = {
@@ -104,6 +105,7 @@ export function UserBaseballCard({
   isOwner = false,
   userId,
   fanStreak,
+  fanTags,
 }: UserBaseballCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [activeReactions, setActiveReactions] = useState<ReactionDef[]>([]);
@@ -276,6 +278,7 @@ export function UserBaseballCard({
             onClick={onClick}
             fanStreak={fanStreak}
             userId={userId}
+            fanTags={fanTags}
           />
 
         </div>

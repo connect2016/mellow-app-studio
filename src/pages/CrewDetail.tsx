@@ -206,7 +206,7 @@ export default function CrewDetail() {
                       <p className="mt-2 text-sm text-muted-foreground">The bases are empty! Be the first to start a conversation.</p>
                     </div>
                   )}
-                  {messages.map((msg) => {
+                  {messages.filter(m => !m.is_pinned).map((msg) => {
                     const isMe = msg.sender_id === user?.id;
                     return (
                       <motion.div

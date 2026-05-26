@@ -8,6 +8,7 @@ import { VibeStateBadge } from './VibeStatePanel';
 import { FanTierBadge } from './FanIdentityPanel';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
+import { FanTagPills } from '@/components/FanTagsPicker';
 
 const HIFIVE_TOOLTIP_KEY = 'cb_hifive_tooltip_views';
 const HIFIVE_STREAK_KEY = 'cb_hifive_streak';
@@ -248,6 +249,11 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
               {user.display_name}, {user.age}
             </h3>
           </div>
+          {(user as any).fan_tags && (user as any).fan_tags.length > 0 && (
+            <div className="mb-1">
+              <FanTagPills tags={(user as any).fan_tags} />
+            </div>
+          )}
           {user.pronouns && <p className="text-xs text-white/70 mb-1">{user.pronouns}</p>}
           <p className="line-clamp-2 text-sm text-white/85 leading-relaxed">{user.bio}</p>
 

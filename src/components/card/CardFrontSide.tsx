@@ -170,8 +170,8 @@ export function CardFrontSide({
         {displayName || 'Fan'}
       </p>
 
-      {/* Fan flair badge — directly beneath the name, left-aligned */}
-      {userId && (
+      {/* Fan tag pills + Fan flair badge — directly beneath the name, left-aligned */}
+      {(fanTags?.length || userId) && (
         <div
           style={{
             position: 'absolute',
@@ -186,7 +186,12 @@ export function CardFrontSide({
             pointerEvents: 'none',
           }}
         >
-          <FanFlairBadge userId={userId} />
+          {fanTags && fanTags.length > 0 && (
+            <div style={{ marginBottom: 4 }}>
+              <FanTagPills tags={fanTags} />
+            </div>
+          )}
+          {userId && <FanFlairBadge userId={userId} />}
         </div>
       )}
 

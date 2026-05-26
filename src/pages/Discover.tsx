@@ -243,6 +243,7 @@ export default function Discover() {
     hidden_from_discover: false,
     gameday_intents: ((p as any).gameday_intents as GamedayIntentType[]) ?? [],
     fan_style: ((p as any).fan_style as FanStyleType[]) ?? [],
+    fan_tags: ((p as any).fan_tags as string[]) ?? [],
   });
 
   const handleLike = async (profile: typeof profiles[0]) => {

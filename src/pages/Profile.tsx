@@ -315,6 +315,7 @@ export default function Profile() {
                 isOwner={isOwnProfile}
                 userId={!isOwnProfile ? id : undefined}
                 fanStreak={(profile as any).fan_streak ?? 0}
+                fanTags={((profile as any).fan_tags as string[]) ?? []}
                 className="max-w-full"
               />
             </div>

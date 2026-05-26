@@ -17,6 +17,7 @@ import {
 import { toast } from 'sonner';
 import { format, formatDistanceToNowStrict } from 'date-fns';
 import { BarPlansTab } from '@/components/crews/BarPlansTab';
+import { PinnedMessageBar } from '@/components/crews/PinnedMessageBar';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 type Tab = 'chat' | 'plans' | 'events' | 'members';
@@ -191,6 +192,12 @@ export default function CrewDetail() {
           {/* ─── Chat Tab ─── */}
           {tab === 'chat' && (
             <motion.div key="chat" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col h-[calc(100vh-260px)]">
+              {crewId && (
+                <PinnedMessageBar
+                  crewId={crewId}
+                  isOwner={crew?.creator_id === user?.id || myRole === 'captain' || myRole === 'owner'}
+                />
+              )}
               <div className="flex-1 overflow-y-auto">
                 <div className="mx-auto max-w-lg px-4 py-4 space-y-3">
                   {messages.length === 0 && (

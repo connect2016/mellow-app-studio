@@ -847,6 +847,9 @@ export default function Discover() {
           })()}
 
           <TabsContent value="buddies">
+            <div className="-mx-4">
+              <GameDayIntentBanner onIntentChange={setGameDayIntent} />
+            </div>
             {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (
               <div className="mb-3 flex items-center gap-3">
                 {liveCounts.online > 0 && (

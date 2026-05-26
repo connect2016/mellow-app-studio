@@ -104,6 +104,7 @@ export function useCreateMeetup() {
           meeting_time: data.meeting_time,
           description: data.description ?? '',
           max_members: data.max_members ?? 10,
+          ground_control: (data as any).ground_control ?? null,
         });
       if (error) throw error;
     },

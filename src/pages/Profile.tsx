@@ -38,6 +38,7 @@ import { SeasonRecapCard } from '@/components/profile/SeasonRecapCard';
 import { Users } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ProfileCompletion, FullFanBadge, getProfileCompletion } from '@/components/profile/ProfileCompletion';
+import { FanTagsPicker } from '@/components/FanTagsPicker';
 
 export default function Profile() {
   const { id } = useParams();
@@ -287,6 +288,14 @@ export default function Profile() {
 
           <TabsContent value="card" className="space-y-6 pt-4">
             {isOwnProfile && <ProfileCompletion profile={profile as any} />}
+            {isOwnProfile && (
+              <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm p-4 shadow-sm">
+                <FanTagsPicker
+                  value={((profile as any)?.fan_tags as string[]) ?? []}
+                  onChange={(next) => updateProfile.mutate({ fan_tags: next } as any)}
+                />
+              </div>
+            )}
             <div className="relative">
               {isOwnProfile && getProfileCompletion(profile as any).pct >= 100 && <FullFanBadge />}
               <UserBaseballCard
@@ -306,6 +315,7 @@ export default function Profile() {
                 isOwner={isOwnProfile}
                 userId={!isOwnProfile ? id : undefined}
                 fanStreak={(profile as any).fan_streak ?? 0}
+                fanTags={((profile as any).fan_tags as string[]) ?? []}
                 className="max-w-full"
               />
             </div>

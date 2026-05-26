@@ -32,6 +32,7 @@ export interface MeetupDetail {
   is_host: boolean;
   mutual_count: number;
   my_is_visible: boolean;
+  ground_control?: string | null;
 }
 
 /**

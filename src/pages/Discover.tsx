@@ -55,6 +55,7 @@ import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { FanStreakBanner } from '@/components/FanStreakBanner';
 import { ActivityFeedStrip } from '@/components/ActivityFeedStrip';
+import { GameDayIntentBanner, type GameDayIntent } from '@/components/GameDayIntentBanner';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', icon: 'beer', label: 'At the Bar' },
@@ -98,6 +99,7 @@ export default function Discover() {
   const compatMap = useCompatibility(profiles);
   const { data: cubsGame } = useMlbCubsGame();
   const isGameDay = !!cubsGame && cubsGame.status !== 'no-game';
+  const [gameDayIntent, setGameDayIntent] = useState<GameDayIntent | null>(null);
   const tonight = useTonightMode({ isGameDay });
 
   // Motion: badge flash on activation + brief exit animation when toggling off.
@@ -241,6 +243,7 @@ export default function Discover() {
     hidden_from_discover: false,
     gameday_intents: ((p as any).gameday_intents as GamedayIntentType[]) ?? [],
     fan_style: ((p as any).fan_style as FanStyleType[]) ?? [],
+    fan_tags: ((p as any).fan_tags as string[]) ?? [],
   });
 
   const handleLike = async (profile: typeof profiles[0]) => {
@@ -845,6 +848,9 @@ export default function Discover() {
           })()}
 
           <TabsContent value="buddies">
+            <div className="-mx-4">
+              <GameDayIntentBanner onIntentChange={setGameDayIntent} />
+            </div>
             {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (
               <div className="mb-3 flex items-center gap-3">
                 {liveCounts.online > 0 && (
@@ -928,8 +934,28 @@ export default function Discover() {
               <div className="space-y-4">
                 {[...filtered]
                   .sort((a, b) => {
-                    const scoreA = compatMap.get(a.user_id)?.score ?? 0;
-                    const scoreB = compatMap.get(b.user_id)?.score ?? 0;
+                    // Intent-based boost
+                    const intentBoost = (p: typeof a): number => {
+                      if (!gameDayIntent) return 0;
+                      const bar = (p as any).wrigleyville_bar;
+                      const sec = (p as any).wrigley_section;
+                      const status = (p as any).game_status;
+                      if (gameDayIntent === 'wrigley') {
+                        if (status === 'AtWrigley' || sec) return 1000;
+                        return 0;
+                      }
+                      if (gameDayIntent === 'bar') {
+                        if (status === 'AtBar' || bar) return 1000;
+                        return 0;
+                      }
+                      if (gameDayIntent === 'home') {
+                        if (status === 'WatchingRemote') return 1000;
+                        return 0;
+                      }
+                      return 0;
+                    };
+                    const scoreA = (compatMap.get(a.user_id)?.score ?? 0) + intentBoost(a);
+                    const scoreB = (compatMap.get(b.user_id)?.score ?? 0) + intentBoost(b);
                     return scoreB - scoreA;
                   })
                   .map((profile) => {

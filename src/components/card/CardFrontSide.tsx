@@ -5,6 +5,7 @@ import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
 import { BarChart3 } from 'lucide-react';
 import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
+import { FanTagPills } from '@/components/FanTagsPicker';
 
 const CARD_TEMPLATE_SRC = '/Revised_CB_Baseball_Card_Template.png';
 
@@ -20,6 +21,7 @@ interface CardFrontSideProps {
   onClick?: () => void;
   fanStreak?: number;
   userId?: string;
+  fanTags?: string[];
 }
 
 export function CardFrontSide({
@@ -32,6 +34,7 @@ export function CardFrontSide({
   onClick,
   fanStreak,
   userId,
+  fanTags,
 }: CardFrontSideProps) {
   const [hasPulsed, setHasPulsed] = useState(false);
 
@@ -167,8 +170,8 @@ export function CardFrontSide({
         {displayName || 'Fan'}
       </p>
 
-      {/* Fan flair badge — directly beneath the name, left-aligned */}
-      {userId && (
+      {/* Fan tag pills + Fan flair badge — directly beneath the name, left-aligned */}
+      {(fanTags?.length || userId) && (
         <div
           style={{
             position: 'absolute',
@@ -183,7 +186,12 @@ export function CardFrontSide({
             pointerEvents: 'none',
           }}
         >
-          <FanFlairBadge userId={userId} />
+          {fanTags && fanTags.length > 0 && (
+            <div style={{ marginBottom: 4 }}>
+              <FanTagPills tags={fanTags} />
+            </div>
+          )}
+          {userId && <FanFlairBadge userId={userId} />}
         </div>
       )}
 

@@ -9,7 +9,7 @@ import { PreGameCountdownPill } from '@/components/gameday/PreGameCountdownPill'
 import { ShareMenu } from '@/components/share/ShareMenu';
 
 interface MeetupCardProps {
-  meetup: LineupMeetup & { is_verified?: boolean; fan_tier_emoji?: string };
+  meetup: LineupMeetup & { is_verified?: boolean; fan_tier_emoji?: string; ground_control?: string | null };
 }
 
 function formatRelative(iso: string) {
@@ -134,6 +134,12 @@ export function MeetupCard({ meetup }: MeetupCardProps) {
           ) : null}
         </div>
       </div>
+
+      {meetup.ground_control && (
+        <div style={{ fontSize: 10, color: '#16a34a', marginTop: 6, fontWeight: 600 }}>
+          ● Ground Control set
+        </div>
+      )}
     </Link>
   );
 }

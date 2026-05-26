@@ -94,7 +94,7 @@ export function useCreateMeetup() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: { location_name: string; meeting_time: string; description?: string; max_members?: number }) => {
+    mutationFn: async (data: { location_name: string; meeting_time: string; description?: string; max_members?: number; ground_control?: string | null }) => {
       if (!user) throw new Error('Not authenticated');
       const { error } = await supabase
         .from('lineup_meetups')
@@ -104,6 +104,7 @@ export function useCreateMeetup() {
           meeting_time: data.meeting_time,
           description: data.description ?? '',
           max_members: data.max_members ?? 10,
+          ground_control: (data as any).ground_control ?? null,
         });
       if (error) throw error;
     },

@@ -39,6 +39,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
   const [customLocation, setCustomLocation] = useState(isPresetBar ? '' : (defaultLocation ?? ''));
   const [time, setTime] = useState('');
   const [description, setDescription] = useState('');
+  const [groundControl, setGroundControl] = useState('');
   const [maxMembers, setMaxMembers] = useState('10');
   const [success, setSuccess] = useState<null | { location: string; time: string; max: number }>(null);
   const createMeetup = useCreateMeetup();
@@ -51,6 +52,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
       setCustomLocation('');
       setTime('');
       setDescription('');
+      setGroundControl('');
       setMaxMembers('10');
     }, 250);
   };
@@ -82,6 +84,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
         meeting_time: time,
         description,
         max_members: parseInt(maxMembers) || 10,
+        ground_control: groundControl.trim() || null,
       });
       toast.success(' Your meetup is in The Lineup!');
       setSuccess({ location: loc, time, max: parseInt(maxMembers) || 10 });
@@ -239,6 +242,27 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
                   rows={2}
                 />
               </div>
+
+              {/* Ground Control Beacon */}
+              <div className="space-y-1.5">
+                <Label style={{ fontSize: 13, fontWeight: 600, color: '#1a1f2e' }}>
+                  Ground Control Beacon
+                </Label>
+                <p style={{ fontSize: 11, color: '#6b7280', margin: 0 }}>
+                  Help people find you — describe what you're wearing or where you're sitting
+                </p>
+                <Input
+                  value={groundControl}
+                  onChange={(e) => setGroundControl(e.target.value.slice(0, 120))}
+                  maxLength={120}
+                  placeholder="e.g. Wearing a retro Sammy Sosa jersey, near the dartboards in the back"
+                  className="rounded-[10px]"
+                />
+                <div style={{ fontSize: 11, color: '#6b7280', textAlign: 'right' }}>
+                  {groundControl.length}/120
+                </div>
+              </div>
+
 
               {/* Max members */}
               <div className="space-y-2">

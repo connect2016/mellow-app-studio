@@ -216,6 +216,9 @@ export default function Discover() {
     return true;
   });
 
+  const visibleUserIds = filtered.map((p) => p.user_id);
+  const { data: checkinsMap = {} } = useVisibleCheckins(visibleUserIds);
+
   const toCardUser = (p: typeof profiles[0]) => ({
     id: p.user_id,
     display_name: p.display_name,

@@ -672,8 +672,8 @@ function Choice({
       >
         <div className="text-3xl shrink-0">{emoji}</div>
         <div className="flex-1 min-w-0">
-          <div className="font-semibold text-base text-foreground">{label}</div>
-          <div className="text-sm text-destructive-foreground truncate">{sub}</div>
+          <div style={{ color: '#1a1f2e', fontSize: '16px', fontWeight: 700, opacity: 1 }}>{label}</div>
+          <div style={{ color: '#374151', fontSize: '13px', fontWeight: 400, opacity: 1, lineHeight: 1.5 }}>{sub}</div>
         </div>
         {selected && (
           <div className="size-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">

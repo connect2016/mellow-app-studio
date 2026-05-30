@@ -143,11 +143,11 @@ export function AppHeader() {
                 style={{
                   fontSize: '15px',
                   fontWeight: 800,
-                  color: '#FFFFFF',
+                  color: '#1a1f2e',
                   letterSpacing: '0.02em',
                   marginLeft: '8px',
                   whiteSpace: 'nowrap',
-                  textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                  textShadow: '0 1px 3px rgba(255,255,255,0.6)',
                   flexShrink: 0,
                 }}
               >

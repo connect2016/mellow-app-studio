@@ -104,12 +104,18 @@ export function AppHeader() {
           @media (max-width: 640px) {
             :root { --app-header-h: 56px; --app-header-pad: 12px; }
           }
-          .app-header-logo { width: 52px; height: 52px; min-width: 52px; min-height: 52px; }
-          @media (max-width: 640px) {
-            .app-header-logo { width: 44px; height: 44px; min-width: 44px; min-height: 44px; }
+          .app-header-logo {
+            height: 44px;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            display: block;
+            flex-shrink: 0;
+            cursor: pointer;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
           }
-          @media (max-width: 480px) {
-            .app-header-wordmark { display: none !important; }
+          @media (max-width: 640px) {
+            .app-header-logo { height: 38px; max-width: 150px; }
           }
         `}</style>
         <div
@@ -127,33 +133,9 @@ export function AppHeader() {
           >
             <img
               alt="Wrigleyville Buddies"
-              className="app-header-logo shrink-0 transition-transform duration-200 hover:scale-105"
+              className="app-header-logo transition-transform duration-200 hover:scale-105"
               src={wrigleyvilleLogo}
-              style={{
-                borderRadius: '50%',
-                objectFit: 'contain',
-                cursor: 'pointer',
-                display: 'block',
-                flexShrink: 0,
-              }}
             />
-            {!isQuickStart && (
-              <span
-                className="app-header-wordmark"
-                style={{
-                  fontSize: '15px',
-                  fontWeight: 800,
-                  color: '#1a1f2e',
-                  letterSpacing: '0.02em',
-                  marginLeft: '8px',
-                  whiteSpace: 'nowrap',
-                  textShadow: '0 1px 3px rgba(255,255,255,0.6)',
-                  flexShrink: 0,
-                }}
-              >
-                Wrigleyville Buddies
-              </span>
-            )}
           </Link>
           <div className="flex shrink-0 items-center gap-2">
             {!isQuickStart && (

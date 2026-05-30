@@ -2960,6 +2960,15 @@ export type Database = {
           teammate_id: string
         }[]
       }
+      get_visible_checkins: {
+        Args: { p_user_ids: string[] }
+        Returns: {
+          checkin_bar: string
+          checkin_expires_at: string
+          checkin_section: string
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

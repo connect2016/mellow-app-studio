@@ -1715,6 +1715,10 @@ export type Database = {
           bio: string | null
           blocked_users: string[] | null
           carb_up_strategy: string | null
+          checkin_bar: string | null
+          checkin_expires_at: string | null
+          checkin_section: string | null
+          checkin_updated_at: string | null
           created_at: string
           display_name: string
           distance_pref_miles: number | null
@@ -1794,6 +1798,10 @@ export type Database = {
           bio?: string | null
           blocked_users?: string[] | null
           carb_up_strategy?: string | null
+          checkin_bar?: string | null
+          checkin_expires_at?: string | null
+          checkin_section?: string | null
+          checkin_updated_at?: string | null
           created_at?: string
           display_name?: string
           distance_pref_miles?: number | null
@@ -1873,6 +1881,10 @@ export type Database = {
           bio?: string | null
           blocked_users?: string[] | null
           carb_up_strategy?: string | null
+          checkin_bar?: string | null
+          checkin_expires_at?: string | null
+          checkin_section?: string | null
+          checkin_updated_at?: string | null
           created_at?: string
           display_name?: string
           distance_pref_miles?: number | null

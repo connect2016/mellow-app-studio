@@ -98,7 +98,6 @@ export function AppHeader() {
           backdropFilter: 'blur(8px)',
           WebkitBackdropFilter: 'blur(8px)',
         }}
-        }}
       >
         <style>{`
           :root { --app-header-h: 120px; --app-header-pad: 16px; }

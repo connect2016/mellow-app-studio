@@ -9,6 +9,7 @@ import { GamedayModeProvider } from "@/contexts/GamedayModeContext";
 import { GuestModeProvider } from "@/contexts/GuestModeContext";
 import { MessageToastListener } from "@/components/MessageToastListener";
 import { BucketListPanel } from "@/components/BucketListPanel";
+import { DisclaimerModal } from "@/components/DisclaimerModal";
 import { IcebreakerNotifier } from "@/components/IcebreakerNotifier";
 import { AchievementNotifier } from "@/components/notifications/AchievementNotifier";
 import { PushPermissionPrompt } from "@/components/PushPermissionPrompt";

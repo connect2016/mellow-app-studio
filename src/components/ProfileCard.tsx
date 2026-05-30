@@ -254,6 +254,26 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
               <FanTagPills tags={(user as any).fan_tags} />
             </div>
           )}
+          {((user as any).checkin_bar || (user as any).checkin_section) && (
+            <div className="mb-1 flex flex-wrap gap-1.5">
+              {(user as any).checkin_bar && (
+                <span
+                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold"
+                  style={{ backgroundColor: '#0E3386', color: 'white' }}
+                >
+                  🍺 {(user as any).checkin_bar} right now
+                </span>
+              )}
+              {(user as any).checkin_section && (
+                <span
+                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold"
+                  style={{ backgroundColor: '#CC3433', color: 'white' }}
+                >
+                  📍 Section {(user as any).checkin_section}
+                </span>
+              )}
+            </div>
+          )}
           {user.pronouns && <p className="text-xs text-white/70 mb-1">{user.pronouns}</p>}
           <p className="line-clamp-2 text-sm text-white/85 leading-relaxed">{user.bio}</p>
 

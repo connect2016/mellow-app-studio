@@ -1049,6 +1049,7 @@ export default function Discover() {
         </div>
       </nav>
       </div>
+      <CheckInSheet open={showCheckIn} onClose={() => setShowCheckIn(false)} />
     </div>
   );
 }

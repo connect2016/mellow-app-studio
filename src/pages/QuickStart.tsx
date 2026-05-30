@@ -642,7 +642,7 @@ function Section({ title, sub, children }: { title: string; sub: string; childre
         <h1 className="h-display text-foreground" style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)' }}>
           {title}
         </h1>
-        <p className="text-sm mt-2" style={{ color: '#1a1f2e' }}>{sub}</p>
+        <p className="mt-2" style={{ color: '#1a1f2e', fontSize: '15px', fontWeight: 500, textShadow: '0 1px 4px rgba(255,255,255,0.6)', opacity: 1 }}>{sub}</p>
       </div>
       <div className="space-y-3 pt-2">{children}</div>
     </div>

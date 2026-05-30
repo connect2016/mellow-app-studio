@@ -586,7 +586,7 @@ export default function QuickStart() {
               onClick={handleSkip}
               style={{
                 fontSize: '14px',
-                fontWeight: 500,
+                fontWeight: 600,
                 color: '#1a1f2e',
                 textDecoration: 'underline',
                 background: 'transparent',
@@ -594,6 +594,7 @@ export default function QuickStart() {
                 cursor: 'pointer',
                 padding: '12px 8px',
                 whiteSpace: 'nowrap',
+                opacity: 1,
               }}
             >
               Skip for now

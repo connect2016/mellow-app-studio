@@ -619,6 +619,14 @@ export default function Discover() {
               </Popover>
             );
           })()}
+          <button
+            type="button"
+            onClick={() => setShowCheckIn(true)}
+            className="mt-2 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl border-2 border-white/70 bg-white/10 px-4 py-3 text-sm font-extrabold text-white backdrop-blur-sm transition-all duration-150 active:scale-[0.98] hover:bg-white/20"
+            style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+          >
+            📍 Check In
+          </button>
         </div>
 
         {/* Beer Snake photo upload */}

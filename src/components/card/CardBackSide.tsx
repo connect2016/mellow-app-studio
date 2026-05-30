@@ -104,7 +104,7 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId, onFli
           <ShareMenu
             size="sm"
             title={`Share ${displayName || 'this fan'}'s card`}
-            shareTitle={`${displayName || 'A Cubs fan'} on Cubbies Buddies`}
+            shareTitle={`${displayName || 'A Cubs fan'} on Wrigleyville Buddies`}
             shareUrl={
               typeof window !== 'undefined'
                 ? `${window.location.origin}/profile/${userId ?? ''}`

@@ -9,7 +9,7 @@ const NotFoundPage = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOMeta
-        title="Page Not Found | Cubbies Buddies"
+        title="Page Not Found | Wrigleyville Buddies"
         description="You swung and missed. That URL doesn't exist."
       />
       <AppHeader />

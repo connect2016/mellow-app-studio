@@ -5,11 +5,11 @@ export default function PrivacyPolicyPage() {
     <LegalPageLayout
       title="Privacy Policy"
       updated="May 2026"
-      seoTitle="Privacy Policy | Cubbies Buddies"
-      seoDescription="How Cubbies Buddies collects, uses, and protects your information."
+      seoTitle="Privacy Policy | Wrigleyville Buddies"
+      seoDescription="How Wrigleyville Buddies collects, uses, and protects your information."
     >
       <p>
-        Cubbies Buddies is a social app for Chicago Cubs fans. We keep this short and
+        Wrigleyville Buddies is a social app for Chicago Cubs fans. We keep this short and
         plain because you came here to make friends, not read fine print.
       </p>
 
@@ -32,7 +32,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>Where your data lives</h2>
       <p>
-        Cubbies Buddies uses Supabase as our managed backend (database, auth, and file storage).
+        Wrigleyville Buddies uses Supabase as our managed backend (database, auth, and file storage).
         Your data is stored on Supabase's secure infrastructure. Profile photos live in our
         encrypted storage bucket.
       </p>
@@ -53,7 +53,7 @@ export default function PrivacyPolicyPage() {
       </ul>
 
       <h2>Kids</h2>
-      <p>You must be 21+ to use Cubbies Buddies. We don't knowingly collect data from anyone under 21.</p>
+      <p>You must be 21+ to use Wrigleyville Buddies. We don't knowingly collect data from anyone under 21.</p>
 
       <h2>Contact</h2>
       <p>

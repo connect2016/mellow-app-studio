@@ -16,7 +16,7 @@ export function LegalPageLayout({ title, updated, seoTitle, seoDescription, chil
       <SEOMeta title={seoTitle} description={seoDescription} />
       <header className="border-b bg-card">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <Link to="/" className="text-base font-extrabold text-foreground">Cubbies Buddies</Link>
+          <Link to="/" className="text-base font-extrabold text-foreground">Wrigleyville Buddies</Link>
           <nav className="flex gap-4 text-sm text-muted-foreground">
             <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
             <Link to="/terms" className="hover:text-foreground">Terms</Link>
@@ -38,7 +38,7 @@ export function LegalPageLayout({ title, updated, seoTitle, seoDescription, chil
           <span aria-hidden>·</span>
           <Link to="/terms" className="hover:text-foreground">Terms of Service</Link>
           <span aria-hidden>·</span>
-          <span>© {new Date().getFullYear()} Cubbies Buddies</span>
+          <span>© {new Date().getFullYear()} Wrigleyville Buddies</span>
         </div>
       </footer>
     </div>

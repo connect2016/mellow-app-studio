@@ -94,7 +94,7 @@ export default function ClaimBeer() {
           <p className="text-4xl mb-3"></p>
           <h1 className="text-xl font-bold text-foreground mb-2">Link Expired</h1>
           <p className="text-sm text-muted-foreground mb-4">{error}</p>
-          <Button onClick={() => navigate('/')} className="rounded-2xl">Go to Cubbies Buddies</Button>
+          <Button onClick={() => navigate('/')} className="rounded-2xl">Go to Wrigleyville Buddies</Button>
         </div>
       </div>
     );
@@ -250,7 +250,7 @@ export default function ClaimBeer() {
             >
               <div className="text-center">
                 <Sparkles className="h-5 w-5 text-primary mx-auto mb-2" />
-                <h2 className="text-lg font-bold mb-1 text-destructive-foreground">Join Cubbies Buddies</h2>
+                <h2 className="text-lg font-bold mb-1 text-destructive-foreground">Join Wrigleyville Buddies</h2>
                 <p className="text-xs text-muted-foreground">Free account — takes 30 seconds</p>
               </div>
 

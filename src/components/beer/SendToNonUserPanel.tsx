@@ -47,7 +47,7 @@ export function SendToNonUserPanel({ amount, note, onClaimGenerated }: Props) {
   };
 
   const handleShareSMS = () => {
-    const text = ` ${friendName}, someone bought you a beer on Cubbies Buddies! Claim it here: ${claimUrl}`;
+    const text = ` ${friendName}, someone bought you a beer on Wrigleyville Buddies! Claim it here: ${claimUrl}`;
     if (friendPhone) {
       window.open(`sms:${friendPhone}?body=${encodeURIComponent(text)}`, '_blank');
     } else {
@@ -58,7 +58,7 @@ export function SendToNonUserPanel({ amount, note, onClaimGenerated }: Props) {
   const handleShareNative = async () => {
     const shareData = {
       title: ' You got a beer!',
-      text: `${friendName}, someone bought you a beer on Cubbies Buddies! Claim it now.`,
+      text: `${friendName}, someone bought you a beer on Wrigleyville Buddies! Claim it now.`,
       url: claimUrl,
     };
     if (navigator.share) {

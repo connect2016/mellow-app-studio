@@ -121,12 +121,12 @@ export function AppHeader() {
         >
           <Link
             to="/"
-            aria-label="Cubbies Buddies home"
+            aria-label="Wrigleyville Buddies home"
             className="flex min-w-0 items-center"
             style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}
           >
             <img
-              alt="Cubbies Buddies"
+              alt="Wrigleyville Buddies"
               className="app-header-logo shrink-0 transition-transform duration-200 hover:scale-105"
               src={wrigleyvilleLogo}
               style={{
@@ -151,7 +151,7 @@ export function AppHeader() {
                   flexShrink: 0,
                 }}
               >
-                Cubbies Buddies
+                Wrigleyville Buddies
               </span>
             )}
           </Link>

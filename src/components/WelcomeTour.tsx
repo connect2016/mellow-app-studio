@@ -336,7 +336,7 @@ export function WelcomeTour() {
               {/* Pennant Logo */}
               <motion.img
                 src={pennantLogo}
-                alt="Cubbies Buddies"
+                alt="Wrigleyville Buddies"
                 className="mx-auto mb-6 h-28 w-auto drop-shadow-lg"
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}

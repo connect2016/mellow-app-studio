@@ -1,8 +1,8 @@
-# Cubbies Buddies
+# Wrigleyville Buddies
 
 > The social app for Cubs fans. Find friends, plan game-day meetups, and connect with fellow fans at Wrigley Field and Wrigleyville bars.
 
-Cubbies Buddies is a community app for Chicago Cubs fans to meet up, share game-day plans, and discover bars, restaurants, and rooftops around Wrigleyville. Fans pick an intent (friends, beer, meetup, dating), then connect via a live map, open meetups, and crews.
+Wrigleyville Buddies is a community app for Chicago Cubs fans to meet up, share game-day plans, and discover bars, restaurants, and rooftops around Wrigleyville. Fans pick an intent (friends, beer, meetup, dating), then connect via a live map, open meetups, and crews.
 
 ## Pages
 

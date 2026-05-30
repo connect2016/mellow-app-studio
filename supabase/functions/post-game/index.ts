@@ -151,7 +151,7 @@ serve(async (req) => {
         ? `This fan's style: ${(userProfile.fan_style as string[] ?? []).join(", ") || "casual"}. Their usual bar: ${userProfile.wrigleyville_bar || "none"}. Intents: ${(userProfile.intent as string[] ?? []).join(", ") || "general"}.`
         : "";
 
-      const systemPrompt = `You are the "Cubbies Buddies" post-game social coordinator for Wrigleyville, Chicago.
+      const systemPrompt = `You are the "Wrigleyville Buddies" post-game social coordinator for Wrigleyville, Chicago.
 Your job: match the MOOD of the game outcome to perfect meetup suggestions.
 For WINS → high-energy celebration spots, group cheers, victory laps around Wrigleyville.
 For LOSSES → cozy consolation hangs, "there's always tomorrow" solidarity, comfort food & drinks.

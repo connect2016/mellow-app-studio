@@ -110,7 +110,7 @@ serve(async (req) => {
       "Wrigley Field Main Gate", "Bleacher Gate",
     ];
 
-    const systemPrompt = `You are an instant matchmaker for "Cubbies Buddies" — a Cubs fans social app.
+    const systemPrompt = `You are an instant matchmaker for "Wrigleyville Buddies" — a Cubs fans social app.
 
 Your mission: pick the SINGLE BEST group of 3-5 fans for this user to instantly meet up with RIGHT NOW. 
 Zero decision-making required from the user — you decide everything:

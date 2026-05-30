@@ -213,8 +213,8 @@ export default function BeerMoney() {
 
   const handleShare = useCallback(async () => {
     const shareData = {
-      title: ' Beer Money — Cubbies Buddies',
-      text: `I just bought ${recipientLabel || 'a fan'} a beer on Cubbies Buddies! Join the fun in Wrigleyville.`,
+      title: ' Beer Money — Wrigleyville Buddies',
+      text: `I just bought ${recipientLabel || 'a fan'} a beer on Wrigleyville Buddies! Join the fun in Wrigleyville.`,
       url: shareUrl,
     };
     if (navigator.share) {

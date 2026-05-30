@@ -57,7 +57,7 @@ export function GuestGateModal({ open, onClose, action = 'do that' }: GuestGateM
                 className="w-full rounded-full bg-secondary text-secondary-foreground font-bold hover:bg-secondary/90"
                 size="lg"
               >
-                Join Cubbies Buddies
+                Join Wrigleyville Buddies
               </Button>
 
               <button

@@ -39,8 +39,8 @@ export function InviteBuddyButton({
 
     const inviteUrl = buildInviteUrl(user?.id ?? null);
     const shareData = {
-      title: 'Join my Cubbies Buddies crew',
-      text: 'I\'m on Cubbies Buddies — find your Cubs crew at Wrigleyville. Join me:',
+      title: 'Join my Wrigleyville Buddies crew',
+      text: 'I\'m on Wrigleyville Buddies — find your Cubs crew at Wrigleyville. Join me:',
       url: inviteUrl,
     };
 

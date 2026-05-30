@@ -190,7 +190,7 @@ export function BaseballCard({
             <div className="absolute top-2 right-2 z-20">
               <img
                 src={logoTransparent}
-                alt="Cubbies Buddies"
+                alt="Wrigleyville Buddies"
                 className="h-6 w-auto opacity-70"
               />
             </div>

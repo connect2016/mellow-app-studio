@@ -121,7 +121,7 @@ serve(async (req) => {
       (profile.is_verified ? 50 : 0) +
       Math.min(accountAgeDays, 365);
 
-    const systemPrompt = `You are the Fan Identity Engine for "Cubbies Buddies" — a Cubs fans social app.
+    const systemPrompt = `You are the Fan Identity Engine for "Wrigleyville Buddies" — a Cubs fans social app.
 
 Analyze a user's FULL engagement history and classify them into a fan identity tier and personalized title.
 

@@ -5,8 +5,8 @@ export default function TermsOfServicePage() {
     <LegalPageLayout
       title="Terms of Service"
       updated="May 2026"
-      seoTitle="Terms of Service | Cubbies Buddies"
-      seoDescription="The rules of the bleachers — how to use Cubbies Buddies."
+      seoTitle="Terms of Service | Wrigleyville Buddies"
+      seoDescription="The rules of the bleachers — how to use Wrigleyville Buddies."
     >
       <div
         style={{
@@ -29,7 +29,7 @@ export default function TermsOfServicePage() {
           Independent Fan App — Not Affiliated with MLB or the Chicago Cubs
         </h2>
         <p style={{ fontSize: '14px', color: '#374151', lineHeight: 1.6, margin: 0 }}>
-          Cubbies Buddies is an independently operated, fan-created application. We
+          Wrigleyville Buddies is an independently operated, fan-created application. We
           are not affiliated with, authorized by, endorsed by, or in any way
           officially connected to Major League Baseball, the Office of the
           Commissioner of Baseball, the Chicago National League Ball Club LLC (the
@@ -45,19 +45,19 @@ export default function TermsOfServicePage() {
         </p>
       </div>
       <p>
-        Welcome to Cubbies Buddies. By using the app you agree to these terms. Keep it
+        Welcome to Wrigleyville Buddies. By using the app you agree to these terms. Keep it
         friendly, keep it real, and we'll all have a great season.
       </p>
 
       <h2>Acceptance of terms</h2>
       <p>
-        By creating an account or using Cubbies Buddies, you agree to these Terms of Service
+        By creating an account or using Wrigleyville Buddies, you agree to these Terms of Service
         and our Privacy Policy. If you don't agree, please don't use the app.
       </p>
 
       <h2>Who can use the app</h2>
       <ul>
-        <li>You must be at least <strong>18 years old</strong> to use Cubbies Buddies.</li>
+        <li>You must be at least <strong>18 years old</strong> to use Wrigleyville Buddies.</li>
         <li>You must be at least <strong>21 years old</strong> to use beer-purchase features (Send a Round, Buy a Beer, Beer Money tips).</li>
         <li>You're a real Cubs fan creating one real profile — no bots, no impersonation, no fake accounts.</li>
         <li>You're responsible for what happens on your account; keep your login safe.</li>
@@ -93,7 +93,7 @@ export default function TermsOfServicePage() {
         <li>All beer purchases and Beer Money tips are <strong>final once delivered</strong> — no refunds after the recipient has received or claimed the beer.</li>
         <li>You have a <strong>24-hour dispute window</strong> from the time of purchase to report a problem (wrong recipient, non-delivery, technical error). Email <a href="mailto:legal@cubbiesbuddies.com">legal@cubbiesbuddies.com</a> within 24 hours.</li>
         <li>Disputes opened after the 24-hour window will not be eligible for refund.</li>
-        <li>Cubbies Buddies is not responsible for the consumption choices of any recipient.</li>
+        <li>Wrigleyville Buddies is not responsible for the consumption choices of any recipient.</li>
       </ul>
 
       <h2>Meetups happen in the real world</h2>
@@ -105,9 +105,9 @@ export default function TermsOfServicePage() {
 
       <h2>The app is provided "as is"</h2>
       <p>
-        We work hard to keep Cubbies Buddies fun and reliable, but we can't guarantee it
+        We work hard to keep Wrigleyville Buddies fun and reliable, but we can't guarantee it
         will always be available, error-free, or that any match leads to lifelong friendship.
-        To the maximum extent allowed by law, Cubbies Buddies is not liable for indirect,
+        To the maximum extent allowed by law, Wrigleyville Buddies is not liable for indirect,
         incidental, or consequential damages arising from your use of the service.
       </p>
 
@@ -125,7 +125,7 @@ export default function TermsOfServicePage() {
 
       <h2>Not affiliated with the Cubs</h2>
       <p>
-        Cubbies Buddies is an independent fan-made app. It is not affiliated with, endorsed,
+        Wrigleyville Buddies is an independent fan-made app. It is not affiliated with, endorsed,
         or sponsored by the Chicago Cubs or Major League Baseball.
       </p>
 

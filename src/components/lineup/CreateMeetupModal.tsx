@@ -59,7 +59,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeet
 
   const handleShare = async () => {
     if (!success) return;
-    const text = `Join me at ${success.location} at ${formatTime(success.time)} — posted on Cubbies Buddies!`;
+    const text = `Join me at ${success.location} at ${formatTime(success.time)} — posted on Wrigleyville Buddies!`;
     try {
       if (typeof navigator !== 'undefined' && (navigator as any).share) {
         await (navigator as any).share({ title: 'Meetup at Wrigleyville', text });

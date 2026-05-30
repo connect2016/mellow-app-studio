@@ -262,8 +262,8 @@ export default function Profile() {
         }}
       />
       <SEOMeta
-        title="Your Profile — Cubbies Buddies"
-        description="View and customize your Cubbies Buddies profile, season stats, badges, and meetup history."
+        title="Your Profile — Wrigleyville Buddies"
+        description="View and customize your Wrigleyville Buddies profile, season stats, badges, and meetup history."
       />
       <div style={{ position: 'relative', zIndex: 1 }}>
         <AppHeader />
@@ -461,7 +461,7 @@ export default function Profile() {
                         { icon: ShieldCheck, label: 'Safety Tools', desc: 'Blocking, verification, meetup safety', to: '/settings#safety' },
                         { icon: SettingsIcon, label: 'Settings', desc: 'Notifications, privacy, account', to: '/settings' },
                         { icon: HelpCircle, label: 'FAQ', desc: 'Common questions answered', to: '/settings#faq' },
-                        { icon: LifeBuoy, label: 'Support', desc: 'Contact the Cubbies Buddies team', to: '/settings#support' },
+                        { icon: LifeBuoy, label: 'Support', desc: 'Contact the Wrigleyville Buddies team', to: '/settings#support' },
                         { icon: Info, label: 'About', desc: 'App version & credits', to: '/settings#about' },
                       ].map(({ icon: Icon, label, desc, to }) => (
                         <li key={label}>

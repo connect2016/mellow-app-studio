@@ -114,7 +114,7 @@ serve(async (req) => {
       }),
     };
 
-    const systemPrompt = `You are a fun, friendly Cubs fan meetup assistant for the "Cubbies Buddies" app. 
+    const systemPrompt = `You are a fun, friendly Cubs fan meetup assistant for the "Wrigleyville Buddies" app. 
 You help fans connect at Wrigley Field and Wrigleyville bars.
 
 Given data about active nearby fans, generate 2-3 smart meetup suggestions.

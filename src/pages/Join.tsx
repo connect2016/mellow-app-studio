@@ -83,15 +83,15 @@ export default function Join() {
   return (
     <>
       <SEOMeta
-        title={`${inviterName} invited you to Cubbies Buddies`}
-        description="Find your Cubs crew at Wrigleyville. Join Cubbies Buddies — free."
+        title={`${inviterName} invited you to Wrigleyville Buddies`}
+        description="Find your Cubs crew at Wrigleyville. Join Wrigleyville Buddies — free."
         url="https://cubbiesbuddies.com/join"
       />
 
       <main className="min-h-screen bg-background pb-24">
         <header className="border-b border-border/40 bg-card/60 backdrop-blur">
           <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
-            <Link to="/" className="text-sm font-bold text-[#0E3386]">Cubbies Buddies</Link>
+            <Link to="/" className="text-sm font-bold text-[#0E3386]">Wrigleyville Buddies</Link>
             <Link
               to="/auth"
               className="text-xs font-medium text-muted-foreground hover:text-foreground"
@@ -154,7 +154,7 @@ export default function Join() {
                 navigate('/auth?mode=signup');
               }}
             >
-              Join Cubbies Buddies — Free <ArrowRight className="h-5 w-5" />
+              Join Wrigleyville Buddies — Free <ArrowRight className="h-5 w-5" />
             </Button>
             <p className="text-center text-xs text-muted-foreground">
               Already have an account?{' '}

@@ -12,7 +12,7 @@ export function SiteFooter() {
           Terms of Service
         </Link>
         <span aria-hidden>·</span>
-        <span>© 2026 Cubbies Buddies</span>
+        <span>© 2026 Wrigleyville Buddies</span>
       </nav>
       <p
         style={{
@@ -25,7 +25,7 @@ export function SiteFooter() {
           padding: '0 16px',
         }}
       >
-        Cubbies Buddies is an independent fan-made app. It is not affiliated with,
+        Wrigleyville Buddies is an independent fan-made app. It is not affiliated with,
         endorsed by, sponsored by, or associated with Major League Baseball, the
         Chicago Cubs, or any of their affiliates or subsidiaries. All team names
         and related marks are the property of their respective owners.

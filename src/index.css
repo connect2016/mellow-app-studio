@@ -786,3 +786,37 @@ body::before {
 main {
   padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
 }
+
+/* ===== Wrigley Rainbow shared background ===== */
+.wrigley-rainbow-bg {
+  position: relative;
+  min-height: 100vh;
+  background-color: #8a9bb0; /* sky-grey tone while image loads */
+  background-image: url('/wrigley-rainbow.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  image-rendering: auto;
+}
+
+.wrigley-rainbow-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 20, 40, 0.45) 0%,
+    rgba(10, 20, 40, 0.60) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .wrigley-rainbow-bg {
+    background-position: center 30%;
+    /* iOS Safari has poor support for background-attachment: fixed; fall back to scroll */
+    background-attachment: scroll;
+  }
+}

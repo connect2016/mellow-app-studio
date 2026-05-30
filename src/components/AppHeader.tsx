@@ -90,10 +90,13 @@ export function AppHeader() {
     <>
       {/* Top bar */}
       <header
-        className="sticky top-0 z-50 border-b border-border/30 bg-transparent backdrop-blur-sm"
+        className="sticky top-0 z-50 border-b border-border/30"
         style={{
           height: 'var(--app-header-h, 120px)',
           minHeight: 'var(--app-header-h, 120px)',
+          background: 'rgba(14, 51, 134, 0.85)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
         }}
       >
         <style>{`

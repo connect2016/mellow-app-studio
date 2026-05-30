@@ -26,7 +26,7 @@ import { PostGameExperience } from '@/components/PostGameExperience';
 import { CubsScoreboard } from '@/components/CubsScoreboard';
 import { GamedayStateHero } from '@/components/GamedayStateHero';
 import { useGamedayMode } from '@/contexts/GamedayModeContext';
-import bgWrigleyville from '@/assets/cubs-bar-interior.webp';
+import { WrigleyRainbowBackground } from '@/components/WrigleyRainbowBackground';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActiveGame, useGeoUpdater, useGameTimeMatchTrigger } from '@/hooks/useGameTimeMatch';
@@ -278,6 +278,7 @@ export default function Discover() {
   };
 
   return (
+    <WrigleyRainbowBackground>
     <div
       className="min-h-screen relative overflow-x-hidden"
       style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}
@@ -287,18 +288,6 @@ export default function Discover() {
         description="Discover Cubs fans near Wrigleyville. Match with buddies, find your section, and plan game-day meetups."
         url="/discover"
       />
-      {/* Dynamic background image — parallax bg layer (40% drag) */}
-      <div className="fixed inset-0 z-0 swipe-drag-bg" data-route-parallax="bg">
-        <img
-          src={bgWrigleyville}
-          alt=""
-          className="h-full w-full object-cover"
-          width={1920}
-          height={1080}
-        />
-        <div className="absolute inset-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
-        {gamedayMode && <div className="absolute inset-0 bg-background/30 backdrop-blur-[2px]" />}
-      </div>
 
       {/* Foreground — full-speed drag layer */}
       <div className="relative z-10 swipe-drag" data-route-parallax="fg">
@@ -1029,5 +1018,6 @@ export default function Discover() {
 
       <CheckInSheet open={showCheckIn} onClose={() => setShowCheckIn(false)} />
     </div>
+    </WrigleyRainbowBackground>
   );
 }

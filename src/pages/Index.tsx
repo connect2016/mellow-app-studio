@@ -1,5 +1,5 @@
 import { useAuth } from '@/contexts/AuthContext';
-import { DynamicBackground } from '@/components/DynamicBackground';
+import { WrigleyRainbowBackground } from '@/components/WrigleyRainbowBackground';
 import { AppHeader } from '@/components/AppHeader';
 import { TrendingNow } from '@/components/TrendingNow';
 import { HallOfFameLeaderboard } from '@/components/HallOfFameLeaderboard';
@@ -25,7 +25,7 @@ const Index = () => {
   if (!user) return null;
 
   return (
-    <DynamicBackground>
+    <WrigleyRainbowBackground>
       <AppHeader />
       <main className="mx-auto max-w-lg px-4 pt-20 space-y-4" style={{ paddingBottom: 'calc(6rem + env(safe-area-inset-bottom))' }}>
         <div className="-mx-4">
@@ -55,7 +55,7 @@ const Index = () => {
         <TrendingNow />
         <HallOfFameLeaderboard />
       </main>
-    </DynamicBackground>
+    </WrigleyRainbowBackground>
   );
 };
 

@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import { useNavigate } from 'react-router-dom';
 import { SEOMeta } from '@/components/SEOMeta';
 import { AppHeader } from '@/components/AppHeader';
+import { WrigleyRainbowBackground } from '@/components/WrigleyRainbowBackground';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { NearbyFansSheet } from '@/components/map/NearbyFansSheet';
@@ -103,7 +104,8 @@ export default function FanMap() {
   };
 
   return (
-    <div className="relative min-h-screen bg-background">
+    <WrigleyRainbowBackground>
+    <div className="relative min-h-screen">
       <SEOMeta
         title="Fan Map — Cubbies Buddies"
         description="See nearby Cubs fans on the live map and say hi from your seat."
@@ -202,5 +204,6 @@ export default function FanMap() {
         />
       )}
     </div>
+    </WrigleyRainbowBackground>
   );
 }

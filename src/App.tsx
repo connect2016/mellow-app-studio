@@ -93,6 +93,7 @@ const App = () => (
             <CreateMeetupProvider>
             <MessageToastListener />
             <BucketListPanel />
+            <DisclaimerModal />
             <IcebreakerNotifier />
             <AchievementNotifier />
             <PushPermissionPrompt />

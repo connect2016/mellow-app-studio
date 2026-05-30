@@ -251,6 +251,8 @@ export default function Discover() {
     gameday_intents: ((p as any).gameday_intents as GamedayIntentType[]) ?? [],
     fan_style: ((p as any).fan_style as FanStyleType[]) ?? [],
     fan_tags: ((p as any).fan_tags as string[]) ?? [],
+    checkin_bar: checkinsMap[p.user_id]?.checkin_bar ?? null,
+    checkin_section: checkinsMap[p.user_id]?.checkin_section ?? null,
   });
 
   const handleLike = async (profile: typeof profiles[0]) => {

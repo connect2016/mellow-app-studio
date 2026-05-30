@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ClipboardList, X, Trophy } from 'lucide-react';
+import { X, Trophy } from 'lucide-react';
 import { useBucketList } from '@/hooks/useBucketList';
 import { cn } from '@/lib/utils';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';

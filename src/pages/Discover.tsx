@@ -57,6 +57,8 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { FanStreakBanner } from '@/components/FanStreakBanner';
 import { ActivityFeedStrip } from '@/components/ActivityFeedStrip';
 import { GameDayIntentBanner, type GameDayIntent } from '@/components/GameDayIntentBanner';
+import { CheckInSheet } from '@/components/CheckInSheet';
+import { useVisibleCheckins } from '@/hooks/useVisibleCheckins';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', icon: 'beer', label: 'At the Bar' },

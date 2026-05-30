@@ -8,6 +8,42 @@ export default function TermsOfServicePage() {
       seoTitle="Terms of Service | Cubbies Buddies"
       seoDescription="The rules of the bleachers — how to use Cubbies Buddies."
     >
+      <div
+        style={{
+          border: '1px solid #e2e6ee',
+          borderRadius: '12px',
+          padding: '16px',
+          background: '#f9fafb',
+          marginBottom: '24px',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '16px',
+            fontWeight: 700,
+            color: '#1a1f2e',
+            marginTop: 0,
+            marginBottom: '12px',
+          }}
+        >
+          Independent Fan App — Not Affiliated with MLB or the Chicago Cubs
+        </h2>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: 1.6, margin: 0 }}>
+          Cubbies Buddies is an independently operated, fan-created application. We
+          are not affiliated with, authorized by, endorsed by, or in any way
+          officially connected to Major League Baseball, the Office of the
+          Commissioner of Baseball, the Chicago National League Ball Club LLC (the
+          Chicago Cubs), or any of their subsidiaries, affiliates, or partners.
+        </p>
+        <p style={{ fontSize: '14px', color: '#374151', lineHeight: 1.6, marginTop: '12px', marginBottom: 0 }}>
+          All Major League Baseball trademarks, team names, logos, and copyrights
+          are the property of their respective owners and are used here, if at all,
+          only in a descriptive or nominative manner. This app is a community tool
+          built by fans, for fans, to help people coordinate social meetups. Any
+          references to teams, places, or events are for identification and
+          community-organizing purposes only.
+        </p>
+      </div>
       <p>
         Welcome to Cubbies Buddies. By using the app you agree to these terms. Keep it
         friendly, keep it real, and we'll all have a great season.

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Beer } from 'lucide-react';
 import { AppHeader } from '@/components/AppHeader';
+import { WrigleyRainbowBackground } from '@/components/WrigleyRainbowBackground';
 import { SEOMeta } from '@/components/SEOMeta';
 import { Button } from '@/components/ui/button';
 import { ProfileCardSkeleton } from '@/components/ui/skeleton';
@@ -78,7 +79,7 @@ export default function DiscoverFans() {
   };
 
   return (
-    <>
+    <WrigleyRainbowBackground>
       <SEOMeta title="Discover Fans · Cubbies Buddies" description="Find Cubs fans near Wrigleyville to meet up, chat, and share the bleachers." />
       <AppHeader />
 
@@ -153,7 +154,7 @@ export default function DiscoverFans() {
           context={{ kind: 'fan', userId: beerCtx.userId, firstName: beerCtx.firstName, avatarUrl: beerCtx.avatarUrl }}
         />
       )}
-    </>
+    </WrigleyRainbowBackground>
   );
 }
 

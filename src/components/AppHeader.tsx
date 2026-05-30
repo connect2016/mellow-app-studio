@@ -90,23 +90,23 @@ export function AppHeader() {
     <>
       {/* Top bar */}
       <header
-        className="sticky top-0 z-50 border-b border-border/30"
+        className="sticky top-0 z-50"
         style={{
-          height: 'var(--app-header-h, 120px)',
-          minHeight: 'var(--app-header-h, 120px)',
-          background: 'rgba(14, 51, 134, 0.85)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
+          height: 'var(--app-header-h, 64px)',
+          minHeight: 'var(--app-header-h, 64px)',
+          background: 'transparent',
+          border: 'none',
+          boxShadow: 'none',
         }}
       >
         <style>{`
-          :root { --app-header-h: 120px; --app-header-pad: 16px; }
+          :root { --app-header-h: 64px; --app-header-pad: 16px; }
           @media (max-width: 640px) {
-            :root { --app-header-h: 108px; --app-header-pad: 12px; }
+            :root { --app-header-h: 56px; --app-header-pad: 12px; }
           }
-          .app-header-logo { width: 104px; height: 104px; min-width: 104px; min-height: 104px; }
+          .app-header-logo { width: 52px; height: 52px; min-width: 52px; min-height: 52px; }
           @media (max-width: 640px) {
-            .app-header-logo { width: 92px; height: 92px; min-width: 92px; min-height: 92px; }
+            .app-header-logo { width: 44px; height: 44px; min-width: 44px; min-height: 44px; }
           }
           @media (max-width: 480px) {
             .app-header-wordmark { display: none !important; }
@@ -143,11 +143,11 @@ export function AppHeader() {
                 style={{
                   fontSize: '15px',
                   fontWeight: 800,
-                  color: '#FFFFFF',
+                  color: '#1a1f2e',
                   letterSpacing: '0.02em',
                   marginLeft: '8px',
                   whiteSpace: 'nowrap',
-                  textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                  textShadow: '0 1px 3px rgba(255,255,255,0.6)',
                   flexShrink: 0,
                 }}
               >

@@ -321,6 +321,10 @@ export default function Profile() {
               />
             </div>
 
+            {isOwnProfile && <FieldGuideRow />}
+
+
+
             {isOwnProfile && (
               <SeasonStatsEditor
                 values={seasonStatsValues}

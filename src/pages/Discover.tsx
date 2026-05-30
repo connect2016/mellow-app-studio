@@ -277,7 +277,10 @@ export default function Discover() {
   };
 
   return (
-    <div className="min-h-screen pb-52 relative overflow-x-hidden">
+    <div
+      className="min-h-screen relative overflow-x-hidden"
+      style={{ paddingBottom: 'calc(130px + env(safe-area-inset-bottom, 0px))' }}
+    >
       <SEOMeta
         title="Discover Fans — Cubbies Buddies"
         description="Discover Cubs fans near Wrigleyville. Match with buddies, find your section, and plan game-day meetups."

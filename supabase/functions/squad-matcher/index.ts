@@ -111,7 +111,7 @@ serve(async (req) => {
       "Wrigley Field Main Gate", "Bleacher Gate"
     ];
 
-    const systemPrompt = `You are an AI squad matchmaker for the "Cubbies Buddies" app — a social app for Cubs fans around Wrigley Field.
+    const systemPrompt = `You are an AI squad matchmaker for the "Wrigleyville Buddies" app — a social app for Cubs fans around Wrigley Field.
 
 Your job: analyze active fan data and create optimal meetup squads of 3-6 people who would genuinely enjoy hanging out together.
 

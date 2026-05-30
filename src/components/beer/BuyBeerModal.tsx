@@ -640,7 +640,7 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
               </p>
               <p className="text-[10px] text-muted-foreground/80 flex items-center gap-1 pt-0.5">
                 <Lock className="h-2.5 w-2.5" />
-                Card details handled by our payment processor — never stored on Cubbies Buddies.
+                Card details handled by our payment processor — never stored on Wrigleyville Buddies.
               </p>
               {caps.remainingToday < caps.dailyCap && (
                 <p className="text-[10px] text-muted-foreground/80">

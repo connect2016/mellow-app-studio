@@ -51,7 +51,7 @@ export function NotificationDrawer({ open, onOpenChange, onUnreadChange }: Props
         className="mx-auto max-w-lg p-0 border-0 bg-[hsl(222,82%,18%)] rounded-b-2xl max-h-[85vh] overflow-hidden flex flex-col"
       >
         <SheetTitle className="sr-only">Notifications</SheetTitle>
-        <SheetDescription className="sr-only">Recent activity from Cubbies Buddies</SheetDescription>
+        <SheetDescription className="sr-only">Recent activity from Wrigleyville Buddies</SheetDescription>
 
         {/* Red header bar */}
         <div className="bg-[#C8102E] px-4 py-3 flex items-center justify-between gap-3 shadow-md">

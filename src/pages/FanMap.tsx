@@ -107,7 +107,7 @@ export default function FanMap() {
     <WrigleyRainbowBackground>
     <div className="relative min-h-screen">
       <SEOMeta
-        title="Fan Map — Cubbies Buddies"
+        title="Fan Map — Wrigleyville Buddies"
         description="See nearby Cubs fans on the live map and say hi from your seat."
       />
       <AppHeader />

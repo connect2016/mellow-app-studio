@@ -241,7 +241,7 @@ export default function BarMap() {
         )}
 
         <div className="pt-4 text-center text-[10px] text-white/80 italic drop-shadow">
-          Editorially curated by Cubbies Buddies · Want your bar listed?{' '}
+          Editorially curated by Wrigleyville Buddies · Want your bar listed?{' '}
           <Link to="/settings" className="text-amber-300 hover:underline not-italic font-semibold">Get in touch</Link>
         </div>
       </section>

@@ -1,7 +1,7 @@
 {
-  "name": "Cubbies Buddies",
-  "short_name": "Cubbies",
-  "description": "Find your Cubs crew at Wrigleyville",
+  "name": "Wrigleyville Buddies",
+  "short_name": "Wrigleyville",
+  "description": "Find your crew at Wrigleyville",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0E3386",

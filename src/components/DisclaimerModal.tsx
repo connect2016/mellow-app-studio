@@ -62,7 +62,7 @@ export function DisclaimerModal() {
             marginBottom: '12px',
           }}
         >
-          Welcome to Cubbies Buddies
+          Welcome to Wrigleyville Buddies
         </h2>
         <p
           style={{
@@ -74,7 +74,7 @@ export function DisclaimerModal() {
           }}
         >
           This is an independent, fan-made app for connecting Cubs fans socially.
-          Cubbies Buddies is not affiliated with or endorsed by Major League
+          Wrigleyville Buddies is not affiliated with or endorsed by Major League
           Baseball or the Chicago Cubs. All team marks belong to their respective
           owners.
         </p>

@@ -236,7 +236,7 @@ export default function WrigleyvilleEats() {
         </div>
 
         <div className="pt-4 pb-2 text-center text-[10px] text-muted-foreground italic">
-          Editorially curated by Cubbies Buddies · Spots are not sponsored.
+          Editorially curated by Wrigleyville Buddies · Spots are not sponsored.
         </div>
       </section>
 

@@ -167,7 +167,7 @@ serve(async (req) => {
       totalActiveFans: (activeFansRes.data ?? []).length,
     };
 
-    const systemPrompt = `You are the "Next Move" recommendation engine for "Cubbies Buddies" — a Cubs fans social app in Wrigleyville, Chicago.
+    const systemPrompt = `You are the "Next Move" recommendation engine for "Wrigleyville Buddies" — a Cubs fans social app in Wrigleyville, Chicago.
 
 Your job: analyze live crowd data, the user's behavior patterns, and current game phase to recommend the BEST next move for this fan. You produce exactly 3 ranked recommendations.
 

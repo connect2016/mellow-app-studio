@@ -284,7 +284,7 @@ export default function Discover() {
       style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}
     >
       <SEOMeta
-        title="Discover Fans — Cubbies Buddies"
+        title="Discover Fans — Wrigleyville Buddies"
         description="Discover Cubs fans near Wrigleyville. Match with buddies, find your section, and plan game-day meetups."
         url="/discover"
       />
@@ -923,10 +923,10 @@ export default function Discover() {
                   <button
                     type="button"
                     onClick={async () => {
-                      const text = "Come watch the Cubs with me tonight at Wrigley! Join me on Cubbies Buddies: cubbiesbuddies.com";
+                      const text = "Come watch the Cubs with me tonight at Wrigley! Join me on Wrigleyville Buddies: cubbiesbuddies.com";
                       try {
                         if (typeof navigator !== 'undefined' && (navigator as any).share) {
-                          await (navigator as any).share({ title: 'Cubbies Buddies', text });
+                          await (navigator as any).share({ title: 'Wrigleyville Buddies', text });
                         } else {
                           await navigator.clipboard.writeText(text);
                           toast.success('Invite copied — paste it anywhere!');

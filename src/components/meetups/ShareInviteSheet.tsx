@@ -41,7 +41,7 @@ export function ShareInviteSheet({ open, onClose, meetupId, meetupTitle }: Share
   };
 
   const handleNativeShare = async () => {
-    const text = `Join me at "${meetupTitle}" on Cubbies Buddies `;
+    const text = `Join me at "${meetupTitle}" on Wrigleyville Buddies `;
     if (navigator.share) {
       try {
         await navigator.share({ title: meetupTitle, text, url: shareUrl });

@@ -55,7 +55,7 @@ const secondaryFeatures = [
 const stories = [
   {
     initials: 'SM',
-    quote: 'Moved to Chicago and didn\'t know a soul. Found my whole game-day crew on Cubbies Buddies in one homestand.',
+    quote: 'Moved to Chicago and didn\'t know a soul. Found my whole game-day crew on Wrigleyville Buddies in one homestand.',
     name: 'Sarah M.',
     meta: 'Section 204 · 14 games this season',
   },
@@ -76,7 +76,7 @@ const stories = [
 const faqs = [
   {
     q: 'Is this a dating app?',
-    a: 'Mostly no. Most fans use Cubbies Buddies to find friends and pregame crews. You pick your intent — watch party, beer, post-game hangs, or yes, dating too if that\'s your vibe.',
+    a: 'Mostly no. Most fans use Wrigleyville Buddies to find friends and pregame crews. You pick your intent — watch party, beer, post-game hangs, or yes, dating too if that\'s your vibe.',
   },
   {
     q: 'What happens after I create a profile?',
@@ -291,7 +291,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <SEOMeta
-        title="Cubbies Buddies — Find Your Crew at Wrigleyville"
+        title="Wrigleyville Buddies — Find Your Crew at Wrigleyville"
         description="Find your Cubs crew at Wrigleyville. Connect with fellow fans, plan game-day meetups, and build your baseball squad."
         url="/"
         jsonLd={{
@@ -622,7 +622,7 @@ export default function Landing() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
             {/* Brand + platform */}
             <div>
-              <p className="text-base font-extrabold text-foreground">Cubbies Buddies</p>
+              <p className="text-base font-extrabold text-foreground">Wrigleyville Buddies</p>
               <p className="mt-1 text-sm text-muted-foreground">The Wrigleyville social app where fans find friends.</p>
               <div className="mt-4 inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1.5">
                 <Smartphone className="h-3.5 w-3.5 text-primary" />
@@ -674,7 +674,7 @@ export default function Landing() {
               <span aria-hidden>·</span>
               <a href="/terms" className="hover:text-foreground">Terms of Service</a>
             </div>
-            <p className="mt-2">© {new Date().getFullYear()} Cubbies Buddies · Made with  in Wrigleyville</p>
+            <p className="mt-2">© {new Date().getFullYear()} Wrigleyville Buddies · Made with  in Wrigleyville</p>
             <p className="mt-1 text-[11px]">Not affiliated with the Chicago Cubs or Major League Baseball.</p>
           </div>
         </div>

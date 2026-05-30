@@ -80,7 +80,7 @@ export default function DiscoverFans() {
 
   return (
     <WrigleyRainbowBackground>
-      <SEOMeta title="Discover Fans · Cubbies Buddies" description="Find Cubs fans near Wrigleyville to meet up, chat, and share the bleachers." />
+      <SEOMeta title="Discover Fans · Wrigleyville Buddies" description="Find Cubs fans near Wrigleyville to meet up, chat, and share the bleachers." />
       <AppHeader />
 
       <div className="mx-auto max-w-2xl px-4 pb-24 pt-3">

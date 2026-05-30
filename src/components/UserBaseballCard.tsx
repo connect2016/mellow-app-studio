@@ -137,7 +137,7 @@ export function UserBaseballCard({
             navigator.canShare({ files: [file] })
           ) {
             await navigator.share({
-              title: 'My Cubbies Buddies Fan Card',
+              title: 'My Wrigleyville Buddies Fan Card',
               text: 'Find your Cubs crew → cubbiesbuddies.com',
               files: [file],
             });

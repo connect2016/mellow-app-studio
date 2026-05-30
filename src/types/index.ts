@@ -1,4 +1,4 @@
-// Cubbies Buddies Data Types
+// Wrigleyville Buddies Data Types
 
 export type IntentType = 'FriendToWatch' | 'ShareABeer' | 'PostGameMeetup' | 'Dating';
 export type GamedayIntentType = 'BleacherRegular' | 'FamilyFriendly' | 'PreGameDrinks' | 'ScoringTheGame' | 'PostGameCelebration' | 'WrigleyvilleLocal';

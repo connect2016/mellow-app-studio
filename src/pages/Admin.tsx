@@ -36,8 +36,8 @@ export default function Admin() {
   return (
     <div className="min-h-screen bg-background pb-24">
       <SEOMeta
-        title="Admin — Cubbies Buddies"
-        description="Internal moderation dashboard for Cubbies Buddies trust & safety reports."
+        title="Admin — Wrigleyville Buddies"
+        description="Internal moderation dashboard for Wrigleyville Buddies trust & safety reports."
         url="/admin"
         noindex
       />

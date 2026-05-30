@@ -93,7 +93,7 @@ serve(async (req) => {
       currentTime: new Date().toLocaleTimeString("en-US", { timeZone: "America/Chicago", hour: "numeric", minute: "2-digit" }),
     };
 
-    const systemPrompt = `You are a vibe classifier for "Cubbies Buddies" — a Cubs fans social app.
+    const systemPrompt = `You are a vibe classifier for "Wrigleyville Buddies" — a Cubs fans social app.
 
 Analyze a user's recent activity signals and classify them into ONE vibe state. 
 Vibe states reflect the user's current social energy and mood.

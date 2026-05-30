@@ -127,7 +127,7 @@ export function ShareMenu({
     const host = hostName ?? 'A Cubs fan';
     const loc = location ?? 'Wrigleyville';
     const when = gameDate ? ` on ${gameDate}` : '';
-    const redditTitle = `${host} is hosting a Cubs meetup at ${loc}${when} — join at Cubbies Buddies!`;
+    const redditTitle = `${host} is hosting a Cubs meetup at ${loc}${when} — join at Wrigleyville Buddies!`;
     openInNewTab(
       `https://www.reddit.com/submit?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(redditTitle)}&sr=cubs`
     );
@@ -142,7 +142,7 @@ export function ShareMenu({
     if (canNativeShare) {
       try {
         await navigator.share({
-          title: 'Cubs Game Day — Cubbies Buddies',
+          title: 'Cubs Game Day — Wrigleyville Buddies',
           text: 'Find your Cubs crew at cubbiesbuddies.com',
           url: currentUrl,
         });

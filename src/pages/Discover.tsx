@@ -867,8 +867,8 @@ export default function Discover() {
             );
           })()}
 
-          <TabsContent value="buddies">
-            <div className="-mx-4">
+          <TabsContent value="buddies" className="space-y-4">
+            <div className="-mx-4 my-4">
               <GameDayIntentBanner onIntentChange={setGameDayIntent} />
             </div>
             {liveCounts && (liveCounts.online > 0 || liveCounts.atWrigley > 0) && (

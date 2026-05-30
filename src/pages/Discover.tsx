@@ -57,6 +57,8 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { FanStreakBanner } from '@/components/FanStreakBanner';
 import { ActivityFeedStrip } from '@/components/ActivityFeedStrip';
 import { GameDayIntentBanner, type GameDayIntent } from '@/components/GameDayIntentBanner';
+import { CheckInSheet } from '@/components/CheckInSheet';
+import { useVisibleCheckins } from '@/hooks/useVisibleCheckins';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', icon: 'beer', label: 'At the Bar' },
@@ -130,6 +132,7 @@ export default function Discover() {
   const [settingStatus, setSettingStatus] = useState(false);
   const [showLineupCreate, setShowLineupCreate] = useState(false);
   const [uploadingSnake, setUploadingSnake] = useState(false);
+  const [showCheckIn, setShowCheckIn] = useState(false);
 
   const currentStatus = (myProfile?.game_status as string) ?? 'NotSet';
 
@@ -213,6 +216,9 @@ export default function Discover() {
     return true;
   });
 
+  const visibleUserIds = filtered.map((p) => p.user_id);
+  const { data: checkinsMap = {} } = useVisibleCheckins(visibleUserIds);
+
   const toCardUser = (p: typeof profiles[0]) => ({
     id: p.user_id,
     display_name: p.display_name,
@@ -245,6 +251,8 @@ export default function Discover() {
     gameday_intents: ((p as any).gameday_intents as GamedayIntentType[]) ?? [],
     fan_style: ((p as any).fan_style as FanStyleType[]) ?? [],
     fan_tags: ((p as any).fan_tags as string[]) ?? [],
+    checkin_bar: checkinsMap[p.user_id]?.checkin_bar ?? null,
+    checkin_section: checkinsMap[p.user_id]?.checkin_section ?? null,
   });
 
   const handleLike = async (profile: typeof profiles[0]) => {
@@ -616,6 +624,14 @@ export default function Discover() {
               </Popover>
             );
           })()}
+          <button
+            type="button"
+            onClick={() => setShowCheckIn(true)}
+            className="mt-2 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl border-2 border-white/70 bg-white/10 px-4 py-3 text-sm font-extrabold text-white backdrop-blur-sm transition-all duration-150 active:scale-[0.98] hover:bg-white/20"
+            style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
+          >
+            📍 Check In
+          </button>
         </div>
 
         {/* Beer Snake photo upload */}
@@ -1033,6 +1049,7 @@ export default function Discover() {
         </div>
       </nav>
       </div>
+      <CheckInSheet open={showCheckIn} onClose={() => setShowCheckIn(false)} />
     </div>
   );
 }

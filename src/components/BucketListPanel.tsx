@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ClipboardList, X, Trophy } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { X, Trophy } from 'lucide-react';
 import { useBucketList } from '@/hooks/useBucketList';
 import { cn } from '@/lib/utils';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
@@ -39,38 +38,17 @@ export function BucketListPanel() {
     allComplete, completedCount, totalCount, isLoading,
   } = useBucketList();
 
+  // Listen for a global open event so the panel can be triggered from
+  // the Profile menu row or the Quick Menu wheel without a floating button.
+  useEffect(() => {
+    const onOpen = () => setOpen(true);
+    window.addEventListener('open-field-guide', onOpen as EventListener);
+    return () => window.removeEventListener('open-field-guide', onOpen as EventListener);
+  }, []);
+
   return (
     <>
-      {/* Floating trigger button */}
-      <Button
-        onClick={() => setOpen(true)}
-        aria-label={`Open Field Guide — ${completedCount} of ${totalCount} gameday tasks complete`}
-        title={`Field Guide: ${completedCount} of ${totalCount} gameday tasks complete`}
-        className="fixed bottom-24 right-4 z-50 rounded-2xl shadow-xl flex flex-col items-stretch justify-center gap-1 min-h-[60px] px-4 py-2"
-        style={{
-          background: 'linear-gradient(135deg, hsl(120,40%,35%), hsl(210,60%,30%))',
-          fontFamily: "'Bungee', cursive",
-        }}
-      >
-        <span className="flex items-center gap-2 leading-none">
-          <ClipboardList className="h-4 w-4" />
-          <span className="text-[11px] uppercase tracking-wide">Field Guide</span>
-          <span className="text-sm font-bold tabular-nums">{completedCount}/{totalCount}</span>
-        </span>
-        <span
-          className="h-1 rounded-full overflow-hidden"
-          style={{ background: 'rgba(255,255,255,0.25)' }}
-          aria-hidden="true"
-        >
-          <span
-            className="block h-full rounded-full transition-all duration-500"
-            style={{
-              width: `${totalCount > 0 ? (completedCount / totalCount) * 100 : 0}%`,
-              background: 'linear-gradient(90deg, hsl(45,90%,60%), #ffffff)',
-            }}
-          />
-        </span>
-      </Button>
+
 
       {/* Panel */}
       <AnimatePresence>

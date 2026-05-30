@@ -25,10 +25,19 @@ const ZERO_HINTS: Record<string, string> = {
 export function CardBackSide({ displayName, visibleStats, isOwner, userId, onFlipBack }: CardBackSideProps) {
   return (
     <div
-      className="absolute inset-0 w-full h-full"
+      className="card-back absolute inset-0 w-full h-full"
       style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
         transform: 'rotateY(180deg)',
+        WebkitTransform: 'rotateY(180deg)',
+        overflow: 'hidden',
+        borderRadius: 12,
       }}
       role="img"
       aria-label={`${displayName || 'Fan'}'s stats — back side`}

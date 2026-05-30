@@ -237,6 +237,7 @@ export function UserBaseballCard({
           maxWidth: 360,
           aspectRatio: '3 / 4.2',
           perspective: '1200px',
+          WebkitPerspective: 1200,
         }}
       >
         <div
@@ -246,7 +247,9 @@ export function UserBaseballCard({
             width: '100%',
             height: '100%',
             transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
             transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+            WebkitTransform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
             transition: 'transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1)',
             willChange: 'transform',
           }}
@@ -263,7 +266,7 @@ export function UserBaseballCard({
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
             overflow: 'hidden',
-            borderRadius: 'inherit',
+            borderRadius: 12,
           }}
         >
           <CardFrontSide

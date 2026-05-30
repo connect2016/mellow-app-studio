@@ -39,6 +39,7 @@ import { Users } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ProfileCompletion, FullFanBadge, getProfileCompletion } from '@/components/profile/ProfileCompletion';
 import { FanTagsPicker } from '@/components/FanTagsPicker';
+import { FieldGuideRow } from '@/components/profile/FieldGuideRow';
 
 export default function Profile() {
   const { id } = useParams();
@@ -319,6 +320,10 @@ export default function Profile() {
                 className="max-w-full"
               />
             </div>
+
+            {isOwnProfile && <FieldGuideRow />}
+
+
 
             {isOwnProfile && (
               <SeasonStatsEditor

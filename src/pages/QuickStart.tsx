@@ -264,7 +264,7 @@ export default function QuickStart() {
         </div>
 
         {/* Eyebrow */}
-        <p className="eyebrow text-center mb-2" style={{ color: '#1a1f2e' }}>30-second setup</p>
+        <p className="eyebrow text-center mb-2" style={{ color: '#1a1f2e', fontWeight: 700, letterSpacing: '0.1em', opacity: 1 }}>30-SECOND SETUP</p>
 
         {step === 0 && (
           <Section
@@ -586,7 +586,7 @@ export default function QuickStart() {
               onClick={handleSkip}
               style={{
                 fontSize: '14px',
-                fontWeight: 500,
+                fontWeight: 600,
                 color: '#1a1f2e',
                 textDecoration: 'underline',
                 background: 'transparent',
@@ -594,6 +594,7 @@ export default function QuickStart() {
                 cursor: 'pointer',
                 padding: '12px 8px',
                 whiteSpace: 'nowrap',
+                opacity: 1,
               }}
             >
               Skip for now
@@ -642,7 +643,7 @@ function Section({ title, sub, children }: { title: string; sub: string; childre
         <h1 className="h-display text-foreground" style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)' }}>
           {title}
         </h1>
-        <p className="text-sm mt-2" style={{ color: '#1a1f2e' }}>{sub}</p>
+        <p className="mt-2" style={{ color: '#1a1f2e', fontSize: '15px', fontWeight: 500, textShadow: '0 1px 4px rgba(255,255,255,0.6)', opacity: 1 }}>{sub}</p>
       </div>
       <div className="space-y-3 pt-2">{children}</div>
     </div>
@@ -672,8 +673,8 @@ function Choice({
       >
         <div className="text-3xl shrink-0">{emoji}</div>
         <div className="flex-1 min-w-0">
-          <div className="font-semibold text-base text-foreground">{label}</div>
-          <div className="text-sm text-destructive-foreground truncate">{sub}</div>
+          <div style={{ color: '#1a1f2e', fontSize: '16px', fontWeight: 700, opacity: 1 }}>{label}</div>
+          <div style={{ color: '#374151', fontSize: '13px', fontWeight: 400, opacity: 1, lineHeight: 1.5 }}>{sub}</div>
         </div>
         {selected && (
           <div className="size-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">

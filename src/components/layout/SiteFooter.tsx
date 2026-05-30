@@ -14,6 +14,22 @@ export function SiteFooter() {
         <span aria-hidden>·</span>
         <span>© 2026 Cubbies Buddies</span>
       </nav>
+      <p
+        style={{
+          fontSize: '10px',
+          color: 'rgba(255,255,255,0.6)',
+          textAlign: 'center',
+          lineHeight: 1.5,
+          maxWidth: '600px',
+          margin: '8px auto 0',
+          padding: '0 16px',
+        }}
+      >
+        Cubbies Buddies is an independent fan-made app. It is not affiliated with,
+        endorsed by, sponsored by, or associated with Major League Baseball, the
+        Chicago Cubs, or any of their affiliates or subsidiaries. All team names
+        and related marks are the property of their respective owners.
+      </p>
     </footer>
   );
 }

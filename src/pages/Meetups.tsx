@@ -10,7 +10,7 @@ import { MeetupFilters, type WhenFilter, type WhereFilter } from '@/components/m
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { usePersonalCrewIds } from '@/hooks/usePersonalCrew';
-import meetupsBg from '@/assets/meetups-bg.jpg';
+import { WrigleyRainbowBackground } from '@/components/WrigleyRainbowBackground';
 import { SkeletonCard } from '@/components/ui/skeleton';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
@@ -67,23 +67,13 @@ export default function Meetups() {
   });
 
   return (
+    <WrigleyRainbowBackground>
     <div className={`min-h-screen relative overflow-x-hidden ${isGuest ? 'pb-20' : 'pb-24'}`}>
       <SEOMeta
         title="Meetups — Cubs Fan Game-Day Plans"
         description="Browse and join Cubs fan meetups around Wrigleyville. Find your group for tonight's game, pre-game beers, or the after-party."
         url="/meetups"
       />
-      <div
-        className="fixed inset-0 z-0 swipe-drag-bg"
-        data-route-parallax="bg"
-        style={{
-          backgroundImage: `url(${meetupsBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-      <div className="fixed inset-0 z-0 bg-black/55 pointer-events-none" />
       <div className="relative z-10 swipe-drag" data-route-parallax="fg">
       <AppHeader />
 
@@ -171,6 +161,7 @@ export default function Meetups() {
       {isGuest && <GuestBanner />}
       </div>
     </div>
+    </WrigleyRainbowBackground>
   );
 }
 

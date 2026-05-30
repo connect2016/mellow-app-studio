@@ -264,7 +264,7 @@ export default function QuickStart() {
         </div>
 
         {/* Eyebrow */}
-        <p className="eyebrow text-center mb-2" style={{ color: '#1a1f2e' }}>30-second setup</p>
+        <p className="eyebrow text-center mb-2" style={{ color: '#1a1f2e', fontWeight: 700, letterSpacing: '0.1em', opacity: 1 }}>30-SECOND SETUP</p>
 
         {step === 0 && (
           <Section

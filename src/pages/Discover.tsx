@@ -132,6 +132,7 @@ export default function Discover() {
   const [settingStatus, setSettingStatus] = useState(false);
   const [showLineupCreate, setShowLineupCreate] = useState(false);
   const [uploadingSnake, setUploadingSnake] = useState(false);
+  const [showCheckIn, setShowCheckIn] = useState(false);
 
   const currentStatus = (myProfile?.game_status as string) ?? 'NotSet';
 

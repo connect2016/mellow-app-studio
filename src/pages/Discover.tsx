@@ -279,7 +279,7 @@ export default function Discover() {
   return (
     <div
       className="min-h-screen relative overflow-x-hidden"
-      style={{ paddingBottom: 'calc(130px + env(safe-area-inset-bottom, 0px))' }}
+      style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}
     >
       <SEOMeta
         title="Discover Fans — Cubbies Buddies"

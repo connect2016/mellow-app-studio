@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { SEOMeta } from '@/components/SEOMeta';
-import { DynamicBackground } from '@/components/DynamicBackground';
+import { WrigleyRainbowBackground } from '@/components/WrigleyRainbowBackground';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -261,7 +261,7 @@ export default function VibeFeed() {
   };
 
   return (
-    <DynamicBackground>
+    <WrigleyRainbowBackground>
       <SEOMeta
         title="Live Vibe Feed — Wrigleyville Right Now"
         description="See what's happening at Wrigley Field and Wrigleyville bars right now. Live photos, vibes, and shoutouts from Cubs fans."
@@ -627,7 +627,7 @@ export default function VibeFeed() {
 
       {isGuest && <GuestBanner />}
       <BuyBeerOnboardingTooltip />
-    </DynamicBackground>
+    </WrigleyRainbowBackground>
   );
 }
 

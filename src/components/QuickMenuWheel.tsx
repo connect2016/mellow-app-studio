@@ -21,7 +21,7 @@ const SPOKES: Spoke[] = [
   { key: 'vibes',        label: 'Vibes',        icon: 'camera',    to: '/vibe-feed',      tx: -78, ty:  -60 },
   { key: 'missions',     label: 'Missions',     icon: 'trophy',    to: '/missions',       tx: -96, ty:  -20 },
   { key: 'hall-of-fame', label: 'Hall of Fame', icon: 'trophy',    to: '/league-leaders', tx: -92, ty:   24 },
-  { key: 'field-guide',  label: 'Field Guide',  icon: 'clipboard', to: '#field-guide',    tx: -60, ty:   62 },
+  { key: 'field-guide',  label: 'Field Guide',  icon: 'check',     to: '#field-guide',    tx: -60, ty:   62 },
   { key: 'map',          label: 'Map',          icon: 'pin',       to: '/bar-map',        tx: -16, ty:   80 },
 ];
 

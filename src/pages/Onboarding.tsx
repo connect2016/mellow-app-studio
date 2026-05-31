@@ -54,6 +54,7 @@ export default function Onboarding() {
     if (profile.profile_photo) setPhotoUrl(profile.profile_photo);
     if (profile.wrigley_section) setSection(profile.wrigley_section);
     if ((profile as any).attendance_frequency) setFrequency((profile as any).attendance_frequency);
+    if ((profile as any).is_season_ticket_holder) setIsSTH(true);
   }, [profile, navigate]);
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -111,7 +111,7 @@ export default function Schedule() {
         </div>
 
         {/* Countdown for next game */}
-        {nextGame && !nextGame.isExpired && (
+        {nextGame && !countdown.isExpired && (
           <div className="mb-5 rounded-xl border-l-4 border-secondary bg-accent p-4 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>

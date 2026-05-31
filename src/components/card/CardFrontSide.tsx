@@ -7,7 +7,7 @@ import { BarChart3 } from 'lucide-react';
 import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
 import { FanTagPills } from '@/components/FanTagsPicker';
 
-const CARD_TEMPLATE_SRC = '/Revised_CB_Baseball_Card_Template.png';
+const CARD_TEMPLATE_SRC = '/Revised_Wrigleyville_Profile_Card.png';
 
 interface CardFrontSideProps {
   profileImage?: string | null;

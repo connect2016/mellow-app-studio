@@ -73,6 +73,7 @@ import CheckoutReturn from "./pages/CheckoutReturn";
 import WrigleyvilleEats from "./pages/WrigleyvilleEats";
 import Dugout from "./pages/Dugout";
 import Join from "./pages/Join";
+import Partners from "./pages/Partners";
 import { preloadReactionImages } from "@/lib/reaction-cache";
 import { FanStreakTracker } from "@/hooks/useFanStreak";
 
@@ -111,6 +112,7 @@ const App = () => (
             <Route path="/terms" element={<TermsOfServicePage />} />
             <Route path="/checkout/return" element={<CheckoutReturn />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/partners" element={<Partners />} />
             
             <Route element={<ProtectedRoute />}>
               <Route path="/onboarding" element={<Onboarding />} />

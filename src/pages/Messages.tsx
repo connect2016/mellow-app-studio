@@ -298,16 +298,21 @@ export default function Messages() {
                     whileTap={{ scale: 0.98 }}
                     className="flex w-full items-center gap-3 rounded-2xl p-3 text-left hover:bg-muted/60 transition-colors bg-card/60"
                   >
-                    {profile?.profile_photo ? (
-                      <img
-                        src={profile.profile_photo}
-                        alt=""
-                        className="h-12 w-12 rounded-full object-cover ring-2"
-                        style={{ borderColor: '#0E3386' }}
-                      />
-                    ) : (
-                      <div className="h-12 w-12 rounded-full bg-muted" />
-                    )}
+                    <div className="relative h-12 w-12 shrink-0">
+                      {profile?.profile_photo ? (
+                        <img
+                          src={profile.profile_photo}
+                          alt=""
+                          className="h-12 w-12 rounded-full object-cover ring-2"
+                          style={{ borderColor: '#0E3386' }}
+                        />
+                      ) : (
+                        <div className="h-12 w-12 rounded-full bg-muted" />
+                      )}
+                      {(profile as any)?.is_season_ticket_holder && (
+                        <STHBadge size="xs" className="absolute -bottom-0.5 -right-0.5 ring-2 ring-card" />
+                      )}
+                    </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
                         <span

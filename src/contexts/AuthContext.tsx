@@ -4,6 +4,10 @@ import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { identify, resetAnalytics, track } from '@/lib/analytics';
 import { consumeInviteRefIfPresent } from '@/lib/invite-ref';
+import {
+  captureReferralCodeFromUrl,
+  claimStoredReferralCodeIfPresent,
+} from '@/lib/referral-code';
 
 interface AuthContextType {
   session: Session | null;

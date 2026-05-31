@@ -1708,6 +1708,7 @@ export type Database = {
           age_min: number | null
           appetizers_had_season: number
           arrival_time: string | null
+          attendance_frequency: string | null
           bar_location_privacy: string | null
           beers_today_count: number
           beers_week_count: number
@@ -1760,6 +1761,7 @@ export type Database = {
           post_win_meal: string | null
           postgame_food: string | null
           pregame_meal: string | null
+          primary_goal: string | null
           private_mode: boolean | null
           profile_photo: string | null
           pronouns: string | null
@@ -1791,6 +1793,7 @@ export type Database = {
           age_min?: number | null
           appetizers_had_season?: number
           arrival_time?: string | null
+          attendance_frequency?: string | null
           bar_location_privacy?: string | null
           beers_today_count?: number
           beers_week_count?: number
@@ -1843,6 +1846,7 @@ export type Database = {
           post_win_meal?: string | null
           postgame_food?: string | null
           pregame_meal?: string | null
+          primary_goal?: string | null
           private_mode?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null
@@ -1874,6 +1878,7 @@ export type Database = {
           age_min?: number | null
           appetizers_had_season?: number
           arrival_time?: string | null
+          attendance_frequency?: string | null
           bar_location_privacy?: string | null
           beers_today_count?: number
           beers_week_count?: number
@@ -1926,6 +1931,7 @@ export type Database = {
           post_win_meal?: string | null
           postgame_food?: string | null
           pregame_meal?: string | null
+          primary_goal?: string | null
           private_mode?: boolean | null
           profile_photo?: string | null
           pronouns?: string | null

@@ -91,6 +91,7 @@ export default function Onboarding() {
         attendance_frequency: frequency,
         primary_goal: chosen,
         intent: goalToIntent(chosen),
+        is_season_ticket_holder: isSTH,
         onboarding_completed: true,
       } as any);
       track('onboarding_completed', {

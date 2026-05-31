@@ -7,6 +7,8 @@ import { AppHeader } from '@/components/AppHeader';
 
 import { UserBaseballCard } from '@/components/UserBaseballCard';
 import { InviteBuddyButton } from '@/components/invite/InviteBuddyButton';
+import { InviteFriendsButton } from '@/components/invite/InviteFriendsButton';
+import { useMyReferralCount } from '@/hooks/useReferral';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ArrowLeft, Flag, Ban, EyeOff, MessageCircle, IdCard, Sparkles, Settings as SettingsIcon, ShieldCheck, HelpCircle, LifeBuoy, Info, ChevronRight, Target, UserCog, Trophy } from 'lucide-react';

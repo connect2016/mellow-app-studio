@@ -95,10 +95,10 @@ export function CardFrontSide({
       <div
         style={{
           position: 'absolute',
-          top: '41%',
+          top: '42.8%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '38%',
+          width: '43%',
           aspectRatio: '1 / 1',
           height: 'auto',
           borderRadius: '50%',

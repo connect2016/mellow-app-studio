@@ -42,6 +42,7 @@ import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
 import { GameDayCountdown } from '@/components/GameDayCountdown';
 import { HomeDashboard } from '@/components/home/HomeDashboard';
 import { GameDayBanner } from '@/components/home/GameDayBanner';
+import { GameDayWeatherCard } from '@/components/home/GameDayWeatherCard';
 import { FindFansBanner } from '@/components/home/FindFansBanner';
 import { HomeQuickCarousel } from '@/components/home/HomeQuickCarousel';
 import { WhosNearbyCarousel } from '@/components/WhosNearbyCarousel';
@@ -441,6 +442,9 @@ export default function Discover() {
           <>
             {/* Game Day banner — only renders on game days */}
             <GameDayBanner />
+
+            {/* Compact Wrigley weather card — only on game days */}
+            <GameDayWeatherCard />
 
             {/* Friend-finding hero banner */}
             <FindFansBanner />

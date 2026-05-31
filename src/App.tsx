@@ -112,6 +112,7 @@ const App = () => (
             <Route path="/terms" element={<TermsOfServicePage />} />
             <Route path="/checkout/return" element={<CheckoutReturn />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/partners" element={<Partners />} />
             
             <Route element={<ProtectedRoute />}>
               <Route path="/onboarding" element={<Onboarding />} />

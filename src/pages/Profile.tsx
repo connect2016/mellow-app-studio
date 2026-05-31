@@ -53,6 +53,7 @@ export default function Profile() {
   const queryClient = useQueryClient();
   const isOwnProfile = !id || id === user?.id;
   const { preferences: statPreferences } = useStatPreferences();
+  const { data: referralCount = 0 } = useMyReferralCount();
 
   const { data: otherProfile, isLoading } = useQuery({
     queryKey: ['view-profile', id],

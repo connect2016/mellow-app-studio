@@ -27,6 +27,7 @@ import Onboarding from "./pages/Onboarding";
 import QuickStart from "./pages/QuickStart";
 import Discover from "./pages/Discover";
 import DiscoverFans from "./pages/DiscoverFans";
+import Schedule from "./pages/Schedule";
 import Profile from "./pages/Profile";
 import PublicProfile from "./pages/PublicProfile";
 import Messages from "./pages/Messages";
@@ -115,6 +116,7 @@ const App = () => (
               <Route path="/quick-start" element={<QuickStart />} />
               <Route path="/discover" element={<Discover />} />
               <Route path="/discover-fans" element={<DiscoverFans />} />
+              <Route path="/schedule" element={<Schedule />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:id" element={<Profile />} />
               <Route path="/u/:id" element={<PublicProfile />} />

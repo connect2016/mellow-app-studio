@@ -26,6 +26,7 @@ import {
   SheetDescription,
 } from '@/components/ui/sheet';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { STHBadge } from '@/components/profile/STHBadge';
 import { SEOMeta } from '@/components/SEOMeta';
 import { cn } from '@/lib/utils';
 
@@ -248,20 +249,25 @@ export default function PublicProfile() {
       <div className="mx-auto max-w-md px-5">
         {/* Avatar + identity */}
         <div className="flex flex-col items-center pt-2 text-center">
-          <div
-            className="relative h-36 w-36 overflow-hidden rounded-full"
-            style={{ border: `5px solid ${NAVY}`, background: '#eef1f7' }}
-          >
-            {profile.profile_photo ? (
-              <img
-                src={profile.profile_photo}
-                alt={profile.display_name || 'Fan'}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center">
-                <ConceptIcon name="baseball" className="h-12 w-12 text-muted-foreground" />
-              </div>
+          <div className="relative">
+            <div
+              className="h-36 w-36 overflow-hidden rounded-full"
+              style={{ border: `5px solid ${NAVY}`, background: '#eef1f7' }}
+            >
+              {profile.profile_photo ? (
+                <img
+                  src={profile.profile_photo}
+                  alt={profile.display_name || 'Fan'}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <ConceptIcon name="baseball" className="h-12 w-12 text-muted-foreground" />
+                </div>
+              )}
+            </div>
+            {(profile as any).is_season_ticket_holder && (
+              <STHBadge size="lg" className="absolute bottom-1 right-1 ring-4 ring-background" />
             )}
           </div>
 

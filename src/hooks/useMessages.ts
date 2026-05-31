@@ -37,8 +37,8 @@ export function useConversationProfiles(conversations: { participant_a: string; 
         p_user_ids: otherIds,
       });
       if (error) throw error;
-      const map: Record<string, { display_name: string; profile_photo: string | null }> = {};
-      data?.forEach(p => { map[p.user_id] = p; });
+      const map: Record<string, { display_name: string; profile_photo: string | null; is_season_ticket_holder?: boolean }> = {};
+      data?.forEach((p: any) => { map[p.user_id] = p; });
       return map;
     },
     enabled: otherIds.length > 0,

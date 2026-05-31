@@ -32,6 +32,7 @@ import { PrivateModeToggle } from '@/components/profile/PrivateModeToggle';
 import { AchievementsHub } from '@/components/achievements/AchievementsHub';
 import { FoodPromptsSection, type FoodPromptKey } from '@/components/profile/FoodPromptsSection';
 import { SeasonStatsEditor, type SeasonStatsValues } from '@/components/profile/SeasonStatsEditor';
+import { SeasonTicketHolderToggle } from '@/components/profile/SeasonTicketHolderToggle';
 import { RecruitButton } from '@/components/teammates/RecruitButton';
 import { useTeammates } from '@/hooks/useTeammates';
 import { TeammatesSummary } from '@/components/teammates/TeammatesSummary';
@@ -327,6 +328,13 @@ export default function Profile() {
             {isOwnProfile && <FieldGuideRow />}
 
 
+
+            {isOwnProfile && (
+              <SeasonTicketHolderToggle
+                value={!!(profile as any).is_season_ticket_holder}
+                onChange={(next) => updateProfile.mutate({ is_season_ticket_holder: next } as any)}
+              />
+            )}
 
             {isOwnProfile && (
               <SeasonStatsEditor

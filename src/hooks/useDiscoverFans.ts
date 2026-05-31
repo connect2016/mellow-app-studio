@@ -8,7 +8,8 @@ export type DiscoverFilter =
   | 'bleachers'
   | 'my_gate'
   | 'same_vibe'
-  | 'new_week';
+  | 'new_week'
+  | 'sth';
 
 export interface DiscoverFan {
   user_id: string;
@@ -18,6 +19,7 @@ export interface DiscoverFan {
   favorite_gate: string | null;
   vibe_tags: string[] | null;
   watch_locations: string[] | null;
+  is_season_ticket_holder?: boolean | null;
   created_at: string;
   distance_meters?: number | null;
 }
@@ -50,7 +52,7 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
         if (ids.length === 0) return [];
         const { data: profiles } = await supabase
           .from('profiles')
-          .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, created_at')
+          .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, is_season_ticket_holder, created_at')
           .in('user_id', ids);
         const byId = new Map((profiles ?? []).map((p: any) => [p.user_id, p]));
         return (data ?? [])
@@ -64,7 +66,7 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
 
       let q = supabase
         .from('profiles')
-        .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, created_at')
+        .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, is_season_ticket_holder, created_at')
         .eq('is_banned', false)
         .eq('onboarding_completed', true)
         .neq('user_id', user!.id)
@@ -82,6 +84,8 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
       } else if (filter === 'new_week') {
         const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
         q = q.gte('created_at', weekAgo);
+      } else if (filter === 'sth') {
+        q = q.eq('is_season_ticket_holder', true);
       }
 
       const { data, error } = await q;

@@ -7,6 +7,7 @@ import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { Camera, Loader2, ChevronRight, Users, UsersRound, MapPin } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { SeasonTicketHolderToggle } from '@/components/profile/SeasonTicketHolderToggle';
 import { toast } from 'sonner';
 import { track } from '@/lib/analytics';
 
@@ -37,6 +38,7 @@ export default function Onboarding() {
   const [section, setSection] = useState<string>('');
   const [frequency, setFrequency] = useState<string>('');
   const [goal, setGoal] = useState<GoalKey | ''>('');
+  const [isSTH, setIsSTH] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -52,6 +54,7 @@ export default function Onboarding() {
     if (profile.profile_photo) setPhotoUrl(profile.profile_photo);
     if (profile.wrigley_section) setSection(profile.wrigley_section);
     if ((profile as any).attendance_frequency) setFrequency((profile as any).attendance_frequency);
+    if ((profile as any).is_season_ticket_holder) setIsSTH(true);
   }, [profile, navigate]);
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,6 +91,7 @@ export default function Onboarding() {
         attendance_frequency: frequency,
         primary_goal: chosen,
         intent: goalToIntent(chosen),
+        is_season_ticket_holder: isSTH,
         onboarding_completed: true,
       } as any);
       track('onboarding_completed', {
@@ -283,6 +287,11 @@ export default function Onboarding() {
                 );
               })}
             </div>
+          </div>
+
+          {/* Season Ticket Holder */}
+          <div className="mb-6">
+            <SeasonTicketHolderToggle value={isSTH} onChange={setIsSTH} />
           </div>
 
           <Button

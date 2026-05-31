@@ -125,12 +125,18 @@ export default function DiscoverFans() {
             <ProfileCardSkeleton />
           </div>
         ) : !fans || fans.length === 0 ? (
-          <EmptyState
-            title="No fans match this filter yet"
-            description="Try 'All Fans' or check back closer to game time."
-            actionLabel={filter !== 'all' ? 'Show all fans' : undefined}
-            onAction={filter !== 'all' ? () => setFilter('all') : undefined}
-          />
+          <div className="flex flex-col items-center">
+            <EmptyState
+              title="No fans found nearby"
+              description="Try 'All Fans' or invite a friend to join you at Wrigley."
+              actionLabel={filter !== 'all' ? 'Show all fans' : undefined}
+              onAction={filter !== 'all' ? () => setFilter('all') : undefined}
+              hideInviteCta
+            />
+            <div className="w-full max-w-xs px-4 -mt-4 pb-4">
+              <InviteFriendsButton source="discover-empty" />
+            </div>
+          </div>
         ) : (
           <ul className="space-y-3">
             {fans.map((fan) => (

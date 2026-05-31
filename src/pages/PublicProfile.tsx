@@ -26,6 +26,7 @@ import {
   SheetDescription,
 } from '@/components/ui/sheet';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { STHBadge } from '@/components/profile/STHBadge';
 import { SEOMeta } from '@/components/SEOMeta';
 import { cn } from '@/lib/utils';
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { Compass, Map, CalendarDays, User, Bell } from 'lucide-react';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';

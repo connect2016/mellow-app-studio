@@ -116,6 +116,7 @@ const App = () => (
               <Route path="/quick-start" element={<QuickStart />} />
               <Route path="/discover" element={<Discover />} />
               <Route path="/discover-fans" element={<DiscoverFans />} />
+              <Route path="/schedule" element={<Schedule />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:id" element={<Profile />} />
               <Route path="/u/:id" element={<PublicProfile />} />

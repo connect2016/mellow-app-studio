@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, Clock, Users, Sparkles, Flame, UserPlus, Zap, Share2, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,14 +10,16 @@ import { useCreateMeetup } from '@/hooks/useLineup';
 import { WRIGLEYVILLE_BARS } from '@/types';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import type { GameContext } from '@/contexts/CreateMeetupContext';
 
 interface CreateMeetupModalProps {
   open: boolean;
   onClose: () => void;
   defaultLocation?: string;
+  gameContext?: GameContext;
 }
 
-const TIME_OPTIONS = (() => {
+const BASE_TIME_OPTIONS = (() => {
   const opts: string[] = [];
   const now = new Date();
   // Next 8 hours in 30-min increments
@@ -33,7 +35,7 @@ function formatTime(iso: string) {
   return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
-export function CreateMeetupModal({ open, onClose, defaultLocation }: CreateMeetupModalProps) {
+export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext }: CreateMeetupModalProps) {
   const isPresetBar = !!defaultLocation && WRIGLEYVILLE_BARS.some((b) => b.name === defaultLocation);
   const [location, setLocation] = useState(isPresetBar ? defaultLocation! : (defaultLocation ? '__custom__' : ''));
   const [customLocation, setCustomLocation] = useState(isPresetBar ? '' : (defaultLocation ?? ''));

@@ -116,6 +116,39 @@ export type Database = {
         }
         Relationships: []
       }
+      bar_partners_waitlist: {
+        Row: {
+          contact_name: string
+          created_at: string
+          email: string
+          id: string
+          offer_description: string
+          phone: string | null
+          status: string
+          venue_name: string
+        }
+        Insert: {
+          contact_name: string
+          created_at?: string
+          email: string
+          id?: string
+          offer_description: string
+          phone?: string | null
+          status?: string
+          venue_name: string
+        }
+        Update: {
+          contact_name?: string
+          created_at?: string
+          email?: string
+          id?: string
+          offer_description?: string
+          phone?: string | null
+          status?: string
+          venue_name?: string
+        }
+        Relationships: []
+      }
       bar_plan_comments: {
         Row: {
           body: string

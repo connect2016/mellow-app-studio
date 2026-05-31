@@ -356,6 +356,46 @@ export default function Discover() {
       <div className="mx-auto max-w-lg px-4 pt-4">
         <FanStreakBanner />
         <ActivityFeedStrip />
+
+        {/* At Wrigley / Watch Party mode pill switcher */}
+        <div className="mb-4 flex justify-center">
+          <div
+            role="tablist"
+            aria-label="Discover mode"
+            className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-primary/80 p-1 shadow-md backdrop-blur-sm"
+          >
+            {[
+              { id: 'wrigley' as const, label: 'At Wrigley', emoji: '⚾' },
+              { id: 'watch' as const, label: 'Watch Party', emoji: '📺' },
+            ].map((opt) => {
+              const active = partyMode === opt.id;
+              return (
+                <button
+                  key={opt.id}
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setPartyMode(opt.id)}
+                  className={cn(
+                    'min-h-10 px-4 rounded-full text-xs font-extrabold uppercase tracking-wide transition-all',
+                    active
+                      ? 'bg-secondary text-secondary-foreground shadow-md scale-[1.02]'
+                      : 'text-primary-foreground/80 hover:text-primary-foreground'
+                  )}
+                  style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.05em' }}
+                >
+                  <span className="mr-1">{opt.emoji}</span>{opt.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {partyMode === 'watch' ? (
+          <div className="mb-6">
+            <WatchPartyMode />
+          </div>
+        ) : (
+        <>
         {/* Gameday Mode Toggle */}
         <div className={`rounded-xl border px-4 py-3 mb-4 transition-all duration-300 ${
           gamedayMode 

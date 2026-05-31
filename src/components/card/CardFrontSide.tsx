@@ -151,12 +151,13 @@ export function CardFrontSide({
         title={displayName}
         style={{
           position: 'absolute',
-          bottom: '12%',
-          left: '12%',
-          right: '35%',
+          bottom: '16%',
+          left: '8%',
+          right: '40%',
           textAlign: 'left',
-          fontSize: '18px',
+          fontSize: '16px',
           fontWeight: 800,
+          letterSpacing: '0.01em',
           color: '#1a1f2e',
           zIndex: 4,
           textShadow: 'none',
@@ -175,8 +176,8 @@ export function CardFrontSide({
         <div
           style={{
             position: 'absolute',
-            bottom: '14%',
-            left: '6%',
+            bottom: '11%',
+            left: '8%',
             right: '40%',
             textAlign: 'left',
             fontSize: '10px',

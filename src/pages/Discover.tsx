@@ -443,6 +443,9 @@ export default function Discover() {
             {/* Game Day banner — only renders on game days */}
             <GameDayBanner />
 
+            {/* Compact Wrigley weather card — only on game days */}
+            <GameDayWeatherCard />
+
             {/* Friend-finding hero banner */}
             <FindFansBanner />
 

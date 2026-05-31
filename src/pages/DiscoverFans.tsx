@@ -17,6 +17,7 @@ import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
 
 const CHIPS: { id: DiscoverFilter; label: string }[] = [
   { id: 'all', label: 'All Fans' },
+  { id: 'sth', label: '⭐ Season Ticket Holders' },
   { id: 'near_me', label: 'Near Me' },
   { id: 'bleachers', label: 'Bleachers' },
   { id: 'my_gate', label: 'My Gate' },

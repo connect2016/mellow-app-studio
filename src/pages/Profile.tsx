@@ -7,6 +7,8 @@ import { AppHeader } from '@/components/AppHeader';
 
 import { UserBaseballCard } from '@/components/UserBaseballCard';
 import { InviteBuddyButton } from '@/components/invite/InviteBuddyButton';
+import { InviteFriendsButton } from '@/components/invite/InviteFriendsButton';
+import { useMyReferralCount } from '@/hooks/useReferral';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ArrowLeft, Flag, Ban, EyeOff, MessageCircle, IdCard, Sparkles, Settings as SettingsIcon, ShieldCheck, HelpCircle, LifeBuoy, Info, ChevronRight, Target, UserCog, Trophy } from 'lucide-react';
@@ -51,6 +53,7 @@ export default function Profile() {
   const queryClient = useQueryClient();
   const isOwnProfile = !id || id === user?.id;
   const { preferences: statPreferences } = useStatPreferences();
+  const { data: referralCount = 0 } = useMyReferralCount();
 
   const { data: otherProfile, isLoading } = useQuery({
     queryKey: ['view-profile', id],
@@ -411,6 +414,28 @@ export default function Profile() {
               <>
                 {isOwnProfile && <TeammatesSummary />}
                 {isOwnProfile && <MyCrewSection />}
+                {isOwnProfile && (
+                  <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm shadow-sm p-4">
+                    <div className="flex items-center justify-between gap-3 mb-3">
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">Invite your crew</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {referralCount > 0
+                            ? `You've invited ${referralCount} ${referralCount === 1 ? 'friend' : 'friends'} — keep it going!`
+                            : "You've invited 0 friends — share the ballpark!"}
+                        </p>
+                      </div>
+                      <div
+                        className="shrink-0 rounded-full px-3 py-1 text-sm font-bold tabular-nums"
+                        style={{ backgroundColor: '#0E3386', color: '#FFFFFF' }}
+                        aria-label={`${referralCount} friends invited`}
+                      >
+                        {referralCount}
+                      </div>
+                    </div>
+                    <InviteFriendsButton source="profile" />
+                  </div>
+                )}
                 <SeasonRecapCard
                   displayName={profile?.display_name}
                   isOwner={isOwnProfile}

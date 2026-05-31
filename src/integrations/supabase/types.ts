@@ -1766,6 +1766,7 @@ export type Database = {
           profile_photo: string | null
           pronouns: string | null
           quick_start: Json | null
+          referral_code: string | null
           shots_taken_season: number
           streak_freezes: number
           streak_total_game_days: number
@@ -1851,6 +1852,7 @@ export type Database = {
           profile_photo?: string | null
           pronouns?: string | null
           quick_start?: Json | null
+          referral_code?: string | null
           shots_taken_season?: number
           streak_freezes?: number
           streak_total_game_days?: number
@@ -1936,6 +1938,7 @@ export type Database = {
           profile_photo?: string | null
           pronouns?: string | null
           quick_start?: Json | null
+          referral_code?: string | null
           shots_taken_season?: number
           streak_freezes?: number
           streak_total_game_days?: number
@@ -2124,6 +2127,30 @@ export type Database = {
           p256dh?: string
           user_agent?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          created_at: string
+          id: string
+          new_user_id: string
+          referral_code: string
+          referrer_user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          new_user_id: string
+          referral_code: string
+          referrer_user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          new_user_id?: string
+          referral_code?: string
+          referrer_user_id?: string
         }
         Relationships: []
       }
@@ -2836,6 +2863,7 @@ export type Database = {
         Returns: undefined
       }
       claim_promo: { Args: { p_promo_id: string }; Returns: string }
+      claim_referral_code: { Args: { p_code: string }; Returns: boolean }
       confirm_promo_redemption: {
         Args: { p_secret: string; p_token: string }
         Returns: Json
@@ -2888,6 +2916,8 @@ export type Database = {
           fan_wrigleyville_bar: string
         }[]
       }
+      get_my_referral_count: { Args: never; Returns: number }
+      get_or_create_my_referral_code: { Args: never; Returns: string }
       get_public_card_extras: {
         Args: { p_user_ids: string[] }
         Returns: {

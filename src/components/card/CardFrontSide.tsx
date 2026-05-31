@@ -134,6 +134,7 @@ export function CardFrontSide({
               objectFit: 'cover',
               objectPosition: 'center top',
               display: 'block',
+              transform: 'scale(1.15)',
             }}
           />
         ) : (

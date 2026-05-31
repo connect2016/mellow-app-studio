@@ -2836,6 +2836,51 @@ export type Database = {
         }
         Relationships: []
       }
+      watch_parties: {
+        Row: {
+          address: string | null
+          city: string
+          created_at: string
+          game_id: string | null
+          game_label: string
+          host_id: string
+          id: string
+          max_attendees: number
+          rsvps: string[]
+          start_time: string
+          updated_at: string
+          venue_name: string
+        }
+        Insert: {
+          address?: string | null
+          city: string
+          created_at?: string
+          game_id?: string | null
+          game_label: string
+          host_id: string
+          id?: string
+          max_attendees?: number
+          rsvps?: string[]
+          start_time: string
+          updated_at?: string
+          venue_name: string
+        }
+        Update: {
+          address?: string | null
+          city?: string
+          created_at?: string
+          game_id?: string | null
+          game_label?: string
+          host_id?: string
+          id?: string
+          max_attendees?: number
+          rsvps?: string[]
+          start_time?: string
+          updated_at?: string
+          venue_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -3141,6 +3186,29 @@ export type Database = {
       set_profile_location: {
         Args: { p_lat: number; p_lng: number }
         Returns: undefined
+      }
+      toggle_watch_party_rsvp: {
+        Args: { _party_id: string }
+        Returns: {
+          address: string | null
+          city: string
+          created_at: string
+          game_id: string | null
+          game_label: string
+          host_id: string
+          id: string
+          max_attendees: number
+          rsvps: string[]
+          start_time: string
+          updated_at: string
+          venue_name: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "watch_parties"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       verify_internal_secret: { Args: { _secret: string }; Returns: boolean }
     }

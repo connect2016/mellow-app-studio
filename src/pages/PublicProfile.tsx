@@ -334,7 +334,7 @@ export default function PublicProfile() {
                       className="flex h-12 w-12 items-center justify-center rounded-full"
                       style={{ background: NAVY }}
                     >
-                      <ConceptIcon name="users" className="h-6 w-6 text-white" />
+                      <Users className="h-6 w-6 text-white" />
                     </div>
                     <p
                       className="line-clamp-2 text-xs font-bold leading-tight"

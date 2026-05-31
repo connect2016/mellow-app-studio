@@ -8,7 +8,8 @@ export type DiscoverFilter =
   | 'bleachers'
   | 'my_gate'
   | 'same_vibe'
-  | 'new_week';
+  | 'new_week'
+  | 'sth';
 
 export interface DiscoverFan {
   user_id: string;
@@ -18,6 +19,7 @@ export interface DiscoverFan {
   favorite_gate: string | null;
   vibe_tags: string[] | null;
   watch_locations: string[] | null;
+  is_season_ticket_holder?: boolean | null;
   created_at: string;
   distance_meters?: number | null;
 }

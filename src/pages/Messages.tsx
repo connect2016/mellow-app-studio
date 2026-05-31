@@ -106,16 +106,21 @@ export default function Messages() {
               >
                 <ArrowLeft className="h-4 w-4 text-muted-foreground" />
               </button>
-              {otherProfile?.profile_photo ? (
-                <img
-                  src={otherProfile.profile_photo}
-                  alt=""
-                  className="h-9 w-9 rounded-full object-cover ring-2"
-                  style={{ borderColor: '#0E3386' }}
-                />
-              ) : (
-                <div className="h-9 w-9 rounded-full bg-muted" />
-              )}
+              <div className="relative h-9 w-9 shrink-0">
+                {otherProfile?.profile_photo ? (
+                  <img
+                    src={otherProfile.profile_photo}
+                    alt=""
+                    className="h-9 w-9 rounded-full object-cover ring-2"
+                    style={{ borderColor: '#0E3386' }}
+                  />
+                ) : (
+                  <div className="h-9 w-9 rounded-full bg-muted" />
+                )}
+                {(otherProfile as any)?.is_season_ticket_holder && (
+                  <STHBadge size="xs" className="absolute -bottom-0.5 -right-0.5 ring-2 ring-card" />
+                )}
+              </div>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-sm text-foreground truncate">
                   {otherProfile?.display_name ?? 'Fan'}

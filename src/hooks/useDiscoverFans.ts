@@ -52,7 +52,7 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
         if (ids.length === 0) return [];
         const { data: profiles } = await supabase
           .from('profiles')
-          .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, created_at')
+          .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, is_season_ticket_holder, created_at')
           .in('user_id', ids);
         const byId = new Map((profiles ?? []).map((p: any) => [p.user_id, p]));
         return (data ?? [])
@@ -66,7 +66,7 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
 
       let q = supabase
         .from('profiles')
-        .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, created_at')
+        .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, is_season_ticket_holder, created_at')
         .eq('is_banned', false)
         .eq('onboarding_completed', true)
         .neq('user_id', user!.id)

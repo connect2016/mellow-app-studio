@@ -151,7 +151,7 @@ export function CardFrontSide({
         title={displayName}
         style={{
           position: 'absolute',
-          bottom: '13%',
+          bottom: '11%',
           left: '8%',
           right: '40%',
           textAlign: 'left',

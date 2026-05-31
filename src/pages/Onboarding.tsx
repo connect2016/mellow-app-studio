@@ -289,6 +289,11 @@ export default function Onboarding() {
             </div>
           </div>
 
+          {/* Season Ticket Holder */}
+          <div className="mb-6">
+            <SeasonTicketHolderToggle value={isSTH} onChange={setIsSTH} />
+          </div>
+
           <Button
             className="h-14 w-full rounded-full text-base font-bold text-white hover:opacity-90"
             style={{ background: step2Valid ? NAVY : '#9aa3b8' }}

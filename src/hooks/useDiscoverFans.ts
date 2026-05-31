@@ -84,6 +84,8 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
       } else if (filter === 'new_week') {
         const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
         q = q.gte('created_at', weekAgo);
+      } else if (filter === 'sth') {
+        q = q.eq('is_season_ticket_holder', true);
       }
 
       const { data, error } = await q;

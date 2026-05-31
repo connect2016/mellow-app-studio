@@ -2958,6 +2958,7 @@ export type Database = {
               id: string
               intent: string[]
               is_banned: boolean
+              is_season_ticket_holder: boolean
               is_verified: boolean
               location_last_set_at: string
               onboarding_completed: boolean

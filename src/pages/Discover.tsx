@@ -61,6 +61,7 @@ import { GameDayIntentBanner, type GameDayIntent } from '@/components/GameDayInt
 import { CheckInSheet } from '@/components/CheckInSheet';
 import { useVisibleCheckins } from '@/hooks/useVisibleCheckins';
 import { QuickMenuWheel } from '@/components/QuickMenuWheel';
+import { WatchPartyMode } from '@/components/watchparty/WatchPartyMode';
 
 const STATUS_OPTIONS = [
   { value: 'AtBar', icon: 'beer', label: 'At the Bar' },

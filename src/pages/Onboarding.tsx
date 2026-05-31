@@ -38,6 +38,7 @@ export default function Onboarding() {
   const [section, setSection] = useState<string>('');
   const [frequency, setFrequency] = useState<string>('');
   const [goal, setGoal] = useState<GoalKey | ''>('');
+  const [isSTH, setIsSTH] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);

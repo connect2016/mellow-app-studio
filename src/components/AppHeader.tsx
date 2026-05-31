@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { Compass, Map, CalendarDays, User, Bell } from 'lucide-react';
+import { Compass, Map, CalendarDays, User, Bell, Trophy } from 'lucide-react';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -146,6 +146,13 @@ export function AppHeader() {
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-accent/90 active:scale-95"
                 >
                   <CalendarDays className="h-[18px] w-[18px]" strokeWidth={2.25} />
+                </Link>
+                <Link
+                  to="/leaderboard"
+                  aria-label="Leaderboard"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-primary/90 active:scale-95"
+                >
+                  <Trophy className="h-[18px] w-[18px]" strokeWidth={2.25} />
                 </Link>
                 <button
                   type="button"

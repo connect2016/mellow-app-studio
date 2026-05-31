@@ -52,6 +52,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
+    // Capture ?ref=CODE on first mount so we can attribute after signup.
+    captureReferralCodeFromUrl();
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
@@ -63,6 +66,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setTimeout(() => {
             consumeInviteRefIfPresent(session.user.id).then((res) => {
               if (res.consumed) track('invite_ref_consumed', { ref: res.ref });
+            });
+            claimStoredReferralCodeIfPresent(session.user.id).then((res) => {
+              if (res.claimed) track('referral_code_claimed', { code: res.code });
             });
           }, 0);
         }

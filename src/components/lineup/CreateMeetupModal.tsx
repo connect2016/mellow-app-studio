@@ -46,6 +46,20 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
   const [success, setSuccess] = useState<null | { location: string; time: string; max: number }>(null);
   const createMeetup = useCreateMeetup();
 
+  const timeOptions = gameContext
+    ? [...new Set([gameContext.gameDateTime, ...BASE_TIME_OPTIONS])]
+    : BASE_TIME_OPTIONS;
+
+  useEffect(() => {
+    if (gameContext) {
+      if (!defaultLocation) {
+        setLocation('Wrigley Field - Bleachers');
+      }
+      setTime(gameContext.gameDateTime);
+      setDescription(`Cubs vs ${gameContext.opponent} — join me!`);
+    }
+  }, [gameContext, defaultLocation]);
+
   const handleClose = () => {
     onClose();
     setTimeout(() => {

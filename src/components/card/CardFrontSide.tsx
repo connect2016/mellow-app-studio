@@ -105,7 +105,7 @@ export function CardFrontSide({
           clipPath: 'circle(50% at 50% 50%)',
           zIndex: 3,
           pointerEvents: 'none',
-          background: '#0A2A66',
+          background: profileImage ? 'transparent' : '#0A2A66',
         }}
         aria-label={`Profile photo of ${displayName || 'Fan'}`}
       >
@@ -129,12 +129,13 @@ export function CardFrontSide({
               imgLoaded ? 'opacity-100' : 'opacity-0'
             )}
             style={{
-              width: '100%',
-              height: '100%',
+              position: 'absolute',
+              inset: '-5%',
+              width: '110%',
+              height: '110%',
               objectFit: 'cover',
               objectPosition: 'center top',
               display: 'block',
-              transform: 'scale(1.15)',
             }}
           />
         ) : (

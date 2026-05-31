@@ -186,11 +186,16 @@ function FanRow({ fan, myVibeTags, pending, onSayHi, onBeer }: FanRowProps) {
   return (
     <li className="flex items-center gap-3 rounded-2xl border border-border/40 bg-card p-3">
       {/* Avatar */}
-      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-muted">
-        {fan.profile_photo ? (
-          <img src={fan.profile_photo} alt={fan.display_name ?? 'Fan'} className="h-full w-full object-cover" loading="lazy" />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-muted-foreground">{initials}</div>
+      <div className="relative h-12 w-12 shrink-0">
+        <div className="h-12 w-12 overflow-hidden rounded-full bg-muted">
+          {fan.profile_photo ? (
+            <img src={fan.profile_photo} alt={fan.display_name ?? 'Fan'} className="h-full w-full object-cover" loading="lazy" />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-muted-foreground">{initials}</div>
+          )}
+        </div>
+        {fan.is_season_ticket_holder && (
+          <STHBadge size="xs" className="absolute -bottom-0.5 -right-0.5 ring-2 ring-card" />
         )}
       </div>
 

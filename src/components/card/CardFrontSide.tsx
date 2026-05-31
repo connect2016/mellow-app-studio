@@ -98,7 +98,7 @@ export function CardFrontSide({
           top: '41%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '36%',
+          width: '38%',
           aspectRatio: '1 / 1',
           height: 'auto',
           borderRadius: '50%',

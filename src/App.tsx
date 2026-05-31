@@ -73,6 +73,7 @@ import CheckoutReturn from "./pages/CheckoutReturn";
 import WrigleyvilleEats from "./pages/WrigleyvilleEats";
 import Dugout from "./pages/Dugout";
 import Join from "./pages/Join";
+import Partners from "./pages/Partners";
 import { preloadReactionImages } from "@/lib/reaction-cache";
 import { FanStreakTracker } from "@/hooks/useFanStreak";
 

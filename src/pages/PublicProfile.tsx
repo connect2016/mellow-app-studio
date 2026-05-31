@@ -6,7 +6,7 @@
 import { useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ArrowLeft, MoreVertical, Flag, Ban, Loader2, MapPin, Ticket } from 'lucide-react';
+import { ArrowLeft, MoreVertical, Flag, Ban, Loader2, MapPin, Ticket, Users } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';

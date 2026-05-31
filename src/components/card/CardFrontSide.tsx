@@ -95,11 +95,12 @@ export function CardFrontSide({
       <div
         style={{
           position: 'absolute',
-          top: '30%',
+          top: '41%',
           left: '50%',
-          transform: 'translateX(-50%)',
-          width: '38%',
-          height: '31%',
+          transform: 'translate(-50%, -50%)',
+          width: '34%',
+          aspectRatio: '1 / 1',
+          height: 'auto',
           borderRadius: '50%',
           overflow: 'hidden',
           clipPath: 'circle(50% at 50% 50%)',
@@ -129,12 +130,11 @@ export function CardFrontSide({
               imgLoaded ? 'opacity-100' : 'opacity-0'
             )}
             style={{
-              position: 'absolute',
-              inset: '-5%',
-              width: '110%',
-              height: '110%',
+              width: '100%',
+              aspectRatio: '1 / 1',
+              height: 'auto',
               objectFit: 'cover',
-              objectPosition: 'center top',
+              objectPosition: 'center center',
               display: 'block',
             }}
           />

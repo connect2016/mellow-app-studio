@@ -95,11 +95,11 @@ export function CardFrontSide({
       <div
         style={{
           position: 'absolute',
-          top: '27%',
+          top: '28%',
           left: '49%',
           transform: 'translateX(-50%)',
-          width: '42%',
-          height: '30%',
+          width: '34%',
+          height: '25%',
           borderRadius: '50%',
           overflow: 'hidden',
           clipPath: 'circle(50% at 50% 50%)',
@@ -151,7 +151,7 @@ export function CardFrontSide({
         title={displayName}
         style={{
           position: 'absolute',
-          bottom: '16%',
+          bottom: '13%',
           left: '8%',
           right: '40%',
           textAlign: 'left',

@@ -28,6 +28,7 @@ import QuickStart from "./pages/QuickStart";
 import Discover from "./pages/Discover";
 import DiscoverFans from "./pages/DiscoverFans";
 import Profile from "./pages/Profile";
+import PublicProfile from "./pages/PublicProfile";
 import Messages from "./pages/Messages";
 import GameDay from "./pages/GameDay";
 import ShareSeat from "./pages/ShareSeat";
@@ -116,6 +117,7 @@ const App = () => (
               <Route path="/discover-fans" element={<DiscoverFans />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/u/:id" element={<PublicProfile />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="/game-day" element={<GameDay />} />
               <Route path="/check-in" element={<CheckIn />} />

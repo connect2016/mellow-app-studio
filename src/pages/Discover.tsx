@@ -1045,7 +1045,10 @@ export default function Discover() {
         </Tabs>
 
         <YourCrewsSection />
+        </>
+        )}
       </div>
+
 
       <DiscoverFilterDrawer
         open={showFilters}

@@ -8,6 +8,7 @@ import { SEOMeta } from '@/components/SEOMeta';
 import { Button } from '@/components/ui/button';
 import { ProfileCardSkeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { InviteFriendsButton } from '@/components/invite/InviteFriendsButton';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';

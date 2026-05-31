@@ -20,6 +20,7 @@ import {
   useUnreadByConversation,
   useMarkConversationRead,
 } from '@/hooks/useMessages';
+import { STHBadge } from '@/components/profile/STHBadge';
 
 const EMOJI_QUICK = ['⚾', '🍺', '🎉', '🔥', '👏', '🙌', '😂', '❤️', '🧢', '🌟', '💙', '❤'];
 

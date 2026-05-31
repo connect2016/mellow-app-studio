@@ -130,6 +130,7 @@ export default function Discover() {
   }, [tonight.active]);
 
   const [showFilters, setShowFilters] = useState(false);
+  const [partyMode, setPartyMode] = useState<'wrigley' | 'watch'>('wrigley');
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [matchCelebration, setMatchCelebration] = useState<string | null>(null);
   const [settingStatus, setSettingStatus] = useState(false);

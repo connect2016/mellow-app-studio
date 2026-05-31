@@ -414,6 +414,28 @@ export default function Profile() {
               <>
                 {isOwnProfile && <TeammatesSummary />}
                 {isOwnProfile && <MyCrewSection />}
+                {isOwnProfile && (
+                  <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm shadow-sm p-4">
+                    <div className="flex items-center justify-between gap-3 mb-3">
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">Invite your crew</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {referralCount > 0
+                            ? `You've invited ${referralCount} ${referralCount === 1 ? 'friend' : 'friends'} — keep it going!`
+                            : "You've invited 0 friends — share the ballpark!"}
+                        </p>
+                      </div>
+                      <div
+                        className="shrink-0 rounded-full px-3 py-1 text-sm font-bold tabular-nums"
+                        style={{ backgroundColor: '#0E3386', color: '#FFFFFF' }}
+                        aria-label={`${referralCount} friends invited`}
+                      >
+                        {referralCount}
+                      </div>
+                    </div>
+                    <InviteFriendsButton source="profile" />
+                  </div>
+                )}
                 <SeasonRecapCard
                   displayName={profile?.display_name}
                   isOwner={isOwnProfile}

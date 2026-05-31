@@ -7,6 +7,7 @@ import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { Camera, Loader2, ChevronRight, Users, UsersRound, MapPin } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { SeasonTicketHolderToggle } from '@/components/profile/SeasonTicketHolderToggle';
 import { toast } from 'sonner';
 import { track } from '@/lib/analytics';
 

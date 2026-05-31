@@ -143,3 +143,83 @@ export function useCanChat() {
     enabled: !!user,
   });
 }
+
+// ─── Unread message tracking ───
+export function useUnreadCount() {
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
+
+  const query = useQuery({
+    queryKey: ['unread-message-count', user?.id],
+    queryFn: async () => {
+      if (!user) return 0;
+      const { count, error } = await supabase
+        .from('messages')
+        .select('id', { count: 'exact', head: true })
+        .eq('is_read', false)
+        .neq('sender', user.id);
+      if (error) throw error;
+      return count ?? 0;
+    },
+    enabled: !!user,
+    refetchInterval: 30000,
+  });
+
+  // Realtime: refresh on any new message addressed to the user
+  useEffect(() => {
+    if (!user) return;
+    const channel = supabase
+      .channel(`unread-${user.id}`)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, () => {
+        queryClient.invalidateQueries({ queryKey: ['unread-message-count', user.id] });
+        queryClient.invalidateQueries({ queryKey: ['unread-by-conversation', user.id] });
+      })
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [user, queryClient]);
+
+  return query;
+}
+
+export function useUnreadByConversation() {
+  const { user } = useAuth();
+  return useQuery({
+    queryKey: ['unread-by-conversation', user?.id],
+    queryFn: async () => {
+      if (!user) return {} as Record<string, number>;
+      const { data, error } = await supabase
+        .from('messages')
+        .select('conversation_id')
+        .eq('is_read', false)
+        .neq('sender', user.id);
+      if (error) throw error;
+      const map: Record<string, number> = {};
+      (data ?? []).forEach((m: { conversation_id: string }) => {
+        map[m.conversation_id] = (map[m.conversation_id] ?? 0) + 1;
+      });
+      return map;
+    },
+    enabled: !!user,
+    refetchInterval: 30000,
+  });
+}
+
+export function useMarkConversationRead() {
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (conversationId: string) => {
+      if (!user) return;
+      await supabase
+        .from('messages')
+        .update({ is_read: true })
+        .eq('conversation_id', conversationId)
+        .eq('is_read', false)
+        .neq('sender', user.id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['unread-message-count', user?.id] });
+      queryClient.invalidateQueries({ queryKey: ['unread-by-conversation', user?.id] });
+    },
+  });
+}

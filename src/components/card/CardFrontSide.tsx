@@ -7,7 +7,7 @@ import { BarChart3 } from 'lucide-react';
 import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
 import { FanTagPills } from '@/components/FanTagsPicker';
 
-const CARD_TEMPLATE_SRC = '/Revised_CB_Baseball_Card_Template.png';
+const CARD_TEMPLATE_SRC = '/Revised_Wrigleyville_Profile_Card.png';
 
 interface CardFrontSideProps {
   profileImage?: string | null;
@@ -95,11 +95,11 @@ export function CardFrontSide({
       <div
         style={{
           position: 'absolute',
-          top: '20%',
-          left: '50%',
-          transform: 'translate(-50%, 0)',
-          width: '47%',
-          height: '38%',
+          top: '27%',
+          left: '49%',
+          transform: 'translateX(-50%)',
+          width: '42%',
+          height: '30%',
           borderRadius: '50%',
           overflow: 'hidden',
           clipPath: 'circle(50% at 50% 50%)',
@@ -151,12 +151,13 @@ export function CardFrontSide({
         title={displayName}
         style={{
           position: 'absolute',
-          bottom: '12%',
-          left: '12%',
-          right: '35%',
+          bottom: '16%',
+          left: '8%',
+          right: '40%',
           textAlign: 'left',
-          fontSize: '18px',
+          fontSize: '16px',
           fontWeight: 800,
+          letterSpacing: '0.01em',
           color: '#1a1f2e',
           zIndex: 4,
           textShadow: 'none',
@@ -175,8 +176,8 @@ export function CardFrontSide({
         <div
           style={{
             position: 'absolute',
-            bottom: '14%',
-            left: '6%',
+            bottom: '11%',
+            left: '8%',
             right: '40%',
             textAlign: 'left',
             fontSize: '10px',

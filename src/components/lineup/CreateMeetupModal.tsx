@@ -237,7 +237,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
                     <SelectValue placeholder="Pick a time..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {TIME_OPTIONS.map((t) => (
+                    {timeOptions.map((t) => (
                       <SelectItem key={t} value={t}>
                         {formatTime(t)}
                       </SelectItem>

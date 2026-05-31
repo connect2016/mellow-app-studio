@@ -3054,6 +3054,58 @@ export type Database = {
         Args: { _meetup_id: string; _user_id: string }
         Returns: boolean
       }
+      leaderboard_my_crew_rank: {
+        Args: never
+        Returns: {
+          badge_emoji: string
+          checkin_total: number
+          crew_id: string
+          crew_name: string
+          member_count: number
+          rank: number
+        }[]
+      }
+      leaderboard_my_fan_rank: {
+        Args: never
+        Returns: {
+          display_name: string
+          missions_completed: number
+          points_total: number
+          profile_photo: string
+          rank: number
+          user_id: string
+        }[]
+      }
+      leaderboard_top_bars: {
+        Args: { _limit?: number }
+        Returns: {
+          bar_name: string
+          checkin_count: number
+          rank: number
+        }[]
+      }
+      leaderboard_top_crews: {
+        Args: { _limit?: number }
+        Returns: {
+          badge_emoji: string
+          checkin_total: number
+          crew_id: string
+          crew_name: string
+          member_count: number
+          rank: number
+        }[]
+      }
+      leaderboard_top_fans: {
+        Args: { _limit?: number }
+        Returns: {
+          display_name: string
+          missions_completed: number
+          points_total: number
+          profile_photo: string
+          rank: number
+          user_id: string
+        }[]
+      }
       nearby_fans: {
         Args: { radius_miles?: number; user_lat: number; user_lng: number }
         Returns: {

@@ -330,6 +330,13 @@ export default function Profile() {
 
 
             {isOwnProfile && (
+              <SeasonTicketHolderToggle
+                value={!!(profile as any).is_season_ticket_holder}
+                onChange={(next) => updateProfile.mutate({ is_season_ticket_holder: next } as any)}
+              />
+            )}
+
+            {isOwnProfile && (
               <SeasonStatsEditor
                 values={seasonStatsValues}
                 onUpdate={handleSeasonStatsUpdate}

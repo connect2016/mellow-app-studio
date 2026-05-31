@@ -42,6 +42,7 @@ import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
 import { GameDayCountdown } from '@/components/GameDayCountdown';
 import { HomeDashboard } from '@/components/home/HomeDashboard';
 import { GameDayBanner } from '@/components/home/GameDayBanner';
+import { GameDayWeatherCard } from '@/components/home/GameDayWeatherCard';
 import { FindFansBanner } from '@/components/home/FindFansBanner';
 import { HomeQuickCarousel } from '@/components/home/HomeQuickCarousel';
 import { WhosNearbyCarousel } from '@/components/WhosNearbyCarousel';

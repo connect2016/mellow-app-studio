@@ -7,7 +7,8 @@ import { cn } from '@/lib/utils';
 import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
 import { toast } from 'sonner';
-import { MapPin, Beer, Hash, X } from 'lucide-react';
+import { MapPin, Beer, Hash, X, Building2 } from 'lucide-react';
+import { RooftopPicker } from '@/components/rooftops/RooftopPicker';
 
 const BAR_CHIPS = [
   "Murphy's Bleachers",

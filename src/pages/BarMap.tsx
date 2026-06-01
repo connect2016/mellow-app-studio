@@ -23,6 +23,8 @@ import { CuratedBarCard } from '@/components/bars/CuratedBarCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import barMapBg from '@/assets/bar-map-bg.jpg';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { WRIGLEYVILLE_ROOFTOPS } from '@/data/wrigleyvilleRooftops';
+import { Building2 } from 'lucide-react';
 
 const EDITOR_PICKS = new Set(['murphys-bleachers', 'mordecai', 'old-crow']);
 
@@ -38,6 +40,7 @@ export default function BarMap() {
   const [groups, setGroups] = useState<BarGroupFit[]>([]);
   const [timings, setTimings] = useState<BarGameTiming[]>([]);
   const [distance, setDistance] = useState<DistanceBucket>('all');
+  const [showRooftops, setShowRooftops] = useState(true);
 
   // Live signal indexes
   const checkinCounts = useMemo(() => {

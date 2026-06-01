@@ -192,6 +192,41 @@ export function CheckInSheet({ open, onClose }: Props) {
           )}
         </section>
 
+        {/* Section 2b — Rooftop */}
+        <section className="mb-5 rounded-xl border-2 border-amber-400/60 bg-amber-50/30 dark:bg-amber-950/10 p-3">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <Building2 className="h-4 w-4 text-amber-600" />
+              <h3 className="text-sm font-extrabold" style={{ color: '#1a1f2e' }}>
+                🏙️ At a Rooftop?
+              </h3>
+            </div>
+            {currentRooftop && (
+              <button
+                onClick={async () => {
+                  await update.mutateAsync({ checkin_rooftop: null });
+                  toast.success('Rooftop cleared');
+                }}
+                className="text-xs font-bold flex items-center gap-1 text-amber-700"
+              >
+                <X className="h-3 w-3" /> Clear
+              </button>
+            )}
+          </div>
+          {currentRooftop && (
+            <p className="mb-2 text-xs font-bold text-amber-800">
+              ✓ Checked in at 🏙️ {currentRooftop}
+            </p>
+          )}
+          <RooftopPicker
+            value={currentRooftop}
+            onChange={async (name) => {
+              await update.mutateAsync({ checkin_rooftop: name });
+              toast.success(`Checked in at 🏙️ ${name}`);
+            }}
+          />
+        </section>
+
         {/* Section 3 — Section (game-time only) */}
         {isHomeGameActive ? (
           <section className="mb-5 rounded-xl border-2 p-3" style={{ borderColor: '#CC3433' }}>

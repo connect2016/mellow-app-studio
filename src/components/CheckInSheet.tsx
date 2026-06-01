@@ -43,6 +43,7 @@ export function CheckInSheet({ open, onClose }: Props) {
   );
 
   const currentBar = (profile as any)?.checkin_bar as string | null;
+  const currentRooftop = (profile as any)?.checkin_rooftop as string | null;
   const currentSection = (profile as any)?.checkin_section as string | null;
   const expiresAt = (profile as any)?.checkin_expires_at as string | null;
   const isSectionExpired = !expiresAt || new Date(expiresAt) < new Date();

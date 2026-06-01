@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import wrigleyvilleLogo from "@/assets/wrigleyville-logo.png";
-import { Beer } from "lucide-react";
+import { Beer, Building2 } from "lucide-react";
 
-interface FormData {
+interface BarFormData {
   venueName: string;
   contactName: string;
   email: string;
@@ -12,98 +12,89 @@ interface FormData {
   offerDescription: string;
 }
 
-const initialForm: FormData = {
-  venueName: "",
-  contactName: "",
-  email: "",
-  phone: "",
-  offerDescription: "",
-};
+interface RooftopFormData {
+  venueName: string;
+  contactName: string;
+  email: string;
+  capacity: string;
+  uniqueDescription: string;
+}
+
+const initialBar: BarFormData = { venueName: "", contactName: "", email: "", phone: "", offerDescription: "" };
+const initialRooftop: RooftopFormData = { venueName: "", contactName: "", email: "", capacity: "", uniqueDescription: "" };
 
 export default function Partners() {
-  const [form, setForm] = useState<FormData>(initialForm);
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [barForm, setBarForm] = useState<BarFormData>(initialBar);
+  const [barSubmitted, setBarSubmitted] = useState(false);
+  const [barSubmitting, setBarSubmitting] = useState(false);
+  const [barErrors, setBarErrors] = useState<Partial<Record<keyof BarFormData, string>>>({});
 
-  const validate = (): boolean => {
-    const nextErrors: Partial<Record<keyof FormData, string>> = {};
-    if (!form.venueName.trim()) nextErrors.venueName = "Venue name is required";
-    if (!form.contactName.trim()) nextErrors.contactName = "Contact name is required";
-    if (!form.email.trim()) {
-      nextErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      nextErrors.email = "Please enter a valid email";
-    }
-    if (!form.offerDescription.trim()) {
-      nextErrors.offerDescription = "Please tell us what you'd like to offer";
-    } else if (form.offerDescription.length > 300) {
-      nextErrors.offerDescription = "Must be 300 characters or less";
-    }
-    setErrors(nextErrors);
-    return Object.keys(nextErrors).length === 0;
-  };
+  const [roofForm, setRoofForm] = useState<RooftopFormData>(initialRooftop);
+  const [roofSubmitted, setRoofSubmitted] = useState(false);
+  const [roofSubmitting, setRoofSubmitting] = useState(false);
+  const [roofErrors, setRoofErrors] = useState<Partial<Record<keyof RooftopFormData, string>>>({});
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  const submitBar = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
+    const next: Partial<Record<keyof BarFormData, string>> = {};
+    if (!barForm.venueName.trim()) next.venueName = "Required";
+    if (!barForm.contactName.trim()) next.contactName = "Required";
+    if (!isEmail(barForm.email)) next.email = "Valid email required";
+    if (!barForm.offerDescription.trim()) next.offerDescription = "Required";
+    else if (barForm.offerDescription.length > 300) next.offerDescription = "Max 300 chars";
+    setBarErrors(next);
+    if (Object.keys(next).length) return;
 
-    setSubmitting(true);
+    setBarSubmitting(true);
     const { error } = await supabase.from("bar_partners_waitlist").insert({
-      venue_name: form.venueName.trim(),
-      contact_name: form.contactName.trim(),
-      email: form.email.trim(),
-      phone: form.phone.trim() || null,
-      offer_description: form.offerDescription.trim(),
+      venue_name: barForm.venueName.trim(),
+      contact_name: barForm.contactName.trim(),
+      email: barForm.email.trim(),
+      phone: barForm.phone.trim() || null,
+      offer_description: barForm.offerDescription.trim(),
+      partner_type: "bar",
     });
-    setSubmitting(false);
-
-    if (error) {
-      setErrors({ email: "Something went wrong. Please try again." });
-      return;
-    }
-
-    setSubmitted(true);
+    setBarSubmitting(false);
+    if (error) { setBarErrors({ email: "Something went wrong. Try again." }); return; }
+    setBarSubmitted(true);
   };
 
-  const updateField = (field: keyof FormData, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
-    if (errors[field]) {
-      setErrors((prev) => {
-        const next = { ...prev };
-        delete next[field];
-        return next;
-      });
-    }
+  const submitRoof = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const next: Partial<Record<keyof RooftopFormData, string>> = {};
+    if (!roofForm.venueName.trim()) next.venueName = "Required";
+    if (!roofForm.contactName.trim()) next.contactName = "Required";
+    if (!isEmail(roofForm.email)) next.email = "Valid email required";
+    if (!roofForm.capacity.trim() || isNaN(Number(roofForm.capacity))) next.capacity = "Numeric capacity required";
+    if (!roofForm.uniqueDescription.trim()) next.uniqueDescription = "Required";
+    else if (roofForm.uniqueDescription.length > 300) next.uniqueDescription = "Max 300 chars";
+    setRoofErrors(next);
+    if (Object.keys(next).length) return;
+
+    setRoofSubmitting(true);
+    const { error } = await supabase.from("bar_partners_waitlist").insert({
+      venue_name: roofForm.venueName.trim(),
+      contact_name: roofForm.contactName.trim(),
+      email: roofForm.email.trim(),
+      offer_description: roofForm.uniqueDescription.trim(),
+      partner_type: "rooftop",
+      capacity: Number(roofForm.capacity),
+    });
+    setRoofSubmitting(false);
+    if (error) { setRoofErrors({ email: "Something went wrong. Try again." }); return; }
+    setRoofSubmitted(true);
   };
 
-  if (submitted) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-brand-blue-dark px-4 py-8">
-        <Helmet>
-          <title>Partner With Cubbies Buddies</title>
-          <meta name="description" content="Reach thousands of Cubs fans on game day. Partner with Cubbies Buddies." />
-        </Helmet>
-        <div className="w-full max-w-md rounded-2xl border border-white/10 bg-brand-blue p-8 text-center shadow-elevated">
-          <div className="mb-6 flex justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-red/20 ring-2 ring-brand-red">
-              <Beer className="h-8 w-8 text-brand-red" />
-            </div>
-          </div>
-          <h2 className="mb-3 font-display text-2xl font-bold text-white">
-            Thanks! We'll be in touch before the next home series.
-          </h2>
-          <p className="text-lg text-white/80">Go Cubs! ⚾</p>
-        </div>
-      </div>
-    );
-  }
+  const inputBase =
+    "w-full rounded-xl border bg-white/10 px-4 py-3 text-white placeholder-white/40 outline-none ring-white/20 transition focus:ring-2";
 
   return (
     <div className="min-h-screen bg-brand-blue-dark px-4 py-6 pb-16">
       <Helmet>
         <title>Partner With Cubbies Buddies</title>
-        <meta name="description" content="Reach thousands of Cubs fans on game day. Partner with Cubbies Buddies." />
+        <meta name="description" content="Bar and rooftop partners — reach thousands of Cubs fans on game day." />
       </Helmet>
 
       <div className="mx-auto w-full max-w-md">
@@ -124,114 +115,127 @@ export default function Partners() {
           Reach thousands of Cubs fans on game day — list your specials, sponsor missions, and own your neighborhood presence.
         </p>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-          <div>
-            <label htmlFor="venueName" className="mb-1.5 block text-sm font-semibold text-white/90">
-              Bar or Venue Name <span className="text-brand-red">*</span>
-            </label>
-            <input
-              id="venueName"
-              type="text"
-              value={form.venueName}
-              onChange={(e) => updateField("venueName", e.target.value)}
-              className={`w-full rounded-xl border bg-white/10 px-4 py-3 text-white placeholder-white/40 outline-none ring-white/20 transition focus:ring-2 ${
-                errors.venueName ? "border-brand-red" : "border-white/10"
-              }`}
-              placeholder="Murphy's Bleachers"
-            />
-            {errors.venueName && (
-              <p className="mt-1.5 text-sm text-brand-red">{errors.venueName}</p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="contactName" className="mb-1.5 block text-sm font-semibold text-white/90">
-              Contact Name <span className="text-brand-red">*</span>
-            </label>
-            <input
-              id="contactName"
-              type="text"
-              value={form.contactName}
-              onChange={(e) => updateField("contactName", e.target.value)}
-              className={`w-full rounded-xl border bg-white/10 px-4 py-3 text-white placeholder-white/40 outline-none ring-white/20 transition focus:ring-2 ${
-                errors.contactName ? "border-brand-red" : "border-white/10"
-              }`}
-              placeholder="Sean Murphy"
-            />
-            {errors.contactName && (
-              <p className="mt-1.5 text-sm text-brand-red">{errors.contactName}</p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-white/90">
-              Email Address <span className="text-brand-red">*</span>
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={form.email}
-              onChange={(e) => updateField("email", e.target.value)}
-              className={`w-full rounded-xl border bg-white/10 px-4 py-3 text-white placeholder-white/40 outline-none ring-white/20 transition focus:ring-2 ${
-                errors.email ? "border-brand-red" : "border-white/10"
-              }`}
-              placeholder="sean@murphysbleachers.com"
-            />
-            {errors.email && (
-              <p className="mt-1.5 text-sm text-brand-red">{errors.email}</p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="phone" className="mb-1.5 block text-sm font-semibold text-white/90">
-              Phone Number <span className="text-white/50">(optional)</span>
-            </label>
-            <input
-              id="phone"
-              type="tel"
-              value={form.phone}
-              onChange={(e) => updateField("phone", e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/40 outline-none ring-white/20 transition focus:ring-2"
-              placeholder="(773) 555-0199"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="offerDescription" className="mb-1.5 block text-sm font-semibold text-white/90">
-              What would you like to offer fans? <span className="text-brand-red">*</span>
-            </label>
-            <textarea
-              id="offerDescription"
-              value={form.offerDescription}
-              onChange={(e) => updateField("offerDescription", e.target.value)}
-              maxLength={300}
-              rows={4}
-              className={`w-full resize-none rounded-xl border bg-white/10 px-4 py-3 text-white placeholder-white/40 outline-none ring-white/20 transition focus:ring-2 ${
-                errors.offerDescription ? "border-brand-red" : "border-white/10"
-              }`}
-              placeholder="Game-day drink specials, rooftop viewing packages, pre-game food deals…"
-            />
-            <div className="mt-1.5 flex items-center justify-between">
-              {errors.offerDescription ? (
-                <p className="text-sm text-brand-red">{errors.offerDescription}</p>
-              ) : (
-                <span />
-              )}
-              <span className="text-xs text-white/50">
-                {form.offerDescription.length}/300
-              </span>
+        {/* BAR FORM */}
+        {barSubmitted ? (
+          <div className="mb-10 rounded-2xl border border-white/10 bg-brand-blue p-8 text-center shadow-elevated">
+            <div className="mb-4 flex justify-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-red/20 ring-2 ring-brand-red">
+                <Beer className="h-7 w-7 text-brand-red" />
+              </div>
             </div>
+            <h2 className="mb-2 font-display text-xl font-bold text-white">
+              Thanks! We'll be in touch before the next home series.
+            </h2>
+            <p className="text-base text-white/80">Go Cubs! ⚾</p>
           </div>
+        ) : (
+          <form onSubmit={submitBar} className="space-y-5 mb-12" noValidate>
+            <h2 className="font-display text-xl font-bold text-white">Bar & Venue Partners</h2>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">Bar or Venue Name *</label>
+              <input value={barForm.venueName} onChange={(e) => setBarForm({ ...barForm, venueName: e.target.value })}
+                className={`${inputBase} ${barErrors.venueName ? "border-brand-red" : "border-white/10"}`} placeholder="Murphy's Bleachers" />
+              {barErrors.venueName && <p className="mt-1 text-sm text-brand-red">{barErrors.venueName}</p>}
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">Contact Name *</label>
+              <input value={barForm.contactName} onChange={(e) => setBarForm({ ...barForm, contactName: e.target.value })}
+                className={`${inputBase} ${barErrors.contactName ? "border-brand-red" : "border-white/10"}`} />
+              {barErrors.contactName && <p className="mt-1 text-sm text-brand-red">{barErrors.contactName}</p>}
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">Email *</label>
+              <input type="email" value={barForm.email} onChange={(e) => setBarForm({ ...barForm, email: e.target.value })}
+                className={`${inputBase} ${barErrors.email ? "border-brand-red" : "border-white/10"}`} />
+              {barErrors.email && <p className="mt-1 text-sm text-brand-red">{barErrors.email}</p>}
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">Phone <span className="text-white/50">(optional)</span></label>
+              <input type="tel" value={barForm.phone} onChange={(e) => setBarForm({ ...barForm, phone: e.target.value })}
+                className={`${inputBase} border-white/10`} />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">What would you like to offer fans? *</label>
+              <textarea value={barForm.offerDescription} onChange={(e) => setBarForm({ ...barForm, offerDescription: e.target.value })}
+                maxLength={300} rows={4}
+                className={`${inputBase} resize-none ${barErrors.offerDescription ? "border-brand-red" : "border-white/10"}`} />
+              <div className="mt-1.5 flex items-center justify-between">
+                {barErrors.offerDescription ? <p className="text-sm text-brand-red">{barErrors.offerDescription}</p> : <span />}
+                <span className="text-xs text-white/50">{barForm.offerDescription.length}/300</span>
+              </div>
+            </div>
+            <button type="submit" disabled={barSubmitting}
+              className="mt-2 flex w-full items-center justify-center rounded-xl bg-brand-red py-3.5 font-display text-lg font-bold text-white shadow-pennant transition hover:bg-brand-red/90 active:scale-[0.98] disabled:opacity-60">
+              {barSubmitting ? "Submitting…" : "Submit Bar Interest"}
+            </button>
+          </form>
+        )}
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="mt-2 flex w-full items-center justify-center rounded-xl bg-brand-red py-3.5 font-display text-lg font-bold text-white shadow-pennant transition hover:bg-brand-red/90 active:scale-[0.98] disabled:opacity-60"
-          >
-            {submitting ? "Submitting…" : "Submit Interest"}
-          </button>
-        </form>
+        {/* ROOFTOP SECTION */}
+        <div className="mb-6 border-l-4 border-amber-400 pl-4">
+          <h2 className="font-display text-2xl font-bold text-white flex items-center gap-2">
+            <Building2 className="h-6 w-6 text-amber-400" /> 🏙️ Rooftop Venue Partners
+          </h2>
+        </div>
+        <p className="mb-6 text-base leading-relaxed text-white/80">
+          List your rooftop on the Cubbies Buddies map and connect with fans looking for the ultimate game-day experience.
+        </p>
+
+        {roofSubmitted ? (
+          <div className="rounded-2xl border border-amber-400/40 bg-brand-blue p-8 text-center shadow-elevated">
+            <div className="mb-4 flex justify-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-amber-400/20 ring-2 ring-amber-400">
+                <Building2 className="h-7 w-7 text-amber-400" />
+              </div>
+            </div>
+            <h2 className="mb-2 font-display text-xl font-bold text-white">
+              Thanks! Rooftop partners get featured placement on our live map.
+            </h2>
+            <p className="text-base text-white/80">We'll be in touch soon. ⚾</p>
+          </div>
+        ) : (
+          <form onSubmit={submitRoof} className="space-y-5" noValidate>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">Rooftop Venue Name *</label>
+              <input value={roofForm.venueName} onChange={(e) => setRoofForm({ ...roofForm, venueName: e.target.value })}
+                className={`${inputBase} ${roofErrors.venueName ? "border-brand-red" : "border-amber-400/30"}`} placeholder="Skybox on Sheffield" />
+              {roofErrors.venueName && <p className="mt-1 text-sm text-brand-red">{roofErrors.venueName}</p>}
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">Contact Name *</label>
+              <input value={roofForm.contactName} onChange={(e) => setRoofForm({ ...roofForm, contactName: e.target.value })}
+                className={`${inputBase} ${roofErrors.contactName ? "border-brand-red" : "border-amber-400/30"}`} />
+              {roofErrors.contactName && <p className="mt-1 text-sm text-brand-red">{roofErrors.contactName}</p>}
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">Email *</label>
+              <input type="email" value={roofForm.email} onChange={(e) => setRoofForm({ ...roofForm, email: e.target.value })}
+                className={`${inputBase} ${roofErrors.email ? "border-brand-red" : "border-amber-400/30"}`} />
+              {roofErrors.email && <p className="mt-1 text-sm text-brand-red">{roofErrors.email}</p>}
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">Capacity *</label>
+              <input type="number" min={1} value={roofForm.capacity} onChange={(e) => setRoofForm({ ...roofForm, capacity: e.target.value })}
+                className={`${inputBase} ${roofErrors.capacity ? "border-brand-red" : "border-amber-400/30"}`} placeholder="150" />
+              {roofErrors.capacity && <p className="mt-1 text-sm text-brand-red">{roofErrors.capacity}</p>}
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-white/90">What makes your rooftop unique? *</label>
+              <textarea value={roofForm.uniqueDescription} onChange={(e) => setRoofForm({ ...roofForm, uniqueDescription: e.target.value })}
+                maxLength={300} rows={4}
+                className={`${inputBase} resize-none ${roofErrors.uniqueDescription ? "border-brand-red" : "border-amber-400/30"}`}
+                placeholder="Panoramic right-field views, all-inclusive food & drink, private bar…" />
+              <div className="mt-1.5 flex items-center justify-between">
+                {roofErrors.uniqueDescription ? <p className="text-sm text-brand-red">{roofErrors.uniqueDescription}</p> : <span />}
+                <span className="text-xs text-white/50">{roofForm.uniqueDescription.length}/300</span>
+              </div>
+            </div>
+            <button type="submit" disabled={roofSubmitting}
+              className="mt-2 flex w-full items-center justify-center rounded-xl bg-amber-400 py-3.5 font-display text-lg font-bold text-amber-950 shadow-pennant transition hover:bg-amber-300 active:scale-[0.98] disabled:opacity-60">
+              {roofSubmitting ? "Submitting…" : "🏙️ Submit Rooftop Interest"}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

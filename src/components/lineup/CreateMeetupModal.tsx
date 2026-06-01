@@ -11,6 +11,8 @@ import { WRIGLEYVILLE_BARS } from '@/types';
 import { toast } from 'sonner';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import type { GameContext } from '@/contexts/CreateMeetupContext';
+import { RooftopPicker } from '@/components/rooftops/RooftopPicker';
+import { ROOFTOP_NAMES } from '@/data/wrigleyvilleRooftops';
 
 interface CreateMeetupModalProps {
   open: boolean;
@@ -89,7 +91,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
   };
 
   const handleSubmit = async () => {
-    const loc = location === '__custom__' ? customLocation : location;
+    const loc = (location === '__custom__' || location === '__rooftop__') ? customLocation : location;
     if (!loc || !time) {
       toast.error('Pick a spot and a time!');
       return;
@@ -203,10 +205,17 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
                     ))}
                     <SelectItem value="Wrigley Field - Bleachers"> Bleachers</SelectItem>
                     <SelectItem value="Wrigley Field - Upper Deck"> Upper Deck</SelectItem>
-                    <SelectItem value="Wrigley Field - Rooftop"> Rooftop</SelectItem>
+                    <SelectItem value="Wrigley Field - Tailgate"> Tailgate Lot</SelectItem>
+                    <SelectItem value="__rooftop__">🏙️ Rooftop Venue</SelectItem>
                     <SelectItem value="__custom__"> Custom location...</SelectItem>
                   </SelectContent>
                 </Select>
+                {location === '__rooftop__' && (
+                  <RooftopPicker
+                    value={ROOFTOP_NAMES.includes(customLocation) ? customLocation : null}
+                    onChange={(name) => setCustomLocation(name)}
+                  />
+                )}
                 {location === '__custom__' && (
                   <Input
                     placeholder="Type your spot (e.g. Section 202, Gallagher Way)"

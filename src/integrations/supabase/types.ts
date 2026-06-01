@@ -118,31 +118,37 @@ export type Database = {
       }
       bar_partners_waitlist: {
         Row: {
+          capacity: number | null
           contact_name: string
           created_at: string
           email: string
           id: string
           offer_description: string
+          partner_type: string
           phone: string | null
           status: string
           venue_name: string
         }
         Insert: {
+          capacity?: number | null
           contact_name: string
           created_at?: string
           email: string
           id?: string
           offer_description: string
+          partner_type?: string
           phone?: string | null
           status?: string
           venue_name: string
         }
         Update: {
+          capacity?: number | null
           contact_name?: string
           created_at?: string
           email?: string
           id?: string
           offer_description?: string
+          partner_type?: string
           phone?: string | null
           status?: string
           venue_name?: string
@@ -1751,6 +1757,7 @@ export type Database = {
           carb_up_strategy: string | null
           checkin_bar: string | null
           checkin_expires_at: string | null
+          checkin_rooftop: string | null
           checkin_section: string | null
           checkin_updated_at: string | null
           created_at: string
@@ -1792,6 +1799,8 @@ export type Database = {
           notification_preferences: Json
           onboarding_completed: boolean | null
           phone_verified: boolean
+          planned_location_type: string | null
+          planned_location_venue: string | null
           post_win_meal: string | null
           postgame_food: string | null
           pregame_meal: string | null
@@ -1838,6 +1847,7 @@ export type Database = {
           carb_up_strategy?: string | null
           checkin_bar?: string | null
           checkin_expires_at?: string | null
+          checkin_rooftop?: string | null
           checkin_section?: string | null
           checkin_updated_at?: string | null
           created_at?: string
@@ -1879,6 +1889,8 @@ export type Database = {
           notification_preferences?: Json
           onboarding_completed?: boolean | null
           phone_verified?: boolean
+          planned_location_type?: string | null
+          planned_location_venue?: string | null
           post_win_meal?: string | null
           postgame_food?: string | null
           pregame_meal?: string | null
@@ -1925,6 +1937,7 @@ export type Database = {
           carb_up_strategy?: string | null
           checkin_bar?: string | null
           checkin_expires_at?: string | null
+          checkin_rooftop?: string | null
           checkin_section?: string | null
           checkin_updated_at?: string | null
           created_at?: string
@@ -1966,6 +1979,8 @@ export type Database = {
           notification_preferences?: Json
           onboarding_completed?: boolean | null
           phone_verified?: boolean
+          planned_location_type?: string | null
+          planned_location_venue?: string | null
           post_win_meal?: string | null
           postgame_food?: string | null
           pregame_meal?: string | null

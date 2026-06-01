@@ -23,6 +23,8 @@ import { CuratedBarCard } from '@/components/bars/CuratedBarCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import barMapBg from '@/assets/bar-map-bg.jpg';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { WRIGLEYVILLE_ROOFTOPS } from '@/data/wrigleyvilleRooftops';
+import { Building2 } from 'lucide-react';
 
 const EDITOR_PICKS = new Set(['murphys-bleachers', 'mordecai', 'old-crow']);
 
@@ -38,6 +40,7 @@ export default function BarMap() {
   const [groups, setGroups] = useState<BarGroupFit[]>([]);
   const [timings, setTimings] = useState<BarGameTiming[]>([]);
   const [distance, setDistance] = useState<DistanceBucket>('all');
+  const [showRooftops, setShowRooftops] = useState(true);
 
   // Live signal indexes
   const checkinCounts = useMemo(() => {
@@ -204,6 +207,63 @@ export default function BarMap() {
           totalAll={CURATED_BARS.length}
         />
       </div>
+
+      {/* Rooftops toggle */}
+      <div className="max-w-3xl mx-auto px-4 mt-4">
+        <button
+          onClick={() => setShowRooftops((v) => !v)}
+          className={`w-full flex items-center justify-between rounded-xl px-4 py-3 border-2 transition-colors ${
+            showRooftops ? 'border-amber-400 bg-amber-400/15' : 'border-white/20 bg-black/40'
+          }`}
+        >
+          <span className="flex items-center gap-2 text-sm font-bold text-white">
+            <Building2 className="h-4 w-4 text-amber-300" />
+            🏙️ Wrigleyville Rooftops
+          </span>
+          <span className="text-xs font-bold text-amber-300">
+            {showRooftops ? `Hide (${WRIGLEYVILLE_ROOFTOPS.length})` : `Show (${WRIGLEYVILLE_ROOFTOPS.length})`}
+          </span>
+        </button>
+      </div>
+
+      {/* Rooftop venues list (gold accents) */}
+      {showRooftops && (
+        <section className="max-w-3xl mx-auto px-4 pt-3 space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {WRIGLEYVILLE_ROOFTOPS.map((r) => {
+              const hereCount = checkins.filter((c: any) => c.bar_name === r.name).length;
+              return (
+                <div
+                  key={r.id}
+                  className="rounded-2xl border-2 border-amber-400/60 bg-gradient-to-br from-amber-50/95 to-white/90 p-3 shadow-md"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <h4 className="text-sm font-extrabold text-brand-blue-dark truncate">🏙️ {r.name}</h4>
+                      <p className="text-[11px] text-foreground/70 truncate">{r.address}</p>
+                    </div>
+                    <span className="shrink-0 rounded-full bg-amber-500 text-amber-950 text-[10px] font-bold px-2 py-0.5 border border-amber-600">
+                      cap {r.capacity}
+                    </span>
+                  </div>
+                  <p className="mt-1.5 text-[11px] text-foreground/80 italic">View: {r.views}</p>
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="text-[11px] font-semibold text-amber-700">
+                      {hereCount > 0 ? `${hereCount} fan${hereCount === 1 ? '' : 's'} here` : 'No fans yet'}
+                    </span>
+                    <button
+                      onClick={() => navigate('/check-in')}
+                      className="rounded-lg bg-amber-500 text-amber-950 text-[11px] font-bold px-3 py-1.5 border border-amber-600 active:scale-95"
+                    >
+                      I'm Here
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Results */}
       <section className="max-w-3xl mx-auto px-4 pt-4 space-y-3">

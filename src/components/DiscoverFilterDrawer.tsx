@@ -31,9 +31,10 @@ const INTENTS: IntentType[] = ['FriendToWatch', 'ShareABeer', 'PostGameMeetup', 
 const GAMEDAY_INTENTS: GamedayIntentType[] = ['BleacherRegular', 'FamilyFriendly', 'PreGameDrinks', 'ScoringTheGame', 'PostGameCelebration', 'WrigleyvilleLocal'];
 
 const LOCATIONS = [
-  { value: 'AtWrigley', label: 'In my Seat', emoji: '' },
+  { value: 'AtWrigley', label: 'In the Park', emoji: '' },
+  { value: 'Rooftop', label: '🏙️ Rooftop', emoji: '' },
   { value: 'AtBar', label: 'At the Bar', emoji: '' },
-  { value: 'Tailgating', label: 'Tailgating', emoji: '' },
+  { value: 'Tailgating', label: 'Tailgate', emoji: '' },
   { value: 'BeerSnake', label: 'Beer Snake', emoji: '' },
   { value: 'WatchingRemote', label: 'Watching from Home', emoji: '' },
 ];

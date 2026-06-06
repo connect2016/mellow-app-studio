@@ -194,6 +194,25 @@ export default function Settings() {
         {/* Notifications */}
         <NotificationPreferencesPanel />
 
+        {/* Demo Data */}
+        <div className="rounded-xl border-2 border-primary/60 bg-black/70 backdrop-blur-md p-4 space-y-3">
+          <div className="flex items-center gap-2 text-sm font-bold text-white uppercase tracking-wide">
+            <Sparkles className="h-4 w-4 text-primary" /> Demo Data
+          </div>
+          <p className="text-xs text-white/80">
+            Seeds 8 demo fan profiles into Discover, the map, and the fan list. Safe to re-run.
+          </p>
+          <Button
+            className="w-full justify-center gap-2 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-bold"
+            onClick={seedDemoFans}
+            disabled={seeding}
+          >
+            {seeding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+            Seed 8 Demo Fans
+          </Button>
+        </div>
+
+
         {/* Stats Customization */}
         <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-md p-4">
           <StatsCustomizer />

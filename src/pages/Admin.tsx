@@ -28,10 +28,24 @@ const MOCK_REPORTS: MockReport[] = [
 export default function Admin() {
   const { toast } = useToast();
   const [reports, setReports] = useState(MOCK_REPORTS);
+  const [seeding, setSeeding] = useState(false);
 
   const closeReport = (id: string) => {
     setReports((prev) => prev.map((r) => r.id === id ? { ...r, status: 'closed' as const } : r));
     toast({ title: 'Report closed' });
+  };
+
+  const seedDemoFans = async () => {
+    setSeeding(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('seed-demo-fans');
+      if (error) throw error;
+      toast({ title: 'Demo fans seeded', description: `${data?.count ?? 8} profiles ready in Discover, Map & Fans.` });
+    } catch (e) {
+      toast({ title: 'Seed failed', description: (e as Error).message, variant: 'destructive' });
+    } finally {
+      setSeeding(false);
+    }
   };
 
   return (

@@ -40,6 +40,7 @@ import BeerMoney from "./pages/BeerMoney";
 import Settings from "./pages/Settings";
 import NotificationPreferences from "./pages/NotificationPreferences";
 import Admin from "./pages/Admin";
+import AdminSeed from "./pages/AdminSeed";
 import VibeFeed from "./pages/VibeFeed";
 import Loyalty from "./pages/Loyalty";
 import LeagueLeaders from "./pages/LeagueLeaders";
@@ -145,6 +146,7 @@ const App = () => (
             <Route path="/share-seat" element={<ShareSeat />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/settings/notifications" element={<NotificationPreferences />} />
+            <Route path="/admin/seed" element={<AdminSeed />} />
             <Route element={<AdminRoute />}>
               <Route path="/admin" element={<Admin />} />
             </Route>

@@ -2,11 +2,12 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Loader2, Sparkles, CheckCircle, AlertCircle } from "lucide-react";
+import { Loader2, Sparkles, CheckCircle, AlertCircle, Copy, Check } from "lucide-react";
 
 export default function AdminSeed() {
   const [seeding, setSeeding] = useState(false);
   const [result, setResult] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const handleSeed = async () => {
     setSeeding(true);
@@ -21,6 +22,18 @@ export default function AdminSeed() {
       setResult({ type: "error", message: err.message || "Failed to seed demo fans." });
     } finally {
       setSeeding(false);
+    }
+  };
+
+  const edgeFunctionUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/seed-demo-fans`;
+
+  const handleCopyUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(edgeFunctionUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setResult({ type: "error", message: "Failed to copy URL to clipboard." });
     }
   };
 
@@ -54,6 +67,33 @@ export default function AdminSeed() {
               </>
             )}
           </Button>
+
+          <div className="rounded-lg border border-slate-700/40 bg-slate-800/60 p-3 space-y-2">
+            <p className="text-xs text-slate-400 font-medium">Edge Function URL</p>
+            <div className="flex items-center gap-2">
+              <code className="flex-1 text-xs text-slate-300 bg-slate-950/60 rounded px-2 py-1.5 truncate font-mono">
+                {edgeFunctionUrl}
+              </code>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleCopyUrl}
+                className="shrink-0 text-slate-300 hover:text-slate-50 hover:bg-slate-700/50"
+              >
+                {copied ? (
+                  <>
+                    <Check className="mr-1.5 h-3.5 w-3.5 text-green-400" />
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    <Copy className="mr-1.5 h-3.5 w-3.5" />
+                    Copy
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
 
           {result && (
             <div

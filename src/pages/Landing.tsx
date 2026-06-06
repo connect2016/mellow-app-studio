@@ -457,8 +457,8 @@ export default function Landing() {
                   <div className="mb-4 inline-flex w-fit rounded-xl bg-primary/10 p-3">
                     <f.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="mb-2 text-lg font-bold text-card-foreground">{f.title}</h3>
-                  <p className="mb-4 text-sm leading-relaxed text-muted-foreground">{f.copy}</p>
+                  <h3 className="mb-4 text-xl font-extrabold text-slate-50">{f.title}</h3>
+                  <p className="mt-1.5 max-w-[300px] text-muted-foreground text-base text-slate-50">{f.copy}</p>
                   <div className="mb-4">
                     <FeaturePreview kind={kind as any} />
                   </div>

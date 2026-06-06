@@ -68,6 +68,33 @@ export default function AdminSeed() {
             )}
           </Button>
 
+          <div className="rounded-lg border border-slate-700/40 bg-slate-800/60 p-3 space-y-2">
+            <p className="text-xs text-slate-400 font-medium">Edge Function URL</p>
+            <div className="flex items-center gap-2">
+              <code className="flex-1 text-xs text-slate-300 bg-slate-950/60 rounded px-2 py-1.5 truncate font-mono">
+                {edgeFunctionUrl}
+              </code>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleCopyUrl}
+                className="shrink-0 text-slate-300 hover:text-slate-50 hover:bg-slate-700/50"
+              >
+                {copied ? (
+                  <>
+                    <Check className="mr-1.5 h-3.5 w-3.5 text-green-400" />
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    <Copy className="mr-1.5 h-3.5 w-3.5" />
+                    Copy
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+
           {result && (
             <div
               className={`flex items-center gap-2 rounded-lg p-3 text-sm font-medium ${

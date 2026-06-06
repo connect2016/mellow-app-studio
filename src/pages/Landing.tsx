@@ -457,8 +457,8 @@ export default function Landing() {
                   <div className="mb-4 inline-flex w-fit rounded-xl bg-primary/10 p-3">
                     <f.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="mb-2 text-lg font-bold text-card-foreground">{f.title}</h3>
-                  <p className="mb-4 text-sm leading-relaxed text-muted-foreground">{f.copy}</p>
+                  <h3 className="mb-4 text-xl font-extrabold text-slate-50">{f.title}</h3>
+                  <p className="mt-1.5 max-w-[300px] text-muted-foreground text-base text-slate-50">{f.copy}</p>
                   <div className="mb-4">
                     <FeaturePreview kind={kind as any} />
                   </div>
@@ -483,8 +483,8 @@ export default function Landing() {
                   <f.icon className="h-5 w-5 text-secondary" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-card-foreground text-sm">{f.title}</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{f.copy}</p>
+                  <h4 className="text-[18px] text-foreground text-slate-50 font-semibold">{f.title}</h4>
+                  <p className="mt-3 inline-flex items-center gap-1.5 hover:underline underline-offset-4 min-h-[44px] px-2 text-xl font-semibold text-slate-50">{f.copy}</p>
                 </div>
               </div>
             ))}

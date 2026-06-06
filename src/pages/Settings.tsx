@@ -34,6 +34,7 @@ export default function Settings() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteText, setDeleteText] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const [seeding, setSeeding] = useState(false);
 
   const handleDeleteAccount = async () => {
     setDeleting(true);

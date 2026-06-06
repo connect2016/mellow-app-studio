@@ -436,7 +436,6 @@ export default function Landing() {
         <div className="absolute inset-0">
           <img src={wrigleyvilleAerial} alt="" className="h-full w-full object-cover" loading="lazy" />
         </div>
-        <div className="absolute inset-0 bg-background/85" />
         <div className="relative mx-auto max-w-6xl px-6">
           <div className="mb-12 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary">What you get</p>

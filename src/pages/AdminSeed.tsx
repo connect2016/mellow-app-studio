@@ -7,6 +7,7 @@ import { Loader2, Sparkles, CheckCircle, AlertCircle, Copy, Check } from "lucide
 export default function AdminSeed() {
   const [seeding, setSeeding] = useState(false);
   const [result, setResult] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const handleSeed = async () => {
     setSeeding(true);
@@ -21,6 +22,18 @@ export default function AdminSeed() {
       setResult({ type: "error", message: err.message || "Failed to seed demo fans." });
     } finally {
       setSeeding(false);
+    }
+  };
+
+  const edgeFunctionUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/seed-demo-fans`;
+
+  const handleCopyUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(edgeFunctionUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setResult({ type: "error", message: "Failed to copy URL to clipboard." });
     }
   };
 

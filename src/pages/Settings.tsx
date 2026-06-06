@@ -11,7 +11,7 @@ import {
   Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility, AlertTriangle, Loader2, MapPin } from 'lucide-react';
+import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility, AlertTriangle, Loader2, MapPin, Sparkles } from 'lucide-react';
 import { StatsCustomizer } from '@/components/StatsCustomizer';
 import { NotificationPreferencesPanel } from '@/components/NotificationPreferencesPanel';
 import { supabase } from '@/integrations/supabase/client';
@@ -34,6 +34,7 @@ export default function Settings() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteText, setDeleteText] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const [seeding, setSeeding] = useState(false);
 
   const handleDeleteAccount = async () => {
     setDeleting(true);
@@ -51,6 +52,19 @@ export default function Settings() {
         variant: 'destructive',
       });
       setDeleting(false);
+    }
+  };
+
+  const seedDemoFans = async () => {
+    setSeeding(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('seed-demo-fans');
+      if (error) throw error;
+      toast({ title: 'Demo fans seeded', description: `${data?.count ?? 8} profiles ready in Discover, Map & Fans.` });
+    } catch (e: any) {
+      toast({ title: 'Seed failed', description: e?.message ?? 'Unknown error', variant: 'destructive' });
+    } finally {
+      setSeeding(false);
     }
   };
 
@@ -197,6 +211,25 @@ export default function Settings() {
             }}
           >
             <LogOut className="h-4 w-4" /> Sign Out
+          </Button>
+        </div>
+
+        {/* Demo Data */}
+        <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-md p-4 space-y-3">
+          <div className="flex items-center gap-2 text-sm font-semibold text-white">
+            <Sparkles className="h-4 w-4 text-primary" /> Demo Data
+          </div>
+          <p className="text-xs text-white/70">
+            Seeds 8 demo fan profiles into Discover, the map, and the fan list. Safe to re-run.
+          </p>
+          <Button
+            variant="outline"
+            className="w-full justify-center gap-2 rounded-xl border-white/30 text-white hover:bg-white/10"
+            onClick={seedDemoFans}
+            disabled={seeding}
+          >
+            {seeding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+            Seed 8 Demo Fans
           </Button>
         </div>
 

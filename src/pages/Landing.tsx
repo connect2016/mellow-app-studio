@@ -438,12 +438,12 @@ export default function Landing() {
         </div>
         <div className="relative mx-auto max-w-6xl px-6">
           <div className="mb-12 text-center">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary">What you get</p>
-            <PageTitle as="h2" className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>What you get</p>
+            <PageTitle as="h2" className="mb-2 text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: '#FFFFFF', textShadow: '1px 2px 6px rgba(0,0,0,0.7)' }}>
               Everything You Need on{' '}
-              <span className="text-primary">Game Day</span>
+              <span style={{ color: '#FFFFFF', textShadow: '1px 2px 6px rgba(0,0,0,0.7)' }}>Game Day</span>
             </PageTitle>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="max-w-2xl mx-auto" style={{ color: '#FFFFFF', textShadow: '1px 2px 6px rgba(0,0,0,0.7)' }}>
               Built for the way Wrigleyville actually works — bars, bleachers, and friendships made between innings.
             </p>
           </div>

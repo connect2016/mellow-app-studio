@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MOCK_USERS } from '@/types';
 import { useToast } from '@/hooks/use-toast';
-import { Shield, AlertTriangle, Ban, Eye } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { Shield, AlertTriangle, Ban, Eye, Sparkles } from 'lucide-react';
 
 interface MockReport {
   id: string;

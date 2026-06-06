@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MOCK_USERS } from '@/types';
 import { useToast } from '@/hooks/use-toast';
-import { Shield, AlertTriangle, Ban, Eye } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { Shield, AlertTriangle, Ban, Eye, Sparkles } from 'lucide-react';
 
 interface MockReport {
   id: string;
@@ -27,10 +28,24 @@ const MOCK_REPORTS: MockReport[] = [
 export default function Admin() {
   const { toast } = useToast();
   const [reports, setReports] = useState(MOCK_REPORTS);
+  const [seeding, setSeeding] = useState(false);
 
   const closeReport = (id: string) => {
     setReports((prev) => prev.map((r) => r.id === id ? { ...r, status: 'closed' as const } : r));
     toast({ title: 'Report closed' });
+  };
+
+  const seedDemoFans = async () => {
+    setSeeding(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('seed-demo-fans');
+      if (error) throw error;
+      toast({ title: 'Demo fans seeded', description: `${data?.count ?? 8} profiles ready in Discover, Map & Fans.` });
+    } catch (e) {
+      toast({ title: 'Seed failed', description: (e as Error).message, variant: 'destructive' });
+    } finally {
+      setSeeding(false);
+    }
   };
 
   return (
@@ -60,6 +75,19 @@ export default function Admin() {
               <p className="text-xs text-muted-foreground">{s.label}</p>
             </div>
           ))}
+        </div>
+
+        {/* Demo seeding */}
+        <div className="mb-6 rounded-xl border bg-card p-4">
+          <h3 className="mb-1 font-semibold text-sm flex items-center gap-1.5">
+            <Sparkles className="h-4 w-4 text-primary" /> Demo Data
+          </h3>
+          <p className="text-xs text-muted-foreground mb-3">
+            Seeds 8 demo fan profiles into Discover, the map, and the fan list. Safe to re-run.
+          </p>
+          <Button onClick={seedDemoFans} disabled={seeding} size="sm">
+            {seeding ? 'Seeding…' : 'Seed 8 Demo Fans'}
+          </Button>
         </div>
 
         {/* Reports */}

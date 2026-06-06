@@ -44,9 +44,9 @@ export function EmptyState({
           )}
         </div>
       )}
-      <p className="text-[18px] font-medium text-foreground">{title}</p>
+      <p className="text-[18px] text-foreground text-slate-50 font-semibold">{title}</p>
       {description && (
-        <p className="mt-1.5 max-w-[300px] text-sm text-muted-foreground">{description}</p>
+        <p className="mt-1.5 max-w-[300px] text-muted-foreground text-base text-slate-50">{description}</p>
       )}
       {actionLabel && onAction && (
         <Button onClick={onAction} className="mt-5" variant="default">

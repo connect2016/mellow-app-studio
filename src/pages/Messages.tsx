@@ -255,7 +255,7 @@ export default function Messages() {
       <div className="relative z-10">
         <AppHeader />
         <div className="mx-auto max-w-lg px-4 pt-4">
-          <h2 className="mb-4 text-lg font-bold">Messages</h2>
+          <h2 className="mb-4 text-xl font-extrabold text-slate-50">Messages</h2>
 
           {isError ? (
             <ErrorState onRetry={() => refetch()} />

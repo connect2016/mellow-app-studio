@@ -55,6 +55,19 @@ export default function Settings() {
     }
   };
 
+  const seedDemoFans = async () => {
+    setSeeding(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('seed-demo-fans');
+      if (error) throw error;
+      toast({ title: 'Demo fans seeded', description: `${data?.count ?? 8} profiles ready in Discover, Map & Fans.` });
+    } catch (e: any) {
+      toast({ title: 'Seed failed', description: e?.message ?? 'Unknown error', variant: 'destructive' });
+    } finally {
+      setSeeding(false);
+    }
+  };
+
   useEffect(() => {
     if (reducedMotion) {
       document.documentElement.classList.add('reduce-motion');

@@ -83,7 +83,7 @@ export function InviteBuddyButton({
         type="button"
         {...baseProps}
         className={cn(
-          'mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-[#0E3386] hover:underline underline-offset-4 min-h-[44px] px-2',
+          'mt-3 inline-flex items-center gap-1.5 hover:underline underline-offset-4 min-h-[44px] px-2 text-xl font-semibold text-slate-50',
           className,
         )}
       >

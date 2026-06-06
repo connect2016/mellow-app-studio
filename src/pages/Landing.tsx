@@ -483,8 +483,8 @@ export default function Landing() {
                   <f.icon className="h-5 w-5 text-secondary" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-card-foreground text-sm">{f.title}</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{f.copy}</p>
+                  <h4 className="text-[18px] text-foreground text-slate-50 font-semibold">{f.title}</h4>
+                  <p className="mt-3 inline-flex items-center gap-1.5 hover:underline underline-offset-4 min-h-[44px] px-2 text-xl font-semibold text-slate-50">{f.copy}</p>
                 </div>
               </div>
             ))}

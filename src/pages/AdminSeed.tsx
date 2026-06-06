@@ -2,7 +2,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Loader2, Sparkles, CheckCircle, AlertCircle } from "lucide-react";
+import { Loader2, Sparkles, CheckCircle, AlertCircle, Copy, Check } from "lucide-react";
 
 export default function AdminSeed() {
   const [seeding, setSeeding] = useState(false);

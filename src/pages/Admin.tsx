@@ -77,6 +77,19 @@ export default function Admin() {
           ))}
         </div>
 
+        {/* Demo seeding */}
+        <div className="mb-6 rounded-xl border bg-card p-4">
+          <h3 className="mb-1 font-semibold text-sm flex items-center gap-1.5">
+            <Sparkles className="h-4 w-4 text-primary" /> Demo Data
+          </h3>
+          <p className="text-xs text-muted-foreground mb-3">
+            Seeds 8 demo fan profiles into Discover, the map, and the fan list. Safe to re-run.
+          </p>
+          <Button onClick={seedDemoFans} disabled={seeding} size="sm">
+            {seeding ? 'Seeding…' : 'Seed 8 Demo Fans'}
+          </Button>
+        </div>
+
         {/* Reports */}
         <h3 className="mb-3 font-semibold text-sm">Reports Queue</h3>
         <div className="space-y-2">

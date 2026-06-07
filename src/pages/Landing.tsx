@@ -235,26 +235,26 @@ function FeaturePreview({ kind }: { kind: 'map' | 'meetup' | 'hifive' }) {
   }
   if (kind === 'meetup') {
     return (
-      <div className="rounded-xl border bg-card p-3 space-y-1.5">
+      <div className="rounded-xl border bg-white/10 p-3 space-y-1.5">
         <p className="text-[10px] font-bold uppercase text-secondary">Flash · 32m</p>
-        <p className="text-sm font-bold text-destructive-foreground leading-tight">Pregame @ Murphy's</p>
+        <p className="text-sm font-bold text-white leading-tight">Pregame @ Murphy's</p>
         <div className="flex items-center justify-between">
           <div className="flex -space-x-1.5">
             {['JT','MD','AL'].map((i) => (
-              <div key={i} className="h-5 w-5 rounded-full bg-secondary border-2 border-background flex items-center justify-center text-[8px] font-bold text-secondary-foreground">{i}</div>
+              <div key={i} className="h-5 w-5 rounded-full bg-secondary border-2 border-[#0E3386] flex items-center justify-center text-[8px] font-bold text-secondary-foreground">{i}</div>
             ))}
           </div>
-          <span className="text-[10px] font-bold text-foreground">3 spots left</span>
+          <span className="text-[10px] font-bold text-white">3 spots left</span>
         </div>
       </div>
     );
   }
   return (
-    <div className="rounded-xl border bg-card p-3 flex items-center gap-3">
+    <div className="rounded-xl border bg-white/10 p-3 flex items-center gap-3">
       <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-2xl"></div>
       <div className="flex-1">
-        <p className="text-xs font-bold text-destructive-foreground">Jake sent you a Hi-Five</p>
-        <p className="text-[10px] text-muted-foreground">Suggested: Murphy's, 5:30 PM</p>
+        <p className="text-xs font-bold text-white">Jake sent you a Hi-Five</p>
+        <p className="text-[10px] text-white/70">Suggested: Murphy's, 5:30 PM</p>
       </div>
     </div>
   );
@@ -453,19 +453,19 @@ export default function Landing() {
             {heroFeatures.map((f, i) => {
               const kind = i === 0 ? 'map' : i === 1 ? 'meetup' : 'hifive';
               return (
-                <div key={f.title} className="rounded-2xl border bg-card p-6 shadow-sm flex flex-col">
-                  <div className="mb-4 inline-flex w-fit rounded-xl bg-primary/10 p-3">
-                    <f.icon className="h-6 w-6 text-primary" />
+                <div key={f.title} className="rounded-2xl border border-white/20 bg-[#0E3386] p-6 shadow-sm flex flex-col">
+                  <div className="mb-4 inline-flex w-fit rounded-xl bg-white/10 p-3">
+                    <f.icon className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="mb-4 text-xl font-extrabold text-slate-50">{f.title}</h3>
-                  <p className="mt-1.5 max-w-[300px] text-base text-slate-50">{f.copy}</p>
+                  <h3 className="mb-4 text-xl font-extrabold text-white">{f.title}</h3>
+                  <p className="mt-1.5 max-w-[300px] text-base text-white/90">{f.copy}</p>
                   <div className="mb-4">
                     <FeaturePreview kind={kind as any} />
                   </div>
                   <ul className="space-y-1.5 mt-auto">
                     {f.bullets.map((b) => (
-                      <li key={b} className="flex items-center gap-2 text-xs text-foreground">
-                        <Check className="h-3.5 w-3.5 text-secondary flex-shrink-0" />
+                      <li key={b} className="flex items-center gap-2 text-xs text-white/90">
+                        <Check className="h-3.5 w-3.5 text-white flex-shrink-0" />
                         {b}
                       </li>
                     ))}

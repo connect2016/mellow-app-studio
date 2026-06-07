@@ -536,7 +536,7 @@ export default function Landing() {
       {/* ── FAQ + Safety ── */}
       <section className="relative overflow-hidden py-20">
         <div className="absolute inset-0">
-          <img src={wrigleyvilleAerial} alt="" className="h-full w-full object-cover" />
+          <img src={wrigleyHero} alt="" className="h-full w-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-3xl px-6">

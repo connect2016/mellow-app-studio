@@ -557,12 +557,12 @@ export default function Landing() {
           </div>
 
           {/* Safety reassurance */}
-          <div className="rounded-2xl border-2 border-primary/30 bg-primary/5 p-6">
+          <div className="rounded-2xl border-2 border-white/30 bg-[#0E3386]/90 backdrop-blur-sm p-6">
             <div className="flex items-center gap-2 mb-3">
-              <Shield className="h-5 w-5 text-primary" />
-              <h3 className="text-lg font-bold text-foreground">Safety isn't a checkbox.</h3>
+              <Shield className="h-5 w-5 text-white" />
+              <h3 className="text-lg font-bold text-white">Safety isn't a checkbox.</h3>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+            <p className="text-sm text-white/85 leading-relaxed mb-4">
               Every meetup is one tap away from a safety timer. Every profile has location privacy controls.
               Block and report are instant and silent — the other person never knows. Reports are reviewed by
               real humans on our trust team within 24 hours, and repeat or serious violations result in
@@ -575,8 +575,8 @@ export default function Landing() {
                 { icon: Flag, label: 'Block & report' },
                 { icon: UserCircle2, label: 'Fan verification' },
               ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-2 text-xs font-semibold text-foreground">
-                  <Icon className="h-4 w-4 text-primary flex-shrink-0" />
+                <div key={label} className="flex items-center gap-2 text-xs font-semibold text-white">
+                  <Icon className="h-4 w-4 text-white flex-shrink-0" />
                   {label}
                 </div>
               ))}

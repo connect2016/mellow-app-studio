@@ -534,20 +534,24 @@ export default function Landing() {
       </section>
 
       {/* ── FAQ + Safety ── */}
-      <section className="bg-background py-20">
-        <div className="mx-auto max-w-3xl px-6">
+      <section className="relative overflow-hidden py-20">
+        <div className="absolute inset-0">
+          <img src={wrigleyvilleAerial} alt="" className="h-full w-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="relative mx-auto max-w-3xl px-6">
           <div className="mb-10 text-center">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary">FAQ</p>
-            <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>FAQ</p>
+            <h2 className="mb-2 text-3xl font-bold tracking-tight text-white sm:text-4xl" style={{ textShadow: '1px 2px 6px rgba(0,0,0,0.7)' }}>
               Questions? We Got You.
             </h2>
           </div>
 
           <div className="space-y-3 mb-10">
             {faqs.map((faq, i) => (
-              <div key={i} className="rounded-2xl border bg-card p-5">
-                <h3 className="text-base font-bold text-foreground mb-1.5">{faq.q}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+              <div key={i} className="rounded-2xl border border-white/20 bg-[#0E3386]/90 backdrop-blur-sm p-5">
+                <h3 className="text-base font-bold text-white mb-1.5">{faq.q}</h3>
+                <p className="text-sm text-white/85 leading-relaxed">{faq.a}</p>
               </div>
             ))}
           </div>

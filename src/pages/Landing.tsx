@@ -478,13 +478,13 @@ export default function Landing() {
           {/* Secondary features */}
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {secondaryFeatures.map((f) => (
-              <div key={f.title} className="rounded-xl border bg-card/80 backdrop-blur p-5 flex gap-3">
-                <div className="rounded-lg bg-secondary/10 p-2 h-fit">
-                  <f.icon className="h-5 w-5 text-secondary" />
+              <div key={f.title} className="rounded-xl border border-white/20 bg-[#0E3386] p-5 flex gap-3">
+                <div className="rounded-lg bg-white/10 p-2 h-fit">
+                  <f.icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="text-[18px] text-slate-50 font-semibold">{f.title}</h4>
-                  <p className="mt-1.5 text-sm text-slate-50 leading-relaxed">{f.copy}</p>
+                  <h4 className="text-[18px] text-white font-semibold">{f.title}</h4>
+                  <p className="mt-1.5 text-sm text-white/90 leading-relaxed">{f.copy}</p>
                 </div>
               </div>
             ))}

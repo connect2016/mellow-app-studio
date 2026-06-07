@@ -67,6 +67,11 @@ export function DynamicBackground({ children, className = '' }: Props) {
           backgroundRepeat: 'no-repeat',
         }}
       />
+      {/* Light white overlay to soften photos and improve text legibility */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{ background: 'rgba(255, 255, 255, 0.15)' }}
+      />
       {/* Cinematic dark gradient overlay for text readability (top→bottom + center fade) */}
       <div
         className="fixed inset-0 z-0 pointer-events-none"

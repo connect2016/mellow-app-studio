@@ -804,11 +804,9 @@ main {
   content: '';
   position: fixed;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 20, 40, 0.45) 0%,
-    rgba(10, 20, 40, 0.60) 100%
-  );
+  background:
+    linear-gradient(180deg, rgba(10, 20, 40, 0.45) 0%, rgba(10, 20, 40, 0.60) 100%),
+    rgba(255, 255, 255, 0.15);
   z-index: 0;
   pointer-events: none;
 }

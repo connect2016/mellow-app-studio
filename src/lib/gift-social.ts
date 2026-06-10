@@ -267,7 +267,7 @@ export async function shareShoutout(payload: {
   url?: string;
 }): Promise<'shared' | 'copied' | 'failed'> {
   const text = `${payload.senderName} bought ${payload.recipientLabel} a round 🍻${payload.message ? ` "${payload.message}"` : ''} — Wrigleyville Buddies`;
-  const url = payload.url ?? (typeof window !== 'undefined' ? window.location.origin : 'https://cubbiesbuddies.com');
+  const url = payload.url ?? (typeof window !== 'undefined' ? window.location.origin : 'https://wrigleyvillebuddies.com');
   try {
     const nav = typeof navigator !== 'undefined' ? (navigator as Navigator & { share?: (d: ShareData) => Promise<void> }) : null;
     if (nav && typeof nav.share === 'function') {

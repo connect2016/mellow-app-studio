@@ -83,7 +83,7 @@ export function MeetupCard({ meetup }: MeetupCardProps) {
             title="Share this meetup"
             shareTitle={cleanLocation}
             location={cleanLocation}
-            shareUrl={`${typeof window !== 'undefined' ? window.location.origin : 'https://cubbiesbuddies.com'}/meetups/${meetup.id}`}
+            shareUrl={`${typeof window !== 'undefined' ? window.location.origin : 'https://wrigleyvillebuddies.com'}/meetups/${meetup.id}`}
           />
         </div>
       </div>

@@ -18,7 +18,7 @@ interface InviteBuddyButtonProps {
 }
 
 export function buildInviteUrl(userId: string | null | undefined): string {
-  const base = 'https://cubbiesbuddies.com/join';
+  const base = 'https://wrigleyvillebuddies.com/join';
   return userId ? `${base}?ref=${userId}` : base;
 }
 

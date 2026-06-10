@@ -138,7 +138,7 @@ export function UserBaseballCard({
           ) {
             await navigator.share({
               title: 'My Wrigleyville Buddies Fan Card',
-              text: 'Find your Cubs crew → cubbiesbuddies.com',
+              text: 'Find your Cubs crew → wrigleyvillebuddies.com',
               files: [file],
             });
             track('card_shared', { method: 'native' });

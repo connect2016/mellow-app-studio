@@ -91,7 +91,7 @@ export default function TermsOfServicePage() {
       </p>
       <ul>
         <li>All beer purchases and Beer Money tips are <strong>final once delivered</strong> — no refunds after the recipient has received or claimed the beer.</li>
-        <li>You have a <strong>24-hour dispute window</strong> from the time of purchase to report a problem (wrong recipient, non-delivery, technical error). Email <a href="mailto:legal@cubbiesbuddies.com">legal@cubbiesbuddies.com</a> within 24 hours.</li>
+        <li>You have a <strong>24-hour dispute window</strong> from the time of purchase to report a problem (wrong recipient, non-delivery, technical error). Email <a href="mailto:legal@wrigleyvillebuddies.com">legal@wrigleyvillebuddies.com</a> within 24 hours.</li>
         <li>Disputes opened after the 24-hour window will not be eligible for refund.</li>
         <li>Wrigleyville Buddies is not responsible for the consumption choices of any recipient.</li>
       </ul>
@@ -132,10 +132,10 @@ export default function TermsOfServicePage() {
       <h2>Contact</h2>
       <p>
         Legal questions, beer-purchase disputes, or terms inquiries:
-        <a href="mailto:legal@cubbiesbuddies.com"> legal@cubbiesbuddies.com</a>.
+        <a href="mailto:legal@wrigleyvillebuddies.com"> legal@wrigleyvillebuddies.com</a>.
       </p>
       <p>
-        General questions: <a href="mailto:hello@cubbiesbuddies.com">hello@cubbiesbuddies.com</a>.
+        General questions: <a href="mailto:hello@wrigleyvillebuddies.com">hello@wrigleyvillebuddies.com</a>.
       </p>
     </LegalPageLayout>
   );

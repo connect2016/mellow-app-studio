@@ -9,8 +9,8 @@ const corsHeaders = {
 
 const VALID_PRICE_IDS = new Set(["beer_pack_5", "beer_pack_10", "beer_pack_20", "beer_pack_50"]);
 const ALLOWED_ORIGINS = new Set([
-  "https://cubbiesbuddies.com",
-  "https://www.cubbiesbuddies.com",
+  "https://wrigleyvillebuddies.com",
+  "https://www.wrigleyvillebuddies.com",
   "https://mellow-app-studio.lovable.app",
   "https://id-preview--8e027fb1-0110-4d27-9bec-1dea49504f7f.lovable.app",
   "http://localhost:5173",

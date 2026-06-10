@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Attendees can RSVP toggle" ON public.watch_parties;

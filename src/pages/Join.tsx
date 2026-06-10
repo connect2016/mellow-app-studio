@@ -85,7 +85,7 @@ export default function Join() {
       <SEOMeta
         title={`${inviterName} invited you to Wrigleyville Buddies`}
         description="Find your Cubs crew at Wrigleyville. Join Wrigleyville Buddies — free."
-        url="https://cubbiesbuddies.com/join"
+        url="https://wrigleyvillebuddies.com/join"
       />
 
       <main className="min-h-screen bg-background pb-24">

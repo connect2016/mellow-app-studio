@@ -8,7 +8,7 @@ import { track } from '@/lib/analytics';
 import { haptic } from '@/lib/haptics';
 import { cn } from '@/lib/utils';
 
-const SHARE_BASE = 'https://cubbiesbuddies.com';
+const SHARE_BASE = 'https://wrigleyvillebuddies.com';
 const SHARE_MESSAGE =
   "I'm using Cubbies Buddies to find my crew at Wrigley — join me!";
 

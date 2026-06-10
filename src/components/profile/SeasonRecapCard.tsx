@@ -20,7 +20,7 @@ export function SeasonRecapCard({
   const shareUrl =
     typeof window !== 'undefined'
       ? window.location.href
-      : 'https://cubbiesbuddies.com';
+      : 'https://wrigleyvillebuddies.com';
 
   // Coerce nullish/NaN stat values at the data layer
   const safeNum = (v: unknown): number => {

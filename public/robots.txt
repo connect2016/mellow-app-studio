@@ -17,4 +17,4 @@ Disallow: /auth
 Disallow: /settings
 Disallow: /checkout/
 
-Sitemap: https://cubbiesbuddies.com/sitemap.xml
+Sitemap: https://wrigleyvillebuddies.com/sitemap.xml

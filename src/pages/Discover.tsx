@@ -969,7 +969,7 @@ export default function Discover() {
                   <button
                     type="button"
                     onClick={async () => {
-                      const text = "Come watch the Cubs with me tonight at Wrigley! Join me on Wrigleyville Buddies: cubbiesbuddies.com";
+                      const text = "Come watch the Cubs with me tonight at Wrigley! Join me on Wrigleyville Buddies: wrigleyvillebuddies.com";
                       try {
                         if (typeof navigator !== 'undefined' && (navigator as any).share) {
                           await (navigator as any).share({ title: 'Wrigleyville Buddies', text });

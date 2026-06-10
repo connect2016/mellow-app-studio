@@ -57,7 +57,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>Contact</h2>
       <p>
-        Privacy questions or requests? Email <a href="mailto:privacy@cubbiesbuddies.com">privacy@cubbiesbuddies.com</a>.
+        Privacy questions or requests? Email <a href="mailto:privacy@wrigleyvillebuddies.com">privacy@wrigleyvillebuddies.com</a>.
       </p>
     </LegalPageLayout>
   );

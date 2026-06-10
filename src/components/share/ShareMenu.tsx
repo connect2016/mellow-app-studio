@@ -143,7 +143,7 @@ export function ShareMenu({
       try {
         await navigator.share({
           title: 'Cubs Game Day — Wrigleyville Buddies',
-          text: 'Find your Cubs crew at cubbiesbuddies.com',
+          text: 'Find your Cubs crew at wrigleyvillebuddies.com',
           url: currentUrl,
         });
         setOpen(false);

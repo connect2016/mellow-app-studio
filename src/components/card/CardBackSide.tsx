@@ -108,7 +108,7 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId, onFli
             shareUrl={
               typeof window !== 'undefined'
                 ? `${window.location.origin}/profile/${userId ?? ''}`
-                : 'https://cubbiesbuddies.com'
+                : 'https://wrigleyvillebuddies.com'
             }
           />
         </div>

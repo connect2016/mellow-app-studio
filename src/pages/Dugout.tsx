@@ -90,7 +90,7 @@ export default function Dugout() {
                 return (
                   <li key={req.id} className="flex items-center gap-2 rounded-xl bg-[#002F6C]/5 p-2">
                     {r?.profile_photo ? (
-                      <img src={r.profile_photo} alt="" className="h-10 w-10 rounded-full object-cover" />
+                      <img src={r.profile_photo} alt="" className="h-10 w-10 rounded-full object-cover" loading="lazy" decoding="async" />
                     ) : (
                       <div className="h-10 w-10 rounded-full bg-[#002F6C]/20 flex items-center justify-center text-lg"></div>
                     )}

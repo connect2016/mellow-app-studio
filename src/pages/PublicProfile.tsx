@@ -258,8 +258,7 @@ export default function PublicProfile() {
                 <img
                   src={profile.profile_photo}
                   alt={profile.display_name || 'Fan'}
-                  className="h-full w-full object-cover"
-                />
+                  className="h-full w-full object-cover" loading="lazy" decoding="async" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center">
                   <ConceptIcon name="baseball" className="h-12 w-12 text-muted-foreground" />

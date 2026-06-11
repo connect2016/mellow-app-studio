@@ -86,8 +86,7 @@ export function AvatarWithSTH({
           src={src}
           alt={name ?? 'Fan avatar'}
           className="h-full w-full rounded-full object-cover"
-          style={{ border: `2px solid ${ringColor}` }}
-        />
+          style={{ border: `2px solid ${ringColor}` }} loading="lazy" decoding="async" />
       ) : (
         <span
           className="flex h-full w-full items-center justify-center rounded-full font-bold text-white"

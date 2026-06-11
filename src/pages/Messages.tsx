@@ -112,8 +112,7 @@ export default function Messages() {
                     src={otherProfile.profile_photo}
                     alt=""
                     className="h-9 w-9 rounded-full object-cover ring-2"
-                    style={{ borderColor: '#0E3386' }}
-                  />
+                    style={{ borderColor: '#0E3386' }} loading="lazy" decoding="async" />
                 ) : (
                   <div className="h-9 w-9 rounded-full bg-muted" />
                 )}
@@ -304,8 +303,7 @@ export default function Messages() {
                           src={profile.profile_photo}
                           alt=""
                           className="h-12 w-12 rounded-full object-cover ring-2"
-                          style={{ borderColor: '#0E3386' }}
-                        />
+                          style={{ borderColor: '#0E3386' }} loading="lazy" decoding="async" />
                       ) : (
                         <div className="h-12 w-12 rounded-full bg-muted" />
                       )}

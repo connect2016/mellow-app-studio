@@ -383,7 +383,7 @@ export default function VibeFeed() {
                     {file?.type.startsWith('video/') ? (
                       <video src={preview} className="w-full h-full object-cover" controls />
                     ) : (
-                      <img src={preview} className="w-full h-full object-cover" alt="Preview" />
+                      <img src={preview} className="w-full h-full object-cover" alt="Preview" loading="lazy" decoding="async" />
                     )}
                     <button
                       onClick={() => { setFile(null); setPreview(null); }}
@@ -502,7 +502,7 @@ export default function VibeFeed() {
                       {post.media_type === 'video' ? (
                         <video src={post.media_url} className="w-full h-full object-cover" controls playsInline />
                       ) : (
-                        <img src={post.media_url} className="w-full h-full object-cover" alt={post.location_tag} />
+                        <img src={post.media_url} className="w-full h-full object-cover" alt={post.location_tag} loading="lazy" decoding="async" />
                       )}
                       {/* Expiry badge */}
                       <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/60 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm">

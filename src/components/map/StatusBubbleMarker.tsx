@@ -51,7 +51,7 @@ function fanIcon(fan: MapFan) {
           display:flex; align-items:center; justify-content:center;
         ">
           ${hasPhoto
-            ? `<img src="${photoUrl}" style="width:100%;height:100%;object-fit:cover;" />`
+            ? `<img src="${photoUrl}" style="width:100%;height:100%;object-fit:cover;" loading="lazy" decoding="async" />`
             : `<span style="color:white;font-size:16px;font-weight:700;">${fan.name?.charAt(0) ?? '?'}</span>`
           }
         </div>

@@ -218,7 +218,7 @@ export function BleacherBarometer() {
                     <div className="relative h-8 w-8 shrink-0">
                       <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center overflow-hidden">
                         {item.profile_photo ? (
-                          <img src={item.profile_photo} alt="" className="h-full w-full object-cover" />
+                          <img src={item.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                         ) : (
                           <span className="text-sm"></span>
                         )}

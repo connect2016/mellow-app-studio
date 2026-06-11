@@ -76,8 +76,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
                 <img
                   src={m.creator_photo || '/placeholder.svg'}
                   alt=""
-                  className="h-10 w-10 rounded-full object-cover border-2 border-primary/20 shrink-0"
-                />
+                  className="h-10 w-10 rounded-full object-cover border-2 border-primary/20 shrink-0" loading="lazy" decoding="async" />
                 <div className="min-w-0 flex-1">
                   <p className="text-base font-bold leading-tight truncate mt-2 text-destructive-foreground">
                     {m.location_name}

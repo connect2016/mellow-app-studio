@@ -72,8 +72,7 @@ export function MyCrewSection() {
                   <img
                     src={m.profile_photo}
                     alt=""
-                    className="h-14 w-14 rounded-full object-cover ring-2 ring-primary/40"
-                  />
+                    className="h-14 w-14 rounded-full object-cover ring-2 ring-primary/40" loading="lazy" decoding="async" />
                 ) : (
                   <div className="h-14 w-14 rounded-full bg-muted flex items-center justify-center">
                     <Users className="h-5 w-5 text-muted-foreground" />
@@ -123,7 +122,7 @@ export function MyCrewSection() {
                   {addable.map(t => (
                     <li key={t.user_id} className="flex items-center gap-3 py-2">
                       {t.profile_photo ? (
-                        <img src={t.profile_photo} alt="" className="h-10 w-10 rounded-full object-cover" />
+                        <img src={t.profile_photo} alt="" className="h-10 w-10 rounded-full object-cover" loading="lazy" decoding="async" />
                       ) : (
                         <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
                           <Users className="h-4 w-4 text-muted-foreground" />

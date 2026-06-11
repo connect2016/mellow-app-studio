@@ -124,8 +124,7 @@ export function LineupFeed() {
                     <img
                       src={meetup.creator_photo || '/placeholder.svg'}
                       alt=""
-                      className="h-10 w-10 rounded-full object-cover border-2 border-lineup/30"
-                    />
+                      className="h-10 w-10 rounded-full object-cover border-2 border-lineup/30" loading="lazy" decoding="async" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-foreground leading-snug">
                         <span className="text-lineup">{meetup.creator_name}</span> is heading to{' '}

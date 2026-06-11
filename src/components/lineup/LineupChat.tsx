@@ -89,8 +89,7 @@ export function LineupChat({ meetup, open, onClose }: LineupChatProps) {
                       <img
                         src={msg.sender_photo || '/placeholder.svg'}
                         alt=""
-                        className="h-7 w-7 rounded-full object-cover shrink-0 mt-0.5"
-                      />
+                        className="h-7 w-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" decoding="async" />
                       <div className={`max-w-[75%] ${isMe ? 'text-right' : ''}`}>
                         <div className="flex items-center gap-1 mb-0.5">
                           <p className="text-[10px] font-semibold text-muted-foreground">

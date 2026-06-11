@@ -134,8 +134,7 @@ export function AppHeader() {
             <img
               alt="Wrigleyville Buddies"
               className="app-header-logo transition-transform duration-200 hover:scale-105"
-              src={wrigleyvilleLogo}
-            />
+              src={wrigleyvilleLogo} loading="lazy" decoding="async" />
           </Link>
           <div className="flex shrink-0 items-center gap-2">
             {!isQuickStart && (

@@ -204,7 +204,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
             : 'ring-2 ring-inset ring-muted-foreground/40'
           }`} />
         )}
-        <img src={user.profile_photo} alt={user.display_name} className="h-full w-full object-cover" />
+        <img src={user.profile_photo} alt={user.display_name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
         {/* Activity badge */}

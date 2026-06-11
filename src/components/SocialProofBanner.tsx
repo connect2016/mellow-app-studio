@@ -183,7 +183,7 @@ export function SocialProofBanner() {
               >
                 <div className="h-5 w-5 rounded-full overflow-hidden bg-muted border border-background ring-1 ring-yellow-400/40">
                   {fan.profile_photo ? (
-                    <img src={fan.profile_photo} alt="" className="h-full w-full object-cover" />
+                    <img src={fan.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center text-[8px] font-bold text-muted-foreground">
                       {fan.display_name?.charAt(0)}

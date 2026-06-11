@@ -349,7 +349,7 @@ function BuddyCard({
       {/* Avatar */}
       <div className="h-11 w-11 rounded-full bg-muted overflow-hidden shrink-0 border border-border">
         {match.profile.profile_photo ? (
-          <img src={match.profile.profile_photo} alt="" className="h-full w-full object-cover" />
+          <img src={match.profile.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
         ) : (
           <div className="h-full w-full flex items-center justify-center text-sm font-bold text-muted-foreground">
             {match.profile.display_name?.charAt(0)}

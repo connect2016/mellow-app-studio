@@ -72,8 +72,7 @@ export function CardFrontSide({
           objectFit: 'fill',
           zIndex: 1,
           pointerEvents: 'none',
-        }}
-      />
+        }} loading="lazy" decoding="async" />
 
       {/* Status badge — sits above template */}
       {statusLabel && (

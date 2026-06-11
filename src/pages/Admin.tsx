@@ -114,7 +114,7 @@ export default function Admin() {
 
                 {reportedUser && (
                   <div className="flex items-center gap-2 mb-2">
-                    <img src={reportedUser.profile_photo} alt="" className="h-8 w-8 rounded-full object-cover" />
+                    <img src={reportedUser.profile_photo} alt="" className="h-8 w-8 rounded-full object-cover" loading="lazy" decoding="async" />
                     <span className="text-sm font-medium">{reportedUser.display_name}</span>
                   </div>
                 )}

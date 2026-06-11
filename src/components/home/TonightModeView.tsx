@@ -110,8 +110,7 @@ export function TonightModeView({ className }: Props) {
                   <img
                     src={f.profile_photo || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120'}
                     alt={f.display_name}
-                    className="h-11 w-11 rounded-full object-cover ring-2 ring-yellow-300/60"
-                  />
+                    className="h-11 w-11 rounded-full object-cover ring-2 ring-yellow-300/60" loading="lazy" decoding="async" />
                   <div className="min-w-0 text-left">
                     <p className="text-sm font-bold truncate text-foreground">{f.display_name}</p>
                     <p className="text-[11px] text-muted-foreground truncate">

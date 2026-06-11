@@ -191,8 +191,7 @@ export function BaseballCard({
               <img
                 src={logoTransparent}
                 alt="Wrigleyville Buddies"
-                className="h-6 w-auto opacity-70"
-              />
+                className="h-6 w-auto opacity-70" loading="lazy" decoding="async" />
             </div>
 
             {/* Header */}

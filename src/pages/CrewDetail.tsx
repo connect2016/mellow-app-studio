@@ -217,7 +217,7 @@ export default function CrewDetail() {
                       >
                         <div className="h-7 w-7 rounded-full overflow-hidden bg-muted border border-border shrink-0">
                           {msg.sender_profile?.profile_photo ? (
-                            <img src={msg.sender_profile.profile_photo} alt="" className="h-full w-full object-cover" />
+                            <img src={msg.sender_profile.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                           ) : (
                             <div className="h-full w-full flex items-center justify-center text-[10px] font-bold text-muted-foreground">
                               {msg.sender_profile?.display_name?.charAt(0) ?? '?'}
@@ -436,7 +436,7 @@ export default function CrewDetail() {
                   >
                     <div className="h-10 w-10 rounded-full overflow-hidden bg-muted border border-border">
                       {m.profile?.profile_photo ? (
-                        <img src={m.profile.profile_photo} alt="" className="h-full w-full object-cover" />
+                        <img src={m.profile.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                       ) : (
                         <div className="h-full w-full flex items-center justify-center text-sm font-bold text-muted-foreground">
                           {m.profile?.display_name?.charAt(0) ?? '?'}

@@ -176,7 +176,7 @@ export function ClusterMarkerComponent({ cluster }: { cluster: MapCluster }) {
                   className="h-6 w-6 rounded-full border-2 border-white bg-muted overflow-hidden"
                 >
                   {m.photo ? (
-                    <img src={m.photo} alt="" className="h-full w-full object-cover" />
+                    <img src={m.photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center text-[8px] font-bold text-muted-foreground">
                       {m.name?.charAt(0)}

@@ -187,7 +187,7 @@ export default function HiFives() {
                       className="h-12 w-12 rounded-full overflow-hidden bg-muted flex-shrink-0 ring-2 ring-border hover:ring-primary/40 transition-all"
                     >
                       {hf.photo ? (
-                        <img src={hf.photo} alt={hf.displayName} className="h-full w-full object-cover" />
+                        <img src={hf.photo} alt={hf.displayName} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                       ) : (
                         <div className="h-full w-full flex items-center justify-center text-lg font-bold text-muted-foreground">
                           {hf.displayName.charAt(0)}

@@ -77,7 +77,7 @@ export function BarPlanCommentsSheet({ plan, onClose }: Props) {
               >
                 <div className="h-7 w-7 rounded-full overflow-hidden bg-muted border border-border shrink-0">
                   {c.author?.profile_photo ? (
-                    <img src={c.author.profile_photo} alt="" className="h-full w-full object-cover" />
+                    <img src={c.author.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center text-[10px] font-bold text-muted-foreground">
                       {c.author?.display_name?.charAt(0) ?? '?'}

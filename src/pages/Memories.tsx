@@ -281,7 +281,7 @@ export default function Memories() {
             >
               {/* Preview */}
               <div className="relative aspect-video bg-muted">
-                <img src={previewUrl} alt="Preview" className="h-full w-full object-cover" />
+                <img src={previewUrl} alt="Preview" className="h-full w-full object-cover" loading="lazy" decoding="async" />
               </div>
 
               <div className="p-4 space-y-3">
@@ -438,7 +438,7 @@ export default function Memories() {
 
                   {/* Photo */}
                   <div className="aspect-video bg-muted">
-                    <img src={memory.media_url} alt={memory.caption || 'Game memory'} className="h-full w-full object-cover" />
+                    <img src={memory.media_url} alt={memory.caption || 'Game memory'} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   </div>
 
                   {/* Details */}

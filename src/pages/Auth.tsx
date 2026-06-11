@@ -56,7 +56,7 @@ export default function Auth() {
         className="w-full max-w-sm"
       >
         <div className="mb-8 text-center">
-          <img src={logo} alt="Wrigleyville Buddies" className="mx-auto mb-4 h-28" />
+          <img src={logo} alt="Wrigleyville Buddies" className="mx-auto mb-4 h-28" loading="lazy" decoding="async" />
           <h1
             className="mb-2 text-3xl font-bold tracking-tight"
           >

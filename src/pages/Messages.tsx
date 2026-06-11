@@ -47,17 +47,29 @@ export default function Messages() {
   const markRead = useMarkConversationRead();
   const [selectedConvoId, setSelectedConvoId] = useState<string | null>(null);
   const { data: messages = [] } = useConversationMessages(selectedConvoId);
-  const sendMessage = useSendMessage();
+  const { send: sendChat, retry: retryChat } = useSendMessage(selectedConvoId);
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const nearBottomRef = useRef(true);
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
+  // Auto-scroll only if user is already near the bottom (~150px).
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (nearBottomRef.current) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [messages]);
+
+  const handleScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const distance = el.scrollHeight - el.scrollTop - el.clientHeight;
+    nearBottomRef.current = distance < 150;
+  };
 
   // Mark conversation as read when opened
   useEffect(() => {
@@ -79,8 +91,15 @@ export default function Messages() {
 
   const handleSend = () => {
     if (!newMessage.trim() || !selectedConvoId) return;
-    sendMessage.mutate({ conversationId: selectedConvoId, body: newMessage.trim() });
-    setNewMessage('');
+    const ok = sendChat(newMessage);
+    if (ok) {
+      setNewMessage('');
+      // Always pin to bottom right after the user sends.
+      nearBottomRef.current = true;
+      requestAnimationFrame(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
   };
 
   if (selectedConvoId && selectedConvo) {
@@ -135,7 +154,7 @@ export default function Messages() {
               )}
             </div>
 
-            <div className="flex-1 space-y-3 p-4 overflow-y-auto">
+            <div ref={scrollRef} onScroll={handleScroll} className="flex-1 space-y-3 p-4 overflow-y-auto">
               {messages.length === 0 && (
                 <div className="text-center py-16">
                   <p className="font-semibold text-foreground text-sm">The bases are empty!</p>
@@ -146,12 +165,16 @@ export default function Messages() {
               )}
               {messages.map((msg) => {
                 const isMe = msg.sender === user?.id;
+                const status = (msg as any)._status as 'sending' | 'sent' | 'failed' | undefined;
+                const clientId = (msg as any)._clientId as string | undefined;
+                const isFailed = status === 'failed';
+                const isSending = status === 'sending';
                 return (
                   <motion.div
                     key={msg.id}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}
+                    className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}
                   >
                     <div
                       className="max-w-[75%] rounded-2xl px-4 py-2.5 text-sm shadow-sm"
@@ -160,16 +183,29 @@ export default function Messages() {
                         color: '#FFFFFF',
                         borderBottomRightRadius: isMe ? 6 : undefined,
                         borderBottomLeftRadius: !isMe ? 6 : undefined,
+                        opacity: isSending ? 0.7 : isFailed ? 0.85 : 1,
                       }}
                     >
                       <p className="leading-relaxed whitespace-pre-wrap break-words">{msg.body}</p>
                       <p className="mt-1 text-[10px]" style={{ color: 'rgba(255,255,255,0.65)' }}>
-                        {new Date(msg.created_at).toLocaleTimeString([], {
-                          hour: 'numeric',
-                          minute: '2-digit',
-                        })}
+                        {isSending
+                          ? 'Sending…'
+                          : new Date(msg.created_at).toLocaleTimeString([], {
+                              hour: 'numeric',
+                              minute: '2-digit',
+                            })}
                       </p>
                     </div>
+                    {isMe && isFailed && clientId && (
+                      <button
+                        type="button"
+                        onClick={() => retryChat(clientId)}
+                        className="mt-1 text-[11px] font-semibold underline underline-offset-2"
+                        style={{ color: '#CC3433' }}
+                      >
+                        Not delivered — tap to retry
+                      </button>
+                    )}
                   </motion.div>
                 );
               })}

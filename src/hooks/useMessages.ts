@@ -146,7 +146,7 @@ export function useSendMessage(conversationId: string | null) {
 
       qc.setQueryData<ChatMessage[]>(['messages', conversationId], (old = []) => {
         const filtered = old.filter(m => m._clientId !== clientId && m.id !== data.id);
-        return [...filtered, { ...(data as ChatMessage), _status: 'sent' }].sort(
+        return [...filtered, { ...(data as ChatMessage), _status: 'sent' as const }].sort(
           (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
         );
       });

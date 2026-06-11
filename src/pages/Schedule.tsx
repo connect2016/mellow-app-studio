@@ -124,7 +124,7 @@ export default function Schedule() {
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-2xl font-extrabold tabular-nums" style={{ fontFamily: 'Share Tech Mono, monospace' }}>
+                <p className="text-2xl font-extrabold tabular-nums">
                   {countdown.formatted}
                 </p>
               </div>

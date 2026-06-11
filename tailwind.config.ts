@@ -159,7 +159,8 @@ export default {
         "vibe-in": "vibe-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both",
       },
       fontFamily: {
-        scoreboard: ["'Share Tech Mono'", "'Courier New'", "monospace"],
+        scoreboard: ["'Inter'", "system-ui", "sans-serif"],
+        legend: ["'Legend M54'", "'Bebas Neue'", "sans-serif"],
         heading: ["'Bebas Neue'", "'Inter'", "sans-serif"],
         display: ["'Bebas Neue'", "sans-serif"],
         sans: ["'Inter'", "system-ui", "sans-serif"],

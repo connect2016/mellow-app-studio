@@ -386,7 +386,7 @@ function DetailRow({ label, value, emoji }: { label: string; value: string; emoj
       </p>
       <p
         className="text-xs font-medium"
-        style={{ fontFamily: "'Share Tech Mono', monospace", color: 'hsl(var(--brand-navy))' }}
+        style={{ fontFamily: "'Legend M54', 'Bebas Neue', sans-serif", color: 'hsl(var(--brand-navy))' }}
       >
         {value}
       </p>

@@ -154,30 +154,30 @@ export default function ScoreGame() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 flex-1">
               <div className="text-center">
-                <p className="text-[10px] opacity-60 uppercase tracking-wider text-white font-['Share_Tech_Mono']">{session.data.away_team || 'Away'}</p>
-                <motion.p key={awayRuns} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className="text-2xl font-black text-white font-['Share_Tech_Mono']">
+                <p className="text-[10px] opacity-60 uppercase tracking-wider text-white font-['Legend_M54']">{session.data.away_team || 'Away'}</p>
+                <motion.p key={awayRuns} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className="text-2xl font-black text-white font-['Legend_M54']">
                   {awayRuns}
                 </motion.p>
               </div>
               <div className="text-center">
                 <div className="flex items-center gap-1">
                   {!isFinalized && <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />}
-                  <span className="text-[9px] uppercase tracking-widest text-white/60 font-['Share_Tech_Mono']">
+                  <span className="text-[9px] uppercase tracking-widest text-white/60 font-['Legend_M54']">
                     {isFinalized ? 'FINAL' : 'LIVE'}
                   </span>
                 </div>
                 <p className="text-[10px] text-white/60 mt-0.5">vs</p>
               </div>
               <div className="text-center">
-                <p className="text-[10px] opacity-60 uppercase tracking-wider text-white font-['Share_Tech_Mono']"> {session.data.home_team}</p>
-                <motion.p key={homeRuns} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className="text-2xl font-black text-white font-['Share_Tech_Mono']">
+                <p className="text-[10px] opacity-60 uppercase tracking-wider text-white font-['Legend_M54']"> {session.data.home_team}</p>
+                <motion.p key={homeRuns} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className="text-2xl font-black text-white font-['Legend_M54']">
                   {homeRuns}
                 </motion.p>
               </div>
             </div>
 
             <div className="flex items-center gap-1">
-              <span className="text-[10px] text-white/60 mr-1 font-['Share_Tech_Mono']">{members.data?.length ?? 0} </span>
+              <span className="text-[10px] text-white/60 mr-1 font-['Legend_M54']">{members.data?.length ?? 0} </span>
               <IconButton
                 onClick={copyInvite}
                 aria-label="Copy invite link"
@@ -313,7 +313,7 @@ function ScorecardSheet({
           <button
             key={t.key}
             onClick={() => setTab(t.key as any)}
-            className="flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors font-['Share_Tech_Mono']"
+            className="flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors font-['Legend_M54']"
             style={{
               backgroundColor: tab === t.key ? 'hsl(var(--ivy-green))' : 'hsl(var(--ivy-green) / 0.08)',
               color: tab === t.key ? 'white' : 'hsl(var(--ivy-green))',

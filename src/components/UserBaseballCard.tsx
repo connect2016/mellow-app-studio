@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3, Wine, UtensilsCrossed, Pizza, Share2, Loader2 } from 'lucide-react';
+import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3, UtensilsCrossed, Pizza, Share2, Loader2 } from 'lucide-react';
+import { HotDogIcon } from '@/components/icons/CustomIcons';
 import { toast } from 'sonner';
 
 import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';

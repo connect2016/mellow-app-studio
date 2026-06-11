@@ -46,7 +46,7 @@ export function SeasonStatsEditor({ values, onUpdate }: SeasonStatsEditorProps) 
   const counters: Array<{
     key: 'shots_taken_season' | 'appetizers_had_season';
     label: string;
-    Icon: typeof HotDogIcon;
+    Icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
     quickAdd: number[];
   }> = [
     { key: 'shots_taken_season', label: 'Ballpark Dogs Devoured (Season)', Icon: HotDogIcon, quickAdd: [1, 2, 3] },

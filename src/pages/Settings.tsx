@@ -80,11 +80,10 @@ export default function Settings() {
   }, [reducedMotion]);
 
   return (
-    <div className="min-h-screen bg-background pb-24 relative">
-      <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgSettings})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 8%, 0.55)' }} />
-      <div className="relative z-10">
+    <PageBackground image={bgSettings}>
+      <div className="min-h-screen pb-24">
       <AppHeader />
+
       <div className="mx-auto max-w-lg px-4 pt-4 space-y-6">
         <h2 className="text-lg font-bold text-white drop-shadow-lg">Front Office</h2>
 

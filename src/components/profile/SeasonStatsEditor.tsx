@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { UtensilsCrossed, Pizza, Plus, Minus, Check } from 'lucide-react';
 import { HotDogIcon } from '@/components/icons/CustomIcons';
 import { Button } from '@/components/ui/button';

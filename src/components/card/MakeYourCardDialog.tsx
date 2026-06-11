@@ -70,6 +70,8 @@ export function MakeYourCardDialog({
   const [zoom, setZoom] = useState(1);
   const [croppedPixels, setCroppedPixels] = useState<Area | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [uploadedURL, setUploadedURL] = useState<string | null>(null);
+  const [sharing, setSharing] = useState(false);
   const { uploadPhoto } = usePhotoUpload();
   const lastBlobRef = useRef<{ blob: Blob; name: string } | null>(null);
 

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
+import { MakeYourCardDialog } from '@/components/card/MakeYourCardDialog';
 import { Camera, Loader2, ChevronRight, Users, UsersRound, MapPin } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { SeasonTicketHolderToggle } from '@/components/profile/SeasonTicketHolderToggle';

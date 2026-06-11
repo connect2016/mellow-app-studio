@@ -40,6 +40,9 @@ export function CardFrontSide({
   fanStreak,
   userId,
   fanTags,
+  editable = false,
+  uploading = false,
+  onPickPhoto,
 }: CardFrontSideProps) {
   const [hasPulsed, setHasPulsed] = useState(false);
 
@@ -48,13 +51,7 @@ export function CardFrontSide({
     return () => clearTimeout(t);
   }, []);
 
-  const initials = (displayName || 'Fan')
-    .split(/\s+/)
-    .map((p) => p[0])
-    .filter(Boolean)
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
+  const hasPhoto = !!profileImage;
 
   return (
     <div

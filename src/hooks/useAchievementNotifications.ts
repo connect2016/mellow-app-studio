@@ -47,8 +47,6 @@ const TROPHY_KEY_MAP: Record<string, TrophyKey> = {
   first_beer: 'first_beer',
   beers_10_week: 'beers_10_week',
   beers_100: 'beers_100_season',
-  first_shot: 'first_shot',
-  shots_10: 'shots_10_season',
   bars_5: 'wrigleyville_marathoner',
   bars_10: 'wrigleyville_marathoner',
   opening_day: 'opening_day',

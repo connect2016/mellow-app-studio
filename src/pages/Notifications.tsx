@@ -139,30 +139,10 @@ export default function Notifications() {
   };
 
   return (
-    <div className="relative min-h-screen pb-24">
-      {/* High-res background with progressive enhancement */}
-      <div
-        className="fixed inset-0 z-0"
-        style={{
-          backgroundImage: `url(${bgFansBleachers})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-        aria-hidden="true"
-      />
-      {/* Reduced tint with top-down gradient (25% avg) */}
-      <div
-        className="fixed inset-0 z-0 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(180deg, hsla(222, 47%, 8%, 0.55) 0%, hsla(222, 47%, 10%, 0.30) 35%, hsla(222, 47%, 10%, 0.25) 70%, hsla(222, 47%, 8%, 0.55) 100%)',
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10">
+    <PageBackground image={bgFansBleachers}>
+      <div className="min-h-screen pb-24">
         <AppHeader />
+
 
         <div className="mx-auto max-w-lg px-4 pt-4">
           {/* Header card with backdrop blur for legibility */}

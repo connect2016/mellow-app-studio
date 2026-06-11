@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
@@ -27,12 +27,24 @@ const GOAL_LABELS: Record<GoalKey, string> = {
 
 export default function Onboarding() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
   const { data: profile } = useProfile();
   const updateProfile = useUpdateProfile();
   const { uploadPhoto, uploading } = usePhotoUpload();
 
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [step, setStep] = useState<1 | 2 | 3>(() => {
+    const urlStep = parseInt(searchParams.get('step') || '');
+    if (urlStep >= 1 && urlStep <= 3) return urlStep as 1 | 2 | 3;
+    const draftRaw = sessionStorage.getItem('wb_onboarding_draft');
+    if (draftRaw) {
+      try {
+        const draft = JSON.parse(draftRaw);
+        if (draft.step >= 1 && draft.step <= 3) return draft.step as 1 | 2 | 3;
+      } catch {}
+    }
+    return 1;
+  });
   const [displayName, setDisplayName] = useState('');
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [section, setSection] = useState<string>('');
@@ -43,19 +55,68 @@ export default function Onboarding() {
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // Prefill + skip if already completed
+  // Prefill + skip if already completed (skip when a draft exists — draft wins)
   useEffect(() => {
     if (!profile) return;
     if (profile.onboarding_completed) {
       navigate('/discover', { replace: true });
       return;
     }
+    const hasDraft = !!sessionStorage.getItem('wb_onboarding_draft');
+    if (hasDraft) return;
     if (profile.display_name) setDisplayName(profile.display_name);
     if (profile.profile_photo) setPhotoUrl(profile.profile_photo);
     if (profile.wrigley_section) setSection(profile.wrigley_section);
     if ((profile as any).attendance_frequency) setFrequency((profile as any).attendance_frequency);
     if ((profile as any).is_season_ticket_holder) setIsSTH(true);
   }, [profile, navigate]);
+
+  // Restore draft on mount
+  useEffect(() => {
+    const raw = sessionStorage.getItem('wb_onboarding_draft');
+    if (!raw) return;
+    try {
+      const draft = JSON.parse(raw);
+      if (draft.formFields?.displayName) setDisplayName(draft.formFields.displayName);
+      if (draft.formFields?.photoUrl) setPhotoUrl(draft.formFields.photoUrl);
+      if (draft.formFields?.section) setSection(draft.formFields.section);
+      if (draft.formFields?.frequency) setFrequency(draft.formFields.frequency);
+      if (draft.formFields?.goal) setGoal(draft.formFields.goal);
+      if (typeof draft.formFields?.isSTH === 'boolean') setIsSTH(draft.formFields.isSTH);
+    } catch {
+      // ignore corrupt draft
+    }
+  }, []);
+
+  // Persist draft on every change
+  useEffect(() => {
+    const draft = {
+      step,
+      formFields: {
+        displayName,
+        photoUrl,
+        section,
+        frequency,
+        goal,
+        isSTH,
+      },
+    };
+    sessionStorage.setItem('wb_onboarding_draft', JSON.stringify(draft));
+  }, [step, displayName, photoUrl, section, frequency, goal, isSTH]);
+
+  // Keep URL in sync with step so browser back moves backward through the flow
+  useEffect(() => {
+    const urlStep = parseInt(searchParams.get('step') || '');
+    const validStep = urlStep >= 1 && urlStep <= 3 ? (urlStep as 1 | 2 | 3) : 1;
+    setStep((current) => (validStep === current ? current : validStep));
+  }, [searchParams]);
+
+  const goToStep = (newStep: 1 | 2 | 3) => {
+    setStep(newStep);
+    const sp = new URLSearchParams(searchParams);
+    sp.set('step', String(newStep));
+    setSearchParams(sp);
+  };
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -94,6 +155,7 @@ export default function Onboarding() {
         is_season_ticket_holder: isSTH,
         onboarding_completed: true,
       } as any);
+      sessionStorage.removeItem('wb_onboarding_draft');
       track('onboarding_completed', {
         section,
         frequency,
@@ -170,7 +232,7 @@ export default function Onboarding() {
             style={{ background: RED }}
             onClick={() => {
               track('onboarding_step_completed', { step: 1 });
-              setStep(2);
+              goToStep(2);
             }}
           >
             Get Started <ChevronRight className="ml-1 h-5 w-5" />
@@ -300,7 +362,7 @@ export default function Onboarding() {
             disabled={!step2Valid || uploading}
             onClick={() => {
               track('onboarding_step_completed', { step: 2 });
-              setStep(3);
+              goToStep(3);
             }}
           >
             Continue <ChevronRight className="ml-1 h-5 w-5" />

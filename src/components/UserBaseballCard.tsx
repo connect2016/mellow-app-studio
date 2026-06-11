@@ -304,7 +304,22 @@ export function UserBaseballCard({
             fanStreak={fanStreak}
             userId={userId}
             fanTags={fanTags}
+            editable={isOwner}
+            uploading={uploading}
+            onPickPhoto={handlePickPhoto}
           />
+
+          {isOwner && (
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/jpg,image/png,image/webp"
+              className="sr-only"
+              onChange={handleFileSelected}
+              aria-hidden="true"
+              tabIndex={-1}
+            />
+          )}
 
         </div>
 

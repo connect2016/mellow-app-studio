@@ -373,8 +373,8 @@ export function UserBaseballCard({
         </div>
       )}
 
-      {/* Share my card */}
-      {isOwner && !isFlipped && (
+      {/* Share my card — only when a real photo is set (never for silhouette fallback) */}
+      {isOwner && !isFlipped && !!profileImage && (
         <div className="mt-3 px-1">
           <Button
             variant="outline"
@@ -398,7 +398,7 @@ export function UserBaseballCard({
             aria-label="Share my fan card"
           >
             {isSharing ? <Loader2 className="h-5 w-5 animate-spin" style={{ color: 'hsl(var(--brand-navy))' }} /> : <Share2 className="h-5 w-5" style={{ color: 'hsl(var(--brand-navy))' }} />}
-            {isSharing ? 'Preparing…' : 'Share my card'}
+            {isSharing ? 'Building your card…' : 'Share my card'}
           </Button>
         </div>
       )}

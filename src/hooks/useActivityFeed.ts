@@ -20,20 +20,16 @@ export function useActivityFeed(limit = 20) {
   return useQuery({
     queryKey: ['activity-feed', limit],
     queryFn: async (): Promise<ActivityFeedItem[]> => {
-      const { data, error } = await supabase
-        .from('activity_feed')
-        .select('id, user_id, activity_type, context_text, location_zone, w_flag_count, created_at')
-        .order('created_at', { ascending: false })
-        .limit(limit);
+      const { data, error } = await supabase.rpc('get_activity_feed', { p_limit: limit });
       if (error) throw error;
       if (!data?.length) return [];
-      const ids = [...new Set(data.map(r => r.user_id))];
+      const ids = [...new Set((data as any[]).map((r: any) => r.user_id))];
       const { data: profiles } = await supabase.rpc('get_public_profiles', {
         p_user_ids: ids,
         p_limit: ids.length,
       });
       const pMap = new Map((profiles ?? []).map((p: any) => [p.user_id, p]));
-      return data.map(r => {
+      return (data as any[]).map((r: any) => {
         const p: any = pMap.get(r.user_id) ?? {};
         return {
           ...r,

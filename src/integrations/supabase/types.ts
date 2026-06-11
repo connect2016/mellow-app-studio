@@ -2964,6 +2964,18 @@ export type Database = {
         Args: { p_secret: string; p_token: string }
         Returns: Json
       }
+      get_activity_feed: {
+        Args: { p_limit?: number }
+        Returns: {
+          activity_type: string
+          context_text: string
+          created_at: string
+          id: string
+          location_zone: string
+          user_id: string
+          w_flag_count: number
+        }[]
+      }
       get_beer_buyer_count: { Args: { p_user_id: string }; Returns: number }
       get_host_trust: {
         Args: { _host_id: string }

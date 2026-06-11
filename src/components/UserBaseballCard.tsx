@@ -463,6 +463,20 @@ export function UserBaseballCard({
           ))}
         </div>
       )}
+
+      {/* Make your card — crop dialog */}
+      {isOwner && (
+        <MakeYourCardDialog
+          open={!!pendingFile}
+          file={pendingFile}
+          displayName={displayName}
+          onClose={() => setPendingFile(null)}
+          onUploaded={() => {
+            setPendingFile(null);
+            setImgLoaded(false);
+          }}
+        />
+      )}
     </div>
   );
 }

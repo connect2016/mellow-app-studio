@@ -22,6 +22,7 @@ import { BarGuideFilters } from '@/components/bars/BarGuideFilters';
 import { CuratedBarCard } from '@/components/bars/CuratedBarCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import barMapBg from '@/assets/bar-map-bg.webp';
+import { PageBackground } from '@/components/PageBackground';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { WRIGLEYVILLE_ROOFTOPS } from '@/data/wrigleyvilleRooftops';
 import { Building2 } from 'lucide-react';

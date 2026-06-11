@@ -39,29 +39,41 @@ function ChipRow<T extends string>({
   ariaLabel: string;
 }) {
   return (
-    <div role="radiogroup" aria-label={ariaLabel} className="flex gap-1.5 overflow-x-auto scrollbar-none -mx-1 px-1 pb-1">
-      {options.map(opt => {
-        const active = opt.value === value;
-        return (
-          <button
-            key={opt.value}
-            role="radio"
-            aria-checked={active}
-            onClick={() => onChange(opt.value)}
-            className={cn(
-              'shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all min-h-[36px]',
-              active
-                ? 'bg-[hsl(var(--brand-navy))] text-white shadow-sm'
-                : 'bg-white/90 text-[hsl(var(--brand-navy))] hover:bg-white'
-            )}
-          >
-            {opt.label}
-          </button>
-        );
-      })}
+    <div className="relative -mx-1">
+      <div
+        role="radiogroup"
+        aria-label={ariaLabel}
+        className="flex gap-1.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
+        {options.map(opt => {
+          const active = opt.value === value;
+          return (
+            <button
+              key={opt.value}
+              role="radio"
+              aria-checked={active}
+              onClick={() => onChange(opt.value)}
+              className={cn(
+                'shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all min-h-[36px]',
+                active
+                  ? 'bg-[hsl(var(--brand-navy))] text-white shadow-sm'
+                  : 'bg-white/90 text-[hsl(var(--brand-navy))] hover:bg-white'
+              )}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-background to-transparent"
+      />
     </div>
   );
 }
+
 
 export function MeetupFilters({ search, onSearch, when, onWhen, where, onWhere }: MeetupFiltersProps) {
   return (

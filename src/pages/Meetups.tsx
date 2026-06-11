@@ -82,8 +82,9 @@ export default function Meetups() {
         <div className="mb-4">
           <h1 className="text-2xl font-extrabold tracking-tight text-white drop-shadow-md">Meetups</h1>
           <p className="text-sm text-white/85 mt-0.5 drop-shadow">
-            Find your crew · Tap any card to RSVP
+            {meetups.length === 0 ? 'Find your crew' : 'Find your crew · Tap any card to RSVP'}
           </p>
+
         </div>
 
         {/* Filters */}

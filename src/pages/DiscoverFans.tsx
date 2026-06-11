@@ -90,35 +90,48 @@ export default function DiscoverFans() {
         {/* Active count headline */}
         <div className="mb-3">
           <p className="text-2xl font-bold leading-tight">
-            {activeCount} {activeCount === 1 ? 'fan' : 'fans'} active near Wrigleyville
+            {activeCount >= 1
+              ? `${activeCount} ${activeCount === 1 ? 'fan' : 'fans'} active near Wrigleyville`
+              : 'Find fans near Wrigleyville'}
           </p>
           <p className="text-sm text-muted-foreground">Pick a filter to narrow your view.</p>
         </div>
 
         {/* Filter chips */}
-        <div className="-mx-4 mb-4 overflow-x-auto px-4">
-          <div className="flex flex-nowrap gap-2">
-            {CHIPS.map((chip) => {
-              const active = chip.id === filter;
-              return (
-                <button
-                  key={chip.id}
-                  type="button"
-                  onClick={() => setFilter(chip.id)}
-                  className={cn(
-                    'whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors min-h-[40px]',
-                    active
-                      ? 'bg-[hsl(var(--brand-navy))] text-white'
-                      : 'border border-neutral-300 bg-transparent text-foreground hover:bg-neutral-50 dark:hover:bg-neutral-800',
-                  )}
-                  aria-pressed={active}
-                >
-                  {chip.label}
-                </button>
-              );
-            })}
+        <div className="relative -mx-4 mb-4">
+          <div
+            className="overflow-x-auto px-4 pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
+            <div className="flex flex-nowrap gap-2">
+              {CHIPS.map((chip) => {
+                const active = chip.id === filter;
+                return (
+                  <button
+                    key={chip.id}
+                    type="button"
+                    onClick={() => setFilter(chip.id)}
+                    className={cn(
+                      'whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors min-h-[40px]',
+                      active
+                        ? 'bg-[hsl(var(--brand-navy))] text-white'
+                        : 'border border-neutral-300 bg-transparent text-foreground hover:bg-neutral-50 dark:hover:bg-neutral-800',
+                    )}
+                    aria-pressed={active}
+                  >
+                    {chip.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
+          {/* Right-edge fade affordance */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-background to-transparent"
+          />
         </div>
+
 
         {/* Fan list */}
         {isLoading ? (

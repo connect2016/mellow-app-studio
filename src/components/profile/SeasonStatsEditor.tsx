@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { Wine, UtensilsCrossed, Pizza, Plus, Minus, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { UtensilsCrossed, Pizza, Plus, Minus, Check } from 'lucide-react';
+import { HotDogIcon } from '@/components/icons/CustomIcons';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
@@ -45,10 +46,10 @@ export function SeasonStatsEditor({ values, onUpdate }: SeasonStatsEditorProps) 
   const counters: Array<{
     key: 'shots_taken_season' | 'appetizers_had_season';
     label: string;
-    Icon: typeof Wine;
+    Icon: React.ComponentType<any>;
     quickAdd: number[];
   }> = [
-    { key: 'shots_taken_season', label: 'Shots Taken (Season)', Icon: Wine, quickAdd: [1, 3, 5] },
+    { key: 'shots_taken_season', label: 'Ballpark Dogs Devoured (Season)', Icon: HotDogIcon, quickAdd: [1, 2, 3] },
     { key: 'appetizers_had_season', label: 'Appetizers Had (Season)', Icon: UtensilsCrossed, quickAdd: [1, 2, 4] },
   ];
 

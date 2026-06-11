@@ -42,7 +42,7 @@ export const STAT_LABELS: Record<StatKey, string> = {
   barsVisitedThisWeek: 'Bars Visited This Week',
   meetupsFinished: 'Meetups Finished',
   fansConnected: 'Fans Connected',
-  shotsTakenSeason: 'Shots Taken (Season)',
+  shotsTakenSeason: 'Ballpark Dogs Devoured (Season)',
   appetizersHadSeason: 'Appetizers Had (Season)',
   favoriteFoodSpot: 'Favorite Food Spot',
 };

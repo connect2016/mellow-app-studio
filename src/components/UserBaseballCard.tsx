@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3, Wine, UtensilsCrossed, Pizza, Share2, Loader2 } from 'lucide-react';
+import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3, UtensilsCrossed, Pizza, Share2, Loader2 } from 'lucide-react';
+import { HotDogIcon } from '@/components/icons/CustomIcons';
 import { toast } from 'sonner';
 
 import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';
@@ -56,7 +57,7 @@ export const STAT_ICONS: Record<StatKey, React.ElementType> = {
   barsVisitedThisWeek: Building2,
   meetupsFinished: CheckCircle2,
   fansConnected: Users,
-  shotsTakenSeason: Wine,
+  shotsTakenSeason: HotDogIcon,
   appetizersHadSeason: UtensilsCrossed,
   favoriteFoodSpot: Pizza,
 };
@@ -68,7 +69,7 @@ export const CARD_STAT_LABELS: Record<StatKey, string> = {
   barsVisitedThisWeek: 'Bars This Week',
   meetupsFinished: 'Meetups Done',
   fansConnected: 'Fans Connected',
-  shotsTakenSeason: 'Shots (Season)',
+  shotsTakenSeason: 'Ballpark Dogs Devoured',
   appetizersHadSeason: 'Appetizers (Season)',
   favoriteFoodSpot: 'Favorite Food Spot',
 };

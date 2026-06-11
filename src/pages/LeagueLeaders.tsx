@@ -6,7 +6,6 @@ import {
   Building2,
   CheckCircle2,
   Users,
-  Wine,
   UtensilsCrossed,
   Pizza,
   Trophy,

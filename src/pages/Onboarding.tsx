@@ -27,12 +27,24 @@ const GOAL_LABELS: Record<GoalKey, string> = {
 
 export default function Onboarding() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
   const { data: profile } = useProfile();
   const updateProfile = useUpdateProfile();
   const { uploadPhoto, uploading } = usePhotoUpload();
 
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [step, setStep] = useState<1 | 2 | 3>(() => {
+    const urlStep = parseInt(searchParams.get('step') || '');
+    if (urlStep >= 1 && urlStep <= 3) return urlStep as 1 | 2 | 3;
+    const draftRaw = sessionStorage.getItem('wb_onboarding_draft');
+    if (draftRaw) {
+      try {
+        const draft = JSON.parse(draftRaw);
+        if (draft.step >= 1 && draft.step <= 3) return draft.step as 1 | 2 | 3;
+      } catch {}
+    }
+    return 1;
+  });
   const [displayName, setDisplayName] = useState('');
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [section, setSection] = useState<string>('');

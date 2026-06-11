@@ -6,7 +6,7 @@ import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.webp';
 import { Button } from '@/components/ui/button';
 import {
   Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye,
-  Hand, CalendarClock, UserCircle2, Sparkles, Lock, Clock, Flag, Mail,
+  Hand, CalendarClock, UserCircle2, Lock, Clock, Flag, Mail,
   Instagram, Smartphone, Check
 } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
@@ -15,11 +15,8 @@ import wrigleyHero from '@/assets/wrigley-hero.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
-const stats = [
-  { label: 'Cubs Fans', value: '1,200+' },
-  { label: 'Hi-Fives Sent', value: '8,400+' },
-  { label: 'Game-Day Meetups', value: '3,100+' },
-];
+// Static stats removed — Wrigleyville Buddies is launching for the 2026 season,
+// so no fabricated counts go on the landing page.
 
 // ── Onboarding personas (chips on Step 1 mock) ──
 const personas = ['Bleacher Creature', 'Stats Nerd', 'Social Butterfly', 'First-Timer', 'Rooftop Regular', 'Die-Hard Season Ticket Holder', 'Away Game Traveler', 'Bar Watcher', 'Bring the Kids Dad', 'Cubs Superfan'];
@@ -52,26 +49,8 @@ const secondaryFeatures = [
   { icon: Shield, title: 'Safety Built In', copy: 'Location privacy, safety timers, easy block/report, optional fan verification.' },
 ];
 
-const stories = [
-  {
-    initials: 'SM',
-    quote: 'Moved to Chicago and didn\'t know a soul. Found my whole game-day crew on Wrigleyville Buddies in one homestand.',
-    name: 'Sarah M.',
-    meta: 'Section 204 · 14 games this season',
-  },
-  {
-    initials: 'JT',
-    quote: 'Met 6 strangers at Murphy\'s before the NLDS through a flash meetup. Group chat hasn\'t stopped since.',
-    name: 'Jake T.',
-    meta: "Die-Hard since '03 · 28 meetups",
-  },
-  {
-    initials: 'MD',
-    quote: 'Finally an app that gets it. I\'m not swiping — I\'m finding someone to split a pitcher and yell at the ump.',
-    name: 'Marcus D.',
-    meta: 'Bleacher Creature · Rooftop regular',
-  },
-];
+// Testimonials removed — the app hasn't launched yet, so attributed quotes
+// from "real" fans would be fabricated. We'll add them after the season starts.
 
 const faqs = [
   {
@@ -327,17 +306,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ── Social proof banner ── */}
-      <section className="relative mt-4 overflow-hidden bg-primary py-5">
-        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-6 px-6">
-          {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="text-xl font-extrabold text-primary-foreground">{s.value}</p>
-              <p className="text-xs font-medium text-primary-foreground/70">{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Static social-proof stats banner removed — no fabricated counts. */}
 
       {/* ── Three-Step Onboarding ── */}
       <section
@@ -423,7 +392,7 @@ export default function Landing() {
           <div className="mt-10 flex justify-center">
             <Link to="/quick-start">
               <Button size="lg" className="rounded-full bg-secondary px-8 font-bold shadow-lg hover:bg-secondary/90">
-                Join 1,200+ Cubs Fans
+                Claim Your Founding Spot
                 <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
             </Link>
@@ -493,45 +462,9 @@ export default function Landing() {
       </section>
 
       {/* ── Stories from the Stands ── */}
-      <section className="bg-muted/30 py-20">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="mb-4 text-center">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary">Stories from the stands</p>
-            <PageTitle as="h2" className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Real Fans. Real Crews.
-            </PageTitle>
-          </div>
-
-          <div className="mb-10 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-4 py-1.5">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <p className="text-sm font-bold text-foreground">3,100+ game-day meetups since Opening Day</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {stories.map((s) => (
-              <div key={s.name} className="rounded-2xl border bg-card p-6 shadow-sm flex flex-col">
-                <div className="mb-3 flex gap-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <p className="mb-5 text-sm leading-relaxed text-foreground italic flex-1">"{s.quote}"</p>
-                <div className="flex items-center gap-3 pt-4 border-t">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground font-bold text-sm">
-                    {s.initials}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-bold text-foreground">{s.name}</p>
-                    <p className="text-xs text-muted-foreground truncate">{s.meta}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* "Stories from the stands" testimonials section removed — see comment near
+          the deleted `stories` array. We'll re-introduce this section with real
+          attributed quotes once the 2026 season is underway. */}
 
       {/* ── FAQ + Safety ── */}
       <section className="relative overflow-hidden py-20">
@@ -594,10 +527,10 @@ export default function Landing() {
         <div className="relative mx-auto max-w-lg px-6 text-center">
           <h2 className="mb-3 text-3xl font-bold text-white sm:text-4xl"
             style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>
-            Your crew is already here.
+            Be a founding fan.
           </h2>
           <p className="mb-8 text-white/90" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}>
-            Join 1,200+ fans connecting at Wrigley Field and across Wrigleyville. It takes 30 seconds.
+            Wrigleyville Buddies is brand new for the 2026 season. The earliest fans shape the crew — and get founding member status.
           </p>
           <div className="flex flex-col items-center gap-3">
             <Link to="/quick-start">

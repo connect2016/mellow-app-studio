@@ -27,7 +27,7 @@ export function GuestGateModal({ open, onClose, action = 'do that' }: GuestGateM
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 80, opacity: 0, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-sm mx-4 mb-4 sm:mb-0 rounded-2xl border border-border bg-card p-6 shadow-xl"
+            className="relative w-full max-w-sm mx-4 mb-4 sm:mb-0 rounded-2xl border border-border bg-card p-6 shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <button

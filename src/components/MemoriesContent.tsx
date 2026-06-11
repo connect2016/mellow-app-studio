@@ -174,7 +174,7 @@ export default function MemoriesContent() {
 
       {/* Day Stats */}
       {dayStats && (dayStats.newFans > 0 || dayStats.hiFives > 0 || dayStats.memories > 0) && (
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-4 rounded-2xl border border-accent/30 bg-gradient-to-br from-accent/10 via-card to-primary/5 p-4 relative overflow-hidden">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-4 rounded-2xl border border-border bg-card p-4 relative overflow-hidden">
           <div className="absolute top-2 right-2 opacity-10 text-6xl pointer-events-none"></div>
           <div className="flex items-center gap-2 mb-3">
             <div className="flex items-center justify-center h-7 w-7 rounded-full bg-accent/20">

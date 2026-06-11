@@ -83,7 +83,7 @@ const faqs = [
 function PhoneFrame({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
     <div className={`relative mx-auto w-full max-w-[260px] ${className}`}>
-      <div className="rounded-[2.2rem] border-[10px] border-foreground/90 bg-background shadow-2xl overflow-hidden aspect-[9/19]">
+      <div className="rounded-[2.2rem] border-[10px] border-foreground/90 bg-background shadow-lg overflow-hidden aspect-[9/19]">
         <div className="h-full w-full overflow-hidden bg-muted/40">{children}</div>
       </div>
     </div>
@@ -149,13 +149,13 @@ function MapMock() {
         { t: '35%', l: '75%', c: 'bg-primary', i: 'KP' },
       ].map((a, i) => (
         <div key={i} className="absolute" style={{ top: a.t, left: a.l }}>
-          <div className={`h-7 w-7 rounded-full ${a.c} border-2 border-white shadow-md flex items-center justify-center text-[9px] font-bold text-white`}>
+          <div className={`h-7 w-7 rounded-full ${a.c} border-2 border-white shadow-sm flex items-center justify-center text-[9px] font-bold text-white`}>
             {a.i}
           </div>
           <span className="absolute -inset-1 rounded-full border-2 border-primary/50 animate-ping" />
         </div>
       ))}
-      <div className="absolute bottom-2 left-2 right-2 rounded-lg bg-background/95 backdrop-blur p-2 shadow-md">
+      <div className="absolute bottom-2 left-2 right-2 rounded-lg bg-background/95 backdrop-blur p-2 shadow-sm">
         <p className="text-[10px] font-bold text-destructive-foreground">12 fans nearby</p>
         <p className="text-[9px] text-muted-foreground">Tap an avatar to say hi</p>
       </div>

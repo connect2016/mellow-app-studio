@@ -62,7 +62,7 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="absolute bottom-0 left-0 right-0 z-[1002] bg-card border-t border-border rounded-t-3xl shadow-2xl"
+            className="absolute bottom-0 left-0 right-0 z-[1002] bg-card border-t border-border rounded-t-3xl shadow-lg"
             style={{ height: '60%' }}
           >
             {/* Handle */}

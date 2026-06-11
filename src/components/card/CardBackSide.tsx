@@ -43,7 +43,7 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId, onFli
       aria-label={`${displayName || 'Fan'}'s stats — back side`}
     >
       <div
-        className="card-back relative w-full h-full rounded-2xl border-2 border-primary/30 shadow-md flex flex-col overflow-hidden"
+        className="card-back relative w-full h-full rounded-2xl border-2 border-primary/30 shadow-sm flex flex-col overflow-hidden"
         style={{
           backgroundImage: "url('/wrigley-crowd.webp')",
           backgroundSize: 'cover',

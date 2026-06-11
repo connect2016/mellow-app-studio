@@ -141,7 +141,7 @@ export function HomeRunEffect({ trigger, playType }: HomeRunEffectProps) {
             transition={{ type: 'spring', stiffness: 400, damping: 15 }}
             className="fixed top-24 left-1/2 -translate-x-1/2 z-[102] pointer-events-none"
           >
-            <div className="bg-primary text-primary-foreground px-8 py-4 rounded-2xl shadow-2xl border-2 border-secondary">
+            <div className="bg-primary text-primary-foreground px-8 py-4 rounded-2xl shadow-lg border-2 border-secondary">
               <motion.p
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ repeat: 3, duration: 0.3 }}

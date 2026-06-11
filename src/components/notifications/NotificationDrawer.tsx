@@ -54,7 +54,7 @@ export function NotificationDrawer({ open, onOpenChange, onUnreadChange }: Props
         <SheetDescription className="sr-only">Recent activity from Wrigleyville Buddies</SheetDescription>
 
         {/* Red header bar */}
-        <div className="bg-[hsl(var(--brand-red))] px-4 py-3 flex items-center justify-between gap-3 shadow-md">
+        <div className="bg-[hsl(var(--brand-red))] px-4 py-3 flex items-center justify-between gap-3 shadow-sm">
           <div className="flex items-center gap-2 text-white">
             <Bell className="h-5 w-5" strokeWidth={2.5} />
             <span

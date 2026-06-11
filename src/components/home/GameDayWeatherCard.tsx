@@ -96,7 +96,7 @@ export function GameDayWeatherCard() {
   return (
     <section
       aria-label="Wrigley Field weather"
-      className="mx-3 mb-2 flex items-center gap-3 rounded-xl border-l-4 px-3 py-2.5 shadow-md"
+      className="mx-3 mb-2 flex items-center gap-3 rounded-xl border-l-4 px-3 py-2.5 shadow-sm"
       style={{
         background: 'hsl(220, 75%, 18%)', // Cubs navy
         borderLeftColor: 'hsl(0, 70%, 45%)', // Cubs red accent

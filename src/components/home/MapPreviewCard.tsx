@@ -17,7 +17,7 @@ export function MapPreviewCard() {
   return (
     <section
       aria-labelledby="bar-map-preview-heading"
-      className="mb-5 overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] shadow-lg"
+      className="mb-5 overflow-hidden rounded-2xl border border-border bg-primary text-primary-foreground shadow-sm"
     >
       {/* Header */}
       <div className="flex items-start gap-3 px-4 pt-4 pb-3">
@@ -82,7 +82,7 @@ export function MapPreviewCard() {
                   className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-70"
                   style={{ animationDelay: bar.delay }}
                 />
-                <span className="relative inline-flex h-4 w-4 rounded-full border-2 border-white bg-secondary shadow-md" />
+                <span className="relative inline-flex h-4 w-4 rounded-full border-2 border-white bg-secondary shadow-sm" />
               </span>
               <span
                 className="mt-1 whitespace-nowrap rounded-md bg-black/55 px-1.5 py-0.5 text-[10px] font-bold text-white shadow backdrop-blur-sm"
@@ -100,7 +100,7 @@ export function MapPreviewCard() {
         <Link
           to="/bar-map"
           aria-label="Open the live bar map"
-          className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+          className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-sm transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
           style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
         >
           <MapPin className="h-5 w-5" strokeWidth={2.6} />

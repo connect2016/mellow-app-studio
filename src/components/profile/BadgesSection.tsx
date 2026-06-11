@@ -45,7 +45,7 @@ export function BadgesSection({ userId, isOwner }: Props) {
               {unlockedBadges.map((badge) => (
                 <div
                   key={badge.key}
-                  className="group relative flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border bg-gradient-to-br from-primary/10 to-primary/5 p-2 text-center transition hover:scale-105"
+                  className="group relative flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border border-border bg-primary/10 p-2 text-center transition hover:scale-105"
                   title={badge.description}
                 >
                   <span className="text-2xl"><ConceptVisual name={badge.emoji} size="sm" /></span>

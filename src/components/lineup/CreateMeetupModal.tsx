@@ -127,7 +127,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border-t bg-card shadow-2xl"
+            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border-t bg-card shadow-lg"
           >
             <div className="flex justify-center pt-3 pb-1">
               <div className="h-1 w-10 rounded-full bg-muted-foreground/30" />
@@ -143,7 +143,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
                     <X className="h-5 w-5 text-muted-foreground" />
                   </button>
                 </div>
-                <div className="rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary to-[hsl(222,82%,22%)] p-5 text-white shadow-lg">
+                <div className="rounded-2xl border border-border bg-primary p-5 text-primary-foreground shadow-sm">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-5 w-5 text-secondary" />
                     <p className="text-sm font-bold uppercase tracking-wide text-white/90" style={{ fontFamily: 'Norwester, sans-serif' }}>
@@ -164,7 +164,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
                 </div>
                 <button
                   onClick={handleShare}
-                  className="mt-4 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+                  className="mt-4 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-sm transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
                   style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
                 >
                   <Share2 className="h-5 w-5" /> Share this meetup
@@ -327,7 +327,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
                         key={i}
                         type="button"
                         onClick={() => toast.info('Coming up next pitch ')}
-                        className={`snap-start shrink-0 w-[220px] min-h-[96px] rounded-2xl border border-border bg-gradient-to-br ${s.from} ${s.to} p-3 text-left hover:border-primary/40 transition-colors`}
+                        className={`snap-start shrink-0 w-[220px] min-h-[96px] rounded-2xl border border-border bg-card p-3 text-left hover:border-primary/40 transition-colors`}
                       >
                         <div className={`inline-flex items-center justify-center h-8 w-8 rounded-full bg-card ${s.accent} mb-2`}>
                           <s.icon className="h-4 w-4" />

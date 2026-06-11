@@ -47,7 +47,7 @@ function MomentCard({ moment, isJoined, onJoin, onLeave }: {
       exit={{ opacity: 0, scale: 0.9 }}
       className={`relative rounded-2xl border p-4 transition-all ${
         isJoined
-          ? 'border-primary bg-primary/5 shadow-md shadow-primary/10'
+          ? 'border-primary bg-primary/5 shadow-sm shadow-primary/10'
           : 'border-border bg-card hover:border-primary/30'
       }`}
     >

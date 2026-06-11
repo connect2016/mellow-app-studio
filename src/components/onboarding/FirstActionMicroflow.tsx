@@ -153,7 +153,7 @@ export function FirstActionMicroflow() {
       <div
         className={cn(
           'w-full sm:max-w-md mx-auto rounded-t-3xl sm:rounded-3xl bg-card border border-border/60',
-          'shadow-2xl overflow-hidden',
+          'shadow-lg overflow-hidden',
         )}
       >
         {/* Header with progress + skip */}
@@ -179,7 +179,7 @@ export function FirstActionMicroflow() {
             aria-valuemax={3}
           >
             <div
-              className="h-full rounded-full bg-gradient-to-r from-primary to-primary/60 transition-[width] duration-500"
+              className="h-full rounded-full bg-primary transition-[width] duration-500"
               style={{ width: `${progressPct}%` }}
             />
           </div>
@@ -328,7 +328,7 @@ function ActionCard({ icon, title, body, accent, onClick }: ActionCardProps) {
       type="button"
       onClick={onClick}
       className={cn(
-        'w-full flex items-center gap-3 rounded-2xl border bg-gradient-to-br p-3.5 text-left',
+        'w-full flex items-center gap-3 rounded-2xl border bg-card p-3.5 text-left',
         'min-h-[72px] transition-colors hover:bg-muted/40 active:scale-[0.99]',
         accent,
       )}

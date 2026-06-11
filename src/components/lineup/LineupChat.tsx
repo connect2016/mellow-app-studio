@@ -50,7 +50,7 @@ export function LineupChat({ meetup, open, onClose }: LineupChatProps) {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border-t bg-card shadow-2xl flex flex-col"
+            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border-t bg-card shadow-lg flex flex-col"
             style={{ height: '70vh' }}
           >
             {/* Header */}

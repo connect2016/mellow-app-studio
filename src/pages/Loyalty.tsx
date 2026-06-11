@@ -36,12 +36,12 @@ function BadgeCard({
       <Card
         className={`relative overflow-hidden border p-4 transition-all ${
           unlocked
-            ? 'border-accent/40 bg-accent/5 shadow-md'
+            ? 'border-accent/40 bg-accent/5 shadow-sm'
             : 'border-border/60 bg-card'
         }`}
       >
         {unlocked && (
-          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-accent/40" />
         )}
 
         <div className="flex items-start gap-3.5">
@@ -199,7 +199,7 @@ export default function Loyalty() {
               animate={{ scale: 1, rotate: 0 }}
               exit={{ scale: 0 }}
               transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-              className="bg-card rounded-3xl p-8 mx-6 text-center max-w-sm shadow-2xl border border-accent/30"
+              className="bg-card rounded-3xl p-8 mx-6 text-center max-w-sm shadow-lg border border-accent/30"
               onClick={e => e.stopPropagation()}
             >
               <motion.div

@@ -17,7 +17,7 @@ export function QuickActionBar({ selectedCluster, onNavigate, onChat, onJoin }: 
       initial={{ y: 60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 60, opacity: 0 }}
-      className="absolute bottom-3 left-3 right-3 z-[1000] bg-card/95 backdrop-blur-md border border-border rounded-2xl px-4 py-3 shadow-xl"
+      className="absolute bottom-3 left-3 right-3 z-[1000] bg-card/95 backdrop-blur-md border border-border rounded-2xl px-4 py-3 shadow-lg"
     >
       <div className="flex items-center justify-between mb-2">
         <div>

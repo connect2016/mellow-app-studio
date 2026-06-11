@@ -67,10 +67,10 @@ export function GameTimeMatchBanner() {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -80, opacity: 0 }}
         transition={{ type: 'spring', damping: 20, stiffness: 200 }}
-        className="mx-4 mb-4 rounded-2xl overflow-hidden border border-accent/30 bg-gradient-to-r from-accent/10 via-card to-accent/10 shadow-lg"
+        className="mx-4 mb-4 rounded-2xl overflow-hidden border border-accent/30 bg-card shadow-sm"
       >
         {/* Glowing top accent */}
-        <div className="h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
+        <div className="h-1 bg-accent/40" />
 
         <div className="p-4">
           {/* Header */}

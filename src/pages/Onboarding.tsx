@@ -180,7 +180,7 @@ export default function Onboarding() {
       >
         <div className="animate-scale-in flex flex-col items-center">
           <div
-            className="mb-6 flex h-28 w-28 items-center justify-center rounded-full shadow-2xl"
+            className="mb-6 flex h-28 w-28 items-center justify-center rounded-full shadow-lg"
             style={{ background: RED }}
           >
             <ConceptIcon name="baseball" className="h-14 w-14 text-white" />
@@ -212,7 +212,7 @@ export default function Onboarding() {
         <div className="w-full max-w-sm">
           <div className="mb-8 flex justify-center">
             <div
-              className="flex h-32 w-32 items-center justify-center rounded-full shadow-xl"
+              className="flex h-32 w-32 items-center justify-center rounded-full shadow-lg"
               style={{ background: RED }}
             >
               <ConceptIcon name="baseball" className="h-16 w-16 text-white" />
@@ -263,7 +263,7 @@ export default function Onboarding() {
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="relative h-32 w-32 overflow-hidden rounded-full border-4 shadow-md transition hover:opacity-90"
+              className="relative h-32 w-32 overflow-hidden rounded-full border-4 shadow-sm transition hover:opacity-90"
               style={{ borderColor: NAVY, background: '#eef1f7' }}
               aria-label="Upload photo"
             >
@@ -455,7 +455,7 @@ function GoalCard({ label, description, icon, onClick, disabled }: GoalCardProps
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex w-full items-center gap-4 rounded-2xl border-2 bg-white p-4 text-left shadow-sm transition active:scale-[0.99] hover:shadow-md disabled:opacity-50"
+      className="flex w-full items-center gap-4 rounded-2xl border-2 bg-white p-4 text-left shadow-sm transition active:scale-[0.99] hover:shadow-sm disabled:opacity-50"
       style={{ borderColor: 'hsl(var(--border))', minHeight: 88 }}
     >
       <div

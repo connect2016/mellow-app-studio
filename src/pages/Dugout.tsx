@@ -77,7 +77,7 @@ export default function Dugout() {
 
         {/* Incoming requests */}
         {incoming && incoming.length > 0 && (
-          <div className="mb-5 rounded-2xl border-2 border-[hsl(var(--brand-red))] bg-white/95 p-3 shadow-xl">
+          <div className="mb-5 rounded-2xl border-2 border-[hsl(var(--brand-red))] bg-white/95 p-3 shadow-lg">
             <div className="flex items-center gap-2 mb-2">
               <UserPlus className="h-5 w-5 text-[hsl(var(--brand-red))]" />
               <h2 className="font-bold text-[hsl(var(--brand-navy))]">
@@ -128,7 +128,7 @@ export default function Dugout() {
         {isLoading ? (
           <div className="py-16 text-center text-white/80"> Loading your roster…</div>
         ) : (teammates?.length ?? 0) === 0 ? (
-          <div className="rounded-2xl bg-white/95 p-8 text-center shadow-xl">
+          <div className="rounded-2xl bg-white/95 p-8 text-center shadow-lg">
             <Users className="h-12 w-12 mx-auto text-[hsl(var(--brand-navy))] mb-3" />
             <h3 className="font-bold text-lg text-[hsl(var(--brand-navy))]">No Teammates yet</h3>
             <p className="text-sm text-[hsl(var(--brand-navy))]/75 mt-1 mb-4">

@@ -113,7 +113,7 @@ export function CarbUpStrip() {
               }}
             >
               {/* Food photo placeholder */}
-              <div className={`relative h-28 w-full bg-gradient-to-br ${r.accent} flex items-center justify-center`}>
+              <div className="relative h-28 w-full bg-muted flex items-center justify-center">
                 <ConceptIcon name={r.thumb} className="h-10 w-10 text-white/90 drop-shadow-md" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[hsl(222,82%,18%)] via-transparent to-transparent" />
                 <div className="absolute top-2 left-2">
@@ -151,7 +151,7 @@ export function CarbUpStrip() {
                 <button
                   type="button"
                   onClick={() => openDirections(r.address)}
-                  className="mt-auto inline-flex items-center justify-center gap-1.5 w-full h-10 rounded-xl bg-[hsl(var(--brand-red))] text-white text-xs font-bold uppercase tracking-wider hover:bg-[hsl(var(--brand-red))] active:scale-[0.97] transition shadow-md"
+                  className="mt-auto inline-flex items-center justify-center gap-1.5 w-full h-10 rounded-xl bg-[hsl(var(--brand-red))] text-white text-xs font-bold uppercase tracking-wider hover:bg-[hsl(var(--brand-red))] active:scale-[0.97] transition shadow-sm"
                   style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.05em' }}
                 >
                   <Navigation className="h-3.5 w-3.5" strokeWidth={2.5} />

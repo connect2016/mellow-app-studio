@@ -82,7 +82,7 @@ export function BarDetailSheet({ bar, onClose }: Props) {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 z-[2001] bg-card border-t border-border rounded-t-3xl shadow-2xl"
+            className="fixed bottom-0 left-0 right-0 z-[2001] bg-card border-t border-border rounded-t-3xl shadow-lg"
             style={{ height: '65vh' }}
           >
             <div className="flex justify-center pt-3 pb-2">
@@ -117,7 +117,7 @@ export function BarDetailSheet({ bar, onClose }: Props) {
               {/* Primary CTA: Meet Fans at This Bar */}
               <Button
                 onClick={scrollToFans}
-                className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold mb-4 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg"
+                className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold mb-4 bg-primary hover:bg-primary/90 shadow-sm"
               >
                 <Users className="h-4 w-4" />
                 Meet Fans at This Bar
@@ -204,7 +204,7 @@ export function BarDetailSheet({ bar, onClose }: Props) {
                 />
                 <Button
                   onClick={() => setShowCreateMeetup(true)}
-                  className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 text-secondary-foreground shadow-lg"
+                  className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-sm"
                 >
                   <CalendarPlus className="h-4 w-4" />
                   Start a Meetup Here

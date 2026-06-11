@@ -96,7 +96,7 @@ export function PersonaBadge({ persona, size = 'sm' }: PersonaBadgeProps) {
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold shadow-md',
+        'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold shadow-sm',
         config.border,
         config.bg,
         config.color

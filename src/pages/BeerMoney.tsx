@@ -976,7 +976,7 @@ export default function BeerMoney() {
             </div>
 
             {/* ── REFERRAL CTA ── */}
-            <div className="rounded-xl border border-dashed border-primary/30 bg-gradient-to-br from-primary/5 to-amber-500/5 p-4 text-center">
+            <div className="rounded-xl border border-dashed border-border bg-muted/40 p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Gift className="h-4 w-4 text-primary" />
                 <p className="text-xs font-bold text-amber-300">Invite & Earn </p>
@@ -1009,7 +1009,7 @@ export default function BeerMoney() {
               exit={{ y: 100, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-sm rounded-2xl border border-border bg-card p-5 shadow-xl"
+              className="w-full max-w-sm rounded-2xl border border-border bg-card p-5 shadow-lg"
             >
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-base font-bold text-foreground">Confirm your round</h3>

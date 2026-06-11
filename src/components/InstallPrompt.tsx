@@ -77,7 +77,7 @@ export function InstallPrompt() {
     <div
       role="dialog"
       aria-label="Install Wrigleyville Buddies"
-      className="fixed left-2 right-2 z-[60] md:left-auto md:right-4 md:max-w-sm rounded-xl shadow-2xl border border-white/10 bg-[hsl(var(--brand-navy))] text-white"
+      className="fixed left-2 right-2 z-[60] md:left-auto md:right-4 md:max-w-sm rounded-xl shadow-lg border border-white/10 bg-[hsl(var(--brand-navy))] text-white"
       style={{ bottom: 'calc(64px + env(safe-area-inset-bottom))' }}
     >
       <div className="flex items-start gap-3 p-3">

@@ -357,7 +357,7 @@ export default function MeetupDetail() {
             <Button
               onClick={handleJoin}
               disabled={isFull || joinMeetup.isPending}
-              className="flex-1 rounded-full h-12 font-bold text-base shadow-md"
+              className="flex-1 rounded-full h-12 font-bold text-base shadow-sm"
             >
               {isFull ? 'Meetup is full' : joinMeetup.isPending ? 'Joining...' : " I'm In!"}
             </Button>

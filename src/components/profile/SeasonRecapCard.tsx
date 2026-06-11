@@ -34,7 +34,7 @@ export function SeasonRecapCard({
 
   return (
     <section
-      className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-card to-secondary/10 p-5 shadow-sm"
+      className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm"
       aria-label="Season recap"
     >
       <div className="flex items-start justify-between gap-3">

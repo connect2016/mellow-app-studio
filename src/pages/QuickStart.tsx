@@ -465,7 +465,7 @@ export default function QuickStart() {
                         'active:scale-[0.96] duration-[120ms]',
                         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
                         selected
-                          ? 'bg-primary text-primary-foreground border-primary shadow-md'
+                          ? 'bg-primary text-primary-foreground border-primary shadow-sm'
                           : 'bg-background/70 text-foreground border-primary/50 hover:bg-primary/5',
                         isSuggested && 'ring-2 ring-accent ring-offset-1',
                       )}

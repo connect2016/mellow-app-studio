@@ -48,7 +48,7 @@ export function BuyBeerOnboardingTooltip({ onCtaClick, delayMs = 1200 }: Props) 
     <div
       role="dialog"
       aria-labelledby="beer-tooltip-title"
-      className="fixed bottom-24 left-4 right-4 z-50 mx-auto max-w-sm rounded-2xl border-2 border-amber-500/40 bg-card shadow-2xl p-4"
+      className="fixed bottom-24 left-4 right-4 z-50 mx-auto max-w-sm rounded-2xl border-2 border-amber-500/40 bg-card shadow-lg p-4"
       style={{ animation: 'beer-tooltip-pop 0.35s cubic-bezier(.2,.9,.3,1.4) forwards' }}
     >
       <button

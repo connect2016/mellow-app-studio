@@ -102,7 +102,7 @@ export function BaseballCard({
           style={{ backfaceVisibility: 'hidden' }}
         >
           <div
-            className="relative h-full w-full rounded-lg overflow-hidden shadow-xl"
+            className="relative h-full w-full rounded-lg overflow-hidden shadow-lg"
             style={{
               backgroundImage: `url(${cardFrontArt})`,
               backgroundSize: 'cover',
@@ -180,7 +180,7 @@ export function BaseballCard({
           }}
         >
           <div
-            className="relative h-full rounded-lg overflow-hidden border-[6px] border-[hsl(var(--brand-gold))] shadow-xl flex flex-col"
+            className="relative h-full rounded-lg overflow-hidden border-[6px] border-[hsl(var(--brand-gold))] shadow-lg flex flex-col"
             style={{
               background: 'linear-gradient(180deg, #F5E6C8 0%, #EAD8A0 50%, #DCC886 100%)',
               boxShadow: '0 8px 32px rgba(0,0,0,0.3)',

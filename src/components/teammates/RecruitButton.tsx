@@ -87,7 +87,7 @@ export function RecruitButton({ otherUserId, className }: RecruitButtonProps) {
       disabled={send.isPending}
       className={cn(
         'w-full rounded-xl h-12 font-semibold text-white shadow-lg',
-        'bg-gradient-to-r from-[hsl(var(--brand-navy))] via-[#0a3a85] to-[hsl(var(--brand-red))] hover:brightness-110 active:scale-[0.98] transition-all',
+        'bg-primary hover:bg-primary/90 active:scale-[0.98] transition-all',
         className
       )}
     >

@@ -153,7 +153,7 @@ export default function Missions() {
             </div>
             <div className="h-1.5 rounded-full bg-muted overflow-hidden">
               <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-primary to-secondary"
+                className="h-full rounded-full bg-primary"
                 initial={{ width: 0 }}
                 animate={{
                   width: `${totalPoints >= 500 ? 100 : totalPoints >= 200
@@ -235,7 +235,7 @@ export default function Missions() {
                   transition={{ delay: i * 0.04 }}
                   className={`rounded-2xl border p-4 transition-all ${
                     canClaim
-                      ? 'border-secondary bg-secondary/5 shadow-md shadow-secondary/10'
+                      ? 'border-secondary bg-secondary/5 shadow-sm shadow-secondary/10'
                       : isComplete
                         ? 'border-border bg-muted/30'
                         : 'border-border bg-card'
@@ -274,7 +274,7 @@ export default function Missions() {
                           <motion.div
                             className={`h-full rounded-full ${
                               isComplete
-                                ? 'bg-gradient-to-r from-primary to-secondary'
+                                ? 'bg-primary'
                                 : 'bg-primary/60'
                             }`}
                             initial={{ width: 0 }}

@@ -166,7 +166,7 @@ export function SquadMatcherPanel() {
       className="rounded-2xl border border-border bg-card overflow-hidden"
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-gradient-to-r from-primary/5 via-accent/5 to-secondary/5">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/40">
         <div className="flex items-center gap-2">
           <div className="relative">
             <Sparkles className="h-4 w-4 text-primary" />

@@ -41,7 +41,7 @@ export function MeetupCard({ meetup }: MeetupCardProps) {
   return (
     <Link
       to={`/meetups/${meetup.id}`}
-      className="block rounded-2xl border border-border bg-card p-4 shadow-sm transition active:scale-[0.99] hover:shadow-md hover:border-primary/30"
+      className="block rounded-2xl border border-border bg-card p-4 shadow-sm transition active:scale-[0.99] hover:shadow-sm hover:border-primary/30"
       aria-label={`Meetup at ${cleanLocation}`}
     >
       {/* Pre-game countdown — only renders during the 3h pre-game window */}

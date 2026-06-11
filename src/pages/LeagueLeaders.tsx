@@ -95,7 +95,7 @@ function LeaderRow({
         'w-full flex items-center gap-3 rounded-2xl border text-left transition-colors',
         'active:scale-[0.99] hover:bg-muted/50',
         isPodium
-          ? 'px-3.5 py-4 min-h-[80px] shadow-md'
+          ? 'px-3.5 py-4 min-h-[80px] shadow-sm'
           : 'px-3 py-3 min-h-[68px] shadow-sm',
         isMe
           ? 'border-primary/60 bg-primary/10'
@@ -428,7 +428,7 @@ export default function LeagueLeaders() {
                     <div className="mt-1.5 flex items-center gap-2">
                       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
                         <div
-                          className="h-full rounded-full bg-gradient-to-r from-primary to-primary/60 transition-[width] duration-500"
+                          className="h-full rounded-full bg-primary transition-[width] duration-500"
                           style={{ width: `${pct}%` }}
                         />
                       </div>

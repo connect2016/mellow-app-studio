@@ -109,17 +109,17 @@ export default function ClaimBeer() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 via-background to-background">
+    <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-md px-4 pt-8 pb-20">
 
         {/* ── Hero card ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl border border-primary/20 bg-card overflow-hidden shadow-xl mb-6"
+          className="rounded-2xl border border-primary/20 bg-card overflow-hidden shadow-lg mb-6"
         >
           {/* Beer animation header */}
-          <div className="bg-gradient-to-br from-primary via-primary to-amber-600 p-6 text-center relative overflow-hidden">
+          <div className="bg-primary text-primary-foreground p-6 text-center relative overflow-hidden">
             {/* Floating bubbles */}
             {Array.from({ length: 8 }).map((_, i) => (
               <motion.div

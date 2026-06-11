@@ -101,7 +101,7 @@ export function RestaurantDetailSheet({ restaurant, onClose }: Props) {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 z-[2001] bg-card border-t border-border rounded-t-3xl shadow-2xl"
+            className="fixed bottom-0 left-0 right-0 z-[2001] bg-card border-t border-border rounded-t-3xl shadow-lg"
             style={{ height: '60vh' }}
           >
             <div className="flex justify-center pt-3 pb-2">
@@ -134,7 +134,7 @@ export function RestaurantDetailSheet({ restaurant, onClose }: Props) {
 
               {/* Phase-aware food label card */}
               <div
-                className={`mb-4 rounded-2xl border border-border bg-gradient-to-br ${phaseMeta.gradient} p-4`}
+                className="mb-4 rounded-2xl border border-border bg-card p-4"
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-lg"><ConceptVisual name={phaseMeta.emoji} size="sm" /></span>
@@ -169,7 +169,7 @@ export function RestaurantDetailSheet({ restaurant, onClose }: Props) {
               {/* Primary CTA: start a meetup here */}
               <Button
                 onClick={handleStartMeetup}
-                className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold mb-3 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg"
+                className="w-full gap-2 rounded-xl min-h-[52px] text-sm font-bold mb-3 bg-primary hover:bg-primary/90 shadow-sm"
               >
                 <Users className="h-4 w-4" />
                 Start a Meetup Here

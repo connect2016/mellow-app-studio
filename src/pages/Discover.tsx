@@ -362,7 +362,7 @@ export default function Discover() {
           <div
             role="tablist"
             aria-label="Discover mode"
-            className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-primary/80 p-1 shadow-md backdrop-blur-sm"
+            className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-primary/80 p-1 shadow-sm backdrop-blur-sm"
           >
             {[
               { id: 'wrigley' as const, label: 'At Wrigley', emoji: '⚾' },
@@ -378,7 +378,7 @@ export default function Discover() {
                   className={cn(
                     'min-h-10 px-4 rounded-full text-xs font-extrabold uppercase tracking-wide transition-all',
                     active
-                      ? 'bg-secondary text-secondary-foreground shadow-md scale-[1.02]'
+                      ? 'bg-secondary text-secondary-foreground shadow-sm scale-[1.02]'
                       : 'text-primary-foreground/80 hover:text-primary-foreground'
                   )}
                   style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.05em' }}
@@ -399,7 +399,7 @@ export default function Discover() {
         {/* Gameday Mode Toggle */}
         <div className={`rounded-xl border px-4 py-3 mb-4 transition-all duration-300 ${
           gamedayMode 
-            ? 'border-secondary bg-secondary/10 shadow-md shadow-secondary/10' 
+            ? 'border-secondary bg-secondary/10 shadow-sm shadow-secondary/10' 
             : 'border-border bg-card/80 backdrop-blur-sm'
         }`}>
           <div className="flex items-center justify-between">
@@ -546,10 +546,10 @@ export default function Discover() {
             ].map((m, i) => (
               <div
                 key={i}
-                className="relative overflow-hidden rounded-2xl border border-secondary/30 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-4 opacity-90"
+                className="relative overflow-hidden rounded-2xl border border-border bg-primary text-primary-foreground p-4"
               >
                 {/* Coming Soon badge */}
-                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 shadow-md">
+                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 shadow-sm">
                   <ConceptIcon name="lock" className="h-3 w-3 text-secondary-foreground" />
                   <span
                     className="text-[10px] font-extrabold uppercase tracking-wider text-secondary-foreground"
@@ -774,7 +774,7 @@ export default function Discover() {
                 {/* BUDDIES rally card */}
                 <TabsTrigger
                   value="buddies"
-                  className="group relative w-full overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 text-left text-primary-foreground shadow-lg transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
+                  className="group relative w-full overflow-hidden rounded-2xl border border-border bg-primary p-5 text-left text-primary-foreground shadow-sm transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
                 >
                   <div className="absolute inset-0 opacity-60" style={pinstripe} aria-hidden />
                   <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
@@ -833,7 +833,7 @@ export default function Discover() {
                       </span>
                     </div>
 
-                    <div className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-xl bg-secondary px-4 py-3 text-sm font-extrabold text-secondary-foreground shadow-md transition-all duration-150 group-active:scale-[0.98] group-hover:bg-secondary/90"
+                    <div className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-xl bg-secondary px-4 py-3 text-sm font-extrabold text-secondary-foreground shadow-sm transition-all duration-150 group-active:scale-[0.98] group-hover:bg-secondary/90"
                       style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
                     >
                       Browse Buddies
@@ -844,7 +844,7 @@ export default function Discover() {
                 {/* CREWS rally card */}
                 <TabsTrigger
                   value="crews"
-                  className="group relative w-full overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 text-left text-primary-foreground shadow-lg transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
+                  className="group relative w-full overflow-hidden rounded-2xl border border-border bg-primary p-5 text-left text-primary-foreground shadow-sm transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
                 >
                   <div className="absolute inset-0 opacity-60" style={pinstripe} aria-hidden />
                   <div className="absolute -left-10 -bottom-10 h-36 w-36 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
@@ -892,7 +892,7 @@ export default function Discover() {
                       ))}
                     </div>
 
-                    <div className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-xl bg-secondary px-4 py-3 text-sm font-extrabold text-secondary-foreground shadow-md transition-all duration-150 group-active:scale-[0.98] group-hover:bg-secondary/90"
+                    <div className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-xl bg-secondary px-4 py-3 text-sm font-extrabold text-secondary-foreground shadow-sm transition-all duration-150 group-active:scale-[0.98] group-hover:bg-secondary/90"
                       style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
                     >
                       Browse Crews
@@ -933,7 +933,7 @@ export default function Discover() {
                 ))}
               </div>
             ) : filtered.length === 0 ? (
-              <div className="relative overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 shadow-lg">
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-primary text-primary-foreground p-5 shadow-sm">
                 <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
                 <div className="relative flex items-start gap-3">
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary/20 ring-2 ring-secondary/40">
@@ -961,7 +961,7 @@ export default function Discover() {
                         setTimeout(() => trigger.click(), 350);
                       }
                     }}
-                    className="flex min-h-[48px] items-center justify-center rounded-xl bg-secondary px-3 py-3 text-sm font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+                    className="flex min-h-[48px] items-center justify-center rounded-xl bg-secondary px-3 py-3 text-sm font-extrabold text-secondary-foreground shadow-sm transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
                     style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
                   >
                     Update My Status

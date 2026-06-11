@@ -45,6 +45,7 @@ export function CardFrontSide({
   editable = false,
   uploading = false,
   onPickPhoto,
+  avatarSlot,
 }: CardFrontSideProps) {
   const [hasPulsed, setHasPulsed] = useState(false);
 

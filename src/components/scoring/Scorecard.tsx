@@ -60,13 +60,13 @@ export function Scorecard({ homeTeam, awayTeam, entries, onAddEntry, onConfirm, 
       {/* Header pennant */}
       <div className="px-4 py-2.5 border-b border-[hsl(var(--ivy-green)/0.2)] flex items-center gap-2" style={{ backgroundColor: '#F4F1E8' }}>
         <span className="text-sm"></span>
-        <span className="font-['Share_Tech_Mono'] text-xs font-bold tracking-wider uppercase" style={{ color: 'hsl(var(--ivy-green))' }}>
+        <span className="font-['Legend_M54'] text-xs font-bold tracking-wider uppercase" style={{ color: 'hsl(var(--ivy-green))' }}>
           Official Scorecard
         </span>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full" style={{ fontFamily: "'Share Tech Mono', monospace" }}>
+        <table className="w-full" style={{ fontFamily: "'Legend M54', 'Bebas Neue', sans-serif" }}>
           <thead>
             <tr style={{ borderBottom: '2px solid hsl(var(--ivy-green) / 0.25)' }}>
               <th className="text-left px-3 py-2 text-xs font-bold sticky left-0 z-10 min-w-[80px]" style={{ backgroundColor: '#F4F1E8', color: 'hsl(var(--ivy-green))' }}>
@@ -112,7 +112,7 @@ export function Scorecard({ homeTeam, awayTeam, entries, onAddEntry, onConfirm, 
                         <input
                           type="number" min={0} max={99}
                           className="w-7 h-7 text-center text-xs rounded border-2 focus:outline-none"
-                          style={{ borderColor: 'hsl(var(--ivy-green))', backgroundColor: '#FFFFF0', fontFamily: "'Share Tech Mono', monospace" }}
+                          style={{ borderColor: 'hsl(var(--ivy-green))', backgroundColor: '#FFFFF0', fontFamily: "'Legend M54', 'Bebas Neue', sans-serif" }}
                           value={editVal} onChange={e => setEditVal(e.target.value)}
                           onKeyDown={e => e.key === 'Enter' && handleSave()} autoFocus
                         />
@@ -125,7 +125,7 @@ export function Scorecard({ homeTeam, awayTeam, entries, onAddEntry, onConfirm, 
                         style={{
                           backgroundColor: entry ? (isConfirmed ? 'hsl(var(--ivy-green) / 0.1)' : 'transparent') : 'transparent',
                           color: entry ? (isConfirmed ? 'hsl(var(--ivy-green))' : 'hsl(var(--foreground))') : 'hsl(var(--muted-foreground) / 0.4)',
-                          fontFamily: "'Share Tech Mono', monospace",
+                          fontFamily: "'Legend M54', 'Bebas Neue', sans-serif",
                         }}
                       >
                         {entry ? entry.runs : <Plus className="h-3 w-3" />}
@@ -161,7 +161,7 @@ export function Scorecard({ homeTeam, awayTeam, entries, onAddEntry, onConfirm, 
                         <input
                           type="number" min={0} max={99}
                           className="w-7 h-7 text-center text-xs rounded border-2 focus:outline-none"
-                          style={{ borderColor: 'hsl(var(--ivy-green))', backgroundColor: '#FFFFF0', fontFamily: "'Share Tech Mono', monospace" }}
+                          style={{ borderColor: 'hsl(var(--ivy-green))', backgroundColor: '#FFFFF0', fontFamily: "'Legend M54', 'Bebas Neue', sans-serif" }}
                           value={editVal} onChange={e => setEditVal(e.target.value)}
                           onKeyDown={e => e.key === 'Enter' && handleSave()} autoFocus
                         />
@@ -174,7 +174,7 @@ export function Scorecard({ homeTeam, awayTeam, entries, onAddEntry, onConfirm, 
                         style={{
                           backgroundColor: entry ? (isConfirmed ? 'hsl(var(--ivy-green) / 0.1)' : 'transparent') : 'transparent',
                           color: entry ? (isConfirmed ? 'hsl(var(--ivy-green))' : 'hsl(var(--foreground))') : 'hsl(var(--muted-foreground) / 0.4)',
-                          fontFamily: "'Share Tech Mono', monospace",
+                          fontFamily: "'Legend M54', 'Bebas Neue', sans-serif",
                         }}
                       >
                         {entry ? entry.runs : <Plus className="h-3 w-3" />}
@@ -204,7 +204,7 @@ export function Scorecard({ homeTeam, awayTeam, entries, onAddEntry, onConfirm, 
         <span className="flex items-center gap-1">
           <span className="h-2 w-2 rounded-full bg-muted" /> Pending
         </span>
-        <span className="ml-auto font-['Share_Tech_Mono']">Tap cell to score</span>
+        <span className="ml-auto font-['Legend_M54']">Tap cell to score</span>
       </div>
     </div>
   );

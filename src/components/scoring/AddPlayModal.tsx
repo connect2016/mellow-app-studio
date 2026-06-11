@@ -73,7 +73,7 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
                 <h3 className="text-lg font-bold font-['Graduate'] tracking-wide" style={{ color: 'hsl(var(--ivy-green))' }}>
                    Quick Score
                 </h3>
-                <p className="text-[10px] font-['Share_Tech_Mono'] mt-0.5" style={{ color: 'hsl(var(--muted-foreground))' }}>
+                <p className="text-[10px] font-['Legend_M54'] mt-0.5" style={{ color: 'hsl(var(--muted-foreground))' }}>
                   {half === 'top' ? '▲' : '▼'} Inning {inning}
                 </p>
               </div>
@@ -91,7 +91,7 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
               <div className="flex rounded-xl overflow-hidden border-2" style={{ borderColor: 'hsl(var(--ivy-green) / 0.3)' }}>
                 <button
                   onClick={() => setHalf('top')}
-                  className="px-3 py-1.5 text-xs font-bold font-['Share_Tech_Mono']"
+                  className="px-3 py-1.5 text-xs font-bold font-['Legend_M54']"
                   style={{
                     backgroundColor: half === 'top' ? 'hsl(var(--ivy-green))' : 'transparent',
                     color: half === 'top' ? 'white' : 'hsl(var(--muted-foreground))',
@@ -101,7 +101,7 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
                 </button>
                 <button
                   onClick={() => setHalf('bottom')}
-                  className="px-3 py-1.5 text-xs font-bold font-['Share_Tech_Mono']"
+                  className="px-3 py-1.5 text-xs font-bold font-['Legend_M54']"
                   style={{
                     backgroundColor: half === 'bottom' ? 'hsl(var(--ivy-green))' : 'transparent',
                     color: half === 'bottom' ? 'white' : 'hsl(var(--muted-foreground))',
@@ -115,7 +115,7 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
                   <button
                     key={i}
                     onClick={() => setInning(i)}
-                    className="h-8 w-8 rounded-lg text-xs font-bold font-['Share_Tech_Mono'] flex-shrink-0"
+                    className="h-8 w-8 rounded-lg text-xs font-bold font-['Legend_M54'] flex-shrink-0"
                     style={{
                       backgroundColor: inning === i ? 'hsl(var(--ivy-green))' : 'hsl(var(--ivy-green) / 0.08)',
                       color: inning === i ? 'white' : 'hsl(var(--ivy-green))',
@@ -146,7 +146,7 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
                 >
                   <PlayIcon type={p.value} size={40} selected={playType === p.value} sealColor={p.sealColor} />
                   <span
-                    className="text-[10px] font-bold font-['Share_Tech_Mono'] uppercase tracking-wider"
+                    className="text-[10px] font-bold font-['Legend_M54'] uppercase tracking-wider"
                     style={{
                       color: playType === p.value
                         ? (p.sealColor === 'blue' ? 'hsl(var(--accent))' : 'hsl(var(--ivy-green))')
@@ -168,7 +168,7 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
                 borderColor: 'hsl(var(--ivy-green) / 0.3)',
                 backgroundColor: 'hsl(var(--ivy-green) / 0.05)',
                 color: 'hsl(var(--ivy-green))',
-                fontFamily: "'Share Tech Mono', monospace",
+                fontFamily: "'Legend M54', 'Bebas Neue', sans-serif",
               }}
             >
               <PlayIcon type="out" size={24} selected sealColor="green" />
@@ -181,7 +181,7 @@ export function AddPlayModal({ open, onClose, onAdd, onQuickOut, currentInning }
               value={description}
               onChange={e => setDescription(e.target.value)}
               className="rounded-xl border-2"
-              style={{ borderColor: 'hsl(var(--ivy-green) / 0.2)', backgroundColor: '#FFFFF0', fontFamily: "'Share Tech Mono', monospace" }}
+              style={{ borderColor: 'hsl(var(--ivy-green) / 0.2)', backgroundColor: '#FFFFF0', fontFamily: "'Legend M54', 'Bebas Neue', sans-serif" }}
             />
 
             {/* Submit */}

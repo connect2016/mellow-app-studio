@@ -92,7 +92,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
           <button
             onClick={copyInvite}
             className="flex-1 flex items-center justify-center gap-2 rounded-xl py-2.5 text-xs font-bold border-2 transition-all"
-            style={{ borderColor: 'hsl(var(--accent) / 0.3)', color: 'hsl(var(--accent))', fontFamily: "'Share Tech Mono', monospace" }}
+            style={{ borderColor: 'hsl(var(--accent) / 0.3)', color: 'hsl(var(--accent))', fontFamily: "'Legend M54', 'Bebas Neue', sans-serif" }}
           >
              Share Link
           </button>
@@ -100,7 +100,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
             <button
               onClick={copyCode}
               className="flex items-center gap-2 rounded-xl py-2.5 px-4 text-xs font-bold border-2"
-              style={{ borderColor: 'hsl(var(--ivy-green) / 0.3)', fontFamily: "'Share Tech Mono', monospace" }}
+              style={{ borderColor: 'hsl(var(--ivy-green) / 0.3)', fontFamily: "'Legend M54', 'Bebas Neue', sans-serif" }}
             >
               <Copy className="h-3 w-3" />
               <code className="font-mono">{inviteCode}</code>
@@ -161,7 +161,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
                       </motion.div>
                     )}
                   </AnimatePresence>
-                  <p className="text-[8px] text-center mt-0.5 font-['Share_Tech_Mono'] truncate max-w-[48px]" style={{ color: 'hsl(var(--muted-foreground))' }}>
+                  <p className="text-[8px] text-center mt-0.5 font-['Legend_M54'] truncate max-w-[48px]" style={{ color: 'hsl(var(--muted-foreground))' }}>
                     {m.display_name.split(' ')[0]}
                   </p>
                 </motion.div>
@@ -191,7 +191,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
             <p className="text-xs font-bold flex-1" style={{ color: 'hsl(var(--foreground))' }}>
               {isActiveScorer ? ' You have the pencil' : ` ${activeScorer.display_name} is scoring`}
             </p>
-            <span className="text-[10px] font-['Share_Tech_Mono'] px-2 py-0.5 rounded-full" style={{ backgroundColor: 'hsl(var(--accent) / 0.1)', color: 'hsl(var(--accent))' }}>
+            <span className="text-[10px] font-['Legend_M54'] px-2 py-0.5 rounded-full" style={{ backgroundColor: 'hsl(var(--accent) / 0.1)', color: 'hsl(var(--accent))' }}>
               Batter #{activeBatter}
             </span>
           </div>
@@ -203,7 +203,7 @@ export function RelayPanel({ sessionId, inviteCode, activeScorerId, members, use
         {/* Pass Pencil buttons with slide animation */}
         {isActiveScorer && members.length > 1 && (
           <div className="space-y-1.5">
-            <p className="text-[10px] font-bold uppercase tracking-wider font-['Share_Tech_Mono']" style={{ color: 'hsl(var(--muted-foreground))' }}>
+            <p className="text-[10px] font-bold uppercase tracking-wider font-['Legend_M54']" style={{ color: 'hsl(var(--muted-foreground))' }}>
               Pass the Pencil to:
             </p>
             {members.filter(m => m.user_id !== userId).map((m, i) => (

@@ -76,7 +76,7 @@ function renderMark(type: string, size: number, graphite: string, activeColor: s
         </text>
       );
     case 'bb':
-      return <text x={cx} y={cy} style={{ ...textStyleSmall, fontFamily: "'Share Tech Mono', monospace", letterSpacing: '1px' }}>BB</text>;
+      return <text x={cx} y={cy} style={{ ...textStyleSmall, fontFamily: "'Legend M54', 'Bebas Neue', sans-serif", letterSpacing: '1px' }}>BB</text>;
     case 'out':
       // Diagonal slash through a circle
       return (

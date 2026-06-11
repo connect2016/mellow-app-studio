@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import logo from '@/assets/logo.webp';
 import { track } from '@/lib/analytics';
+import { toast } from 'sonner';
 
 export default function Auth() {
   const navigate = useNavigate();

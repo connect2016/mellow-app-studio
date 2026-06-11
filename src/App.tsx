@@ -62,7 +62,7 @@ import Venues from "./pages/Venues";
 import PubCrawl from "./pages/PubCrawl";
 import Meetups from "./pages/Meetups";
 import MeetupDetail from "./pages/MeetupDetail";
-import NotFound from "./pages/NotFound";
+
 import NotFoundPage from "./pages/NotFoundPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";

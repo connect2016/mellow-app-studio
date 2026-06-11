@@ -110,7 +110,8 @@ export default function Messages() {
         <div className="flex min-h-screen flex-col pb-24">
 
           <AppHeader />
-          <div className="mx-auto w-full max-w-lg flex-1 flex flex-col">
+          <DesktopPanel className="flex flex-col flex-1 w-full">
+          <div className="mx-auto w-full max-w-lg flex-1 flex flex-col lg:mx-0 lg:max-w-none">
             <div className="flex items-center gap-3 border-b border-border px-4 py-3 bg-card/80 backdrop-blur">
               <button
                 onClick={() => setSelectedConvoId(null)}
@@ -263,8 +264,9 @@ export default function Messages() {
                   <Send className="h-4 w-4" />
                 </Button>
               </form>
-            </div>
           </div>
+          </DesktopPanel>
+        </div>
         </div>
       </PageBackground>
     );
@@ -274,7 +276,8 @@ export default function Messages() {
     <PageBackground image={bgWrigleyRooftops}>
       <div className="min-h-screen pb-24">
         <AppHeader />
-        <div className="mx-auto max-w-lg px-4 pt-4">
+        <DesktopPanel>
+        <div className="mx-auto max-w-lg px-4 pt-4 lg:mx-0 lg:px-0 lg:pt-0 lg:max-w-none lg:w-full">
           <h2 className="mb-4 text-xl font-extrabold text-white">Messages</h2>
 
 
@@ -406,6 +409,7 @@ export default function Messages() {
             </div>
           )}
         </div>
+        </DesktopPanel>
       </div>
     </PageBackground>
   );

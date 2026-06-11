@@ -54,6 +54,7 @@ export default function Onboarding() {
   const [isSTH, setIsSTH] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   // Prefill + skip if already completed (skip when a draft exists — draft wins)

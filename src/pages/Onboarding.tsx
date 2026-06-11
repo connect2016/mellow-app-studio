@@ -111,6 +111,13 @@ export default function Onboarding() {
     setStep((current) => (validStep === current ? current : validStep));
   }, [searchParams]);
 
+  const goToStep = (newStep: 1 | 2 | 3) => {
+    setStep(newStep);
+    const sp = new URLSearchParams(searchParams);
+    sp.set('step', String(newStep));
+    setSearchParams(sp);
+  };
+
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;

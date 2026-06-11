@@ -33,7 +33,7 @@ function ReconnectCard({ suggestion, onAction }: {
       <div className="relative shrink-0">
         <div className="h-12 w-12 rounded-full bg-muted overflow-hidden">
           {suggestion.profile_photo ? (
-            <img src={suggestion.profile_photo} alt="" className="h-full w-full object-cover" />
+            <img src={suggestion.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
           ) : (
             <div className="h-full w-full flex items-center justify-center text-lg font-bold text-muted-foreground">
               {suggestion.display_name?.[0]?.toUpperCase() || '?'}

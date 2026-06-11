@@ -210,7 +210,7 @@ export default function MemoriesContent() {
         {showUpload && previewUrl && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} className="mb-4 rounded-2xl border border-border bg-card overflow-hidden shadow-lg">
             <div className="relative aspect-video bg-muted">
-              <img src={previewUrl} alt="Preview" className="h-full w-full object-cover" />
+              <img src={previewUrl} alt="Preview" className="h-full w-full object-cover" loading="lazy" decoding="async" />
             </div>
             <div className="p-4 space-y-3">
               <input type="text" placeholder="Add a caption..." value={caption} onChange={e => setCaption(e.target.value)} className="w-full rounded-xl border border-border bg-muted/50 px-3 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />

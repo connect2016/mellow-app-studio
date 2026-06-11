@@ -59,8 +59,7 @@ export function ActivityFeedStrip() {
                   <img
                     src={item.profile_photo}
                     alt=""
-                    className="h-9 w-9 rounded-full object-cover ring-2 ring-primary/30"
-                  />
+                    className="h-9 w-9 rounded-full object-cover ring-2 ring-primary/30" loading="lazy" decoding="async" />
                 ) : (
                   <div className="h-9 w-9 rounded-full bg-muted flex items-center justify-center">
                     <ConceptIcon name="user" className="h-4 w-4 text-muted-foreground" />

@@ -285,8 +285,7 @@ function Avatar({ src, name }: { src: string | null | undefined; name: string })
       <img
         src={src}
         alt={name}
-        className="h-10 w-10 rounded-full object-cover border-2 border-primary shrink-0"
-      />
+        className="h-10 w-10 rounded-full object-cover border-2 border-primary shrink-0" loading="lazy" decoding="async" />
     );
   }
   return (

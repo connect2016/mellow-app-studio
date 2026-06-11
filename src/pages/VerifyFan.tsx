@@ -250,7 +250,7 @@ export default function VerifyFan() {
               </div>
 
               <div className="rounded-2xl overflow-hidden bg-black aspect-square">
-                <img src={capturedImage} alt="Selfie preview" className="w-full h-full object-cover" />
+                <img src={capturedImage} alt="Selfie preview" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
 
               <div className="grid grid-cols-2 gap-3">

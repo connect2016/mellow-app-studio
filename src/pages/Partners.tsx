@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
-import wrigleyvilleLogo from "@/assets/wrigleyville-logo.png";
+import wrigleyvilleLogo from "@/assets/wrigleyville-logo.webp";
 import { Beer, Building2 } from "lucide-react";
 
 interface BarFormData {
@@ -104,8 +104,7 @@ export default function Partners() {
             src={wrigleyvilleLogo}
             alt="Cubbies Buddies"
             className="mb-3 h-10 w-auto object-contain"
-            style={{ filter: "brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.3))" }}
-          />
+            style={{ filter: "brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.3))" }} loading="lazy" decoding="async" />
           <h1 className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
             Partner With Cubbies Buddies 🍺
           </h1>

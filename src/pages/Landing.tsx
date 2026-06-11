@@ -2,7 +2,7 @@
 import '@fontsource/norwester';
 import { SEOMeta } from '@/components/SEOMeta';
 import { Link, useNavigate } from 'react-router-dom';
-import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.jpg';
+import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.webp';
 import { Button } from '@/components/ui/button';
 import {
   Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye,
@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { PageTitle } from '@/components/ui/Typography';
-import wrigleyHero from '@/assets/wrigley-hero.jpg';
+import wrigleyHero from '@/assets/wrigley-hero.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
@@ -536,7 +536,7 @@ export default function Landing() {
       {/* ── FAQ + Safety ── */}
       <section className="relative overflow-hidden py-20">
         <div className="absolute inset-0">
-          <img src={wrigleyHero} alt="" className="h-full w-full object-cover" />
+          <img src={wrigleyHero} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
         </div>
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-3xl px-6">

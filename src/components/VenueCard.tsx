@@ -94,7 +94,7 @@ export function VenueCard({ venue, index, onJoinMeetup }: VenueCardProps) {
                 className="h-6 w-6 rounded-full border-2 border-card bg-muted overflow-hidden"
               >
                 {u.profile_photo ? (
-                  <img src={u.profile_photo} alt="" className="h-full w-full object-cover" />
+                  <img src={u.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                 ) : (
                   <div className="h-full w-full flex items-center justify-center text-[9px] font-bold text-muted-foreground">
                     {u.display_name?.charAt(0)}

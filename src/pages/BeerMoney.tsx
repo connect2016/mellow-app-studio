@@ -570,7 +570,7 @@ export default function BeerMoney() {
                           >
                             <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-muted ring-2 ring-primary/20">
                               {f.profile_photo ? (
-                                <img src={f.profile_photo} alt={f.display_name} className="h-full w-full object-cover" />
+                                <img src={f.profile_photo} alt={f.display_name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                               ) : (
                                 <div className="flex h-full w-full items-center justify-center text-sm font-bold text-muted-foreground">
                                   {f.display_name?.charAt(0)}
@@ -699,7 +699,7 @@ export default function BeerMoney() {
                         className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-muted ring-2 ring-primary/20"
                       >
                         {toUser.profile_photo ? (
-                          <img src={toUser.profile_photo} alt={toUser.display_name} className="h-full w-full object-cover" />
+                          <img src={toUser.profile_photo} alt={toUser.display_name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                         ) : (
                           <div className="flex h-full w-full items-center justify-center text-lg font-bold text-muted-foreground">
                             {toUser.display_name?.charAt(0)}

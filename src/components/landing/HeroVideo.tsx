@@ -2,7 +2,7 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, ChevronDown, Eye } from 'lucide-react';
-import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
+import wrigleyvilleLogo from '@/assets/wrigleyville-logo.webp';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 
 const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
@@ -66,8 +66,8 @@ export default function HeroVideo() {
         src="/hero-fallback.jpg"
         alt=""
         className={`absolute inset-0 h-full w-full object-cover ${ready ? 'opacity-0' : 'opacity-100'}`}
-        aria-hidden="true"
-      />
+        aria-hidden="true" loading="eager" fetchPriority="high" decoding="async" />
+
 
       {/* Stacked videos */}
       {VIDEO_SOURCES.map((src, idx) => (
@@ -95,8 +95,8 @@ export default function HeroVideo() {
           <img
             src={wrigleyvilleLogo}
             alt="Wrigleyville 60613 Logo"
-            className="w-full max-w-[260px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-[300px]"
-          />
+            className="w-full max-w-[260px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-[300px]" loading="eager" fetchPriority="high" decoding="async" />
+
           <h1
             className="mt-2 text-[1.25rem] sm:text-[1.5rem] font-bold uppercase tracking-[0.2em] text-white"
             style={{

@@ -75,7 +75,7 @@ export function HallOfFameLeaderboard() {
                 {/* Avatar */}
                 <div className="h-8 w-8 rounded-full overflow-hidden bg-muted ring-2 ring-border flex-shrink-0">
                   {leader.photo ? (
-                    <img src={leader.photo} alt={leader.displayName} className="h-full w-full object-cover" />
+                    <img src={leader.photo} alt={leader.displayName} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center text-xs font-bold text-muted-foreground">
                       {leader.displayName.charAt(0)}

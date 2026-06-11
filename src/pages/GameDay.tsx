@@ -17,7 +17,7 @@ import { LiveMomentsPanel } from '@/components/LiveMomentsPanel';
 import { FlashMeetupsPanel } from '@/components/FlashMeetupsPanel';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import gamedayBg from '@/assets/gameday-bg.jpg';
+import gamedayBg from '@/assets/gameday-bg.webp';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export default function GameDay() {

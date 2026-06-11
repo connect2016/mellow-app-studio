@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Compass, Map, CalendarDays, User, Bell, Trophy } from 'lucide-react';
-import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
+import wrigleyvilleLogo from '@/assets/wrigleyville-logo.webp';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -134,8 +134,7 @@ export function AppHeader() {
             <img
               alt="Wrigleyville Buddies"
               className="app-header-logo transition-transform duration-200 hover:scale-105"
-              src={wrigleyvilleLogo}
-            />
+              src={wrigleyvilleLogo} loading="lazy" decoding="async" />
           </Link>
           <div className="flex shrink-0 items-center gap-2">
             {!isQuickStart && (

@@ -81,7 +81,7 @@ export function InstallPrompt() {
       style={{ bottom: 'calc(64px + env(safe-area-inset-bottom))' }}
     >
       <div className="flex items-start gap-3 p-3">
-        <img src="/icon-192.png" alt="" className="h-12 w-12 rounded-lg flex-shrink-0" />
+        <img src="/icon-192.png" alt="" className="h-12 w-12 rounded-lg flex-shrink-0" loading="lazy" decoding="async" />
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-sm leading-tight">Add to Home Screen</p>
           {showAndroid ? (

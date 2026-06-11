@@ -807,7 +807,7 @@ export default function Discover() {
                                 className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border-2 border-primary bg-secondary/30 text-[11px] font-bold text-white"
                               >
                                 {fan.profile_photo ? (
-                                  <img src={fan.profile_photo} alt="" className="h-full w-full object-cover" />
+                                  <img src={fan.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                                 ) : (
                                   (fan.display_name?.[0] ?? '?').toUpperCase()
                                 )}

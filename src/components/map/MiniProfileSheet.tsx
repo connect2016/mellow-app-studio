@@ -76,7 +76,7 @@ export function MiniProfileSheet({ fan, onClose, onHiFive }: Props) {
               <div className="flex items-center gap-3 mb-4">
                 <div className="h-16 w-16 rounded-full border-2 border-primary/20 overflow-hidden bg-muted shrink-0">
                   {fan.photo ? (
-                    <img src={fan.photo} alt="" className="h-full w-full object-cover" />
+                    <img src={fan.photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center text-lg font-bold text-muted-foreground">
                       {fan.name?.charAt(0)}

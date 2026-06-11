@@ -59,7 +59,7 @@ function createStopIcon(order: number, arrived: boolean, isCurrent: boolean) {
 
 function createAvatarIcon(profilePhoto?: string) {
   const img = profilePhoto
-    ? `<img src="${profilePhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`
+    ? `<img src="${profilePhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" loading="lazy" decoding="async" />`
     : `<div style="width:100%;height:100%;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;"></div>`;
   return L.divIcon({
     html: `<div style="width:44px;height:44px;border-radius:50%;border:3px solid #3b82f6;overflow:hidden;box-shadow:0 0 20px 6px rgba(59,130,246,0.5);animation:pulse 2s infinite;">

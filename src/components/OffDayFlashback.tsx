@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Calendar, ChevronRight } from 'lucide-react';
-import bgBleachers from '@/assets/bg-bleachers.jpg';
-import bgField from '@/assets/bg-field.jpg';
-import bgRizzo from '@/assets/bg-rizzo.jpg';
+import bgBleachers from '@/assets/bg-bleachers.webp';
+import bgField from '@/assets/bg-field.webp';
+import bgRizzo from '@/assets/bg-rizzo.webp';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const FLASHBACKS = [

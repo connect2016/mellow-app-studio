@@ -356,7 +356,7 @@ export function PostGameExperience() {
                           {bar.fans.slice(0, 3).map((f) => (
                             <div key={f.user_id} className="h-5 w-5 rounded-full border border-background bg-muted overflow-hidden">
                               {f.profile_photo ? (
-                                <img src={f.profile_photo} alt="" className="h-full w-full object-cover" />
+                                <img src={f.profile_photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                               ) : (
                                 <div className="h-full w-full flex items-center justify-center text-[8px] font-bold text-muted-foreground">
                                   {f.display_name?.charAt(0)}

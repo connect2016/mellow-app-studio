@@ -206,7 +206,7 @@ export default function Onboarding() {
               aria-label="Upload photo"
             >
               {photoUrl ? (
-                <img src={photoUrl} alt="Your photo" className="h-full w-full object-cover" />
+                <img src={photoUrl} alt="Your photo" className="h-full w-full object-cover" loading="lazy" decoding="async" />
               ) : (
                 <div className="flex h-full w-full flex-col items-center justify-center text-muted-foreground">
                   <Camera className="h-7 w-7" />

@@ -67,7 +67,7 @@ export function SocialPhotoFeed() {
               {p.media_type === 'video' ? (
                 <video src={p.media_url} className="w-full h-full object-cover" muted playsInline />
               ) : (
-                <img src={p.media_url} alt={p.caption ?? p.location_tag} className="w-full h-full object-cover" />
+                <img src={p.media_url} alt={p.caption ?? p.location_tag} className="w-full h-full object-cover" loading="lazy" decoding="async" />
               )}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-2 py-2">
                 <p className="text-[10px] font-bold text-white truncate"> {p.location_tag}</p>

@@ -62,7 +62,7 @@ function SquadCard({ squad, onActivate, isActivating }: { squad: Squad; onActiva
                     } bg-muted`}
                   >
                     {m.photo ? (
-                      <img src={m.photo} alt="" className="h-full w-full object-cover" />
+                      <img src={m.photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                     ) : (
                       <div className="h-full w-full flex items-center justify-center text-[9px] font-bold text-muted-foreground">
                         {m.name?.charAt(0)}
@@ -103,7 +103,7 @@ function SquadCard({ squad, onActivate, isActivating }: { squad: Squad; onActiva
                   <div key={m.id} className="flex items-center gap-2 text-xs">
                     <div className={`h-6 w-6 rounded-full overflow-hidden bg-muted shrink-0 ${m.isMe ? 'ring-1 ring-primary' : ''}`}>
                       {m.photo ? (
-                        <img src={m.photo} alt="" className="h-full w-full object-cover" />
+                        <img src={m.photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                       ) : (
                         <div className="h-full w-full flex items-center justify-center text-[8px] font-bold text-muted-foreground">
                           {m.name?.charAt(0)}

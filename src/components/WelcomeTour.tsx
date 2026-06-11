@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { X, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestGateModal } from '@/components/GuestGateModal';
-import pennantLogo from '@/assets/logo-transparent.png';
+import pennantLogo from '@/assets/logo-transparent.webp';
 
 interface TourStep {
   targetSelector: string;

@@ -15,13 +15,14 @@ export function usePhotoUpload() {
     if (!user) return null;
     setUploading(true);
     try {
-      const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+      const compressed = await compressProfilePhoto(file);
+      const ext = 'webp';
       const filePath = `${user.id}/avatar.${ext}`;
 
       // Upload (upsert to replace existing)
       const { error: uploadError } = await supabase.storage
         .from('profile-photos')
-        .upload(filePath, file, { upsert: true, contentType: file.type });
+        .upload(filePath, compressed, { upsert: true, contentType: compressed.type });
 
       if (uploadError) throw uploadError;
 
@@ -34,15 +35,28 @@ export function usePhotoUpload() {
       // Save to profile
       await updateProfile.mutateAsync({ profile_photo: publicUrl });
 
-      // Replace the generic profile-update toast with a photo-specific one (same id de-dupes).
       toast.success('Photo saved!', { id: 'profile-update' });
 
-      track('photo_uploaded', { surface: 'avatar', size_kb: Math.round(file.size / 1024) });
+      track('photo_uploaded', {
+        surface: 'avatar',
+        size_kb: Math.round(compressed.size / 1024),
+        original_size_kb: Math.round(file.size / 1024),
+      });
 
       return publicUrl;
     } catch (err) {
       console.error('Photo upload failed:', err);
-      toast.error('Upload failed — check connection', { id: 'photo-upload-error' });
+      const message =
+        err instanceof Error && err.message ? err.message : 'Upload failed — check connection';
+      toast.error(message, {
+        id: 'photo-upload-error',
+        action: {
+          label: 'Retry',
+          onClick: () => {
+            void uploadPhoto(file);
+          },
+        },
+      });
       throw err;
     } finally {
       setUploading(false);

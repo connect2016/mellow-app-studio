@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { Check, ArrowRight, MapPin, Globe, Map as MapIcon, X, Loader2, Navigation, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import quickstartBg from '@/assets/quickstart-bg.webp';
+import { PageBackground } from '@/components/PageBackground';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useGeolocation } from '@/hooks/useGeolocation';

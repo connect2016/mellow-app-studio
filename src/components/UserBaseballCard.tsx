@@ -13,6 +13,7 @@ import { StatPreference, StatKey, DEFAULT_STAT_PREFS, StatVisibility } from '@/h
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
 import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
+import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 
 
 interface CardStats {

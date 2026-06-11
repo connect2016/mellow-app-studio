@@ -161,7 +161,7 @@ export default function Meetups() {
       {isGuest && <GuestBanner />}
       </div>
     </div>
-    </WrigleyRainbowBackground>
+    </DynamicBackground>
   );
 }
 

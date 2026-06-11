@@ -232,7 +232,7 @@ export default function Onboarding() {
             style={{ background: RED }}
             onClick={() => {
               track('onboarding_step_completed', { step: 1 });
-              setStep(2);
+              goToStep(2);
             }}
           >
             Get Started <ChevronRight className="ml-1 h-5 w-5" />
@@ -362,7 +362,7 @@ export default function Onboarding() {
             disabled={!step2Valid || uploading}
             onClick={() => {
               track('onboarding_step_completed', { step: 2 });
-              setStep(3);
+              goToStep(3);
             }}
           >
             Continue <ChevronRight className="ml-1 h-5 w-5" />

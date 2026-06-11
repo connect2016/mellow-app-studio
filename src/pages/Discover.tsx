@@ -362,7 +362,7 @@ export default function Discover() {
           <div
             role="tablist"
             aria-label="Discover mode"
-            className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-primary/80 p-1 shadow-sm backdrop-blur-sm"
+            className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/10 p-1 shadow-sm backdrop-blur-sm"
           >
             {[
               { id: 'wrigley' as const, label: 'At Wrigley', emoji: '⚾' },
@@ -378,8 +378,8 @@ export default function Discover() {
                   className={cn(
                     'min-h-10 px-4 rounded-full text-xs font-extrabold uppercase tracking-wide transition-all',
                     active
-                      ? 'bg-secondary text-secondary-foreground shadow-sm scale-[1.02]'
-                      : 'text-primary-foreground/80 hover:text-primary-foreground'
+                      ? 'bg-[hsl(var(--brand-navy))] text-white shadow-sm scale-[1.02]'
+                      : 'text-white/80 hover:text-white'
                   )}
                   style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.05em' }}
                 >
@@ -642,18 +642,18 @@ export default function Discover() {
                             className={cn(
                               'flex w-full min-h-[52px] items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors active:scale-[0.99]',
                               active
-                                ? 'bg-secondary/15 text-foreground'
+                                ? 'bg-[hsl(var(--brand-navy))]/10 text-foreground'
                                 : 'hover:bg-muted/40 text-foreground'
                             )}
                           >
                             <span className={cn(
                               'flex h-9 w-9 items-center justify-center rounded-full',
-                              active ? 'bg-secondary text-secondary-foreground' : 'bg-muted/30 text-foreground'
+                              active ? 'bg-[hsl(var(--brand-navy))] text-white' : 'bg-muted/30 text-foreground'
                             )}>
                               <ConceptIcon name={opt.icon} className="h-5 w-5" />
                             </span>
                             <span className="flex-1 text-base font-bold">{opt.label}</span>
-                            {active && <Check className="h-5 w-5 text-secondary" />}
+                            {active && <Check className="h-5 w-5" style={{ color: 'hsl(var(--brand-navy))' }} />}
                           </button>
                         </li>
                       );

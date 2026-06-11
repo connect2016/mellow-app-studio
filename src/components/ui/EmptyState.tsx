@@ -49,7 +49,11 @@ export function EmptyState({
         <p className="mt-1.5 max-w-[300px] text-muted-foreground text-base text-slate-50">{description}</p>
       )}
       {actionLabel && onAction && (
-        <Button onClick={onAction} className="mt-5" variant="default">
+        <Button
+          onClick={onAction}
+          variant="secondary"
+          className="mt-5 rounded-full font-bold bg-secondary text-secondary-foreground hover:bg-secondary/90"
+        >
           {actionLabel}
         </Button>
       )}

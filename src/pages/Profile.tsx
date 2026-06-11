@@ -380,7 +380,7 @@ export default function Profile() {
                 </>
               ) : (
                 <>
-                  <Button className="w-full rounded-xl h-12 font-semibold" onClick={() => navigate('/settings')}>
+                  <Button className="w-full rounded-full h-12 font-semibold bg-secondary text-secondary-foreground hover:bg-secondary/90" onClick={() => navigate('/settings')}>
                     Edit Profile
                   </Button>
                   <InviteBuddyButton source="profile" variant="outline" />

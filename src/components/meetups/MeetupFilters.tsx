@@ -51,8 +51,8 @@ function ChipRow<T extends string>({
             className={cn(
               'shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all min-h-[36px]',
               active
-                ? 'bg-primary text-primary-foreground shadow-sm'
-                : 'bg-muted text-muted-foreground hover:bg-muted/70'
+                ? 'bg-[hsl(var(--brand-navy))] text-white shadow-sm'
+                : 'bg-white/90 text-[hsl(var(--brand-navy))] hover:bg-white'
             )}
           >
             {opt.label}

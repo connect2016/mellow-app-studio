@@ -132,7 +132,7 @@ export default function Meetups() {
             </p>
             <Button
               onClick={() => setShowCreate(true)}
-              className="mt-5 rounded-full gap-1.5 h-10 px-5 font-bold"
+              className="mt-5 rounded-full gap-1.5 h-10 px-5 font-bold bg-secondary text-secondary-foreground hover:bg-secondary/90"
             >
               <Plus className="h-4 w-4" /> Create a Meetup
             </Button>
@@ -189,7 +189,7 @@ function EmptyState({ onCreate, hasFilters }: { onCreate: () => void; hasFilters
           ? 'Try clearing filters or searching for a different bar.'
           : 'Your crew is out there — probably eating nachos. Be the first to post one.'}
       </p>
-      <Button onClick={onCreate} className="mt-4 rounded-full gap-1.5 h-10 px-5 font-bold">
+      <Button onClick={onCreate} className="mt-4 rounded-full gap-1.5 h-10 px-5 font-bold bg-secondary text-secondary-foreground hover:bg-secondary/90">
         <Plus className="h-4 w-4" /> Post a Meetup
       </Button>
     </div>

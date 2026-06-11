@@ -627,8 +627,7 @@ export default function QuickStart() {
         </DialogContent>
       </Dialog>
       <GeolocationModal open={geo.showModal} onOpenChange={geo.setShowModal} controller={geo} />
-      </div>
-    </div>
+    </PageBackground>
   );
 }
 

@@ -105,7 +105,7 @@ export function AppHeader() {
             :root { --app-header-h: 56px; --app-header-pad: 12px; }
           }
           .app-header-logo {
-            height: 44px;
+            height: 40px;
             width: auto;
             max-width: 180px;
             object-fit: contain;
@@ -115,18 +115,18 @@ export function AppHeader() {
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
           }
           @media (max-width: 640px) {
-            .app-header-logo { height: 38px; max-width: 150px; }
+            .app-header-logo { height: 36px; max-width: 150px; }
           }
         `}</style>
         <div
           className="mx-auto flex max-w-lg items-center justify-between"
           style={{
             height: '100%',
-            padding: '0 var(--app-header-pad, 16px)',
+            padding: '0 16px',
           }}
         >
           <Link
-            to="/"
+            to="/discover-fans"
             aria-label="Wrigleyville Buddies home"
             className="flex min-w-0 items-center"
             style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}
@@ -142,14 +142,14 @@ export function AppHeader() {
                 <Link
                   to="/schedule"
                   aria-label="Game schedule"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-accent/90 active:scale-95"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white shadow-sm ring-1 ring-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/25 active:scale-95"
                 >
                   <CalendarDays className="h-[18px] w-[18px]" strokeWidth={2.25} />
                 </Link>
                 <Link
                   to="/leaderboard"
                   aria-label="Leaderboard"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-primary/90 active:scale-95"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white shadow-sm ring-1 ring-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/25 active:scale-95"
                 >
                   <Trophy className="h-[18px] w-[18px]" strokeWidth={2.25} />
                 </Link>
@@ -157,11 +157,11 @@ export function AppHeader() {
                   type="button"
                   onClick={() => setNotifOpen(true)}
                   aria-label={unreadNotifs > 0 ? `View notifications (${unreadNotifs} unread)` : 'View notifications'}
-                  className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[hsl(var(--brand-red))] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[hsl(var(--brand-red))] active:scale-95"
+                  className="relative flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white shadow-sm ring-1 ring-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/25 active:scale-95"
                 >
                   <Bell className="h-[18px] w-[18px]" strokeWidth={2.25} />
                   {unreadNotifs > 0 && (
-                    <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-white px-1 text-[9px] font-bold text-[hsl(var(--brand-red))] ring-2 ring-[hsl(var(--brand-red))]">
+                    <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[hsl(var(--brand-red))] px-1 text-[9px] font-bold text-white ring-2 ring-white/30">
                       {unreadNotifs > 99 ? '99+' : unreadNotifs}
                     </span>
                   )}
@@ -171,6 +171,7 @@ export function AppHeader() {
           </div>
         </div>
       </header>
+
 
 
       <NotificationDrawer open={notifOpen} onOpenChange={setNotifOpen} onUnreadChange={setUnreadNotifs} />

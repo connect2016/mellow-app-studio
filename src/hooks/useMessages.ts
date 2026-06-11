@@ -1,8 +1,19 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { track } from '@/lib/analytics';
+
+export type ChatMessage = {
+  id: string;
+  conversation_id: string;
+  sender: string;
+  body: string;
+  is_read: boolean;
+  created_at: string;
+  _status?: 'sending' | 'sent' | 'failed';
+  _clientId?: string;
+};
 
 export function useConversations() {
   const { user } = useAuth();
@@ -48,7 +59,7 @@ export function useConversationProfiles(conversations: { participant_a: string; 
 export function useConversationMessages(conversationId: string | null) {
   const queryClient = useQueryClient();
 
-  const query = useQuery({
+  const query = useQuery<ChatMessage[]>({
     queryKey: ['messages', conversationId],
     queryFn: async () => {
       if (!conversationId) return [];
@@ -58,12 +69,20 @@ export function useConversationMessages(conversationId: string | null) {
         .eq('conversation_id', conversationId)
         .order('created_at', { ascending: true });
       if (error) throw error;
-      return data ?? [];
+      // Preserve any in-flight optimistic temps when refetching.
+      const current = queryClient.getQueryData<ChatMessage[]>(['messages', conversationId]) ?? [];
+      const temps = current.filter(m => m._status === 'sending' || m._status === 'failed');
+      const real = (data ?? []) as ChatMessage[];
+      const realKeys = new Set(real.map(r => `${r.sender}::${r.body}`));
+      const keepTemps = temps.filter(t => !realKeys.has(`${t.sender}::${t.body}`));
+      return [...real, ...keepTemps].sort(
+        (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      );
     },
     enabled: !!conversationId,
   });
 
-  // Realtime subscription
+  // Realtime subscription — merge into cache without dropping optimistic temps.
   useEffect(() => {
     if (!conversationId) return;
     const channel = supabase
@@ -73,8 +92,18 @@ export function useConversationMessages(conversationId: string | null) {
         schema: 'public',
         table: 'messages',
         filter: `conversation_id=eq.${conversationId}`,
-      }, () => {
-        queryClient.invalidateQueries({ queryKey: ['messages', conversationId] });
+      }, (payload) => {
+        const row = payload.new as ChatMessage;
+        queryClient.setQueryData<ChatMessage[]>(['messages', conversationId], (old = []) => {
+          if (old.some(m => m.id === row.id)) return old;
+          // Dedupe matching optimistic temp (same sender + body).
+          const filtered = old.filter(
+            m => !(m._status && m.sender === row.sender && m.body === row.body)
+          );
+          return [...filtered, row].sort(
+            (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+          );
+        });
       })
       .subscribe();
 
@@ -84,32 +113,90 @@ export function useConversationMessages(conversationId: string | null) {
   return query;
 }
 
-export function useSendMessage() {
-  const { user } = useAuth();
-  const queryClient = useQueryClient();
+const SEND_TIMEOUT_MS = 10_000;
 
-  return useMutation({
-    mutationFn: async ({ conversationId, body }: { conversationId: string; body: string }) => {
-      if (!user) throw new Error('Not authenticated');
-      const { error } = await supabase.from('messages').insert({
-        conversation_id: conversationId,
-        sender: user.id,
-        body,
-      });
+export function useSendMessage(conversationId: string | null) {
+  const { user } = useAuth();
+  const qc = useQueryClient();
+
+  const performInsert = useCallback(async (clientId: string, body: string) => {
+    if (!conversationId || !user) return;
+
+    let timedOut = false;
+    const timeoutId = setTimeout(() => {
+      timedOut = true;
+      qc.setQueryData<ChatMessage[]>(['messages', conversationId], (old = []) =>
+        old.map(m =>
+          m._clientId === clientId && m._status === 'sending'
+            ? { ...m, _status: 'failed' }
+            : m
+        )
+      );
+    }, SEND_TIMEOUT_MS);
+
+    try {
+      const { data, error } = await supabase
+        .from('messages')
+        .insert({ conversation_id: conversationId, sender: user.id, body })
+        .select()
+        .single();
+      clearTimeout(timeoutId);
+      if (timedOut) return; // already marked failed; user will retry
       if (error) throw error;
 
-      // Update conversation preview
+      qc.setQueryData<ChatMessage[]>(['messages', conversationId], (old = []) => {
+        const filtered = old.filter(m => m._clientId !== clientId && m.id !== data.id);
+        return [...filtered, { ...(data as ChatMessage), _status: 'sent' as const }].sort(
+          (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        );
+      });
+
       await supabase.from('conversations').update({
         last_message_at: new Date().toISOString(),
         last_message_preview: body.slice(0, 100),
       }).eq('id', conversationId);
-    },
-    onSuccess: (_, vars) => {
-      track('message_sent', { length: vars.body.length, surface: 'dm' });
-      queryClient.invalidateQueries({ queryKey: ['messages', vars.conversationId] });
-      queryClient.invalidateQueries({ queryKey: ['conversations'] });
-    },
-  });
+
+      track('message_sent', { length: body.length, surface: 'dm' });
+      qc.invalidateQueries({ queryKey: ['conversations'] });
+    } catch (_err) {
+      clearTimeout(timeoutId);
+      qc.setQueryData<ChatMessage[]>(['messages', conversationId], (old = []) =>
+        old.map(m => (m._clientId === clientId ? { ...m, _status: 'failed' } : m))
+      );
+    }
+  }, [conversationId, user, qc]);
+
+  const send = useCallback((rawBody: string) => {
+    const body = rawBody.trim();
+    if (!body || !conversationId || !user) return false;
+    const clientId = `temp-${(globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`)}`;
+    const temp: ChatMessage = {
+      id: clientId,
+      conversation_id: conversationId,
+      sender: user.id,
+      body,
+      is_read: false,
+      created_at: new Date().toISOString(),
+      _status: 'sending',
+      _clientId: clientId,
+    };
+    qc.setQueryData<ChatMessage[]>(['messages', conversationId], (old = []) => [...old, temp]);
+    void performInsert(clientId, body);
+    return true;
+  }, [conversationId, user, qc, performInsert]);
+
+  const retry = useCallback((clientId: string) => {
+    if (!conversationId) return;
+    const cache = qc.getQueryData<ChatMessage[]>(['messages', conversationId]) ?? [];
+    const failed = cache.find(m => m._clientId === clientId);
+    if (!failed) return;
+    qc.setQueryData<ChatMessage[]>(['messages', conversationId], (old = []) =>
+      old.map(m => (m._clientId === clientId ? { ...m, _status: 'sending' } : m))
+    );
+    void performInsert(clientId, failed.body);
+  }, [conversationId, qc, performInsert]);
+
+  return { send, retry };
 }
 
 export function useCanChat() {

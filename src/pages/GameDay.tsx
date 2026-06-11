@@ -126,6 +126,6 @@ export default function GameDay() {
           )}
         </main>
       </div>
-    </div>
+    </PageBackground>
   );
 }

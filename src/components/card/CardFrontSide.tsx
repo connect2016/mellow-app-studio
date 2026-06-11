@@ -3,11 +3,12 @@ import { cn } from '@/lib/utils';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
-import { BarChart3 } from 'lucide-react';
+import { BarChart3, Camera, Loader2 } from 'lucide-react';
 import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
 import { FanTagPills } from '@/components/FanTagsPicker';
+import { FanAvatarFallback } from '@/components/icons/FanAvatarFallback';
 
-const CARD_TEMPLATE_SRC = '/Revised_Wrigleyville_Profile_Card.webp';
+const CARD_TEMPLATE_SRC = '/Wrigleyville_Profile_Card_v2.webp';
 
 interface CardFrontSideProps {
   profileImage?: string | null;
@@ -22,6 +23,10 @@ interface CardFrontSideProps {
   fanStreak?: number;
   userId?: string;
   fanTags?: string[];
+  /** When true, tapping the avatar opens a photo picker. */
+  editable?: boolean;
+  uploading?: boolean;
+  onPickPhoto?: () => void;
 }
 
 export function CardFrontSide({
@@ -35,6 +40,9 @@ export function CardFrontSide({
   fanStreak,
   userId,
   fanTags,
+  editable = false,
+  uploading = false,
+  onPickPhoto,
 }: CardFrontSideProps) {
   const [hasPulsed, setHasPulsed] = useState(false);
 
@@ -43,13 +51,7 @@ export function CardFrontSide({
     return () => clearTimeout(t);
   }, []);
 
-  const initials = (displayName || 'Fan')
-    .split(/\s+/)
-    .map((p) => p[0])
-    .filter(Boolean)
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
+  const hasPhoto = !!profileImage;
 
   return (
     <div
@@ -104,21 +106,49 @@ export function CardFrontSide({
           overflow: 'hidden',
           clipPath: 'circle(50% at 50% 50%)',
           zIndex: 3,
-          pointerEvents: 'none',
-          background: profileImage ? 'transparent' : 'hsl(var(--brand-navy))',
+          pointerEvents: editable ? 'auto' : 'none',
+          background: hasPhoto ? 'transparent' : 'hsl(var(--brand-navy))',
+          cursor: editable ? 'pointer' : 'default',
         }}
-        aria-label={`Profile photo of ${displayName || 'Fan'}`}
+        role={editable ? 'button' : undefined}
+        tabIndex={editable ? 0 : undefined}
+        aria-label={
+          editable
+            ? hasPhoto
+              ? 'Change your profile photo'
+              : 'Add your profile photo'
+            : `Profile photo of ${displayName || 'Fan'}`
+        }
+        onClick={
+          editable
+            ? (e) => {
+                e.stopPropagation();
+                if (!uploading) onPickPhoto?.();
+              }
+            : undefined
+        }
+        onKeyDown={
+          editable
+            ? (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (!uploading) onPickPhoto?.();
+                }
+              }
+            : undefined
+        }
       >
-        {!imgLoaded && profileImage && (
+        {!imgLoaded && hasPhoto && (
           <div
             className="absolute inset-0 animate-pulse"
             style={{ background: '#cbd5e1' }}
             aria-hidden="true"
           />
         )}
-        {profileImage ? (
+        {hasPhoto ? (
           <img
-            src={profileImage}
+            src={profileImage!}
             alt=""
             loading="lazy"
             decoding="async"
@@ -138,14 +168,65 @@ export function CardFrontSide({
             }}
           />
         ) : (
+          <FanAvatarFallback />
+        )}
+
+        {/* Uploading overlay */}
+        {editable && uploading && (
           <div
-            className="w-full h-full flex items-center justify-center text-white font-black text-2xl"
-            style={{ fontFamily: "'Graduate', serif" }}
+            className="absolute inset-0 flex items-center justify-center bg-foreground/55 backdrop-blur-[1px]"
+            aria-live="polite"
           >
-            {initials || 'CB'}
+            <Loader2 className="h-7 w-7 animate-spin text-background" aria-label="Uploading" />
           </div>
         )}
+
+        {/* Camera badge — signals editability */}
+        {editable && !uploading && (
+          <span
+            aria-hidden="true"
+            className="absolute"
+            style={{
+              right: '4%',
+              bottom: '4%',
+              width: '22%',
+              height: '22%',
+              borderRadius: '50%',
+              background: 'hsl(var(--brand-red))',
+              border: '2px solid #FFFFFF',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.25)',
+            }}
+          >
+            <Camera className="text-white" style={{ width: '55%', height: '55%' }} />
+          </span>
+        )}
       </div>
+
+      {/* "Add your photo" hint — only when editable and no photo yet */}
+      {editable && !hasPhoto && (
+        <p
+          style={{
+            position: 'absolute',
+            top: 'calc(42.8% + 22%)',
+            left: '50%',
+            transform: 'translate(-50%, 8px)',
+            zIndex: 4,
+            fontSize: 11,
+            fontWeight: 600,
+            color: 'hsl(var(--brand-navy))',
+            background: 'rgba(255,255,255,0.85)',
+            padding: '2px 8px',
+            borderRadius: 999,
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none',
+          }}
+        >
+          Tap to add your photo
+        </p>
+      )}
 
       {/* Layer 3 — Profile name in lower-left white area, above the gold stars */}
       <p

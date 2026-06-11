@@ -13,6 +13,7 @@ import { StatPreference, StatKey, DEFAULT_STAT_PREFS, StatVisibility } from '@/h
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
 import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
+import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 
 
 interface CardStats {
@@ -112,6 +113,27 @@ export function UserBaseballCard({
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { uploadPhoto, uploading } = usePhotoUpload();
+
+  const handlePickPhoto = () => {
+    if (uploading) return;
+    fileInputRef.current?.click();
+  };
+
+  const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    // Reset the input so selecting the same file again still triggers change
+    if (e.target) e.target.value = '';
+    if (!file) return;
+    try {
+      await uploadPhoto(file);
+      // updateProfile invalidates the profile query, so the avatar refreshes automatically.
+      setImgLoaded(false);
+    } catch {
+      // toast w/ retry shown by usePhotoUpload
+    }
+  };
 
   async function shareCard() {
     if (!cardRef.current || isSharing) return;
@@ -282,7 +304,22 @@ export function UserBaseballCard({
             fanStreak={fanStreak}
             userId={userId}
             fanTags={fanTags}
+            editable={isOwner}
+            uploading={uploading}
+            onPickPhoto={handlePickPhoto}
           />
+
+          {isOwner && (
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/jpg,image/png,image/webp"
+              className="sr-only"
+              onChange={handleFileSelected}
+              aria-hidden="true"
+              tabIndex={-1}
+            />
+          )}
 
         </div>
 

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, ChevronRight } from 'lucide-react';
 import bgBleachers from '@/assets/bg-bleachers.webp';
 import bgField from '@/assets/bg-field.webp';
-import bgRizzo from '@/assets/bg-rizzo.webp';
+// bg-rizzo removed: avoided player-likeness exposure
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 const FLASHBACKS = [
@@ -20,7 +20,7 @@ const FLASHBACKS = [
     era: 'Game Day',
   },
   {
-    image: bgRizzo,
+    image: bgBleachers,
     caption: 'Cubs pride runs deep in Wrigleyville',
     era: 'Fan Favorites',
   },

@@ -5,20 +5,20 @@ import bgBarPatio from '@/assets/cubs-bar-patio.webp';
 import bgPinball from '@/assets/bg-pinball.webp';
 import bgOldstyle from '@/assets/bg-oldstyle.webp';
 import bgConcourse from '@/assets/bg-concourse.jpg';
-import bgRizzo from '@/assets/bg-rizzo.webp';
+// bg-rizzo removed: avoided player-likeness exposure
 import bgField from '@/assets/bg-field.webp';
 import bgSeats from '@/assets/bg-seats.webp';
 import bgBar from '@/assets/bg-bar.webp';
 import bgPatio from '@/assets/bg-patio.webp';
 import bgBleachers from '@/assets/bg-bleachers.webp';
 
-const ALL_IMAGES = [bgWrigleyville, bgPinball, bgOldstyle, bgConcourse, bgRizzo, bgField, bgSeats, bgBar, bgPatio, bgBleachers];
+const ALL_IMAGES = [bgWrigleyville, bgPinball, bgOldstyle, bgConcourse, bgBleachers, bgField, bgSeats, bgBar, bgPatio, bgBleachers];
 
 // Deterministic mapping for main tabs so consecutive tabs never share an image
 const ROUTE_IMAGE_MAP: Record<string, string> = {
   '/discover': bgBarPatio,
   '/vibe': bgField,
-  '/hi-fives': bgRizzo,
+  '/hi-fives': bgBleachers,
   '/profile': bgSeats,
   '/messages': bgPinball,
   '/settings': bgOldstyle,

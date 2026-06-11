@@ -228,7 +228,7 @@ export default function Discover() {
     display_name: p.display_name,
     email: '',
     auth_provider: '',
-    profile_photo: p.profile_photo || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
+    profile_photo: p.profile_photo || '/placeholder.svg',
     age: p.age ?? 0,
     pronouns: p.pronouns ?? undefined,
     bio: p.bio ?? '',

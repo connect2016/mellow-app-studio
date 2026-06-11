@@ -131,52 +131,21 @@ export function UserBaseballCard({
   };
 
   async function shareCard() {
-    if (!cardRef.current || isSharing) return;
+    if (!profileImage || isSharing) return;
     setIsSharing(true);
     try {
-      const canvas = await html2canvas(cardRef.current, {
-        useCORS: true,
-        scale: 2,
-        backgroundColor: null,
-        logging: false,
+      await shareFanCard({
+        profileImage,
+        displayName,
+        surface: 'profile',
       });
-      canvas.toBlob(async (blob) => {
-        if (!blob) {
-          setIsSharing(false);
-          return;
-        }
-        const file = new File([blob], 'my-cubs-card.png', { type: 'image/png' });
-        try {
-          if (
-            typeof navigator !== 'undefined' &&
-            navigator.share &&
-            navigator.canShare &&
-            navigator.canShare({ files: [file] })
-          ) {
-            await navigator.share({
-              title: 'My Wrigleyville Buddies Fan Card',
-              text: 'Find your Cubs crew → wrigleyvillebuddies.com',
-              files: [file],
-            });
-            track('card_shared', { method: 'native' });
-          } else {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'my-cubs-card.png';
-            a.click();
-            URL.revokeObjectURL(url);
-            toast.success('Card downloaded');
-            track('card_shared', { method: 'download' });
-          }
-        } catch {
-          // user cancelled share
-        } finally {
-          setIsSharing(false);
-        }
-      }, 'image/png');
-    } catch {
-      toast.error('Could not generate card image');
+    } catch (err) {
+      console.error('Share card failed', err);
+      toast.error('Could not build your card', {
+        id: 'share-card-error',
+        action: { label: 'Retry', onClick: () => void shareCard() },
+      });
+    } finally {
       setIsSharing(false);
     }
   }

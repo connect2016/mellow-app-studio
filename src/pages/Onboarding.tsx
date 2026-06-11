@@ -120,15 +120,12 @@ export default function Onboarding() {
     setSearchParams(sp);
   };
 
-  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if (e.target) e.target.value = '';
     if (!file) return;
-    try {
-      const url = await uploadPhoto(file);
-      if (url) setPhotoUrl(url);
-    } catch {
-      toast.error("Couldn't upload photo, try again.");
-    }
+    // Open the "Make your card" dialog — upload happens after crop confirm
+    setPendingFile(file);
   };
 
   const step2Valid =

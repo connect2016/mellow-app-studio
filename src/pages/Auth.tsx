@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { lovable } from '@/integrations/lovable/index';
@@ -11,9 +11,11 @@ import { toast } from 'sonner';
 
 export default function Auth() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, loading } = useAuth();
   const { data: profile } = useProfile();
   const [pendingProvider, setPendingProvider] = useState<'google' | 'apple' | null>(null);
+  const from = (location.state as { from?: string } | null)?.from;
 
   useEffect(() => {
     if (!loading && user) {
@@ -22,12 +24,14 @@ export default function Auth() {
         !profile?.display_name?.trim() ||
         !profile?.profile_photo?.trim();
       if (incomplete) {
-        navigate('/onboarding');
+        navigate('/onboarding', { replace: true });
+      } else if (from && from !== '/auth') {
+        navigate(from, { replace: true });
       } else {
-        navigate('/discover');
+        navigate('/discover', { replace: true });
       }
     }
-  }, [user, loading, profile, navigate]);
+  }, [user, loading, profile, navigate, from]);
 
   const handleGoogleSignIn = async () => {
     setPendingProvider('google');

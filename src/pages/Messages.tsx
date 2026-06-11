@@ -270,20 +270,12 @@ export default function Messages() {
   }
 
   return (
-    <div className="relative min-h-screen pb-24">
-      <div
-        className="fixed inset-0 z-0"
-        style={{
-          backgroundImage: `url(${bgWrigleyRooftops})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
-      <div className="relative z-10">
+    <PageBackground image={bgWrigleyRooftops}>
+      <div className="min-h-screen pb-24">
         <AppHeader />
         <div className="mx-auto max-w-lg px-4 pt-4">
-          <h2 className="mb-4 text-xl font-extrabold text-slate-50">Messages</h2>
+          <h2 className="mb-4 text-xl font-extrabold text-white">Messages</h2>
+
 
           {isError ? (
             <ErrorState onRetry={() => refetch()} />

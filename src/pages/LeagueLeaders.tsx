@@ -44,7 +44,6 @@ const CATEGORIES: CategoryDef[] = [
   { key: 'barsVisitedThisWeek', label: 'Bars This Week',       shortLabel: 'Bars/Wk',    Icon: Building2 },
   { key: 'meetupsFinished',     label: 'Meetups Done',         shortLabel: 'Meetups',    Icon: CheckCircle2 },
   { key: 'fansConnected',       label: 'Fans Connected',       shortLabel: 'Fans',       Icon: Users },
-  { key: 'shotsTakenSeason',    label: 'Shots Taken (Season)', shortLabel: 'Shots',      Icon: Wine },
   { key: 'appetizersHadSeason', label: 'Appetizers (Season)',  shortLabel: 'Appetizers', Icon: UtensilsCrossed },
 ];
 

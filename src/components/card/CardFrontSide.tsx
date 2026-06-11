@@ -23,6 +23,10 @@ interface CardFrontSideProps {
   fanStreak?: number;
   userId?: string;
   fanTags?: string[];
+  /** When true, tapping the avatar opens a photo picker. */
+  editable?: boolean;
+  uploading?: boolean;
+  onPickPhoto?: () => void;
 }
 
 export function CardFrontSide({

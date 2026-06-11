@@ -142,26 +142,26 @@ const App = () => (
               <Route path="/venues" element={<Venues />} />
               <Route path="/claim/:code" element={<ClaimBeer />} />
               <Route path="/dugout" element={<Dugout />} />
+              <Route path="/share-seat" element={<ShareSeat />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/settings/notifications" element={<NotificationPreferences />} />
+              <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
+              <Route path="/wrigley-passport" element={<WrigleyPassport />} />
+              <Route path="/bar-map" element={<FanMap />} />
+              <Route path="/bars" element={<BarMap />} />
+              <Route path="/buddy-heatmap" element={<BuddyHeatmap />} />
+              <Route path="/section-chat" element={<SectionChat />} />
+              <Route path="/verify" element={<VerifyFan />} />
+              <Route path="/pub-crawl" element={<PubCrawl />} />
+              <Route path="/meetups" element={<Meetups />} />
+              <Route path="/meetups/:id" element={<MeetupDetail />} />
+              <Route path="/eats" element={<WrigleyvilleEats />} />
+              <Route path="/league-leaders" element={<LeagueLeaders />} />
             </Route>
-            <Route path="/share-seat" element={<ShareSeat />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/settings/notifications" element={<NotificationPreferences />} />
             <Route element={<AdminRoute />}>
               <Route path="/admin" element={<Admin />} />
               <Route path="/admin/seed" element={<AdminSeed />} />
             </Route>
-            <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
-            <Route path="/wrigley-passport" element={<WrigleyPassport />} />
-            <Route path="/bar-map" element={<FanMap />} />
-            <Route path="/bars" element={<BarMap />} />
-            <Route path="/buddy-heatmap" element={<BuddyHeatmap />} />
-            <Route path="/section-chat" element={<SectionChat />} />
-            <Route path="/verify" element={<VerifyFan />} />
-            <Route path="/pub-crawl" element={<PubCrawl />} />
-            <Route path="/meetups" element={<Meetups />} />
-            <Route path="/meetups/:id" element={<MeetupDetail />} />
-            <Route path="/eats" element={<WrigleyvilleEats />} />
-            <Route path="/league-leaders" element={<LeagueLeaders />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <CreateMeetupFab />

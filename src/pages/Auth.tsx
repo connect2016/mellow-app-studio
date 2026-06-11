@@ -143,6 +143,10 @@ export default function Auth() {
           </Button>
         </div>
 
+        <p className="mt-4 text-center text-xs text-muted-foreground">
+          Free to join · No password needed
+        </p>
+
         <p className="mt-6 text-center" style={{ fontSize: '11px', color: 'hsl(var(--muted-foreground))' }}>
           By continuing, you agree to our{' '}
           <a href="/terms" className="underline hover:no-underline">Terms of Service</a>

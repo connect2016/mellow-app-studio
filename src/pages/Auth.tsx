@@ -30,23 +30,55 @@ export default function Auth() {
   }, [user, loading, profile, navigate]);
 
   const handleGoogleSignIn = async () => {
-    track('user_signed_up', { method: 'google' });
-    const { error } = await lovable.auth.signInWithOAuth('google', {
+    setPendingProvider('google');
+    const result = await lovable.auth.signInWithOAuth('google', {
       redirect_uri: window.location.origin,
     });
-    if (error) {
-      console.error('Google sign-in error:', error);
+    setPendingProvider(null);
+
+    if (result.error) {
+      const isPopupOrNetwork = /popup|blocked|network|connection|failed to fetch|timeout/i.test(
+        result.error.message || result.error.code || ''
+      );
+      const suffix = isPopupOrNetwork
+        ? ' Check your connection or try the other sign-in option.'
+        : '';
+      toast.error(`Couldn't sign in with Google — please try again.${suffix}`);
+      console.error('Google sign-in error:', result.error);
+      return;
     }
+
+    if (result.redirected) {
+      return;
+    }
+
+    track('user_signed_up', { method: 'google' });
   };
 
   const handleAppleSignIn = async () => {
-    track('user_signed_up', { method: 'apple' });
-    const { error } = await lovable.auth.signInWithOAuth('apple', {
+    setPendingProvider('apple');
+    const result = await lovable.auth.signInWithOAuth('apple', {
       redirect_uri: window.location.origin,
     });
-    if (error) {
-      console.error('Apple sign-in error:', error);
+    setPendingProvider(null);
+
+    if (result.error) {
+      const isPopupOrNetwork = /popup|blocked|network|connection|failed to fetch|timeout/i.test(
+        result.error.message || result.error.code || ''
+      );
+      const suffix = isPopupOrNetwork
+        ? ' Check your connection or try the other sign-in option.'
+        : '';
+      toast.error(`Couldn't sign in with Apple — please try again.${suffix}`);
+      console.error('Apple sign-in error:', result.error);
+      return;
     }
+
+    if (result.redirected) {
+      return;
+    }
+
+    track('user_signed_up', { method: 'apple' });
   };
 
   return (

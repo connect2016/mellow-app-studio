@@ -10,7 +10,7 @@ import { haptic } from '@/lib/haptics';
 import { cn } from '@/lib/utils';
 import { MoveTonightSheet } from '@/components/MoveTonightSheet';
 
-// Routes where the FAB should be hidden
+// Routes where the FAB should be hidden entirely
 const HIDDEN_ROUTES = ['/', '/auth', '/onboarding', '/quick-start', '/verify'];
 
 export function CreateMeetupFab() {
@@ -62,7 +62,38 @@ export function CreateMeetupFab() {
     },
   });
 
-  const hidden = HIDDEN_ROUTES.includes(location.pathname) || isOpen || !user;
+  // On Meetups page: hide FAB when there are no meetups (empty state already has CTA)
+  const isMeetupsPage = location.pathname === '/meetups';
+  const { data: meetupCount = 0 } = useQuery({
+    queryKey: ['fab-meetup-count'],
+    enabled: isMeetupsPage && !!user,
+    queryFn: async () => {
+      const now = new Date().toISOString();
+      const { count, error } = await supabase
+        .from('lineup_meetups')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'active')
+        .gte('expires_at', now);
+      if (error) throw error;
+      return count ?? 0;
+    },
+  });
+
+  // Extended FAB on Messages and Discover pages
+  const isExtended = ['/messages', '/discover', '/discover-fans'].includes(location.pathname);
+
+  // Profile pages: hide entirely (FAB overlaps fan card)
+  const isProfilePage = location.pathname === '/profile'
+    || location.pathname.startsWith('/profile/')
+    || location.pathname.startsWith('/u/');
+
+  const hidden =
+    HIDDEN_ROUTES.includes(location.pathname) ||
+    isOpen ||
+    !user ||
+    isProfilePage ||
+    (isMeetupsPage && meetupCount === 0);
+
   if (hidden) return null;
 
   const isHot = (activity?.active ?? 0) >= 3;
@@ -84,27 +115,32 @@ export function CreateMeetupFab() {
         onClick={handleFabClick}
         data-no-swipe-nav
         className={cn(
-          'fixed left-1/2 -translate-x-1/2 z-[60]',
-          'bottom-[136px]',
-          'h-14 w-14 rounded-full flex items-center justify-center',
+          'fixed right-4 z-[60]',
+          'bottom-[calc(72px+env(safe-area-inset-bottom))]',
+          'flex items-center justify-center',
           'bg-[hsl(var(--brand-red))] text-white',
           'shadow-[0_8px_20px_rgba(200,16,46,0.20),0_4px_8px_rgba(0,0,0,0.18)]',
           'ring-4 ring-background',
           'fab-base',
           entered && 'fab-enter',
           isHot && !isHidden && !sheetOpen && 'fab-attention',
-          isHidden && !sheetOpen ? 'fab-hidden' : 'fab-revealed'
+          isHidden && !sheetOpen ? 'fab-hidden' : 'fab-revealed',
+          isExtended
+            ? 'h-12 px-5 rounded-full gap-2'
+            : 'h-14 w-14 rounded-full'
         )}
-        style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
       >
         <Plus
-          className="h-7 w-7"
+          className={cn(isExtended ? 'h-5 w-5' : 'h-7 w-7')}
           strokeWidth={3}
           style={{
             transform: sheetOpen ? 'rotate(45deg)' : 'rotate(0deg)',
             transition: 'transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1)',
           }}
         />
+        {isExtended && (
+          <span className="text-sm font-bold tracking-tight">Meetup</span>
+        )}
         {isHot && !isHidden && !sheetOpen && (
           <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[hsl(var(--brand-red))]/55 animate-ping" />
         )}

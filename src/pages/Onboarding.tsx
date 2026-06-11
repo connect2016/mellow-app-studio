@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
+import { MakeYourCardDialog } from '@/components/card/MakeYourCardDialog';
 import { Camera, Loader2, ChevronRight, Users, UsersRound, MapPin } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { SeasonTicketHolderToggle } from '@/components/profile/SeasonTicketHolderToggle';
@@ -53,6 +54,7 @@ export default function Onboarding() {
   const [isSTH, setIsSTH] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   // Prefill + skip if already completed (skip when a draft exists — draft wins)
@@ -118,15 +120,12 @@ export default function Onboarding() {
     setSearchParams(sp);
   };
 
-  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if (e.target) e.target.value = '';
     if (!file) return;
-    try {
-      const url = await uploadPhoto(file);
-      if (url) setPhotoUrl(url);
-    } catch {
-      toast.error("Couldn't upload photo, try again.");
-    }
+    // Open the "Make your card" dialog — upload happens after crop confirm
+    setPendingFile(file);
   };
 
   const step2Valid =
@@ -284,10 +283,20 @@ export default function Onboarding() {
             <input
               ref={fileRef}
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/jpg,image/png,image/webp"
               capture="environment"
               className="hidden"
               onChange={handleFile}
+            />
+            <MakeYourCardDialog
+              open={!!pendingFile}
+              file={pendingFile}
+              displayName={displayName || 'You'}
+              onClose={() => setPendingFile(null)}
+              onUploaded={(url) => {
+                setPhotoUrl(url);
+                setPendingFile(null);
+              }}
             />
           </div>
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { IntentType, GamedayIntentType } from '@/types';
@@ -27,6 +27,8 @@ interface CardFrontSideProps {
   editable?: boolean;
   uploading?: boolean;
   onPickPhoto?: () => void;
+  /** Optional override rendered inside the circular avatar slot (used by the crop dialog live preview). */
+  avatarSlot?: ReactNode;
 }
 
 export function CardFrontSide({
@@ -43,6 +45,7 @@ export function CardFrontSide({
   editable = false,
   uploading = false,
   onPickPhoto,
+  avatarSlot,
 }: CardFrontSideProps) {
   const [hasPulsed, setHasPulsed] = useState(false);
 
@@ -139,36 +142,42 @@ export function CardFrontSide({
             : undefined
         }
       >
-        {!imgLoaded && hasPhoto && (
-          <div
-            className="absolute inset-0 animate-pulse"
-            style={{ background: '#cbd5e1' }}
-            aria-hidden="true"
-          />
-        )}
-        {hasPhoto ? (
-          <img
-            src={profileImage!}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            onLoad={onImgLoad}
-            onError={onImgLoad}
-            className={cn(
-              'transition-opacity duration-300',
-              imgLoaded ? 'opacity-100' : 'opacity-0'
-            )}
-            style={{
-              width: '100%',
-              aspectRatio: '1 / 1',
-              height: 'auto',
-              objectFit: 'cover',
-              objectPosition: 'center center',
-              display: 'block',
-            }}
-          />
+        {avatarSlot ? (
+          avatarSlot
         ) : (
-          <FanAvatarFallback />
+          <>
+            {!imgLoaded && hasPhoto && (
+              <div
+                className="absolute inset-0 animate-pulse"
+                style={{ background: '#cbd5e1' }}
+                aria-hidden="true"
+              />
+            )}
+            {hasPhoto ? (
+              <img
+                src={profileImage!}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                onLoad={onImgLoad}
+                onError={onImgLoad}
+                className={cn(
+                  'transition-opacity duration-300',
+                  imgLoaded ? 'opacity-100' : 'opacity-0'
+                )}
+                style={{
+                  width: '100%',
+                  aspectRatio: '1 / 1',
+                  height: 'auto',
+                  objectFit: 'cover',
+                  objectPosition: 'center center',
+                  display: 'block',
+                }}
+              />
+            ) : (
+              <FanAvatarFallback />
+            )}
+          </>
         )}
 
         {/* Uploading overlay */}

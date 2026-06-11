@@ -3,11 +3,12 @@ import { cn } from '@/lib/utils';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { IntentType, GamedayIntentType } from '@/types';
 import { ReactionDef } from '@/components/reactions/reactionData';
-import { BarChart3 } from 'lucide-react';
+import { BarChart3, Camera, Loader2 } from 'lucide-react';
 import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
 import { FanTagPills } from '@/components/FanTagsPicker';
+import { FanAvatarFallback } from '@/components/icons/FanAvatarFallback';
 
-const CARD_TEMPLATE_SRC = '/Revised_Wrigleyville_Profile_Card.webp';
+const CARD_TEMPLATE_SRC = '/Wrigleyville_Profile_Card_v2.webp';
 
 interface CardFrontSideProps {
   profileImage?: string | null;

@@ -121,12 +121,6 @@ export default function HeroVideo() {
 
         {/* BLOCK 2 — Unified social proof + tagline */}
         <div className="mt-8 flex flex-col items-center gap-2.5">
-          <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/40 px-4 py-1.5 backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-            </span>
-        <div className="mt-8 flex flex-col items-center gap-2.5">
           {liveCount !== null && liveCount >= MIN_LIVE_COUNT_TO_SHOW && (
             <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/40 px-4 py-1.5 backdrop-blur-md">
               <span className="relative flex h-2 w-2">

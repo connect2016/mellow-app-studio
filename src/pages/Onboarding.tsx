@@ -283,10 +283,20 @@ export default function Onboarding() {
             <input
               ref={fileRef}
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/jpg,image/png,image/webp"
               capture="environment"
               className="hidden"
               onChange={handleFile}
+            />
+            <MakeYourCardDialog
+              open={!!pendingFile}
+              file={pendingFile}
+              displayName={displayName || 'You'}
+              onClose={() => setPendingFile(null)}
+              onUploaded={(url) => {
+                setPhotoUrl(url);
+                setPendingFile(null);
+              }}
             />
           </div>
 

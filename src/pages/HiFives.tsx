@@ -10,7 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Zap, MessageCircle, ChevronDown } from 'lucide-react';
 import { ErrorState } from '@/components/ErrorState';
-import bgWrigleyvilleStreet from '@/assets/bg-wrigleyville-street.webp';
+
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 

@@ -4,6 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useUpdateProfile } from '@/hooks/useProfile';
 import { track } from '@/lib/analytics';
 import { toast } from 'sonner';
+import { compressProfilePhoto } from '@/lib/image-compress';
 
 export function usePhotoUpload() {
   const { user } = useAuth();

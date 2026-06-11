@@ -792,7 +792,7 @@ main {
   position: relative;
   min-height: 100vh;
   background-color: #8a9bb0; /* sky-grey tone while image loads */
-  background-image: url('/wrigley-rainbow.jpg');
+  background-image: url('/wrigley-rainbow.webp');
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;

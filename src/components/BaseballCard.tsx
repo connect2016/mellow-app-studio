@@ -4,8 +4,8 @@ import { IntentType, INTENT_LABELS, INTENT_EMOJI, GameStatus, GAME_STATUS_LABELS
 import { ShieldCheck } from 'lucide-react';
 import { GamedayPersona, PERSONA_CONFIG } from '@/components/PersonaBadge';
 import { PersonaIcon } from '@/components/icons/PersonaIcons';
-import logoTransparent from '@/assets/logo-transparent.png';
-import cardFrontArt from '@/assets/baseball-card-front.png';
+import logoTransparent from '@/assets/logo-transparent.webp';
+import cardFrontArt from '@/assets/baseball-card-front.webp';
 
 // "Position" labels based on fan style / persona
 const POSITION_LABELS: Record<string, string> = {

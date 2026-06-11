@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
-import wrigleyvilleLogo from "@/assets/wrigleyville-logo.png";
+import wrigleyvilleLogo from "@/assets/wrigleyville-logo.webp";
 import { Beer, Building2 } from "lucide-react";
 
 interface BarFormData {

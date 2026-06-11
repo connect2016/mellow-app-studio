@@ -45,7 +45,7 @@ export function CardBackSide({ displayName, visibleStats, isOwner, userId, onFli
       <div
         className="card-back relative w-full h-full rounded-2xl border-2 border-primary/30 shadow-md flex flex-col overflow-hidden"
         style={{
-          backgroundImage: "url('/wrigley-crowd.jpg')",
+          backgroundImage: "url('/wrigley-crowd.webp')",
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat',

@@ -1,16 +1,16 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import bgWrigleyville from '@/assets/bg-wrigleyville-lofts.jpg';
-import bgBarPatio from '@/assets/cubs-bar-patio.png';
-import bgPinball from '@/assets/bg-pinball.jpg';
-import bgOldstyle from '@/assets/bg-oldstyle.jpg';
+import bgBarPatio from '@/assets/cubs-bar-patio.webp';
+import bgPinball from '@/assets/bg-pinball.webp';
+import bgOldstyle from '@/assets/bg-oldstyle.webp';
 import bgConcourse from '@/assets/bg-concourse.jpg';
-import bgRizzo from '@/assets/bg-rizzo.jpg';
-import bgField from '@/assets/bg-field.jpg';
+import bgRizzo from '@/assets/bg-rizzo.webp';
+import bgField from '@/assets/bg-field.webp';
 import bgSeats from '@/assets/bg-seats.webp';
-import bgBar from '@/assets/bg-bar.jpg';
-import bgPatio from '@/assets/bg-patio.jpg';
-import bgBleachers from '@/assets/bg-bleachers.jpg';
+import bgBar from '@/assets/bg-bar.webp';
+import bgPatio from '@/assets/bg-patio.webp';
+import bgBleachers from '@/assets/bg-bleachers.webp';
 
 const ALL_IMAGES = [bgWrigleyville, bgPinball, bgOldstyle, bgConcourse, bgRizzo, bgField, bgSeats, bgBar, bgPatio, bgBleachers];
 

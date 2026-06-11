@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Compass, Map, CalendarDays, User, Bell, Trophy } from 'lucide-react';
-import wrigleyvilleLogo from '@/assets/wrigleyville-logo.png';
+import wrigleyvilleLogo from '@/assets/wrigleyville-logo.webp';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';

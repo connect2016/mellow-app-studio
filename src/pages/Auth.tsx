@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { lovable } from '@/integrations/lovable/index';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
-import logo from '@/assets/logo.png';
+import logo from '@/assets/logo.webp';
 import { track } from '@/lib/analytics';
 import { toast } from 'sonner';
 

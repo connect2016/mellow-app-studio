@@ -46,10 +46,10 @@ export function SeasonStatsEditor({ values, onUpdate }: SeasonStatsEditorProps) 
   const counters: Array<{
     key: 'shots_taken_season' | 'appetizers_had_season';
     label: string;
-    Icon: typeof Wine;
+    Icon: typeof HotDogIcon;
     quickAdd: number[];
   }> = [
-    { key: 'shots_taken_season', label: 'Shots Taken (Season)', Icon: Wine, quickAdd: [1, 3, 5] },
+    { key: 'shots_taken_season', label: 'Ballpark Dogs Devoured (Season)', Icon: HotDogIcon, quickAdd: [1, 2, 3] },
     { key: 'appetizers_had_season', label: 'Appetizers Had (Season)', Icon: UtensilsCrossed, quickAdd: [1, 2, 4] },
   ];
 

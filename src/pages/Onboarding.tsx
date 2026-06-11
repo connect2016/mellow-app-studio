@@ -55,19 +55,61 @@ export default function Onboarding() {
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // Prefill + skip if already completed
+  // Prefill + skip if already completed (skip when a draft exists — draft wins)
   useEffect(() => {
     if (!profile) return;
     if (profile.onboarding_completed) {
       navigate('/discover', { replace: true });
       return;
     }
+    const hasDraft = !!sessionStorage.getItem('wb_onboarding_draft');
+    if (hasDraft) return;
     if (profile.display_name) setDisplayName(profile.display_name);
     if (profile.profile_photo) setPhotoUrl(profile.profile_photo);
     if (profile.wrigley_section) setSection(profile.wrigley_section);
     if ((profile as any).attendance_frequency) setFrequency((profile as any).attendance_frequency);
     if ((profile as any).is_season_ticket_holder) setIsSTH(true);
   }, [profile, navigate]);
+
+  // Restore draft on mount
+  useEffect(() => {
+    const raw = sessionStorage.getItem('wb_onboarding_draft');
+    if (!raw) return;
+    try {
+      const draft = JSON.parse(raw);
+      if (draft.formFields?.displayName) setDisplayName(draft.formFields.displayName);
+      if (draft.formFields?.photoUrl) setPhotoUrl(draft.formFields.photoUrl);
+      if (draft.formFields?.section) setSection(draft.formFields.section);
+      if (draft.formFields?.frequency) setFrequency(draft.formFields.frequency);
+      if (draft.formFields?.goal) setGoal(draft.formFields.goal);
+      if (typeof draft.formFields?.isSTH === 'boolean') setIsSTH(draft.formFields.isSTH);
+    } catch {
+      // ignore corrupt draft
+    }
+  }, []);
+
+  // Persist draft on every change
+  useEffect(() => {
+    const draft = {
+      step,
+      formFields: {
+        displayName,
+        photoUrl,
+        section,
+        frequency,
+        goal,
+        isSTH,
+      },
+    };
+    sessionStorage.setItem('wb_onboarding_draft', JSON.stringify(draft));
+  }, [step, displayName, photoUrl, section, frequency, goal, isSTH]);
+
+  // Keep URL in sync with step so browser back moves backward through the flow
+  useEffect(() => {
+    const urlStep = parseInt(searchParams.get('step') || '');
+    const validStep = urlStep >= 1 && urlStep <= 3 ? (urlStep as 1 | 2 | 3) : 1;
+    setStep((current) => (validStep === current ? current : validStep));
+  }, [searchParams]);
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

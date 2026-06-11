@@ -69,7 +69,7 @@ export const CARD_STAT_LABELS: Record<StatKey, string> = {
   barsVisitedThisWeek: 'Bars This Week',
   meetupsFinished: 'Meetups Done',
   fansConnected: 'Fans Connected',
-  shotsTakenSeason: 'Shots (Season)',
+  shotsTakenSeason: 'Ballpark Dogs Devoured',
   appetizersHadSeason: 'Appetizers (Season)',
   favoriteFoodSpot: 'Favorite Food Spot',
 };

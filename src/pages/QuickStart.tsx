@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { Check, ArrowRight, MapPin, Globe, Map as MapIcon, X, Loader2, Navigation, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import quickstartBg from '@/assets/quickstart-bg.webp';
+import { PageBackground } from '@/components/PageBackground';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useGeolocation } from '@/hooks/useGeolocation';
@@ -240,14 +241,9 @@ export default function QuickStart() {
   };
 
   return (
-    <div
-      className="min-h-screen relative bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${quickstartBg})` }}
-    >
-      {/* Readability overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/75 to-background/95 backdrop-blur-[2px]" aria-hidden />
-      <div className="relative z-10">
+    <PageBackground image={quickstartBg}>
       <AppHeader />
+
       <main className="mx-auto max-w-md px-4 pt-10 pb-32">
 
         {/* Progress dots */}
@@ -631,8 +627,7 @@ export default function QuickStart() {
         </DialogContent>
       </Dialog>
       <GeolocationModal open={geo.showModal} onOpenChange={geo.setShowModal} controller={geo} />
-      </div>
-    </div>
+    </PageBackground>
   );
 }
 

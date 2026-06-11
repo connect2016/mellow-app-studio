@@ -10,6 +10,7 @@ import { ErrorState } from '@/components/ErrorState';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
 import { EmptyState } from '@/components/ui/EmptyState';
 import bgWrigleyRooftops from '@/assets/bg-wrigley-rooftops.webp';
+import { PageBackground } from '@/components/PageBackground';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCrews } from '@/hooks/useCrews';
 import {
@@ -104,17 +105,9 @@ export default function Messages() {
 
   if (selectedConvoId && selectedConvo) {
     return (
-      <div className="relative flex min-h-screen flex-col pb-24">
-        <div
-          className="fixed inset-0 z-0"
-          style={{
-            backgroundImage: `url(${bgWrigleyRooftops})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
-        <div className="relative z-10 flex flex-1 flex-col">
+      <PageBackground image={bgWrigleyRooftops}>
+        <div className="flex min-h-screen flex-col pb-24">
+
           <AppHeader />
           <div className="mx-auto w-full max-w-lg flex-1 flex flex-col">
             <div className="flex items-center gap-3 border-b border-border px-4 py-3 bg-card/80 backdrop-blur">
@@ -272,25 +265,17 @@ export default function Messages() {
             </div>
           </div>
         </div>
-      </div>
+      </PageBackground>
     );
   }
 
   return (
-    <div className="relative min-h-screen pb-24">
-      <div
-        className="fixed inset-0 z-0"
-        style={{
-          backgroundImage: `url(${bgWrigleyRooftops})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
-      <div className="relative z-10">
+    <PageBackground image={bgWrigleyRooftops}>
+      <div className="min-h-screen pb-24">
         <AppHeader />
         <div className="mx-auto max-w-lg px-4 pt-4">
-          <h2 className="mb-4 text-xl font-extrabold text-slate-50">Messages</h2>
+          <h2 className="mb-4 text-xl font-extrabold text-white">Messages</h2>
+
 
           {isError ? (
             <ErrorState onRetry={() => refetch()} />
@@ -421,6 +406,6 @@ export default function Messages() {
           )}
         </div>
       </div>
-    </div>
+    </PageBackground>
   );
 }

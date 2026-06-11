@@ -2,7 +2,7 @@ import { SEOMeta } from '@/components/SEOMeta';
 import { ProfileCardSkeleton } from '@/components/ui/skeleton';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { DynamicBackground } from '@/components/DynamicBackground';
+import { PageBackground } from '@/components/PageBackground';
 import { AppHeader } from '@/components/AppHeader';
 
 import { UserBaseballCard } from '@/components/UserBaseballCard';
@@ -244,37 +244,15 @@ export default function Profile() {
   }
 
   return (
-    <div
-      className="profile-page relative pb-24"
-      style={{
-        backgroundImage: "url('/wrigley-seats.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundAttachment: 'fixed',
-        backgroundRepeat: 'no-repeat',
-        minHeight: '100vh',
-      }}
-    >
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(8, 18, 8, 0.58)',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      />
+    <PageBackground image="/wrigley-seats.jpg" className="profile-page pb-24">
       <SEOMeta
         title="Your Profile — Wrigleyville Buddies"
         description="View and customize your Wrigleyville Buddies profile, season stats, badges, and meetup history."
       />
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <AppHeader />
-      </div>
+      <AppHeader />
 
+      <div className="mx-auto max-w-lg px-4 pt-4">
 
-      <div className="mx-auto max-w-lg px-4 pt-4" style={{ position: 'relative', zIndex: 1 }}>
         {!isOwnProfile && (
           <button onClick={() => navigate(-1)} className="flex items-center gap-1 mb-4 text-sm text-muted-foreground hover:text-foreground min-h-[44px] min-w-[44px]">
             <ArrowLeft className="h-4 w-4" /> Back
@@ -522,6 +500,6 @@ export default function Profile() {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+    </PageBackground>
   );
 }

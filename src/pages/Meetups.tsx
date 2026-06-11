@@ -10,7 +10,7 @@ import { MeetupFilters, type WhenFilter, type WhereFilter } from '@/components/m
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { GuestBanner } from '@/components/GuestBanner';
 import { usePersonalCrewIds } from '@/hooks/usePersonalCrew';
-import { WrigleyRainbowBackground } from '@/components/WrigleyRainbowBackground';
+import { DynamicBackground } from '@/components/DynamicBackground';
 import { SkeletonCard } from '@/components/ui/skeleton';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
@@ -67,7 +67,7 @@ export default function Meetups() {
   });
 
   return (
-    <WrigleyRainbowBackground>
+    <DynamicBackground>
     <div className={`min-h-screen relative overflow-x-hidden ${isGuest ? 'pb-20' : 'pb-24'}`}>
       <SEOMeta
         title="Meetups — Cubs Fan Game-Day Plans"
@@ -161,7 +161,7 @@ export default function Meetups() {
       {isGuest && <GuestBanner />}
       </div>
     </div>
-    </WrigleyRainbowBackground>
+    </DynamicBackground>
   );
 }
 

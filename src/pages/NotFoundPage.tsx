@@ -1,10 +1,19 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { AppHeader } from "@/components/AppHeader";
 import { Button } from "@/components/ui/button";
 import { SEOMeta } from "@/components/SEOMeta";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.error(
+      "404 Error: User attempted to access non-existent route:",
+      location.pathname
+    );
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">

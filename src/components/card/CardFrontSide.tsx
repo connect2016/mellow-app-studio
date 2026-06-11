@@ -105,7 +105,7 @@ export function CardFrontSide({
           clipPath: 'circle(50% at 50% 50%)',
           zIndex: 3,
           pointerEvents: 'none',
-          background: profileImage ? 'transparent' : '#0A2A66',
+          background: profileImage ? 'transparent' : 'hsl(var(--brand-navy))',
         }}
         aria-label={`Profile photo of ${displayName || 'Fan'}`}
       >
@@ -159,7 +159,7 @@ export function CardFrontSide({
           fontSize: '16px',
           fontWeight: 800,
           letterSpacing: '0.01em',
-          color: '#1a1f2e',
+          color: 'hsl(var(--foreground))',
           zIndex: 4,
           textShadow: 'none',
           background: 'transparent',
@@ -183,7 +183,7 @@ export function CardFrontSide({
             textAlign: 'left',
             fontSize: '10px',
             fontWeight: 600,
-            color: '#0E3386',
+            color: 'hsl(var(--brand-navy))',
             zIndex: 4,
             pointerEvents: 'none',
           }}
@@ -208,7 +208,7 @@ export function CardFrontSide({
             textAlign: 'center',
             fontSize: '11px',
             fontWeight: 600,
-            color: '#0E3386',
+            color: 'hsl(var(--brand-navy))',
             zIndex: 3,
             pointerEvents: 'none',
           }}

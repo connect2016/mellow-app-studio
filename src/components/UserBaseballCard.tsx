@@ -350,7 +350,7 @@ export function UserBaseballCard({
             size="default"
             className="w-full rounded-2xl gap-2 font-semibold min-h-[48px] px-6 shadow-sm active:scale-[0.97] transition-all"
             style={{
-              background: '#0E3386',
+              background: 'hsl(var(--brand-navy))',
               color: '#FFFFFF',
               border: 'none',
               fontSize: '15px',
@@ -381,8 +381,8 @@ export function UserBaseballCard({
             className="w-full rounded-2xl gap-2 font-semibold min-h-[48px] shadow-sm active:scale-[0.97] transition-all"
             style={{
               background: '#FFFFFF',
-              color: '#0E3386',
-              border: '2px solid #0E3386',
+              color: 'hsl(var(--brand-navy))',
+              border: '2px solid hsl(var(--brand-navy))',
               fontSize: '15px',
               fontWeight: 600,
               borderRadius: '12px',
@@ -396,7 +396,7 @@ export function UserBaseballCard({
             disabled={isSharing}
             aria-label="Share my fan card"
           >
-            {isSharing ? <Loader2 className="h-5 w-5 animate-spin" style={{ color: '#0E3386' }} /> : <Share2 className="h-5 w-5" style={{ color: '#0E3386' }} />}
+            {isSharing ? <Loader2 className="h-5 w-5 animate-spin" style={{ color: 'hsl(var(--brand-navy))' }} /> : <Share2 className="h-5 w-5" style={{ color: 'hsl(var(--brand-navy))' }} />}
             {isSharing ? 'Preparing…' : 'Share my card'}
           </Button>
         </div>

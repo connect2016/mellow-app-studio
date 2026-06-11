@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-const CUBS_BLUE = '#0E3386';
-const CUBS_RED = '#CC3433';
+const CUBS_BLUE = 'hsl(var(--brand-navy))';
+const CUBS_RED = 'hsl(var(--brand-red))';
 
 type GameState = 'Live' | 'Final' | 'Pre-Game' | 'Postponed' | 'Scheduled';
 

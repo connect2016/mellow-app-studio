@@ -54,7 +54,7 @@ export function NotificationDrawer({ open, onOpenChange, onUnreadChange }: Props
         <SheetDescription className="sr-only">Recent activity from Wrigleyville Buddies</SheetDescription>
 
         {/* Red header bar */}
-        <div className="bg-[#C8102E] px-4 py-3 flex items-center justify-between gap-3 shadow-md">
+        <div className="bg-[hsl(var(--brand-red))] px-4 py-3 flex items-center justify-between gap-3 shadow-md">
           <div className="flex items-center gap-2 text-white">
             <Bell className="h-5 w-5" strokeWidth={2.5} />
             <span
@@ -87,7 +87,7 @@ export function NotificationDrawer({ open, onOpenChange, onUnreadChange }: Props
         <div className="overflow-y-auto p-3 space-y-2">
           {allRead ? (
             <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
-              <div className="h-16 w-16 rounded-full bg-[#C8102E]/20 ring-2 ring-[#C8102E]/40 flex items-center justify-center mb-3">
+              <div className="h-16 w-16 rounded-full bg-[hsl(var(--brand-red))]/20 ring-2 ring-[hsl(var(--brand-red))]/40 flex items-center justify-center mb-3">
                 <ConceptIcon name="baseball" className="h-8 w-8 text-white" />
               </div>
               <p
@@ -111,7 +111,7 @@ export function NotificationDrawer({ open, onOpenChange, onUnreadChange }: Props
                       : 'bg-white/10 hover:bg-white/15 ring-1 ring-white/10'
                   }`}
                 >
-                  <div className="shrink-0 h-10 w-10 rounded-lg bg-[#C8102E]/25 ring-1 ring-[#C8102E]/50 flex items-center justify-center">
+                  <div className="shrink-0 h-10 w-10 rounded-lg bg-[hsl(var(--brand-red))]/25 ring-1 ring-[hsl(var(--brand-red))]/50 flex items-center justify-center">
                     <ConceptIcon name={n.iconName} className="h-5 w-5 text-white" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -124,7 +124,7 @@ export function NotificationDrawer({ open, onOpenChange, onUnreadChange }: Props
                     <p className="text-white/60 text-xs mt-1">{n.timeAgo}</p>
                   </div>
                   {!isRead && (
-                    <span className="mt-1 shrink-0 h-2.5 w-2.5 rounded-full bg-[#C8102E] ring-2 ring-[#C8102E]/40 animate-pulse" />
+                    <span className="mt-1 shrink-0 h-2.5 w-2.5 rounded-full bg-[hsl(var(--brand-red))] ring-2 ring-[hsl(var(--brand-red))]/40 animate-pulse" />
                   )}
                 </button>
               );

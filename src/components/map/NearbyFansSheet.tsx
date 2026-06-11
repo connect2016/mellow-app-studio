@@ -126,7 +126,7 @@ export function NearbyFansSheet({
           {selectedGate && (
             <button
               onClick={() => onSelectGate(null)}
-              className="text-[11px] font-semibold text-[#0E3386]"
+              className="text-[11px] font-semibold text-[hsl(var(--brand-navy))]"
             >
               Clear
             </button>
@@ -153,7 +153,7 @@ export function NearbyFansSheet({
               <li key={fan.id} className="flex items-center gap-3 px-4 py-3">
                 <Avatar className="h-12 w-12 shrink-0">
                   <AvatarImage src={fan.photo ?? undefined} alt="" />
-                  <AvatarFallback className="bg-[#0E3386] text-white font-bold">
+                  <AvatarFallback className="bg-[hsl(var(--brand-navy))] text-white font-bold">
                     {fan.name?.charAt(0) || '?'}
                   </AvatarFallback>
                 </Avatar>
@@ -171,7 +171,7 @@ export function NearbyFansSheet({
                   </button>
                   <button
                     onClick={() => onSayHi(fan)}
-                    className="min-h-[44px] px-3 inline-flex items-center justify-center gap-1 rounded-full bg-[#0E3386] text-white text-xs font-bold"
+                    className="min-h-[44px] px-3 inline-flex items-center justify-center gap-1 rounded-full bg-[hsl(var(--brand-navy))] text-white text-xs font-bold"
                   >
                     <Hand className="h-3.5 w-3.5" /> Say Hi
                   </button>

@@ -378,7 +378,7 @@ export default function Notifications() {
                               <p
                                 className={cn(
                                   'text-[15px] font-semibold truncate',
-                                  notif.is_read ? 'text-white' : 'text-[#0A2A66]',
+                                  notif.is_read ? 'text-white' : 'text-[hsl(var(--brand-navy))]',
                                 )}
                                 style={notif.is_read ? { textShadow: '0 1px 2px hsla(222, 47%, 4%, 0.5)' } : undefined}
                               >
@@ -391,7 +391,7 @@ export default function Notifications() {
                             <p
                               className={cn(
                                 'text-[13px] mt-0.5 line-clamp-2 leading-relaxed',
-                                notif.is_read ? 'text-white/85' : 'text-[#0A2A66]/85',
+                                notif.is_read ? 'text-white/85' : 'text-[hsl(var(--brand-navy))]/85',
                               )}
                             >
                               {notif.body}
@@ -399,7 +399,7 @@ export default function Notifications() {
                             <p
                               className={cn(
                                 'text-[11px] mt-1 font-medium',
-                                notif.is_read ? 'text-white/65' : 'text-[#0A2A66]/65',
+                                notif.is_read ? 'text-white/65' : 'text-[hsl(var(--brand-navy))]/65',
                               )}
                             >
                               {timeAgo(notif.created_at)}
@@ -455,9 +455,9 @@ export default function Notifications() {
                             <button
                               onClick={(e) => { e.stopPropagation(); markRead.mutate(notif.id); }}
                               aria-label="Mark as read"
-                              className="flex-shrink-0 inline-flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-full hover:bg-[#0A2A66]/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                              className="flex-shrink-0 inline-flex items-center justify-center h-11 w-11 min-h-[44px] min-w-[44px] rounded-full hover:bg-[hsl(var(--brand-navy))]/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                             >
-                              <Check className="h-4 w-4 text-[#0A2A66]" />
+                              <Check className="h-4 w-4 text-[hsl(var(--brand-navy))]" />
                             </button>
                           )}
                         </motion.button>

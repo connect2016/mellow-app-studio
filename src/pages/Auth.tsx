@@ -104,7 +104,7 @@ export default function Auth() {
         <div className="space-y-3">
           <Button
             variant="outline"
-            className="w-full justify-center gap-3 h-12 rounded-[10px] border-[1.5px] border-[#e2e6ee] bg-white text-[14px] font-medium text-[#1a1f2e] hover:bg-white disabled:opacity-60"
+            className="w-full justify-center gap-3 h-12 rounded-[10px] border-[1.5px] border-[hsl(var(--border))] bg-white text-[14px] font-medium text-[hsl(var(--foreground))] hover:bg-white disabled:opacity-60"
             onClick={handleGoogleSignIn}
             disabled={!!pendingProvider}
           >
@@ -125,7 +125,7 @@ export default function Auth() {
           </Button>
           <Button
             variant="outline"
-            className="w-full justify-center gap-3 h-12 rounded-[10px] border-[1.5px] border-[#e2e6ee] bg-white text-[14px] font-medium text-[#1a1f2e] hover:bg-white disabled:opacity-60"
+            className="w-full justify-center gap-3 h-12 rounded-[10px] border-[1.5px] border-[hsl(var(--border))] bg-white text-[14px] font-medium text-[hsl(var(--foreground))] hover:bg-white disabled:opacity-60"
             onClick={handleAppleSignIn}
             disabled={!!pendingProvider}
           >
@@ -165,7 +165,7 @@ export default function Auth() {
           </Button>
         </div>
 
-        <p className="mt-6 text-center" style={{ fontSize: '11px', color: '#6b7280' }}>
+        <p className="mt-6 text-center" style={{ fontSize: '11px', color: 'hsl(var(--muted-foreground))' }}>
           By continuing, you agree to our{' '}
           <a href="/terms" className="underline hover:no-underline">Terms of Service</a>
           {' '}and{' '}

@@ -25,7 +25,7 @@ export function PreGameCountdownPill() {
       <span
         className="inline-flex items-center gap-1"
         style={{
-          backgroundColor: '#CC3433',
+          backgroundColor: 'hsl(var(--brand-red))',
           color: '#ffffff',
           fontSize: 12,
           fontWeight: 600,
@@ -61,7 +61,7 @@ export function PreGameCountdownPill() {
     <span
       className="inline-flex items-center gap-1"
       style={{
-        backgroundColor: '#CC3433',
+        backgroundColor: 'hsl(var(--brand-red))',
         color: '#ffffff',
         fontSize: 12,
         fontWeight: 600,

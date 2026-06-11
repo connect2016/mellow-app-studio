@@ -12,8 +12,8 @@ import { toast } from 'sonner';
 import { track } from '@/lib/analytics';
 
 // Cubs brand
-const NAVY = '#0E3386';
-const RED = '#CC3433';
+const NAVY = 'hsl(var(--brand-navy))';
+const RED = 'hsl(var(--brand-red))';
 
 const SECTIONS = ['Bleachers', 'Grandstand', 'Rooftop', 'Suite'] as const;
 const FREQUENCIES = ['Every game', 'Most games', 'Occasionally', 'First timer'] as const;
@@ -338,9 +338,9 @@ export default function Onboarding() {
                     onClick={() => setFrequency(f)}
                     className="min-h-[48px] rounded-xl border-2 px-3 py-2 text-sm font-semibold transition-colors"
                     style={{
-                      borderColor: selected ? NAVY : '#d6d9e2',
+                      borderColor: selected ? NAVY : 'hsl(var(--border))',
                       background: selected ? NAVY : 'transparent',
-                      color: selected ? 'white' : '#1a1f2e',
+                      color: selected ? 'white' : 'hsl(var(--foreground))',
                     }}
                     aria-pressed={selected}
                   >
@@ -433,7 +433,7 @@ function StepDots({ current }: { current: 1 | 2 | 3 }) {
           className="h-2 rounded-full transition-all"
           style={{
             width: n === current ? 28 : 8,
-            background: n <= current ? (current === 1 ? 'white' : NAVY) : (current === 1 ? 'rgba(255,255,255,0.35)' : '#d6d9e2'),
+            background: n <= current ? (current === 1 ? 'white' : NAVY) : (current === 1 ? 'rgba(255,255,255,0.35)' : 'hsl(var(--border))'),
           }}
         />
       ))}
@@ -456,7 +456,7 @@ function GoalCard({ label, description, icon, onClick, disabled }: GoalCardProps
       onClick={onClick}
       disabled={disabled}
       className="flex w-full items-center gap-4 rounded-2xl border-2 bg-white p-4 text-left shadow-sm transition active:scale-[0.99] hover:shadow-md disabled:opacity-50"
-      style={{ borderColor: '#e2e6ee', minHeight: 88 }}
+      style={{ borderColor: 'hsl(var(--border))', minHeight: 88 }}
     >
       <div
         className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full"

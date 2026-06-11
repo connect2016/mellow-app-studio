@@ -17,7 +17,7 @@ export function FanStreakBanner() {
     <div
       className="mb-3 flex items-center gap-2"
       style={{
-        backgroundColor: '#0E3386',
+        backgroundColor: 'hsl(var(--brand-navy))',
         color: '#ffffff',
         borderRadius: 8,
         padding: '10px 14px',

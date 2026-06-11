@@ -264,7 +264,7 @@ export default function QuickStart() {
         </div>
 
         {/* Eyebrow */}
-        <p className="eyebrow text-center mb-2" style={{ color: '#1a1f2e', fontWeight: 700, letterSpacing: '0.1em', opacity: 1 }}>30-SECOND SETUP</p>
+        <p className="eyebrow text-center mb-2" style={{ color: 'hsl(var(--foreground))', fontWeight: 700, letterSpacing: '0.1em', opacity: 1 }}>30-SECOND SETUP</p>
 
         {step === 0 && (
           <Section
@@ -308,10 +308,10 @@ export default function QuickStart() {
           <Section title="A couple last things" sub="Pick where you hang so we can tune your feed.">
             <div>
               <div className="flex items-baseline justify-between mb-2">
-                <p className="eyebrow" style={{ color: '#1a1f2e' }}>Favorite hangout zones</p>
+                <p className="eyebrow" style={{ color: 'hsl(var(--foreground))' }}>Favorite hangout zones</p>
                 <span
                   className="text-[11px] font-semibold rounded-full px-2 py-0.5"
-                  style={{ color: '#1a1f2e', background: 'rgba(255,255,255,0.75)' }}
+                  style={{ color: 'hsl(var(--foreground))', background: 'rgba(255,255,255,0.75)' }}
                 >
                   Multi-select
                 </span>
@@ -514,7 +514,7 @@ export default function QuickStart() {
             </div>
 
             <div>
-              <p className="eyebrow mb-2" style={{ color: '#1a1f2e' }}>Usual group size</p>
+              <p className="eyebrow mb-2" style={{ color: 'hsl(var(--foreground))' }}>Usual group size</p>
               <div className="grid grid-cols-3 gap-2">
                 {GROUPS.map((opt) => {
                   const isSelected = group === opt.id;
@@ -528,7 +528,7 @@ export default function QuickStart() {
                       style={{
                         background: isSelected ? '#1a472a' : 'rgba(255, 255, 255, 0.85)',
                         border: `1.5px solid ${isSelected ? '#1a472a' : 'rgba(255, 255, 255, 0.5)'}`,
-                        color: isSelected ? '#ffffff' : '#1a1f2e',
+                        color: isSelected ? '#ffffff' : 'hsl(var(--foreground))',
                       }}
                     >
                       <div className="text-2xl mb-0.5"><ConceptVisual name={opt.emoji} size="sm" /></div>
@@ -587,7 +587,7 @@ export default function QuickStart() {
               style={{
                 fontSize: '14px',
                 fontWeight: 600,
-                color: '#1a1f2e',
+                color: 'hsl(var(--foreground))',
                 textDecoration: 'underline',
                 background: 'transparent',
                 border: 'none',
@@ -643,7 +643,7 @@ function Section({ title, sub, children }: { title: string; sub: string; childre
         <h1 className="h-display text-foreground" style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)' }}>
           {title}
         </h1>
-        <p className="mt-2" style={{ color: '#1a1f2e', fontSize: '15px', fontWeight: 500, textShadow: '0 1px 4px rgba(255,255,255,0.6)', opacity: 1 }}>{sub}</p>
+        <p className="mt-2" style={{ color: 'hsl(var(--foreground))', fontSize: '15px', fontWeight: 500, textShadow: '0 1px 4px rgba(255,255,255,0.6)', opacity: 1 }}>{sub}</p>
       </div>
       <div className="space-y-3 pt-2">{children}</div>
     </div>
@@ -673,8 +673,8 @@ function Choice({
       >
         <div className="text-3xl shrink-0">{emoji}</div>
         <div className="flex-1 min-w-0">
-          <div style={{ color: '#1a1f2e', fontSize: '16px', fontWeight: 700, opacity: 1 }}>{label}</div>
-          <div style={{ color: '#374151', fontSize: '13px', fontWeight: 400, opacity: 1, lineHeight: 1.5 }}>{sub}</div>
+          <div style={{ color: 'hsl(var(--foreground))', fontSize: '16px', fontWeight: 700, opacity: 1 }}>{label}</div>
+          <div style={{ color: 'hsl(var(--foreground))', fontSize: '13px', fontWeight: 400, opacity: 1, lineHeight: 1.5 }}>{sub}</div>
         </div>
         {selected && (
           <div className="size-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">

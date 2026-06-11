@@ -13,8 +13,8 @@ import { toast } from 'sonner';
 import { haptic } from '@/lib/haptics';
 import { cn } from '@/lib/utils';
 
-const NAVY = '#0E3386';
-const RED = '#C8102E';
+const NAVY = 'hsl(var(--brand-navy))';
+const RED = 'hsl(var(--brand-red))';
 
 type View = 'menu' | 'checkin';
 
@@ -271,7 +271,7 @@ export function MoveTonightSheet({ open, onOpenChange }: Props) {
                       onClick={() => { haptic('selection'); setSelectedBar(bar.name); }}
                       className={cn(
                         'w-full flex items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors min-h-[56px]',
-                        active ? 'bg-[#C8102E]/95 ring-2 ring-white/30' : 'bg-white/[0.06] hover:bg-white/[0.1]',
+                        active ? 'bg-[hsl(var(--brand-red))]/95 ring-2 ring-white/30' : 'bg-white/[0.06] hover:bg-white/[0.1]',
                       )}
                     >
                       <MapPin className={cn('h-4 w-4 shrink-0', active ? 'text-white' : 'text-white/60')} />

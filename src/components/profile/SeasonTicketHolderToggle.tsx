@@ -3,7 +3,7 @@ import { Switch } from '@/components/ui/switch';
 import { STHBadge } from './STHBadge';
 import { toast } from 'sonner';
 
-const NAVY = '#0E3386';
+const NAVY = 'hsl(var(--brand-navy))';
 
 interface SeasonTicketHolderToggleProps {
   value: boolean;
@@ -35,7 +35,7 @@ export function SeasonTicketHolderToggle({
     <label
       htmlFor="sth-toggle"
       className="flex items-center justify-between gap-3 rounded-2xl border-2 bg-card p-4 cursor-pointer transition-colors hover:bg-card/90"
-      style={{ borderColor: internal ? '#D9A521' : '#d6d9e2' }}
+      style={{ borderColor: internal ? 'hsl(var(--brand-gold))' : 'hsl(var(--border))' }}
     >
       <div className="flex items-center gap-3 min-w-0">
         <STHBadge size="lg" />
@@ -52,7 +52,7 @@ export function SeasonTicketHolderToggle({
         id="sth-toggle"
         checked={internal}
         onCheckedChange={handle}
-        className="data-[state=checked]:bg-[#D9A521]"
+        className="data-[state=checked]:bg-[hsl(var(--brand-gold))]"
       />
     </label>
   );

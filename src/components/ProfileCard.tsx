@@ -259,7 +259,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
               {(user as any).checkin_bar && (
                 <span
                   className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold"
-                  style={{ backgroundColor: '#0E3386', color: 'white' }}
+                  style={{ backgroundColor: 'hsl(var(--brand-navy))', color: 'white' }}
                 >
                   🍺 {(user as any).checkin_bar} right now
                 </span>
@@ -267,7 +267,7 @@ export function ProfileCard({ user, currentUserFanStyles, onHiFive, onSendDog, o
               {(user as any).checkin_section && (
                 <span
                   className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold"
-                  style={{ backgroundColor: '#CC3433', color: 'white' }}
+                  style={{ backgroundColor: 'hsl(var(--brand-red))', color: 'white' }}
                 >
                   📍 Section {(user as any).checkin_section}
                 </span>

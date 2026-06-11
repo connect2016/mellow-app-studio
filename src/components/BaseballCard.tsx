@@ -139,7 +139,7 @@ export function BaseballCard({
               <p
                 className="font-semibold text-[16px] leading-tight truncate text-right"
                 style={{
-                  color: '#0A2A66',
+                  color: 'hsl(var(--brand-navy))',
                   fontFamily: "'Graduate', 'Barlow Condensed', serif",
                   textShadow: '0 1px 0 rgba(255,255,255,0.6)',
                 }}
@@ -150,12 +150,12 @@ export function BaseballCard({
               {(gameStatus && gameStatus !== 'NotSet') || primaryIntent ? (
                 <div className="flex items-center justify-end gap-2 mt-0.5">
                   {gameStatus && gameStatus !== 'NotSet' && (
-                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#0A2A66' }}>
+                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'hsl(var(--brand-navy))' }}>
                       {GAME_STATUS_EMOJI[gameStatus]} {GAME_STATUS_LABELS[gameStatus]}
                     </span>
                   )}
                   {primaryIntent && (
-                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#CC3433' }}>
+                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'hsl(var(--brand-red))' }}>
                       {INTENT_EMOJI[primaryIntent]} {INTENT_LABELS[primaryIntent]}
                     </span>
                   )}
@@ -180,7 +180,7 @@ export function BaseballCard({
           }}
         >
           <div
-            className="relative h-full rounded-lg overflow-hidden border-[6px] border-[#C4A661] shadow-xl flex flex-col"
+            className="relative h-full rounded-lg overflow-hidden border-[6px] border-[hsl(var(--brand-gold))] shadow-xl flex flex-col"
             style={{
               background: 'linear-gradient(180deg, #F5E6C8 0%, #EAD8A0 50%, #DCC886 100%)',
               boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
@@ -200,8 +200,8 @@ export function BaseballCard({
                 className="text-sm font-black uppercase tracking-wide"
                 style={{
                   fontFamily: "'Graduate', serif",
-                  color: '#1E3A5F',
-                  borderBottom: '2px solid #C4A661',
+                  color: 'hsl(var(--brand-navy))',
+                  borderBottom: '2px solid hsl(var(--brand-gold))',
                   paddingBottom: '4px',
                 }}
               >
@@ -213,7 +213,7 @@ export function BaseballCard({
             </div>
 
             {/* Stats box */}
-            <div className="mx-3 mb-2 rounded-md p-2" style={{ background: 'rgba(30,58,95,0.06)', border: '1px solid #C4A661' }}>
+            <div className="mx-3 mb-2 rounded-md p-2" style={{ background: 'rgba(30,58,95,0.06)', border: '1px solid hsl(var(--brand-gold))' }}>
               <div className="grid grid-cols-3 gap-1.5 text-center">
                 <StatBox label="G" sublabel="GAMES" value={gamesAttended} />
                 <StatBox label="BM" sublabel="BUDDIES" value={buddiesMet} />
@@ -253,9 +253,9 @@ export function BaseballCard({
                         key={i}
                         className="inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[9px] font-bold"
                         style={{
-                          background: '#1E3A5F',
+                          background: 'hsl(var(--brand-navy))',
                           color: '#F5E6C8',
-                          border: '1px solid #C4A661',
+                          border: '1px solid hsl(var(--brand-gold))',
                         }}
                       >
                         {INTENT_EMOJI[i]} {INTENT_LABELS[i]}
@@ -266,7 +266,7 @@ export function BaseballCard({
               )}
 
               {persona && persona in PERSONA_CONFIG && (
-                <div className="flex items-center gap-1.5 mt-0.5" style={{ color: '#CC3433' }}>
+                <div className="flex items-center gap-1.5 mt-0.5" style={{ color: 'hsl(var(--brand-red))' }}>
                   <PersonaIcon name={persona} size={12} strokeWidth={2} />
                   <span className="text-[9px] font-bold uppercase tracking-wider">
                     {PERSONA_CONFIG[persona as GamedayPersona].label}
@@ -279,7 +279,7 @@ export function BaseballCard({
             <div
               className="h-1.5"
               style={{
-                background: 'linear-gradient(90deg, #CC3433 0%, #1E3A5F 33%, #2D7D46 66%, #C4A661 100%)',
+                background: 'linear-gradient(90deg, hsl(var(--brand-red)) 0%, hsl(var(--brand-navy)) 33%, #2D7D46 66%, hsl(var(--brand-gold)) 100%)',
               }}
             />
           </div>
@@ -311,12 +311,12 @@ function Avatar88({ src, name, verified }: { src?: string | null; name: string; 
       role="img"
       aria-label={`Profile photo of ${name || 'Fan'}`}
       tabIndex={0}
-      className="relative rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CC3433]"
+      className="relative rounded-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--brand-red))]"
       style={{
         width: 88,
         height: 88,
         boxShadow: '0 0 0 4px #FFFFFF, 0 6px 18px rgba(0,0,0,0.35)',
-        background: '#0A2A66',
+        background: 'hsl(var(--brand-navy))',
       }}
     >
       {!loaded && showImage && (
@@ -345,7 +345,7 @@ function Avatar88({ src, name, verified }: { src?: string | null; name: string; 
           style={{ background: '#FFFFFF', padding: 2 }}
           aria-label="Verified fan"
         >
-          <ShieldCheck className="h-4 w-4" style={{ color: '#0A2A66' }} />
+          <ShieldCheck className="h-4 w-4" style={{ color: 'hsl(var(--brand-navy))' }} />
         </span>
       )}
     </div>
@@ -358,7 +358,7 @@ function StatBox({ label, sublabel, value }: { label: string; sublabel: string; 
     <div>
       <p
         className="text-2xl font-black"
-        style={{ fontFamily: "'Graduate', serif", color: '#1E3A5F' }}
+        style={{ fontFamily: "'Graduate', serif", color: 'hsl(var(--brand-navy))' }}
       >
         {value}
       </p>
@@ -378,7 +378,7 @@ function DetailRow({ label, value, emoji }: { label: string; value: string; emoj
       className="rounded-md px-3 py-2"
       style={{
         background: 'rgba(30,58,95,0.04)',
-        borderLeft: '3px solid #CC3433',
+        borderLeft: '3px solid hsl(var(--brand-red))',
       }}
     >
       <p className="text-[8px] font-bold uppercase tracking-widest mb-0.5" style={{ color: '#6B5B3E' }}>
@@ -386,7 +386,7 @@ function DetailRow({ label, value, emoji }: { label: string; value: string; emoj
       </p>
       <p
         className="text-xs font-medium"
-        style={{ fontFamily: "'Share Tech Mono', monospace", color: '#1E3A5F' }}
+        style={{ fontFamily: "'Share Tech Mono', monospace", color: 'hsl(var(--brand-navy))' }}
       >
         {value}
       </p>

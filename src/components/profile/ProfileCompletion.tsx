@@ -74,7 +74,7 @@ export function ProfileCompletion({ profile }: { profile: ProfileLike }) {
         <p className="text-sm font-semibold text-foreground">
           Your fan card is {pct}% complete
         </p>
-        <span className="text-sm font-bold text-[#0E3386] tabular-nums">{pct}%</span>
+        <span className="text-sm font-bold text-[hsl(var(--brand-navy))] tabular-nums">{pct}%</span>
       </div>
 
       <div
@@ -86,7 +86,7 @@ export function ProfileCompletion({ profile }: { profile: ProfileLike }) {
         aria-valuemax={100}
       >
         <div
-          className="h-full rounded-[3px] bg-[#0E3386]"
+          className="h-full rounded-[3px] bg-[hsl(var(--brand-navy))]"
           style={{
             width: `${width}%`,
             transition: 'width 600ms ease-out',
@@ -97,7 +97,7 @@ export function ProfileCompletion({ profile }: { profile: ProfileLike }) {
       <button
         type="button"
         onClick={() => navigate(`/onboarding?focus=${firstMissing.key}&edit=1`)}
-        className="text-sm font-semibold text-[#0E3386] hover:underline underline-offset-4 min-h-[44px] flex items-center"
+        className="text-sm font-semibold text-[hsl(var(--brand-navy))] hover:underline underline-offset-4 min-h-[44px] flex items-center"
       >
         {firstMissing.cta}
       </button>

@@ -152,7 +152,7 @@ export function TonightModeView({ className }: Props) {
           <EmptyCard text="No meetups in the next 90 minutes — start one!">
             <Button
               size="sm"
-              className="bg-[#C8102E] hover:bg-[#a30d25] text-white font-bold"
+              className="bg-[hsl(var(--brand-red))] hover:bg-[hsl(var(--brand-red))] text-white font-bold"
               onClick={() => openCreate()}
             >
               + Start a Meetup
@@ -170,7 +170,7 @@ export function TonightModeView({ className }: Props) {
                   className="tonight-item w-full flex items-center gap-3 rounded-2xl bg-card/95 backdrop-blur-sm border border-border/40 p-3 text-left shadow-sm hover:bg-card transition-colors"
                   style={{ ['--i' as any]: idx }}
                 >
-                  <div className="flex flex-col items-center justify-center min-w-[52px] h-12 rounded-xl bg-[#C8102E] text-white px-2">
+                  <div className="flex flex-col items-center justify-center min-w-[52px] h-12 rounded-xl bg-[hsl(var(--brand-red))] text-white px-2">
                     <span className="text-[11px] font-bold leading-none">{mins <= 0 ? '●' : 'IN'}</span>
                     <span className="text-sm font-extrabold leading-none mt-0.5">{label}</span>
                   </div>
@@ -218,7 +218,7 @@ export function TonightModeView({ className }: Props) {
                 </div>
                 <Button
                   size="sm"
-                  className="h-9 px-3 text-xs font-bold bg-[#C8102E] hover:bg-[#a30d25] text-white"
+                  className="h-9 px-3 text-xs font-bold bg-[hsl(var(--brand-red))] hover:bg-[hsl(var(--brand-red))] text-white"
                   onClick={() => openCreate(b.name)}
                 >
                   Start Meetup

@@ -91,7 +91,7 @@ export default function Join() {
       <main className="min-h-screen bg-background pb-24">
         <header className="border-b border-border/40 bg-card/60 backdrop-blur">
           <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
-            <Link to="/" className="text-sm font-bold text-[#0E3386]">Wrigleyville Buddies</Link>
+            <Link to="/" className="text-sm font-bold text-[hsl(var(--brand-navy))]">Wrigleyville Buddies</Link>
             <Link
               to="/auth"
               className="text-xs font-medium text-muted-foreground hover:text-foreground"
@@ -103,7 +103,7 @@ export default function Join() {
 
         <section className="mx-auto max-w-lg px-4 pt-6">
           <div className="text-center space-y-1.5 mb-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-[#C8102E]">
+            <p className="text-xs font-semibold uppercase tracking-wider text-[hsl(var(--brand-red))]">
               You're invited
             </p>
             <h1 className="text-2xl sm:text-3xl font-bold leading-tight text-foreground">
@@ -148,7 +148,7 @@ export default function Join() {
 
           <div className="mt-6 space-y-3">
             <Button
-              className="w-full h-14 rounded-xl text-base font-bold gap-2 bg-[#C8102E] hover:bg-[#a30d25] text-white"
+              className="w-full h-14 rounded-xl text-base font-bold gap-2 bg-[hsl(var(--brand-red))] hover:bg-[hsl(var(--brand-red))] text-white"
               onClick={() => {
                 track('invite_join_clicked', { ref: validRef });
                 navigate('/auth?mode=signup');
@@ -158,7 +158,7 @@ export default function Join() {
             </Button>
             <p className="text-center text-xs text-muted-foreground">
               Already have an account?{' '}
-              <Link to="/auth" className="font-semibold text-[#0E3386] hover:underline">
+              <Link to="/auth" className="font-semibold text-[hsl(var(--brand-navy))] hover:underline">
                 Sign in
               </Link>
             </p>

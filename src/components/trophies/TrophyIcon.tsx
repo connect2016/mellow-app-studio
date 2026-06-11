@@ -182,7 +182,7 @@ const TROPHIES: Record<TrophyKey, TrophyDescriptor> = {
   first_shot: {
     Icon: Wine,
     label: 'First Shot',
-    earnedGradient: 'bg-[linear-gradient(135deg,#E11D48_0%,#FB7185_100%)]',
+    earnedGradient: 'bg-[linear-gradient(135deg,hsl(var(--brand-red))_0%,#FB7185_100%)]',
     earnedRing: 'ring-1 ring-rose-300/50',
     earnedIconColor: 'text-rose-50',
   },

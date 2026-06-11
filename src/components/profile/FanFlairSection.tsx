@@ -14,7 +14,7 @@ export function FanFlairSection({ userId, isOwner }: Props) {
   return (
     <div className="rounded-2xl border border-border bg-card/90 backdrop-blur-sm shadow-sm p-4">
       <div className="flex items-center gap-2 mb-3">
-        <Sparkles className="h-4 w-4" style={{ color: '#0E3386' }} />
+        <Sparkles className="h-4 w-4" style={{ color: 'hsl(var(--brand-navy))' }} />
         <h3 className="text-sm font-bold tracking-tight text-foreground">Your Fan Flair</h3>
       </div>
 
@@ -39,7 +39,7 @@ export function FanFlairSection({ userId, isOwner }: Props) {
                 <span
                   style={{
                     background: unlocked ? 'rgba(14, 51, 134, 0.12)' : 'rgba(0,0,0,0.05)',
-                    color: unlocked ? '#0E3386' : 'hsl(var(--muted-foreground))',
+                    color: unlocked ? 'hsl(var(--brand-navy))' : 'hsl(var(--muted-foreground))',
                     fontSize: 10,
                     fontWeight: 700,
                     letterSpacing: '0.05em',
@@ -56,13 +56,13 @@ export function FanFlairSection({ userId, isOwner }: Props) {
                 <div className="min-w-0 flex-1">
                   <p className="text-xs text-foreground/85 leading-snug">{tier.description}</p>
                   {progress && (
-                    <p className="text-[11px] mt-1 font-semibold" style={{ color: '#0E3386' }}>
+                    <p className="text-[11px] mt-1 font-semibold" style={{ color: 'hsl(var(--brand-navy))' }}>
                       {progress}
                     </p>
                   )}
                 </div>
                 {isCurrent && (
-                  <span className="text-[10px] font-bold uppercase" style={{ color: '#0E3386' }}>
+                  <span className="text-[10px] font-bold uppercase" style={{ color: 'hsl(var(--brand-navy))' }}>
                     Active
                   </span>
                 )}

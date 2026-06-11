@@ -108,7 +108,7 @@ export default function DiscoverFans() {
                   className={cn(
                     'whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors min-h-[40px]',
                     active
-                      ? 'bg-[#0E3386] text-white'
+                      ? 'bg-[hsl(var(--brand-navy))] text-white'
                       : 'border border-neutral-300 bg-transparent text-foreground hover:bg-neutral-50 dark:hover:bg-neutral-800',
                   )}
                   aria-pressed={active}
@@ -210,7 +210,7 @@ function FanRow({ fan, myVibeTags, pending, onSayHi, onBeer }: FanRowProps) {
             <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{fan.favorite_gate}</span>
           )}
           {sharedTags.map((t) => (
-            <span key={t} className="rounded-full bg-[#0E3386] px-2 py-0.5 text-[11px] font-medium text-white">{t}</span>
+            <span key={t} className="rounded-full bg-[hsl(var(--brand-navy))] px-2 py-0.5 text-[11px] font-medium text-white">{t}</span>
           ))}
         </div>
       </div>
@@ -221,7 +221,7 @@ function FanRow({ fan, myVibeTags, pending, onSayHi, onBeer }: FanRowProps) {
           size="sm"
           onClick={onSayHi}
           disabled={pending}
-          className="min-h-[44px] min-w-[44px] rounded-full bg-[#0E3386] text-white hover:bg-[#0E3386]/90"
+          className="min-h-[44px] min-w-[44px] rounded-full bg-[hsl(var(--brand-navy))] text-white hover:bg-[hsl(var(--brand-navy))]/90"
         >
           {pending ? '…' : 'Say Hi'}
         </Button>

@@ -138,13 +138,13 @@ export function TeammateDeck({ teammates, onCardClick }: TeammateDeckProps) {
                 {isTop && (
                   <>
                     <div
-                      className="pointer-events-none absolute top-8 left-6 rotate-[-18deg] rounded-md border-4 border-[#002F6C] bg-white/90 px-4 py-1 text-2xl font-extrabold text-[#002F6C] shadow-xl"
+                      className="pointer-events-none absolute top-8 left-6 rotate-[-18deg] rounded-md border-4 border-[hsl(var(--brand-navy))] bg-white/90 px-4 py-1 text-2xl font-extrabold text-[hsl(var(--brand-navy))] shadow-xl"
                       style={{ opacity: opacityOverlayLike }}
                     >
                       KEEP
                     </div>
                     <div
-                      className="pointer-events-none absolute top-8 right-6 rotate-[18deg] rounded-md border-4 border-[#C8102E] bg-white/90 px-4 py-1 text-2xl font-extrabold text-[#C8102E] shadow-xl"
+                      className="pointer-events-none absolute top-8 right-6 rotate-[18deg] rounded-md border-4 border-[hsl(var(--brand-red))] bg-white/90 px-4 py-1 text-2xl font-extrabold text-[hsl(var(--brand-red))] shadow-xl"
                       style={{ opacity: opacityOverlayPass }}
                     >
                       NEXT
@@ -163,7 +163,7 @@ export function TeammateDeck({ teammates, onCardClick }: TeammateDeckProps) {
           size="icon"
           aria-label="Previous card"
           onClick={() => handleButtonSwipe('left')}
-          className="h-14 w-14 rounded-full border-2 border-[#C8102E] text-[#C8102E] bg-white/90 hover:bg-white shadow-lg"
+          className="h-14 w-14 rounded-full border-2 border-[hsl(var(--brand-red))] text-[hsl(var(--brand-red))] bg-white/90 hover:bg-white shadow-lg"
         >
           <ChevronLeft className="h-7 w-7" />
         </Button>
@@ -175,7 +175,7 @@ export function TeammateDeck({ teammates, onCardClick }: TeammateDeckProps) {
           size="icon"
           aria-label="Next card"
           onClick={() => handleButtonSwipe('right')}
-          className="h-14 w-14 rounded-full border-2 border-[#002F6C] text-[#002F6C] bg-white/90 hover:bg-white shadow-lg"
+          className="h-14 w-14 rounded-full border-2 border-[hsl(var(--brand-navy))] text-[hsl(var(--brand-navy))] bg-white/90 hover:bg-white shadow-lg"
         >
           <ChevronRight className="h-7 w-7" />
         </Button>
@@ -192,9 +192,9 @@ function CardFrame({ teammate: t, onClick }: { teammate: TeammateProfile; onClic
       className="relative h-full w-full overflow-hidden rounded-2xl shadow-2xl"
       style={{
         background:
-          'linear-gradient(135deg, #002F6C 0%, #0a3a85 50%, #002F6C 100%)',
+          'linear-gradient(135deg, hsl(var(--brand-navy)) 0%, #0a3a85 50%, hsl(var(--brand-navy)) 100%)',
         padding: '10px',
-        border: '3px solid #C8102E',
+        border: '3px solid hsl(var(--brand-red))',
       }}
     >
       {/* Inner white frame */}
@@ -217,7 +217,7 @@ function CardFrame({ teammate: t, onClick }: { teammate: TeammateProfile; onClic
           <div className="mt-auto pt-3 flex flex-wrap items-center justify-center gap-2">
             {t.gameday_persona && <PersonaBadge persona={t.gameday_persona} size="sm" />}
             {t.vibe_state && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#C8102E] px-3 py-1 text-[11px] font-bold text-white shadow">
+              <span className="inline-flex items-center gap-1 rounded-full bg-[hsl(var(--brand-red))] px-3 py-1 text-[11px] font-bold text-white shadow">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />

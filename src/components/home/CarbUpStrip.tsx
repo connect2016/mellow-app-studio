@@ -25,7 +25,7 @@ const RESTAURANTS: RestaurantCard[] = [
     rating: 4.8,
     address: '2940 N Broadway, Chicago, IL',
     thumb: 'food',
-    accent: 'from-amber-500/40 via-orange-600/30 to-[#C8102E]/40',
+    accent: 'from-amber-500/40 via-orange-600/30 to-[hsl(var(--brand-red))]/40',
   },
   {
     id: 'big-star',
@@ -109,7 +109,7 @@ export function CarbUpStrip() {
               key={r.id}
               className="snap-start shrink-0 w-[260px] rounded-2xl bg-[hsl(222,82%,18%)] overflow-hidden shadow-lg flex flex-col"
               style={{
-                borderTop: '4px solid #C8102E',
+                borderTop: '4px solid hsl(var(--brand-red))',
               }}
             >
               {/* Food photo placeholder */}
@@ -118,7 +118,7 @@ export function CarbUpStrip() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[hsl(222,82%,18%)] via-transparent to-transparent" />
                 <div className="absolute top-2 left-2">
                   <span
-                    className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-white bg-[#C8102E] px-2 py-1 rounded-full shadow"
+                    className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-white bg-[hsl(var(--brand-red))] px-2 py-1 rounded-full shadow"
                     style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.06em' }}
                   >
                     {r.cuisine}
@@ -151,7 +151,7 @@ export function CarbUpStrip() {
                 <button
                   type="button"
                   onClick={() => openDirections(r.address)}
-                  className="mt-auto inline-flex items-center justify-center gap-1.5 w-full h-10 rounded-xl bg-[#C8102E] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#a30d25] active:scale-[0.97] transition shadow-md"
+                  className="mt-auto inline-flex items-center justify-center gap-1.5 w-full h-10 rounded-xl bg-[hsl(var(--brand-red))] text-white text-xs font-bold uppercase tracking-wider hover:bg-[hsl(var(--brand-red))] active:scale-[0.97] transition shadow-md"
                   style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.05em' }}
                 >
                   <Navigation className="h-3.5 w-3.5" strokeWidth={2.5} />

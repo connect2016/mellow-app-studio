@@ -57,7 +57,7 @@ export function DisclaimerModal() {
           style={{
             fontSize: '18px',
             fontWeight: 700,
-            color: '#1a1f2e',
+            color: 'hsl(var(--foreground))',
             margin: 0,
             marginBottom: '12px',
           }}
@@ -67,7 +67,7 @@ export function DisclaimerModal() {
         <p
           style={{
             fontSize: '13px',
-            color: '#374151',
+            color: 'hsl(var(--foreground))',
             lineHeight: 1.5,
             margin: 0,
             marginBottom: '20px',
@@ -83,7 +83,7 @@ export function DisclaimerModal() {
           style={{
             width: '100%',
             height: '48px',
-            background: '#0E3386',
+            background: 'hsl(var(--brand-navy))',
             color: '#ffffff',
             border: 'none',
             borderRadius: '10px',

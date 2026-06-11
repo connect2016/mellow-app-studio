@@ -270,10 +270,10 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
 
               {/* Ground Control Beacon */}
               <div className="space-y-1.5">
-                <Label style={{ fontSize: 13, fontWeight: 600, color: '#1a1f2e' }}>
+                <Label style={{ fontSize: 13, fontWeight: 600, color: 'hsl(var(--foreground))' }}>
                   Ground Control Beacon
                 </Label>
-                <p style={{ fontSize: 11, color: '#6b7280', margin: 0 }}>
+                <p style={{ fontSize: 11, color: 'hsl(var(--muted-foreground))', margin: 0 }}>
                   Help people find you — describe what you're wearing or where you're sitting
                 </p>
                 <Input
@@ -283,7 +283,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
                   placeholder="e.g. Wearing a retro Sammy Sosa jersey, near the dartboards in the back"
                   className="rounded-[10px]"
                 />
-                <div style={{ fontSize: 11, color: '#6b7280', textAlign: 'right' }}>
+                <div style={{ fontSize: 11, color: 'hsl(var(--muted-foreground))', textAlign: 'right' }}>
                   {groundControl.length}/120
                 </div>
               </div>

@@ -11,7 +11,7 @@ import { MessageCircle, Plus, Users } from 'lucide-react';
 import { toast } from 'sonner';
 
 const EMOJI_OPTIONS = ['⚾', '🏆', '🍺', '🔵', '🏟', '❤️'];
-const CUBS_BLUE = '#0E3386';
+const CUBS_BLUE = 'hsl(var(--brand-navy))';
 
 export function YourCrewsSection() {
   const { user } = useAuth();
@@ -84,8 +84,8 @@ export function YourCrewsSection() {
             >
               <div className="text-[32px] leading-none">{c.badge_emoji}</div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-[14px] font-bold text-[#1a1f2e]">{c.name}</p>
-                <p className="text-[11px] text-[#6b7280] flex items-center gap-1">
+                <p className="truncate text-[14px] font-bold text-[hsl(var(--foreground))]">{c.name}</p>
+                <p className="text-[11px] text-[hsl(var(--muted-foreground))] flex items-center gap-1">
                   <Users className="h-3 w-3" />
                   {c.member_count} {c.member_count === 1 ? 'member' : 'members'}
                 </p>
@@ -137,7 +137,7 @@ export function YourCrewsSection() {
                     type="button"
                     onClick={() => setEmoji(e)}
                     className={`h-11 rounded-lg border text-xl transition-all ${
-                      emoji === e ? 'border-[#0E3386] bg-[#0E3386]/10 scale-105' : 'border-border'
+                      emoji === e ? 'border-[hsl(var(--brand-navy))] bg-[hsl(var(--brand-navy))]/10 scale-105' : 'border-border'
                     }`}
                   >
                     {e}

@@ -220,11 +220,11 @@ export default function MeetupDetail() {
         {/* Ground Control — only visible to RSVP'd members or host */}
         {meetup.ground_control && (meetup.is_member || meetup.is_host) && (
           <section className="mt-4 rounded-2xl border border-border bg-card p-4 shadow-sm">
-            <p style={{ fontSize: 11, color: '#6b7280', margin: 0 }}>
+            <p style={{ fontSize: 11, color: 'hsl(var(--muted-foreground))', margin: 0 }}>
               <MapPin className="inline h-3 w-3 mr-1" aria-hidden />
               Find them:
             </p>
-            <p style={{ fontSize: 12, fontWeight: 500, color: '#1a1f2e', fontStyle: 'italic', marginTop: 4 }}>
+            <p style={{ fontSize: 12, fontWeight: 500, color: 'hsl(var(--foreground))', fontStyle: 'italic', marginTop: 4 }}>
               {meetup.ground_control}
             </p>
           </section>

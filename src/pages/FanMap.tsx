@@ -32,7 +32,7 @@ function fanPinIcon(fan: MapFan, dimmed: boolean) {
   const opacity = dimmed ? 0.3 : 1;
   return L.divIcon({
     html: `
-      <div style="opacity:${opacity};width:${size}px;height:${size}px;border-radius:50%;border:2px solid #0E3386;background:#0E3386;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.25)">
+      <div style="opacity:${opacity};width:${size}px;height:${size}px;border-radius:50%;border:2px solid hsl(var(--brand-navy));background:hsl(var(--brand-navy));display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.25)">
         ${hasPhoto
           ? `<img src="${fan.photo}" style="width:100%;height:100%;object-fit:cover" loading="lazy" decoding="async" />`
           : `<span style="color:white;font-size:11px;font-weight:700">${(fan.name?.charAt(0) ?? '?').toUpperCase()}</span>`
@@ -149,7 +149,7 @@ export default function FanMap() {
           />
           <div className="fixed left-1/2 -translate-x-1/2 top-24 z-40 w-[calc(100%-2rem)] max-w-sm rounded-2xl bg-background border border-border shadow-xl p-4">
             <div className="flex items-center gap-3">
-              <div className="h-12 w-12 rounded-full bg-[#0E3386] text-white flex items-center justify-center overflow-hidden font-bold">
+              <div className="h-12 w-12 rounded-full bg-[hsl(var(--brand-navy))] text-white flex items-center justify-center overflow-hidden font-bold">
                 {popupFan.photo
                   ? <img src={popupFan.photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   : (popupFan.name?.charAt(0) ?? '?')}
@@ -164,7 +164,7 @@ export default function FanMap() {
             <div className="mt-3 flex gap-2">
               <button
                 onClick={() => handleSayHi(popupFan)}
-                className="flex-1 min-h-[44px] rounded-xl bg-[#0E3386] text-white text-sm font-bold"
+                className="flex-1 min-h-[44px] rounded-xl bg-[hsl(var(--brand-navy))] text-white text-sm font-bold"
               >
                 Say Hi
               </button>

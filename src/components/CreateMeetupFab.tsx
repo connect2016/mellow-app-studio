@@ -87,7 +87,7 @@ export function CreateMeetupFab() {
           'fixed left-1/2 -translate-x-1/2 z-[60]',
           'bottom-[136px]',
           'h-14 w-14 rounded-full flex items-center justify-center',
-          'bg-[#C8102E] text-white',
+          'bg-[hsl(var(--brand-red))] text-white',
           'shadow-[0_8px_20px_rgba(200,16,46,0.20),0_4px_8px_rgba(0,0,0,0.18)]',
           'ring-4 ring-background',
           'fab-base',
@@ -106,7 +106,7 @@ export function CreateMeetupFab() {
           }}
         />
         {isHot && !isHidden && !sheetOpen && (
-          <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#C8102E]/55 animate-ping" />
+          <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[hsl(var(--brand-red))]/55 animate-ping" />
         )}
       </button>
 

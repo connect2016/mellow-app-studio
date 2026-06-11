@@ -176,11 +176,11 @@ export function ShareMenu({
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent
           side="bottom"
-          className="rounded-t-2xl p-5 bg-white text-[#1a1f2e] border-t-0"
+          className="rounded-t-2xl p-5 bg-white text-[hsl(var(--foreground))] border-t-0"
           onClick={(e) => e.stopPropagation()}
         >
           <SheetHeader className="text-left mb-3">
-            <SheetTitle className="text-base font-bold text-[#1a1f2e]">{title}</SheetTitle>
+            <SheetTitle className="text-base font-bold text-[hsl(var(--foreground))]">{title}</SheetTitle>
           </SheetHeader>
 
           <div className="flex flex-col">
@@ -216,7 +216,7 @@ export function ShareMenu({
               onClick={handleInstagramOrCopy}
               className="h-[52px] flex items-center gap-3 px-2 text-left active:bg-[#fafafa]"
             >
-              {canNativeShare ? <InstagramIcon /> : copied ? <Check className="h-5 w-5 text-[#0E3386]" /> : <LinkIcon className="h-5 w-5 text-[#1a1f2e]" />}
+              {canNativeShare ? <InstagramIcon /> : copied ? <Check className="h-5 w-5 text-[hsl(var(--brand-navy))]" /> : <LinkIcon className="h-5 w-5 text-[hsl(var(--foreground))]" />}
               <span className="text-sm font-semibold">
                 {canNativeShare ? 'Share to Instagram / More' : copied ? 'Link copied!' : 'Copy link'}
               </span>

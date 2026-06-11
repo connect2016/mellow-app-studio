@@ -42,7 +42,7 @@ export function FanTagsPicker({ value, onChange }: Props) {
           fontSize: 11,
           fontWeight: 700,
           letterSpacing: '0.08em',
-          color: '#0E3386',
+          color: 'hsl(var(--brand-navy))',
           margin: '0 0 8px',
         }}
       >
@@ -58,9 +58,9 @@ export function FanTagsPicker({ value, onChange }: Props) {
               onClick={() => toggle(t.key)}
               aria-pressed={sel}
               style={{
-                background: sel ? '#0E3386' : 'rgba(255,255,255,0.9)',
-                border: `1.5px solid ${sel ? '#0E3386' : '#e2e6ee'}`,
-                color: sel ? 'white' : '#1a1f2e',
+                background: sel ? 'hsl(var(--brand-navy))' : 'rgba(255,255,255,0.9)',
+                border: `1.5px solid ${sel ? 'hsl(var(--brand-navy))' : 'hsl(var(--border))'}`,
+                color: sel ? 'white' : 'hsl(var(--foreground))',
                 borderRadius: 20,
                 padding: '6px 14px',
                 fontSize: 12,
@@ -103,7 +103,7 @@ export function FanTagPills({ tags, className, style }: PillsProps) {
             key={k}
             style={{
               background: 'rgba(14,51,134,0.12)',
-              color: '#0E3386',
+              color: 'hsl(var(--brand-navy))',
               border: '1px solid rgba(14,51,134,0.25)',
               fontSize: 10,
               fontWeight: 600,

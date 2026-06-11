@@ -30,7 +30,6 @@ const TRACKED_CATEGORIES: { key: LeaderboardCategory; label: string }[] = [
   { key: 'barsVisitedThisWeek', label: 'Bars This Week' },
   { key: 'meetupsFinished',     label: 'Meetups Done' },
   { key: 'fansConnected',       label: 'Fans Connected' },
-  { key: 'shotsTakenSeason',    label: 'Shots Taken' },
   { key: 'appetizersHadSeason', label: 'Appetizers' },
 ];
 

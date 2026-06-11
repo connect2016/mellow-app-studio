@@ -67,7 +67,7 @@ export default function Meetups() {
   });
 
   return (
-    <WrigleyRainbowBackground>
+    <DynamicBackground>
     <div className={`min-h-screen relative overflow-x-hidden ${isGuest ? 'pb-20' : 'pb-24'}`}>
       <SEOMeta
         title="Meetups — Cubs Fan Game-Day Plans"

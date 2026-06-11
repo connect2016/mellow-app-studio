@@ -3,22 +3,6 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Atlanta College';
-  src: url('/fonts/Atlanta-College.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Tropika Island';
-  src: url('/fonts/Tropika-Island.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Legend M54';
   src: url('/fonts/Legend-M54.ttf') format('truetype');
   font-weight: normal;
@@ -350,7 +334,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
   box-shadow: none !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {

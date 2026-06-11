@@ -29,7 +29,7 @@ export function useActivityFeed(limit = 20) {
         p_limit: ids.length,
       });
       const pMap = new Map((profiles ?? []).map((p: any) => [p.user_id, p]));
-      return data.map(r => {
+      return (data as any[]).map((r: any) => {
         const p: any = pMap.get(r.user_id) ?? {};
         return {
           ...r,

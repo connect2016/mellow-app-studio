@@ -95,7 +95,8 @@ export default function HeroVideo() {
           <img
             src={wrigleyvilleLogo}
             alt="Wrigleyville 60613 Logo"
-            className="w-full max-w-[260px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-[300px]" loading="lazy" decoding="async" />
+            className="w-full max-w-[260px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-[300px]" loading="eager" fetchPriority="high" decoding="async" />
+
           <h1
             className="mt-2 text-[1.25rem] sm:text-[1.5rem] font-bold uppercase tracking-[0.2em] text-white"
             style={{

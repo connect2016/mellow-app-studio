@@ -27,6 +27,8 @@ interface CardFrontSideProps {
   editable?: boolean;
   uploading?: boolean;
   onPickPhoto?: () => void;
+  /** Optional override rendered inside the circular avatar slot (used by the crop dialog live preview). */
+  avatarSlot?: ReactNode;
 }
 
 export function CardFrontSide({

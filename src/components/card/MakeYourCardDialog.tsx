@@ -159,14 +159,12 @@ export function MakeYourCardDialog({
                         aspect={1}
                         cropShape="round"
                         showGrid={false}
-                        objectFit="cover"
                         minZoom={1}
                         maxZoom={4}
                         zoomSpeed={0.5}
                         onCropChange={setCrop}
                         onZoomChange={setZoom}
                         onCropComplete={onCropComplete}
-                        cropSize={{ width: 9999, height: 9999 }}
                         style={{
                           containerStyle: {
                             position: 'absolute',

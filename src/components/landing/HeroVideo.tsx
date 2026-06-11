@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/button';
 import { ChevronRight, ChevronDown, Eye } from 'lucide-react';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.webp';
 import { useGuestMode } from '@/contexts/GuestModeContext';
+import { supabase } from '@/integrations/supabase/client';
+
+const MIN_LIVE_COUNT_TO_SHOW = 25;
 
 const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
 
@@ -11,7 +14,7 @@ export default function HeroVideo() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [ready, setReady] = useState(false);
-  const [liveCount, setLiveCount] = useState(0);
+  const [liveCount, setLiveCount] = useState<number | null>(null);
   const navigate = useNavigate();
   const { enterGuestMode } = useGuestMode();
 
@@ -34,14 +37,22 @@ export default function HeroVideo() {
     });
   }, []);
 
-  // Simulate a live count that feels organic
+  // Real fan-activity count from the last 7 days. Hidden if below threshold
+  // so we never show a small/embarrassing number.
   useEffect(() => {
-    const base = 38 + Math.floor(Math.random() * 20);
-    setLiveCount(base);
-    const interval = setInterval(() => {
-      setLiveCount((prev) => prev + (Math.random() > 0.5 ? 1 : -1));
-    }, 8000);
-    return () => clearInterval(interval);
+    let cancelled = false;
+    (async () => {
+      const { data, error } = await supabase.rpc('get_active_fan_count_7d');
+      if (cancelled) return;
+      if (error || typeof data !== 'number') {
+        setLiveCount(null);
+        return;
+      }
+      setLiveCount(data);
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleEnded = useCallback((endedIndex: number) => {
@@ -115,10 +126,18 @@ export default function HeroVideo() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
             </span>
-            <span className="text-[13px] font-medium text-white/95" style={{ fontFamily: 'Inter, sans-serif' }}>
-              {liveCount} Buddies active near the Friendly Confines
-            </span>
-          </div>
+        <div className="mt-8 flex flex-col items-center gap-2.5">
+          {liveCount !== null && liveCount >= MIN_LIVE_COUNT_TO_SHOW && (
+            <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/40 px-4 py-1.5 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+              </span>
+              <span className="text-[13px] font-medium text-white/95" style={{ fontFamily: 'Inter, sans-serif' }}>
+                {liveCount} Buddies active near the Friendly Confines this week
+              </span>
+            </div>
+          )}
           <p
             className="text-base sm:text-lg font-bold uppercase tracking-[0.16em] text-white"
             style={{

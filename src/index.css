@@ -120,8 +120,8 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 
 /* Entrance: fade + slide-up 12px (240ms, ease-out-quint) */
 @keyframes fab-enter {
-  0%   { opacity: 0; transform: translate(-50%, 12px); }
-  100% { opacity: 1; transform: translate(-50%, 0);    }
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0);    }
 }
 .fab-enter {
   animation: fab-enter 240ms var(--ease-out-quint) both;
@@ -129,8 +129,8 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 
 /* Idle attention pulse: friendly, 1.4s loop, 100→106→100, opacity 100→85→100 */
 @keyframes fab-attention-pulse {
-  0%, 100% { transform: translate(-50%, 0)         scale(1);    opacity: 1;    }
-  50%      { transform: translate(-50%, 0)         scale(1.06); opacity: 0.85; }
+  0%, 100% { transform: translateY(0) scale(1);    opacity: 1;    }
+  50%      { transform: translateY(0) scale(1.06); opacity: 0.85; }
 }
 .fab-attention {
   animation: fab-attention-pulse 1.4s ease-in-out infinite;
@@ -138,10 +138,10 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 
 /* Tap spring: down to 94% then overshoot 103% then settle */
 @keyframes fab-tap-spring {
-  0%   { transform: translate(-50%, 0) scale(1);    }
-  20%  { transform: translate(-50%, 0) scale(0.94); }
-  60%  { transform: translate(-50%, 0) scale(1.03); }
-  100% { transform: translate(-50%, 0) scale(1);    }
+  0%   { transform: translateY(0) scale(1);    }
+  20%  { transform: translateY(0) scale(0.94); }
+  60%  { transform: translateY(0) scale(1.03); }
+  100% { transform: translateY(0) scale(1);    }
 }
 .fab-tap {
   animation: fab-tap-spring 320ms var(--ease-out-soft) both;
@@ -149,13 +149,13 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 
 /* Hide / reveal on scroll (180ms ease-out) */
 .fab-hidden {
-  transform: translate(-50%, 20px) !important;
+  transform: translateY(20px) !important;
   opacity: 0 !important;
   pointer-events: none;
   transition: transform 180ms ease-out, opacity 180ms ease-out;
 }
 .fab-revealed {
-  transform: translate(-50%, 0);
+  transform: translateY(0);
   opacity: 1;
   transition: transform 180ms ease-out, opacity 180ms ease-out;
 }
@@ -164,8 +164,8 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 .fab-base {
   transition: transform 120ms ease-out, box-shadow 200ms ease-out;
 }
-.fab-base:hover  { transform: translate(-50%, 0) scale(1.025); }
-.fab-base:active { transform: translate(-50%, 0) scale(0.94);  }
+.fab-base:hover  { transform: translateY(0) scale(1.025); }
+.fab-base:active { transform: translateY(0) scale(0.94);  }
 
 /* Speed-dial item entrance / exit */
 @keyframes fab-dial-in {

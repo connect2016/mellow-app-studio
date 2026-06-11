@@ -732,13 +732,14 @@ export default function Discover() {
           </motion.div>
         )}
         {/* Discover header — tagline + sticky Filters */}
-        <div className="sticky top-2 z-20 -mx-1 mb-3 flex items-center justify-between rounded-2xl border border-white/10 bg-card/80 px-3 py-2 backdrop-blur-md">
+        <div className="sticky top-2 z-20 -mx-1 mb-3 flex items-center justify-between rounded-2xl border border-white/15 bg-[hsl(var(--brand-navy))]/70 px-3 py-2 backdrop-blur-md">
           <div className="min-w-0">
-            <h2 className="text-base font-extrabold uppercase tracking-wide text-foreground" style={{ fontFamily: 'Norwester, sans-serif' }}>
+            <h2 className="text-base font-extrabold uppercase tracking-wide text-white" style={{ fontFamily: 'Norwester, sans-serif' }}>
               Discover Fans
             </h2>
-            <p className="text-[11px] text-muted-foreground truncate">Find your crew. Build your night.</p>
+            <p className="text-[11px] text-white/75 truncate">Find your crew. Build your night.</p>
           </div>
+
           <Button
             variant="outline"
             size="sm"

@@ -320,6 +320,6 @@ export default function BarMap() {
       {isGuest && <GuestBanner />}
       <BeerFomoToast activities={beerActivities} />
       </div>
-    </div>
+    </PageBackground>
   );
 }

@@ -13,6 +13,7 @@ export default function Auth() {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
   const { data: profile } = useProfile();
+  const [pendingProvider, setPendingProvider] = useState<'google' | 'apple' | null>(null);
 
   useEffect(() => {
     if (!loading && user) {

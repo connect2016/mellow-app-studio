@@ -3,6 +3,7 @@ import { ProfileCardSkeleton } from '@/components/ui/skeleton';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { PageBackground } from '@/components/PageBackground';
+import { DesktopPanel } from '@/components/DesktopPanel';
 import { AppHeader } from '@/components/AppHeader';
 
 import { UserBaseballCard } from '@/components/UserBaseballCard';
@@ -251,7 +252,8 @@ export default function Profile() {
       />
       <AppHeader />
 
-      <div className="mx-auto max-w-lg px-4 pt-4">
+      <DesktopPanel>
+      <div className="mx-auto max-w-lg px-4 pt-4 lg:mx-0 lg:px-0 lg:pt-0 lg:max-w-none lg:w-full">
 
         {!isOwnProfile && (
           <button onClick={() => navigate(-1)} className="flex items-center gap-1 mb-4 text-sm text-muted-foreground hover:text-foreground min-h-[44px] min-w-[44px]">
@@ -500,6 +502,7 @@ export default function Profile() {
           </TabsContent>
         </Tabs>
       </div>
+      </DesktopPanel>
     </PageBackground>
   );
 }

@@ -14,6 +14,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { useDiscoverFans, sayHiToBuddy, type DiscoverFilter, type DiscoverFan } from '@/hooks/useDiscoverFans';
 import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
+import { DesktopPanel } from '@/components/DesktopPanel';
 import { STHBadge } from '@/components/profile/STHBadge';
 
 const CHIPS: { id: DiscoverFilter; label: string }[] = [
@@ -86,7 +87,8 @@ export default function DiscoverFans() {
       <SEOMeta title="Discover Fans · Wrigleyville Buddies" description="Find Cubs fans near Wrigleyville to meet up, chat, and share the bleachers." />
       <AppHeader />
 
-      <div className="mx-auto max-w-2xl px-4 pb-24 pt-3">
+      <DesktopPanel>
+      <div className="mx-auto max-w-2xl px-4 pb-24 pt-3 lg:mx-0 lg:px-0 lg:pt-0 lg:pb-0 lg:max-w-none lg:w-full">
         {/* Active count headline */}
         <div className="mb-3">
           <p className="text-2xl font-bold leading-tight">
@@ -168,6 +170,7 @@ export default function DiscoverFans() {
           </ul>
         )}
       </div>
+      </DesktopPanel>
 
       {beerCtx && (
         <BuyBeerModal

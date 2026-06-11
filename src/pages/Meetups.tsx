@@ -13,6 +13,7 @@ import { usePersonalCrewIds } from '@/hooks/usePersonalCrew';
 import { DynamicBackground } from '@/components/DynamicBackground';
 import { SkeletonCard } from '@/components/ui/skeleton';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { DesktopPanel } from '@/components/DesktopPanel';
 
 function isToday(iso: string) {
   const d = new Date(iso);
@@ -77,7 +78,8 @@ export default function Meetups() {
       <div className="relative z-10 swipe-drag" data-route-parallax="fg">
       <AppHeader />
 
-      <main className="mx-auto max-w-2xl px-4 pt-4">
+      <DesktopPanel>
+      <main className="mx-auto max-w-2xl px-4 pt-4 lg:mx-0 lg:px-0 lg:pt-0 lg:max-w-none lg:w-full">
         {/* Hero header */}
         <div className="mb-4">
           <h1 className="text-2xl font-extrabold tracking-tight text-white drop-shadow-md">Meetups</h1>
@@ -157,6 +159,7 @@ export default function Meetups() {
           </div>
         )}
       </main>
+      </DesktopPanel>
 
       <CreateMeetupModal open={showCreate} onClose={() => setShowCreate(false)} />
       {isGuest && <GuestBanner />}

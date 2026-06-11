@@ -66,7 +66,8 @@ export default function HeroVideo() {
         src="/hero-fallback.jpg"
         alt=""
         className={`absolute inset-0 h-full w-full object-cover ${ready ? 'opacity-0' : 'opacity-100'}`}
-        aria-hidden="true" loading="lazy" decoding="async" />
+        aria-hidden="true" loading="eager" fetchPriority="high" decoding="async" />
+
 
       {/* Stacked videos */}
       {VIDEO_SOURCES.map((src, idx) => (

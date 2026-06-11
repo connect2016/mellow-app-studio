@@ -2964,6 +2964,7 @@ export type Database = {
         Args: { p_secret: string; p_token: string }
         Returns: Json
       }
+      get_active_fan_count_7d: { Args: never; Returns: number }
       get_activity_feed: {
         Args: { p_limit?: number }
         Returns: {

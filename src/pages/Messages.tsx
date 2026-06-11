@@ -264,9 +264,9 @@ export default function Messages() {
                   <Send className="h-4 w-4" />
                 </Button>
               </form>
+            </div>
           </div>
           </DesktopPanel>
-        </div>
         </div>
       </PageBackground>
     );

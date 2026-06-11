@@ -115,25 +115,20 @@ export function UserBaseballCard({
   const [isSharing, setIsSharing] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { uploadPhoto, uploading } = usePhotoUpload();
+  const { uploading } = usePhotoUpload();
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
 
   const handlePickPhoto = () => {
     if (uploading) return;
     fileInputRef.current?.click();
   };
 
-  const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    // Reset the input so selecting the same file again still triggers change
     if (e.target) e.target.value = '';
     if (!file) return;
-    try {
-      await uploadPhoto(file);
-      // updateProfile invalidates the profile query, so the avatar refreshes automatically.
-      setImgLoaded(false);
-    } catch {
-      // toast w/ retry shown by usePhotoUpload
-    }
+    // Open the "Make your card" dialog — upload happens after crop confirm
+    setPendingFile(file);
   };
 
   async function shareCard() {

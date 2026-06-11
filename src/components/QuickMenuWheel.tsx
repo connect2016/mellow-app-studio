@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
-const CUBS_BLUE = '#0E3386';
+const CUBS_BLUE = 'hsl(var(--brand-navy))';
 
 type Spoke = {
   key: string;

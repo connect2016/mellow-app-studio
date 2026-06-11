@@ -30,8 +30,8 @@ import { STHBadge } from '@/components/profile/STHBadge';
 import { SEOMeta } from '@/components/SEOMeta';
 import { cn } from '@/lib/utils';
 
-const NAVY = '#0E3386';
-const RED = '#CC3433';
+const NAVY = 'hsl(var(--brand-navy))';
+const RED = 'hsl(var(--brand-red))';
 
 const REPORT_REASONS = [
   'Inappropriate behavior',
@@ -333,7 +333,7 @@ export default function PublicProfile() {
                     type="button"
                     onClick={() => navigate(`/crews/${c.id}`)}
                     className="flex w-28 shrink-0 flex-col items-center gap-2 rounded-2xl border-2 bg-white p-3 text-center shadow-sm transition active:scale-[0.98]"
-                    style={{ borderColor: '#e2e6ee', minHeight: 96 }}
+                    style={{ borderColor: 'hsl(var(--border))', minHeight: 96 }}
                   >
                     <div
                       className="flex h-12 w-12 items-center justify-center rounded-full"
@@ -400,9 +400,9 @@ export default function PublicProfile() {
                     'min-h-[56px]',
                   )}
                   style={{
-                    borderColor: selected ? NAVY : '#d6d9e2',
+                    borderColor: selected ? NAVY : 'hsl(var(--border))',
                     background: selected ? NAVY : 'white',
-                    color: selected ? 'white' : '#1a1f2e',
+                    color: selected ? 'white' : 'hsl(var(--foreground))',
                   }}
                   aria-pressed={selected}
                 >
@@ -458,7 +458,7 @@ function EmptyRow({ text }: { text: string }) {
   return (
     <div
       className="rounded-2xl border-2 border-dashed px-4 py-5 text-center text-sm text-muted-foreground"
-      style={{ borderColor: '#d6d9e2' }}
+      style={{ borderColor: 'hsl(var(--border))' }}
     >
       {text}
     </div>

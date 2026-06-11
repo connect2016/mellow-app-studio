@@ -435,7 +435,7 @@ export default function Profile() {
                       </div>
                       <div
                         className="shrink-0 rounded-full px-3 py-1 text-sm font-bold tabular-nums"
-                        style={{ backgroundColor: '#0E3386', color: '#FFFFFF' }}
+                        style={{ backgroundColor: 'hsl(var(--brand-navy))', color: '#FFFFFF' }}
                         aria-label={`${referralCount} friends invited`}
                       >
                         {referralCount}

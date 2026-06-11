@@ -410,6 +410,14 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 
     --ticket-cream: 40 15% 88%;
 
+    /* ===== Canonical brand palette (sweep tokens) ===== */
+    /* navy #0E3386, red #C8102E, gold #FFD100 */
+    --brand-navy: 220 81% 29%;
+    --brand-navy-light: 220 73% 38%;
+    --brand-navy-deep: 220 80% 20%;
+    --brand-red: 350 85% 42%;
+    --brand-gold: 49 100% 50%;
+
     /* ===== Premium design tokens ===== */
     --surface: 40 18% 92%;
     --surface-elevated: 40 22% 95%;
@@ -469,6 +477,13 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
     --sidebar-ring: 160 45% 35%;
 
     --ticket-cream: 160 35% 9%;
+
+    /* Canonical brand palette — dark mode (navy lifted ~15% for contrast) */
+    --brand-navy: 220 75% 44%;
+    --brand-navy-light: 220 70% 55%;
+    --brand-navy-deep: 220 78% 30%;
+    --brand-red: 350 75% 55%;
+    --brand-gold: 49 100% 60%;
 
     --lineup-teal: 168 50% 42%;
     --lineup-teal-foreground: 0 0% 100%;

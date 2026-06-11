@@ -149,7 +149,7 @@ export function ClusterMarkerComponent({ cluster }: { cluster: MapCluster }) {
             fontWeight: 700,
             letterSpacing: '0.4px',
             textTransform: 'uppercase',
-            color: '#0E3386',
+            color: 'hsl(var(--brand-navy))',
           }}
         >
           {friendly}

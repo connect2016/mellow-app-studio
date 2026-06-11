@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { Trophy } from 'lucide-react';
 
-const CUBS_BLUE = '#0E3386';
-const CUBS_RED = '#CC3433';
+const CUBS_BLUE = 'hsl(var(--brand-navy))';
+const CUBS_RED = 'hsl(var(--brand-red))';
 
 interface MlbGame {
   gamePk: number;

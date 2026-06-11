@@ -9,7 +9,7 @@ export function FindFansBanner() {
       className="group block mx-4 mt-3 mb-2 rounded-2xl overflow-hidden shadow-[0_4px_14px_rgba(204,52,51,0.25)] ring-1 ring-white/30 active:scale-[0.99] transition-transform duration-150"
       style={{
         background:
-          'linear-gradient(135deg, #CC3433 0%, #E85D2A 55%, #F2A341 100%)',
+          'linear-gradient(135deg, hsl(var(--brand-red)) 0%, #E85D2A 55%, #F2A341 100%)',
       }}
     >
       <div className="flex items-center gap-3 px-4 py-3 min-h-[64px]">

@@ -6,9 +6,9 @@ import { cn } from '@/lib/utils';
  * or render inline next to a name.
  */
 
-const GOLD = '#FFC52C';
-const GOLD_DEEP = '#D9A521';
-const NAVY = '#0E3386';
+const GOLD = 'hsl(var(--brand-gold))';
+const GOLD_DEEP = 'hsl(var(--brand-gold))';
+const NAVY = 'hsl(var(--brand-navy))';
 
 interface STHBadgeProps {
   size?: 'xs' | 'sm' | 'md' | 'lg';

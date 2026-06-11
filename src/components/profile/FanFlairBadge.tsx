@@ -7,7 +7,7 @@ interface Props {
 
 const PILL_STYLE: React.CSSProperties = {
   background: 'rgba(14, 51, 134, 0.12)',
-  color: '#0E3386',
+  color: 'hsl(var(--brand-navy))',
   fontSize: 10,
   fontWeight: 700,
   letterSpacing: '0.05em',

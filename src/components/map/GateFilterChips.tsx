@@ -18,7 +18,7 @@ export function GateFilterChips({ selected, onSelect, counts }: Props) {
             onClick={() => onSelect(isActive ? null : gate)}
             className={`shrink-0 inline-flex items-center gap-1.5 rounded-full px-3 min-h-[36px] text-xs font-semibold whitespace-nowrap transition-colors ${
               isActive
-                ? 'bg-[#0E3386] text-white shadow-sm'
+                ? 'bg-[hsl(var(--brand-navy))] text-white shadow-sm'
                 : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300'
             }`}
           >

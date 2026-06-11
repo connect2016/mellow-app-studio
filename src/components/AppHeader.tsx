@@ -157,11 +157,11 @@ export function AppHeader() {
                   type="button"
                   onClick={() => setNotifOpen(true)}
                   aria-label={unreadNotifs > 0 ? `View notifications (${unreadNotifs} unread)` : 'View notifications'}
-                  className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#C8102E] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[#a30d25] active:scale-95"
+                  className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[hsl(var(--brand-red))] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[hsl(var(--brand-red))] active:scale-95"
                 >
                   <Bell className="h-[18px] w-[18px]" strokeWidth={2.25} />
                   {unreadNotifs > 0 && (
-                    <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-white px-1 text-[9px] font-bold text-[#C8102E] ring-2 ring-[#C8102E]">
+                    <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-white px-1 text-[9px] font-bold text-[hsl(var(--brand-red))] ring-2 ring-[hsl(var(--brand-red))]">
                       {unreadNotifs > 99 ? '99+' : unreadNotifs}
                     </span>
                   )}

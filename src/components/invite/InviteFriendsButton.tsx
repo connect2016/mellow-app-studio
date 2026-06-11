@@ -82,7 +82,7 @@ export function InviteFriendsButton({
       )}
       style={
         variant === 'primary'
-          ? { backgroundColor: '#CC3433', color: '#FFFFFF' }
+          ? { backgroundColor: 'hsl(var(--brand-red))', color: '#FFFFFF' }
           : undefined
       }
       variant={variant === 'outline' ? 'outline' : 'default'}

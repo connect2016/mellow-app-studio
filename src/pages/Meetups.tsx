@@ -107,7 +107,7 @@ export default function Meetups() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center py-20 px-6 min-h-[40vh]">
-            <ConceptIcon name="baseball" className="h-16 w-16" style={{ color: '#0E3386' }} />
+            <ConceptIcon name="baseball" className="h-16 w-16" style={{ color: 'hsl(var(--brand-navy))' }} />
             <h3
               className="mt-4 text-center"
               style={{

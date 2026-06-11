@@ -45,7 +45,7 @@ export function BottomNav() {
         right: 0,
         width: '100%',
         zIndex: 1000,
-        backgroundColor: '#0E3386',
+        backgroundColor: 'hsl(var(--brand-navy))',
         borderTop: 'none',
         boxShadow: '0 -1px 0 rgba(0,0,0,0.15)',
         paddingBottom: 'max(env(safe-area-inset-bottom), 0px)',
@@ -54,8 +54,8 @@ export function BottomNav() {
       {TABS.map(({ to, label, icon: Icon, showBadge, showProgress }) => {
         const badgeValue =
           showBadge === 'fans' ? count : showBadge === 'unread' ? unread : 0;
-        const badgeColor = showBadge === 'unread' ? '#E11D48' : '#FFFFFF';
-        const badgeText = showBadge === 'unread' ? '#FFFFFF' : '#0E3386';
+        const badgeColor = showBadge === 'unread' ? 'hsl(var(--brand-red))' : '#FFFFFF';
+        const badgeText = showBadge === 'unread' ? '#FFFFFF' : 'hsl(var(--brand-navy))';
         return (
           <NavLink
             key={to}

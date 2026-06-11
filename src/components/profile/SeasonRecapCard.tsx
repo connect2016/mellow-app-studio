@@ -89,7 +89,7 @@ function RecapStat({
         {label}
       </span>
       {value === 0 && zeroHint && (
-        <span style={{ fontSize: '11px', color: '#6b7280', marginTop: '4px' }} className="text-center">
+        <span style={{ fontSize: '11px', color: 'hsl(var(--muted-foreground))', marginTop: '4px' }} className="text-center">
           {zeroHint}
         </span>
       )}

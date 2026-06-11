@@ -62,7 +62,7 @@ export function GameDayIntentBanner({ onIntentChange }: Props) {
       role="region"
       aria-label="Game day intent"
       style={{
-        background: '#0E3386',
+        background: 'hsl(var(--brand-navy))',
         borderRadius: 12,
         padding: '12px 14px',
         margin: '0 16px 12px',
@@ -102,8 +102,8 @@ export function GameDayIntentBanner({ onIntentChange }: Props) {
               type="button"
               onClick={() => pick(p.value)}
               style={{
-                background: isSel ? '#CC3433' : 'rgba(255,255,255,0.15)',
-                border: `1px solid ${isSel ? '#CC3433' : 'rgba(255,255,255,0.3)'}`,
+                background: isSel ? 'hsl(var(--brand-red))' : 'rgba(255,255,255,0.15)',
+                border: `1px solid ${isSel ? 'hsl(var(--brand-red))' : 'rgba(255,255,255,0.3)'}`,
                 color: 'white',
                 fontSize: 12,
                 fontWeight: isSel ? 700 : 500,

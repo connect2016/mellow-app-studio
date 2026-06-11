@@ -10,7 +10,7 @@ export default function TermsOfServicePage() {
     >
       <div
         style={{
-          border: '1px solid #e2e6ee',
+          border: '1px solid hsl(var(--border))',
           borderRadius: '12px',
           padding: '16px',
           background: '#f9fafb',
@@ -21,21 +21,21 @@ export default function TermsOfServicePage() {
           style={{
             fontSize: '16px',
             fontWeight: 700,
-            color: '#1a1f2e',
+            color: 'hsl(var(--foreground))',
             marginTop: 0,
             marginBottom: '12px',
           }}
         >
           Independent Fan App — Not Affiliated with MLB or the Chicago Cubs
         </h2>
-        <p style={{ fontSize: '14px', color: '#374151', lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: '14px', color: 'hsl(var(--foreground))', lineHeight: 1.6, margin: 0 }}>
           Wrigleyville Buddies is an independently operated, fan-created application. We
           are not affiliated with, authorized by, endorsed by, or in any way
           officially connected to Major League Baseball, the Office of the
           Commissioner of Baseball, the Chicago National League Ball Club LLC (the
           Chicago Cubs), or any of their subsidiaries, affiliates, or partners.
         </p>
-        <p style={{ fontSize: '14px', color: '#374151', lineHeight: 1.6, marginTop: '12px', marginBottom: 0 }}>
+        <p style={{ fontSize: '14px', color: 'hsl(var(--foreground))', lineHeight: 1.6, marginTop: '12px', marginBottom: 0 }}>
           All Major League Baseball trademarks, team names, logos, and copyrights
           are the property of their respective owners and are used here, if at all,
           only in a descriptive or nominative manner. This app is a community tool

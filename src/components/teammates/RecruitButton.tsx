@@ -50,7 +50,7 @@ export function RecruitButton({ otherUserId, className }: RecruitButtonProps) {
         <Button
           onClick={() => respond.mutate({ id: state.id, accept: true })}
           disabled={respond.isPending}
-          className="flex-1 rounded-xl h-12 font-semibold bg-[#002F6C] text-white hover:bg-[#001f4d]"
+          className="flex-1 rounded-xl h-12 font-semibold bg-[hsl(var(--brand-navy))] text-white hover:bg-[hsl(var(--brand-navy-deep))]"
         >
           <CheckCircle2 className="mr-2 h-5 w-5" /> Accept Recruit
         </Button>
@@ -87,7 +87,7 @@ export function RecruitButton({ otherUserId, className }: RecruitButtonProps) {
       disabled={send.isPending}
       className={cn(
         'w-full rounded-xl h-12 font-semibold text-white shadow-lg',
-        'bg-gradient-to-r from-[#002F6C] via-[#0a3a85] to-[#C8102E] hover:brightness-110 active:scale-[0.98] transition-all',
+        'bg-gradient-to-r from-[hsl(var(--brand-navy))] via-[#0a3a85] to-[hsl(var(--brand-red))] hover:brightness-110 active:scale-[0.98] transition-all',
         className
       )}
     >

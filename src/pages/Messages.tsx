@@ -131,7 +131,7 @@ export default function Messages() {
                     src={otherProfile.profile_photo}
                     alt=""
                     className="h-9 w-9 rounded-full object-cover ring-2"
-                    style={{ borderColor: '#0E3386' }} loading="lazy" decoding="async" />
+                    style={{ borderColor: 'hsl(var(--brand-navy))' }} loading="lazy" decoding="async" />
                 ) : (
                   <div className="h-9 w-9 rounded-full bg-muted" />
                 )}
@@ -179,7 +179,7 @@ export default function Messages() {
                     <div
                       className="max-w-[75%] rounded-2xl px-4 py-2.5 text-sm shadow-sm"
                       style={{
-                        backgroundColor: isMe ? '#CC3433' : '#0E3386',
+                        backgroundColor: isMe ? 'hsl(var(--brand-red))' : 'hsl(var(--brand-navy))',
                         color: '#FFFFFF',
                         borderBottomRightRadius: isMe ? 6 : undefined,
                         borderBottomLeftRadius: !isMe ? 6 : undefined,
@@ -201,7 +201,7 @@ export default function Messages() {
                         type="button"
                         onClick={() => retryChat(clientId)}
                         className="mt-1 text-[11px] font-semibold underline underline-offset-2"
-                        style={{ color: '#CC3433' }}
+                        style={{ color: 'hsl(var(--brand-red))' }}
                       >
                         Not delivered — tap to retry
                       </button>
@@ -264,7 +264,7 @@ export default function Messages() {
                   size="icon"
                   className="rounded-full shrink-0 h-10 w-10"
                   disabled={!newMessage.trim()}
-                  style={{ backgroundColor: '#CC3433', color: '#FFFFFF' }}
+                  style={{ backgroundColor: 'hsl(var(--brand-red))', color: '#FFFFFF' }}
                 >
                   <Send className="h-4 w-4" />
                 </Button>
@@ -339,7 +339,7 @@ export default function Messages() {
                           src={profile.profile_photo}
                           alt=""
                           className="h-12 w-12 rounded-full object-cover ring-2"
-                          style={{ borderColor: '#0E3386' }} loading="lazy" decoding="async" />
+                          style={{ borderColor: 'hsl(var(--brand-navy))' }} loading="lazy" decoding="async" />
                       ) : (
                         <div className="h-12 w-12 rounded-full bg-muted" />
                       )}
@@ -373,7 +373,7 @@ export default function Messages() {
                           <span
                             aria-label={`${unread} unread`}
                             className="h-2.5 w-2.5 rounded-full shrink-0"
-                            style={{ backgroundColor: '#CC3433' }}
+                            style={{ backgroundColor: 'hsl(var(--brand-red))' }}
                           />
                         )}
                       </div>
@@ -396,7 +396,7 @@ export default function Messages() {
                     >
                       <div
                         className="h-12 w-12 rounded-full flex items-center justify-center shrink-0"
-                        style={{ backgroundColor: '#0E3386', color: '#FFFFFF' }}
+                        style={{ backgroundColor: 'hsl(var(--brand-navy))', color: '#FFFFFF' }}
                       >
                         <Users className="h-5 w-5" />
                       </div>

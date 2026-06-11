@@ -89,7 +89,7 @@ export function CheckInSheet({ open, onClose }: Props) {
     <Sheet open={open} onOpenChange={(o) => !o && onClose()}>
       <SheetContent side="bottom" className="max-h-[92vh] overflow-y-auto rounded-t-2xl">
         <SheetHeader>
-          <SheetTitle className="text-left text-xl font-extrabold" style={{ color: '#0E3386' }}>
+          <SheetTitle className="text-left text-xl font-extrabold" style={{ color: 'hsl(var(--brand-navy))' }}>
             Check In
           </SheetTitle>
         </SheetHeader>
@@ -99,7 +99,7 @@ export function CheckInSheet({ open, onClose }: Props) {
           className="mt-3 mb-4"
           style={{
             background: 'rgba(14,51,134,0.08)',
-            color: '#0E3386',
+            color: 'hsl(var(--brand-navy))',
             fontSize: 11,
             borderRadius: 8,
             padding: '8px 12px',
@@ -112,16 +112,16 @@ export function CheckInSheet({ open, onClose }: Props) {
         {/* Section 1 — Zone */}
         <section className="mb-5 rounded-xl border border-border bg-card p-3">
           <div className="flex items-center gap-2 mb-1">
-            <MapPin className="h-4 w-4" style={{ color: '#0E3386' }} />
-            <h3 className="text-sm font-extrabold" style={{ color: '#1a1f2e' }}>Your Zone</h3>
+            <MapPin className="h-4 w-4" style={{ color: 'hsl(var(--brand-navy))' }} />
+            <h3 className="text-sm font-extrabold" style={{ color: 'hsl(var(--foreground))' }}>Your Zone</h3>
           </div>
-          <p className="text-sm" style={{ color: '#1a1f2e' }}>
+          <p className="text-sm" style={{ color: 'hsl(var(--foreground))' }}>
             {profile?.zip_code ? `ZIP ${profile.zip_code}` : 'Not set'}
           </p>
           <a
             href="/settings"
             className="mt-1 inline-block text-xs font-semibold"
-            style={{ color: '#0E3386' }}
+            style={{ color: 'hsl(var(--brand-navy))' }}
           >
             Change in settings →
           </a>
@@ -131,8 +131,8 @@ export function CheckInSheet({ open, onClose }: Props) {
         <section className="mb-5 rounded-xl border border-border bg-card p-3">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <Beer className="h-4 w-4" style={{ color: '#0E3386' }} />
-              <h3 className="text-sm font-extrabold" style={{ color: '#1a1f2e' }}>
+              <Beer className="h-4 w-4" style={{ color: 'hsl(var(--brand-navy))' }} />
+              <h3 className="text-sm font-extrabold" style={{ color: 'hsl(var(--foreground))' }}>
                 Which bar are you at?
               </h3>
             </div>
@@ -140,7 +140,7 @@ export function CheckInSheet({ open, onClose }: Props) {
               <button
                 onClick={() => { setBar(null); setOtherBar(''); setOtherOpen(false); }}
                 className="text-xs font-bold flex items-center gap-1"
-                style={{ color: '#CC3433' }}
+                style={{ color: 'hsl(var(--brand-red))' }}
               >
                 <X className="h-3 w-3" /> Clear
               </button>
@@ -157,7 +157,7 @@ export function CheckInSheet({ open, onClose }: Props) {
                     ? 'text-white border-transparent'
                     : 'bg-white border-border text-foreground hover:border-primary/50'
                 )}
-                style={currentBar === b ? { backgroundColor: '#0E3386' } : undefined}
+                style={currentBar === b ? { backgroundColor: 'hsl(var(--brand-navy))' } : undefined}
               >
                 {b}
               </button>
@@ -168,7 +168,7 @@ export function CheckInSheet({ open, onClose }: Props) {
                 'min-h-[44px] rounded-full px-3.5 text-sm font-bold border-2 transition-colors',
                 otherOpen ? 'text-white border-transparent' : 'bg-white border-border text-foreground hover:border-primary/50'
               )}
-              style={otherOpen ? { backgroundColor: '#0E3386' } : undefined}
+              style={otherOpen ? { backgroundColor: 'hsl(var(--brand-navy))' } : undefined}
             >
               Other…
             </button>
@@ -184,7 +184,7 @@ export function CheckInSheet({ open, onClose }: Props) {
               <Button
                 onClick={() => otherBar.trim() && setBar(otherBar.trim())}
                 disabled={!otherBar.trim()}
-                style={{ backgroundColor: '#0E3386', color: 'white' }}
+                style={{ backgroundColor: 'hsl(var(--brand-navy))', color: 'white' }}
               >
                 Save
               </Button>
@@ -197,7 +197,7 @@ export function CheckInSheet({ open, onClose }: Props) {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <Building2 className="h-4 w-4 text-amber-600" />
-              <h3 className="text-sm font-extrabold" style={{ color: '#1a1f2e' }}>
+              <h3 className="text-sm font-extrabold" style={{ color: 'hsl(var(--foreground))' }}>
                 🏙️ At a Rooftop?
               </h3>
             </div>
@@ -229,11 +229,11 @@ export function CheckInSheet({ open, onClose }: Props) {
 
         {/* Section 3 — Section (game-time only) */}
         {isHomeGameActive ? (
-          <section className="mb-5 rounded-xl border-2 p-3" style={{ borderColor: '#CC3433' }}>
+          <section className="mb-5 rounded-xl border-2 p-3" style={{ borderColor: 'hsl(var(--brand-red))' }}>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <Hash className="h-4 w-4" style={{ color: '#CC3433' }} />
-                <h3 className="text-sm font-extrabold" style={{ color: '#1a1f2e' }}>
+                <Hash className="h-4 w-4" style={{ color: 'hsl(var(--brand-red))' }} />
+                <h3 className="text-sm font-extrabold" style={{ color: 'hsl(var(--foreground))' }}>
                   What section are you in?
                 </h3>
               </div>
@@ -241,7 +241,7 @@ export function CheckInSheet({ open, onClose }: Props) {
                 <button
                   onClick={clearSection}
                   className="text-xs font-bold flex items-center gap-1"
-                  style={{ color: '#CC3433' }}
+                  style={{ color: 'hsl(var(--brand-red))' }}
                 >
                   <X className="h-3 w-3" /> Clear
                 </button>
@@ -259,23 +259,23 @@ export function CheckInSheet({ open, onClose }: Props) {
               <Button
                 onClick={saveSection}
                 disabled={!sectionInput.trim()}
-                style={{ backgroundColor: '#CC3433', color: 'white' }}
+                style={{ backgroundColor: 'hsl(var(--brand-red))', color: 'white' }}
               >
                 Save
               </Button>
             </div>
-            <p className="mt-2 text-[11px]" style={{ color: '#6b7280' }}>
+            <p className="mt-2 text-[11px]" style={{ color: 'hsl(var(--muted-foreground))' }}>
               Auto-clears 3 hours after check-in.
             </p>
             {liveSection && expiresAt && (
-              <p className="mt-1 text-[11px] font-semibold" style={{ color: '#0E3386' }}>
+              <p className="mt-1 text-[11px] font-semibold" style={{ color: 'hsl(var(--brand-navy))' }}>
                 Currently visible: Section {liveSection} (until {new Date(expiresAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })})
               </p>
             )}
           </section>
         ) : (
           <section className="mb-5 rounded-xl border border-dashed border-border p-3">
-            <p className="text-xs" style={{ color: '#6b7280' }}>
+            <p className="text-xs" style={{ color: 'hsl(var(--muted-foreground))' }}>
               Section check-in opens during home games.
             </p>
           </section>
@@ -284,7 +284,7 @@ export function CheckInSheet({ open, onClose }: Props) {
         <Button
           onClick={onClose}
           className="w-full min-h-[48px] font-bold"
-          style={{ backgroundColor: '#0E3386', color: 'white' }}
+          style={{ backgroundColor: 'hsl(var(--brand-navy))', color: 'white' }}
         >
           Done
         </Button>

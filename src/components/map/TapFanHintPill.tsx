@@ -52,10 +52,10 @@ export function TapFanHintPill({ fanCount }: TapFanHintPillProps) {
       <div
         className="flex items-center gap-2 rounded-full px-3.5 py-2 shadow-[0_4px_14px_rgba(0,0,0,0.25)] ring-1 ring-white/30"
         style={{
-          background: 'linear-gradient(135deg, #0E3386 0%, #2B5FBF 100%)',
+          background: 'linear-gradient(135deg, hsl(var(--brand-navy)) 0%, #2B5FBF 100%)',
         }}
       >
-        <Hand className="h-3.5 w-3.5 text-[#FDB827]" strokeWidth={2.5} />
+        <Hand className="h-3.5 w-3.5 text-[hsl(var(--brand-gold))]" strokeWidth={2.5} />
         <span
           className="text-[12px] font-bold uppercase tracking-wide text-white"
           style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.5px' }}

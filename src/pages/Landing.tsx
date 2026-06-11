@@ -241,7 +241,7 @@ function FeaturePreview({ kind }: { kind: 'map' | 'meetup' | 'hifive' }) {
         <div className="flex items-center justify-between">
           <div className="flex -space-x-1.5">
             {['JT','MD','AL'].map((i) => (
-              <div key={i} className="h-5 w-5 rounded-full bg-secondary border-2 border-[#0E3386] flex items-center justify-center text-[8px] font-bold text-secondary-foreground">{i}</div>
+              <div key={i} className="h-5 w-5 rounded-full bg-secondary border-2 border-[hsl(var(--brand-navy))] flex items-center justify-center text-[8px] font-bold text-secondary-foreground">{i}</div>
             ))}
           </div>
           <span className="text-[10px] font-bold text-white">3 spots left</span>
@@ -453,7 +453,7 @@ export default function Landing() {
             {heroFeatures.map((f, i) => {
               const kind = i === 0 ? 'map' : i === 1 ? 'meetup' : 'hifive';
               return (
-                <div key={f.title} className="rounded-2xl border border-white/20 bg-[#0E3386] p-6 shadow-sm flex flex-col">
+                <div key={f.title} className="rounded-2xl border border-white/20 bg-[hsl(var(--brand-navy))] p-6 shadow-sm flex flex-col">
                   <div className="mb-4 inline-flex w-fit rounded-xl bg-white/10 p-3">
                     <f.icon className="h-6 w-6 text-white" />
                   </div>
@@ -478,7 +478,7 @@ export default function Landing() {
           {/* Secondary features */}
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {secondaryFeatures.map((f) => (
-              <div key={f.title} className="rounded-xl border border-white/20 bg-[#0E3386] p-5 flex gap-3">
+              <div key={f.title} className="rounded-xl border border-white/20 bg-[hsl(var(--brand-navy))] p-5 flex gap-3">
                 <div className="rounded-lg bg-white/10 p-2 h-fit">
                   <f.icon className="h-5 w-5 text-white" />
                 </div>
@@ -549,7 +549,7 @@ export default function Landing() {
 
           <div className="space-y-3 mb-10">
             {faqs.map((faq, i) => (
-              <div key={i} className="rounded-2xl border border-white/20 bg-[#0E3386]/90 backdrop-blur-sm p-5">
+              <div key={i} className="rounded-2xl border border-white/20 bg-[hsl(var(--brand-navy))]/90 backdrop-blur-sm p-5">
                 <h3 className="text-base font-bold text-white mb-1.5">{faq.q}</h3>
                 <p className="text-sm text-white/85 leading-relaxed">{faq.a}</p>
               </div>
@@ -557,7 +557,7 @@ export default function Landing() {
           </div>
 
           {/* Safety reassurance */}
-          <div className="rounded-2xl border-2 border-white/30 bg-[#0E3386]/90 backdrop-blur-sm p-6">
+          <div className="rounded-2xl border-2 border-white/30 bg-[hsl(var(--brand-navy))]/90 backdrop-blur-sm p-6">
             <div className="flex items-center gap-2 mb-3">
               <Shield className="h-5 w-5 text-white" />
               <h3 className="text-lg font-bold text-white">Safety isn't a checkbox.</h3>

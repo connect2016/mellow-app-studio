@@ -153,7 +153,7 @@ export default function Missions() {
             </div>
             <div className="h-1.5 rounded-full bg-muted overflow-hidden">
               <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-primary to-secondary"
+                className="h-full rounded-full bg-primary"
                 initial={{ width: 0 }}
                 animate={{
                   width: `${totalPoints >= 500 ? 100 : totalPoints >= 200
@@ -274,7 +274,7 @@ export default function Missions() {
                           <motion.div
                             className={`h-full rounded-full ${
                               isComplete
-                                ? 'bg-gradient-to-r from-primary to-secondary'
+                                ? 'bg-primary'
                                 : 'bg-primary/60'
                             }`}
                             initial={{ width: 0 }}

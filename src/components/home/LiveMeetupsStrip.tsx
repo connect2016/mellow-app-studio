@@ -40,7 +40,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
           Loading meetups…
         </div>
       ) : top.length === 0 ? (
-        <div className="relative overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 shadow-lg">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-primary text-primary-foreground p-5 shadow-sm">
           <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
           <div className="relative flex items-start gap-3">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary/20 ring-2 ring-secondary/40">

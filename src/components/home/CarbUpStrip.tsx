@@ -113,7 +113,7 @@ export function CarbUpStrip() {
               }}
             >
               {/* Food photo placeholder */}
-              <div className={`relative h-28 w-full bg-gradient-to-br ${r.accent} flex items-center justify-center`}>
+              <div className="relative h-28 w-full bg-muted flex items-center justify-center">
                 <ConceptIcon name={r.thumb} className="h-10 w-10 text-white/90 drop-shadow-md" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[hsl(222,82%,18%)] via-transparent to-transparent" />
                 <div className="absolute top-2 left-2">

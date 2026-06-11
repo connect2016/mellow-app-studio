@@ -54,7 +54,7 @@ export function CuratedBarCard({ bar, index, liveCheckins, liveCrowdLevel, liveV
       className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm hover:shadow-sm transition-shadow"
     >
       {/* Accent gradient wash */}
-      <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${accentBg[bar.accent] || accentBg['cubs-blue']}`} />
+      
       {/* Accent left bar */}
       <div className={`absolute left-0 top-0 bottom-0 w-1 ${accentBar[bar.accent] || accentBar['cubs-blue']}`} />
 

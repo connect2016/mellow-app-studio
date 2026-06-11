@@ -546,7 +546,7 @@ export default function Discover() {
             ].map((m, i) => (
               <div
                 key={i}
-                className="relative overflow-hidden rounded-2xl border border-secondary/30 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-4 opacity-90"
+                className="relative overflow-hidden rounded-2xl border border-border bg-primary text-primary-foreground p-4"
               >
                 {/* Coming Soon badge */}
                 <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 shadow-sm">
@@ -774,7 +774,7 @@ export default function Discover() {
                 {/* BUDDIES rally card */}
                 <TabsTrigger
                   value="buddies"
-                  className="group relative w-full overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 text-left text-primary-foreground shadow-lg transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
+                  className="group relative w-full overflow-hidden rounded-2xl border border-border bg-primary p-5 text-left text-primary-foreground shadow-sm transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
                 >
                   <div className="absolute inset-0 opacity-60" style={pinstripe} aria-hidden />
                   <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
@@ -844,7 +844,7 @@ export default function Discover() {
                 {/* CREWS rally card */}
                 <TabsTrigger
                   value="crews"
-                  className="group relative w-full overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 text-left text-primary-foreground shadow-lg transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
+                  className="group relative w-full overflow-hidden rounded-2xl border border-border bg-primary p-5 text-left text-primary-foreground shadow-sm transition-all data-[state=active]:ring-2 data-[state=active]:ring-secondary active:scale-[0.99]"
                 >
                   <div className="absolute inset-0 opacity-60" style={pinstripe} aria-hidden />
                   <div className="absolute -left-10 -bottom-10 h-36 w-36 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
@@ -933,7 +933,7 @@ export default function Discover() {
                 ))}
               </div>
             ) : filtered.length === 0 ? (
-              <div className="relative overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] p-5 shadow-lg">
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-primary text-primary-foreground p-5 shadow-sm">
                 <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-secondary/15 blur-2xl" aria-hidden />
                 <div className="relative flex items-start gap-3">
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary/20 ring-2 ring-secondary/40">

@@ -85,7 +85,7 @@ export function TrendingBarsLive() {
                         initial={{ width: 0 }}
                         animate={{ width: `${heat}%` }}
                         transition={{ duration: 0.6, delay: idx * 0.05 }}
-                        className="h-full rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-red-500"
+                        className="h-full rounded-full bg-secondary"
                       />
                     </div>
                   </div>

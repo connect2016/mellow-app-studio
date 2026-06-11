@@ -143,7 +143,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
                     <X className="h-5 w-5 text-muted-foreground" />
                   </button>
                 </div>
-                <div className="rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary to-[hsl(222,82%,22%)] p-5 text-white shadow-lg">
+                <div className="rounded-2xl border border-border bg-primary p-5 text-primary-foreground shadow-sm">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-5 w-5 text-secondary" />
                     <p className="text-sm font-bold uppercase tracking-wide text-white/90" style={{ fontFamily: 'Norwester, sans-serif' }}>
@@ -327,7 +327,7 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
                         key={i}
                         type="button"
                         onClick={() => toast.info('Coming up next pitch ')}
-                        className={`snap-start shrink-0 w-[220px] min-h-[96px] rounded-2xl border border-border bg-gradient-to-br ${s.from} ${s.to} p-3 text-left hover:border-primary/40 transition-colors`}
+                        className={`snap-start shrink-0 w-[220px] min-h-[96px] rounded-2xl border border-border bg-card p-3 text-left hover:border-primary/40 transition-colors`}
                       >
                         <div className={`inline-flex items-center justify-center h-8 w-8 rounded-full bg-card ${s.accent} mb-2`}>
                           <s.icon className="h-4 w-4" />

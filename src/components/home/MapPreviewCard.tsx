@@ -17,7 +17,7 @@ export function MapPreviewCard() {
   return (
     <section
       aria-labelledby="bar-map-preview-heading"
-      className="mb-5 overflow-hidden rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-primary via-primary to-[hsl(222,82%,22%)] shadow-lg"
+      className="mb-5 overflow-hidden rounded-2xl border border-border bg-primary text-primary-foreground shadow-sm"
     >
       {/* Header */}
       <div className="flex items-start gap-3 px-4 pt-4 pb-3">

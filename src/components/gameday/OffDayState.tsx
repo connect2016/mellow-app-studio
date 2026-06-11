@@ -27,7 +27,7 @@ export function OffDayState() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-border bg-gradient-to-br from-card via-card to-primary/5 p-6 text-center">
+      <div className="rounded-2xl border border-border bg-card p-6 text-center">
         <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
           <Calendar className="h-6 w-6 text-primary" />
         </div>

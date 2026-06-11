@@ -976,7 +976,7 @@ export default function BeerMoney() {
             </div>
 
             {/* ── REFERRAL CTA ── */}
-            <div className="rounded-xl border border-dashed border-primary/30 bg-gradient-to-br from-primary/5 to-amber-500/5 p-4 text-center">
+            <div className="rounded-xl border border-dashed border-border bg-muted/40 p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Gift className="h-4 w-4 text-primary" />
                 <p className="text-xs font-bold text-amber-300">Invite & Earn </p>

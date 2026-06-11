@@ -137,7 +137,7 @@ function PromptCard({
   if (!isOwner) {
     return (
       <article
-        className={`rounded-2xl border border-border bg-gradient-to-br ${def.gradient} p-4`}
+        className="rounded-2xl border border-border bg-card p-4"
       >
         <div className="mb-1.5 flex items-center gap-2">
           <span className="text-base"><ConceptVisual name={def.emoji} size="sm" /></span>
@@ -204,7 +204,7 @@ function PromptCard({
       onClick={() => setEditing(true)}
       className={`w-full text-left rounded-2xl border p-4 transition-all min-h-[72px] active:scale-[0.99] ${
         hasValue
-          ? `border-border bg-gradient-to-br ${def.gradient} hover:border-primary/40`
+          ? 'border-border bg-card hover:border-primary/40'
           : 'border-dashed border-border bg-muted/30 hover:bg-muted/50 hover:border-primary/40'
       }`}
     >

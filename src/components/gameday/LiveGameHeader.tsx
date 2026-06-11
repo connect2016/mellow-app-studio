@@ -189,7 +189,7 @@ export function LiveGameHeader() {
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-card via-card to-primary/5 p-5 shadow-sm"
+      className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm"
     >
       {/* Subtle ivy gradient accent */}
       <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />

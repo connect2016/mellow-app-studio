@@ -5,8 +5,9 @@ import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
-import { Loader2, ZoomIn, ZoomOut } from 'lucide-react';
+import { Loader2, ZoomIn, ZoomOut, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { shareFanCard } from '@/lib/share-fan-card';
 
 interface MakeYourCardDialogProps {
   open: boolean;

@@ -117,12 +117,16 @@ export default function HiFives() {
 
   return (
     <DynamicBackground className="pb-24">
-      <div className="fixed inset-0 z-0" style={{ backgroundImage: `url(${bgWrigleyvilleStreet})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-      <div className="fixed inset-0 z-0" style={{ backgroundColor: 'hsla(222, 47%, 11%, 0.25)' }} />
       <AppHeader />
       <div className="relative z-10 mx-auto max-w-lg px-4 pt-4">
-        <h2 className="mb-1 text-3xl font-extrabold" style={{ fontFamily: 'Montserrat, sans-serif', color: 'hsl(222, 82%, 29%)', WebkitTextStroke: '2px white', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 3px rgba(0,0,0,0.5))', letterSpacing: '0.03em' }}>Hi-Fives</h2>
-        <p className="mb-6 text-base font-semibold" style={{ color: 'white', WebkitTextStroke: '0.5px black', paintOrder: 'stroke fill', filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.7))' }}>Fans who sent you a Hi-Five  — tap to reply!</p>
+        <h2
+          className="mb-1 text-3xl font-extrabold text-white"
+          style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '0.03em', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
+        >
+          Hi-Fives
+        </h2>
+        <p className="mb-6 text-base font-semibold text-white/90" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>Fans who sent you a Hi-Five — tap to reply!</p>
+
 
         {isError ? (
           <ErrorState onRetry={() => refetch()} />

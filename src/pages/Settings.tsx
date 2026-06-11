@@ -289,6 +289,7 @@ export default function Settings() {
           </DialogContent>
         </Dialog>
       </div>
+      </div>
     </PageBackground>
   );
 }

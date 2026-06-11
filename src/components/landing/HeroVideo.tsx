@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, ChevronDown, Eye } from 'lucide-react';
@@ -7,35 +7,36 @@ import { useGuestMode } from '@/contexts/GuestModeContext';
 import { supabase } from '@/integrations/supabase/client';
 
 const MIN_LIVE_COUNT_TO_SHOW = 25;
+const VIDEO_SRC = '/hero-video.mp4';
+const POSTER_SRC = '/hero-poster.webp';
 
-const VIDEO_SOURCES = ['/hero-video.mp4', '/hero-video-2.mp4', '/hero-video-3-v2.mp4'];
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduced(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener?.('change', onChange);
+    return () => mq.removeEventListener?.('change', onChange);
+  }, []);
+  return reduced;
+}
 
 export default function HeroVideo() {
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [ready, setReady] = useState(false);
   const [liveCount, setLiveCount] = useState<number | null>(null);
   const navigate = useNavigate();
   const { enterGuestMode } = useGuestMode();
-
-  const setRef = useCallback(
-    (idx: number) => (el: HTMLVideoElement | null) => {
-      videoRefs.current[idx] = el;
-    },
-    [],
-  );
+  const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    videoRefs.current.forEach((v, idx) => {
-      if (!v) return;
-      if (idx === 0) {
-        v.play().catch(() => {});
-        setReady(true);
-      } else {
-        v.load();
-      }
-    });
-  }, []);
+    if (reducedMotion) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.play().catch(() => {});
+  }, [reducedMotion]);
 
   // Real fan-activity count from the last 7 days. Hidden if below threshold
   // so we never show a small/embarrassing number.
@@ -55,16 +56,6 @@ export default function HeroVideo() {
     };
   }, []);
 
-  const handleEnded = useCallback((endedIndex: number) => {
-    const nextIndex = (endedIndex + 1) % VIDEO_SOURCES.length;
-    setActiveIndex(nextIndex);
-    const nextVideo = videoRefs.current[nextIndex];
-    if (nextVideo) {
-      nextVideo.currentTime = 0;
-      nextVideo.play().catch(() => {});
-    }
-  }, []);
-
   const handleBrowseAsGuest = () => {
     enterGuestMode();
     navigate('/vibe');
@@ -72,29 +63,31 @@ export default function HeroVideo() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Fallback image */}
+      {/* Poster — shown instantly, fades out once video starts */}
       <img
-        src="/hero-fallback.jpg"
+        src={POSTER_SRC}
         alt=""
-        className={`absolute inset-0 h-full w-full object-cover ${ready ? 'opacity-0' : 'opacity-100'}`}
-        aria-hidden="true" loading="eager" fetchPriority="high" decoding="async" />
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${ready && !reducedMotion ? 'opacity-0' : 'opacity-100'}`}
+        aria-hidden="true"
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+      />
 
-
-      {/* Stacked videos */}
-      {VIDEO_SOURCES.map((src, idx) => (
+      {!reducedMotion && (
         <video
-          key={src}
-          ref={setRef(idx)}
+          ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ opacity: activeIndex === idx && ready ? 1 : 0 }}
-          src={src}
+          src={VIDEO_SRC}
+          poster={POSTER_SRC}
           muted
+          loop
           playsInline
-          preload="auto"
-          onEnded={() => handleEnded(idx)}
+          preload="metadata"
+          onPlaying={() => setReady(true)}
           aria-hidden="true"
         />
-      ))}
+      )}
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-foreground/40" />

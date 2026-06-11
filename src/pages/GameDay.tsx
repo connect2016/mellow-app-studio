@@ -51,21 +51,10 @@ export default function GameDay() {
   const isLive = cubsGame?.status === 'live';
 
   return (
-    <div className="relative min-h-screen pb-24">
-      {/* Background image */}
-      <div
-        className="fixed inset-0 z-0"
-        style={{
-          backgroundImage: `url(${gamedayBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-      <div className="fixed inset-0 z-0 bg-black/35 pointer-events-none" />
-
-      <div className="relative z-10">
+    <PageBackground image={gamedayBg}>
+      <div className="min-h-screen pb-24">
         <AppHeader />
+
 
         {/* Sticky live pulse strip */}
         <div className={`sticky top-14 z-30 border-b backdrop-blur-md transition-colors ${

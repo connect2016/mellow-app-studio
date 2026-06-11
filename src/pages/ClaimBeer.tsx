@@ -116,7 +116,7 @@ export default function ClaimBeer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl border border-primary/20 bg-card overflow-hidden shadow-xl mb-6"
+          className="rounded-2xl border border-primary/20 bg-card overflow-hidden shadow-lg mb-6"
         >
           {/* Beer animation header */}
           <div className="bg-gradient-to-br from-primary via-primary to-amber-600 p-6 text-center relative overflow-hidden">

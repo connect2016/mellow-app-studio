@@ -12,7 +12,7 @@ export function TeammatesSummary() {
   return (
     <button
       onClick={() => navigate('/dugout')}
-      className="w-full rounded-2xl border-2 border-[hsl(var(--brand-navy))]/20 bg-white/95 p-4 text-left shadow-md hover:shadow-lg active:scale-[0.99] transition-all min-h-[72px] flex items-center gap-3"
+      className="w-full rounded-2xl border-2 border-[hsl(var(--brand-navy))]/20 bg-white/95 p-4 text-left shadow-sm hover:shadow-lg active:scale-[0.99] transition-all min-h-[72px] flex items-center gap-3"
     >
       <div className="h-12 w-12 rounded-xl bg-[hsl(var(--brand-navy))] text-white flex items-center justify-center shadow">
         <Users className="h-6 w-6" />

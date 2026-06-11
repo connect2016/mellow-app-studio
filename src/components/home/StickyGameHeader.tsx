@@ -91,7 +91,7 @@ export function StickyGameHeader() {
       className="sticky top-0 z-30 block w-full -mx-4 px-4 mb-4 active:scale-[0.99] transition"
     >
       <div
-        className="rounded-2xl shadow-md overflow-hidden border"
+        className="rounded-2xl shadow-sm overflow-hidden border"
         style={{
           background: `linear-gradient(135deg, ${CUBS_BLUE} 0%, #1a4cb8 100%)`,
           borderColor: 'rgba(255,255,255,0.1)',

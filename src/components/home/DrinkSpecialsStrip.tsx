@@ -83,7 +83,7 @@ export function DrinkSpecialsStrip() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="relative mt-4 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+          className="relative mt-4 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-sm transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
           style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
         >
           <Mail className="h-5 w-5" strokeWidth={2.6} />
@@ -106,7 +106,7 @@ export function DrinkSpecialsStrip() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-              className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border-t-2 border-secondary/40 bg-card shadow-2xl"
+              className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border-t-2 border-secondary/40 bg-card shadow-lg"
             >
               <div className="flex justify-center pt-3 pb-1">
                 <div className="h-1 w-10 rounded-full bg-muted-foreground/30" />
@@ -145,7 +145,7 @@ export function DrinkSpecialsStrip() {
                   </div>
                   <button
                     onClick={handleClose}
-                    className="mt-4 w-full min-h-[48px] rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+                    className="mt-4 w-full min-h-[48px] rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-sm transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
                     style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
                   >
                     Done
@@ -176,7 +176,7 @@ export function DrinkSpecialsStrip() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90 disabled:opacity-60"
+                    className="flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-sm transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90 disabled:opacity-60"
                     style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
                   >
                     {submitting ? 'Adding you…' : 'Notify Me'}

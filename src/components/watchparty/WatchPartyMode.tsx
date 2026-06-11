@@ -59,7 +59,7 @@ export function WatchPartyMode() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-secondary/40 bg-primary/90 p-4 text-primary-foreground shadow-md">
+      <div className="rounded-2xl border border-secondary/40 bg-primary/90 p-4 text-primary-foreground shadow-sm">
         <div className="flex items-start justify-between gap-3">
           <div>
             <h2 className="text-base font-extrabold uppercase tracking-wide" style={{ fontFamily: 'Norwester, sans-serif' }}>
@@ -108,7 +108,7 @@ export function WatchPartyMode() {
             return (
               <li
                 key={p.id}
-                className="rounded-2xl border border-white/10 bg-primary/90 p-4 text-primary-foreground shadow-md"
+                className="rounded-2xl border border-white/10 bg-primary/90 p-4 text-primary-foreground shadow-sm"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">

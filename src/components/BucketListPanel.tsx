@@ -66,7 +66,7 @@ export function BucketListPanel() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 z-[101] w-[90vw] max-w-md flex flex-col shadow-2xl overflow-hidden"
+              className="fixed top-0 right-0 bottom-0 z-[101] w-[90vw] max-w-md flex flex-col shadow-lg overflow-hidden"
               style={{
                 background: 'linear-gradient(180deg, hsl(40, 35%, 92%) 0%, hsl(38, 30%, 85%) 100%)',
                 borderLeft: '3px solid hsl(35, 30%, 65%)',

@@ -61,7 +61,7 @@ export function SocialPhotoFeed() {
             <Link
               key={p.id}
               to="/vibe"
-              className="snap-start shrink-0 relative w-32 h-40 rounded-2xl overflow-hidden border border-border shadow-sm transition active:scale-[0.97] hover:shadow-md group"
+              className="snap-start shrink-0 relative w-32 h-40 rounded-2xl overflow-hidden border border-border shadow-sm transition active:scale-[0.97] hover:shadow-sm group"
               aria-label={`Photo from ${p.location_tag}`}
             >
               {p.media_type === 'video' ? (

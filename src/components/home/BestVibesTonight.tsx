@@ -56,7 +56,7 @@ export function BestVibesTonight() {
               <Link
                 key={v.name}
                 to="/bar-map"
-                className="flex items-center gap-3 rounded-2xl border border-border bg-card/95 backdrop-blur-sm p-3 shadow-sm transition active:scale-[0.98] hover:shadow-md"
+                className="flex items-center gap-3 rounded-2xl border border-border bg-card/95 backdrop-blur-sm p-3 shadow-sm transition active:scale-[0.98] hover:shadow-sm"
                 aria-label={`${v.name} — ${meta.label}, ${v.totalUsers} fans here`}
               >
                 <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl ${meta.color}`}>

@@ -113,7 +113,7 @@ export function DiscoverFilterDrawer({ open, onClose, filters, onApply }: Discov
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
             onAnimationStart={handleOpen}
-            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border-t bg-card shadow-2xl"
+            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border-t bg-card shadow-lg"
           >
             {/* Handle */}
             <div className="flex justify-center pt-3 pb-1">

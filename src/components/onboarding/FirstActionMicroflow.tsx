@@ -153,7 +153,7 @@ export function FirstActionMicroflow() {
       <div
         className={cn(
           'w-full sm:max-w-md mx-auto rounded-t-3xl sm:rounded-3xl bg-card border border-border/60',
-          'shadow-2xl overflow-hidden',
+          'shadow-lg overflow-hidden',
         )}
       >
         {/* Header with progress + skip */}

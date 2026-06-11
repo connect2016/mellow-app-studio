@@ -161,7 +161,7 @@ export function LiveCrawlMap({
       <h2 className="text-lg font-bold text-foreground">{crawlTitle}</h2>
 
       {/* Map */}
-      <div className="rounded-2xl overflow-hidden border border-border shadow-md" style={{ height: '50vh' }}>
+      <div className="rounded-2xl overflow-hidden border border-border shadow-sm" style={{ height: '50vh' }}>
         <MapContainer
           center={mapCenter}
           zoom={15}

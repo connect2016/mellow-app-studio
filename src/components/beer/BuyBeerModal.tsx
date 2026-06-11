@@ -344,7 +344,7 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
                       {recipientFallback}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-primary text-primary-foreground grid place-items-center shadow-md">
+                  <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-primary text-primary-foreground grid place-items-center shadow-sm">
                     <Beer className="h-3.5 w-3.5" aria-hidden="true" />
                   </div>
                 </div>

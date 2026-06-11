@@ -275,7 +275,7 @@ function FoodSpotCard({ spot, index, phase, isExpanded, onToggle, onViewMap }: C
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.04, 0.3) }}
-      className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm hover:shadow-md transition-shadow"
+      className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm hover:shadow-sm transition-shadow"
     >
       {/* Header */}
       <div className="px-5 pt-5 pb-3">

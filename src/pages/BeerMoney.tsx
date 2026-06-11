@@ -1009,7 +1009,7 @@ export default function BeerMoney() {
               exit={{ y: 100, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-sm rounded-2xl border border-border bg-card p-5 shadow-xl"
+              className="w-full max-w-sm rounded-2xl border border-border bg-card p-5 shadow-lg"
             >
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-base font-bold text-foreground">Confirm your round</h3>

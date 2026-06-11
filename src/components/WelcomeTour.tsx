@@ -243,7 +243,7 @@ export function WelcomeTour() {
                 exit={{ opacity: 0, y: 12 }}
                 transition={{ duration: 0.25 }}
                 style={{ ...getTooltipStyle(), maxWidth: 320 }}
-                className="bg-card border border-border rounded-2xl p-5 shadow-xl"
+                className="bg-card border border-border rounded-2xl p-5 shadow-lg"
               >
                 {/* Close button */}
                 <button
@@ -330,7 +330,7 @@ export function WelcomeTour() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ type: 'spring', damping: 22, stiffness: 280 }}
-              className="relative w-full max-w-sm mx-4 rounded-2xl border border-border bg-card p-8 shadow-2xl text-center"
+              className="relative w-full max-w-sm mx-4 rounded-2xl border border-border bg-card p-8 shadow-lg text-center"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Pennant Logo */}

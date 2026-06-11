@@ -496,7 +496,7 @@ export default function VibeFeed() {
                   className="animate-vibe-in"
                   style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
                 >
-                  <Card className="overflow-hidden border-border/60 shadow-md">
+                  <Card className="overflow-hidden border-border/60 shadow-sm">
                     {/* Media */}
                     <div className="relative aspect-[4/3] bg-muted">
                       {post.media_type === 'video' ? (

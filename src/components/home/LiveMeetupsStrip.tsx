@@ -57,7 +57,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
           </div>
           <button
             onClick={onCreate}
-            className="relative mt-4 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-md transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
+            className="relative mt-4 flex w-full min-h-[48px] items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-base font-extrabold text-secondary-foreground shadow-sm transition-all duration-150 active:scale-[0.98] hover:bg-secondary/90"
             style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
           >
             <Plus className="h-5 w-5" strokeWidth={3} />
@@ -70,7 +70,7 @@ export function LiveMeetupsStrip({ onCreate }: { onCreate?: () => void }) {
             <Link
               key={m.id}
               to="/discover"
-              className="snap-start shrink-0 w-[78%] sm:w-[60%] rounded-2xl border border-border bg-card/95 backdrop-blur-sm p-3.5 shadow-sm transition active:scale-[0.98] hover:shadow-md"
+              className="snap-start shrink-0 w-[78%] sm:w-[60%] rounded-2xl border border-border bg-card/95 backdrop-blur-sm p-3.5 shadow-sm transition active:scale-[0.98] hover:shadow-sm"
             >
               <div className="flex items-start gap-2.5">
                 <img

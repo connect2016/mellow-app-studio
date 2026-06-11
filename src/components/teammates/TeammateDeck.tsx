@@ -138,13 +138,13 @@ export function TeammateDeck({ teammates, onCardClick }: TeammateDeckProps) {
                 {isTop && (
                   <>
                     <div
-                      className="pointer-events-none absolute top-8 left-6 rotate-[-18deg] rounded-md border-4 border-[hsl(var(--brand-navy))] bg-white/90 px-4 py-1 text-2xl font-extrabold text-[hsl(var(--brand-navy))] shadow-xl"
+                      className="pointer-events-none absolute top-8 left-6 rotate-[-18deg] rounded-md border-4 border-[hsl(var(--brand-navy))] bg-white/90 px-4 py-1 text-2xl font-extrabold text-[hsl(var(--brand-navy))] shadow-lg"
                       style={{ opacity: opacityOverlayLike }}
                     >
                       KEEP
                     </div>
                     <div
-                      className="pointer-events-none absolute top-8 right-6 rotate-[18deg] rounded-md border-4 border-[hsl(var(--brand-red))] bg-white/90 px-4 py-1 text-2xl font-extrabold text-[hsl(var(--brand-red))] shadow-xl"
+                      className="pointer-events-none absolute top-8 right-6 rotate-[18deg] rounded-md border-4 border-[hsl(var(--brand-red))] bg-white/90 px-4 py-1 text-2xl font-extrabold text-[hsl(var(--brand-red))] shadow-lg"
                       style={{ opacity: opacityOverlayPass }}
                     >
                       NEXT
@@ -189,7 +189,7 @@ function CardFrame({ teammate: t, onClick }: { teammate: TeammateProfile; onClic
   return (
     <div
       onClick={onClick}
-      className="relative h-full w-full overflow-hidden rounded-2xl shadow-2xl"
+      className="relative h-full w-full overflow-hidden rounded-2xl shadow-lg"
       style={{
         background:
           'linear-gradient(135deg, hsl(var(--brand-navy)) 0%, #0a3a85 50%, hsl(var(--brand-navy)) 100%)',

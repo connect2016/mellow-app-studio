@@ -156,7 +156,7 @@ export default function PubCrawl() {
               <div
                 key={crawl.id}
                 className={`rounded-2xl border p-4 space-y-3 transition-all ${
-                  isLive ? 'border-primary/50 bg-primary/5 shadow-md' : 'border-border bg-card'
+                  isLive ? 'border-primary/50 bg-primary/5 shadow-sm' : 'border-border bg-card'
                 }`}
               >
                 <div className="flex items-start justify-between">

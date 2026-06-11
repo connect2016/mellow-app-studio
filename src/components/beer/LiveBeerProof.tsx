@@ -180,7 +180,7 @@ export function BeerFomoToast({ activities }: { activities: BeerActivity[] }) {
           initial={{ opacity: 0, y: 60, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
-          className="fixed bottom-20 left-4 right-4 z-40 mx-auto max-w-sm rounded-2xl border border-primary/20 bg-card shadow-xl px-4 py-3"
+          className="fixed bottom-20 left-4 right-4 z-40 mx-auto max-w-sm rounded-2xl border border-primary/20 bg-card shadow-lg px-4 py-3"
         >
           <div className="flex items-center gap-2.5">
             <span className="text-2xl"><ConceptVisual name={current.emoji} size="sm" /></span>

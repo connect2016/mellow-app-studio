@@ -69,7 +69,7 @@ export function YourCrewsSection() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-extrabold text-white shadow-md transition-all active:scale-[0.98]"
+          className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-extrabold text-white shadow-sm transition-all active:scale-[0.98]"
           style={{ background: CUBS_BLUE, fontFamily: 'Norwester, sans-serif', letterSpacing: '0.03em' }}
         >
           <Plus className="h-4 w-4" />

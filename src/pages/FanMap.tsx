@@ -147,7 +147,7 @@ export default function FanMap() {
             className="fixed inset-0 z-30 bg-black/30"
             onClick={() => setPopupFan(null)}
           />
-          <div className="fixed left-1/2 -translate-x-1/2 top-24 z-40 w-[calc(100%-2rem)] max-w-sm rounded-2xl bg-background border border-border shadow-xl p-4">
+          <div className="fixed left-1/2 -translate-x-1/2 top-24 z-40 w-[calc(100%-2rem)] max-w-sm rounded-2xl bg-background border border-border shadow-lg p-4">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-full bg-[hsl(var(--brand-navy))] text-white flex items-center justify-center overflow-hidden font-bold">
                 {popupFan.photo

@@ -356,7 +356,7 @@ export default function Notifications() {
                             'w-full flex items-start gap-3 rounded-2xl p-3 text-left transition-all duration-150 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.99]',
                             notif.is_read
                               ? 'bg-white/[0.06] border-white/10 hover:bg-white/10'
-                              : 'bg-white/95 border-primary/40 shadow-md hover:bg-white',
+                              : 'bg-white/95 border-primary/40 shadow-sm hover:bg-white',
                           )}
                           style={
                             !notif.is_read

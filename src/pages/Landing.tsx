@@ -6,7 +6,7 @@ import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.webp';
 import { Button } from '@/components/ui/button';
 import {
   Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye,
-  Hand, CalendarClock, UserCircle2, Sparkles, Lock, Clock, Flag, Mail,
+  Hand, CalendarClock, UserCircle2, Lock, Clock, Flag, Mail,
   Instagram, Smartphone, Check
 } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';

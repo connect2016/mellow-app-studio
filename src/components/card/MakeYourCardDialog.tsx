@@ -81,6 +81,7 @@ export function MakeYourCardDialog({
       setCrop({ x: 0, y: 0 });
       setZoom(1);
       setCroppedPixels(null);
+      setUploadedURL(null);
       lastBlobRef.current = null;
     }
   }, [open, file]);
@@ -103,10 +104,10 @@ export function MakeYourCardDialog({
       const url = await uploadPhoto(cropped);
       if (url) {
         onUploaded?.(url);
-        onClose();
+        // Reveal the post-crop success state with share CTA — catch them at peak pride
+        setUploadedURL(url);
       }
     } catch (err) {
-      // usePhotoUpload already toasts on failure; surface a generic catch here too
       if (!(err instanceof Error) || !err.message.includes('upload')) {
         toast.error('Could not save your card', {
           id: 'card-crop-error',
@@ -115,6 +116,26 @@ export function MakeYourCardDialog({
       }
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleSharePostCrop = async () => {
+    if (!uploadedURL || sharing) return;
+    setSharing(true);
+    try {
+      await shareFanCard({
+        profileImage: uploadedURL,
+        displayName: displayName || 'You',
+        surface: 'post_crop',
+      });
+    } catch (err) {
+      console.error('Share card failed', err);
+      toast.error('Could not build your card', {
+        id: 'share-card-error',
+        action: { label: 'Retry', onClick: () => void handleSharePostCrop() },
+      });
+    } finally {
+      setSharing(false);
     }
   };
 

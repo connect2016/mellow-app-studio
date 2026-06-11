@@ -6,6 +6,14 @@ import { SEOMeta } from "@/components/SEOMeta";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.error(
+      "404 Error: User attempted to access non-existent route:",
+      location.pathname
+    );
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">

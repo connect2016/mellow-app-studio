@@ -108,7 +108,7 @@ export function TonightModeView({ className }: Props) {
                   className="flex items-center gap-2 min-w-0"
                 >
                   <img
-                    src={f.profile_photo || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120'}
+                    src={f.profile_photo || '/placeholder.svg'}
                     alt={f.display_name}
                     className="h-11 w-11 rounded-full object-cover ring-2 ring-yellow-300/60" loading="lazy" decoding="async" />
                   <div className="min-w-0 text-left">

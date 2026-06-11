@@ -155,6 +155,7 @@ export default function Onboarding() {
         is_season_ticket_holder: isSTH,
         onboarding_completed: true,
       } as any);
+      sessionStorage.removeItem('wb_onboarding_draft');
       track('onboarding_completed', {
         section,
         frequency,

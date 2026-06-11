@@ -478,6 +478,13 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 
     --ticket-cream: 160 35% 9%;
 
+    /* Canonical brand palette — dark mode (navy lifted ~15% for contrast) */
+    --brand-navy: 220 75% 44%;
+    --brand-navy-light: 220 70% 55%;
+    --brand-navy-deep: 220 78% 30%;
+    --brand-red: 350 75% 55%;
+    --brand-gold: 49 100% 60%;
+
     --lineup-teal: 168 50% 42%;
     --lineup-teal-foreground: 0 0% 100%;
 

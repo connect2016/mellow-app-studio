@@ -59,9 +59,7 @@ export const TROPHY_DEFINITIONS: TrophyDefinition[] = [
   { key: 'beers_10_week',  category: 'drinking', title: '10 Beers This Week', description: 'A solid 10-pack week.',                icon: 'beer',        threshold: 10,  statKey: 'beers_week' },
   { key: 'beers_100',      category: 'drinking', title: '100 Beers Season', description: 'Triple-digit season — legendary.',       icon: 'beer',        threshold: 100, statKey: 'beers_season' },
 
-  // Shots
-  { key: 'first_shot',     category: 'shots', title: 'First Shot',         description: 'Took your first season shot.',           icon: 'shot',         threshold: 1,  statKey: 'shots_season' },
-  { key: 'shots_10',       category: 'shots', title: '10 Shots Season',    description: 'Ten shots strong this season.',          icon: 'shot',         threshold: 10, statKey: 'shots_season' },
+  // (Shots category removed — stat retired from leaderboards/badges)
 
   // Bars
   { key: 'bars_5',         category: 'bars', title: 'Visited 5 Bars',      description: 'Five unique Wrigleyville bars.',         icon: 'bar',          threshold: 5,  statKey: 'unique_bars' },

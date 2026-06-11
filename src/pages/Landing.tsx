@@ -15,11 +15,8 @@ import wrigleyHero from '@/assets/wrigley-hero.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
-const stats = [
-  { label: 'Cubs Fans', value: '1,200+' },
-  { label: 'Hi-Fives Sent', value: '8,400+' },
-  { label: 'Game-Day Meetups', value: '3,100+' },
-];
+// Static stats removed — Wrigleyville Buddies is launching for the 2026 season,
+// so no fabricated counts go on the landing page.
 
 // ── Onboarding personas (chips on Step 1 mock) ──
 const personas = ['Bleacher Creature', 'Stats Nerd', 'Social Butterfly', 'First-Timer', 'Rooftop Regular', 'Die-Hard Season Ticket Holder', 'Away Game Traveler', 'Bar Watcher', 'Bring the Kids Dad', 'Cubs Superfan'];
@@ -52,26 +49,8 @@ const secondaryFeatures = [
   { icon: Shield, title: 'Safety Built In', copy: 'Location privacy, safety timers, easy block/report, optional fan verification.' },
 ];
 
-const stories = [
-  {
-    initials: 'SM',
-    quote: 'Moved to Chicago and didn\'t know a soul. Found my whole game-day crew on Wrigleyville Buddies in one homestand.',
-    name: 'Sarah M.',
-    meta: 'Section 204 · 14 games this season',
-  },
-  {
-    initials: 'JT',
-    quote: 'Met 6 strangers at Murphy\'s before the NLDS through a flash meetup. Group chat hasn\'t stopped since.',
-    name: 'Jake T.',
-    meta: "Die-Hard since '03 · 28 meetups",
-  },
-  {
-    initials: 'MD',
-    quote: 'Finally an app that gets it. I\'m not swiping — I\'m finding someone to split a pitcher and yell at the ump.',
-    name: 'Marcus D.',
-    meta: 'Bleacher Creature · Rooftop regular',
-  },
-];
+// Testimonials removed — the app hasn't launched yet, so attributed quotes
+// from "real" fans would be fabricated. We'll add them after the season starts.
 
 const faqs = [
   {

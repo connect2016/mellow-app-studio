@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+import { PageBackground } from '@/components/PageBackground';
 import bgWrigleyville from '@/assets/bg-wrigleyville-lofts.jpg';
 import bgBarPatio from '@/assets/cubs-bar-patio.webp';
 import bgPinball from '@/assets/bg-pinball.webp';

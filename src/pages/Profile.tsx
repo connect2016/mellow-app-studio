@@ -3,6 +3,7 @@ import { ProfileCardSkeleton } from '@/components/ui/skeleton';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { PageBackground } from '@/components/PageBackground';
+import { DesktopPanel } from '@/components/DesktopPanel';
 import { AppHeader } from '@/components/AppHeader';
 
 import { UserBaseballCard } from '@/components/UserBaseballCard';

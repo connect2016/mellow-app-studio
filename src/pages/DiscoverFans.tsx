@@ -14,6 +14,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { useDiscoverFans, sayHiToBuddy, type DiscoverFilter, type DiscoverFan } from '@/hooks/useDiscoverFans';
 import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
+import { DesktopPanel } from '@/components/DesktopPanel';
 import { STHBadge } from '@/components/profile/STHBadge';
 
 const CHIPS: { id: DiscoverFilter; label: string }[] = [

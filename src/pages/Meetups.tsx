@@ -13,6 +13,7 @@ import { usePersonalCrewIds } from '@/hooks/usePersonalCrew';
 import { DynamicBackground } from '@/components/DynamicBackground';
 import { SkeletonCard } from '@/components/ui/skeleton';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { DesktopPanel } from '@/components/DesktopPanel';
 
 function isToday(iso: string) {
   const d = new Date(iso);

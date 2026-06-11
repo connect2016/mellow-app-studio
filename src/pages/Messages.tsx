@@ -11,6 +11,7 @@ import { QuickBlockButton } from '@/components/QuickBlockButton';
 import { EmptyState } from '@/components/ui/EmptyState';
 import bgWrigleyRooftops from '@/assets/bg-wrigley-rooftops.webp';
 import { PageBackground } from '@/components/PageBackground';
+import { DesktopPanel } from '@/components/DesktopPanel';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCrews } from '@/hooks/useCrews';
 import {

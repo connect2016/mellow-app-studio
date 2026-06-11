@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Wine, UtensilsCrossed, Pizza, Plus, Minus, Check } from 'lucide-react';
+import { UtensilsCrossed, Pizza, Plus, Minus, Check } from 'lucide-react';
+import { HotDogIcon } from '@/components/icons/CustomIcons';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';

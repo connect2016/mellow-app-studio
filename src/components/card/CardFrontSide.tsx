@@ -142,36 +142,42 @@ export function CardFrontSide({
             : undefined
         }
       >
-        {!imgLoaded && hasPhoto && (
-          <div
-            className="absolute inset-0 animate-pulse"
-            style={{ background: '#cbd5e1' }}
-            aria-hidden="true"
-          />
-        )}
-        {hasPhoto ? (
-          <img
-            src={profileImage!}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            onLoad={onImgLoad}
-            onError={onImgLoad}
-            className={cn(
-              'transition-opacity duration-300',
-              imgLoaded ? 'opacity-100' : 'opacity-0'
-            )}
-            style={{
-              width: '100%',
-              aspectRatio: '1 / 1',
-              height: 'auto',
-              objectFit: 'cover',
-              objectPosition: 'center center',
-              display: 'block',
-            }}
-          />
+        {avatarSlot ? (
+          avatarSlot
         ) : (
-          <FanAvatarFallback />
+          <>
+            {!imgLoaded && hasPhoto && (
+              <div
+                className="absolute inset-0 animate-pulse"
+                style={{ background: '#cbd5e1' }}
+                aria-hidden="true"
+              />
+            )}
+            {hasPhoto ? (
+              <img
+                src={profileImage!}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                onLoad={onImgLoad}
+                onError={onImgLoad}
+                className={cn(
+                  'transition-opacity duration-300',
+                  imgLoaded ? 'opacity-100' : 'opacity-0'
+                )}
+                style={{
+                  width: '100%',
+                  aspectRatio: '1 / 1',
+                  height: 'auto',
+                  objectFit: 'cover',
+                  objectPosition: 'center center',
+                  display: 'block',
+                }}
+              />
+            ) : (
+              <FanAvatarFallback />
+            )}
+          </>
         )}
 
         {/* Uploading overlay */}

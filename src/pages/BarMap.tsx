@@ -92,19 +92,14 @@ export default function BarMap() {
   }, [filtered, checkinCounts, venueByName]);
 
   return (
-    <div className={`relative min-h-screen overflow-x-hidden ${isGuest ? 'pb-20' : 'pb-24'}`}>
+    <PageBackground image={barMapBg}>
+      <div className={`min-h-screen overflow-x-hidden ${isGuest ? 'pb-20' : 'pb-24'}`}>
       <SEOMeta
         title="Bar Map — Wrigleyville Cubs Bars"
         description="Live map of the best Wrigleyville bars to watch the Cubs. See who's there, vibes, and check in with fellow fans."
       />
-      <div
-        className="fixed inset-0 z-0 swipe-drag-bg"
-        data-route-parallax="bg"
-        style={{ backgroundImage: `url(${barMapBg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}
-      />
-      <div className="fixed inset-0 z-0 bg-black/35 pointer-events-none" />
-      <div className="relative z-10 swipe-drag" data-route-parallax="fg">
       <AppHeader />
+
 
       {/* Editorial hero */}
       <header className="px-4 pt-6 pb-4 max-w-3xl mx-auto">

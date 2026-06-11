@@ -57,7 +57,7 @@ export const STAT_ICONS: Record<StatKey, React.ElementType> = {
   barsVisitedThisWeek: Building2,
   meetupsFinished: CheckCircle2,
   fansConnected: Users,
-  shotsTakenSeason: Wine,
+  shotsTakenSeason: HotDogIcon,
   appetizersHadSeason: UtensilsCrossed,
   favoriteFoodSpot: Pizza,
 };

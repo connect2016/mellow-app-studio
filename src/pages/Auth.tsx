@@ -38,7 +38,7 @@ export default function Auth() {
 
     if (result.error) {
       const isPopupOrNetwork = /popup|blocked|network|connection|failed to fetch|timeout/i.test(
-        result.error.message || result.error.code || ''
+        result.error.message || ''
       );
       const suffix = isPopupOrNetwork
         ? ' Check your connection or try the other sign-in option.'

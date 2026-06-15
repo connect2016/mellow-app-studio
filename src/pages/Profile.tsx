@@ -3,6 +3,7 @@ import { ProfileCardSkeleton } from '@/components/ui/skeleton';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { PageBackground } from '@/components/PageBackground';
+import bgProfile from '@/assets/cubs-fans-parade.webp';
 import { DesktopPanel } from '@/components/DesktopPanel';
 import { AppHeader } from '@/components/AppHeader';
 

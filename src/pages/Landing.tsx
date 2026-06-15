@@ -2,7 +2,7 @@
 import '@fontsource/norwester';
 import { SEOMeta } from '@/components/SEOMeta';
 import { Link, useNavigate } from 'react-router-dom';
-import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.webp';
+import wrigleyvilleAerial from '@/assets/bg-wrigleyville-street.webp';
 import { Button } from '@/components/ui/button';
 import {
   Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye,
@@ -11,7 +11,8 @@ import {
 } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { PageTitle } from '@/components/ui/Typography';
-import wrigleyHero from '@/assets/wrigley-hero.webp';
+import wrigleyHero from '@/assets/cubs-fans-parade.webp';
+import onboardingBackground from '@/assets/welcome-bg.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
@@ -239,6 +240,15 @@ function FeaturePreview({ kind }: { kind: 'map' | 'meetup' | 'hifive' }) {
   );
 }
 
+function SectionPhotoBackground({ desktopSrc, mobileSrc = '/hero-fallback.jpg' }: { desktopSrc: string; mobileSrc?: string }) {
+  return (
+    <picture className="absolute inset-0 block">
+      <source media="(max-width: 767px)" srcSet={mobileSrc} />
+      <img src={desktopSrc} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+    </picture>
+  );
+}
+
 export default function Landing() {
   const navigate = useNavigate();
   const { enterGuestMode } = useGuestMode();
@@ -309,15 +319,8 @@ export default function Landing() {
       {/* Static social-proof stats banner removed — no fabricated counts. */}
 
       {/* ── Three-Step Onboarding ── */}
-      <section
-        className="relative py-16 sm:py-20"
-        style={{
-          backgroundImage: "url('/vintage_bats10d.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
+      <section className="relative overflow-hidden py-16 sm:py-20">
+        <SectionPhotoBackground desktopSrc={onboardingBackground} />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
@@ -402,9 +405,7 @@ export default function Landing() {
 
       {/* ── Feature Grid ── */}
       <section className="relative overflow-hidden py-20">
-        <div className="absolute inset-0">
-          <img src={wrigleyvilleAerial} alt="" className="h-full w-full object-cover" loading="lazy" />
-        </div>
+        <SectionPhotoBackground desktopSrc={wrigleyvilleAerial} />
         <div className="relative mx-auto max-w-6xl px-6">
           <div className="mb-12 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>What you get</p>
@@ -468,9 +469,7 @@ export default function Landing() {
 
       {/* ── FAQ + Safety ── */}
       <section className="relative overflow-hidden py-20">
-        <div className="absolute inset-0">
-          <img src={wrigleyHero} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
-        </div>
+        <SectionPhotoBackground desktopSrc={wrigleyHero} />
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-3xl px-6">
           <div className="mb-10 text-center">
@@ -520,9 +519,7 @@ export default function Landing() {
 
       {/* ── Final CTA ── */}
       <section className="relative overflow-hidden py-20">
-        <div className="absolute inset-0">
-          <img src={wrigleyHero} alt="" className="h-full w-full object-cover" loading="lazy" />
-        </div>
+        <SectionPhotoBackground desktopSrc={wrigleyHero} />
         <div className="absolute inset-0 bg-foreground/50" />
         <div className="relative mx-auto max-w-lg px-6 text-center">
           <h2 className="mb-3 text-3xl font-bold text-white sm:text-4xl"

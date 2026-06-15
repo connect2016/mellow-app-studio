@@ -22,21 +22,13 @@ export function PageBackground({ image, children, className = '' }: PageBackgrou
   return (
     <div className={`relative min-h-screen ${className}`}>
       {/* Photo */}
-      <div
+      <img
+        src={image}
+        alt=""
         aria-hidden="true"
-        className="fixed inset-0 z-0"
-        style={{
-          backgroundImage: `url(${image})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'scroll',
-          // Prefer crisp downscaling on retina/mobile; avoid any inherited blur.
-          imageRendering: 'auto',
-          filter: 'none',
-          WebkitBackfaceVisibility: 'hidden',
-          transform: 'translateZ(0)',
-        }}
+        className="fixed inset-0 z-0 h-full w-full object-cover object-center pointer-events-none select-none"
+        decoding="async"
+        draggable={false}
       />
       {/* Solid navy scrim — 55% */}
       <div

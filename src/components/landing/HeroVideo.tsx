@@ -8,7 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 
 const MIN_LIVE_COUNT_TO_SHOW = 25;
 const VIDEO_SRC = '/hero-video.mp4';
-const POSTER_SRC = '/hero-poster.webp';
+const POSTER_SRC = '/hero-fallback.jpg';
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -23,6 +23,21 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
+function useIsMobileViewport() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener?.('change', onChange);
+    return () => mq.removeEventListener?.('change', onChange);
+  }, []);
+
+  return isMobile;
+}
+
 export default function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [ready, setReady] = useState(false);
@@ -30,13 +45,15 @@ export default function HeroVideo() {
   const navigate = useNavigate();
   const { enterGuestMode } = useGuestMode();
   const reducedMotion = usePrefersReducedMotion();
+  const isMobileViewport = useIsMobileViewport();
+  const shouldUseStaticPoster = reducedMotion || isMobileViewport;
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (shouldUseStaticPoster) return;
     const v = videoRef.current;
     if (!v) return;
     v.play().catch(() => {});
-  }, [reducedMotion]);
+  }, [shouldUseStaticPoster]);
 
   // Real fan-activity count from the last 7 days. Hidden if below threshold
   // so we never show a small/embarrassing number.
@@ -67,14 +84,13 @@ export default function HeroVideo() {
       <img
         src={POSTER_SRC}
         alt=""
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${ready && !reducedMotion ? 'opacity-0' : 'opacity-100'}`}
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${ready && !shouldUseStaticPoster ? 'opacity-0' : 'opacity-100'}`}
         aria-hidden="true"
         loading="eager"
-        fetchPriority="high"
         decoding="async"
       />
 
-      {!reducedMotion && (
+      {!shouldUseStaticPoster && (
         <video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"

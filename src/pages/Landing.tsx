@@ -447,7 +447,7 @@ export default function Landing() {
           {/* Secondary features */}
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {secondaryFeatures.map((f) => (
-              <div key={f.title} className="rounded-xl border border-white/20 bg-[hsl(var(--brand-navy))] p-5 flex gap-3">
+              <div key={f.title} className="rounded-xl border border-white/20 bg-[#CC3433] p-5 flex gap-3">
                 <div className="rounded-lg bg-white/10 p-2 h-fit">
                   <f.icon className="h-5 w-5 text-white" />
                 </div>

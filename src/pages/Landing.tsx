@@ -53,7 +53,11 @@ const secondaryFeatures = [
 // Testimonials removed — the app hasn't launched yet, so attributed quotes
 // from "real" fans would be fabricated. We'll add them after the season starts.
 
+// Tint opacity for the "Everything You Need on Game Day" feature grid overlay.
+const FEATURE_GRID_TINT_OPACITY = 0.6;
+
 const faqs = [
+
   {
     q: 'Is this a dating app?',
     a: 'Mostly no. Most fans use Wrigleyville Buddies to find friends and pregame crews. You pick your intent — watch party, beer, post-game hangs, or yes, dating too if that\'s your vibe.',
@@ -406,7 +410,12 @@ export default function Landing() {
       {/* ── Feature Grid ── */}
       <section className="relative overflow-hidden py-20">
         <SectionPhotoBackground desktopSrc={wrigleyvilleAerial} />
-        <div className="relative mx-auto max-w-6xl px-6">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{ background: `rgba(14, 51, 134, ${FEATURE_GRID_TINT_OPACITY})` }}
+        />
+        <div className="relative z-10 mx-auto max-w-6xl px-6">
           <div className="mb-12 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>What you get</p>
             <PageTitle as="h2" className="mb-2 text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: '#FFFFFF', textShadow: '1px 2px 6px rgba(0,0,0,0.7)' }}>

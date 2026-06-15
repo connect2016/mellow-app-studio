@@ -56,6 +56,8 @@ const secondaryFeatures = [
 // Tint opacity for the "Everything You Need on Game Day" feature grid overlay.
 const FEATURE_GRID_TINT_OPACITY = 0.6;
 
+const faqs = [
+
   {
     q: 'Is this a dating app?',
     a: 'Mostly no. Most fans use Wrigleyville Buddies to find friends and pregame crews. You pick your intent — watch party, beer, post-game hangs, or yes, dating too if that\'s your vibe.',

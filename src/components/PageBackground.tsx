@@ -21,12 +21,18 @@ interface PageBackgroundProps {
 export function PageBackground({ image, children, className = '' }: PageBackgroundProps) {
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* Photo */}
+      {/* Navy base — fills any letterbox gaps from `contain` framing on mobile */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{ background: 'hsl(var(--brand-navy))' }}
+      />
+      {/* Photo — `contain` on mobile (shows full composition), `cover` on desktop */}
       <img
         src={image}
         alt=""
         aria-hidden="true"
-        className="fixed inset-0 z-0 h-full w-full object-cover object-center pointer-events-none select-none"
+        className="fixed inset-0 z-0 h-full w-full object-contain md:object-cover object-center pointer-events-none select-none"
         decoding="async"
         draggable={false}
       />

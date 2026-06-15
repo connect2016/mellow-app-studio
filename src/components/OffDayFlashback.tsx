@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Calendar, ChevronRight } from 'lucide-react';
-import bgBleachers from '@/assets/bg-bleachers.webp';
-import bgField from '@/assets/bg-field.webp';
+import bgBleachers from '@/assets/bg-cubs-fans-celebrating.webp'; // 1920x1171 (was 704x897 bg-bleachers.webp)
+import bgField from '@/assets/bg-field.webp'; // 1920x1080
+import bgParade from '@/assets/cubs-fans-parade.webp'; // 1920x1279
 // bg-rizzo removed: avoided player-likeness exposure
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
@@ -20,7 +21,7 @@ const FLASHBACKS = [
     era: 'Game Day',
   },
   {
-    image: bgBleachers,
+    image: bgParade,
     caption: 'Cubs pride runs deep in Wrigleyville',
     era: 'Fan Favorites',
   },

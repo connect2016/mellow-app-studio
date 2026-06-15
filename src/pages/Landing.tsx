@@ -14,6 +14,7 @@ import { PageTitle } from '@/components/ui/Typography';
 import wrigleyHero from '@/assets/cubs-fans-parade.webp';
 import onboardingBackground from '@/assets/welcome-bg.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
+import wrigleyvilleMapPoster from '@/assets/wrigleyville-map-poster.webp.asset.json';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 // Static stats removed — Wrigleyville Buddies is launching for the 2026 season,
@@ -478,8 +479,16 @@ export default function Landing() {
 
       {/* ── FAQ + Safety ── */}
       <section className="relative overflow-hidden py-20">
-        <SectionPhotoBackground desktopSrc={wrigleyHero} />
-        <div className="absolute inset-0 bg-black/45" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${wrigleyvilleMapPoster.url})` }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'rgba(14, 51, 134, 0.25)' }}
+        />
         <div className="relative mx-auto max-w-3xl px-6">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>FAQ</p>
@@ -490,9 +499,13 @@ export default function Landing() {
 
           <div className="space-y-3 mb-10">
             {faqs.map((faq, i) => (
-              <div key={i} className="rounded-2xl border border-white/20 bg-[hsl(var(--brand-navy))]/90 backdrop-blur-sm p-5">
-                <h3 className="text-base font-bold text-white mb-1.5">{faq.q}</h3>
-                <p className="text-sm text-white/85 leading-relaxed">{faq.a}</p>
+              <div
+                key={i}
+                className="rounded-2xl p-5"
+                style={{ background: 'rgba(255, 255, 255, 0.92)', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}
+              >
+                <h3 className="text-base font-bold mb-1.5" style={{ color: '#0E3386' }}>{faq.q}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: '#1A2C5B' }}>{faq.a}</p>
               </div>
             ))}
           </div>

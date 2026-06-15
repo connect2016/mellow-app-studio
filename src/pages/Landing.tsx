@@ -244,7 +244,7 @@ function SectionPhotoBackground({ desktopSrc, mobileSrc = '/hero-fallback.jpg' }
   return (
     <picture className="absolute inset-0 block">
       <source media="(max-width: 767px)" srcSet={mobileSrc} />
-      <img src={desktopSrc} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+      <img src={desktopSrc} alt="" className="h-full w-full object-contain md:object-cover object-center" loading="lazy" decoding="async" />
     </picture>
   );
 }

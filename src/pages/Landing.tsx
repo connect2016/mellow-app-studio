@@ -53,7 +53,9 @@ const secondaryFeatures = [
 // Testimonials removed — the app hasn't launched yet, so attributed quotes
 // from "real" fans would be fabricated. We'll add them after the season starts.
 
-const faqs = [
+// Tint opacity for the "Everything You Need on Game Day" feature grid overlay.
+const FEATURE_GRID_TINT_OPACITY = 0.6;
+
   {
     q: 'Is this a dating app?',
     a: 'Mostly no. Most fans use Wrigleyville Buddies to find friends and pregame crews. You pick your intent — watch party, beer, post-game hangs, or yes, dating too if that\'s your vibe.',

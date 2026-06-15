@@ -8,7 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 
 const MIN_LIVE_COUNT_TO_SHOW = 25;
 const VIDEO_SRC = '/hero-video.mp4';
-const POSTER_SRC = '/hero-poster.webp';
+const POSTER_SRC = '/hero-fallback.jpg';
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);

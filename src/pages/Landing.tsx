@@ -2,7 +2,7 @@
 import '@fontsource/norwester';
 import { SEOMeta } from '@/components/SEOMeta';
 import { Link, useNavigate } from 'react-router-dom';
-import wrigleyvilleAerial from '@/assets/wrigleyville-aerial.webp';
+import wrigleyvilleAerial from '@/assets/bg-wrigleyville-street.webp';
 import { Button } from '@/components/ui/button';
 import {
   Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye,
@@ -11,7 +11,8 @@ import {
 } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { PageTitle } from '@/components/ui/Typography';
-import wrigleyHero from '@/assets/wrigley-hero.webp';
+import wrigleyHero from '@/assets/cubs-fans-parade.webp';
+import onboardingBackground from '@/assets/welcome-bg.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
@@ -309,15 +310,10 @@ export default function Landing() {
       {/* Static social-proof stats banner removed — no fabricated counts. */}
 
       {/* ── Three-Step Onboarding ── */}
-      <section
-        className="relative py-16 sm:py-20"
-        style={{
-          backgroundImage: "url('/vintage_bats10d.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
+      <section className="relative overflow-hidden py-16 sm:py-20">
+        <div className="absolute inset-0">
+          <img src={onboardingBackground} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </div>
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"

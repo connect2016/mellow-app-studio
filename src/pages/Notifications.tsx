@@ -7,7 +7,7 @@ import { useNotifications, useMarkRead, useMarkAllRead, useClearNotifications } 
 import { Button } from '@/components/ui/button';
 import { Bell, Check, CheckCheck, Trash2, Users, SlidersHorizontal, Sparkles, CalendarDays, Beer, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import bgFansBleachers from '@/assets/bg-fans-bleachers.webp';
+import bgFansBleachers from '@/assets/bg-cubs-fans-celebrating.webp';
 import { PageBackground } from '@/components/PageBackground';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { EmptyState } from '@/components/ui/EmptyState';

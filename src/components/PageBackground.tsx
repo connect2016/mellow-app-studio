@@ -30,6 +30,12 @@ export function PageBackground({ image, children, className = '' }: PageBackgrou
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'scroll',
+          // Prefer crisp downscaling on retina/mobile; avoid any inherited blur.
+          imageRendering: 'auto',
+          filter: 'none',
+          WebkitBackfaceVisibility: 'hidden',
+          transform: 'translateZ(0)',
         }}
       />
       {/* Solid navy scrim — 55% */}

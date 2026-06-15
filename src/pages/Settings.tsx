@@ -18,7 +18,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { GeolocationModal } from '@/components/GeolocationModal';
-import bgSettings from '@/assets/bg-settings-cubs-hallway.jpg';
+import bgSettings from '@/assets/cubs-bar-interior.webp';
 import { PageBackground } from '@/components/PageBackground';
 
 export default function Settings() {

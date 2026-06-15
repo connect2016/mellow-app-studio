@@ -3,6 +3,7 @@ import { ProfileCardSkeleton } from '@/components/ui/skeleton';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { PageBackground } from '@/components/PageBackground';
+import bgProfile from '@/assets/cubs-fans-parade.webp';
 import { DesktopPanel } from '@/components/DesktopPanel';
 import { AppHeader } from '@/components/AppHeader';
 
@@ -245,7 +246,7 @@ export default function Profile() {
   }
 
   return (
-    <PageBackground image="/wrigley-seats.jpg" className="profile-page pb-24">
+    <PageBackground image={bgProfile} className="profile-page pb-24">
       <SEOMeta
         title="Your Profile — Wrigleyville Buddies"
         description="View and customize your Wrigleyville Buddies profile, season stats, badges, and meetup history."

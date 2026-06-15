@@ -14,6 +14,7 @@ import { PageTitle } from '@/components/ui/Typography';
 import wrigleyHero from '@/assets/cubs-fans-parade.webp';
 import onboardingBackground from '@/assets/welcome-bg.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
+import wrigleyvilleMapPoster from '@/assets/wrigleyville-map-poster.webp.asset.json';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 // Static stats removed — Wrigleyville Buddies is launching for the 2026 season,

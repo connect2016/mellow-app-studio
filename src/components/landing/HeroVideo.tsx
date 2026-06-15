@@ -70,7 +70,6 @@ export default function HeroVideo() {
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${ready && !reducedMotion ? 'opacity-0' : 'opacity-100'}`}
         aria-hidden="true"
         loading="eager"
-        fetchPriority="high"
         decoding="async"
       />
 

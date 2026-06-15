@@ -28,7 +28,6 @@ export function PageBackground({ image, children, className = '' }: PageBackgrou
         aria-hidden="true"
         className="fixed inset-0 z-0 h-full w-full object-cover object-center pointer-events-none select-none"
         decoding="async"
-        fetchPriority="high"
         draggable={false}
       />
       {/* Solid navy scrim — 55% */}

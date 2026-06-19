@@ -14,7 +14,6 @@ import { PageTitle } from '@/components/ui/Typography';
 import wrigleyHero from '@/assets/cubs-fans-parade.webp';
 import onboardingBackground from '@/assets/welcome-bg.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
-import wrigleyvilleMapPoster from '@/assets/wrigleyville-map-poster.webp.asset.json';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 // Static stats removed — Wrigleyville Buddies is launching for the 2026 season,
@@ -482,17 +481,12 @@ export default function Landing() {
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${wrigleyvilleMapPoster.url})` }}
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{ background: 'rgba(14, 51, 134, 0.25)' }}
+          style={{ backgroundImage: `url(/vintage-bats.jpg)` }}
         />
         <div className="relative mx-auto max-w-3xl px-6">
           <div className="mb-10 text-center">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>FAQ</p>
-            <h2 className="mb-2 text-3xl font-bold tracking-tight text-white sm:text-4xl" style={{ textShadow: '1px 2px 6px rgba(0,0,0,0.7)' }}>
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: '#0E3386', textShadow: '0 0 6px rgba(255,255,255,0.95), 0 0 12px rgba(255,255,255,0.85), 0 0 22px rgba(255,255,255,0.7)' }}>FAQ</p>
+            <h2 className="mb-2 text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: '#0E3386', textShadow: '0 0 6px rgba(255,255,255,0.95), 0 0 14px rgba(255,255,255,0.85), 0 0 26px rgba(255,255,255,0.7)' }}>
               Questions? We Got You.
             </h2>
           </div>

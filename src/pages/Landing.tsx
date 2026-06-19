@@ -497,15 +497,15 @@ export default function Landing() {
             </h2>
           </div>
 
-          <div className="space-y-3 mb-10">
+          <div className="space-y-6 mb-10">
             {faqs.map((faq, i) => (
               <div
                 key={i}
                 className="rounded-2xl p-5"
                 style={{ background: 'rgba(255, 255, 255, 0.92)', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}
               >
-                <h3 className="text-base font-bold mb-1.5" style={{ color: '#0E3386' }}>{faq.q}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: '#1A2C5B' }}>{faq.a}</p>
+                <h3 className="text-base font-extrabold mb-2" style={{ color: '#0E3386' }}>{faq.q}</h3>
+                <p className="text-sm font-normal" style={{ color: '#1A2C5B', lineHeight: 1.7 }}>{faq.a}</p>
               </div>
             ))}
           </div>

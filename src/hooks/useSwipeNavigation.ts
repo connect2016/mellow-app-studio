@@ -8,6 +8,7 @@ const SWIPE_ENABLED = ['/discover', '/bar-map', '/meetups'];
 const ACTIVATION_PCT = 0.20;   // 20% of screen width
 const CANCEL_PCT     = 0.15;   // < 15% → cancel
 const VELOCITY_PX_S  = 380;    // px/sec
+const MAX_DRAG_PCT   = 0.65;   // live drag never translates past 65% of screen width
 
 interface Options {
   /** Max vertical drift (px) before we treat as a vertical scroll. */
@@ -75,7 +76,7 @@ export function useSwipeNavigation({ maxVertical = 60 }: Options = {}) {
       // Live drag with mild rubber-banding
       const w = window.innerWidth || 360;
       const ratio = Math.min(1, Math.abs(dx) / w);
-      const eased = (1 - Math.pow(1 - ratio, 1.6)) * w * Math.sign(dx);
+      const eased = (1 - Math.pow(1 - ratio, 1.6)) * w * MAX_DRAG_PCT * Math.sign(dx);
       setDragX(eased);
     };
 

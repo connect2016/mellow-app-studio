@@ -1,0 +1,11 @@
+Build a ProfileCard React component for Wrigleyville Buddies. Do not generate, draw, or recreate any card artwork. Use my existing frame asset at src/assets/card-frame-transparent.png exactly as-is. Import it at the top of the component (import cardFrame from '@/assets/card-frame-transparent.png', or the correct relative path) rather than using a plain URL string. It is a 1768x2500 PNG with a transparent circular cutout that a profile photo shows through.
+
+Build the card as layered elements inside one container with position: relative and aspect-ratio: 1768 / 2500, max-width around 400px:
+
+1. Photo layer (bottom): the user's profile photo, absolutely positioned, clipped to a circle with border-radius: 50% and object-fit: cover. Position it behind the frame's transparent cutout: center at 48.7% from left, 42.5% from top, circle width 45% of container width, 1:1 aspect. Use left: 48.7% / top: 42.5% with transform: translate(-50%, -50%).
+
+2. Frame layer (top): an img using cardFrame, absolutely positioned at top:0/left:0, width 100%, pointer-events: none.
+
+3. Upload interaction: make the circular photo area a clickable upload zone that opens a hidden file input (accept image/*), and sets the selected image as the photo layer via URL.createObjectURL. Show a neutral gray placeholder circle when no photo is set.
+
+Props: userName and profileImageUrl (optional). Do not add a name field or other styling yet. One self-contained component.

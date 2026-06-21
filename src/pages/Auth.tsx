@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { lovable } from '@/integrations/lovable/index';
+import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import logo from '@/assets/logo.webp';
@@ -35,24 +36,21 @@ export default function Auth() {
 
   const handleGoogleSignIn = async () => {
     setPendingProvider('google');
-    const result = await lovable.auth.signInWithOAuth('google', {
-      redirect_uri: window.location.origin,
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin },
     });
     setPendingProvider(null);
 
-    if (result.error) {
+    if (error) {
       const isPopupOrNetwork = /popup|blocked|network|connection|failed to fetch|timeout/i.test(
-        result.error.message || ''
+        error.message || ''
       );
       const suffix = isPopupOrNetwork
         ? ' Check your connection or try the other sign-in option.'
         : '';
       toast.error(`Couldn't sign in with Google — please try again.${suffix}`);
-      console.error('Google sign-in error:', result.error);
-      return;
-    }
-
-    if (result.redirected) {
+      console.error('Google sign-in error:', error);
       return;
     }
 

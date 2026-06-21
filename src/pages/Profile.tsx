@@ -45,6 +45,7 @@ import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { ProfileCompletion, FullFanBadge, getProfileCompletion } from '@/components/profile/ProfileCompletion';
 import { FanTagsPicker } from '@/components/FanTagsPicker';
 import { FieldGuideRow } from '@/components/profile/FieldGuideRow';
+import { ProfileCardFrame } from '@/components/ProfileCardFrame';
 
 export default function Profile() {
   const { id } = useParams();
@@ -279,6 +280,14 @@ export default function Profile() {
                 <FanTagsPicker
                   value={((profile as any)?.fan_tags as string[]) ?? []}
                   onChange={(next) => updateProfile.mutate({ fan_tags: next } as any)}
+                />
+              </div>
+            )}
+            {isOwnProfile && (
+              <div className="flex justify-center">
+                <ProfileCardFrame
+                  userName={profile.display_name}
+                  profileImageUrl={profile.profile_photo ?? undefined}
                 />
               </div>
             )}

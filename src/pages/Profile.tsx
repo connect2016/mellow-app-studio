@@ -7,7 +7,6 @@ import bgProfile from '@/assets/cubs-fans-parade.webp';
 import { DesktopPanel } from '@/components/DesktopPanel';
 import { AppHeader } from '@/components/AppHeader';
 
-import { UserBaseballCard } from '@/components/UserBaseballCard';
 import { InviteBuddyButton } from '@/components/invite/InviteBuddyButton';
 import { InviteFriendsButton } from '@/components/invite/InviteFriendsButton';
 import { useMyReferralCount } from '@/hooks/useReferral';
@@ -20,7 +19,6 @@ import { SectionHeading, BodyText, CardHeading, Caption } from '@/components/ui/
 import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { IntentType, GameStatus, GamedayIntentType } from '@/types';
 import { useStatPreferences } from '@/hooks/useStatPreferences';
 import { FavoriteBarsSection } from '@/components/profile/FavoriteBarsSection';
 import { BadgesSection } from '@/components/profile/BadgesSection';
@@ -284,36 +282,21 @@ export default function Profile() {
               </div>
             )}
             {isOwnProfile && (
-              <div className="flex justify-center">
+              <div className="relative flex justify-center">
+                {getProfileCompletion(profile as any).pct >= 100 && <FullFanBadge />}
                 <ProfileCardFrame
                   userName={profile.display_name}
                   profileImageUrl={profile.profile_photo ?? undefined}
+                  statPreferences={statPreferences}
+                  stats={{
+                    shotsTakenSeason: cardExtras.shots_taken_season ?? 0,
+                    appetizersHadSeason: cardExtras.appetizers_had_season ?? 0,
+                    favoriteFoodSpot: cardExtras.favorite_food_spot ?? undefined,
+                  }}
+                  isOwner={isOwnProfile}
                 />
               </div>
             )}
-            <div className="relative">
-              {isOwnProfile && getProfileCompletion(profile as any).pct >= 100 && <FullFanBadge />}
-              <UserBaseballCard
-                profileImage={profile.profile_photo}
-                displayName={profile.display_name}
-                gameStatus={profile.game_status as GameStatus}
-                wrigleySection={profile.wrigley_section}
-                wrigleyvilleBar={(profile as any).wrigleyville_bar}
-                intents={(profile.intent as IntentType[]) ?? []}
-                gamedayIntents={(profile.gameday_intents as GamedayIntentType[]) ?? []}
-                statPreferences={statPreferences}
-                stats={{
-                  shotsTakenSeason: cardExtras.shots_taken_season ?? 0,
-                  appetizersHadSeason: cardExtras.appetizers_had_season ?? 0,
-                  favoriteFoodSpot: cardExtras.favorite_food_spot ?? undefined,
-                }}
-                isOwner={isOwnProfile}
-                userId={!isOwnProfile ? id : undefined}
-                fanStreak={(profile as any).fan_streak ?? 0}
-                fanTags={((profile as any).fan_tags as string[]) ?? []}
-                className="max-w-full"
-              />
-            </div>
 
             {isOwnProfile && <FieldGuideRow />}
 

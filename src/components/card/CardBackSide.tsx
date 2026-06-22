@@ -1,4 +1,4 @@
-import { VisibleStat } from '@/components/UserBaseballCard';
+import { VisibleStat } from '@/lib/cardStats';
 import { BeerBuyerBadge } from '@/components/beer/BeerBuyerBadge';
 import { ShareMenu } from '@/components/share/ShareMenu';
 

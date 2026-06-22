@@ -1,33 +1,20 @@
 import { useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { Beer, Building2, CheckCircle2, Users, RotateCcw, BarChart3, UtensilsCrossed, Pizza, Share2, Loader2 } from 'lucide-react';
-import { HotDogIcon } from '@/components/icons/CustomIcons';
+import { RotateCcw, BarChart3, Share2, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { REACTIONS, ReactionDef } from '@/components/reactions/reactionData';
 import { RealisticEmoji } from '@/components/reactions/RealisticEmoji';
 import { GameStatus, IntentType, GamedayIntentType, INTENT_LABELS, INTENT_EMOJI, GAMEDAY_INTENT_LABELS, GAMEDAY_INTENT_EMOJI } from '@/types';
 import { Button } from '@/components/ui/button';
-import { StatPreference, StatKey, DEFAULT_STAT_PREFS, StatVisibility } from '@/hooks/useStatPreferences';
+import { StatPreference } from '@/hooks/useStatPreferences';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
 import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { MakeYourCardDialog } from '@/components/card/MakeYourCardDialog';
 import { shareFanCard } from '@/lib/share-fan-card';
-
-
-interface CardStats {
-  beersToday?: number;
-  beersThisWeek?: number;
-  barsVisitedToday?: number;
-  barsVisitedThisWeek?: number;
-  meetupsFinished?: number;
-  fansConnected?: number;
-  shotsTakenSeason?: number;
-  appetizersHadSeason?: number;
-  favoriteFoodSpot?: string;
-}
+import { CardStats, getVisibleStats } from '@/lib/cardStats';
 
 export interface UserBaseballCardProps {
   profileImage?: string | null;
@@ -48,46 +35,6 @@ export interface UserBaseballCardProps {
   userId?: string;
   fanStreak?: number;
   fanTags?: string[];
-}
-
-export const STAT_ICONS: Record<StatKey, React.ElementType> = {
-  beersToday: Beer,
-  beersThisWeek: Beer,
-  barsVisitedToday: Building2,
-  barsVisitedThisWeek: Building2,
-  meetupsFinished: CheckCircle2,
-  fansConnected: Users,
-  shotsTakenSeason: HotDogIcon,
-  appetizersHadSeason: UtensilsCrossed,
-  favoriteFoodSpot: Pizza,
-};
-
-export const CARD_STAT_LABELS: Record<StatKey, string> = {
-  beersToday: 'Beers Today',
-  beersThisWeek: 'Beers This Week',
-  barsVisitedToday: 'Bars Today',
-  barsVisitedThisWeek: 'Bars This Week',
-  meetupsFinished: 'Meetups Done',
-  fansConnected: 'Fans Connected',
-  shotsTakenSeason: 'Ballpark Dogs Devoured',
-  appetizersHadSeason: 'Appetizers (Season)',
-  favoriteFoodSpot: 'Favorite Food Spot',
-};
-
-function canViewStat(visibility: StatVisibility, isOwner: boolean, isMatch: boolean): boolean {
-  if (isOwner) return true;
-  if (visibility === 'everyone') return true;
-  if (visibility === 'matches_only' && isMatch) return true;
-  return false;
-}
-
-export interface VisibleStat {
-  key: StatKey;
-  icon: React.ElementType;
-  value: number | string;
-  label: string;
-  timeRange: string;
-  visibility: StatVisibility;
 }
 
 export function UserBaseballCard({
@@ -165,46 +112,7 @@ export function UserBaseballCard({
     : gameStatus === 'WatchingRemote' ? ' Watching from home'
     : null;
 
-  const cardStats: CardStats = stats || {
-    beersToday: 0,
-    beersThisWeek: 0,
-    barsVisitedToday: 0,
-    barsVisitedThisWeek: 0,
-    meetupsFinished: 0,
-    fansConnected: 0,
-    shotsTakenSeason: 0,
-    appetizersHadSeason: 0,
-    favoriteFoodSpot: '',
-  };
-
-  function safeNumber(v: unknown): number {
-    if (v === null || v === undefined) return 0;
-    const n = Number(v);
-    return Number.isNaN(n) ? 0 : n;
-  }
-
-  const prefs = statPreferences ?? DEFAULT_STAT_PREFS;
-
-  const visibleStats: VisibleStat[] = prefs
-    .filter(p => p.enabled && canViewStat(p.visibility, isOwner, isMatch))
-    .filter(p => {
-      // Hide Favorite Food Spot tile if user hasn't set one
-      if (p.stat_key === 'favoriteFoodSpot') {
-        return !!cardStats.favoriteFoodSpot;
-      }
-      return true;
-    })
-    .sort((a, b) => a.sort_order - b.sort_order)
-    .map(p => ({
-      key: p.stat_key,
-      icon: STAT_ICONS[p.stat_key],
-      value: p.stat_key === 'favoriteFoodSpot'
-        ? (cardStats.favoriteFoodSpot ?? '')
-        : safeNumber(cardStats[p.stat_key]),
-      label: CARD_STAT_LABELS[p.stat_key],
-      timeRange: p.time_range,
-      visibility: p.visibility,
-    }));
+  const visibleStats = getVisibleStats({ stats, statPreferences, isOwner, isMatch });
 
   return (
     <div

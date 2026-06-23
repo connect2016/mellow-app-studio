@@ -44,6 +44,8 @@ import { ProfileCompletion, FullFanBadge, getProfileCompletion } from '@/compone
 import { FanTagsPicker } from '@/components/FanTagsPicker';
 import { FieldGuideRow } from '@/components/profile/FieldGuideRow';
 import { ProfileCardFrame } from '@/components/ProfileCardFrame';
+import { UserBaseballCard } from '@/components/UserBaseballCard';
+import type { GameStatus, IntentType, GamedayIntentType } from '@/types';
 
 export default function Profile() {
   const { id } = useParams();
@@ -296,6 +298,27 @@ export default function Profile() {
                   isOwner={isOwnProfile}
                 />
               </div>
+            )}
+
+            {!isOwnProfile && (
+              <UserBaseballCard
+                displayName={profile.display_name}
+                profileImage={profile.profile_photo}
+                gameStatus={profile.game_status as GameStatus}
+                wrigleySection={profile.wrigley_section}
+                wrigleyvilleBar={profile.wrigleyville_bar}
+                intents={(profile.intent as IntentType[]) ?? []}
+                gamedayIntents={(profile.gameday_intents as GamedayIntentType[]) ?? []}
+                stats={{
+                  shotsTakenSeason: cardExtras.shots_taken_season ?? 0,
+                  appetizersHadSeason: cardExtras.appetizers_had_season ?? 0,
+                  favoriteFoodSpot: cardExtras.favorite_food_spot ?? undefined,
+                }}
+                userId={targetUserId}
+                isOwner={false}
+                showReactions
+                className="max-w-full"
+              />
             )}
 
             {isOwnProfile && <FieldGuideRow />}

@@ -155,6 +155,31 @@ export function ProfileCardFrame({
               }}
             />
 
+            {/* Name layer — in the white strip above the gold stars */}
+            <p
+              title={userName}
+              style={{
+                position: 'absolute',
+                bottom: '9%',
+                left: '8%',
+                right: '40%',
+                textAlign: 'left',
+                fontSize: '16px',
+                fontWeight: 800,
+                letterSpacing: '0.01em',
+                color: '#0E3386',
+                zIndex: 4,
+                textShadow: '0 1px 2px rgba(255,255,255,0.9)',
+                background: 'transparent',
+                pointerEvents: 'none',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {userName || 'Fan'}
+            </p>
+
             {/* Hidden file input */}
             <input
               ref={fileInputRef}

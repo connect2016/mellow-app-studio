@@ -242,7 +242,7 @@ export function CardFrontSide({
         title={displayName}
         style={{
           position: 'absolute',
-          bottom: '15%',
+          bottom: '9%',
           left: '8%',
           right: '40%',
           textAlign: 'left',
@@ -251,7 +251,7 @@ export function CardFrontSide({
           letterSpacing: '0.01em',
           color: '#0E3386',
           zIndex: 4,
-          textShadow: '0 1px 2px rgba(255,255,255,0.8)',
+          textShadow: '0 1px 2px rgba(255,255,255,0.9)',
           background: 'transparent',
           pointerEvents: 'none',
           whiteSpace: 'nowrap',

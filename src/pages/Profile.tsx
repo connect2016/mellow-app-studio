@@ -219,7 +219,7 @@ export default function Profile() {
 
   if (!profile && !isLoading) {
     return (
-      <div className="min-h-screen bg-background pb-24">
+      <div className="min-h-screen bg-background pb-32">
         <AppHeader />
         <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
           <p className="text-4xl mb-4"></p>
@@ -233,7 +233,7 @@ export default function Profile() {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-background pb-24">
+      <div className="min-h-screen bg-background pb-32">
         <AppHeader />
         <div className="px-4 pt-6 space-y-4 max-w-2xl mx-auto">
           <ProfileCardSkeleton />
@@ -245,7 +245,7 @@ export default function Profile() {
   }
 
   return (
-    <PageBackground image={bgProfile} className="profile-page pb-24">
+    <PageBackground image={bgProfile} className="profile-page pb-32">
       <SEOMeta
         title="Your Profile — Wrigleyville Buddies"
         description="View and customize your Wrigleyville Buddies profile, season stats, badges, and meetup history."

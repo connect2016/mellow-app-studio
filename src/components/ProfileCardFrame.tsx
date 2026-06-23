@@ -160,11 +160,11 @@ export function ProfileCardFrame({
               title={userName}
               style={{
                 position: 'absolute',
-                bottom: '9%',
+                bottom: '14%',
                 left: '8%',
                 right: '40%',
                 textAlign: 'left',
-                fontSize: '16px',
+                fontSize: '22px',
                 fontWeight: 800,
                 letterSpacing: '0.01em',
                 color: '#0E3386',

@@ -13,6 +13,7 @@ const CARD_TEMPLATE_SRC = '/Wrigleyville_Profile_Card_v2.webp';
 interface CardFrontSideProps {
   profileImage?: string | null;
   displayName: string;
+  instagram?: string | null;
   statusLabel: string | null;
   intents?: IntentType[];
   gamedayIntents?: GamedayIntentType[];
@@ -34,6 +35,7 @@ interface CardFrontSideProps {
 export function CardFrontSide({
   profileImage,
   displayName,
+  instagram,
   statusLabel,
   activeReactions,
   imgLoaded,
@@ -237,30 +239,54 @@ export function CardFrontSide({
         </p>
       )}
 
-      {/* Layer 3 — Profile name in lower-left white area, above the gold stars */}
-      <p
-        title={displayName}
+      {/* Layer 3 — Profile name (+ Instagram handle) in lower-left white area, above the gold stars */}
+      <div
         style={{
           position: 'absolute',
           bottom: '9%',
           left: '8%',
           right: '40%',
-          textAlign: 'left',
-          fontSize: '16px',
-          fontWeight: 800,
-          letterSpacing: '0.01em',
-          color: '#0E3386',
+          display: 'flex',
+          flexDirection: 'column',
           zIndex: 4,
-          textShadow: '0 1px 2px rgba(255,255,255,0.9)',
-          background: 'transparent',
           pointerEvents: 'none',
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
         }}
       >
-        {displayName || 'Fan'}
-      </p>
+        <p
+          title={displayName}
+          style={{
+            textAlign: 'left',
+            fontSize: '16px',
+            fontWeight: 800,
+            letterSpacing: '0.01em',
+            color: '#0E3386',
+            textShadow: '0 1px 2px rgba(255,255,255,0.9)',
+            background: 'transparent',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {displayName || 'Fan'}
+        </p>
+        {instagram && (
+          <p
+            title={`@${instagram}`}
+            style={{
+              textAlign: 'left',
+              fontSize: '12px',
+              fontWeight: 500,
+              color: 'rgba(14,51,134,0.65)',
+              background: 'transparent',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            @{instagram}
+          </p>
+        )}
+      </div>
 
       {/* Fan tag pills + Fan flair badge — directly beneath the name, left-aligned */}
       {(fanTags?.length || userId) && (

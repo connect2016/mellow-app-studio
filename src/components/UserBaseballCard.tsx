@@ -19,6 +19,7 @@ import { CardStats, getVisibleStats } from '@/lib/cardStats';
 export interface UserBaseballCardProps {
   profileImage?: string | null;
   displayName: string;
+  instagram?: string | null;
   className?: string;
   onClick?: () => void;
   badges?: string[];
@@ -40,6 +41,7 @@ export interface UserBaseballCardProps {
 export function UserBaseballCard({
   profileImage,
   displayName,
+  instagram,
   className,
   onClick,
   showReactions = true,
@@ -167,6 +169,7 @@ export function UserBaseballCard({
           <CardFrontSide
             profileImage={profileImage}
             displayName={displayName}
+            instagram={instagram}
             statusLabel={statusLabel}
             intents={intents}
             gamedayIntents={gamedayIntents}

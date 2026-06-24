@@ -18,6 +18,7 @@ export interface TeammateProfile {
   user_id: string;
   display_name: string;
   profile_photo: string | null;
+  instagram: string | null;
   game_status: string | null;
   wrigley_section: string | null;
   wrigleyville_bar: string | null;

@@ -203,6 +203,7 @@ function CardFrame({ teammate: t, onClick }: { teammate: TeammateProfile; onClic
           <UserBaseballCard
             profileImage={t.profile_photo}
             displayName={t.display_name}
+            instagram={t.instagram}
             gameStatus={t.game_status as GameStatus}
             wrigleySection={t.wrigley_section}
             wrigleyvilleBar={t.wrigleyville_bar}

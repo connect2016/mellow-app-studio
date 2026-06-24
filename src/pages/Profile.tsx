@@ -304,6 +304,7 @@ export default function Profile() {
               <UserBaseballCard
                 displayName={profile.display_name}
                 profileImage={profile.profile_photo}
+                instagram={profile.instagram}
                 gameStatus={profile.game_status as GameStatus}
                 wrigleySection={profile.wrigley_section}
                 wrigleyvilleBar={profile.wrigleyville_bar}

@@ -47,6 +47,7 @@ export default function Onboarding() {
     return 1;
   });
   const [displayName, setDisplayName] = useState('');
+  const [instagram, setInstagram] = useState('');
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [section, setSection] = useState<string>('');
   const [frequency, setFrequency] = useState<string>('');
@@ -146,6 +147,7 @@ export default function Onboarding() {
     try {
       await updateProfile.mutateAsync({
         display_name: displayName.trim(),
+        instagram: instagram.trim(),
         profile_photo: photoUrl ?? '',
         wrigley_section: section,
         attendance_frequency: frequency,
@@ -312,6 +314,29 @@ export default function Onboarding() {
               maxLength={30}
               className="h-12 rounded-xl"
             />
+          </div>
+
+          {/* Instagram */}
+          <div className="mb-5">
+            <label className="mb-1.5 block text-sm font-semibold" style={{ color: NAVY }}>
+              Instagram
+            </label>
+            <div className="relative">
+              <span
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium"
+                style={{ color: NAVY }}
+              >
+                @
+              </span>
+              <Input
+                value={instagram}
+                onChange={(e) =>
+                  setInstagram(e.target.value.replace(/^@+/, '').replace(/[^a-zA-Z0-9._]/g, ''))
+                }
+                placeholder="@yourhandle"
+                className="h-12 rounded-xl pl-7"
+              />
+            </div>
           </div>
 
           {/* Section */}

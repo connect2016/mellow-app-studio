@@ -38,6 +38,7 @@ export default function Onboarding() {
   const [step, setStep] = useState<1 | 2 | 3>(() => {
     const urlStep = parseInt(searchParams.get('step') || '');
     if (urlStep >= 1 && urlStep <= 3) return urlStep as 1 | 2 | 3;
+    if (isEditMode) return 2;
     const draftRaw = sessionStorage.getItem('wb_onboarding_draft');
     if (draftRaw) {
       try {
@@ -45,7 +46,6 @@ export default function Onboarding() {
         if (draft.step >= 1 && draft.step <= 3) return draft.step as 1 | 2 | 3;
       } catch {}
     }
-    if (isEditMode) return 2;
     return 1;
   });
   const [displayName, setDisplayName] = useState('');
@@ -67,7 +67,7 @@ export default function Onboarding() {
       navigate('/discover', { replace: true });
       return;
     }
-    const hasDraft = !!sessionStorage.getItem('wb_onboarding_draft');
+    const hasDraft = !isEditMode && !!sessionStorage.getItem('wb_onboarding_draft');
     if (hasDraft) return;
     if (profile.display_name) setDisplayName(profile.display_name);
     if ((profile as any).instagram) setInstagram((profile as any).instagram);
@@ -75,7 +75,7 @@ export default function Onboarding() {
     if (profile.wrigley_section) setSection(profile.wrigley_section);
     if ((profile as any).attendance_frequency) setFrequency((profile as any).attendance_frequency);
     if ((profile as any).is_season_ticket_holder) setIsSTH(true);
-  }, [profile, navigate]);
+  }, [profile, navigate, isEditMode]);
 
   // Restore draft on mount
   useEffect(() => {
@@ -94,8 +94,10 @@ export default function Onboarding() {
     }
   }, []);
 
-  // Persist draft on every change
+  // Persist draft on every change — wait for profile to load first, so this
+  // doesn't write an empty draft that then blocks the prefill effect above.
   useEffect(() => {
+    if (!profile) return;
     const draft = {
       step,
       formFields: {
@@ -108,14 +110,18 @@ export default function Onboarding() {
       },
     };
     sessionStorage.setItem('wb_onboarding_draft', JSON.stringify(draft));
-  }, [step, displayName, photoUrl, section, frequency, goal, isSTH]);
+  }, [profile, step, displayName, photoUrl, section, frequency, goal, isSTH]);
 
   // Keep URL in sync with step so browser back moves backward through the flow
   useEffect(() => {
     const urlStep = parseInt(searchParams.get('step') || '');
-    const validStep = urlStep >= 1 && urlStep <= 3 ? (urlStep as 1 | 2 | 3) : 1;
-    setStep((current) => (validStep === current ? current : validStep));
-  }, [searchParams]);
+    if (urlStep >= 1 && urlStep <= 3) {
+      setStep((current) => (urlStep === current ? current : (urlStep as 1 | 2 | 3)));
+      return;
+    }
+    if (isEditMode) return;
+    setStep((current) => (current === 1 ? current : 1));
+  }, [searchParams, isEditMode]);
 
   const goToStep = (newStep: 1 | 2 | 3) => {
     setStep(newStep);

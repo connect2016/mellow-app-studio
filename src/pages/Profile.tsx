@@ -487,7 +487,7 @@ export default function Profile() {
                     <ul className="divide-y divide-border">
                       {[
                         { icon: Trophy, label: 'League Leaders', desc: 'See the season leaderboard', to: '/league-leaders' },
-                        { icon: UserCog, label: 'Edit Profile', desc: 'Photo, bio, fan stats', to: '/settings#profile' },
+                        { icon: UserCog, label: 'Edit Profile', desc: 'Photo, bio, fan stats', to: '/onboarding?edit=true' },
                         { icon: Target, label: 'Intent Settings', desc: 'Friend, Beer, Meetup, Dating', to: '/settings#intent' },
                         { icon: ShieldCheck, label: 'Safety Tools', desc: 'Blocking, verification, meetup safety', to: '/settings#safety' },
                         { icon: SettingsIcon, label: 'Settings', desc: 'Notifications, privacy, account', to: '/settings' },

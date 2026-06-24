@@ -14,6 +14,7 @@ import { StatPreference } from '@/hooks/useStatPreferences';
 interface ProfileCardFrameProps {
   userName: string;
   profileImageUrl?: string;
+  instagram?: string | null;
   stats?: CardStats;
   statPreferences?: StatPreference[];
   isOwner?: boolean;
@@ -23,6 +24,7 @@ interface ProfileCardFrameProps {
 export function ProfileCardFrame({
   userName,
   profileImageUrl,
+  instagram,
   stats,
   statPreferences,
   isOwner = false,
@@ -155,30 +157,54 @@ export function ProfileCardFrame({
               }}
             />
 
-            {/* Name layer — in the white strip above the gold stars */}
-            <p
-              title={userName}
+            {/* Name layer (+ Instagram handle) — in the white strip above the gold stars */}
+            <div
               style={{
                 position: 'absolute',
                 bottom: '14%',
                 left: '8%',
                 right: '40%',
-                textAlign: 'left',
-                fontSize: '22px',
-                fontWeight: 800,
-                letterSpacing: '0.01em',
-                color: '#0E3386',
+                display: 'flex',
+                flexDirection: 'column',
                 zIndex: 4,
-                textShadow: '0 1px 2px rgba(255,255,255,0.9)',
-                background: 'transparent',
                 pointerEvents: 'none',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
               }}
             >
-              {userName || 'Fan'}
-            </p>
+              <p
+                title={userName}
+                style={{
+                  textAlign: 'left',
+                  fontSize: '22px',
+                  fontWeight: 800,
+                  letterSpacing: '0.01em',
+                  color: '#0E3386',
+                  textShadow: '0 1px 2px rgba(255,255,255,0.9)',
+                  background: 'transparent',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {userName || 'Fan'}
+              </p>
+              {instagram && (
+                <p
+                  title={`@${instagram}`}
+                  style={{
+                    textAlign: 'left',
+                    fontSize: '12px',
+                    fontWeight: 500,
+                    color: 'rgba(14,51,134,0.65)',
+                    background: 'transparent',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  @{instagram}
+                </p>
+              )}
+            </div>
 
             {/* Hidden file input */}
             <input

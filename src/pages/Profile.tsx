@@ -289,6 +289,7 @@ export default function Profile() {
                 <ProfileCardFrame
                   userName={profile.display_name}
                   profileImageUrl={profile.profile_photo ?? undefined}
+                  instagram={profile.instagram}
                   statPreferences={statPreferences}
                   stats={{
                     shotsTakenSeason: cardExtras.shots_taken_season ?? 0,

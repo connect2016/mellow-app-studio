@@ -243,7 +243,7 @@ export function CardFrontSide({
       <div
         style={{
           position: 'absolute',
-          bottom: '9%',
+          bottom: '7%',
           left: '8%',
           right: '40%',
           display: 'flex',
@@ -276,7 +276,7 @@ export function CardFrontSide({
               textAlign: 'left',
               fontSize: '12px',
               fontWeight: 500,
-              color: 'rgba(14,51,134,0.65)',
+              color: '#CC3433',
               background: 'transparent',
               whiteSpace: 'nowrap',
               overflow: 'hidden',

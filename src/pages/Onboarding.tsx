@@ -29,6 +29,7 @@ const GOAL_LABELS: Record<GoalKey, string> = {
 export default function Onboarding() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const isEditMode = searchParams.get('edit') === 'true';
   const { user } = useAuth();
   const { data: profile } = useProfile();
   const updateProfile = useUpdateProfile();
@@ -61,7 +62,7 @@ export default function Onboarding() {
   // Prefill + skip if already completed (skip when a draft exists — draft wins)
   useEffect(() => {
     if (!profile) return;
-    if (profile.onboarding_completed) {
+    if (profile.onboarding_completed && !isEditMode) {
       navigate('/discover', { replace: true });
       return;
     }
@@ -164,7 +165,7 @@ export default function Onboarding() {
         photo: !!photoUrl,
       });
       setCelebrate(true);
-      setTimeout(() => navigate('/discover', { replace: true }), 1800);
+      setTimeout(() => navigate(isEditMode ? '/profile' : '/discover', { replace: true }), 1800);
     } catch (err) {
       console.error(err);
       toast.error('Something went wrong. Please try again.');

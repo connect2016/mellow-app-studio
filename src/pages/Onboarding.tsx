@@ -45,6 +45,7 @@ export default function Onboarding() {
         if (draft.step >= 1 && draft.step <= 3) return draft.step as 1 | 2 | 3;
       } catch {}
     }
+    if (isEditMode) return 2;
     return 1;
   });
   const [displayName, setDisplayName] = useState('');
@@ -69,6 +70,7 @@ export default function Onboarding() {
     const hasDraft = !!sessionStorage.getItem('wb_onboarding_draft');
     if (hasDraft) return;
     if (profile.display_name) setDisplayName(profile.display_name);
+    if ((profile as any).instagram) setInstagram((profile as any).instagram);
     if (profile.profile_photo) setPhotoUrl(profile.profile_photo);
     if (profile.wrigley_section) setSection(profile.wrigley_section);
     if ((profile as any).attendance_frequency) setFrequency((profile as any).attendance_frequency);

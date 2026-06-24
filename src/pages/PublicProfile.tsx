@@ -202,7 +202,7 @@ export default function PublicProfile() {
   return (
     <div className="min-h-screen bg-background pb-32">
       <SEOMeta
-        title={`${profile.display_name || 'Fan'} — Cubbies Buddies`}
+        title={`${profile.display_name || 'Fan'} — Wrigleyville Buddies`}
         description={`See ${profile.display_name || 'this fan'}'s Wrigleyville profile, crews and badges.`}
       />
 

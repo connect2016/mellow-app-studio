@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 
 const SHARE_BASE = 'https://wrigleyvillebuddies.com';
 const SHARE_MESSAGE =
-  "I'm using Cubbies Buddies to find my crew at Wrigley — join me!";
+  "I'm using Wrigleyville Buddies to find my crew at Wrigley — join me!";
 
 interface InviteFriendsButtonProps {
   source: string;
@@ -40,7 +40,7 @@ export function InviteFriendsButton({
     const url = buildReferralUrl(code);
     const text = `${SHARE_MESSAGE} ${SHARE_BASE}${code ? `?ref=${code}` : ''}`;
     const shareData: ShareData = {
-      title: 'Cubbies Buddies',
+      title: 'Wrigleyville Buddies',
       text,
       url,
     };

@@ -232,7 +232,7 @@ export default function Onboarding() {
             className="mb-4 text-4xl font-bold tracking-tight text-white"
             style={{ fontFamily: 'Norwester, sans-serif' }}
           >
-            Welcome to Cubbies Buddies
+            Welcome to Wrigleyville Buddies
           </h1>
           <p className="mb-10 text-lg text-white/85">
             Find your crew at Wrigleyville.

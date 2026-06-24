@@ -400,7 +400,7 @@ export default function Profile() {
                 </>
               ) : (
                 <>
-                  <Button className="w-full rounded-full h-12 font-semibold bg-secondary text-secondary-foreground hover:bg-secondary/90" onClick={() => navigate('/settings')}>
+                  <Button className="w-full rounded-full h-12 font-semibold bg-secondary text-secondary-foreground hover:bg-secondary/90" onClick={() => navigate('/onboarding?edit=true')}>
                     Edit Profile
                   </Button>
                   <InviteBuddyButton source="profile" variant="outline" />

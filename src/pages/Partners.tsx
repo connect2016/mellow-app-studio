@@ -93,7 +93,7 @@ export default function Partners() {
   return (
     <div className="min-h-screen bg-brand-blue-dark px-4 py-6 pb-16">
       <Helmet>
-        <title>Partner With Cubbies Buddies</title>
+        <title>Partner With Wrigleyville Buddies</title>
         <meta name="description" content="Bar and rooftop partners — reach thousands of Cubs fans on game day." />
       </Helmet>
 
@@ -102,11 +102,11 @@ export default function Partners() {
         <div className="mb-6 border-l-4 border-brand-red pl-4">
           <img
             src={wrigleyvilleLogo}
-            alt="Cubbies Buddies"
+            alt="Wrigleyville Buddies"
             className="mb-3 h-10 w-auto object-contain"
             style={{ filter: "brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.3))" }} loading="lazy" decoding="async" />
           <h1 className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
-            Partner With Cubbies Buddies 🍺
+            Partner With Wrigleyville Buddies 🍺
           </h1>
         </div>
 
@@ -177,7 +177,7 @@ export default function Partners() {
           </h2>
         </div>
         <p className="mb-6 text-base leading-relaxed text-white/80">
-          List your rooftop on the Cubbies Buddies map and connect with fans looking for the ultimate game-day experience.
+          List your rooftop on the Wrigleyville Buddies map and connect with fans looking for the ultimate game-day experience.
         </p>
 
         {roofSubmitted ? (

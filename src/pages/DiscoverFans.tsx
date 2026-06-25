@@ -99,39 +99,24 @@ export default function DiscoverFans() {
           <p className="text-sm text-muted-foreground">Pick a filter to narrow your view.</p>
         </div>
 
-        {/* Filter chips */}
-        <div className="relative -mx-4 mb-4">
-          <div
-            className="overflow-x-auto px-4 pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-            style={{ WebkitOverflowScrolling: 'touch' }}
+        {/* Filter select */}
+        <div className="mb-4">
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value as DiscoverFilter)}
+            className={cn(
+              'w-full max-w-xs rounded-full border border-neutral-300 px-4 py-2 text-sm font-medium transition-colors',
+              filter !== 'all'
+                ? 'bg-[hsl(var(--brand-navy))] text-white'
+                : 'bg-transparent text-foreground',
+            )}
           >
-            <div className="flex flex-nowrap gap-2">
-              {CHIPS.map((chip) => {
-                const active = chip.id === filter;
-                return (
-                  <button
-                    key={chip.id}
-                    type="button"
-                    onClick={() => setFilter(chip.id)}
-                    className={cn(
-                      'whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors min-h-[40px]',
-                      active
-                        ? 'bg-[hsl(var(--brand-navy))] text-white'
-                        : 'border border-neutral-300 bg-transparent text-foreground hover:bg-neutral-50 dark:hover:bg-neutral-800',
-                    )}
-                    aria-pressed={active}
-                  >
-                    {chip.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-          {/* Right-edge fade affordance */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-background to-transparent"
-          />
+            {CHIPS.map((chip) => (
+              <option key={chip.id} value={chip.id}>
+                {chip.label}
+              </option>
+            ))}
+          </select>
         </div>
 
 

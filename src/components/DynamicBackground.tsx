@@ -12,6 +12,8 @@ import bgFansParade from '@/assets/cubs-fans-parade.webp'; // 1920x1279
 import bgFansCelebrating from '@/assets/bg-cubs-fans-celebrating.webp'; // 1920x1171
 import bgRainbow from '@/assets/bg-wrigleyville-street.webp'; // 1843x1114
 import bgBarInterior from '@/assets/cubs-bar-interior.webp'; // 1920x1280
+import bgMeetupsBright from '@/assets/meetups-bright.jpg';
+import bgProfileBright from '@/assets/profile-bright.jpg';
 
 // Only high-resolution sources (≥1400px on the long edge) so they stay crisp
 // at 2x–3x mobile device pixel densities.
@@ -22,12 +24,12 @@ const ROUTE_IMAGE_MAP: Record<string, string> = {
   '/discover': bgBarPatio,
   '/vibe': bgField,
   '/hi-fives': bgFansCelebrating,
-  '/profile': bgFansParade,
+  '/profile': bgProfileBright,
   '/messages': bgPinball,
   '/settings': bgOldstyle,
   '/crews': bgBar,
   '/gameday': bgPlayball,
-  '/meetups': bgWrigleyville,
+  '/meetups': bgMeetupsBright,
   '/missions': bgRainbow,
   '/onboarding': bgWrigleyville,
   '/check-in': bgBar,

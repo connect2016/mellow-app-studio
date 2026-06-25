@@ -82,7 +82,7 @@ export default function Meetups() {
       <main className="mx-auto max-w-2xl px-4 pt-4 lg:mx-0 lg:px-0 lg:pt-0 lg:max-w-none lg:w-full">
         {/* Hero header */}
         <div className="mb-4">
-          <h1 className="text-2xl font-extrabold tracking-tight text-white drop-shadow-md">Meetups</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight text-white page-title-outline">Meetups</h1>
           <p className="text-sm text-white/85 mt-0.5 drop-shadow">
             {meetups.length === 0 ? 'Find your crew' : 'Find your crew · Tap any card to RSVP'}
           </p>

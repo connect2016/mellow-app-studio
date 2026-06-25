@@ -157,8 +157,7 @@ export default function Notifications() {
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <h1
-                  className="text-2xl font-bold text-white leading-tight"
-                  style={{ textShadow: '0 1px 2px hsla(222, 47%, 4%, 0.5)' }}
+                  className="text-2xl font-bold text-white leading-tight page-title-outline"
                 >
                   Notifications
                 </h1>

@@ -85,7 +85,7 @@ export default function Settings() {
       <AppHeader />
 
       <div className="mx-auto max-w-lg px-4 pt-4 space-y-6">
-        <h2 className="text-lg font-bold text-white drop-shadow-lg">Front Office</h2>
+        <h2 className="text-lg font-bold text-white page-title-outline">Front Office</h2>
 
         {/* Privacy */}
         <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-md p-4 space-y-4">

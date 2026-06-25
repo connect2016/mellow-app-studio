@@ -498,8 +498,8 @@ export default function Discover() {
             <div className="mb-2">
               <div className="px-4 mb-1 flex items-baseline justify-between">
                 <h2
-                  className="text-[15px] font-extrabold uppercase tracking-wide text-white"
-                  style={{ fontFamily: 'Norwester, sans-serif', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}
+                  className="text-[15px] font-extrabold uppercase tracking-wide text-white page-title-outline"
+                  style={{ fontFamily: 'Norwester, sans-serif' }}
                 >
                   Suggested Fans Nearby
                 </h2>

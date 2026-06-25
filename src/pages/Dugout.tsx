@@ -65,7 +65,7 @@ export default function Dugout() {
         {/* Hero */}
         <div className="text-center mb-4">
           <h1
-            className="font-display text-4xl font-extrabold text-white tracking-wide drop-shadow-lg"
+            className="font-display text-4xl font-extrabold text-white tracking-wide page-title-outline"
             style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '2px' }}
           >
             THE DUGOUT

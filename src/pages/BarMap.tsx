@@ -106,7 +106,7 @@ export default function BarMap() {
         <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-300 drop-shadow">
           <Sparkles className="h-3 w-3" /> Curated · Wrigleyville
         </div>
-        <h1 className="mt-2 font-display text-3xl font-bold tracking-tight leading-none text-white drop-shadow-lg">
+        <h1 className="mt-2 font-display text-3xl font-bold tracking-tight leading-none text-white page-title-outline">
           The Wrigleyville
           <br />
           <span className="text-amber-300">Bar Guide</span>

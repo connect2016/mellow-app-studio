@@ -7,6 +7,7 @@ import { useFanMapPins } from '@/hooks/useFanMapPins';
 import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { useUnreadCount } from '@/hooks/useMessages';
 import { ProfileCompletionRing } from './ProfileCompletionRing';
+import { HomePlate } from '@/components/icons/HomePlate';
 
 type Tab = {
   to: string;
@@ -17,6 +18,7 @@ type Tab = {
 };
 
 const TABS: Tab[] = [
+  { to: '/', label: 'Home', icon: HomePlate },
   { to: '/discover-fans', label: 'Discover', icon: Compass },
   { to: '/bar-map', label: 'Map', icon: Map, showBadge: 'fans' },
   { to: '/meetups', label: 'Meetups', icon: CalendarDays },

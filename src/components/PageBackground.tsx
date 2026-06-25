@@ -40,7 +40,7 @@ export function PageBackground({ image, children, className = '' }: PageBackgrou
       <div
         aria-hidden="true"
         className="fixed inset-0 z-0 pointer-events-none"
-        style={{ background: 'hsl(var(--brand-navy) / 0.55)' }}
+        style={{ background: 'hsl(var(--brand-navy) / 0.18)' }}
       />
       {/* Bottom-anchoring gradient — navy/75% at bottom → transparent */}
       <div
@@ -48,7 +48,7 @@ export function PageBackground({ image, children, className = '' }: PageBackgrou
         className="fixed inset-0 z-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to top, hsl(var(--brand-navy) / 0.75) 0%, hsl(var(--brand-navy) / 0.25) 35%, transparent 70%)',
+            'linear-gradient(to top, hsl(var(--brand-navy) / 0.40) 0%, hsl(var(--brand-navy) / 0.12) 35%, transparent 70%)',
         }}
       />
       {/* Content */}

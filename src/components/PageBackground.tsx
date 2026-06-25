@@ -32,7 +32,7 @@ export function PageBackground({ image, children, className = '' }: PageBackgrou
         src={image}
         alt=""
         aria-hidden="true"
-        className="fixed inset-0 z-0 h-full w-full object-contain md:object-cover object-center pointer-events-none select-none"
+        className="fixed inset-0 z-0 h-full w-full object-cover object-center pointer-events-none select-none"
         decoding="async"
         draggable={false}
       />

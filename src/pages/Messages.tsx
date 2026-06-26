@@ -9,7 +9,7 @@ import { Send, MessageCircle, ArrowLeft, Smile, Users } from 'lucide-react';
 import { ErrorState } from '@/components/ErrorState';
 import { QuickBlockButton } from '@/components/QuickBlockButton';
 import { EmptyState } from '@/components/ui/EmptyState';
-import bgWrigleyRooftops from '@/assets/bg-wrigley-playball.webp'; // 1920x1440 (was 1400x788 bg-wrigley-rooftops)
+import bgWrigleyRooftops from '@/assets/bg-chicago-hat.jpg';
 import { PageBackground } from '@/components/PageBackground';
 import { DesktopPanel } from '@/components/DesktopPanel';
 import { useAuth } from '@/contexts/AuthContext';

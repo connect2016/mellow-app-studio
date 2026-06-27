@@ -169,15 +169,15 @@ function MapMock() {
 // ── Mock #1b: Baseball field persona picker (spotlight cycles through positions) ──
 function FieldMock() {
   const SPOTS = [
-    { pos: 'Center Field', persona: 'Out-of-Towner',        x: 50, y: 14 },
-    { pos: 'Left Field',   persona: 'Wrigley Rookie',       x: 20, y: 30 },
-    { pos: 'Right Field',  persona: 'Bleacher Bum',         x: 80, y: 30 },
-    { pos: 'Shortstop',    persona: 'Stats Nerd',           x: 36, y: 50 },
-    { pos: 'Second Base',  persona: 'Pub Crawler',          x: 64, y: 50 },
-    { pos: 'Third Base',   persona: 'Rooftop Regular',      x: 18, y: 66 },
-    { pos: 'First Base',   persona: 'Season Ticket Holder', x: 82, y: 66 },
-    { pos: 'Pitcher',      persona: 'Die-Hard Fan',         x: 50, y: 62 },
-    { pos: 'Catcher',      persona: 'Ivy Elder',            x: 50, y: 86 },
+    { pos: 'Center Field', persona: 'Out-of-Towner',        x: 50, y: 22 },
+    { pos: 'Left Field',   persona: 'Wrigley Rookie',       x: 24, y: 33 },
+    { pos: 'Right Field',  persona: 'Bleacher Bum',         x: 76, y: 33 },
+    { pos: 'Shortstop',    persona: 'Stats Nerd',           x: 40, y: 53 },
+    { pos: 'Second Base',  persona: 'Pub Crawler',          x: 60, y: 53 },
+    { pos: 'Third Base',   persona: 'Rooftop Regular',      x: 28, y: 52 },
+    { pos: 'First Base',   persona: 'Season Ticket Holder', x: 72, y: 52 },
+    { pos: 'Pitcher',      persona: 'Die-Hard Fan',         x: 50, y: 56 },
+    { pos: 'Catcher',      persona: 'Ivy Elder',            x: 50, y: 68 },
   ];
   const [active, setActive] = useState(0);
   useEffect(() => {
@@ -190,10 +190,8 @@ function FieldMock() {
   return (
     <div className="flex h-full w-full flex-col bg-gradient-to-b from-primary/10 to-background">
       <p className="pt-3 text-center text-[9px] font-semibold uppercase tracking-wide text-muted-foreground">Pick your persona</p>
-      <div className="relative mx-auto mt-1 aspect-square w-[88%]">
-        <div className="absolute inset-0 rounded-t-full bg-[#3f7d3f]" />
-        <div className="absolute left-1/2 top-[42%] h-[46%] w-[46%] -translate-x-1/2 rotate-45 rounded-[14%] bg-[#b07a44]" />
-        <div className="absolute left-1/2 top-[46%] h-[32%] w-[32%] -translate-x-1/2 rotate-45 rounded-[14%] bg-[#4a8f4a]" />
+      <div className="relative mx-auto mt-1 w-[95%] flex-1 overflow-hidden rounded-lg">
+        <img src="/wrigleyville-field.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
         {SPOTS.map((s, i) => {
           const on = i === active;
           return (

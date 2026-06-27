@@ -161,7 +161,7 @@ function MapMock() {
         </div>
       ))}
       <div className="absolute bottom-2 left-2 right-2 rounded-lg bg-background/95 backdrop-blur p-2 shadow-sm">
-        <p className="text-[10px] font-bold text-destructive-foreground">12 fans nearby</p>
+        <p className="text-[10px] font-bold text-destructive-foreground">Sample map · 12 fans</p>
         <p className="text-[9px] text-muted-foreground">Tap an avatar to say hi</p>
       </div>
     </div>
@@ -172,7 +172,7 @@ function MapMock() {
 function MeetupMock() {
   return (
     <div className="flex h-full flex-col bg-gradient-to-b from-secondary/10 to-background p-3">
-      <p className="text-[9px] font-bold uppercase tracking-wider text-secondary">Flash Meetup · 32m left</p>
+      <p className="text-[9px] font-bold uppercase tracking-wider text-secondary">Preview · Flash Meetup</p>
       <h4 className="mt-1 text-sm font-extrabold text-destructive-foreground leading-tight">Pregame Pints @ Murphy's</h4>
       <div className="mt-2 flex items-center gap-1 text-[10px] text-muted-foreground">
         <MapPin className="h-3 w-3" /> Murphy's Bleachers · 0.1mi
@@ -237,7 +237,7 @@ function FeaturePreview({ kind }: { kind: 'map' | 'meetup' | 'hifive' }) {
     <div className="rounded-xl border bg-white/10 p-3 flex items-center gap-3">
       <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-2xl"></div>
       <div className="flex-1">
-        <p className="text-xs font-bold text-white">Jake sent you a Hi-Five</p>
+        <p className="text-xs font-bold text-white">Example: Jake sends a Hi-Five</p>
         <p className="text-[10px] text-white/70">Suggested: Murphy's, 5:30 PM</p>
       </div>
     </div>

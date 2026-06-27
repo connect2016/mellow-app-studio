@@ -1,5 +1,6 @@
 // @ts-ignore
 import '@fontsource/norwester';
+import { useState, useEffect } from 'react';
 import { SEOMeta } from '@/components/SEOMeta';
 import { Link, useNavigate } from 'react-router-dom';
 import wrigleyvilleAerial from '@/assets/bg-wrigleyville-street.webp';
@@ -18,9 +19,6 @@ import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 // Static stats removed — Wrigleyville Buddies is launching for the 2026 season,
 // so no fabricated counts go on the landing page.
-
-// ── Onboarding personas (chips on Step 1 mock) ──
-const personas = ['Bleacher Creature', 'Stats Nerd', 'Social Butterfly', 'First-Timer', 'Rooftop Regular', 'Die-Hard Season Ticket Holder', 'Away Game Traveler', 'Bar Watcher', 'Bring the Kids Dad', 'Cubs Superfan'];
 
 // ── Hero features ──
 const heroFeatures = [
@@ -163,6 +161,56 @@ function MapMock() {
       <div className="absolute bottom-2 left-2 right-2 rounded-lg bg-background/95 backdrop-blur p-2 shadow-sm">
         <p className="text-[10px] font-bold text-destructive-foreground">Sample map · 12 fans</p>
         <p className="text-[9px] text-muted-foreground">Tap an avatar to say hi</p>
+      </div>
+    </div>
+  );
+}
+
+// ── Mock #1b: Baseball field persona picker (spotlight cycles through positions) ──
+function FieldMock() {
+  const SPOTS = [
+    { pos: 'Center Field', persona: 'Out-of-Towner',        x: 50, y: 14 },
+    { pos: 'Left Field',   persona: 'Wrigley Rookie',       x: 20, y: 30 },
+    { pos: 'Right Field',  persona: 'Bleacher Bum',         x: 80, y: 30 },
+    { pos: 'Shortstop',    persona: 'Stats Nerd',           x: 36, y: 50 },
+    { pos: 'Second Base',  persona: 'Pub Crawler',          x: 64, y: 50 },
+    { pos: 'Third Base',   persona: 'Rooftop Regular',      x: 18, y: 66 },
+    { pos: 'First Base',   persona: 'Season Ticket Holder', x: 82, y: 66 },
+    { pos: 'Pitcher',      persona: 'Die-Hard Fan',         x: 50, y: 62 },
+    { pos: 'Catcher',      persona: 'Ivy Elder',            x: 50, y: 86 },
+  ];
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia
+        && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setInterval(() => setActive((a) => (a + 1) % SPOTS.length), 1900);
+    return () => clearInterval(id);
+  }, []);
+  const current = SPOTS[active];
+  return (
+    <div className="flex h-full w-full flex-col bg-gradient-to-b from-primary/10 to-background">
+      <p className="pt-3 text-center text-[9px] font-semibold uppercase tracking-wide text-muted-foreground">Pick your persona</p>
+      <div className="relative mx-auto mt-1 aspect-square w-[88%]">
+        <div className="absolute inset-0 rounded-t-full bg-[#3f7d3f]" />
+        <div className="absolute left-1/2 top-[42%] h-[46%] w-[46%] -translate-x-1/2 rotate-45 rounded-[14%] bg-[#b07a44]" />
+        <div className="absolute left-1/2 top-[46%] h-[32%] w-[32%] -translate-x-1/2 rotate-45 rounded-[14%] bg-[#4a8f4a]" />
+        {SPOTS.map((s, i) => {
+          const on = i === active;
+          return (
+            <div key={s.pos} className="absolute -translate-x-1/2 -translate-y-1/2 transition-all duration-500" style={{ left: `${s.x}%`, top: `${s.y}%` }}>
+              {on && <span className="absolute -inset-1 rounded-full border-2 border-primary animate-ping" />}
+              <svg viewBox="0 0 24 16" className={`h-[15px] w-[22px] drop-shadow transition-all duration-500 ${on ? 'scale-125 opacity-100' : 'scale-90 opacity-45'}`} style={{ color: on ? 'hsl(var(--primary))' : '#1f2d4d' }}>
+                <path d="M3 11 C3 4, 21 4, 21 11 Z" fill="currentColor" />
+                <path d="M2 11 H15 C15 13.5, 2 13.5, 2 11 Z" fill="currentColor" opacity="0.85" />
+                <circle cx="12" cy="5.2" r="0.9" fill="#fff" opacity="0.7" />
+              </svg>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-auto px-2 pb-3 text-center">
+        <p className="text-[8px] font-bold uppercase tracking-wider text-muted-foreground">{current.pos}</p>
+        <p className="text-[12px] font-extrabold leading-tight text-primary">{current.persona}</p>
       </div>
     </div>
   );
@@ -349,31 +397,7 @@ export default function Landing() {
               <p className="mb-5 text-sm mt-1 max-w-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>
                 Pick your Gameday Persona, set your intent, drop your go-to bar.
               </p>
-              <div
-                className="rounded-2xl p-4 w-full max-w-xs"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  border: '1px solid rgba(255, 255, 255, 0.6)',
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35)',
-                  backdropFilter: 'blur(4px)',
-                }}
-              >
-                <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground mb-2">Pick your persona</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {personas.map((p, i) => (
-                    <span
-                      key={p}
-                      className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-                        i === 1
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-foreground border'
-                      }`}
-                    >
-                      {p}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <PhoneFrame className="max-w-[200px]"><FieldMock /></PhoneFrame>
             </div>
 
             {/* Step 2 */}
@@ -389,7 +413,7 @@ export default function Landing() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-primary-foreground shadow bg-secondary">3</div>
-              <h3 className="mb-1 text-xl" style={{ color: '#FFFFFF', fontWeight: 700, textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Meet Up IRL</h3>
+              <h3 className="mb-1 text-xl" style={{ color: '#FFFFFF', fontWeight: 700, textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Game Day Link-Up</h3>
               <p className="mb-5 text-sm mt-1 max-w-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>
                 Join a flash meetup at a bar near Wrigley — or host your own.
               </p>

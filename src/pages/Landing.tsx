@@ -244,10 +244,11 @@ function FeaturePreview({ kind }: { kind: 'map' | 'meetup' | 'hifive' }) {
   );
 }
 
-function SectionPhotoBackground({ desktopSrc, mobileSrc = '/hero-fallback.jpg' }: { desktopSrc: string; mobileSrc?: string }) {
+function SectionPhotoBackground({ desktopSrc, mobileSrc }: { desktopSrc: string; mobileSrc?: string }) {
+  const mobileImage = mobileSrc ?? desktopSrc;
   return (
     <picture className="absolute inset-0 block">
-      <source media="(max-width: 767px)" srcSet={mobileSrc} />
+      <source media="(max-width: 767px)" srcSet={mobileImage} />
       <img src={desktopSrc} alt="" className="h-full w-full object-contain md:object-cover object-center" loading="lazy" decoding="async" />
     </picture>
   );

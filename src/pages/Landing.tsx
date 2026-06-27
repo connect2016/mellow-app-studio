@@ -249,7 +249,7 @@ function SectionPhotoBackground({ desktopSrc, mobileSrc }: { desktopSrc: string;
   return (
     <picture className="absolute inset-0 block">
       <source media="(max-width: 767px)" srcSet={mobileImage} />
-      <img src={desktopSrc} alt="" className="h-full w-full object-contain md:object-cover object-center" loading="lazy" decoding="async" />
+      <img src={desktopSrc} alt="" className="h-full w-full object-cover object-center" loading="lazy" decoding="async" />
     </picture>
   );
 }

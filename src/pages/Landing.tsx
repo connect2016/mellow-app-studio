@@ -169,15 +169,15 @@ function MapMock() {
 // ── Mock #1b: Baseball field persona picker (spotlight cycles through positions) ──
 function FieldMock() {
   const SPOTS = [
-    { pos: 'Center Field', persona: 'Out-of-Towner',        x: 50, y: 22 },
-    { pos: 'Left Field',   persona: 'Wrigley Rookie',       x: 24, y: 33 },
-    { pos: 'Right Field',  persona: 'Bleacher Bum',         x: 76, y: 33 },
-    { pos: 'Shortstop',    persona: 'Stats Nerd',           x: 40, y: 53 },
-    { pos: 'Second Base',  persona: 'Pub Crawler',          x: 60, y: 53 },
-    { pos: 'Third Base',   persona: 'Rooftop Regular',      x: 28, y: 52 },
-    { pos: 'First Base',   persona: 'Season Ticket Holder', x: 72, y: 52 },
-    { pos: 'Pitcher',      persona: 'Die-Hard Fan',         x: 50, y: 56 },
-    { pos: 'Catcher',      persona: 'Ivy Elder',            x: 50, y: 68 },
+    { pos: 'Pitcher',      persona: 'Die-Hard Fan',         x: 50,   y: 52   },
+    { pos: 'Catcher',      persona: 'Ivy Elder',            x: 50,   y: 67.5 },
+    { pos: 'First Base',   persona: 'Season Ticket Holder', x: 59.5, y: 54.5 },
+    { pos: 'Second Base',  persona: 'Pub Crawler',          x: 55.5, y: 47.5 },
+    { pos: 'Third Base',   persona: 'Rooftop Regular',      x: 40.5, y: 54.5 },
+    { pos: 'Shortstop',    persona: 'Stats Nerd',           x: 44.5, y: 47.5 },
+    { pos: 'Left Field',   persona: 'Wrigley Rookie',       x: 25,   y: 42   },
+    { pos: 'Center Field', persona: 'Out-of-Towner',        x: 50,   y: 40   },
+    { pos: 'Right Field',  persona: 'Bleacher Bum',         x: 75,   y: 42   },
   ];
   const [active, setActive] = useState(0);
   useEffect(() => {
@@ -193,16 +193,13 @@ function FieldMock() {
       <div className="relative mx-auto mt-1 w-[95%] flex-1 overflow-hidden rounded-lg">
         <img src="/wrigleyville-field.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
         {SPOTS.map((s, i) => {
-          const on = i === active;
+          if (i !== active) return null;
           return (
-            <div key={s.pos} className="absolute -translate-x-1/2 -translate-y-1/2 transition-all duration-500" style={{ left: `${s.x}%`, top: `${s.y}%` }}>
-              {on && <span className="absolute -inset-1 rounded-full border-2 border-primary animate-ping" />}
-              <svg viewBox="0 0 24 16" className={`h-[15px] w-[22px] drop-shadow transition-all duration-500 ${on ? 'scale-125 opacity-100' : 'scale-90 opacity-45'}`} style={{ color: on ? 'hsl(var(--primary))' : '#1f2d4d' }}>
-                <path d="M3 11 C3 4, 21 4, 21 11 Z" fill="currentColor" />
-                <path d="M2 11 H15 C15 13.5, 2 13.5, 2 11 Z" fill="currentColor" opacity="0.85" />
-                <circle cx="12" cy="5.2" r="0.9" fill="#fff" opacity="0.7" />
-              </svg>
-            </div>
+            <span
+              key={s.pos}
+              className="absolute h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-primary animate-ping"
+              style={{ left: `${s.x}%`, top: `${s.y}%` }}
+            />
           );
         })}
       </div>

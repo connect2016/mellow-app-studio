@@ -191,13 +191,13 @@ function FieldMock() {
     <div className="flex h-full w-full flex-col bg-gradient-to-b from-primary/10 to-background">
       <p className="pt-3 text-center text-[9px] font-semibold uppercase tracking-wide text-muted-foreground">Pick your persona</p>
       <div className="relative mx-auto mt-1 w-[95%] flex-1 overflow-hidden rounded-lg">
-        <img src="/wrigleyville-field-v3.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/wrigleyville-field-v4.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
         {SPOTS.map((s, i) => {
           if (i !== active) return null;
           return (
             <span
               key={s.pos}
-              className="absolute h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-primary animate-ping"
+              className="absolute h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-primary animate-ping"
               style={{ left: `${s.x}%`, top: `${s.y}%` }}
             />
           );

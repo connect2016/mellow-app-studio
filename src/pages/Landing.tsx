@@ -169,15 +169,15 @@ function MapMock() {
 // ── Mock #1b: Baseball field persona picker (spotlight cycles through positions) ──
 function FieldMock() {
   const SPOTS = [
-    { pos: 'Pitcher',      persona: 'Die-Hard Fan',         x: 50,   y: 52   },
-    { pos: 'Catcher',      persona: 'Ivy Elder',            x: 50,   y: 67.5 },
-    { pos: 'First Base',   persona: 'Season Ticket Holder', x: 59.5, y: 54.5 },
-    { pos: 'Second Base',  persona: 'Pub Crawler',          x: 55.5, y: 47.5 },
-    { pos: 'Third Base',   persona: 'Rooftop Regular',      x: 40.5, y: 54.5 },
-    { pos: 'Shortstop',    persona: 'Stats Nerd',           x: 44.5, y: 47.5 },
-    { pos: 'Left Field',   persona: 'Wrigley Rookie',       x: 25,   y: 42   },
-    { pos: 'Center Field', persona: 'Out-of-Towner',        x: 50,   y: 40   },
-    { pos: 'Right Field',  persona: 'Bleacher Bum',         x: 75,   y: 42   },
+    { pos: 'Pitcher',      persona: 'Die-Hard Fan',         x: 50,   y: 53.5 },
+    { pos: 'Catcher',      persona: 'Ivy Elder',            x: 50,   y: 64   },
+    { pos: 'First Base',   persona: 'Season Ticket Holder', x: 81,   y: 53   },
+    { pos: 'Second Base',  persona: 'Pub Crawler',          x: 50,   y: 46   },
+    { pos: 'Third Base',   persona: 'Rooftop Regular',      x: 19,   y: 53   },
+    { pos: 'Shortstop',    persona: 'Stats Nerd',           x: 34.5, y: 49.5 },
+    { pos: 'Left Field',   persona: 'Wrigley Rookie',       x: 22,   y: 15   },
+    { pos: 'Center Field', persona: 'Out-of-Towner',        x: 50,   y: 11   },
+    { pos: 'Right Field',  persona: 'Bleacher Bum',         x: 78,   y: 15   },
   ];
   const [active, setActive] = useState(0);
   useEffect(() => {
@@ -191,7 +191,7 @@ function FieldMock() {
     <div className="flex h-full w-full flex-col bg-gradient-to-b from-primary/10 to-background">
       <p className="pt-3 text-center text-[9px] font-semibold uppercase tracking-wide text-muted-foreground">Pick your persona</p>
       <div className="relative mx-auto mt-1 w-[95%] flex-1 overflow-hidden rounded-lg">
-        <img src="/wrigleyville-field.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/wrigleyville-field-v3.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
         {SPOTS.map((s, i) => {
           if (i !== active) return null;
           return (

@@ -414,7 +414,7 @@ export default function Landing() {
           </div>
 
           <div className="mt-10 flex justify-center">
-            <img src="/wrigleyville-phone-v1.png" alt="Wrigleyville Buddies app" className="w-full max-w-[340px] drop-shadow-2xl" />
+            <img src="/wrigleyville-phone-v2.png" alt="Wrigleyville Buddies app" className="w-full max-w-[340px] drop-shadow-2xl" />
           </div>
 
           <div className="mt-10 flex justify-center">

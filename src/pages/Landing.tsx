@@ -437,58 +437,11 @@ export default function Landing() {
           style={{ background: `rgba(14, 51, 134, ${FEATURE_GRID_TINT_OPACITY})` }}
         />
         <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <div className="mb-12 text-center">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-secondary" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>What you get</p>
-            <PageTitle as="h2" className="mb-2 text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: '#FFFFFF', textShadow: '1px 2px 6px rgba(0,0,0,0.7)' }}>
-              Everything You Need on{' '}
-              <span style={{ color: '#FFFFFF', textShadow: '1px 2px 6px rgba(0,0,0,0.7)' }}>Game Day</span>
-            </PageTitle>
-            <p className="max-w-2xl mx-auto" style={{ color: '#FFFFFF', textShadow: '1px 2px 6px rgba(0,0,0,0.7)' }}>
-              Built for the way Wrigleyville actually works — bars, bleachers, and friendships made between innings.
-            </p>
-          </div>
-
-          {/* Hero features */}
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {heroFeatures.map((f, i) => {
-              const kind = i === 0 ? 'map' : i === 1 ? 'meetup' : 'hifive';
-              return (
-                <div key={f.title} className="rounded-2xl border border-white/20 bg-[hsl(var(--brand-navy))] p-6 shadow-sm flex flex-col">
-                  <div className="mb-4 inline-flex w-fit rounded-xl bg-white/10 p-3">
-                    <f.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="mb-4 text-xl font-extrabold text-white">{f.title}</h3>
-                  <p className="mt-1.5 max-w-[300px] text-base text-white/90">{f.copy}</p>
-                  <div className="mb-4">
-                    <FeaturePreview kind={kind as any} />
-                  </div>
-                  <ul className="space-y-1.5 mt-auto">
-                    {f.bullets.map((b) => (
-                      <li key={b} className="flex items-center gap-2 text-xs text-white/90">
-                        <Check className="h-3.5 w-3.5 text-white flex-shrink-0" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Secondary features */}
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {secondaryFeatures.map((f) => (
-              <div key={f.title} className="rounded-xl border border-white/20 bg-[#CC3433] p-5 flex gap-3">
-                <div className="rounded-lg bg-white/10 p-2 h-fit">
-                  <f.icon className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h4 className="text-[18px] text-white font-semibold">{f.title}</h4>
-                  <p className="mt-1.5 text-sm text-white/90 leading-relaxed">{f.copy}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <img
+            src="/gameday-features-v1.png"
+            alt="Everything you need on game day in Wrigleyville: live game-day map, flash meetups at bars, Hi-Fives to break the ice, send a round, set your intent, and built-in safety."
+            className="w-full h-auto max-w-3xl mx-auto"
+          />
         </div>
       </section>
 

@@ -429,13 +429,7 @@ export default function Landing() {
       </section>
 
       {/* ── Feature Grid ── */}
-      <section className="relative overflow-hidden py-20">
-        <SectionPhotoBackground desktopSrc={wrigleyvilleAerial} />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0"
-          style={{ background: `rgba(14, 51, 134, ${FEATURE_GRID_TINT_OPACITY})` }}
-        />
+      <section className="relative overflow-hidden py-20" style={{ backgroundColor: '#000000' }}>
         <div className="relative z-10 mx-auto max-w-6xl px-6">
           <img
             src="/gameday-features-v1.png"

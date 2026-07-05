@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
-import { MapContainer, TileLayer, useMap, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, Marker, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { useFanMapPins, deriveGate, type GateFilter, GATE_OPTIONS } from '@/hook
 import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
 import { supabase } from '@/integrations/supabase/client';
 import type { MapFan } from '@/components/map/useMapClusters';
+import { PARTICIPATING_BARS } from '@/lib/wrigleyville-bar-coords';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 
@@ -40,6 +41,20 @@ function fanPinIcon(fan: MapFan, dimmed: boolean) {
       </div>
     `,
     className: 'fan-pin',
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+  });
+}
+
+function barPinIcon() {
+  const size = 28;
+  return L.divIcon({
+    html: `
+      <div style="width:${size}px;height:${size}px;border-radius:50%;background:#F59E0B;border:2px solid rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.35);font-size:15px;line-height:1">
+        🍺
+      </div>
+    `,
+    className: 'bar-pin',
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
   });
@@ -137,6 +152,17 @@ export default function FanMap() {
               />
             );
           })}
+          {PARTICIPATING_BARS.map((bar) => (
+            <Marker
+              key={bar.slug}
+              position={[bar.lat, bar.lng]}
+              icon={barPinIcon()}
+            >
+              <Tooltip direction="top" offset={[0, -14]}>
+                {bar.name}
+              </Tooltip>
+            </Marker>
+          ))}
         </MapContainer>
       </div>
 

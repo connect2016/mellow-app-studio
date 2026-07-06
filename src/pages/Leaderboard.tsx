@@ -338,11 +338,6 @@ export default function Leaderboard() {
         backgroundAttachment: 'fixed',
       }}
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{ background: 'rgba(255,255,255,0.82)' }}
-      />
       <AppHeader />
 
       <div className="relative mx-auto max-w-lg px-4 pt-2">

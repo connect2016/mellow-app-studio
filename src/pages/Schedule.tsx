@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { CalendarDays, ArrowLeft, MapPin, Clock, Plus, ChevronRight } from 'lucide-react';
 import { AppHeader } from '@/components/AppHeader';
 import { SEOMeta } from '@/components/SEOMeta';
-import { CUBS_SCHEDULE_2025 } from '@/data/cubsSchedule2025';
+import { CUBS_SCHEDULE_2026 } from '@/data/cubsSchedule2026';
 import { useCountdown } from '@/hooks/useCountdown';
 import { Switch } from '@/components/ui/switch';
 import { useCreateMeetup } from '@/contexts/CreateMeetupContext';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { cn } from '@/lib/utils';
 
-function parseGameDateTime(game: typeof CUBS_SCHEDULE_2025[0]): Date {
+function parseGameDateTime(game: typeof CUBS_SCHEDULE_2026[0]): Date {
   const [timeStr, period] = game.time.split(' ');
   const [hourStr, minuteStr] = timeStr.split(':');
   let hour = parseInt(hourStr, 10);
@@ -33,7 +33,7 @@ export default function Schedule() {
   const now = Date.now();
 
   const { allGames, nextGame, nextHomeGame } = useMemo(() => {
-    const all = CUBS_SCHEDULE_2025.map((g) => ({
+    const all = CUBS_SCHEDULE_2026.map((g) => ({
       ...g,
       gameDateTime: parseGameDateTime(g),
     }));
@@ -88,7 +88,7 @@ export default function Schedule() {
           </button>
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight text-foreground" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
-              2025 Schedule
+              2026 Schedule
             </h1>
             <p className="text-sm text-muted-foreground">
               Plan your Wrigley days

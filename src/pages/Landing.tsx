@@ -438,8 +438,9 @@ export default function Landing() {
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(/vintage-bats.jpg)` }}
+          style={{ backgroundImage: `url(/Dark_Wrigley_Pic.jpg)` }}
         />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: 'rgba(5, 5, 30, 0.45)' }} />
         <div className="relative mx-auto max-w-3xl px-6">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: '#0E3386', textShadow: '0 0 6px rgba(255,255,255,0.95), 0 0 12px rgba(255,255,255,0.85), 0 0 22px rgba(255,255,255,0.7)' }}>FAQ</p>

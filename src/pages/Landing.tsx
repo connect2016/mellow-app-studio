@@ -428,17 +428,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ── Feature Grid ── */}
-      <section className="relative overflow-hidden py-20" style={{ backgroundColor: '#000000' }}>
-        <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <img
-            src="/gameday-features-v1.png"
-            alt="Everything you need on game day in Wrigleyville: live game-day map, flash meetups at bars, Hi-Fives to break the ice, send a round, set your intent, and built-in safety."
-            className="w-full h-auto max-w-3xl mx-auto"
-          />
-        </div>
-      </section>
-
       {/* ── Stories from the Stands ── */}
       {/* "Stories from the stands" testimonials section removed — see comment near
           the deleted `stories` array. We'll re-introduce this section with real

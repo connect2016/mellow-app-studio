@@ -329,10 +329,23 @@ export default function Leaderboard() {
   const [tab, setTab] = useState<TabKey>('fans');
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div
+      className="relative min-h-screen pb-24"
+      style={{
+        backgroundImage: 'url(/leaderboard-oldstyle-bg-v1.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{ background: 'rgba(255,255,255,0.82)' }}
+      />
       <AppHeader />
 
-      <div className="mx-auto max-w-lg px-4 pt-2">
+      <div className="relative mx-auto max-w-lg px-4 pt-2">
         <div className="flex items-center gap-2 mb-4">
           <Trophy className="h-6 w-6 text-accent" />
           <h1 className="text-2xl font-bold text-foreground">Leaderboard</h1>

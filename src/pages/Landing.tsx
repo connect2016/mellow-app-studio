@@ -443,8 +443,8 @@ export default function Landing() {
         <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: 'rgba(5, 5, 30, 0.45)' }} />
         <div className="relative mx-auto max-w-3xl px-6">
           <div className="mb-10 text-center">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: '#0E3386', textShadow: '0 0 6px rgba(255,255,255,0.95), 0 0 12px rgba(255,255,255,0.85), 0 0 22px rgba(255,255,255,0.7)' }}>FAQ</p>
-            <h2 className="mb-2 text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: '#0E3386', textShadow: '0 0 6px rgba(255,255,255,0.95), 0 0 14px rgba(255,255,255,0.85), 0 0 26px rgba(255,255,255,0.7)' }}>
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: '#FFFFFF' }}>FAQ</p>
+            <h2 className="mb-2 text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: '#0E3386', WebkitTextStroke: '1px #FFFFFF' }}>
               Questions? We Got You.
             </h2>
           </div>

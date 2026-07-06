@@ -342,8 +342,8 @@ export default function Leaderboard() {
 
       <div className="relative mx-auto max-w-lg px-4 pt-2">
         <div className="flex items-center gap-2 mb-4">
-          <Trophy className="h-6 w-6 text-accent" />
-          <h1 className="text-2xl font-bold text-foreground">Leaderboard</h1>
+          <Trophy className="h-6 w-6" style={{ color: '#FFD700' }} />
+          <h1 className="text-2xl font-bold text-white" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Leaderboard</h1>
         </div>
 
         {/* Tabs */}

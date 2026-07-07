@@ -825,3 +825,6 @@ main {
     background-attachment: scroll;
   }
 }
+
+/* Neon map: lift the dark basemap slightly */
+.leaflet-tile { filter: brightness(1.15) contrast(1.05); }

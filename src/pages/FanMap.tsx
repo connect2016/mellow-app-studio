@@ -33,7 +33,7 @@ function fanPinIcon(fan: MapFan, dimmed: boolean) {
   const opacity = dimmed ? 0.3 : 1;
   return L.divIcon({
     html: `
-      <div style="opacity:${opacity};width:${size}px;height:${size}px;border-radius:50%;border:2px solid hsl(var(--brand-navy));background:hsl(var(--brand-navy));display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.25)">
+      <div style="opacity:${opacity};width:${size}px;height:${size}px;border-radius:50%;border:2px solid #CC3433;background:#CC3433;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 0 8px 2px rgba(204,52,51,0.9),0 0 4px 1px rgba(204,52,51,0.7)">
         ${hasPhoto
           ? `<img src="${fan.photo}" style="width:100%;height:100%;object-fit:cover" loading="lazy" decoding="async" />`
           : `<span style="color:white;font-size:11px;font-weight:700">${(fan.name?.charAt(0) ?? '?').toUpperCase()}</span>`
@@ -50,7 +50,7 @@ function barPinIcon() {
   const size = 28;
   return L.divIcon({
     html: `
-      <div style="width:${size}px;height:${size}px;border-radius:50%;background:#F59E0B;border:2px solid rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.35);font-size:15px;line-height:1">
+      <div style="width:${size}px;height:${size}px;border-radius:50%;background:#22D3EE;border:2px solid rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;box-shadow:0 0 8px 2px rgba(34,211,238,0.9),0 0 4px 1px rgba(34,211,238,0.7);font-size:15px;line-height:1">
         🍺
       </div>
     `,

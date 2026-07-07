@@ -453,7 +453,7 @@ export default function Landing() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="rounded-2xl p-5"
+                className={`rounded-2xl p-5 w-full sm:w-4/5 ${i % 2 === 0 ? 'sm:mr-auto' : 'sm:ml-auto'}`}
                 style={{ background: 'rgba(255, 255, 255, 0.92)', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}
               >
                 <h3 className="text-base font-extrabold mb-2" style={{ color: '#0E3386' }}>{faq.q}</h3>

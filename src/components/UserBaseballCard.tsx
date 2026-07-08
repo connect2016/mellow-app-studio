@@ -11,6 +11,7 @@ import { StatPreference } from '@/hooks/useStatPreferences';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
 import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
+import { BuyABeer } from '@/components/beer/BuyABeer';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { MakeYourCardDialog } from '@/components/card/MakeYourCardDialog';
 import { shareFanCard } from '@/lib/share-fan-card';
@@ -20,6 +21,9 @@ export interface UserBaseballCardProps {
   profileImage?: string | null;
   displayName: string;
   instagram?: string | null;
+  venmoHandle?: string | null;
+  cashappCashtag?: string | null;
+  paypalHandle?: string | null;
   className?: string;
   onClick?: () => void;
   badges?: string[];
@@ -42,6 +46,9 @@ export function UserBaseballCard({
   profileImage,
   displayName,
   instagram,
+  venmoHandle,
+  cashappCashtag,
+  paypalHandle,
   className,
   onClick,
   showReactions = true,
@@ -244,14 +251,11 @@ export function UserBaseballCard({
       {/* Buy a Beer — primary social CTA on public profile cards */}
       {!isOwner && userId && !isFlipped && (
         <div className="mt-4 px-1">
-          <BuyBeerButton
-            context={{ kind: 'fan', userId, firstName: displayName?.split(' ')[0] }}
-            surface="profile_card"
-            variant="default"
-            size="default"
-            showMicrocopy
-            className="w-full rounded-2xl min-h-[48px] shadow-sm"
-          />
+        <BuyABeer
+          handles={{ venmo: venmoHandle, cashapp: cashappCashtag, paypal: paypalHandle }}
+          recipientName={displayName?.split(' ')[0]}
+          className="w-full rounded-2xl min-h-[48px] shadow-sm"
+        />
         </div>
       )}
 

@@ -306,6 +306,9 @@ export default function Profile() {
                 displayName={profile.display_name}
                 profileImage={profile.profile_photo}
                 instagram={profile.instagram}
+            venmoHandle={profile.venmo_handle}
+            cashappCashtag={profile.cashapp_cashtag}
+            paypalHandle={profile.paypal_handle}
                 gameStatus={profile.game_status as GameStatus}
                 wrigleySection={profile.wrigley_section}
                 wrigleyvilleBar={profile.wrigleyville_bar}

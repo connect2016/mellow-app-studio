@@ -12,7 +12,7 @@ import { InviteFriendsButton } from '@/components/invite/InviteFriendsButton';
 import { useMyReferralCount } from '@/hooks/useReferral';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { ArrowLeft, Flag, Ban, EyeOff, MessageCircle, IdCard, Sparkles, Settings as SettingsIcon, ShieldCheck, HelpCircle, LifeBuoy, Info, ChevronRight, Target, UserCog, Trophy } from 'lucide-react';
+import { ArrowLeft, Flag, Ban, EyeOff, LogOut, MessageCircle, IdCard, Sparkles, Settings as SettingsIcon, ShieldCheck, HelpCircle, LifeBuoy, Info, ChevronRight, Target, UserCog, Trophy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { SectionHeading, BodyText, CardHeading, Caption } from '@/components/ui/Typography';
@@ -51,7 +51,7 @@ export default function Profile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { data: myProfile } = useProfile();
   const updateProfile = useUpdateProfile();
   const queryClient = useQueryClient();
@@ -407,6 +407,16 @@ export default function Profile() {
                     Edit Profile
                   </Button>
                   <InviteBuddyButton source="profile" variant="outline" />
+                  <Button
+                    variant="outline"
+                    className="w-full justify-center gap-2 rounded-full h-12"
+                    onClick={async () => {
+                      await signOut();
+                      navigate('/', { replace: true });
+                    }}
+                  >
+                    <LogOut className="h-4 w-4" /> Sign Out
+                  </Button>
                 </>
               )}
             </div>

@@ -121,6 +121,7 @@ export default function Auth() {
             )}
             {pendingProvider === 'google' ? 'Signing in…' : 'Continue with Google'}
           </Button>
+            {false && (
           <Button
             variant="outline"
             className="w-full justify-center gap-3 h-12 rounded-[10px] border-[1.5px] border-[hsl(var(--border))] bg-white text-[14px] font-medium text-[hsl(var(--foreground))] hover:bg-white disabled:opacity-60"
@@ -139,6 +140,7 @@ export default function Auth() {
             )}
             {pendingProvider === 'apple' ? 'Signing in…' : 'Continue with Apple'}
           </Button>
+            )}
         </div>
 
         <p className="mt-4 text-center text-xs text-muted-foreground">

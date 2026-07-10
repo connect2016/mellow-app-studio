@@ -15,8 +15,20 @@ export default function ProtectedRoute() {
   }
 
   if (!user) {
-    const from = `${location.pathname}${location.search}${location.hash}`;
-    return <Navigate to="/auth" replace state={{ from }} />;
+    const PUBLIC_PATHS = [
+      "/discover", "/discover-fans", "/schedule", "/leaderboard",
+      "/league-leaders", "/bar-map", "/bars", "/buddy-heatmap",
+      "/meetups", "/eats", "/vibe", "/venues",
+    ];
+    const isPublicPath =
+      PUBLIC_PATHS.includes(location.pathname) ||
+      location.pathname.startsWith("/u/") ||
+      location.pathname.startsWith("/profile/") ||
+      location.pathname.startsWith("/meetups/");
+    if (!isPublicPath) {
+      const from = `${location.pathname}${location.search}${location.hash}`;
+      return <Navigate to="/auth" replace state={{ from }} />;
+    }
   }
 
   return <Outlet />;

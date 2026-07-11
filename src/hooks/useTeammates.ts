@@ -66,7 +66,7 @@ export function useIncomingRequests() {
     queryFn: async () => {
       if (!user) return [];
       const { data, error } = await supabase
-        .from('teammate_requests')
+        .from('buddy_requests')
         .select('*')
         .eq('recipient_id', user.id)
         .eq('status', 'pending')
@@ -87,7 +87,7 @@ export function useTeammateState(otherUserId?: string) {
     queryFn: async () => {
       if (!user || !otherUserId || user.id === otherUserId) return null;
       const { data, error } = await supabase
-        .from('teammate_requests')
+        .from('buddy_requests')
         .select('*')
         .or(
           `and(requester_id.eq.${user.id},recipient_id.eq.${otherUserId}),and(requester_id.eq.${otherUserId},recipient_id.eq.${user.id})`
@@ -109,7 +109,7 @@ export function useSendTeammateRequest() {
     mutationFn: async (recipientId: string) => {
       if (!user) throw new Error('Not signed in');
       const { data, error } = await supabase
-        .from('teammate_requests')
+        .from('buddy_requests')
         .insert({ requester_id: user.id, recipient_id: recipientId, status: 'pending' })
         .select()
         .single();
@@ -149,7 +149,7 @@ export function useRespondToRequest() {
   return useMutation({
     mutationFn: async ({ id, accept }: { id: string; accept: boolean }) => {
       const { error } = await supabase
-        .from('teammate_requests')
+        .from('buddy_requests')
         .update({ status: accept ? 'accepted' : 'declined' })
         .eq('id', id);
       if (error) throw error;
@@ -204,7 +204,7 @@ export function useRemoveTeammate() {
     mutationFn: async (otherUserId: string) => {
       if (!user) throw new Error('Not signed in');
       const { error } = await supabase
-        .from('teammate_requests')
+        .from('buddy_requests')
         .delete()
         .or(
           `and(requester_id.eq.${user.id},recipient_id.eq.${otherUserId}),and(requester_id.eq.${otherUserId},recipient_id.eq.${user.id})`

@@ -19,6 +19,7 @@ export const PARTICIPATING_BARS: ParticipatingBar[] = [
   { name: 'Old Crow Smokehouse', slug: 'old-crow',         address: '3506 N Clark St',     lat: 41.9465, lng: -87.6558 },
   { name: 'Nisei Lounge',       slug: 'nisei-lounge',      address: '3439 N Sheffield Ave', lat: 41.9450, lng: -87.6556 },
   { name: 'The Dark Horse',     slug: 'dark-horse',        address: '3443 N Sheffield Ave', lat: 41.9451, lng: -87.6540 },
+  { name: "Happy Camper Pizza", slug: "happy-camper",   address: "3458 N Clark St",     lat: 41.9450, lng: -87.6558 },
   { name: "Merkle's Bar & Grill", slug: 'merkles',         address: '3516 N Clark St',      lat: 41.9467, lng: -87.6558 },
   { name: "Guthrie's Tavern",   slug: 'guthries',          address: '1300 W Addison St',    lat: 41.9474, lng: -87.6607 },
   { name: 'Rockwood Place',     slug: 'rockwood',          address: '3466 N Clark St',      lat: 41.9458, lng: -87.6557 },

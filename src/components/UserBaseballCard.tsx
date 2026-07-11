@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { RotateCcw, BarChart3, Share2, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -12,6 +14,7 @@ import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
 import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 import { BuyABeer } from '@/components/beer/BuyABeer';
+import { sayHiToBuddy } from '@/hooks/useDiscoverFans';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { MakeYourCardDialog } from '@/components/card/MakeYourCardDialog';
 import { shareFanCard } from '@/lib/share-fan-card';
@@ -68,6 +71,23 @@ export function UserBaseballCard({
   const [imgLoaded, setImgLoaded] = useState(false);
   const [activeReactions, setActiveReactions] = useState<ReactionDef[]>([]);
   const [isFlipped, setIsFlipped] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [sayHiState, setSayHiState] = useState<'idle' | 'pending' | 'sent'>('idle');
+
+  const handleSayHi = async () => {
+    if (!user) { navigate('/auth'); return; }
+    if (!userId || sayHiState !== 'idle') return;
+    setSayHiState('pending');
+    try {
+      const res = await sayHiToBuddy(userId);
+      setSayHiState('sent');
+      toast.success(res.result === 'accepted' ? "You're now teammates! 🎉" : 'Buddy request sent 👋');
+    } catch (e: any) {
+      setSayHiState('idle');
+      toast.error(e?.message ?? 'Could not send request');
+    }
+  };
   const [isSharing, setIsSharing] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -259,8 +279,21 @@ export function UserBaseballCard({
         </div>
       )}
 
+
+      {!isOwner && userId && !isFlipped && (
+        <div className="mt-2 px-1">
+          <Button
+            onClick={handleSayHi}
+            disabled={sayHiState !== 'idle'}
+            className="w-full rounded-2xl min-h-[48px] font-semibold shadow-sm"
+            style={{ background: 'hsl(var(--brand-navy))', color: '#FFFFFF' }}
+          >
+            {sayHiState === 'sent' ? 'Request Sent ✓' : sayHiState === 'pending' ? 'Sending…' : 'Say Hi 👋'}
+          </Button>
+        </div>
+      )}
       {/* Flip toggle — the ONLY trigger for the 3D flip animation */}
-      {visibleStats.length > 0 && (
+      {user && visibleStats.length > 0 && (
         <div className="mt-4 flex justify-center px-1">
           <Button
             variant="outline"

@@ -218,7 +218,7 @@ export default function PublicProfile() {
           <ArrowLeft className="h-5 w-5" />
         </button>
 
-        {!isOwn && (
+        {user && !isOwn && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button

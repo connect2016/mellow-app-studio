@@ -50,7 +50,7 @@ function barPinIcon() {
   const size = 28;
   return L.divIcon({
     html: `
-      <div style="width:${size}px;height:${size}px;border-radius:50%;background:#22D3EE;border:2px solid rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;box-shadow:0 0 8px 2px rgba(34,211,238,0.9),0 0 4px 1px rgba(34,211,238,0.7);font-size:15px;line-height:1">
+      <div style="width:${size}px;height:${size}px;border-radius:50%;background:#0E7490;border:2px solid rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.35);font-size:15px;line-height:1">
         🍺
       </div>
     `,
@@ -137,7 +137,7 @@ export default function FanMap() {
           attributionControl={false}
         >
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
             attribution='&copy; OpenStreetMap &copy; CARTO'
           />
           <FitToFans positions={allPositions} />

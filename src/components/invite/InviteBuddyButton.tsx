@@ -19,7 +19,7 @@ interface InviteBuddyButtonProps {
 
 export function buildInviteUrl(userId: string | null | undefined): string {
   const base = 'https://wrigleyvillebuddies.com/join';
-  return userId ? `${base}?ref=${userId}` : base;
+  return userId ? `https://wrigleyvillebuddies.com/u/${userId}?ref=${userId}` : base;
 }
 
 export function InviteBuddyButton({

@@ -3,8 +3,8 @@
  * avatar is tapped. Includes Buddy Up CTA, badges row, crews row, and
  * a 3-dot menu with Report (bottom sheet) + Block.
  */
-import { useMemo, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useMemo, useState, useEffect } from 'react';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ArrowLeft, MoreVertical, Flag, Ban, Loader2, MapPin, Ticket, Users } from 'lucide-react';
 import { toast } from 'sonner';
@@ -29,6 +29,7 @@ import { ConceptIcon } from '@/components/icons/ConceptIcon';
 import { STHBadge } from '@/components/profile/STHBadge';
 import { SEOMeta } from '@/components/SEOMeta';
 import { cn } from '@/lib/utils';
+import { storeInviteRef } from '@/lib/invite-ref';
 
 const NAVY = 'hsl(var(--brand-navy))';
 const RED = 'hsl(var(--brand-red))';
@@ -46,6 +47,12 @@ type Badge = { key: string; label: string };
 export default function PublicProfile() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const inviteRef = searchParams.get('ref');
+
+  useEffect(() => {
+    if (inviteRef) storeInviteRef(inviteRef);
+  }, [inviteRef]);
   const { user } = useAuth();
   const { data: me } = useProfile();
   const queryClient = useQueryClient();

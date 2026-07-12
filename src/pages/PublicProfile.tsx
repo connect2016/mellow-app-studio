@@ -133,7 +133,8 @@ export default function PublicProfile() {
   };
 
   const buddyUp = async () => {
-    if (!user || !id) return;
+    if (!id) return;
+    if (!user) { navigate("/auth"); return; }
     try {
       const { data, error } = await supabase.rpc('say_hi_to_buddy', {
         p_recipient_id: id,

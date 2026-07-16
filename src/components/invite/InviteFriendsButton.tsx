@@ -48,11 +48,17 @@ export function InviteFriendsButton({
     try {
       if (typeof navigator !== 'undefined' && (navigator as any).share) {
         try {
-          await (navigator as any).share(shareData);
+          await Promise.race([
+            (navigator as any).share(shareData),
+            new Promise((_, reject) =>
+              setTimeout(() => reject(new Error('share_timeout')), 8000),
+            ),
+          ]);
           track('invite_friends_shared', { source, method: 'native', code });
           return;
         } catch (err: any) {
           if (err?.name === 'AbortError') return;
+          // falls through to clipboard/prompt fallback below (covers hangs/timeouts too)
         }
       }
 
@@ -64,6 +70,9 @@ export function InviteFriendsButton({
         window.prompt('Copy this invite link:', text);
         track('invite_friends_shared', { source, method: 'prompt', code });
       }
+    } catch (err) {
+      toast.error('Could not share invite link. Please try again.');
+      track('invite_friends_shared_error', { source, message: (err as Error)?.message });
     } finally {
       setBusy(false);
     }

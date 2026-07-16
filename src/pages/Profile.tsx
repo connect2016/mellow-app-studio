@@ -51,15 +51,15 @@ export default function Profile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, signOut } = useAuth();
-  const { data: myProfile } = useProfile();
+  const { user, signOut, loading: authLoading } = useAuth();
+  const { data: myProfile, isLoading: isMyProfileLoading } = useProfile();
   const updateProfile = useUpdateProfile();
   const queryClient = useQueryClient();
   const isOwnProfile = !id || id === user?.id;
   const { preferences: statPreferences } = useStatPreferences();
   const { data: referralCount = 0 } = useMyReferralCount();
 
-  const { data: otherProfile, isLoading } = useQuery({
+  const { data: otherProfile, isLoading: isOtherProfileLoading } = useQuery({
     queryKey: ['view-profile', id],
     queryFn: async () => {
       if (!id) return null;
@@ -125,6 +125,7 @@ export default function Profile() {
 
   const profile: any = isOwnProfile ? myProfile : otherProfile;
   const targetUserId = isOwnProfile ? user?.id : id;
+  const isProfileLoading = authLoading || (isOwnProfile ? isMyProfileLoading : isOtherProfileLoading);
 
   const favoriteBars: string[] = (extraFields as any)?.favorite_bars ?? (myProfile as any)?.favorite_bars ?? [];
   const privateModeOn: boolean = (extraFields as any)?.private_mode ?? false;
@@ -219,7 +220,7 @@ export default function Profile() {
     },
   });
 
-  if (!profile && !isLoading) {
+  if (!profile && !isProfileLoading) {
     return (
       <div className="min-h-screen bg-background pb-32">
         <AppHeader />

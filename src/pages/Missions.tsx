@@ -180,7 +180,13 @@ export default function Missions() {
                   : 'bg-card border border-border text-muted-foreground hover:text-foreground'
               }`}
             >
-              {cat === 'all' ? ' All' : `$<ConceptVisual name={CATEGORY_CONFIG[cat]?.emoji} size="sm" /> ${CATEGORY_CONFIG[cat]?.label}`}
+              {cat === 'all' ? (
+                ' All'
+              ) : (
+                <>
+                  <ConceptVisual name={CATEGORY_CONFIG[cat]?.emoji} size="sm" /> {CATEGORY_CONFIG[cat]?.label}
+                </>
+              )}
             </button>
           ))}
         </div>

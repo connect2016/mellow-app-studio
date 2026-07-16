@@ -241,6 +241,7 @@ export default function QuickStart() {
   };
 
   return (
+    <>
     <PageBackground image={quickstartBg}>
       <AppHeader />
 
@@ -540,63 +541,6 @@ export default function QuickStart() {
           </Section>
         )}
 
-        {/* Sticky CTA */}
-        <div className="fixed bottom-0 inset-x-0 bg-gradient-to-t from-background via-background to-transparent pt-8 pb-6 px-4">
-          <div className="mx-auto max-w-md flex gap-2">
-            {step > 0 && (
-              <Button variant="ghost" size="lg" onClick={() => setStep(step - 1)} disabled={saving}>
-                Back
-              </Button>
-            )}
-            <Button
-              variant="premium"
-              size="lg"
-              className="flex-1"
-              disabled={!canAdvance || saving}
-              onClick={handleNext}
-              aria-label={
-                step === 2 && zones.length === 0
-                  ? 'Select at least one zone'
-                  : step === totalSteps - 1
-                  ? "Let's go"
-                  : 'Continue'
-              }
-            >
-              {step === totalSteps - 1 ? (
-                <>
-                  {saving
-                    ? 'Saving…'
-                    : zones.length === 0
-                    ? 'Select at least one'
-                    : "Let's go"}{' '}
-                  <Check className="size-4" />
-                </>
-              ) : (
-                <>
-                  Continue <ArrowRight className="size-4" />
-                </>
-              )}
-            </Button>
-            <button
-              type="button"
-              onClick={handleSkip}
-              style={{
-                fontSize: '14px',
-                fontWeight: 600,
-                color: 'hsl(var(--foreground))',
-                textDecoration: 'underline',
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '12px 8px',
-                whiteSpace: 'nowrap',
-                opacity: 1,
-              }}
-            >
-              Skip for now
-            </button>
-          </div>
-        </div>
       </main>
 
       {/* Privacy modal — explains location use */}
@@ -628,6 +572,66 @@ export default function QuickStart() {
       </Dialog>
       <GeolocationModal open={geo.showModal} onOpenChange={geo.setShowModal} controller={geo} />
     </PageBackground>
+
+    {/* Sticky CTA — rendered outside PageBackground so it isn't trapped in its
+        z-10 stacking context, which capped it below SiteFooter's z-20 */}
+    <div className="fixed bottom-0 inset-x-0 z-50 bg-gradient-to-t from-background via-background to-transparent pt-8 pb-6 px-4">
+      <div className="mx-auto max-w-md flex gap-2">
+        {step > 0 && (
+          <Button variant="ghost" size="lg" onClick={() => setStep(step - 1)} disabled={saving}>
+            Back
+          </Button>
+        )}
+        <Button
+          variant="premium"
+          size="lg"
+          className="flex-1"
+          disabled={!canAdvance || saving}
+          onClick={handleNext}
+          aria-label={
+            step === 2 && zones.length === 0
+              ? 'Select at least one zone'
+              : step === totalSteps - 1
+              ? "Let's go"
+              : 'Continue'
+          }
+        >
+          {step === totalSteps - 1 ? (
+            <>
+              {saving
+                ? 'Saving…'
+                : zones.length === 0
+                ? 'Select at least one'
+                : "Let's go"}{' '}
+              <Check className="size-4" />
+            </>
+          ) : (
+            <>
+              Continue <ArrowRight className="size-4" />
+            </>
+          )}
+        </Button>
+        <button
+          type="button"
+          onClick={handleSkip}
+          style={{
+            fontSize: '14px',
+            fontWeight: 600,
+            color: 'hsl(var(--foreground))',
+            textDecoration: 'underline',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '12px 8px',
+            whiteSpace: 'nowrap',
+            opacity: 1,
+          }}
+        >
+          Skip for now
+        </button>
+      </div>
+    </div>
+    </>
   );
 }
 

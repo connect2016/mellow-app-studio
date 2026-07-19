@@ -68,7 +68,10 @@ export default function Profile() {
         p_limit: 1,
       });
       if (error) throw error;
-      return (data && data.length > 0) ? data[0] : null;
+      const row = (data && data.length > 0) ? data[0] : null;
+      if (!row) return null;
+      const { data: handles } = await supabase.rpc('get_payment_handles', { p_user_id: id });
+      return { ...row, ...(handles?.[0] ?? {}) };
     },
     enabled: !!id && !isOwnProfile,
   });

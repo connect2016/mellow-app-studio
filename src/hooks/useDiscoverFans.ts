@@ -36,9 +36,40 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
 
   return useQuery({
     queryKey: ['discover-fans', filter, currentUserGate, currentUserVibeTags?.join(','), geo?.lat, geo?.lng, user?.id],
-    enabled: !!user?.id,
     staleTime: 30_000,
     queryFn: async (): Promise<DiscoverFan[]> => {
+      // Guests: read via the anon-granted get_public_profiles RPC.
+      // Filters that need the viewer's own profile or location return empty.
+      if (!user?.id) {
+        if (filter === 'near_me' || filter === 'my_gate' || filter === 'same_vibe' || filter === 'bleachers') {
+          return [];
+        }
+        const { data, error } = await supabase.rpc('get_public_profiles', {
+          p_only_onboarded: true,
+          p_limit: 100,
+        });
+        if (error) throw error;
+        let rows = (data ?? []) as any[];
+        if (filter === 'new_week') {
+          const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+          rows = rows.filter((r) => new Date(r.created_at).getTime() >= weekAgo);
+        } else if (filter === 'sth') {
+          rows = rows.filter((r) => r.is_season_ticket_holder === true);
+        }
+        rows.sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
+        return rows.map((r) => ({
+          user_id: r.user_id,
+          display_name: r.display_name,
+          profile_photo: r.profile_photo,
+          zip_code: null,
+          favorite_gate: null,
+          vibe_tags: null,
+          watch_locations: null,
+          is_season_ticket_holder: r.is_season_ticket_holder,
+          created_at: r.created_at,
+        })) as DiscoverFan[];
+      }
+
       // Near Me uses RPC
       if (filter === 'near_me') {
         if (!geo) return [];

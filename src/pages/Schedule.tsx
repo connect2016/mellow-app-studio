@@ -83,7 +83,7 @@ export default function Schedule() {
   };
 
   return (
-    <div className="min-h-screen bg-background" style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}>
+    <div className="min-h-screen bg-[url(/please-win-bg.jpg)] bg-cover bg-center bg-fixed" style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}>
       <SEOMeta
         title="Cubs 2026 Schedule — Wrigleyville Buddies"
         description="Cubs scoreboard, recent results, and upcoming games. Plan meetups for home games at Wrigley Field."
@@ -113,7 +113,7 @@ export default function Schedule() {
 
         {/* Hero: live scoreboard when there is a game today, countdown otherwise */}
         {showScoreboard ? (
-          <div className="mb-5 overflow-hidden rounded-2xl border-l-4 border-secondary bg-primary text-primary-foreground shadow-elevated">
+          <div className="mb-5 overflow-hidden rounded-2xl border-l-4 border-secondary bg-primary/95 backdrop-blur-sm text-primary-foreground shadow-elevated">
             <div className="flex items-center justify-between px-4 pt-3">
               <p className="text-xs font-bold uppercase tracking-wider text-white/80">
                 {liveGame.status === 'live' && (
@@ -152,7 +152,7 @@ export default function Schedule() {
           </div>
         ) : (
           nextGame && !countdown.isExpired && (
-            <div className="mb-5 rounded-2xl border-l-4 border-secondary bg-primary p-4 text-primary-foreground shadow-elevated">
+            <div className="mb-5 rounded-2xl border-l-4 border-secondary bg-primary/95 backdrop-blur-sm p-4 text-primary-foreground shadow-elevated">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-white/80">Next Game Countdown</p>
@@ -179,7 +179,7 @@ export default function Schedule() {
             <h2 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-muted-foreground">
               Last {recentResults.length} Game{recentResults.length === 1 ? '' : 's'}
             </h2>
-            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
+            <div className="overflow-hidden rounded-2xl border border-border bg-card/85 backdrop-blur-sm shadow-card">
               {recentResults.map((r, i) => (
                 <div
                   key={r.gamePk}
@@ -231,7 +231,7 @@ export default function Schedule() {
               <div
                 key={game.id}
                 className={cn(
-                  'relative overflow-hidden rounded-2xl border bg-card shadow-card transition-all',
+                  'relative overflow-hidden rounded-2xl border bg-card/85 backdrop-blur-sm shadow-card transition-all',
                   isNextHome ? 'border-secondary/50 ring-1 ring-secondary/20' : 'border-border'
                 )}
               >
@@ -258,7 +258,7 @@ export default function Schedule() {
                           className={cn(
                             'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-extrabold uppercase tracking-wider',
                             game.isHome
-                              ? 'bg-primary text-primary-foreground'
+                              ? 'bg-primary/95 backdrop-blur-sm text-primary-foreground'
                               : 'bg-muted text-muted-foreground'
                           )}
                         >

@@ -83,7 +83,7 @@ export default function Schedule() {
   };
 
   return (
-    <div className="min-h-screen bg-[url(/please-win-bg.jpg)] bg-cover bg-center bg-fixed" style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}>
+    <div className="min-h-screen bg-[url(/please-win-bg.jpg)] bg-[length:512px_auto] bg-repeat bg-fixed" style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}>
       <SEOMeta
         title="Cubs 2026 Schedule — Wrigleyville Buddies"
         description="Cubs scoreboard, recent results, and upcoming games. Plan meetups for home games at Wrigley Field."
@@ -102,10 +102,10 @@ export default function Schedule() {
             <ArrowLeft className="h-5 w-5 text-foreground" />
           </button>
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-foreground" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+            <h1 className="text-2xl font-extrabold tracking-tight text-[#0E3386]" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
               Cubs Schedule
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-[#0E3386]/80">
               Plan your Wrigley days
             </p>
           </div>
@@ -113,7 +113,7 @@ export default function Schedule() {
 
         {/* Hero: live scoreboard when there is a game today, countdown otherwise */}
         {showScoreboard ? (
-          <div className="mb-5 overflow-hidden rounded-2xl border-l-4 border-secondary bg-primary/95 backdrop-blur-sm text-primary-foreground shadow-elevated">
+          <div className="mb-5 overflow-hidden rounded-2xl border-l-4 border-secondary bg-primary/90 backdrop-blur-sm text-primary-foreground shadow-elevated">
             <div className="flex items-center justify-between px-4 pt-3">
               <p className="text-xs font-bold uppercase tracking-wider text-white/80">
                 {liveGame.status === 'live' && (
@@ -152,7 +152,7 @@ export default function Schedule() {
           </div>
         ) : (
           nextGame && !countdown.isExpired && (
-            <div className="mb-5 rounded-2xl border-l-4 border-secondary bg-primary/95 backdrop-blur-sm p-4 text-primary-foreground shadow-elevated">
+            <div className="mb-5 rounded-2xl border-l-4 border-secondary bg-primary/90 backdrop-blur-sm p-4 text-primary-foreground shadow-elevated">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-white/80">Next Game Countdown</p>
@@ -176,10 +176,10 @@ export default function Schedule() {
         {/* Recent results */}
         {recentResults.length > 0 && (
           <div className="mb-5">
-            <h2 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-muted-foreground">
+            <h2 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-[#0E3386]">
               Last {recentResults.length} Game{recentResults.length === 1 ? '' : 's'}
             </h2>
-            <div className="overflow-hidden rounded-2xl border border-border bg-card/85 backdrop-blur-sm shadow-card">
+            <div className="overflow-hidden rounded-2xl border border-border bg-card/70 backdrop-blur-sm shadow-card">
               {recentResults.map((r, i) => (
                 <div
                   key={r.gamePk}
@@ -200,7 +200,7 @@ export default function Schedule() {
                     <p className="truncate text-sm font-bold text-foreground">
                       {r.homeAway === 'home' ? 'vs' : '@'} {r.opponent}
                     </p>
-                    <p className="text-xs text-muted-foreground">{formatResultDate(r.date)}</p>
+                    <p className="text-xs text-[#0E3386]/80">{formatResultDate(r.date)}</p>
                   </div>
                   <p className="text-base font-extrabold tabular-nums text-foreground">
                     {r.cubsScore}–{r.opponentScore}
@@ -213,11 +213,11 @@ export default function Schedule() {
 
         {/* Filter toggle for upcoming games */}
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-extrabold uppercase tracking-wider text-muted-foreground">
+          <h2 className="text-sm font-extrabold uppercase tracking-wider text-[#0E3386]">
             Coming Up
           </h2>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground">Home only</span>
+            <span className="text-xs text-[#0E3386]/80">Home only</span>
             <Switch checked={homeOnly} onCheckedChange={setHomeOnly} />
           </div>
         </div>
@@ -231,7 +231,7 @@ export default function Schedule() {
               <div
                 key={game.id}
                 className={cn(
-                  'relative overflow-hidden rounded-2xl border bg-card/85 backdrop-blur-sm shadow-card transition-all',
+                  'relative overflow-hidden rounded-2xl border bg-card/70 backdrop-blur-sm shadow-card transition-all',
                   isNextHome ? 'border-secondary/50 ring-1 ring-secondary/20' : 'border-border'
                 )}
               >
@@ -258,14 +258,14 @@ export default function Schedule() {
                           className={cn(
                             'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-extrabold uppercase tracking-wider',
                             game.isHome
-                              ? 'bg-primary/95 backdrop-blur-sm text-primary-foreground'
+                              ? 'bg-primary/90 backdrop-blur-sm text-primary-foreground'
                               : 'bg-muted text-muted-foreground'
                           )}
                         >
                           {game.isHome ? 'Home' : 'Away'}
                         </span>
                       </div>
-                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[#0E3386]/80">
                         <span className="inline-flex items-center gap-1">
                           <CalendarDays className="h-3.5 w-3.5 text-primary" />
                           {game.weekday}, {formatGameDate(game.date)}
@@ -275,7 +275,7 @@ export default function Schedule() {
                           {game.time}
                         </span>
                       </div>
-                      <p className="mt-0.5 text-xs text-muted-foreground">
+                      <p className="mt-0.5 text-xs text-[#0E3386]/80">
                         <MapPin className="inline h-3 w-3 mr-0.5 text-primary" />
                         {game.location}
                       </p>

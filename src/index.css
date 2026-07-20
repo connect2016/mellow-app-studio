@@ -338,6 +338,12 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
 
 @layer base {
+  /* ---- WRIGLEYVILLE BUDDIES COLOR RULES ----
+     1. Surfaces stay neutral: background/card tokens only — no raw hex, no photos under body content.
+     2. Navy (--primary / --brand-navy) owns structure: bottom nav, headers, primary buttons.
+     3. Red (--secondary / --brand-red, #CC3433) is reserved for the single most important CTA per screen + notification badges. Never decorative.
+     4. Ivy green (--accent) is a supporting accent (success states, Wrigley flavor) — never the app primary.
+     5. No new raw hex in components — semantic tokens only. */  
   :root {
     --background: 40 12% 90%;
     --foreground: 160 52% 12%;

@@ -3,7 +3,6 @@ import { Compass, Map, CalendarDays, MessageCircle, User, type LucideIcon } from
 
 const HIDE_NAV_ROUTES = ['/quick-start', '/onboarding', '/auth', '/login', '/signup'];
 import { cn } from '@/lib/utils';
-import { useFanMapPins } from '@/hooks/useFanMapPins';
 import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { useUnreadCount } from '@/hooks/useMessages';
 import { ProfileCompletionRing } from './ProfileCompletionRing';
@@ -13,14 +12,14 @@ type Tab = {
   to: string;
   label: string;
   icon: LucideIcon;
-  showBadge?: 'fans' | 'unread';
+  showBadge?: 'unread';
   showProgress?: boolean;
 };
 
 const TABS: Tab[] = [
   { to: '/', label: 'Home', icon: HomePlate },
   { to: '/discover-fans', label: 'Discover', icon: Compass },
-  { to: '/bar-map', label: 'Map', icon: Map, showBadge: 'fans' },
+  { to: '/bar-map', label: 'Map', icon: Map },
   { to: '/meetups', label: 'Meetups', icon: CalendarDays },
   { to: '/messages', label: 'Messages', icon: MessageCircle, showBadge: 'unread' },
   { to: '/profile', label: 'Profile', icon: User, showProgress: true },
@@ -28,7 +27,6 @@ const TABS: Tab[] = [
 
 export function BottomNav() {
   const location = useLocation();
-  const { count } = useFanMapPins();
   const { percent } = useProfileCompletion();
   const { data: unread = 0 } = useUnreadCount();
 
@@ -54,10 +52,9 @@ export function BottomNav() {
       }}
     >
       {TABS.map(({ to, label, icon: Icon, showBadge, showProgress }) => {
-        const badgeValue =
-          showBadge === 'fans' ? count : showBadge === 'unread' ? unread : 0;
-        const badgeColor = showBadge === 'unread' ? 'hsl(var(--brand-red))' : '#FFFFFF';
-        const badgeText = showBadge === 'unread' ? '#FFFFFF' : 'hsl(var(--brand-navy))';
+        const badgeValue = showBadge === 'unread' ? unread : 0;
+        const badgeColor = 'hsl(var(--brand-red))';
+        const badgeText = '#FFFFFF';
         return (
           <NavLink
             key={to}
@@ -100,11 +97,7 @@ export function BottomNav() {
                   />
                   {showBadge && badgeValue > 0 && (
                     <span
-                      aria-label={
-                        showBadge === 'unread'
-                          ? `${badgeValue} unread messages`
-                          : `${badgeValue} fans nearby`
-                      }
+                      aria-label={`${badgeValue} unread messages`}
                       className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full text-[10px] font-bold flex items-center justify-center tabular-nums"
                       style={{ backgroundColor: badgeColor, color: badgeText }}
                     >

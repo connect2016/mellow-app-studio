@@ -83,7 +83,7 @@ export default function Schedule() {
   };
 
   return (
-    <div className="min-h-screen bg-[url(/please-win-bg.jpg)] bg-[length:512px_auto] bg-repeat bg-fixed" style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}>
+    <div className="min-h-screen bg-[url(/please-win-bg.jpg)] bg-[length:512px_auto] lg:bg-[length:50%_auto] bg-repeat bg-fixed" style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}>
       <SEOMeta
         title="Cubs 2026 Schedule — Wrigleyville Buddies"
         description="Cubs scoreboard, recent results, and upcoming games. Plan meetups for home games at Wrigley Field."
@@ -102,10 +102,10 @@ export default function Schedule() {
             <ArrowLeft className="h-5 w-5 text-foreground" />
           </button>
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-[#0E3386]" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+            <h1 className="text-2xl font-extrabold tracking-tight text-[#0E3386] bg-white/85 rounded-lg px-2 w-fit" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
               Cubs Schedule
             </h1>
-            <p className="text-sm text-[#0E3386]/80">
+            <p className="text-sm text-[#0E3386]/80 bg-white/85 rounded-md px-2 w-fit">
               Plan your Wrigley days
             </p>
           </div>
@@ -176,7 +176,7 @@ export default function Schedule() {
         {/* Recent results */}
         {recentResults.length > 0 && (
           <div className="mb-5">
-            <h2 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-[#0E3386]">
+            <h2 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-[#0E3386] bg-white/85 rounded-md px-2 py-0.5 w-fit">
               Last {recentResults.length} Game{recentResults.length === 1 ? '' : 's'}
             </h2>
             <div className="overflow-hidden rounded-2xl border border-border bg-card/70 backdrop-blur-sm shadow-card">
@@ -213,11 +213,11 @@ export default function Schedule() {
 
         {/* Filter toggle for upcoming games */}
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-extrabold uppercase tracking-wider text-[#0E3386]">
+          <h2 className="text-sm font-extrabold uppercase tracking-wider text-[#0E3386] bg-white/85 rounded-md px-2 py-0.5 w-fit">
             Coming Up
           </h2>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-[#0E3386]/80">Home only</span>
+            <span className="text-xs text-[#0E3386]/80 bg-white/85 rounded px-1.5">Home only</span>
             <Switch checked={homeOnly} onCheckedChange={setHomeOnly} />
           </div>
         </div>

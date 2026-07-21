@@ -170,7 +170,7 @@ export default function Discover() {
   };
 
   useEffect(() => {
-    if (!loading && !user) navigate('/auth');
+    
   }, [user, loading, navigate]);
 
   // Live fan counters

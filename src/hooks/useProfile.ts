@@ -103,6 +103,6 @@ export function useDiscoverProfiles() {
       if (error) throw error;
       return data ?? [];
     },
-    enabled: !!user,
+    enabled: true,
   });
 }

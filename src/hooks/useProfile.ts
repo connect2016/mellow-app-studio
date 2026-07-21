@@ -75,7 +75,15 @@ export function useDiscoverProfiles() {
   return useQuery({
     queryKey: ['discover-profiles', user?.id],
     queryFn: async () => {
-      if (!user) return [];
+      if (!user) {
+        const { data, error } = await supabase.rpc('get_public_profiles', {
+          p_exclude_ids: [],
+          p_only_onboarded: true,
+          p_limit: 200,
+        });
+        if (error) throw error;
+        return data ?? [];
+      }
 
       // Get current user's profile for blocked_users list (owner-only RLS)
       const { data: myProfile } = await supabase

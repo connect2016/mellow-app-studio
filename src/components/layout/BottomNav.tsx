@@ -18,7 +18,7 @@ type Tab = {
 
 const TABS: Tab[] = [
   { to: '/', label: 'Home', icon: HomePlate },
-  { to: '/discover-fans', label: 'Discover', icon: Compass },
+  { to: '/discover-fans', label: 'Find Fans', icon: Compass },
   { to: '/bar-map', label: 'Map', icon: Map },
   { to: '/meetups', label: 'Meetups', icon: CalendarDays },
   { to: '/messages', label: 'Messages', icon: MessageCircle, showBadge: 'unread' },

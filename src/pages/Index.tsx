@@ -10,6 +10,7 @@ import { CrewAtBarNotification } from '@/components/CrewAtBarNotification';
 import { CubsGameTracker } from '@/components/CubsGameTracker';
 import { FindFansBanner } from '@/components/home/FindFansBanner';
 import { HomeQuickCarousel } from '@/components/home/HomeQuickCarousel';
+import { TeammatesSummary } from '@/components/teammates/TeammatesSummary';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -49,6 +50,7 @@ const Index = () => {
         <CubsGameTracker />
         <GameDayCountdown />
         <CrewAtBarNotification />
+        <TeammatesSummary />
         <NearbyFansOnline />
         <MissionStreak />
 

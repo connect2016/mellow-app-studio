@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { useTeammates } from '@/hooks/useTeammates';
+import { useTeammates, useIncomingRequests } from '@/hooks/useTeammates';
 import { Users, ChevronRight } from 'lucide-react';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
 
 export function TeammatesSummary() {
   const navigate = useNavigate();
   const { data: teammates, isLoading } = useTeammates();
+  const { data: incoming } = useIncomingRequests();
   const count = teammates?.length ?? 0;
+  const pendingCount = incoming?.length ?? 0;
   const previews = (teammates ?? []).slice(0, 5);
 
   return (
@@ -20,12 +22,21 @@ export function TeammatesSummary() {
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <h3 className="font-display font-bold text-[hsl(var(--brand-navy))] text-base">My Dugout</h3>
-          <span className="rounded-full bg-[hsl(var(--brand-red))] px-2 py-0.5 text-[11px] font-bold text-white">
+          <span className="rounded-full bg-[hsl(var(--brand-navy))] px-2 py-0.5 text-[11px] font-bold text-white">
             {isLoading ? '…' : count}
           </span>
+          {pendingCount > 0 && (
+            <span className="rounded-full bg-[hsl(var(--brand-red))] px-2 py-0.5 text-[11px] font-bold text-white animate-pulse">
+              {pendingCount} request{pendingCount === 1 ? '' : 's'}
+            </span>
+          )}
         </div>
         <p className="text-xs text-[hsl(var(--brand-navy))]/70 mt-0.5">
-          {count === 0 ? 'No Teammates yet — recruit some fans.' : 'Flip through your roster of Teammates'}
+          {pendingCount > 0
+            ? `${pendingCount} fan${pendingCount === 1 ? '' : 's'} want${pendingCount === 1 ? 's' : ''} to join your team!`
+            : count === 0
+              ? 'No Teammates yet — recruit some fans.'
+              : 'Flip through your roster of Teammates'}
         </p>
         {previews.length > 0 && (
           <div className="mt-2 flex -space-x-2">

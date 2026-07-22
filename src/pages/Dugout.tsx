@@ -3,6 +3,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTeammates, useIncomingRequests, useRespondToRequest } from '@/hooks/useTeammates';
 import { TeammateDeck } from '@/components/teammates/TeammateDeck';
+import { RecruitPicker } from '@/components/teammates/RecruitPicker';
 import { Button } from '@/components/ui/button';
 import { Users, UserPlus, ArrowLeft, X, Check } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -73,6 +74,11 @@ export default function Dugout() {
           <p className="text-sm text-white/85 mt-1 drop-shadow">
             Your roster of Teammates — flip through the cards.
           </p>
+        </div>
+
+        {/* Recruit teammates picker */}
+        <div className="mb-4">
+          <RecruitPicker />
         </div>
 
         {/* Incoming requests */}
@@ -151,3 +157,4 @@ export default function Dugout() {
     </div>
   );
 }
+

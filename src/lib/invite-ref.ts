@@ -61,6 +61,7 @@ export async function consumeInviteRefIfPresent(currentUserId: string | null | u
   }
   try {
     await supabase.rpc('say_hi_to_buddy', { p_recipient_id: ref });
+    void supabase.rpc('claim_referral_from_inviter' as any, { p_referrer: ref }).then(() => {}, () => {});
     clearInviteRef();
     return { consumed: true, ref };
   } catch {

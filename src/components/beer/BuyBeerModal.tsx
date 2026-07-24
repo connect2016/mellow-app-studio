@@ -39,6 +39,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Link } from 'react-router-dom';
 import { useBeerMoneyBalance, useSendBeerTip } from '@/hooks/useBeerMoney';
 import { TopUpModal } from '@/components/payments/TopUpModal';
+import { BUY_A_BEER_ENABLED } from '@/lib/feature-flags';
 
 export type BeerModalContext =
   | { kind: 'fan'; userId: string; firstName?: string; avatarUrl?: string }
@@ -326,6 +327,24 @@ export function BuyBeerModal({ open, onOpenChange, context }: Props) {
 
   const recipientAvatarSrc = context.kind === 'fan' ? context.avatarUrl : undefined;
   const recipientFallback = recipientLabel(context).slice(0, 1).toUpperCase();
+
+  if (!BUY_A_BEER_ENABLED) {
+    return (
+      <Sheet open={open} onOpenChange={onOpenChange}>
+        <SheetContent side="bottom" className="rounded-t-3xl border-t-2">
+          <SheetHeader className="text-left">
+            <SheetTitle className="flex items-center gap-2">
+              <Beer className="h-5 w-5 text-primary" aria-hidden="true" />
+              Buy a Beer — coming soon
+            </SheetTitle>
+          </SheetHeader>
+          <p className="pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 text-sm text-muted-foreground">
+            Beer gifting isn't open yet. Check back soon!
+          </p>
+        </SheetContent>
+      </Sheet>
+    );
+  }
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>

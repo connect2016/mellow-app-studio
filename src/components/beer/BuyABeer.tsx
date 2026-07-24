@@ -7,6 +7,7 @@ import {
   type BeerHandles,
   type BeerPayApp,
 } from '@/lib/beer-links';
+import { BUY_A_BEER_ENABLED } from '@/lib/feature-flags';
 
 interface BuyABeerProps {
   handles: BeerHandles;
@@ -18,6 +19,7 @@ export function BuyABeer({ handles, recipientName, className }: BuyABeerProps) {
   const [open, setOpen] = useState(false);
   const apps = availableBeerApps(handles);
 
+  if (!BUY_A_BEER_ENABLED) return null;
   if (apps.length === 0) return null;
 
   const label = recipientName ? 'Buy ' + recipientName + ' a Beer' : 'Buy a Beer';

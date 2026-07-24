@@ -387,7 +387,7 @@ export default function Landing() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-white shadow" style={{ backgroundColor: '#FF1744', boxShadow: '0 0 14px 4px rgba(255,23,68,0.55)' }}>1</div>
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-white shadow" style={{ backgroundColor: 'hsl(var(--secondary))', boxShadow: '0 0 14px 4px hsl(var(--secondary) / 0.55)' }}>1</div>
               <h3 className="mb-1 text-xl" style={{ color: '#FFFFFF', fontWeight: 700, textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Create Your Fan Profile</h3>
               <p className="mb-5 text-sm mt-1 max-w-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>
                 Pick your Gameday Persona, set your intent, drop your go-to bar.
@@ -396,7 +396,7 @@ export default function Landing() {
 
             {/* Step 2 */}
             <div className="flex flex-col items-center text-center">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-white shadow" style={{ backgroundColor: '#FF1744', boxShadow: '0 0 14px 4px rgba(255,23,68,0.55)' }}>2</div>
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-white shadow" style={{ backgroundColor: 'hsl(var(--secondary))', boxShadow: '0 0 14px 4px hsl(var(--secondary) / 0.55)' }}>2</div>
               <h3 className="mb-1 text-xl" style={{ color: '#FFFFFF', fontWeight: 700, textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Find Your People</h3>
               <p className="mb-5 text-sm mt-1 max-w-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>
                 Open the live map. See fans nearby. Tap to send a Hi-Five.
@@ -405,7 +405,7 @@ export default function Landing() {
 
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-white shadow" style={{ backgroundColor: '#FF1744', boxShadow: '0 0 14px 4px rgba(255,23,68,0.55)' }}>3</div>
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full text-base font-extrabold text-white shadow" style={{ backgroundColor: 'hsl(var(--secondary))', boxShadow: '0 0 14px 4px hsl(var(--secondary) / 0.55)' }}>3</div>
               <h3 className="mb-1 text-xl" style={{ color: '#FFFFFF', fontWeight: 700, textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Game Day Link-Up</h3>
               <p className="mb-5 text-sm mt-1 max-w-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>
                 Join a flash meetup at a bar near Wrigley — or host your own.

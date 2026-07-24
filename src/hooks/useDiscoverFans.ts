@@ -70,7 +70,12 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
         })) as DiscoverFan[];
       }
 
-      // Near Me uses RPC
+      // Near Me: nearby_fans is SECURITY DEFINER and already returns full
+      // profile fields + distance directly (it also excludes self via
+      // `p.user_id <> auth.uid()` server-side). The old code re-fetched
+      // those same rows via a direct .from('profiles') join, which RLS
+      // limits to the caller's own row — so every joined row came back
+      // undefined and got filtered out. Use nearby_fans' own columns.
       if (filter === 'near_me') {
         if (!geo) return [];
         const { data, error } = await supabase.rpc('nearby_fans', {
@@ -79,20 +84,16 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
           radius_miles: 5,
         });
         if (error) throw error;
-        const ids = (data ?? []).map((r: any) => r.id);
-        if (ids.length === 0) return [];
-        const { data: profiles } = await supabase
-          .from('profiles')
-          .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, is_season_ticket_holder, created_at')
-          .in('user_id', ids);
-        const byId = new Map((profiles ?? []).map((p: any) => [p.user_id, p]));
-        return (data ?? [])
-          .map((row: any) => {
-            const p: any = byId.get(row.id);
-            if (!p) return null;
-            return { ...p, distance_meters: row.distance_meters } as DiscoverFan;
-          })
-          .filter(Boolean) as DiscoverFan[];
+        return ((data ?? []) as any[]).map((r) => ({
+          user_id: r.id,
+          display_name: r.display_name,
+          profile_photo: r.avatar_url,
+          zip_code: r.zip_code,
+          favorite_gate: null,
+          vibe_tags: r.vibe_tags,
+          watch_locations: r.watch_locations,
+          distance_meters: r.distance_meters,
+        })) as DiscoverFan[];
       }
 
       // All Fans: RLS only lets an authenticated user SELECT their own
@@ -119,6 +120,42 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
         })) as DiscoverFan[];
       }
 
+      // New This Week / Season Ticket Holders: same RLS problem as All Fans.
+      // Neither filter needs a column get_public_profiles doesn't expose, so
+      // fetch via the RPC and apply the same client-side filter the guest
+      // branch already uses.
+      if (filter === 'new_week' || filter === 'sth') {
+        const { data, error } = await supabase.rpc('get_public_profiles', {
+          p_exclude_ids: [user!.id],
+          p_only_onboarded: true,
+          p_limit: 100,
+        });
+        if (error) throw error;
+        let rows = (data ?? []) as any[];
+        if (filter === 'new_week') {
+          const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+          rows = rows.filter((r) => new Date(r.created_at).getTime() >= weekAgo);
+        } else {
+          rows = rows.filter((r) => r.is_season_ticket_holder === true);
+        }
+        return rows.map((r) => ({
+          user_id: r.user_id,
+          display_name: r.display_name,
+          profile_photo: r.profile_photo,
+          zip_code: null,
+          favorite_gate: null,
+          vibe_tags: null,
+          watch_locations: null,
+          is_season_ticket_holder: r.is_season_ticket_holder,
+          created_at: r.created_at,
+        })) as DiscoverFan[];
+      }
+
+      // Bleachers / My Gate / Same Vibe: watch_locations, favorite_gate, and
+      // vibe_tags are not columns get_public_profiles selects or returns, so
+      // these can't be served through it without changing the RPC itself.
+      // Left on the direct table query below, which RLS still limits to the
+      // caller's own row for logged-in users — these three tabs stay broken.
       let q = supabase
         .from('profiles')
         .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, is_season_ticket_holder, created_at')
@@ -136,11 +173,6 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
       } else if (filter === 'same_vibe') {
         if (!currentUserVibeTags || currentUserVibeTags.length === 0) return [];
         q = q.overlaps('vibe_tags', currentUserVibeTags);
-      } else if (filter === 'new_week') {
-        const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-        q = q.gte('created_at', weekAgo);
-      } else if (filter === 'sth') {
-        q = q.eq('is_season_ticket_holder', true);
       }
 
       const { data, error } = await q;

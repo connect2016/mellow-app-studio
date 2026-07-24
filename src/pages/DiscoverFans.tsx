@@ -17,13 +17,14 @@ import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
 import { DesktopPanel } from '@/components/DesktopPanel';
 import { STHBadge } from '@/components/profile/STHBadge';
 
+// Bleachers / My Gate / Same Vibe are hidden here for launch: get_public_profiles
+// doesn't return the columns they filter on (watch_locations, favorite_gate,
+// vibe_tags), so logged-in users always get an empty list for these three.
+// See useDiscoverFans.ts. The underlying filter logic is left intact.
 const CHIPS: { id: DiscoverFilter; label: string }[] = [
   { id: 'all', label: 'All Fans' },
   { id: 'sth', label: '⭐ Season Ticket Holders' },
   { id: 'near_me', label: 'Near Me' },
-  { id: 'bleachers', label: 'Bleachers' },
-  { id: 'my_gate', label: 'My Gate' },
-  { id: 'same_vibe', label: 'Same Vibe' },
   { id: 'new_week', label: 'New This Week' },
 ];
 

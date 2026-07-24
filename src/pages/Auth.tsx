@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { lovable } from '@/integrations/lovable/index';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
@@ -15,7 +14,7 @@ export default function Auth() {
   const location = useLocation();
   const { user, loading } = useAuth();
   const { data: profile } = useProfile();
-  const [pendingProvider, setPendingProvider] = useState<'google' | 'apple' | null>(null);
+  const [pendingProvider, setPendingProvider] = useState<'google' | null>(null);
   const from = (location.state as { from?: string } | null)?.from;
 
   useEffect(() => {
@@ -57,32 +56,6 @@ export default function Auth() {
     track('user_signed_up', { method: 'google' });
   };
 
-  const handleAppleSignIn = async () => {
-    setPendingProvider('apple');
-    const result = await lovable.auth.signInWithOAuth('apple', {
-      redirect_uri: window.location.origin,
-    });
-    setPendingProvider(null);
-
-    if (result.error) {
-      const isPopupOrNetwork = /popup|blocked|network|connection|failed to fetch|timeout/i.test(
-        result.error.message || ''
-      );
-      const suffix = isPopupOrNetwork
-        ? ' Check your connection or try the other sign-in option.'
-        : '';
-      toast.error(`Couldn't sign in with Apple — please try again.${suffix}`);
-      console.error('Apple sign-in error:', result.error);
-      return;
-    }
-
-    if (result.redirected) {
-      return;
-    }
-
-    track('user_signed_up', { method: 'apple' });
-  };
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-6">
       <motion.div
@@ -121,26 +94,6 @@ export default function Auth() {
             )}
             {pendingProvider === 'google' ? 'Signing in…' : 'Continue with Google'}
           </Button>
-            {false && (
-          <Button
-            variant="outline"
-            className="w-full justify-center gap-3 h-12 rounded-[10px] border-[1.5px] border-[hsl(var(--border))] bg-white text-[14px] font-medium text-[hsl(var(--foreground))] hover:bg-white disabled:opacity-60"
-            onClick={handleAppleSignIn}
-            disabled={!!pendingProvider}
-          >
-            {pendingProvider === 'apple' ? (
-              <svg className="h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-              </svg>
-            ) : (
-              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="#000">
-                <path d="M17.05 12.04c-.03-3.02 2.47-4.47 2.58-4.54-1.41-2.06-3.6-2.34-4.38-2.37-1.86-.19-3.64 1.1-4.59 1.1-.95 0-2.41-1.08-3.97-1.05-2.04.03-3.93 1.19-4.97 3.02-2.13 3.69-.54 9.15 1.52 12.15 1.01 1.47 2.21 3.12 3.78 3.06 1.52-.06 2.1-.98 3.94-.98 1.84 0 2.36.98 3.97.95 1.64-.03 2.68-1.5 3.68-2.97 1.16-1.7 1.64-3.35 1.67-3.44-.04-.02-3.21-1.23-3.23-4.89zM14.04 3.36c.84-1.02 1.41-2.44 1.25-3.85-1.21.05-2.68.81-3.55 1.83-.78.9-1.46 2.34-1.28 3.72 1.35.1 2.73-.69 3.58-1.7z" />
-              </svg>
-            )}
-            {pendingProvider === 'apple' ? 'Signing in…' : 'Continue with Apple'}
-          </Button>
-            )}
         </div>
 
         <p className="mt-4 text-center text-xs text-muted-foreground">

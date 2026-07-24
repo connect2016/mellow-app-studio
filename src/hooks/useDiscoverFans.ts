@@ -95,6 +95,30 @@ export function useDiscoverFans({ filter, currentUserGate, currentUserVibeTags, 
           .filter(Boolean) as DiscoverFan[];
       }
 
+      // All Fans: RLS only lets an authenticated user SELECT their own
+      // profiles row directly, so a plain table query excluding self via
+      // .neq() always returns zero rows. Use the same SECURITY DEFINER
+      // RPC the guest branch uses, excluding self via p_exclude_ids instead.
+      if (filter === 'all') {
+        const { data, error } = await supabase.rpc('get_public_profiles', {
+          p_exclude_ids: [user!.id],
+          p_only_onboarded: true,
+          p_limit: 100,
+        });
+        if (error) throw error;
+        return ((data ?? []) as any[]).map((r) => ({
+          user_id: r.user_id,
+          display_name: r.display_name,
+          profile_photo: r.profile_photo,
+          zip_code: null,
+          favorite_gate: null,
+          vibe_tags: null,
+          watch_locations: null,
+          is_season_ticket_holder: r.is_season_ticket_holder,
+          created_at: r.created_at,
+        })) as DiscoverFan[];
+      }
+
       let q = supabase
         .from('profiles')
         .select('user_id, display_name, profile_photo, zip_code, favorite_gate, vibe_tags, watch_locations, is_season_ticket_holder, created_at')

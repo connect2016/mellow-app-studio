@@ -6,7 +6,8 @@
  */
 import { supabase } from '@/integrations/supabase/client';
 
-const KEY = 'cubbies_invite_ref';
+const KEY = 'wrigleyville_invite_ref';
+const LEGACY_KEY = 'cubbies_invite_ref'; // pre-rename key — fall back for in-flight invites
 const MAX_AGE_MS = 1000 * 60 * 60 * 24 * 30; // 30 days
 
 type Stored = { ref: string; ts: number };
@@ -26,7 +27,7 @@ export function storeInviteRef(ref: string | null | undefined) {
 
 export function getInviteRef(): string | null {
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = localStorage.getItem(KEY) ?? localStorage.getItem(LEGACY_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as Stored;
     if (!parsed?.ref || !isUuid(parsed.ref)) return null;
@@ -43,6 +44,7 @@ export function getInviteRef(): string | null {
 export function clearInviteRef() {
   try {
     localStorage.removeItem(KEY);
+    localStorage.removeItem(LEGACY_KEY);
   } catch {
     /* no-op */
   }

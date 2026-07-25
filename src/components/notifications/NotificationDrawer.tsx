@@ -1,8 +1,33 @@
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { ConceptVisual } from '@/components/icons/ConceptThumb';
 import { Bell, X } from 'lucide-react';
 import { useNotifications, useMarkRead, useMarkAllRead } from '@/hooks/useNotifications';
+
+/** Types that represent another fan taking a direct, actionable step toward
+ *  this user (a request, a gift, an invite). Everything else — automated
+ *  broadcasts, leaderboard resets, gameday pings — is treated as "system".
+ *  No clean type→category mapping covers this split (the existing
+ *  buddies/beers/meetups/vibes/gameday categories mix personal and
+ *  broadcast types together), so this is an explicit allowlist. */
+const PERSONAL_TYPES = new Set([
+  'buddy_request',
+  'buddy_accepted',
+  'teammate_request',
+  'teammate_accepted',
+  'beer_received',
+  'meetup_invite',
+  'meetup_joined',
+  'vibe_mention',
+  'vibe_reaction',
+  'match',
+  'message',
+]);
+
+function isPersonal(type: string): boolean {
+  return PERSONAL_TYPES.has(type);
+}
 
 /** Type → action_url fallback for legacy rows that have a null action_url.
  *  Mirrors the mapping in Notifications.tsx so the drawer routes the same way. */
@@ -56,6 +81,14 @@ export function NotificationDrawer({ open, onOpenChange }: Props) {
   const markAllRead = useMarkAllRead();
 
   const allRead = notifications.length === 0 || notifications.every(n => n.is_read);
+
+  // Personal (actionable, person-to-person) notifications float above system
+  // ones; each group keeps the newest-first order the query already returns.
+  const sortedNotifications = useMemo(() => {
+    const personal = notifications.filter(n => isPersonal(n.type));
+    const system = notifications.filter(n => !isPersonal(n.type));
+    return [...personal, ...system];
+  }, [notifications]);
 
   const handleTap = (notif: typeof notifications[0]) => {
     if (!notif.is_read) markRead.mutate(notif.id);
@@ -119,16 +152,21 @@ export function NotificationDrawer({ open, onOpenChange }: Props) {
               <p className="text-white/60 text-sm mt-1">Check back later for fresh updates.</p>
             </div>
           ) : (
-            notifications.map(notif => {
+            sortedNotifications.map(notif => {
               const isRead = notif.is_read;
+              const personal = isPersonal(notif.type);
               return (
                 <button
                   key={notif.id}
                   onClick={() => handleTap(notif)}
-                  className={`w-full text-left rounded-xl p-3 flex items-start gap-3 transition active:scale-[0.99] ${
-                    isRead
-                      ? 'bg-white/5 opacity-60'
-                      : 'bg-white/10 hover:bg-white/15 ring-1 ring-white/10'
+                  className={`w-full text-left rounded-xl p-3 flex items-start gap-3 transition active:scale-[0.99] border-l-[3px] ${
+                    personal
+                      ? isRead
+                        ? 'border-[hsl(var(--secondary))]/40 bg-[hsl(var(--secondary))]/10 opacity-60'
+                        : 'border-[hsl(var(--secondary))] bg-[hsl(var(--secondary))]/15 ring-1 ring-[hsl(var(--secondary))]/40 hover:bg-[hsl(var(--secondary))]/20'
+                      : isRead
+                        ? 'border-transparent bg-white/5 opacity-60'
+                        : 'border-transparent bg-white/10 hover:bg-white/15 ring-1 ring-white/10'
                   }`}
                 >
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-[hsl(var(--brand-red))]/25 ring-1 ring-[hsl(var(--brand-red))]/50 flex items-center justify-center">

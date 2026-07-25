@@ -12,8 +12,7 @@ import { Button } from '@/components/ui/button';
 import { StatPreference } from '@/hooks/useStatPreferences';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
-import { BuyABeer } from '@/components/beer/BuyABeer';
-import { usePaymentHandles } from '@/hooks/usePaymentHandles';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 import { sayHiToBuddy } from '@/hooks/useDiscoverFans';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { MakeYourCardDialog } from '@/components/card/MakeYourCardDialog';
@@ -68,7 +67,6 @@ export function UserBaseballCard({
   const navigate = useNavigate();
   const { user } = useAuth();
   const [sayHiState, setSayHiState] = useState<'idle' | 'pending' | 'sent'>('idle');
-  const { data: paymentHandles } = usePaymentHandles(!isOwner ? userId : undefined);
 
   const handleSayHi = async () => {
     if (!user) { navigate('/auth'); return; }
@@ -266,13 +264,10 @@ export function UserBaseballCard({
       {/* Buy a Beer — primary social CTA on public profile cards */}
       {!isOwner && userId && !isFlipped && (
         <div className="mt-4 px-1">
-        <BuyABeer
-          handles={{
-            venmo: paymentHandles?.venmo_handle,
-            cashapp: paymentHandles?.cashapp_cashtag,
-            paypal: paymentHandles?.paypal_handle,
-          }}
-          recipientName={displayName?.split(' ')[0]}
+        <BuyBeerButton
+          context={{ kind: 'fan', userId, firstName: displayName?.split(' ')[0], avatarUrl: profileImage ?? undefined }}
+          surface="profile_card"
+          variant="default"
           className="w-full rounded-2xl min-h-[48px] shadow-sm"
         />
         </div>

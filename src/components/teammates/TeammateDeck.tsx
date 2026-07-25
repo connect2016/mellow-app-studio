@@ -209,6 +209,7 @@ function CardFrame({ teammate: t, onClick }: { teammate: TeammateProfile; onClic
             wrigleyvilleBar={t.wrigleyville_bar}
             intents={(t.intent as IntentType[]) ?? []}
             gamedayIntents={(t.gameday_intents as GamedayIntentType[]) ?? []}
+            userId={t.user_id}
             showReactions={false}
             isMatch
             className="max-w-full pointer-events-none"

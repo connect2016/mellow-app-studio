@@ -140,6 +140,7 @@ export default function Join() {
                 wrigleyvilleBar={inviter.wrigleyville_bar}
                 intents={(inviter.intent as IntentType[]) ?? []}
                 gamedayIntents={(inviter.gameday_intents as GamedayIntentType[]) ?? []}
+                userId={inviter.user_id}
                 isOwner={false}
                 className="max-w-full"
               />

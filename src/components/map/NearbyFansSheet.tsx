@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Beer, Hand } from 'lucide-react';
+import { Hand } from 'lucide-react';
 import { GateFilterChips } from './GateFilterChips';
 import { type GateFilter } from '@/hooks/useFanMapPins';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 import type { MapFan } from './useMapClusters';
 
 type Snap = 'collapsed' | 'half' | 'full';
@@ -15,7 +16,6 @@ interface Props {
   onSelectGate: (g: GateFilter | null) => void;
   gateCounts: Partial<Record<GateFilter, number>>;
   onSayHi: (fan: MapFan) => void;
-  onBuyBeer: (fan: MapFan) => void;
 }
 
 /**
@@ -30,7 +30,6 @@ export function NearbyFansSheet({
   onSelectGate,
   gateCounts,
   onSayHi,
-  onBuyBeer,
 }: Props) {
   const [snap, setSnap] = useState<Snap>('collapsed');
   const [dragOffset, setDragOffset] = useState(0); // px during drag
@@ -162,13 +161,13 @@ export function NearbyFansSheet({
                   <p className="text-xs text-muted-foreground truncate">{fan.locationLabel}</p>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
-                  <button
-                    onClick={() => onBuyBeer(fan)}
-                    className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-full text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20"
-                    aria-label={`Buy ${fan.name} a beer`}
-                  >
-                    <Beer className="h-5 w-5" />
-                  </button>
+                  <BuyBeerButton
+                    context={{ kind: 'fan', userId: fan.id, firstName: fan.name?.split(' ')[0] ?? 'Fan', avatarUrl: fan.photo ?? undefined }}
+                    iconOnly
+                    variant="ghost"
+                    size="icon"
+                    className="min-h-[44px] min-w-[44px] rounded-full text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20"
+                  />
                   <button
                     onClick={() => onSayHi(fan)}
                     className="min-h-[44px] px-3 inline-flex items-center justify-center gap-1 rounded-full bg-[hsl(var(--brand-navy))] text-white text-xs font-bold"

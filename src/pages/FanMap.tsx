@@ -10,7 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { NearbyFansSheet } from '@/components/map/NearbyFansSheet';
 import { useFanMapPins, deriveGate, type GateFilter, GATE_OPTIONS } from '@/hooks/useFanMapPins';
-import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 import { supabase } from '@/integrations/supabase/client';
 import type { MapFan } from '@/components/map/useMapClusters';
 import { PARTICIPATING_BARS } from '@/lib/wrigleyville-bar-coords';
@@ -66,7 +66,6 @@ export default function FanMap() {
   const { fans } = useFanMapPins();
   const [selectedGate, setSelectedGate] = useState<GateFilter | null>(null);
   const [popupFan, setPopupFan] = useState<MapFan | null>(null);
-  const [beerFor, setBeerFor] = useState<MapFan | null>(null);
 
   // Decorate fans with derived gate
   const fansWithGate = useMemo(
@@ -194,12 +193,19 @@ export default function FanMap() {
               >
                 Say Hi
               </button>
-              <button
-                onClick={() => { setBeerFor(popupFan); setPopupFan(null); }}
-                className="min-h-[44px] px-4 rounded-xl bg-amber-500 text-amber-950 text-sm font-bold"
-              >
-                Buy a beer
-              </button>
+              <div onClickCapture={() => setPopupFan(null)}>
+                <BuyBeerButton
+                  context={{
+                    kind: 'fan',
+                    userId: popupFan.id,
+                    firstName: popupFan.name?.split(' ')[0] ?? 'Fan',
+                    avatarUrl: popupFan.photo ?? undefined,
+                  }}
+                  label="Buy a beer"
+                  variant="default"
+                  className="min-h-[44px] px-4 rounded-xl bg-amber-500 text-amber-950 hover:bg-amber-500/90 text-sm font-bold"
+                />
+              </div>
             </div>
           </div>
         </>
@@ -213,22 +219,7 @@ export default function FanMap() {
         onSelectGate={setSelectedGate}
         gateCounts={gateCounts}
         onSayHi={handleSayHi}
-        onBuyBeer={(f) => setBeerFor(f)}
       />
-
-      {/* Buy beer modal */}
-      {beerFor && (
-        <BuyBeerModal
-          open={!!beerFor}
-          onOpenChange={(o) => !o && setBeerFor(null)}
-          context={{
-            kind: 'fan',
-            userId: beerFor.id,
-            firstName: beerFor.name?.split(' ')[0] ?? 'Fan',
-            avatarUrl: beerFor.photo ?? undefined,
-          }}
-        />
-      )}
     </div>
     </WrigleyRainbowBackground>
   );

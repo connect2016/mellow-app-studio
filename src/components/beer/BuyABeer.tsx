@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button, ButtonProps } from '@/components/ui/button';
 import {
   availableBeerApps,
   buildBeerLink,
@@ -7,24 +7,26 @@ import {
   type BeerHandles,
   type BeerPayApp,
 } from '@/lib/beer-links';
-import { BUY_A_BEER_ENABLED } from '@/lib/feature-flags';
+import { P2P_HANDLES_ENABLED } from '@/lib/feature-flags';
 
-interface BuyABeerProps {
+interface BuyABeerProps extends Omit<ButtonProps, 'onClick' | 'children'> {
   handles: BeerHandles;
   recipientName?: string;
-  className?: string;
+  iconOnly?: boolean;
 }
 
-export function BuyABeer({ handles, recipientName, className }: BuyABeerProps) {
+export function BuyABeer({ handles, recipientName, iconOnly, className, ...rest }: BuyABeerProps) {
   const [open, setOpen] = useState(false);
   const apps = availableBeerApps(handles);
 
-  if (!BUY_A_BEER_ENABLED) return null;
+  if (!P2P_HANDLES_ENABLED) return null;
   if (apps.length === 0) return null;
 
   const label = recipientName ? 'Buy ' + recipientName + ' a Beer' : 'Buy a Beer';
+  const displayLabel = iconOnly ? '🍺' : `🍺 ${label}`;
 
-  function openApp(app: BeerPayApp) {
+  function openApp(app: BeerPayApp, e?: React.MouseEvent) {
+    e?.stopPropagation();
     const handle =
       app === 'venmo' ? handles.venmo : app === 'cashapp' ? handles.cashapp : handles.paypal;
     if (!handle) return;
@@ -37,10 +39,12 @@ export function BuyABeer({ handles, recipientName, className }: BuyABeerProps) {
     return (
       <Button
         type="button"
-        onClick={() => openApp(apps[0])}
+        onClick={(e) => openApp(apps[0], e)}
         className={className}
+        aria-label={label}
+        {...rest}
       >
-        🍺 {label}
+        {displayLabel}
       </Button>
     );
   }
@@ -49,10 +53,12 @@ export function BuyABeer({ handles, recipientName, className }: BuyABeerProps) {
     <div className="relative inline-block">
       <Button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={(e) => { e.stopPropagation(); setOpen((v) => !v); }}
         className={className}
+        aria-label={label}
+        {...rest}
       >
-        🍺 {label}
+        {displayLabel}
       </Button>
       {open && (
         <div className="absolute z-50 mt-1 w-40 rounded-xl border bg-white shadow-lg">
@@ -60,7 +66,7 @@ export function BuyABeer({ handles, recipientName, className }: BuyABeerProps) {
             <button
               key={app}
               type="button"
-              onClick={() => openApp(app)}
+              onClick={(e) => openApp(app, e)}
               className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
             >
               {BEER_APP_LABEL[app]}

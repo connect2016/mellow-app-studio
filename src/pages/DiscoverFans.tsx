@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { Beer } from 'lucide-react';
 import { AppHeader } from '@/components/AppHeader';
 import { WrigleyRainbowBackground } from '@/components/WrigleyRainbowBackground';
 import { SEOMeta } from '@/components/SEOMeta';
@@ -13,7 +12,7 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { useDiscoverFans, sayHiToBuddy, type DiscoverFilter, type DiscoverFan } from '@/hooks/useDiscoverFans';
-import { BuyBeerModal } from '@/components/beer/BuyBeerModal';
+import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 import { DesktopPanel } from '@/components/DesktopPanel';
 import { STHBadge } from '@/components/profile/STHBadge';
 
@@ -34,7 +33,6 @@ export default function DiscoverFans() {
   const { data: me } = useProfile();
   const [filter, setFilter] = useState<DiscoverFilter>('all');
   const [geo, setGeo] = useState<{ lat: number; lng: number } | null>(null);
-  const [beerCtx, setBeerCtx] = useState<{ userId: string; firstName?: string; avatarUrl?: string } | null>(null);
   const [pending, setPending] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
@@ -150,21 +148,12 @@ export default function DiscoverFans() {
                 myVibeTags={myVibeTags ?? []}
                 pending={!!pending[fan.user_id]}
                 onSayHi={() => handleSayHi(fan.user_id, fan.display_name ?? 'this fan')}
-                onBeer={() => setBeerCtx({ userId: fan.user_id, firstName: fan.display_name ?? undefined, avatarUrl: fan.profile_photo ?? undefined })}
               />
             ))}
           </ul>
         )}
       </div>
       </DesktopPanel>
-
-      {beerCtx && (
-        <BuyBeerModal
-          open={!!beerCtx}
-          onOpenChange={(o) => !o && setBeerCtx(null)}
-          context={{ kind: 'fan', userId: beerCtx.userId, firstName: beerCtx.firstName, avatarUrl: beerCtx.avatarUrl }}
-        />
-      )}
     </WrigleyRainbowBackground>
   );
 }
@@ -174,10 +163,9 @@ interface FanRowProps {
   myVibeTags: string[];
   pending: boolean;
   onSayHi: () => void;
-  onBeer: () => void;
 }
 
-function FanRow({ fan, myVibeTags, pending, onSayHi, onBeer }: FanRowProps) {
+function FanRow({ fan, myVibeTags, pending, onSayHi }: FanRowProps) {
   const sharedTags = useMemo(() => {
     const mine = new Set(myVibeTags);
     return (fan.vibe_tags ?? []).filter((t) => mine.has(t)).slice(0, 2);
@@ -227,14 +215,13 @@ function FanRow({ fan, myVibeTags, pending, onSayHi, onBeer }: FanRowProps) {
         >
           {pending ? '…' : 'Say Hi'}
         </Button>
-        <button
-          type="button"
-          onClick={onBeer}
-          aria-label={`Buy ${fan.display_name ?? 'this fan'} a beer`}
-          className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-border/60 text-amber-600 transition-colors hover:bg-amber-50 dark:hover:bg-amber-950/30"
-        >
-          <Beer className="h-5 w-5" aria-hidden="true" />
-        </button>
+        <BuyBeerButton
+          context={{ kind: 'fan', userId: fan.user_id, firstName: fan.display_name ?? undefined, avatarUrl: fan.profile_photo ?? undefined }}
+          iconOnly
+          variant="outline"
+          size="icon"
+          className="min-h-[44px] min-w-[44px] rounded-full border-border/60 text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+        />
       </div>
     </li>
   );

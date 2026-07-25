@@ -12,8 +12,8 @@ import { Button } from '@/components/ui/button';
 import { StatPreference } from '@/hooks/useStatPreferences';
 import { CardFrontSide } from '@/components/card/CardFrontSide';
 import { CardBackSide } from '@/components/card/CardBackSide';
-import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 import { BuyABeer } from '@/components/beer/BuyABeer';
+import { usePaymentHandles } from '@/hooks/usePaymentHandles';
 import { sayHiToBuddy } from '@/hooks/useDiscoverFans';
 import { usePhotoUpload } from '@/hooks/usePhotoUpload';
 import { MakeYourCardDialog } from '@/components/card/MakeYourCardDialog';
@@ -24,9 +24,6 @@ export interface UserBaseballCardProps {
   profileImage?: string | null;
   displayName: string;
   instagram?: string | null;
-  venmoHandle?: string | null;
-  cashappCashtag?: string | null;
-  paypalHandle?: string | null;
   className?: string;
   onClick?: () => void;
   badges?: string[];
@@ -49,9 +46,6 @@ export function UserBaseballCard({
   profileImage,
   displayName,
   instagram,
-  venmoHandle,
-  cashappCashtag,
-  paypalHandle,
   className,
   onClick,
   showReactions = true,
@@ -74,6 +68,7 @@ export function UserBaseballCard({
   const navigate = useNavigate();
   const { user } = useAuth();
   const [sayHiState, setSayHiState] = useState<'idle' | 'pending' | 'sent'>('idle');
+  const { data: paymentHandles } = usePaymentHandles(!isOwner ? userId : undefined);
 
   const handleSayHi = async () => {
     if (!user) { navigate('/auth'); return; }
@@ -272,7 +267,11 @@ export function UserBaseballCard({
       {!isOwner && userId && !isFlipped && (
         <div className="mt-4 px-1">
         <BuyABeer
-          handles={{ venmo: venmoHandle, cashapp: cashappCashtag, paypal: paypalHandle }}
+          handles={{
+            venmo: paymentHandles?.venmo_handle,
+            cashapp: paymentHandles?.cashapp_cashtag,
+            paypal: paymentHandles?.paypal_handle,
+          }}
           recipientName={displayName?.split(' ')[0]}
           className="w-full rounded-2xl min-h-[48px] shadow-sm"
         />

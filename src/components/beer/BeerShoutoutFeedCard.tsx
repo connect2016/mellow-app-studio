@@ -5,16 +5,14 @@
  *
  * Replaces the older localStorage-based BeerShoutoutCard for the live feed.
  */
-import { useState } from 'react';
 import { Beer, ArrowRight, PartyPopper } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { haptic } from '@/lib/haptics';
 import { track } from '@/lib/analytics';
-import { BuyBeerModal } from './BuyBeerModal';
+import { BuyBeerButton } from './BuyBeerButton';
 import { BeerBuyerBadge } from './BeerBuyerBadge';
 import type { BeerShoutoutWithProfiles } from '@/hooks/useBeerShoutouts';
 
@@ -36,7 +34,6 @@ function timeAgo(iso: string) {
 
 export function BeerShoutoutFeedCard({ shoutout, className, highlighted }: Props) {
   const { user } = useAuth();
-  const [reciprocateOpen, setReciprocateOpen] = useState(false);
 
   const isRecipient = !!user && user.id === shoutout.recipient_id;
   const isBuyer = !!user && user.id === shoutout.sender_id;
@@ -44,15 +41,6 @@ export function BeerShoutoutFeedCard({ shoutout, className, highlighted }: Props
   const recipientName = shoutout.recipient?.display_name || 'a fan';
   const senderFirst = senderName.split(' ')[0];
   const dollars = (shoutout.credits / 100).toFixed(0);
-
-  const handleReciprocate = () => {
-    haptic('selection');
-    track('beer_reciprocated', {
-      original_tip_id: shoutout.tip_id,
-      original_shoutout_id: shoutout.id,
-    });
-    setReciprocateOpen(true);
-  };
 
   return (
     <>
@@ -127,18 +115,28 @@ export function BeerShoutoutFeedCard({ shoutout, className, highlighted }: Props
 
         {/* Recipient-only reciprocity CTA */}
         {isRecipient && (
-          <Button
-            type="button"
-            onClick={handleReciprocate}
-            variant="default"
-            size="sm"
-            className="w-full min-h-[48px] gap-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold"
-            aria-label={`Send ${senderFirst} a beer back`}
+          <div
+            onClickCapture={() => {
+              haptic('selection');
+              track('beer_reciprocated', {
+                original_tip_id: shoutout.tip_id,
+                original_shoutout_id: shoutout.id,
+              });
+            }}
           >
-            <Beer className="h-4 w-4" aria-hidden="true" />
-            Send one back
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Button>
+            <BuyBeerButton
+              context={{
+                kind: 'fan',
+                userId: shoutout.sender_id,
+                firstName: senderFirst,
+                avatarUrl: shoutout.sender?.profile_photo ?? undefined,
+              }}
+              label="Send one back"
+              variant="default"
+              size="sm"
+              className="w-full min-h-[48px] gap-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold"
+            />
+          </div>
         )}
 
         {isBuyer && (
@@ -147,19 +145,6 @@ export function BeerShoutoutFeedCard({ shoutout, className, highlighted }: Props
           </p>
         )}
       </article>
-
-      {isRecipient && (
-        <BuyBeerModal
-          open={reciprocateOpen}
-          onOpenChange={setReciprocateOpen}
-          context={{
-            kind: 'fan',
-            userId: shoutout.sender_id,
-            firstName: senderFirst,
-            avatarUrl: shoutout.sender?.profile_photo ?? undefined,
-          }}
-        />
-      )}
     </>
   );
 }

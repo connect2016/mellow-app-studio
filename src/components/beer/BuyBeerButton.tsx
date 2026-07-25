@@ -7,6 +7,10 @@ import { haptic } from '@/lib/haptics';
 import { trackBeerEvent } from '@/lib/gift-social';
 import { beerExperiments, trackBuyBeer } from '@/lib/beer-experiments';
 import { BuyBeerModal, type BeerModalContext } from './BuyBeerModal';
+import { BuyABeer } from './BuyABeer';
+import { usePaymentHandles } from '@/hooks/usePaymentHandles';
+import { availableBeerApps } from '@/lib/beer-links';
+import { P2P_HANDLES_ENABLED } from '@/lib/feature-flags';
 
 // Re-export for back-compat with existing imports
 export type BeerContext = BeerModalContext;
@@ -58,6 +62,17 @@ export function BuyBeerButton({
   const [open, setOpen] = useState(false);
   const viewedRef = useRef(false);
 
+  // Prefer P2P (Venmo/Cash App/PayPal) when the fan has a handle on file —
+  // it works today, independent of the Stripe checkout flag below.
+  const isFan = context.kind === 'fan';
+  const { data: handles } = usePaymentHandles(isFan ? context.userId : undefined);
+  const p2pHandles = {
+    venmo: handles?.venmo_handle,
+    cashapp: handles?.cashapp_cashtag,
+    paypal: handles?.paypal_handle,
+  };
+  const hasP2P = P2P_HANDLES_ENABLED && isFan && availableBeerApps(p2pHandles).length > 0;
+
   // A/B test: hide CTA on surfaces excluded by the placement experiment.
   const placementAllows =
     surface === 'profile_card' || surface === 'fab'
@@ -74,6 +89,33 @@ export function BuyBeerButton({
 
   if (loggedInOnly && !user) return null;
   if (!placementAllows) return null;
+
+  if (hasP2P) {
+    return (
+      <div
+        className={cn(showMicrocopy && 'space-y-1.5')}
+        onClickCapture={() => {
+          haptic('selection');
+          trackBuyBeer('buy_beer_cta_clicked', { context: context.kind, surface, method: 'p2p' });
+        }}
+      >
+        <BuyABeer
+          handles={p2pHandles}
+          recipientName={context.kind === 'fan' ? context.firstName : undefined}
+          iconOnly={iconOnly}
+          variant={variant}
+          size={size}
+          className={cn('gap-2 font-semibold', className)}
+          {...rest}
+        />
+        {showMicrocopy && (
+          <p className="text-[11px] leading-snug text-muted-foreground px-0.5">
+            {microcopy(context)}
+          </p>
+        )}
+      </div>
+    );
+  }
 
   const text = label ?? defaultLabel(context);
 

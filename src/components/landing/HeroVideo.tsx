@@ -118,14 +118,29 @@ export default function HeroVideo() {
             className="w-full max-w-[260px] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] sm:max-w-[300px]" loading="eager" fetchPriority="high" decoding="async" />
 
           <h1
-            className="mt-2 text-[1.25rem] sm:text-[1.5rem] font-bold uppercase tracking-[0.2em] text-white"
+            className="mt-2 text-[26px] sm:text-[32px] uppercase text-white"
             style={{
-              fontFamily: 'Norwester, sans-serif',
+              fontFamily: '"Barlow Condensed", sans-serif',
+              fontWeight: 800,
+              letterSpacing: '1px',
+              lineHeight: 1.05,
               textShadow: '0 2px 12px rgba(0,0,0,0.7)',
             }}
           >
             The Wrigleyville Social App
           </h1>
+          <p
+            className="text-[18px] sm:text-[20px] uppercase text-white"
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontWeight: 600,
+              letterSpacing: '2px',
+              marginTop: '26px',
+              textShadow: '0 2px 8px rgba(0,0,0,0.6)',
+            }}
+          >
+            Where fans find friends
+          </p>
         </div>
 
         {/* BLOCK 2 — Unified social proof + tagline */}
@@ -141,15 +156,6 @@ export default function HeroVideo() {
               </span>
             </div>
           )}
-          <p
-            className="text-base sm:text-lg font-bold uppercase tracking-[0.16em] text-white"
-            style={{
-              fontFamily: 'Norwester, sans-serif',
-              textShadow: '0 2px 8px rgba(0,0,0,0.6)',
-            }}
-          >
-            Where fans find friends
-          </p>
         </div>
 
         {/* BLOCK 3 — CTA stack */}

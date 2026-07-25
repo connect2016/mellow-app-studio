@@ -10,6 +10,7 @@ import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
 import { useFanMapPins } from '@/hooks/useFanMapPins';
 import { useBarCheckins } from '@/hooks/useBarCheckins';
 import { NotificationDrawer } from '@/components/notifications/NotificationDrawer';
+import { useUnreadCount } from '@/hooks/useNotifications';
 
 const navItems = [
   { to: '/discover-fans', icon: Compass, label: 'Discover' },
@@ -71,7 +72,7 @@ export function AppHeader() {
   const location = useLocation();
   const { data: badges } = useNotificationCounts();
   const [notifOpen, setNotifOpen] = useState(false);
-  const [unreadNotifs, setUnreadNotifs] = useState(4);
+  const unreadNotifs = useUnreadCount();
   const { count: nearbyFanCount } = useFanMapPins();
   const { myCheckin } = useBarCheckins();
   useSwipeNavigation();
@@ -174,7 +175,7 @@ export function AppHeader() {
 
 
 
-      <NotificationDrawer open={notifOpen} onOpenChange={setNotifOpen} onUnreadChange={setUnreadNotifs} />
+      <NotificationDrawer open={notifOpen} onOpenChange={setNotifOpen} />
 
     </>
   );

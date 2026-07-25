@@ -444,7 +444,7 @@ export default function Landing() {
         <div className="relative mx-auto max-w-3xl px-6">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: '#FFFFFF' }}>FAQ</p>
-            <h2 className="mb-2 text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: '#0E3386', WebkitTextStroke: '1px #FFFFFF' }}>
+            <h2 className="mb-2 text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: '#FFFFFF' }}>
               Questions? We Got You.
             </h2>
           </div>

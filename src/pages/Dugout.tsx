@@ -98,7 +98,9 @@ export default function Dugout() {
                     {r?.profile_photo ? (
                       <img src={r.profile_photo} alt="" className="h-10 w-10 rounded-full object-cover" loading="lazy" decoding="async" />
                     ) : (
-                      <div className="h-10 w-10 rounded-full bg-[hsl(var(--brand-navy))]/20 flex items-center justify-center text-lg"></div>
+                      <div className="h-10 w-10 rounded-full bg-[hsl(var(--brand-navy))]/20 flex items-center justify-center text-lg font-bold text-[hsl(var(--brand-navy))]">
+                        {(r?.display_name ?? 'A')?.trim().charAt(0).toUpperCase()}
+                      </div>
                     )}
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm text-[hsl(var(--brand-navy))] truncate">{r?.display_name ?? 'A fan'}</p>

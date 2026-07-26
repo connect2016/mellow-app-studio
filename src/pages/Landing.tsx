@@ -438,9 +438,9 @@ export default function Landing() {
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(/Dark_Wrigley_Pic.jpg)`, filter: 'brightness(1.4)' }}
+          style={{ backgroundImage: `url(/bleacher.view.webp)` }}
         />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: 'rgba(5, 5, 30, 0.30)' }} />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: 'rgba(5, 5, 30, 0.45)' }} />
         <div className="relative mx-auto max-w-3xl px-6">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: '#FFFFFF' }}>FAQ</p>

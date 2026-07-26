@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
@@ -14,7 +16,11 @@ export default function Auth() {
   const location = useLocation();
   const { user, loading } = useAuth();
   const { data: profile } = useProfile();
-  const [pendingProvider, setPendingProvider] = useState<'google' | null>(null);
+  const [pendingProvider, setPendingProvider] = useState<'google' | 'email' | null>(null);
+  const [mode, setMode] = useState<'signup' | 'signin'>('signup');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPw, setShowPw] = useState(false);
   const from = (location.state as { from?: string } | null)?.from;
 
   useEffect(() => {
@@ -54,6 +60,39 @@ export default function Auth() {
     }
 
     track('user_signed_up', { method: 'google' });
+  };
+
+  const handleEmailAuth = async () => {
+    if (!email.trim() || password.length < 6) {
+      toast.error('Enter a valid email and a password (6+ characters).');
+      return;
+    }
+    setPendingProvider('email');
+
+    if (mode === 'signup') {
+      const { error } = await supabase.auth.signUp({ email, password });
+      setPendingProvider(null);
+      if (error) {
+        toast.error(error.message);
+        console.error('Email sign-up error:', error);
+        return;
+      }
+      toast.success('Account created! Check your email to verify.');
+      track('user_signed_up', { method: 'email' });
+      return;
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setPendingProvider(null);
+    if (error) {
+      const message = /invalid login credentials/i.test(error.message)
+        ? 'Incorrect email or password.'
+        : /email not confirmed/i.test(error.message)
+        ? 'Please verify your email before signing in — check your inbox.'
+        : "Couldn't sign in — please try again.";
+      toast.error(message);
+      console.error('Email sign-in error:', error);
+    }
   };
 
   return (
@@ -96,9 +135,79 @@ export default function Auth() {
           </Button>
         </div>
 
-        <p className="mt-4 text-center text-xs text-muted-foreground">
-          Free to join · No password needed
-        </p>
+        <div className="my-5 flex items-center gap-3">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-xs text-muted-foreground">or</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+        <div className="mb-4 flex rounded-xl bg-muted p-1">
+          <button
+            type="button"
+            onClick={() => setMode('signup')}
+            className={`flex-1 rounded-lg py-1.5 text-sm font-medium transition-colors ${
+              mode === 'signup' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground'
+            }`}
+          >
+            Create account
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode('signin')}
+            className={`flex-1 rounded-lg py-1.5 text-sm font-medium transition-colors ${
+              mode === 'signin' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground'
+            }`}
+          >
+            Sign in
+          </button>
+        </div>
+
+        <div className="space-y-3">
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="email"
+              placeholder="you@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="pl-9 rounded-xl h-12"
+              autoComplete="email"
+            />
+          </div>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type={showPw ? 'text' : 'password'}
+              placeholder={mode === 'signup' ? '6+ characters' : 'Password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="pl-9 pr-9 rounded-xl h-12"
+              autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPw(!showPw)}
+              className="absolute right-3 top-1/2 -translate-y-1/2"
+              aria-label={showPw ? 'Hide password' : 'Show password'}
+            >
+              {showPw ? <EyeOff className="h-4 w-4 text-muted-foreground" /> : <Eye className="h-4 w-4 text-muted-foreground" />}
+            </button>
+          </div>
+
+          <Button
+            onClick={handleEmailAuth}
+            disabled={!!pendingProvider}
+            className="w-full h-12 rounded-xl text-base font-semibold"
+          >
+            {pendingProvider === 'email'
+              ? mode === 'signup'
+                ? 'Creating account…'
+                : 'Signing in…'
+              : mode === 'signup'
+              ? 'Create Account'
+              : 'Sign In'}
+          </Button>
+        </div>
 
         <p className="mt-6 text-center" style={{ fontSize: '11px', color: 'hsl(var(--muted-foreground))' }}>
           By continuing, you agree to our{' '}

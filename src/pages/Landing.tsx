@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import {
   Zap, Beer, Users, MapPin, Shield, Heart, ChevronRight, Star, Eye,
   Hand, CalendarClock, UserCircle2, Lock, Clock, Flag, Mail,
-  Instagram, Smartphone, Check
+  Smartphone, Check
 } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { PageTitle } from '@/components/ui/Typography';
@@ -526,7 +526,7 @@ export default function Landing() {
       {/* ── Footer ── */}
       <footer className="border-t bg-background py-12">
         <div className="mx-auto max-w-5xl px-6">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8">
             {/* Brand + platform */}
             <div>
               <p className="text-base font-extrabold text-foreground">Wrigleyville Buddies</p>
@@ -558,20 +558,6 @@ export default function Landing() {
                   Notify me
                 </Button>
               </form>
-            </div>
-
-            {/* Social */}
-            <div>
-              <p className="text-sm font-bold text-foreground">Follow the crew</p>
-              <p className="mt-1 text-xs text-muted-foreground">Crowd shots, bar specials, and best moments of the season.</p>
-              <div className="mt-3 flex gap-2">
-                <a href="#" aria-label="Instagram" className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted">
-                  <Instagram className="h-4 w-4 text-primary" /> Instagram
-                </a>
-                <a href="#" aria-label="TikTok" className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted">
-                  <span className="text-sm"></span> TikTok
-                </a>
-              </div>
             </div>
           </div>
 

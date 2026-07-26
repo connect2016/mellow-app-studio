@@ -438,7 +438,7 @@ export default function Landing() {
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(/Dark_Wrigley_Pic.jpg)`, filter: 'brightness(1.15)' }}
+          style={{ backgroundImage: `url(/Dark_Wrigley_Pic.jpg)`, filter: 'brightness(1.4)' }}
         />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: 'rgba(5, 5, 30, 0.30)' }} />
         <div className="relative mx-auto max-w-3xl px-6">

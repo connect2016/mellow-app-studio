@@ -96,7 +96,14 @@ export default function Auth() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-6">
+    <div className="relative isolate flex min-h-screen items-center justify-center px-6">
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 bg-cover bg-center"
+        style={{ backgroundImage: "url('/auth-bg.webp')" }}
+      />
+      <div aria-hidden className="fixed inset-0 -z-10 bg-black/55" />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -105,12 +112,13 @@ export default function Auth() {
         <div className="mb-8 text-center">
           <img src={logo} alt="Wrigleyville Buddies" className="mx-auto mb-4 h-28" loading="lazy" decoding="async" />
           <h1
-            className="mb-2 text-3xl font-bold tracking-tight"
+            className="mb-2 text-3xl font-bold tracking-tight text-white drop-shadow-md"
           >
             Get in the Game
           </h1>
         </div>
 
+        <div className="rounded-2xl border border-white/10 bg-background/70 p-6 shadow-lg backdrop-blur-md">
         <div className="space-y-3">
           <Button
             variant="outline"
@@ -208,8 +216,9 @@ export default function Auth() {
               : 'Sign In'}
           </Button>
         </div>
+        </div>
 
-        <p className="mt-6 text-center" style={{ fontSize: '11px', color: 'hsl(var(--muted-foreground))' }}>
+        <p className="mt-6 text-center text-white/70" style={{ fontSize: '11px' }}>
           By continuing, you agree to our{' '}
           <a href="/terms" className="underline hover:no-underline">Terms of Service</a>
           {' '}and{' '}

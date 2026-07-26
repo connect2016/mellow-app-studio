@@ -11,7 +11,7 @@ export function FanAvatarFallback({ className }: { className?: string }) {
       aria-hidden="true"
       role="img"
       preserveAspectRatio="xMidYMid slice"
-      style={{ width: '100%', height: '100%', display: 'block' }}
+      style={{ width: '100%', aspectRatio: '1 / 1', height: 'auto', display: 'block' }}
     >
       {/* Navy background */}
       <rect width="100" height="100" fill="hsl(var(--brand-navy))" />

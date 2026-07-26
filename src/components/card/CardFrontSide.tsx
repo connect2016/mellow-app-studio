@@ -177,7 +177,7 @@ export function CardFrontSide({
                 }}
               />
             ) : (
-              <FanAvatarFallback />
+              <FanAvatarFallback className="absolute inset-0" />
             )}
           </>
         )}

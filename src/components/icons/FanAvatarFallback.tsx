@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils';
+
 /**
  * Neutral, unbranded fan silhouette used as a default avatar.
  * No team marks, no logos — just a fan in a plain ballcap on a navy backdrop.
@@ -7,11 +9,10 @@ export function FanAvatarFallback({ className }: { className?: string }) {
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={cn('block w-full h-full', className)}
       aria-hidden="true"
       role="img"
       preserveAspectRatio="xMidYMid slice"
-      style={{ width: '100%', aspectRatio: '1 / 1', height: 'auto', display: 'block' }}
     >
       {/* Navy background */}
       <rect width="100" height="100" fill="hsl(var(--brand-navy))" />

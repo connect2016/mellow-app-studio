@@ -2,13 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTeammates, useIncomingRequests, useRespondToRequest } from '@/hooks/useTeammates';
-import { TeammateDeck } from '@/components/teammates/TeammateDeck';
+import { RosterCard } from '@/components/teammates/RosterCard';
 import { RecruitPicker } from '@/components/teammates/RecruitPicker';
+import { StatusBadge } from '@/components/StatusBadge';
 import { Button } from '@/components/ui/button';
-import { Users, UserPlus, ArrowLeft, X, Check } from 'lucide-react';
+import { Users, UserPlus, ArrowLeft, X, Check, ChevronRight } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { GameStatus } from '@/types';
 
 export default function Dugout() {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ export default function Dugout() {
             THE DUGOUT
           </h1>
           <p className="text-sm text-white/85 mt-1 drop-shadow">
-            Your roster of Teammates — flip through the cards.
+            Your roster of Teammates.
           </p>
         </div>
 
@@ -94,37 +95,36 @@ export default function Dugout() {
               {incoming.map(req => {
                 const r = (requesters as any[])?.find(p => p.user_id === req.requester_id);
                 return (
-                  <li key={req.id} className="flex items-center gap-2 rounded-xl bg-[hsl(var(--brand-navy))]/5 p-2">
-                    {r?.profile_photo ? (
-                      <img src={r.profile_photo} alt="" className="h-10 w-10 rounded-full object-cover" loading="lazy" decoding="async" />
-                    ) : (
-                      <div className="h-10 w-10 rounded-full bg-[hsl(var(--brand-navy))]/20 flex items-center justify-center text-lg font-bold text-[hsl(var(--brand-navy))]">
-                        {(r?.display_name ?? 'A')?.trim().charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm text-[hsl(var(--brand-navy))] truncate">{r?.display_name ?? 'A fan'}</p>
-                      <p className="text-xs text-[hsl(var(--brand-navy))]/70">wants to join your team</p>
-                    </div>
-                    <Button
-                      size="icon"
-                      onClick={() => respond.mutate({ id: req.id, accept: true })}
-                      disabled={respond.isPending}
-                      className="h-10 w-10 rounded-full bg-[hsl(var(--brand-navy))] text-white hover:bg-[hsl(var(--brand-navy-deep))]"
-                      aria-label="Accept"
-                    >
-                      <Check className="h-5 w-5" />
-                    </Button>
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      onClick={() => respond.mutate({ id: req.id, accept: false })}
-                      disabled={respond.isPending}
-                      className="h-10 w-10 rounded-full"
-                      aria-label="Decline"
-                    >
-                      <X className="h-5 w-5" />
-                    </Button>
+                  <li key={req.id}>
+                    <RosterCard
+                      photo={r?.profile_photo}
+                      displayName={r?.display_name ?? 'A fan'}
+                      caption="wants to join your team"
+                      className="bg-[hsl(var(--brand-navy))]/5 shadow-none"
+                      right={
+                        <>
+                          <Button
+                            size="icon"
+                            onClick={() => respond.mutate({ id: req.id, accept: true })}
+                            disabled={respond.isPending}
+                            className="h-10 w-10 rounded-full bg-[hsl(var(--brand-navy))] text-white hover:bg-[hsl(var(--brand-navy-deep))]"
+                            aria-label="Accept"
+                          >
+                            <Check className="h-5 w-5" />
+                          </Button>
+                          <Button
+                            size="icon"
+                            variant="outline"
+                            onClick={() => respond.mutate({ id: req.id, accept: false })}
+                            disabled={respond.isPending}
+                            className="h-10 w-10 rounded-full"
+                            aria-label="Decline"
+                          >
+                            <X className="h-5 w-5" />
+                          </Button>
+                        </>
+                      }
+                    />
                   </li>
                 );
               })}
@@ -132,7 +132,7 @@ export default function Dugout() {
           </div>
         )}
 
-        {/* Deck */}
+        {/* Roster */}
         {isLoading ? (
           <div className="py-16 text-center text-white/80"> Loading your roster…</div>
         ) : (teammates?.length ?? 0) === 0 ? (
@@ -150,10 +150,39 @@ export default function Dugout() {
             </Button>
           </div>
         ) : (
-          <TeammateDeck
-            teammates={teammates!}
-            onCardClick={(uid) => navigate(`/profile/${uid}`)}
-          />
+          <div>
+            <div className="flex items-center gap-2 mb-2 px-1">
+              <Users className="h-5 w-5 text-white/85" />
+              <h2 className="font-bold text-white/95">
+                {teammates!.length} Teammate{teammates!.length === 1 ? '' : 's'}
+              </h2>
+            </div>
+            <ul className="space-y-2">
+              {teammates!.map(t => (
+                <li key={t.user_id}>
+                  <RosterCard
+                    photo={t.profile_photo}
+                    displayName={t.display_name}
+                    onClick={() => navigate(`/profile/${t.user_id}`)}
+                    caption={
+                      t.vibe_state ? (
+                        <span className="inline-flex items-center gap-1">
+                          <span className="relative flex h-1.5 w-1.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--brand-red))] opacity-75" />
+                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[hsl(var(--brand-red))]" />
+                          </span>
+                          {t.vibe_emoji ?? ''} {t.vibe_state}
+                        </span>
+                      ) : t.game_status && t.game_status !== 'NotSet' ? (
+                        <StatusBadge status={t.game_status as GameStatus} />
+                      ) : null
+                    }
+                    right={<ChevronRight className="h-5 w-5 text-[hsl(var(--brand-navy))]/40" />}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </div>
     </div>

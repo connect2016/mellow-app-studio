@@ -12,7 +12,6 @@ import {
 } from 'lucide-react';
 import { useGuestMode } from '@/contexts/GuestModeContext';
 import { PageTitle } from '@/components/ui/Typography';
-import wrigleyHero from '@/assets/cubs-fans-parade.webp';
 import onboardingBackground from '@/assets/welcome-bg.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
@@ -493,8 +492,8 @@ export default function Landing() {
 
       {/* ── Final CTA ── */}
       <section className="relative overflow-hidden py-20">
-        <SectionPhotoBackground desktopSrc={wrigleyHero} />
-        <div className="absolute inset-0 bg-foreground/50" />
+        <SectionPhotoBackground desktopSrc="/neon_map_hero.png" />
+        <div className="absolute inset-0 bg-black/20" />
         <div className="relative mx-auto max-w-lg px-6 text-center">
           <h2 className="mb-3 text-3xl font-bold text-white sm:text-4xl"
             style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>
@@ -524,27 +523,29 @@ export default function Landing() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t bg-background py-12">
-        <div className="mx-auto max-w-5xl px-6">
+      <footer className="relative overflow-hidden py-12">
+        <SectionPhotoBackground desktopSrc="/neon_map_hero.png" />
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative mx-auto max-w-5xl px-6">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8">
             {/* Brand + platform */}
             <div>
-              <p className="text-base font-extrabold text-foreground">Wrigleyville Buddies</p>
-              <p className="mt-1 text-sm text-muted-foreground">The Wrigleyville social app where fans find friends.</p>
-              <div className="mt-4 inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1.5">
+              <p className="text-base font-extrabold text-white">Wrigleyville Buddies</p>
+              <p className="mt-1 text-sm text-white/75">The Wrigleyville social app where fans find friends.</p>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-1.5">
                 <Smartphone className="h-3.5 w-3.5 text-primary" />
-                <span className="text-xs font-semibold text-foreground">Works in your browser — no download needed</span>
+                <span className="text-xs font-semibold text-white">Works in your browser — no download needed</span>
               </div>
               <div className="mt-3 flex gap-2">
-                <div className="rounded-lg border bg-card px-3 py-1.5 text-[10px] text-muted-foreground"> App Store · soon</div>
-                <div className="rounded-lg border bg-card px-3 py-1.5 text-[10px] text-muted-foreground"> Google Play · soon</div>
+                <div className="rounded-lg border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-[10px] text-white/75"> App Store · soon</div>
+                <div className="rounded-lg border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-[10px] text-white/75"> Google Play · soon</div>
               </div>
             </div>
 
             {/* Email capture */}
             <div>
-              <p className="text-sm font-bold text-foreground">Get game-day updates</p>
-              <p className="mt-1 text-xs text-muted-foreground">New features, opening day meetups, and the occasional rain-delay survival kit.</p>
+              <p className="text-sm font-bold text-white">Get game-day updates</p>
+              <p className="mt-1 text-xs text-white/75">New features, opening day meetups, and the occasional rain-delay survival kit.</p>
               <form className="mt-3 flex gap-2" onSubmit={(e) => e.preventDefault()}>
                 <div className="relative flex-1">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -561,11 +562,11 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="mt-10 border-t pt-6 text-center text-xs text-muted-foreground">
+          <div className="mt-10 border-t border-white/20 pt-6 text-center text-xs text-white/75">
             <div className="flex flex-wrap items-center justify-center gap-3">
-              <a href="/privacy" className="hover:text-foreground">Privacy Policy</a>
+              <a href="/privacy" className="hover:text-white">Privacy Policy</a>
               <span aria-hidden>·</span>
-              <a href="/terms" className="hover:text-foreground">Terms of Service</a>
+              <a href="/terms" className="hover:text-white">Terms of Service</a>
             </div>
             <p className="mt-2">© {new Date().getFullYear()} Wrigleyville Buddies · Made with  in Wrigleyville</p>
             <p className="mt-1 text-[11px]">Not affiliated with the Chicago Cubs or Major League Baseball.</p>

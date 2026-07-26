@@ -102,7 +102,7 @@ export default function Auth() {
         className="fixed inset-0 -z-10 bg-cover bg-center"
         style={{ backgroundImage: "url('/auth-bg.webp')" }}
       />
-      <div aria-hidden className="fixed inset-0 -z-10 bg-black/55" />
+      <div aria-hidden className="fixed inset-0 -z-10 bg-black/40" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}

@@ -48,12 +48,19 @@ export default function Dugout() {
 
   return (
     <div
-      className="min-h-screen pb-28"
+      className="relative isolate min-h-screen pb-28"
       style={{
         background:
           'linear-gradient(180deg, #001a3d 0%, hsl(var(--brand-navy)) 40%, #0a3a85 100%)',
       }}
     >
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 bg-cover bg-center"
+        style={{ backgroundImage: "url('/dugout-bg.webp')" }}
+      />
+      <div aria-hidden className="fixed inset-0 -z-10 bg-black/55" />
+
       <AppHeader />
 
       <div className="mx-auto max-w-lg px-4 pt-4">

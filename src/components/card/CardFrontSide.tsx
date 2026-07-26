@@ -7,8 +7,7 @@ import { BarChart3, Camera, Loader2 } from 'lucide-react';
 import { FanFlairBadge } from '@/components/profile/FanFlairBadge';
 import { FanTagPills } from '@/components/FanTagsPicker';
 import { FanAvatarFallback } from '@/components/icons/FanAvatarFallback';
-
-const CARD_TEMPLATE_SRC = '/Wrigleyville_Profile_Card_v2.webp';
+import cardFrame from '@/assets/card-frame-transparent.png';
 
 interface CardFrontSideProps {
   profileImage?: string | null;
@@ -67,7 +66,7 @@ export function CardFrontSide({
     >
       {/* Layer 1 — Card template image (bottom) */}
       <img
-        src={CARD_TEMPLATE_SRC}
+        src={cardFrame}
         alt=""
         aria-hidden="true"
         style={{
@@ -101,10 +100,10 @@ export function CardFrontSide({
       <div
         style={{
           position: 'absolute',
-          top: '42.8%',
-          left: '50%',
+          top: '42.5%',
+          left: '48.7%',
           transform: 'translate(-50%, -50%)',
-          width: '43%',
+          width: '45%',
           aspectRatio: '1 / 1',
           height: 'auto',
           borderRadius: '50%',
@@ -221,8 +220,8 @@ export function CardFrontSide({
         <p
           style={{
             position: 'absolute',
-            top: 'calc(42.8% + 22%)',
-            left: '50%',
+            top: 'calc(42.5% + 22%)',
+            left: '48.7%',
             transform: 'translate(-50%, 8px)',
             zIndex: 4,
             fontSize: 11,

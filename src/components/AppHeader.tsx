@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { Compass, Map, CalendarDays, User, Bell, Trophy } from 'lucide-react';
+import { CalendarDays, User, Bell, Trophy } from 'lucide-react';
 import wrigleyvilleLogo from '@/assets/wrigleyville-logo.webp';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
+import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
@@ -11,13 +12,6 @@ import { useFanMapPins } from '@/hooks/useFanMapPins';
 import { useBarCheckins } from '@/hooks/useBarCheckins';
 import { NotificationDrawer } from '@/components/notifications/NotificationDrawer';
 import { useUnreadCount } from '@/hooks/useNotifications';
-
-const navItems = [
-  { to: '/discover-fans', icon: Compass, label: 'Discover' },
-  { to: '/bar-map', icon: Map, label: 'Map' },
-  { to: '/meetups', icon: CalendarDays, label: 'Meetups' },
-  { to: '/profile', icon: User, label: 'Profile' },
-];
 
 function useNotificationCounts() {
   const { user } = useAuth();
@@ -70,6 +64,7 @@ function useNotificationCounts() {
 
 export function AppHeader() {
   const location = useLocation();
+  const { data: profile } = useProfile();
   const { data: badges } = useNotificationCounts();
   const [notifOpen, setNotifOpen] = useState(false);
   const unreadNotifs = useUnreadCount();
@@ -167,6 +162,23 @@ export function AppHeader() {
                     </span>
                   )}
                 </button>
+                <Link
+                  to="/profile"
+                  aria-label="Your profile"
+                  className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-white/15 text-white shadow-sm ring-1 ring-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/25 active:scale-95"
+                >
+                  {profile?.profile_photo ? (
+                    <img
+                      src={profile.profile_photo}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <User className="h-[18px] w-[18px]" strokeWidth={2.25} />
+                  )}
+                </Link>
               </>
             )}
           </div>

@@ -387,6 +387,16 @@ export default function Landing() {
           className="pointer-events-none absolute inset-0"
           style={{ background: 'rgba(5, 5, 30, 0.60)', zIndex: 0 }}
         />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-24"
+          style={{ background: 'linear-gradient(to bottom, rgba(5,5,30,0.85), rgba(5,5,30,0))' }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+          style={{ background: 'linear-gradient(to top, rgba(5,5,30,0.85), rgba(5,5,30,0))' }}
+        />
         <div className="relative z-[1] mx-auto max-w-6xl px-6">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase" style={{ color: 'rgba(255,255,255,0.75)', letterSpacing: '0.12em' }}>How it works</p>
@@ -454,6 +464,16 @@ export default function Landing() {
           style={{ backgroundImage: `url(/bleacher.view.webp)` }}
         />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: 'rgba(5, 5, 30, 0.45)' }} />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-24"
+          style={{ background: 'linear-gradient(to bottom, rgba(5,5,30,0.85), rgba(5,5,30,0))' }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+          style={{ background: 'linear-gradient(to top, rgba(5,5,30,0.85), rgba(5,5,30,0))' }}
+        />
         <div className="relative mx-auto max-w-3xl px-6">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: '#FFFFFF' }}>FAQ</p>
@@ -512,6 +532,16 @@ export default function Landing() {
           style={{ backgroundImage: `url(/neon-baseball-bg.jpg)` }}
         />
         <div className="absolute inset-0 bg-black/15" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-24"
+          style={{ background: 'linear-gradient(to bottom, rgba(5,5,30,0.85), rgba(5,5,30,0))' }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+          style={{ background: 'linear-gradient(to top, rgba(5,5,30,0.85), rgba(5,5,30,0))' }}
+        />
         <div className="relative mx-auto max-w-lg px-6 text-center">
           <h2 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl"
             style={{ color: '#FFFFFF', textShadow: '0 2px 6px rgba(0,0,0,0.5)' }}>

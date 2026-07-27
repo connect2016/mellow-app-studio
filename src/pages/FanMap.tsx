@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { MapContainer, TileLayer, useMap, Marker, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { SEOMeta } from '@/components/SEOMeta';
 import { AppHeader } from '@/components/AppHeader';
 import { WrigleyRainbowBackground } from '@/components/WrigleyRainbowBackground';
@@ -10,10 +10,15 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { NearbyFansSheet } from '@/components/map/NearbyFansSheet';
 import { useFanMapPins, deriveGate, type GateFilter, GATE_OPTIONS } from '@/hooks/useFanMapPins';
+import { useCrowdEnergy } from '@/hooks/useCrowdEnergy';
+import { EnergyZoneLayers } from '@/components/map/EnergyZoneLayers';
 import { BuyBeerButton } from '@/components/beer/BuyBeerButton';
 import { supabase } from '@/integrations/supabase/client';
 import type { MapFan } from '@/components/map/useMapClusters';
 import { PARTICIPATING_BARS } from '@/lib/wrigleyville-bar-coords';
+import { cn } from '@/lib/utils';
+
+type MapMode = 'fans' | 'energy';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 
@@ -100,9 +105,16 @@ function barPinIcon() {
 export default function FanMap() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { fans } = useFanMapPins();
+  const { data: energyData } = useCrowdEnergy();
   const [selectedGate, setSelectedGate] = useState<GateFilter | null>(null);
   const [popupFan, setPopupFan] = useState<MapFan | null>(null);
+
+  const initialMode = searchParams.get('mode');
+  const [mapMode, setMapMode] = useState<MapMode>(
+    initialMode === 'energy' ? 'energy' : 'fans'
+  );
 
   // Decorate fans with derived gate
   const fansWithGate = useMemo(
@@ -163,6 +175,26 @@ export default function FanMap() {
       />
       <AppHeader />
 
+      {/* Fans / Energy mode toggle */}
+      <div className="fixed top-16 left-1/2 -translate-x-1/2 z-20 flex rounded-full border border-border bg-background/95 backdrop-blur-sm p-1 shadow-lg">
+        {(['fans', 'energy'] as const).map((mode) => (
+          <button
+            key={mode}
+            type="button"
+            onClick={() => setMapMode(mode)}
+            className={cn(
+              'min-h-[44px] rounded-full px-5 text-sm font-bold capitalize transition-colors',
+              mapMode === mode
+                ? 'text-white'
+                : 'text-muted-foreground hover:text-foreground'
+            )}
+            style={mapMode === mode ? { backgroundColor: 'hsl(var(--brand-navy))' } : undefined}
+          >
+            {mode === 'fans' ? 'Fans' : 'Energy'}
+          </button>
+        ))}
+      </div>
+
       {/* Full-bleed map under header */}
       <div className="fixed inset-0 top-14 bottom-0 z-0">
         <MapContainer
@@ -176,34 +208,40 @@ export default function FanMap() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; OpenStreetMap contributors'
           />
-          <FitToFans positions={allPositions} />
-          {fansWithGate.map((fan) => {
-            const dimmed = !!selectedGate && fan.gate !== selectedGate;
-            return (
-              <Marker
-                key={fan.id}
-                position={[fan.lat, fan.lng]}
-                icon={fanPinIcon(fan, dimmed)}
-                eventHandlers={{ click: () => setPopupFan(fan) }}
-              />
-            );
-          })}
-          {PARTICIPATING_BARS.map((bar) => (
-            <Marker
-              key={bar.slug}
-              position={[bar.lat, bar.lng]}
-              icon={barPinIcon()}
-            >
-              <Tooltip direction="top" offset={[0, -14]}>
-                {bar.name}
-              </Tooltip>
-            </Marker>
-          ))}
+          {mapMode === 'fans' ? (
+            <>
+              <FitToFans positions={allPositions} />
+              {fansWithGate.map((fan) => {
+                const dimmed = !!selectedGate && fan.gate !== selectedGate;
+                return (
+                  <Marker
+                    key={fan.id}
+                    position={[fan.lat, fan.lng]}
+                    icon={fanPinIcon(fan, dimmed)}
+                    eventHandlers={{ click: () => setPopupFan(fan) }}
+                  />
+                );
+              })}
+              {PARTICIPATING_BARS.map((bar) => (
+                <Marker
+                  key={bar.slug}
+                  position={[bar.lat, bar.lng]}
+                  icon={barPinIcon()}
+                >
+                  <Tooltip direction="top" offset={[0, -14]}>
+                    {bar.name}
+                  </Tooltip>
+                </Marker>
+              ))}
+            </>
+          ) : (
+            <EnergyZoneLayers zones={energyData?.zones ?? []} />
+          )}
         </MapContainer>
       </div>
 
       {/* Mini popup card for tapped pin */}
-      {popupFan && (
+      {mapMode === 'fans' && popupFan && (
         <>
           <div
             className="fixed inset-0 z-30 bg-black/30"
@@ -252,14 +290,16 @@ export default function FanMap() {
       )}
 
       {/* Nearby fans bottom sheet */}
-      <NearbyFansSheet
-        fans={filteredFans}
-        totalCount={fansWithGate.length}
-        selectedGate={selectedGate}
-        onSelectGate={setSelectedGate}
-        gateCounts={gateCounts}
-        onSayHi={handleSayHi}
-      />
+      {mapMode === 'fans' && (
+        <NearbyFansSheet
+          fans={filteredFans}
+          totalCount={fansWithGate.length}
+          selectedGate={selectedGate}
+          onSelectGate={setSelectedGate}
+          gateCounts={gateCounts}
+          onSayHi={handleSayHi}
+        />
+      )}
     </div>
     </WrigleyRainbowBackground>
   );

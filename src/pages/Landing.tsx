@@ -492,14 +492,18 @@ export default function Landing() {
 
       {/* ── Final CTA ── */}
       <section className="relative overflow-hidden py-20">
-        <SectionPhotoBackground desktopSrc="/neon_map_hero.png" />
-        <div className="absolute inset-0 bg-black/20" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-bottom bg-no-repeat"
+          style={{ backgroundImage: `url(/neon-baseball-bg.jpg)` }}
+        />
+        <div className="absolute inset-0 bg-black/15" />
         <div className="relative mx-auto max-w-lg px-6 text-center">
-          <h2 className="mb-3 text-3xl font-bold text-white sm:text-4xl"
-            style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>
+          <h2 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl"
+            style={{ color: '#FFFFFF', textShadow: '0 2px 6px rgba(0,0,0,0.5)' }}>
             Be a founding fan.
           </h2>
-          <p className="mb-8 text-white/90" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}>
+          <p className="mb-8" style={{ color: 'rgba(255,255,255,0.85)', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>
             Wrigleyville Buddies is brand new for the 2026 season. The earliest fans shape the crew — and get founding member status.
           </p>
           <div className="flex flex-col items-center gap-3">
@@ -523,9 +527,7 @@ export default function Landing() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="relative overflow-hidden py-12">
-        <SectionPhotoBackground desktopSrc="/neon_map_hero.png" />
-        <div className="absolute inset-0 bg-black/20" />
+      <footer className="relative overflow-hidden bg-black py-12">
         <div className="relative mx-auto max-w-5xl px-6">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8">
             {/* Brand + platform */}

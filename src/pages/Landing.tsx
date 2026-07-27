@@ -381,7 +381,7 @@ export default function Landing() {
 
       {/* ── Three-Step Onboarding ── */}
       <section className="relative overflow-hidden py-16 sm:py-20">
-        <SectionPhotoBackground desktopSrc="/neon-baseball-bg-v1.png" />
+        <SectionPhotoBackground desktopSrc="/neon-baseball-bg-v1.webp" />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"

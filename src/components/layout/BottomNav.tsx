@@ -1,11 +1,10 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { Compass, Map, CalendarDays, MessageCircle, User, type LucideIcon } from 'lucide-react';
+import { Compass, Map, MessageCircle, type LucideIcon } from 'lucide-react';
 
 const HIDE_NAV_ROUTES = ['/quick-start', '/onboarding', '/auth', '/login', '/signup'];
 import { cn } from '@/lib/utils';
-import { useProfileCompletion } from '@/hooks/useProfileCompletion';
 import { useUnreadCount } from '@/hooks/useMessages';
-import { ProfileCompletionRing } from './ProfileCompletionRing';
+import { useAuth } from '@/contexts/AuthContext';
 import { HomePlate } from '@/components/icons/HomePlate';
 
 type Tab = {
@@ -13,22 +12,19 @@ type Tab = {
   label: string;
   icon: LucideIcon;
   showBadge?: 'unread';
-  showProgress?: boolean;
 };
-
-const TABS: Tab[] = [
-  { to: '/', label: 'Home', icon: HomePlate },
-  { to: '/discover-fans', label: 'Find Fans', icon: Compass },
-  { to: '/bar-map', label: 'Map', icon: Map },
-  { to: '/meetups', label: 'Meetups', icon: CalendarDays },
-  { to: '/messages', label: 'Messages', icon: MessageCircle, showBadge: 'unread' },
-  { to: '/profile', label: 'Profile', icon: User, showProgress: true },
-];
 
 export function BottomNav() {
   const location = useLocation();
-  const { percent } = useProfileCompletion();
+  const { user } = useAuth();
   const { data: unread = 0 } = useUnreadCount();
+
+  const TABS: Tab[] = [
+    { to: user ? '/game-day' : '/', label: 'Home', icon: HomePlate },
+    { to: '/discover-fans', label: 'Find Fans', icon: Compass },
+    { to: '/bar-map', label: 'Map', icon: Map },
+    { to: '/messages', label: 'Messages', icon: MessageCircle, showBadge: 'unread' },
+  ];
 
   if (HIDE_NAV_ROUTES.some((r) => location.pathname.startsWith(r))) {
     return null;
@@ -51,7 +47,7 @@ export function BottomNav() {
         paddingBottom: 'max(env(safe-area-inset-bottom), 0px)',
       }}
     >
-      {TABS.map(({ to, label, icon: Icon, showBadge, showProgress }) => {
+      {TABS.map(({ to, label, icon: Icon, showBadge }) => {
         const badgeValue = showBadge === 'unread' ? unread : 0;
         const badgeColor = 'hsl(var(--brand-red))';
         const badgeText = '#FFFFFF';
@@ -104,7 +100,6 @@ export function BottomNav() {
                       {badgeValue > 99 ? '99+' : badgeValue}
                     </span>
                   )}
-                  {showProgress && <ProfileCompletionRing percent={percent} />}
                 </span>
                 <span
                   className="text-[11px]"

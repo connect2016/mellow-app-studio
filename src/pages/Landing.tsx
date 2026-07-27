@@ -15,6 +15,7 @@ import { PageTitle } from '@/components/ui/Typography';
 import onboardingBackground from '@/assets/welcome-bg.webp';
 import HeroVideo from '@/components/landing/HeroVideo';
 import { ConceptIcon } from '@/components/icons/ConceptIcon';
+import { supabase } from '@/integrations/supabase/client';
 
 // Static stats removed — Wrigleyville Buddies is launching for the 2026 season,
 // so no fabricated counts go on the landing page.
@@ -299,10 +300,23 @@ function SectionPhotoBackground({ desktopSrc, mobileSrc }: { desktopSrc: string;
 export default function Landing() {
   const navigate = useNavigate();
   const { enterGuestMode } = useGuestMode();
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleBrowseAsGuest = () => {
     enterGuestMode();
     navigate('/vibe');
+  };
+
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = email.trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(trimmed)) { setStatus('error'); return; }
+    setStatus('loading');
+    const { error } = await supabase.from('waitlist').insert({ email: trimmed, source: 'landing_footer' });
+    if (error && error.code !== '23505') { setStatus('error'); return; }
+    setStatus('success');
+    setEmail('');
   };
 
   const trackQuickAction = (action: string, to: string) => {
@@ -548,19 +562,27 @@ export default function Landing() {
             <div>
               <p className="text-sm font-bold text-white">Get game-day updates</p>
               <p className="mt-1 text-xs text-white/75">New features, opening day meetups, and the occasional rain-delay survival kit.</p>
-              <form className="mt-3 flex gap-2" onSubmit={(e) => e.preventDefault()}>
+              <form className="mt-3 flex gap-2" onSubmit={handleWaitlistSubmit}>
                 <div className="relative flex-1">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <input
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@wrigley.fan"
                     className="w-full rounded-full border bg-card pl-9 pr-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
-                <Button type="submit" size="sm" className="rounded-full bg-primary font-bold hover:bg-primary/90">
-                  Notify me
+                <Button type="submit" size="sm" disabled={status === 'loading'} className="rounded-full bg-primary font-bold hover:bg-primary/90">
+                  {status === 'loading' ? 'Sending…' : 'Notify me'}
                 </Button>
               </form>
+              {status === 'success' && (
+                <p className="mt-2 text-xs text-white/75">You're on the list — see you opening day!</p>
+              )}
+              {status === 'error' && (
+                <p className="mt-2 text-xs text-white/75">Hmm, try that again?</p>
+              )}
             </div>
           </div>
 

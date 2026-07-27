@@ -27,22 +27,59 @@ function FitToFans({ positions }: { positions: [number, number][] }) {
   return null;
 }
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function fanPinIcon(fan: MapFan, dimmed: boolean) {
   const size = 24;
   const hasPhoto = !!fan.photo;
   const opacity = dimmed ? 0.3 : 1;
+  const note = typeof fan.statusNote === 'string' ? fan.statusNote.trim() : '';
+  const hasNote = note.length > 0;
+
+  const avatarHtml = `
+    <div style="opacity:${opacity};width:${size}px;height:${size}px;border-radius:50%;border:2px solid #CC3433;background:#CC3433;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 0 8px 2px rgba(204,52,51,0.9),0 0 4px 1px rgba(204,52,51,0.7)">
+      ${hasPhoto
+        ? `<img src="${fan.photo}" style="width:100%;height:100%;object-fit:cover" loading="lazy" decoding="async" />`
+        : `<span style="color:white;font-size:11px;font-weight:700">${(fan.name?.charAt(0) ?? '?').toUpperCase()}</span>`
+      }
+    </div>
+  `;
+
+  if (!hasNote) {
+    return L.divIcon({
+      html: `<div style="width:${size}px;height:${size}px;">${avatarHtml}</div>`,
+      className: 'fan-pin',
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+    });
+  }
+
+  // Extra headroom above the avatar for the speech bubble + its tail.
+  const bubbleMaxWidth = 140;
+  const topExtra = 34;
+  const containerWidth = bubbleMaxWidth;
+  const containerHeight = size + topExtra;
+
   return L.divIcon({
     html: `
-      <div style="opacity:${opacity};width:${size}px;height:${size}px;border-radius:50%;border:2px solid #CC3433;background:#CC3433;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 0 8px 2px rgba(204,52,51,0.9),0 0 4px 1px rgba(204,52,51,0.7)">
-        ${hasPhoto
-          ? `<img src="${fan.photo}" style="width:100%;height:100%;object-fit:cover" loading="lazy" decoding="async" />`
-          : `<span style="color:white;font-size:11px;font-weight:700">${(fan.name?.charAt(0) ?? '?').toUpperCase()}</span>`
-        }
+      <div style="position:relative;width:${containerWidth}px;height:${containerHeight}px;">
+        <div style="pointer-events:none;position:absolute;top:0;left:50%;transform:translateX(-50%);opacity:${opacity};">
+          <div style="background:#ffffff;color:#0E3386;font-size:11px;font-weight:600;padding:4px 8px;border-radius:10px;max-width:${bubbleMaxWidth}px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 6px rgba(0,0,0,0.25);">${escapeHtml(note)}</div>
+          <div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #ffffff;"></div>
+        </div>
+        <div style="position:absolute;top:${topExtra}px;left:50%;transform:translateX(-50%);">${avatarHtml}</div>
       </div>
     `,
     className: 'fan-pin',
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size / 2],
+    iconSize: [containerWidth, containerHeight],
+    iconAnchor: [containerWidth / 2, topExtra + size / 2],
   });
 }
 
@@ -184,6 +221,9 @@ export default function FanMap() {
                 <p className="text-xs text-muted-foreground truncate">
                   {(popupFan as any).gate ?? popupFan.locationLabel}
                 </p>
+                {popupFan.statusNote && (
+                  <p className="text-xs text-muted-foreground mt-0.5">{popupFan.statusNote}</p>
+                )}
               </div>
             </div>
             <div className="mt-3 flex gap-2">

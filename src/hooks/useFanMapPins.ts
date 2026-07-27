@@ -65,6 +65,7 @@ export function useFanMapPins() {
             persona: null,
             isRecentlyActive: true,
             intent: [],
+            statusNote: null,
           }));
         }
       }
@@ -97,6 +98,7 @@ export function useFanMapPins() {
               ? Date.now() - new Date(f.fan_location_last_set_at).getTime() < 30 * 60_000
               : false,
             intent: (f.fan_intent as string[]) ?? [],
+            statusNote: f.fan_status_note ?? null,
             // Carry the raw section string so we can derive gate later
             _section: f.fan_wrigley_section,
           } as MapFan & { _section: string | null };

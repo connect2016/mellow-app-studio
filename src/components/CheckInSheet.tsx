@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
 import { toast } from 'sonner';
-import { MapPin, Beer, Hash, X, Building2 } from 'lucide-react';
+import { MapPin, Beer, Hash, X, Building2, MessageCircle } from 'lucide-react';
 import { RooftopPicker } from '@/components/rooftops/RooftopPicker';
 
 const BAR_CHIPS = [
@@ -18,6 +18,14 @@ const BAR_CHIPS = [
   "Bernie's Tap",
   'Nisei Lounge',
 ];
+
+// Short first-pass list, not comprehensive.
+const BLOCKED_WORDS = ['fuck', 'shit', 'bitch', 'cunt', 'asshole', 'nigger', 'fag', 'faggot', 'whore', 'slut'];
+
+function containsBlockedWord(text: string): boolean {
+  const words = text.toLowerCase().split(/[^a-z0-9]+/);
+  return BLOCKED_WORDS.some((w) => words.includes(w));
+}
 
 interface Props {
   open: boolean;
@@ -32,6 +40,7 @@ export function CheckInSheet({ open, onClose }: Props) {
   const [otherOpen, setOtherOpen] = useState(false);
   const [otherBar, setOtherBar] = useState('');
   const [sectionInput, setSectionInput] = useState('');
+  const [noteInput, setNoteInput] = useState('');
 
   // Detect home game in active window (live, or final within last 3h)
   const isHomeGame = game?.homeAway === 'home';
@@ -45,12 +54,15 @@ export function CheckInSheet({ open, onClose }: Props) {
   const currentBar = (profile as any)?.checkin_bar as string | null;
   const currentRooftop = (profile as any)?.checkin_rooftop as string | null;
   const currentSection = (profile as any)?.checkin_section as string | null;
+  const currentNote = (profile as any)?.checkin_status_note as string | null;
   const expiresAt = (profile as any)?.checkin_expires_at as string | null;
   const isSectionExpired = !expiresAt || new Date(expiresAt) < new Date();
   const liveSection = isSectionExpired ? null : currentSection;
+  const liveNote = isSectionExpired ? null : currentNote;
 
   useEffect(() => {
     setSectionInput(liveSection ?? '');
+    setNoteInput(liveNote ?? '');
     if (currentBar && !BAR_CHIPS.includes(currentBar)) {
       setOtherBar(currentBar);
       setOtherOpen(true);
@@ -85,6 +97,30 @@ export function CheckInSheet({ open, onClose }: Props) {
     });
   };
 
+  const saveNote = async () => {
+    const trimmed = noteInput.trim().slice(0, 60);
+    if (!trimmed) return;
+    if (containsBlockedWord(trimmed)) {
+      toast.error("Let's keep it friendly 🙂");
+      return;
+    }
+    const expires = new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString();
+    await update.mutateAsync({
+      checkin_status_note: trimmed,
+      checkin_expires_at: expires,
+      checkin_updated_at: new Date().toISOString(),
+    });
+    toast.success('Status set — visible on the map for 3h');
+  };
+
+  const clearNote = async () => {
+    setNoteInput('');
+    await update.mutateAsync({
+      checkin_status_note: null,
+      checkin_updated_at: new Date().toISOString(),
+    });
+  };
+
   return (
     <Sheet open={open} onOpenChange={(o) => !o && onClose()}>
       <SheetContent side="bottom" className="max-h-[92vh] overflow-y-auto rounded-t-2xl">
@@ -107,6 +143,7 @@ export function CheckInSheet({ open, onClose }: Props) {
           }}
         >
           Your bar and section are only visible to fans you've matched with or sent a Hi-Five to. Your exact location is never shared.
+          Your status note is different — it's <strong>public</strong> and appears on the live map to everyone, including guests browsing without an account.
         </div>
 
         {/* Section 1 — Zone */}
@@ -280,6 +317,53 @@ export function CheckInSheet({ open, onClose }: Props) {
             </p>
           </section>
         )}
+
+        {/* Section 4 — Status note */}
+        <section className="mb-5 rounded-xl border border-border bg-card p-3">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <MessageCircle className="h-4 w-4" style={{ color: 'hsl(var(--brand-navy))' }} />
+              <h3 className="text-sm font-extrabold" style={{ color: 'hsl(var(--foreground))' }}>
+                What's your vibe right now?
+              </h3>
+            </div>
+            {liveNote && (
+              <button
+                onClick={clearNote}
+                className="text-xs font-bold flex items-center gap-1"
+                style={{ color: 'hsl(var(--brand-red))' }}
+              >
+                <X className="h-3 w-3" /> Clear
+              </button>
+            )}
+          </div>
+          <div className="flex gap-2 items-center">
+            <Input
+              value={noteInput}
+              onChange={(e) => setNoteInput(e.target.value.slice(0, 60))}
+              placeholder="Pre-game beers! Where you at? 🍺"
+              maxLength={60}
+            />
+            <Button
+              onClick={saveNote}
+              disabled={!noteInput.trim()}
+              style={{ backgroundColor: 'hsl(var(--brand-navy))', color: 'white' }}
+            >
+              Set
+            </Button>
+          </div>
+          <p className="mt-1 text-[11px] text-right" style={{ color: 'hsl(var(--muted-foreground))' }}>
+            {noteInput.length}/60
+          </p>
+          <p className="mt-2 text-[11px]" style={{ color: 'hsl(var(--muted-foreground))' }}>
+            Public on the live map for 3 hours — visible to everyone, including guests.
+          </p>
+          {liveNote && expiresAt && (
+            <p className="mt-1 text-[11px] font-semibold" style={{ color: 'hsl(var(--brand-navy))' }}>
+              Currently visible: "{liveNote}" (until {new Date(expiresAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })})
+            </p>
+          )}
+        </section>
 
         <Button
           onClick={onClose}

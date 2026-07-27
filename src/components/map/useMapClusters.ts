@@ -49,6 +49,7 @@ export interface MapFan {
   persona: string | null;
   isRecentlyActive: boolean;
   intent: string[];
+  statusNote: string | null;
 }
 
 function clusterFans(fans: MapFan[]): MapCluster[] {
@@ -146,6 +147,7 @@ export function useMapClusters(
           persona: f.fan_gameday_persona ?? null,
           isRecentlyActive,
           intent: (f.fan_intent as string[]) ?? [],
+          statusNote: f.fan_status_note ?? null,
         };
       }).filter(Boolean) as MapFan[];
     },

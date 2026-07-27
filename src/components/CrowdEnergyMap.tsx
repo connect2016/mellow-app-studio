@@ -2,17 +2,61 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useNavigate } from 'react-router-dom';
 import { useCrowdEnergy, type EnergyType } from '@/hooks/useCrowdEnergy';
-import { Zap } from 'lucide-react';
+import { Zap, ChevronRight } from 'lucide-react';
 import { ENERGY_CONFIG, EnergyZoneLayers } from '@/components/map/EnergyZoneLayers';
 
 const WRIGLEY_CENTER: [number, number] = [41.9484, -87.6553];
 
-export function CrowdEnergyMap() {
+export function CrowdEnergyMap({ compact = false }: { compact?: boolean }) {
+  const navigate = useNavigate();
   const { data, isLoading } = useCrowdEnergy();
   const [selectedEnergy, setSelectedEnergy] = useState<EnergyType | null>(null);
 
   const zones = (data?.zones ?? []).filter(z => !selectedEnergy || z.energy === selectedEnergy);
+
+  if (compact) {
+    const topZone = [...(data?.zones ?? [])].sort((a, b) => b.intensity - a.intensity)[0];
+    const avgEnergy = data ? Math.round(data.totalEnergy / Math.max(data.zones.length, 1)) : 0;
+
+    return (
+      <motion.button
+        type="button"
+        onClick={() => navigate('/bar-map?mode=energy')}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full text-left rounded-2xl border border-border bg-card overflow-hidden shadow-sm p-4 flex items-center justify-between gap-3"
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+          </span>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h3 className="text-sm font-bold text-foreground">Crowd Energy</h3>
+              {data && (
+                <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full shrink-0">
+                  {data.zones.length} zones · {avgEnergy}% avg
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-muted-foreground truncate mt-0.5">
+              {isLoading
+                ? 'Scanning crowd energy...'
+                : topZone
+                  ? `${topZone.topEmoji} ${topZone.name} is ${ENERGY_CONFIG[topZone.energy].label.toLowerCase()} right now`
+                  : 'No hot zones yet'}
+            </p>
+          </div>
+        </div>
+        <span className="shrink-0 flex items-center gap-1 text-xs font-bold text-primary whitespace-nowrap">
+          See the live map <ChevronRight className="h-3.5 w-3.5" />
+        </span>
+      </motion.button>
+    );
+  }
 
   return (
     <motion.div

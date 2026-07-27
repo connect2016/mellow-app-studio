@@ -121,7 +121,7 @@ export default function GameDay() {
               <GamePhaseTimeline />
               <LiveMomentsPanel />
               <FlashMeetupsPanel />
-              <CrowdEnergyMap />
+              <CrowdEnergyMap compact />
             </>
           )}
         </main>

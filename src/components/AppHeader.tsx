@@ -101,9 +101,9 @@ export function AppHeader() {
             :root { --app-header-h: 56px; --app-header-pad: 12px; }
           }
           .app-header-logo {
-            height: 40px;
+            height: 52px;
             width: auto;
-            max-width: 180px;
+            max-width: 220px;
             object-fit: contain;
             display: block;
             flex-shrink: 0;
@@ -111,7 +111,7 @@ export function AppHeader() {
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
           }
           @media (max-width: 640px) {
-            .app-header-logo { height: 36px; max-width: 150px; }
+            .app-header-logo { height: 46px; max-width: 190px; }
           }
         `}</style>
         <div
@@ -122,7 +122,7 @@ export function AppHeader() {
           }}
         >
           <Link
-            to="/discover-fans"
+            to="/"
             aria-label="Wrigleyville Buddies home"
             className="flex min-w-0 items-center"
             style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}

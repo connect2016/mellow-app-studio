@@ -20,7 +20,7 @@ export function BottomNav() {
   const { data: unread = 0 } = useUnreadCount();
 
   const TABS: Tab[] = [
-    { to: user ? '/game-day' : '/', label: 'Home', icon: HomePlate },
+    { to: user ? '/game-day' : '/', label: 'Gameday', icon: HomePlate },
     { to: '/discover-fans', label: 'Find Fans', icon: Compass },
     { to: '/bar-map', label: 'Map', icon: Map },
     { to: '/messages', label: 'Messages', icon: MessageCircle, showBadge: 'unread' },

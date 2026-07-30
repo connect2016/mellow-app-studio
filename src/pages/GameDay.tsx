@@ -90,22 +90,34 @@ export default function GameDay() {
         </div>
 
         <main className="mx-auto max-w-lg px-4 pt-4 space-y-4">
-          <SafetyTimerBanner />
+          <div className="relative space-y-4">
+            {/* Navy gradient scrim behind the hero title, above the background photo */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 w-full"
+              style={{
+                height: '100%',
+                background: 'linear-gradient(to bottom, hsl(var(--brand-navy) / 0.88) 0%, hsl(var(--brand-navy) / 0.60) 35%, transparent 70%)',
+              }}
+            />
 
-          {/* Editorial header */}
-          <motion.header
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="pt-1"
-          >
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-amber-300 drop-shadow-md">
-              <ConceptIcon name={isLive ? 'fire' : isOffDay ? 'moon' : 'baseball'} className="h-3 w-3" />
-              {isLive ? 'Live · The Friendly Confines' : isOffDay ? 'Off-day' : 'Game Day'}
-            </div>
-            <h1 className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-white page-title-outline">
-              Game Day Mode
-            </h1>
-          </motion.header>
+            <SafetyTimerBanner />
+
+            {/* Editorial header */}
+            <motion.header
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="pt-1"
+            >
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-amber-300 drop-shadow-md">
+                <ConceptIcon name={isLive ? 'fire' : isOffDay ? 'moon' : 'baseball'} className="h-3 w-3" />
+                {isLive ? 'Live · The Friendly Confines' : isOffDay ? 'Off-day' : 'Game Day'}
+              </div>
+              <h1 className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-white page-title-outline">
+                Game Day Mode
+              </h1>
+            </motion.header>
+          </div>
 
           {isOffDay ? (
             <OffDayState />

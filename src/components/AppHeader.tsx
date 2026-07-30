@@ -111,7 +111,7 @@ export function AppHeader() {
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
           }
           @media (max-width: 640px) {
-            .app-header-logo { height: 46px; max-width: 190px; }
+            .app-header-logo { height: 64px; max-width: 240px; }
           }
         `}</style>
         <div

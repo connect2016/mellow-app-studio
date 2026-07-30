@@ -138,14 +138,14 @@ export function AppHeader() {
                 <Link
                   to="/schedule"
                   aria-label="Game schedule"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white shadow-sm ring-1 ring-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/25 active:scale-95"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[hsl(var(--brand-navy))] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[hsl(var(--brand-navy-light))] active:scale-95"
                 >
                   <CalendarDays className="h-[18px] w-[18px]" strokeWidth={2.25} />
                 </Link>
                 <Link
                   to="/leaderboard"
                   aria-label="Leaderboard"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white shadow-sm ring-1 ring-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/25 active:scale-95"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[hsl(var(--brand-navy))] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[hsl(var(--brand-navy-light))] active:scale-95"
                 >
                   <Trophy className="h-[18px] w-[18px]" strokeWidth={2.25} />
                 </Link>
@@ -153,7 +153,7 @@ export function AppHeader() {
                   type="button"
                   onClick={() => setNotifOpen(true)}
                   aria-label={unreadNotifs > 0 ? `View notifications (${unreadNotifs} unread)` : 'View notifications'}
-                  className="relative flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white shadow-sm ring-1 ring-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/25 active:scale-95"
+                  className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[hsl(var(--brand-navy))] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[hsl(var(--brand-navy-light))] active:scale-95"
                 >
                   <Bell className="h-[18px] w-[18px]" strokeWidth={2.25} />
                   {unreadNotifs > 0 && (
@@ -165,7 +165,7 @@ export function AppHeader() {
                 <Link
                   to="/profile"
                   aria-label="Your profile"
-                  className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-white/15 text-white shadow-sm ring-1 ring-white/20 backdrop-blur-sm transition-all duration-200 hover:bg-white/25 active:scale-95"
+                  className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-[hsl(var(--brand-navy))] text-white shadow-sm ring-1 ring-white/20 transition-all duration-200 hover:bg-[hsl(var(--brand-navy-light))] active:scale-95"
                 >
                   {profile?.profile_photo ? (
                     <img

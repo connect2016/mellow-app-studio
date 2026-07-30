@@ -87,8 +87,8 @@ export function BottomNav() {
                     className="h-5 w-5"
                     aria-hidden="true"
                     style={{
-                      color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.55)',
-                      stroke: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.55)',
+                      color: isActive ? 'hsl(var(--brand-red))' : '#FFFFFF',
+                      stroke: isActive ? 'hsl(var(--brand-red))' : '#FFFFFF',
                     }}
                   />
                   {showBadge && badgeValue > 0 && (

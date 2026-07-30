@@ -84,7 +84,7 @@ export default function Schedule() {
 
   return (
     <div className="relative isolate min-h-screen" style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom, 0px))' }}>
-      <div aria-hidden className="fixed inset-0 -z-10 bg-[url(/please-win-bg.jpg)] bg-[length:512px_auto] lg:bg-[length:50%_auto] bg-repeat" />
+      <div aria-hidden className="fixed inset-0 -z-10 bg-[url(/please-win-bg.jpg)] bg-cover bg-center bg-no-repeat" />
       <SEOMeta
         title="Cubs 2026 Schedule — Wrigleyville Buddies"
         description="Cubs scoreboard, recent results, and upcoming games. Plan meetups for home games at Wrigley Field."

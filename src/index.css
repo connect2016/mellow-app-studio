@@ -348,7 +348,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
     --background: 40 12% 90%;
     --foreground: 160 52% 12%;
 
-    --card: 40 15% 88%;
+    --card: 0 0% 100%;
     --card-foreground: 160 52% 15%;
 
     --popover: 40 15% 88%;

@@ -12,7 +12,7 @@ export function ScoreWithFriendCTA() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent"
+      className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-primary"
     >
       <div aria-hidden className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-amber-400/15 blur-3xl" />
       <div className="relative flex items-start gap-3 p-4">
@@ -39,7 +39,7 @@ export function ScoreWithFriendCTA() {
           </p>
           <Link
             to="/score"
-            className="mt-2.5 inline-flex items-center gap-1 text-[12px] font-bold text-amber-700 dark:text-amber-400 hover:underline"
+            className="mt-2.5 inline-flex items-center gap-1 text-[12px] font-bold text-white hover:underline"
           >
             <Sparkles className="h-3 w-3" /> Open Scorecard
           </Link>

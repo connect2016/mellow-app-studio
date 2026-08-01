@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -334,8 +336,6 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
 .leaflet-popup-tip {
   box-shadow: none !important;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
 
 @layer base {
   /* ---- WRIGLEYVILLE BUDDIES COLOR RULES ----

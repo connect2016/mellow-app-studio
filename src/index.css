@@ -360,7 +360,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
     --secondary: 0 60% 50%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 40 10% 82%;
+    --muted: 0 0% 82%;
     --muted-foreground: 160 20% 30%;
 
     --accent: 160 52% 15%;

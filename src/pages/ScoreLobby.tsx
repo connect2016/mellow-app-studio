@@ -19,7 +19,6 @@ export default function ScoreLobby() {
   const [showCreate, setShowCreate] = useState(false);
   const [title, setTitle] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
-  const [joinCode, setJoinCode] = useState('');
 
   useEffect(() => {
     if (!authLoading && !user) navigate('/auth');
@@ -38,12 +37,6 @@ export default function ScoreLobby() {
     );
   };
 
-  const handleJoinByCode = () => {
-    // For now, join codes map to session IDs or invite codes
-    // We'd search by invite_code
-    toast({ title: 'Looking for session...' });
-  };
-
   return (
     <div className="min-h-screen bg-background pb-24">
       <AppHeader />
@@ -56,20 +49,12 @@ export default function ScoreLobby() {
           </p>
         </div>
 
-        {/* Create / Join */}
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          <Button onClick={() => setShowCreate(!showCreate)} className="rounded-xl py-5 flex flex-col gap-1 h-auto">
+        {/* Create */}
+        <div className="mb-6">
+          <Button onClick={() => setShowCreate(!showCreate)} className="w-full rounded-xl py-5 flex flex-col gap-1 h-auto">
             <Plus className="h-5 w-5" />
             <span className="text-xs">Start Session</span>
           </Button>
-          <div className="flex gap-1.5">
-            <Input
-              placeholder="Invite code"
-              value={joinCode}
-              onChange={e => setJoinCode(e.target.value)}
-              className="rounded-xl text-sm"
-            />
-          </div>
         </div>
 
         {/* Create form */}

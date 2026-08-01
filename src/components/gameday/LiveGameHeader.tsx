@@ -59,7 +59,7 @@ function LiveScoreCard({ game }: { game: CubsLiveGame }) {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
           </span>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-red-500">Live</span>
+          <span className="rounded-full bg-[#C8102E] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">Live</span>
           {game.inning && (
             <span className="ml-1 text-[10px] font-semibold text-muted-foreground">
               {game.inningHalf === 'Top' ? '▲' : game.inningHalf === 'Bottom' ? '▼' : ''} {game.inning}

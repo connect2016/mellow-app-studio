@@ -345,7 +345,7 @@ h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
      4. Ivy green (--accent) is a supporting accent (success states, Wrigley flavor) — never the app primary.
      5. No new raw hex in components — semantic tokens only. */  
   :root {
-    --background: 40 12% 90%;
+    --background: 0 0% 90%;
     --foreground: 160 52% 12%;
 
     --card: 0 0% 100%;

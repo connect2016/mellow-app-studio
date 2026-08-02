@@ -116,7 +116,7 @@ export default function GameDay() {
               <h1
                 className="mt-1 font-display text-5xl font-extrabold leading-none tracking-tight text-white"
                 style={{
-                  WebkitTextStroke: '2px rgba(0,0,0,0.9)',
+                  WebkitTextStroke: '0.5px rgba(0,0,0,0.8)',
                   textShadow: '0 2px 6px rgba(0,0,0,0.7)',
                 }}
               >

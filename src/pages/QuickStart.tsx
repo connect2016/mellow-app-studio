@@ -639,7 +639,7 @@ function Section({ title, sub, children }: { title: string; sub: string; childre
   return (
     <div className="space-y-4 animate-fade-in">
       <div>
-        <h1 className="h-display text-foreground" style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)' }}>
+        <h1 className="h-display text-white" style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)', textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
           {title}
         </h1>
         <p className="mt-2" style={{ color: 'hsl(var(--foreground))', fontSize: '15px', fontWeight: 500, textShadow: '0 1px 4px rgba(255,255,255,0.6)', opacity: 1 }}>{sub}</p>

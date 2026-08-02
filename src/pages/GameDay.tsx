@@ -89,7 +89,7 @@ export default function GameDay() {
         </div>
 
         {/* Ivy-green hero title bar */}
-        <div className="w-full border-b border-black/15" style={{ backgroundColor: '#4C8C4A' }}>
+        <div className="w-full border-b border-black/15" style={{ backgroundColor: '#1E4D2B' }}>
           <div className="mx-auto max-w-lg px-4 py-4 flex flex-col items-center text-center">
             <h1 className="font-display text-4xl font-extrabold leading-none tracking-tight text-white">
               Game Day Mode

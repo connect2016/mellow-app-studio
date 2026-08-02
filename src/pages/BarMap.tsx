@@ -109,7 +109,7 @@ export default function BarMap() {
         <h1 className="mt-2 font-display text-3xl font-bold tracking-tight leading-none text-white page-title-outline">
           The Wrigleyville
           <br />
-          <span className="text-amber-300">Bar Guide</span>
+          <span className="text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>Bar Guide</span>
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-white/90 max-w-prose drop-shadow">
           Hand-picked bars near the Friendly Confines, ranked by what fans actually do

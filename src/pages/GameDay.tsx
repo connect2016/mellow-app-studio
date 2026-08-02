@@ -109,15 +109,15 @@ export default function GameDay() {
               animate={{ opacity: 1, y: 0 }}
               className="pt-1"
             >
-              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-white" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.9)' }}>
                 <ConceptIcon name={isLive ? 'fire' : isOffDay ? 'moon' : 'baseball'} className="h-3 w-3" />
                 {isLive ? 'Live · The Friendly Confines' : isOffDay ? 'Off-day' : 'Game Day'}
               </div>
               <h1
-                className="mt-1 font-display text-5xl font-extrabold leading-none tracking-tight text-white"
+                className="mt-1 font-display text-5xl font-extrabold leading-none tracking-tight"
                 style={{
-                  WebkitTextStroke: '0.5px rgba(0,0,0,0.8)',
-                  textShadow: '0 2px 6px rgba(0,0,0,0.7)',
+                  color: '#CC3433',
+                  textShadow: '0 3px 10px rgba(0,0,0,0.8)',
                 }}
               >
                 Game Day Mode

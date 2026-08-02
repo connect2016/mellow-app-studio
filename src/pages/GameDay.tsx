@@ -113,7 +113,13 @@ export default function GameDay() {
                 <ConceptIcon name={isLive ? 'fire' : isOffDay ? 'moon' : 'baseball'} className="h-3 w-3" />
                 {isLive ? 'Live · The Friendly Confines' : isOffDay ? 'Off-day' : 'Game Day'}
               </div>
-              <h1 className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-white">
+              <h1
+                className="mt-1 font-display text-5xl font-extrabold leading-none tracking-tight text-white"
+                style={{
+                  WebkitTextStroke: '2px rgba(0,0,0,0.9)',
+                  textShadow: '0 2px 6px rgba(0,0,0,0.7)',
+                }}
+              >
                 Game Day Mode
               </h1>
             </motion.header>

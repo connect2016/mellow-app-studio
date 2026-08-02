@@ -10,8 +10,8 @@ export function HomePlate(props: SVGProps<SVGSVGElement>) {
     >
       <path
         d="M5 4 H19 V13 L12 20 L5 13 Z"
-        fill="#FFFFFF"
-        stroke="#CC3433"
+        fill="currentColor"
+        stroke="currentColor"
         strokeWidth="2"
         strokeLinejoin="round"
       />

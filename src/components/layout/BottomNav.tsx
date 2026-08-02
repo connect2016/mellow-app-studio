@@ -89,6 +89,7 @@ export function BottomNav() {
                     style={{
                       color: isActive ? 'hsl(var(--brand-red))' : '#FFFFFF',
                       stroke: isActive ? 'hsl(var(--brand-red))' : '#FFFFFF',
+                      filter: isActive ? 'drop-shadow(0 0 4px hsl(var(--brand-red) / 0.7))' : 'none',
                     }}
                   />
                   {showBadge && badgeValue > 0 && (

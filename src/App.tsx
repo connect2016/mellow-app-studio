@@ -94,7 +94,7 @@ function RootRoute() {
     );
   }
 
-  return user ? <Navigate to="/game-day" replace /> : <Landing />;
+  return <Landing />;
 }
 
 const App = () => (

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { AppHeader } from '@/components/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMlbCubsGame } from '@/hooks/useMlbCubsGame';
@@ -89,9 +88,22 @@ export default function GameDay() {
           </div>
         </div>
 
+        {/* Ivy-green hero title bar */}
+        <div className="w-full border-b border-black/15" style={{ backgroundColor: '#4C8C4A' }}>
+          <div className="mx-auto max-w-lg px-4 py-4 flex flex-col items-center text-center">
+            <h1 className="font-display text-4xl font-extrabold leading-none tracking-tight text-white">
+              Game Day Mode
+            </h1>
+            <div className="mt-1.5 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.25em] text-yellow-300">
+              <ConceptIcon name={isLive ? 'fire' : isOffDay ? 'moon' : 'baseball'} className="h-3 w-3" />
+              {isLive ? 'Live · The Friendly Confines' : isOffDay ? 'Off-day' : 'Game Day'}
+            </div>
+          </div>
+        </div>
+
         <main className="mx-auto max-w-lg px-4 pt-4 space-y-4">
           <div className="relative space-y-4">
-            {/* Navy gradient scrim behind the hero title, above the background photo */}
+            {/* Navy gradient scrim behind the hero photo, above the background photo */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-0 top-0 w-full"
@@ -102,27 +114,6 @@ export default function GameDay() {
             />
 
             <SafetyTimerBanner />
-
-            {/* Editorial header */}
-            <motion.header
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="pt-1"
-            >
-              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-white" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.9)' }}>
-                <ConceptIcon name={isLive ? 'fire' : isOffDay ? 'moon' : 'baseball'} className="h-3 w-3" />
-                {isLive ? 'Live · The Friendly Confines' : isOffDay ? 'Off-day' : 'Game Day'}
-              </div>
-              <h1
-                className="mt-1 font-display text-5xl font-extrabold leading-none tracking-tight"
-                style={{
-                  color: '#CC3433',
-                  textShadow: '0 3px 10px rgba(0,0,0,0.8)',
-                }}
-              >
-                Game Day Mode
-              </h1>
-            </motion.header>
           </div>
 
           {isOffDay ? (

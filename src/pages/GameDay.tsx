@@ -58,7 +58,7 @@ export default function GameDay() {
 
         {/* Sticky live pulse strip */}
         <div className={`sticky top-14 z-30 border-b backdrop-blur-md transition-colors ${
-          isLive ? 'bg-red-500/20 border-red-500/40' : 'bg-black/50 border-white/20'
+          isLive ? 'bg-red-500/50 border-red-500/40' : 'bg-black/50 border-white/20'
         }`}>
           <div className="mx-auto max-w-lg px-4 py-2 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -109,7 +109,7 @@ export default function GameDay() {
               animate={{ opacity: 1, y: 0 }}
               className="pt-1"
             >
-              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-amber-300 drop-shadow-md">
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
                 <ConceptIcon name={isLive ? 'fire' : isOffDay ? 'moon' : 'baseball'} className="h-3 w-3" />
                 {isLive ? 'Live · The Friendly Confines' : isOffDay ? 'Off-day' : 'Game Day'}
               </div>

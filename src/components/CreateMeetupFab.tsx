@@ -124,7 +124,7 @@ export function CreateMeetupFab() {
           'fab-base',
           entered && 'fab-enter',
           isHot && !isHidden && !sheetOpen && 'fab-attention',
-          isHidden && !sheetOpen ? 'fab-hidden' : 'fab-revealed',
+          (isHidden || sheetOpen) ? 'fab-hidden' : 'fab-revealed',
           isExtended
             ? 'h-12 px-5 rounded-full gap-2'
             : 'h-14 w-14 rounded-full'

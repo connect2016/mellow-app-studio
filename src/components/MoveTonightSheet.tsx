@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -25,6 +25,7 @@ interface Props {
 
 export function MoveTonightSheet({ open, onOpenChange }: Props) {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
   const { open: openMeetup } = useCreateMeetup();
   const { checkIn } = useBarCheckins();
@@ -141,12 +142,18 @@ export function MoveTonightSheet({ open, onOpenChange }: Props) {
     }
   };
 
-  const options = [
+  const isOnDiscoverFans = location.pathname === '/discover-fans';
+
+  const allOptions = [
     { key: 'checkin', emoji: '📍', title: 'Check In at a Bar', sub: 'Let your crew know where', onClick: () => { haptic('selection'); setView('checkin'); } },
     { key: 'meetup', emoji: '👥', title: 'Start a Meetup', sub: 'Plan it in 30 seconds', onClick: handleStartMeetup },
     { key: 'buddy', emoji: '🔍', title: 'Find a Buddy', sub: 'Match with fans nearby', onClick: handleFindBuddy },
     { key: 'moment', emoji: '📸', title: 'Share a Moment', sub: 'Snap & post to the feed', onClick: handleShareMoment },
   ];
+
+  const options = isOnDiscoverFans
+    ? allOptions.filter((opt) => opt.key !== 'buddy')
+    : allOptions;
 
   return (
     <>
@@ -184,42 +191,48 @@ export function MoveTonightSheet({ open, onOpenChange }: Props) {
               </SheetHeader>
 
               <div className="grid grid-cols-2 gap-3">
-                {options.map((opt) => (
-                  <button
-                    key={opt.key}
-                    type="button"
-                    onClick={opt.onClick}
-                    disabled={posting && opt.key === 'moment'}
-                    className={cn(
-                      'group relative flex flex-col items-start gap-2 rounded-2xl p-4 min-h-[140px] text-left',
-                      'bg-[hsl(222,82%,22%)] ring-1 ring-white/10',
-                      'active:scale-[0.97] transition-transform',
-                      'shadow-[0_4px_14px_rgba(0,0,0,0.25)]',
-                    )}
-                  >
-                    <div
-                      className="h-11 w-11 rounded-xl flex items-center justify-center text-2xl"
-                      style={{ background: RED, boxShadow: '0 4px 10px rgba(200,16,46,0.35)' }}
-                    >
-                      {posting && opt.key === 'moment' ? (
-                        <Loader2 className="h-5 w-5 animate-spin text-white" />
-                      ) : (
-                        <span>{opt.emoji}</span>
+                {options.map((opt, idx) => {
+                  const isLoneLastCard = options.length % 2 === 1 && idx === options.length - 1;
+                  return (
+                    <button
+                      key={opt.key}
+                      type="button"
+                      onClick={opt.onClick}
+                      disabled={posting && opt.key === 'moment'}
+                      className={cn(
+                        'group relative flex rounded-2xl p-4 text-left',
+                        'bg-[hsl(222,82%,22%)] ring-1 ring-white/10',
+                        'active:scale-[0.97] transition-transform',
+                        'shadow-[0_4px_14px_rgba(0,0,0,0.25)]',
+                        isLoneLastCard
+                          ? 'col-span-2 flex-row items-center gap-3 min-h-[72px]'
+                          : 'flex-col items-start gap-2 min-h-[140px]',
                       )}
-                    </div>
-                    <div className="mt-1">
+                    >
                       <div
-                        className="text-white text-[15px] leading-tight font-bold"
-                        style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}
+                        className="h-11 w-11 shrink-0 rounded-xl flex items-center justify-center text-2xl"
+                        style={{ background: RED, boxShadow: '0 4px 10px rgba(200,16,46,0.35)' }}
                       >
-                        {opt.title}
+                        {posting && opt.key === 'moment' ? (
+                          <Loader2 className="h-5 w-5 animate-spin text-white" />
+                        ) : (
+                          <span>{opt.emoji}</span>
+                        )}
                       </div>
-                      <div className="text-white/65 text-[11px] mt-1 leading-snug">
-                        {opt.sub}
+                      <div className={isLoneLastCard ? '' : 'mt-1'}>
+                        <div
+                          className="text-white text-[15px] leading-tight font-bold"
+                          style={{ fontFamily: 'Norwester, sans-serif', letterSpacing: '0.02em' }}
+                        >
+                          {opt.title}
+                        </div>
+                        <div className="text-white/65 text-[11px] mt-1 leading-snug">
+                          {opt.sub}
+                        </div>
                       </div>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}

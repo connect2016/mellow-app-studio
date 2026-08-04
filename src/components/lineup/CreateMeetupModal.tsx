@@ -134,7 +134,10 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
             </div>
 
             {success ? (
-              <div className="px-6 pb-6">
+              <div
+                className="px-6"
+                style={{ paddingBottom: 'calc(1.5rem + 56px + env(safe-area-inset-bottom))' }}
+              >
                 <div className="flex items-center justify-between pb-3">
                   <h3 className="text-lg font-bold text-destructive-foreground" style={{ fontFamily: 'Rye, serif' }}>
                     You're on the board!
@@ -340,7 +343,10 @@ export function CreateMeetupModal({ open, onClose, defaultLocation, gameContext 
               </div>
             </div>
 
-            <div className="border-t px-6 py-4">
+            <div
+              className="border-t px-6 pt-4"
+              style={{ paddingBottom: 'calc(1rem + 56px + env(safe-area-inset-bottom))' }}
+            >
               <Button
                 onClick={handleSubmit}
                 disabled={createMeetup.isPending}

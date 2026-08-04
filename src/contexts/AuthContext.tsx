@@ -39,12 +39,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const { data: profile } = await supabase
         .from('profiles')
-        .select('onboarding_completed, fan_type')
+        .select('onboarding_completed, fan_tier')
         .eq('user_id', u.id)
         .maybeSingle();
       identify(u.id, {
         has_completed_onboarding: !!(profile as any)?.onboarding_completed,
-        fan_type: (profile as any)?.fan_type ?? null,
+        fan_tier: (profile as any)?.fan_tier ?? null,
       });
     } catch {
       identify(u.id);

@@ -196,7 +196,7 @@ export default function FanMap() {
       </div>
 
       {/* Full-bleed map under header */}
-      <div className="fixed inset-0 top-14 bottom-0 z-0">
+      <div className="fixed inset-0 top-14 bottom-14 z-0">
         <MapContainer
           center={WRIGLEY_CENTER}
           zoom={15}

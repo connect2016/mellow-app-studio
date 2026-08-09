@@ -27,3 +27,4 @@ dist-ssr
 .env.*
 !.env.example
 *.keystore
+keystore-base64.txt

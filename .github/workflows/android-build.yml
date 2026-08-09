@@ -1,0 +1,51 @@
+cat .github/workflows/android-build.yml
+name: Build Android AAB
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Capacitor sync
+        run: npx cap sync android
+
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.RELEASE_KEYSTORE }}" | base64 -d > android/app/release.keystore
+
+      - name: Build signed AAB
+        run: |
+          cd android
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file=release.keystore \
+            -Pandroid.injected.signing.store.password="${{ secrets.KEYSTORE_STORE_PASSWORD }}" \
+            -Pandroid.injected.signing.key.alias="${{ secrets.KEYSTORE_KEY_ALIAS }}" \
+            -Pandroid.injected.signing.key.password="${{ secrets.KEYSTORE_KEY_PASSWORD }}"
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-aab
+          path: android/app/build/outputs/bundle/release/app-release.aab

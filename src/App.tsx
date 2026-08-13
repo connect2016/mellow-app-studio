@@ -64,6 +64,7 @@ import MeetupDetail from "./pages/MeetupDetail";
 
 import NotFoundPage from "./pages/NotFoundPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import DeleteAccountPage from "./pages/DeleteAccountPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -122,6 +123,7 @@ const App = () => (
             <Route path="/" element={<RootRoute />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/delete-account" element={<DeleteAccountPage />} />
             <Route path="/terms" element={<TermsOfServicePage />} />
             <Route path="/checkout/return" element={<CheckoutReturn />} />
             <Route path="/join" element={<Join />} />

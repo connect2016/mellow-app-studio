@@ -38,6 +38,7 @@ import HiFives from "./pages/HiFives";
 import BeerMoney from "./pages/BeerMoney";
 import Settings from "./pages/Settings";
 import NotificationPreferences from "./pages/NotificationPreferences";
+import BlockedUsers from "./pages/BlockedUsers";
 import Admin from "./pages/Admin";
 import AdminSeed from "./pages/AdminSeed";
 import VibeFeed from "./pages/VibeFeed";
@@ -65,6 +66,7 @@ import MeetupDetail from "./pages/MeetupDetail";
 import NotFoundPage from "./pages/NotFoundPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import DeleteAccountPage from "./pages/DeleteAccountPage";
+import ChildSafetyPage from "./pages/ChildSafetyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -124,6 +126,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
             <Route path="/delete-account" element={<DeleteAccountPage />} />
+            <Route path="/child-safety" element={<ChildSafetyPage />} />
             <Route path="/terms" element={<TermsOfServicePage />} />
             <Route path="/checkout/return" element={<CheckoutReturn />} />
             <Route path="/join" element={<Join />} />
@@ -159,6 +162,7 @@ const App = () => (
               <Route path="/share-seat" element={<ShareSeat />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/settings/notifications" element={<NotificationPreferences />} />
+              <Route path="/settings/blocked" element={<BlockedUsers />} />
               <Route path="/ballpark-buddy" element={<BallparkBuddy />} />
               <Route path="/wrigley-passport" element={<WrigleyPassport />} />
               <Route path="/bar-map" element={<FanMap />} />

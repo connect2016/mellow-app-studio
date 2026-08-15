@@ -5,12 +5,13 @@
  */
 import { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { ArrowLeft, MoreVertical, Flag, Ban, Loader2, MapPin, Ticket, Users } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { useProfile } from '@/hooks/useProfile';
+import { useBlockUser, useReportUser, useBlockedUserIds } from '@/hooks/useBlockAndReport';
+import { USER_REPORT_REASONS } from '@/lib/reportReasons';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -34,13 +35,6 @@ import { storeInviteRef } from '@/lib/invite-ref';
 const NAVY = 'hsl(var(--brand-navy))';
 const RED = 'hsl(var(--brand-red))';
 
-const REPORT_REASONS = [
-  'Inappropriate behavior',
-  'Spam',
-  'Fake profile',
-  'Other',
-] as const;
-
 type Crew = { id: string; name: string; badge_emoji: string };
 type Badge = { key: string; label: string };
 
@@ -54,14 +48,15 @@ export default function PublicProfile() {
     if (inviteRef) storeInviteRef(inviteRef);
   }, [inviteRef]);
   const { user } = useAuth();
-  const { data: me } = useProfile();
-  const queryClient = useQueryClient();
+  const { data: blockedIds = [] } = useBlockedUserIds();
+  const blockUser = useBlockUser();
+  const reportUser = useReportUser();
 
   const [reportOpen, setReportOpen] = useState(false);
   const [reportReason, setReportReason] = useState<string>('');
-  const [submitting, setSubmitting] = useState(false);
 
   const isOwn = !id || id === user?.id;
+  const isBlockedPair = !isOwn && !!id && blockedIds.includes(id);
 
   // Public profile fields via RPC (RLS-safe)
   const { data: profile, isLoading } = useQuery({
@@ -95,48 +90,17 @@ export default function PublicProfile() {
     enabled: !!id,
   });
 
-  const blockUser = useMutation({
-    mutationFn: async () => {
-      if (!user || !id) throw new Error('Missing');
-      const current: string[] = (me?.blocked_users as string[]) ?? [];
-      if (current.includes(id)) return;
-      const { error } = await supabase
-        .from('profiles')
-        .update({ blocked_users: [...current, id] })
-        .eq('user_id', user.id);
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      toast.success('User blocked', {
-        description: "You won't see each other anymore.",
-      });
-      queryClient.invalidateQueries({ queryKey: ['discover-profiles'] });
-      queryClient.invalidateQueries({ queryKey: ['profile', user?.id] });
-      navigate('/discover');
-    },
-    onError: (e: Error) => toast.error(e.message || 'Could not block user'),
-  });
+  const handleBlock = async () => {
+    if (!id) return;
+    await blockUser.mutateAsync(id);
+    navigate('/discover');
+  };
 
   const submitReport = async () => {
-    if (!user || !id || !reportReason) return;
-    setSubmitting(true);
-    try {
-      const { error } = await supabase.from('safety_reports').insert({
-        reporter_id: user.id,
-        reported_user_id: id,
-        reason: reportReason,
-      });
-      if (error && !error.message?.toLowerCase().includes('duplicate')) {
-        throw error;
-      }
-      toast.success("Thanks for the report. We'll review it shortly.");
-      setReportOpen(false);
-      setReportReason('');
-    } catch (e: any) {
-      toast.error(e.message || 'Could not submit report');
-    } finally {
-      setSubmitting(false);
-    }
+    if (!id || !reportReason) return;
+    await reportUser.mutateAsync({ reportedUserId: id, reason: reportReason });
+    setReportOpen(false);
+    setReportReason('');
   };
 
   const buddyUp = async () => {
@@ -192,14 +156,16 @@ export default function PublicProfile() {
     );
   }
 
-  if (!profile) {
+  if (!profile || isBlockedPair) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6 text-center">
         <ConceptIcon name="baseball" className="mb-3 h-12 w-12 text-muted-foreground" />
         <h2 className="text-xl font-bold" style={{ color: NAVY, fontFamily: 'Norwester, sans-serif' }}>
-          Fan not found
+          {isBlockedPair ? 'Profile unavailable' : 'Fan not found'}
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">They may have stepped away.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {isBlockedPair ? "This profile isn't available." : 'They may have stepped away.'}
+        </p>
         <Button className="mt-5 rounded-full" onClick={() => navigate(-1)}>
           Go back
         </Button>
@@ -244,7 +210,7 @@ export default function PublicProfile() {
                 <Flag className="h-4 w-4" /> Report
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => blockUser.mutate()}
+                onClick={handleBlock}
                 className="min-h-[44px] gap-2 text-destructive focus:text-destructive"
               >
                 <Ban className="h-4 w-4" /> Block
@@ -396,13 +362,13 @@ export default function PublicProfile() {
           </SheetHeader>
 
           <div className="mt-5 space-y-2">
-            {REPORT_REASONS.map((reason) => {
-              const selected = reportReason === reason;
+            {USER_REPORT_REASONS.map((reason) => {
+              const selected = reportReason === reason.value;
               return (
                 <button
-                  key={reason}
+                  key={reason.value}
                   type="button"
-                  onClick={() => setReportReason(reason)}
+                  onClick={() => setReportReason(reason.value)}
                   className={cn(
                     'flex w-full items-center justify-between rounded-2xl border-2 px-4 text-left font-semibold transition',
                     'min-h-[56px]',
@@ -414,7 +380,7 @@ export default function PublicProfile() {
                   }}
                   aria-pressed={selected}
                 >
-                  <span>{reason}</span>
+                  <span>{reason.label}</span>
                   {selected && (
                     <span
                       className="ml-3 flex h-5 w-5 items-center justify-center rounded-full text-xs"
@@ -430,11 +396,11 @@ export default function PublicProfile() {
 
           <Button
             onClick={submitReport}
-            disabled={!reportReason || submitting}
+            disabled={!reportReason || reportUser.isPending}
             className="mt-6 h-14 w-full rounded-full text-base font-bold text-white hover:opacity-90"
             style={{ background: reportReason ? RED : '#9aa3b8' }}
           >
-            {submitting ? (
+            {reportUser.isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting…
               </>

@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCallback, useEffect } from 'react';
 import { track } from '@/lib/analytics';
+import { useBlockedUserIds } from '@/hooks/useBlockAndReport';
 
 export type ChatMessage = {
   id: string;
@@ -17,9 +18,10 @@ export type ChatMessage = {
 
 export function useConversations() {
   const { user } = useAuth();
+  const { data: blockedIds = [] } = useBlockedUserIds();
 
   return useQuery({
-    queryKey: ['conversations', user?.id],
+    queryKey: ['conversations', user?.id, blockedIds.slice().sort().join(',')],
     queryFn: async () => {
       if (!user) return [];
       const { data, error } = await supabase
@@ -28,7 +30,11 @@ export function useConversations() {
         .or(`participant_a.eq.${user.id},participant_b.eq.${user.id}`)
         .order('last_message_at', { ascending: false });
       if (error) throw error;
-      return data ?? [];
+      const blockedSet = new Set(blockedIds);
+      return (data ?? []).filter((c) => {
+        const other = c.participant_a === user.id ? c.participant_b : c.participant_a;
+        return !blockedSet.has(other);
+      });
     },
     enabled: !!user,
   });

@@ -12,13 +12,13 @@ import { InviteFriendsButton } from '@/components/invite/InviteFriendsButton';
 import { useMyReferralCount } from '@/hooks/useReferral';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { ArrowLeft, Flag, Ban, EyeOff, LogOut, MessageCircle, IdCard, Sparkles, Settings as SettingsIcon, ShieldCheck, HelpCircle, LifeBuoy, Info, ChevronRight, Target, UserCog, Trophy } from 'lucide-react';
+import { ArrowLeft, LogOut, MessageCircle, IdCard, Sparkles, Settings as SettingsIcon, ShieldCheck, HelpCircle, LifeBuoy, Info, ChevronRight, Target, UserCog, Trophy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { SectionHeading, BodyText, CardHeading, Caption } from '@/components/ui/Typography';
 import { useProfile, useUpdateProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useStatPreferences } from '@/hooks/useStatPreferences';
 import { FavoriteBarsSection } from '@/components/profile/FavoriteBarsSection';
 import { BadgesSection } from '@/components/profile/BadgesSection';
@@ -45,6 +45,7 @@ import { FanTagsPicker } from '@/components/FanTagsPicker';
 import { FieldGuideRow } from '@/components/profile/FieldGuideRow';
 import { ProfileCardFrame } from '@/components/ProfileCardFrame';
 import { UserBaseballCard } from '@/components/UserBaseballCard';
+import { QuickBlockButton } from '@/components/QuickBlockButton';
 import type { GameStatus, IntentType, GamedayIntentType } from '@/types';
 
 export default function Profile() {
@@ -205,22 +206,6 @@ export default function Profile() {
     });
   };
 
-  const blockUser = useMutation({
-    mutationFn: async () => {
-      if (!user || !id) throw new Error('Missing');
-      const currentBlocked = (myProfile?.blocked_users as string[]) ?? [];
-      await supabase
-        .from('profiles')
-        .update({ blocked_users: [...currentBlocked, id] })
-        .eq('user_id', user.id);
-    },
-    onSuccess: () => {
-      toast({ title: ' User blocked', description: "They won't appear in your feed anymore." });
-      queryClient.invalidateQueries({ queryKey: ['discover-profiles'] });
-      navigate('/discover');
-    },
-  });
-
   if (!profile && !isProfileLoading) {
     return (
       <div className="min-h-screen bg-background pb-32">
@@ -371,33 +356,12 @@ export default function Profile() {
                     </Button>
                   </div>
                   <div className="flex items-center gap-1 pt-1">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-muted-foreground gap-1.5 text-xs hover:text-destructive"
-                      onClick={() => toast({ title: 'Report submitted', description: 'Our team will review this profile.' })}
-                    >
-                      <Flag className="h-3 w-3" /> Report
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-muted-foreground gap-1.5 text-xs hover:text-destructive"
-                      onClick={() => blockUser.mutate()}
-                    >
-                      <Ban className="h-3 w-3" /> Block
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-muted-foreground gap-1.5 text-xs hover:text-foreground"
-                      onClick={() => {
-                        toast({ title: 'Profile hidden', description: "You won't see this fan again." });
-                        navigate('/discover');
-                      }}
-                    >
-                      <EyeOff className="h-3 w-3" /> Hide
-                    </Button>
+                    <QuickBlockButton
+                      targetUserId={id!}
+                      targetName={profile.display_name}
+                      variant="icon"
+                      onBlocked={() => navigate('/discover')}
+                    />
                   </div>
                 </>
               ) : (

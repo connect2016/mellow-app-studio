@@ -4,6 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
 import { track } from '@/lib/analytics';
 import { toast } from 'sonner';
+import { useBlockedUserIds } from '@/hooks/useBlockAndReport';
 
 export interface LineupMeetup {
   id: string;
@@ -33,14 +34,15 @@ export interface LineupMessage {
 
 export function useLineupMeetups() {
   const { user } = useAuth();
+  const { data: blockedIds = [] } = useBlockedUserIds();
 
   return useQuery({
-    queryKey: ['lineup-meetups'],
+    queryKey: ['lineup-meetups', blockedIds.slice().sort().join(',')],
     queryFn: async () => {
       const now = new Date().toISOString();
 
       // Get active meetups
-      const { data: meetups, error } = await supabase
+      const { data: rawMeetups, error } = await supabase
         .from('lineup_meetups')
         .select('*')
         .eq('status', 'active')
@@ -48,7 +50,9 @@ export function useLineupMeetups() {
         .order('meeting_time', { ascending: true });
 
       if (error) throw error;
-      if (!meetups?.length) return [];
+      const blockedSet = new Set(blockedIds);
+      const meetups = (rawMeetups ?? []).filter(m => !blockedSet.has(m.creator_id));
+      if (!meetups.length) return [];
 
       // Get creator profiles
       const creatorIds = [...new Set(meetups.map(m => m.creator_id))];
@@ -170,6 +174,7 @@ export function useLeaveMeetup() {
 export function useLineupMessages(meetupId: string | null) {
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const { data: blockedIds = [] } = useBlockedUserIds();
 
   // Realtime subscription
   useEffect(() => {
@@ -188,17 +193,19 @@ export function useLineupMessages(meetupId: string | null) {
   }, [meetupId, queryClient]);
 
   return useQuery({
-    queryKey: ['lineup-messages', meetupId],
+    queryKey: ['lineup-messages', meetupId, blockedIds.slice().sort().join(',')],
     queryFn: async () => {
       if (!meetupId) return [];
-      const { data: messages, error } = await supabase
+      const { data: rawMessages, error } = await supabase
         .from('lineup_messages')
         .select('*')
         .eq('meetup_id', meetupId)
         .order('created_at', { ascending: true });
 
       if (error) throw error;
-      if (!messages?.length) return [];
+      const blockedSet = new Set(blockedIds);
+      const messages = (rawMessages ?? []).filter(m => !blockedSet.has(m.sender_id));
+      if (!messages.length) return [];
 
       const senderIds = [...new Set(messages.map(m => m.sender_id))];
       const { data: profiles } = await supabase

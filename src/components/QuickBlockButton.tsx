@@ -3,6 +3,7 @@ import { ShieldAlert, Flag, Ban } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useBlockUser, useReportUser } from '@/hooks/useBlockAndReport';
+import { USER_REPORT_REASONS } from '@/lib/reportReasons';
 import {
   Dialog,
   DialogContent,
@@ -10,13 +11,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-
-const REPORT_REASONS = [
-  { value: 'harassment', label: 'Harassment', desc: 'Threatening or abusive behavior' },
-  { value: 'spam', label: 'Spam', desc: 'Unwanted or repetitive messages' },
-  { value: 'fake_profile', label: 'Fake Profile', desc: 'Impersonation or misleading info' },
-  { value: 'other', label: 'Other', desc: 'Something else that feels wrong' },
-];
 
 interface QuickBlockButtonProps {
   targetUserId: string;
@@ -126,7 +120,7 @@ export function QuickBlockButton({ targetUserId, targetName, onBlocked, variant 
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-2 pt-2"
               >
-                {REPORT_REASONS.map((r) => (
+                {USER_REPORT_REASONS.map((r) => (
                   <button
                     key={r.value}
                     onClick={() => setSelectedReason(r.value)}

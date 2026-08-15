@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Shield, Eye, Ban, Flag, LogOut, Trash2, Accessibility, AlertTriangle, Loader2, MapPin, Sparkles } from 'lucide-react';
+import { USER_REPORT_REASONS } from '@/lib/reportReasons';
 import { StatsCustomizer } from '@/components/StatsCustomizer';
 import { NotificationPreferencesPanel } from '@/components/NotificationPreferencesPanel';
 import { supabase } from '@/integrations/supabase/client';
@@ -24,7 +26,7 @@ import { PageBackground } from '@/components/PageBackground';
 export default function Settings() {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const geo = useGeolocation();
   const [hideFromDiscover, setHideFromDiscover] = useState(false);
   const [seatPrivacy, setSeatPrivacy] = useState('MatchesOnly');
@@ -36,6 +38,22 @@ export default function Settings() {
   const [deleteText, setDeleteText] = useState('');
   const [deleting, setDeleting] = useState(false);
   const [seeding, setSeeding] = useState(false);
+  const [reportHistoryOpen, setReportHistoryOpen] = useState(false);
+
+  const { data: myReports = [], isLoading: reportsLoading } = useQuery({
+    queryKey: ['my-report-history', user?.id],
+    queryFn: async () => {
+      if (!user) return [];
+      const { data, error } = await supabase
+        .from('user_reports')
+        .select('id, reason, status, created_at')
+        .eq('reporter_id', user.id)
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      return data ?? [];
+    },
+    enabled: reportHistoryOpen && !!user,
+  });
 
   const handleDeleteAccount = async () => {
     setDeleting(true);
@@ -168,10 +186,10 @@ export default function Settings() {
             <Shield className="h-4 w-4 text-primary" /> Safety
           </div>
 
-          <Button variant="outline" className="w-full justify-start gap-2 rounded-xl" onClick={() => toast({ title: 'Blocked users list coming with backend' })}>
+          <Button variant="outline" className="w-full justify-start gap-2 rounded-xl" onClick={() => navigate('/settings/blocked')}>
             <Ban className="h-4 w-4" /> Blocked Users
           </Button>
-          <Button variant="outline" className="w-full justify-start gap-2 rounded-xl" onClick={() => toast({ title: 'Report history coming with backend' })}>
+          <Button variant="outline" className="w-full justify-start gap-2 rounded-xl" onClick={() => setReportHistoryOpen(true)}>
             <Flag className="h-4 w-4" /> Report History
           </Button>
         </div>
@@ -254,6 +272,40 @@ export default function Settings() {
             <Trash2 className="h-4 w-4" /> Delete my account
           </Button>
         </div>
+
+        <Dialog open={reportHistoryOpen} onOpenChange={setReportHistoryOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Report History</DialogTitle>
+              <DialogDescription>Reports you've submitted about other fans.</DialogDescription>
+            </DialogHeader>
+            {reportsLoading ? (
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : myReports.length === 0 ? (
+              <p className="py-6 text-center text-sm text-muted-foreground">
+                You haven't submitted any reports.
+              </p>
+            ) : (
+              <ul className="max-h-80 space-y-2 overflow-y-auto">
+                {myReports.map((r) => (
+                  <li key={r.id} className="rounded-lg border border-border p-3">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-semibold">
+                        {USER_REPORT_REASONS.find((x) => x.value === r.reason)?.label ?? r.reason}
+                      </p>
+                      <span className="text-xs capitalize text-muted-foreground">{r.status}</span>
+                    </div>
+                    <p className="mt-0.5 text-xs text-muted-foreground">
+                      {new Date(r.created_at).toLocaleDateString()}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </DialogContent>
+        </Dialog>
 
         <Dialog open={deleteOpen} onOpenChange={(o) => !deleting && setDeleteOpen(o)}>
           <DialogContent>

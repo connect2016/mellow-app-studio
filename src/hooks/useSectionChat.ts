@@ -1,7 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useBlockedUserIds } from '@/hooks/useBlockAndReport';
 
 export function useActiveGameForChat() {
   return useQuery({
@@ -29,9 +30,11 @@ export function useActiveGameForChat() {
 
 export function useSectionMessages(gameId: string | undefined, section: string | undefined) {
   const queryClient = useQueryClient();
+  const { data: blockedIds = [] } = useBlockedUserIds();
+  const blockedSet = useMemo(() => new Set(blockedIds), [blockedIds]);
 
   const query = useQuery({
-    queryKey: ['section-chat', gameId, section],
+    queryKey: ['section-chat', gameId, section, blockedIds.slice().sort().join(',')],
     queryFn: async () => {
       if (!gameId || !section) return [];
       const { data, error } = await supabase
@@ -43,7 +46,7 @@ export function useSectionMessages(gameId: string | undefined, section: string |
         .limit(200);
 
       if (error) throw error;
-      return data ?? [];
+      return (data ?? []).filter((m: any) => !blockedSet.has(m.sender_id));
     },
     enabled: !!gameId && !!section,
   });
@@ -64,9 +67,9 @@ export function useSectionMessages(gameId: string | undefined, section: string |
         },
         (payload) => {
           const newMsg = payload.new as any;
-          if (newMsg.section === section) {
+          if (newMsg.section === section && !blockedSet.has(newMsg.sender_id)) {
             queryClient.setQueryData(
-              ['section-chat', gameId, section],
+              ['section-chat', gameId, section, blockedIds.slice().sort().join(',')],
               (old: any[] | undefined) => [...(old ?? []), newMsg]
             );
           }
@@ -77,7 +80,7 @@ export function useSectionMessages(gameId: string | undefined, section: string |
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [gameId, section, queryClient]);
+  }, [gameId, section, queryClient, blockedSet, blockedIds]);
 
   return query;
 }
@@ -100,15 +103,18 @@ export function useSendSectionMessage() {
 }
 
 export function useSectionMembers(gameId: string | undefined, section: string | undefined) {
+  const { data: blockedIds = [] } = useBlockedUserIds();
+
   return useQuery({
-    queryKey: ['section-members', gameId, section],
+    queryKey: ['section-members', gameId, section, blockedIds.slice().sort().join(',')],
     queryFn: async () => {
       if (!section) return [];
+      const blockedSet = new Set(blockedIds);
       const { data, error } = await supabase.rpc('get_public_profiles', {
         p_game_status: 'AtWrigley',
         p_limit: 50,
       }).then(r => ({
-        data: (r.data ?? []).filter((p: any) => p.wrigley_section === section),
+        data: (r.data ?? []).filter((p: any) => p.wrigley_section === section && !blockedSet.has(p.user_id)),
         error: r.error,
       }));
 

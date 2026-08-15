@@ -2,10 +2,12 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
+import { useBlockedUserIds } from '@/hooks/useBlockAndReport';
 
 export function useScoringSession(sessionId: string | undefined) {
   const { user } = useAuth();
   const qc = useQueryClient();
+  const { data: blockedIds = [] } = useBlockedUserIds();
 
   const session = useQuery({
     queryKey: ['scoring-session', sessionId],
@@ -22,19 +24,21 @@ export function useScoringSession(sessionId: string | undefined) {
   });
 
   const members = useQuery({
-    queryKey: ['scoring-members', sessionId],
+    queryKey: ['scoring-members', sessionId, blockedIds.slice().sort().join(',')],
     queryFn: async () => {
       const { data } = await supabase
         .from('scoring_session_members')
         .select('*')
         .eq('session_id', sessionId!);
       if (!data) return [];
-      const userIds = data.map(m => m.user_id);
+      const blockedSet = new Set(blockedIds);
+      const visible = data.filter(m => !blockedSet.has(m.user_id));
+      const userIds = visible.map(m => m.user_id);
       const { data: profiles } = await supabase
         .from('profiles')
         .select('user_id, display_name, profile_photo, game_status, wrigley_section, wrigleyville_bar')
         .in('user_id', userIds);
-      return data.map(m => ({
+      return visible.map(m => ({
         ...m,
         profile: profiles?.find(p => p.user_id === m.user_id),
       }));
@@ -69,14 +73,15 @@ export function useScoringSession(sessionId: string | undefined) {
   });
 
   const reactions = useQuery({
-    queryKey: ['scoring-reactions', sessionId],
+    queryKey: ['scoring-reactions', sessionId, blockedIds.slice().sort().join(',')],
     queryFn: async () => {
       const { data } = await supabase
         .from('scoring_reactions')
         .select('*')
         .eq('session_id', sessionId!)
         .order('created_at', { ascending: true });
-      return data ?? [];
+      const blockedSet = new Set(blockedIds);
+      return (data ?? []).filter(r => !blockedSet.has(r.user_id));
     },
     enabled: !!sessionId,
   });
